@@ -10,13 +10,13 @@
 			"opts" : [
 				{
 					"title" : "Yerli Üretim",
-					"icon" : "/dummy/images/filter-domestic-product.svg",
+					"logo" : "/dummy/images/filter-domestic-product.svg",
 					"value" : "yerli",
 					"selected" : true
 				},
 				{
 					"title" : "İthal",
-					"icon" : false,
+					"logo" : false,
 					"value" : "ithal",
 					"selected" : false
 				}
@@ -31,26 +31,32 @@
 			"opts" : [
 				{
 					"title" : "Elektrikli, Hybrid",
-					"icon" : "/images/icon/bodytypes/electric.svg",
+					"icon" : "/assets/images/icon/bodytypes/electric.svg",
 					"value" : "elektrik",
 					"selected" : false
 				},
 				{
 					"title" : "Sedan",
-					"icon" : "/images/icon/bodytypes/sedan.svg",
+					"icon" : "/assets/images/icon/bodytypes/sedan.svg",
 					"value" : "sedan",
 					"selected" : true
 				},
 				{
 					"title" : "Cabrio",
-					"icon" : "/images/icon/bodytypes/cabrio.svg",
+					"icon" : "/assets/images/icon/bodytypes/cabrio.svg",
 					"value" : "cabrio",
 					"selected" : false
 				},
 				{
 					"title" : "SUV",
-					"icon" : "/images/icon/bodytypes/suv.svg",
+					"icon" : "/assets/images/icon/bodytypes/suv.svg",
 					"value" : "suv",
+					"selected" : false
+				},
+				{
+					"title" : "Hatchback",
+					"icon" : "/assets/images/icon/bodytypes/hatchback.svg",
+					"value" : "hatchback",
 					"selected" : false
 				}
 			]
@@ -124,6 +130,46 @@
 				{
 					"title" : "Elektrik/Hibrit",
 					"value" : "elektrik"
+				}
+			]
+		},
+		{
+			"name" : "vites",
+			"title" : "Vites",
+			"expanded" : false,
+			"display" : "list",
+			"showCounts" : false,
+			"opts" : [
+				{
+					"title" : "Manuel",
+					"value" : "manuel"
+				},
+				{
+					"title" : "Otomatik",
+					"value" : "otomatik"
+				},
+				{
+					"title" : "Yarı Otomatik",
+					"value" : "yariotomatik"
+				}
+			]
+		},
+		{
+			"name" : "fiyat",
+			"title" : "Fiyat",
+			"expanded" : true,
+			"display" : "range",
+			"type" : "number",
+			"opts" : [
+				{
+					"name" : "min",
+					"text" : "MIN TL",
+					"value" : ""
+				},
+				{
+					"name" : "max",
+					"text" : "MAX TL",
+					"value" : "50000"
 				}
 			]
 		}
@@ -206,6 +252,26 @@
 			"status": 1,
 			"image": "/dummy/images/product-thumb.jpg",
 			"price": 1800000,
+			"currentViewers": 0,
+			"labels": []
+		},
+		{
+			"type": "advert",
+			"title": "BMW 118i, Joy Plus",
+			"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
+			"status": 1,
+			"image": "/dummy/images/product-thumb.jpg",
+			"price": 720000,
+			"currentViewers": 0,
+			"labels": []
+		},
+		{
+			"type": "advert",
+			"title": "BMW 118i, Joy Plus",
+			"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
+			"status": 1,
+			"image": "/dummy/images/product-thumb.jpg",
+			"price": 720000,
 			"currentViewers": 0,
 			"labels": []
 		},

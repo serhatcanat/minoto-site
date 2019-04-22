@@ -17,3 +17,15 @@
 		}
 	}
 }
+
+.inlinesvg {
+	opacity: 0;
+
+	&.loaded {
+		opacity: 1;
+	}
+
+	svg {
+		width: 100%;
+	}
+}

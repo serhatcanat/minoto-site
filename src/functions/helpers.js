@@ -5,7 +5,6 @@ export function formatNumber(num) {
 export function imageLoad(src, returnFunction, additionalData = null) {
 	let img = new Image();
 	img.onload = function () {
-
 		returnFunction(additionalData);
 	}
 	img.src = src;
@@ -34,4 +33,52 @@ export function uid(prefix = 'uid') {
 
 export function isDefined(variable) {
 	return !(typeof variable === 'undefined' || variable === null);
+}
+
+export function serializeArray(form) {
+	var serialized = {};
+	for (var i = 0; i < form.elements.length; i++) {
+
+		var field = form.elements[i];
+		if (!field.name || field.disabled || field.type === 'file' || field.type === 'reset' || field.type === 'submit' || field.type === 'button') continue;
+
+		if (field.type === 'select-multiple') {
+			for (var n = 0; n < field.options.length; n++) {
+				if (!field.options[n].selected) continue;
+				let val = field.options[n].value;
+				if(serialized[field.name]){
+					val = serialized[field.name] +=','+val;
+				}
+				serialized[field.name] = val;
+
+				//serialized.push(encodeURIComponent(field.name) + "=" + encodeURIComponent(field.options[n].value));
+			}
+		}
+
+		else if ((field.type !== 'checkbox' && field.type !== 'radio') || field.checked) {
+			let val = field.value;
+			if(serialized[field.name]){
+				val = serialized[field.name] +=','+val;
+			}
+			serialized[field.name] = val;
+			//serialized.push(encodeURIComponent(field.name) + "=" + encodeURIComponent(field.value));
+		}
+	}
+
+	return serialized;
+
+	//return serialized.join('&');
+
+};
+
+export function serialize(form) {
+	var data = serializeArray(form);
+	var serialized = [];
+
+	for(let k = 0; k < Object.keys(data).length; k++){
+		let key = Object.keys(data)[k];
+		serialized.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));
+	}
+
+	return serialized.join('&');
 }

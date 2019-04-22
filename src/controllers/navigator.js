@@ -6,6 +6,10 @@ import history from 'controllers/history'
 import Home from 'pages/home'
 
 export default class Navigator extends React.Component {
+	componentDidMount() {
+		window.dynamicHistory = history;
+	}
+
 	render () {
 		return (
 			<Router history={history}>

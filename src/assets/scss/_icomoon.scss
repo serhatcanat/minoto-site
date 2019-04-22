@@ -41,6 +41,10 @@
  	-moz-osx-font-smoothing: grayscale;
 }
 
+.icon-spinner:before {
+	content: "\e90a";
+}
+
 .icon-check:before {
 	content: "\e909";
 }

@@ -274,7 +274,7 @@
 			+ label{
 				color: $color-primary;
 
-				span{
+				> span{
 					background-color: $color-primary;
 					border-color: $color-primary;
 					&:before {
@@ -292,7 +292,7 @@
 			cursor: pointer;
 			transition: color $transition-hover ease;
 
-			span {
+			> span {
 				position: absolute;
 				top: 2.2rem;
 				left: 0;
@@ -317,6 +317,10 @@
 					opacity: 0;
 					transition: opacity $transition-hover ease;
 				}
+			}
+
+			.checkwrap-content {
+
 			}
 		}
 	}
