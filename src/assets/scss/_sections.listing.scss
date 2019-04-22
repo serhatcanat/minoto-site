@@ -1,0 +1,165 @@
+.section {
+	&.listing {
+		min-height: 40rem;
+		max-width: $wrapper-regular;
+		margin: 0 auto;
+		display: flex;
+		justify-content: space-between;
+
+		.listing-filters {
+			width: 28rem;
+			padding: 2.5rem 2.5rem;
+			border-right: .1rem solid $color-gray-light;
+		}
+
+			.filters-filter {
+
+				&.active {
+					.filter-content {
+						display: block;
+					}
+
+					&.show {
+						.filter-title {
+							border-bottom-color: transparent;
+							&:after {
+								transform: translate3d(0, -50%, 0) rotate(180deg);
+							}
+						}
+						.filter-content {
+							opacity: 1;
+							transform: translate3d(0, 0, 0);
+						}
+					}
+				}
+
+				&.type-list {
+					.filter-list {
+						background-color: $color-gray-light;
+
+						.checkwrap {
+							padding-top: 0;
+							padding-bottom: 0;
+
+							input{
+								top: 0;
+
+								+ label {
+									span {
+										top: .2rem;
+									}
+								}
+							}
+						}
+					}
+
+						.filter-item {
+							padding: 1rem 1rem;
+
+							+ .filter-item {
+								border-top: .1rem solid $color-gray;
+							}
+						}
+				}
+			}
+
+				.filter-title {
+					position: relative;
+					display: block;
+					font-size: 1.4rem;
+					line-height: 3rem;
+					padding: 1rem 0;
+					width: 100%;
+					text-transform: uppercase;
+					text-align: left;
+					border-bottom: .1rem solid $color-gray-light;
+					transition: border-color $transition-hover ease;
+
+					&:after {
+						@extend %pseudo;
+						@include icon('angle-down');
+						position: absolute;
+						right: 1rem;
+						top: 50%;
+						transform: translate3d(0, -50%, 0);
+						font-size: .9rem;
+						color: $color-text;
+						opacity: .3;
+					}
+				}
+
+				.filter-content {
+					display: none;
+					opacity: 0;
+					transform: translate3d(0, -.5rem, 0);
+					transition: transform $transition-hover ease, opacity $transition-hover ease;
+				}
+
+		.listing-content {
+			padding: 1rem 1.5rem;
+			width: calc(100% - 28rem);
+		}
+
+			.content-results {
+				display: flex;
+				flex-direction: row;
+				flex-wrap: wrap;
+				padding: 1.5rem 0;
+			}
+
+				.results-item {
+					position: relative;
+					width: 25%;
+					padding: 1.5rem;
+					display: flex;
+
+					&.x2 {
+						width: 50%;
+					}
+
+					&.x3 {
+						width: 75%;
+					}
+
+					&.x4 {
+						width: 100%;
+					}
+
+					> * {
+						flex: 1;
+						width: 100%;
+					}
+				}
+
+					.item-banner {
+						position: relative;
+						flex: 1;
+						min-height: 32rem;
+					}
+
+						.banner-image {
+							position: absolute;
+							top: 0;
+							left: 0;
+							width: 100%;
+							height: 100%;
+						}
+
+				.results-adwrap {
+					text-align: center;
+					display: block;
+				}
+
+					.adwrap-link {
+						display: inline-block;
+						height: 9rem;
+						flex: none;
+						width: auto;
+
+						img {
+							height: 100%;
+							display: block;
+						}
+					}
+	}
+}

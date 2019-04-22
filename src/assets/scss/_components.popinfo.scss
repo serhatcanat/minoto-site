@@ -1,0 +1,61 @@
+.popinfo-wrap {
+	position: relative;
+
+	.popinfo-content {
+		@include font-medium;
+		position: absolute;
+		top: calc(100%);
+		left: 0;
+		width: auto;
+		color: $color-text-negative;
+		font-size: 1.2rem;
+		line-height: 1.2em;
+		padding: 2.1rem 1rem 1rem;
+		text-transform: none;
+		cursor: default;
+		transform: translate3d(0, -.3rem, 0);
+		opacity: 0;
+		transition: opacity $transition-hover ease, transform $transition-hover ease;
+
+		&.show {
+			opacity: 1;
+			transform: translate3d(0, 0, 0);
+		}
+	}
+
+	.popinfo-bg {
+		opacity: .9;
+		position: absolute;
+		top: 1.1rem;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 1;
+		background-color: $color-text;
+		border-radius: $radius-general;
+
+
+		&:before{
+			@extend %pseudo;
+			position: absolute;
+			bottom: 100%;
+			left: 2rem;
+			border-radius: 50%;
+			width: .9rem;
+			height: .9rem;
+			margin-bottom: -.5rem;
+			background-color: $color-text;
+		}
+	}
+
+	.popinfo-text {
+		position: relative;
+		z-index: 2;
+	}
+
+	&.nowrap {
+		.popinfo-content {
+			white-space: nowrap;
+		}
+	}
+}

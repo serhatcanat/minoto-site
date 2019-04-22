@@ -1,0 +1,43 @@
+.btn {
+	border-radius: $radius-general;
+	display: inline-block;
+	background-color: $color-primary;
+	color: $color-text-negative;
+	font-size: 1.2rem;
+	line-height: 2rem;
+	padding: 1.3rem 1rem;
+	text-align: center;
+	transition: background-color $transition-hover ease, color $transition-hover ease;
+
+	// Colors
+	&.white {
+		background-color: $color-white;
+		color: $color-primary;
+
+		&:hover {
+			background-color: darken($color-white, 10);
+		}
+	}
+
+	// Sizes & Shapes
+	&.block {
+		width: 100%;
+		display: block;
+	}
+
+	// Inner Elements
+	i {
+		display: inline-block;
+		vertical-align: middle;
+		font-size: 1.8rem;
+		margin: -.3em 0 -.1em;
+
+		&.pre {
+			margin-right: 1rem;
+		}
+
+		&.post {
+			margin-left: 1rem;
+		}
+	}
+}

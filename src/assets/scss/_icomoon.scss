@@ -1,0 +1,82 @@
+@font-face {
+	font-family: 'icomoon';
+	src:  url('../fonts/icomoon.eot?na5yty');
+	src:  url('../fonts/icomoon.eot?na5yty#iefix') format('embedded-opentype'),
+		url('../fonts/icomoon.ttf?na5yty') format('truetype'),
+		url('../fonts/icomoon.woff?na5yty') format('woff'),
+		url('../fonts/icomoon.svg?na5yty#icomoon') format('svg');
+	font-weight: normal;
+	font-style: normal;
+	font-display: block;
+}
+
+@mixin icon($name, $type: 'self'){
+	@if $type == 'before' {
+		&:before{
+			@extend .icon-#{$name}:before;
+			@extend %icomoon;
+		}
+	}
+	@else if $type == 'after' {
+		&:after{
+			@extend .icon-#{$name}:before;
+			@extend %icomoon;
+		}
+	}
+	@else {
+		@extend .icon-#{$name}:before;
+		@extend %icomoon;
+	}
+}
+
+%icomoon, [class^="icon-"], [class*=" icon-"] {
+	font-family: 'icomoon' !important;
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+ 	-moz-osx-font-smoothing: grayscale;
+}
+
+.icon-check:before {
+	content: "\e909";
+}
+
+.icon-angle-down:before {
+	content: "\e905";
+}
+
+.icon-angle-up:before {
+	content: "\e906";
+}
+
+.icon-angle-left:before {
+	content: "\e907";
+}
+
+.icon-angle-right:before {
+	content: "\e908";
+}
+
+.icon-playstore:before {
+	content: "\e900";
+}
+
+.icon-appstore:before {
+	content: "\e901";
+}
+
+.icon-envelope:before {
+	content: "\e902";
+}
+
+.icon-phone:before {
+	content: "\e903";
+}
+
+.icon-heart:before {
+	content: "\e904";
+}

@@ -1,0 +1,164 @@
+.contentbox {
+	position: relative;
+	display: flex;
+
+	&:hover {
+		&:before{
+			opacity: 1;
+		}
+
+		.contentbox-innerwrap {
+			border-color: $color-primary;
+		}
+	}
+
+	&:before {
+		@extend %pseudo;
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 1;
+		box-shadow: 0 18px 36px 0 rgba(22, 29, 76, 0.3);
+		opacity: 0;
+		transition: opacity $transition-hover ease;
+	}
+
+	&.inactive {
+		.contentbox-title {
+			opacity: .5;
+		}
+
+		.info-price {
+			color: $color-text;
+			opacity: .5;
+		}
+
+		.contentbox-image {
+			opacity: .6;
+  			filter: grayscale(100%);
+		}
+	}
+
+	.contentbox-innerwrap {
+		width: 100%;
+		position: relative;
+		display: block;
+		z-index: 2;
+		background: $color-white;
+		border: .1rem solid $color-gray-light;
+		transition: border-color $transition-hover ease;
+	}
+
+	.contentbox-content {
+		padding: 1.8rem 1rem 1.4rem;
+		flex: 1;
+	}
+
+		.contentbox-imagewrap {
+			position: relative;
+			width: 100%;
+			padding-bottom: 75.333333333%;
+			overflow: hidden;
+		}
+
+			.contentbox-image {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+			}
+
+			.contentbox-badge {
+				@include font-semibold;
+				position: absolute;
+				z-index: 3;
+				left: 0;
+				top: 1rem;
+				background-color: $color-primary;
+				color: $color-text-negative;
+				line-height: 3rem;
+				padding: 0 1.1rem;
+				text-transform: uppercase;
+				border-top-right-radius: $radius-general;
+				border-bottom-right-radius: $radius-general;
+
+				&.error {
+					background-color: $color-error;
+				}
+			}
+
+			.contentbox-favicon {
+				position: absolute;
+				z-index: 2;
+				color: $color-primary;
+				font-size: 2rem;
+				top: 1.5rem;
+				right: 1.5rem;
+				text-shadow: rgb(255, 255, 255) .1rem 0rem 0rem, rgb(255, 255, 255) .0540302rem .0841471rem 0rem, rgb(255, 255, 255) -.0416147rem .0909297rem 0rem, rgb(255, 255, 255) -.0989992rem .014112rem 0rem, rgb(255, 255, 255) -.0653644rem -.0756802rem 0rem, rgb(255, 255, 255) .0283662rem -.0958924rem 0rem, rgb(255, 255, 255) .096017rem -.0279415rem 0rem;
+			}
+
+		.contentbox-title {
+			@include font-semibold;
+			font-size: 1.4rem;
+			display: block;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			overflow: hidden;
+		}
+
+		.contentbox-info {
+			display: flex;
+			margin-top: .8rem;
+		}
+
+			.info-subtitle {
+				@include font-semibold;
+				font-size: 1.2rem;
+				opacity: .5;
+				padding-top: .3rem;
+				text-overflow: ellipsis;
+				overflow: hidden;
+				white-space: nowrap;
+			}
+
+			.info-price {
+				font-size: 1.8rem;
+				color: $color-primary;
+				text-align: right;
+				white-space: nowrap;
+				flex-grow: 2;
+			}
+
+		.content-additions {
+			margin-top: 1.3rem;
+			min-height: 2rem;
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+			.additions-labels {
+				span {
+					display: inline-block;
+					font-size: 1.2rem;
+					line-height: 1.6rem;
+					border: .1rem solid $color-gray-light;
+					margin-right: .6rem;
+					border-radius: $radius-general;
+					padding: 0 .6rem .2rem;
+					text-transform: uppercase;
+				}
+			}
+
+			.additions-bottomnote {
+				font-size: 1.2rem;
+				color: $color-text;
+
+				&.success {
+					color: $color-success;
+				}
+			}
+}

@@ -1,0 +1,79 @@
+.section{
+	&.header {
+		padding: 1.7rem 0 2.5rem;
+		border-bottom: .1rem solid $color-gray-light;
+
+		.header-wrap{
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.header-logo {
+			display: inline-block;
+			height: 3.4rem;
+
+			img {
+				height: 100%;
+			}
+		}
+
+		.header-nav {
+			position: relative;
+			padding-top: 1.3rem;
+			line-height: 2rem;
+			height: 2rem;
+			color: $color-text;
+			font-size: 0;
+			padding-right: 11.4rem;
+		}
+
+			.nav-link {
+				@include font-semibold;
+				font-size: 1.4rem;
+				text-transform: uppercase;
+
+				+ .nav-link {
+					margin-left: 4rem;
+				}
+			}
+
+			.nav-menubtn {
+				position: absolute;
+				height: 7.6rem;
+				width: 7.6rem;
+				top: -1.7rem;
+				right: -2.5rem;
+				display: flex;
+				align-items: center;
+				justify-content: space-around;
+				border-left: .1rem solid $color-gray-light;
+			}
+
+				.menubtn-inner {
+					width: 2.2rem;
+					height: 1.4rem;
+					position: relative;
+
+					span {
+						position: absolute;
+						top: 0;
+						width: 100%;
+						display: block;
+						background-color: $color-text;
+						height: .2rem;
+						border-radius: .1rem;
+						transform-origin: 100% 50%;
+
+						&:nth-child(2){
+							top: .6rem;
+							transform: scaleX(0.818181);
+						}
+
+						&:nth-child(3){
+							top: 1.2rem;
+							transform: scaleX(0.636363);
+						}
+					}
+				}
+	}
+}

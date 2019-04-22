@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 52.4 (67378) - http://www.bohemiancoding.com/sketch -->
+    <title>B07261D3-D307-48CB-AAA1-DF56EBBC669D</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <linearGradient x1="0%" y1="108.543527%" x2="87.7566964%" y2="10.0334821%" id="linearGradient-1">
+            <stop stop-color="#FED672" offset="0%"></stop>
+            <stop stop-color="#F5722E" offset="37.1229227%"></stop>
+            <stop stop-color="#C1298E" offset="65.4579118%"></stop>
+            <stop stop-color="#932EC0" offset="100%"></stop>
+        </linearGradient>
+        <rect id="path-2" x="0" y="0" width="30" height="30" rx="15"></rect>
+    </defs>
+    <g id="WEB" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="DETAY-SAYFA" transform="translate(-888.000000, -3504.000000)">
+            <g id="Group-14" transform="translate(0.000000, 3065.000000)">
+                <g id="Group-61" transform="translate(0.000000, 278.000000)">
+                    <g id="Group-57">
+                        <g id="Group-56">
+                            <g id="Group-4" transform="translate(888.000000, 161.000000)">
+                                <g id="Instagram">
+                                    <g id="Group-6">
+                                        <mask id="mask-3" fill="white">
+                                            <use xlink:href="#path-2"></use>
+                                        </mask>
+                                        <use id="round-shape" fill="url(#linearGradient-1)" xlink:href="#path-2"></use>
+                                    </g>
+                                    <g id="Instagram-New-Logo" transform="translate(7.285714, 7.285714)" fill="#FFFFFF">
+                                        <g id="Glyph">
+                                            <path d="M0,4.46258211 C0,1.99796607 1.9854305,0 4.46258211,0 L10.9659893,0 C13.4306054,0 15.4285714,1.9854305 15.4285714,4.46258211 L15.4285714,10.9659893 C15.4285714,13.4306054 13.4431409,15.4285714 10.9659893,15.4285714 L4.46258211,15.4285714 C1.99796607,15.4285714 0,13.4431409 0,10.9659893 L0,4.46258211 Z M1.39655172,4.58501382 L1.39655172,10.8435576 C1.39655172,12.6071326 2.82407483,14.0320197 4.58501382,14.0320197 L10.8435576,14.0320197 C12.6071326,14.0320197 14.0320197,12.6044966 14.0320197,10.8435576 L14.0320197,4.58501382 C14.0320197,2.82143884 12.6044966,1.39655172 10.8435576,1.39655172 L4.58501382,1.39655172 C2.82143884,1.39655172 1.39655172,2.82407483 1.39655172,4.58501382 Z" id="Combined-Shape"></path>
+                                            <path d="M7.71428571,11.637931 C5.54731624,11.637931 3.79064039,9.88125519 3.79064039,7.71428571 C3.79064039,5.54731624 5.54731624,3.79064039 7.71428571,3.79064039 C9.88125519,3.79064039 11.637931,5.54731624 11.637931,7.71428571 C11.637931,9.88125519 9.88125519,11.637931 7.71428571,11.637931 Z M7.71428571,10.2413793 C9.10996097,10.2413793 10.2413793,9.10996097 10.2413793,7.71428571 C10.2413793,6.31861046 9.10996097,5.18719212 7.71428571,5.18719212 C6.31861046,5.18719212 5.18719212,6.31861046 5.18719212,7.71428571 C5.18719212,9.10996097 6.31861046,10.2413793 7.71428571,10.2413793 Z" id="Combined-Shape"></path>
+                                            <circle id="Oval-22" cx="11.770936" cy="3.591133" r="1"></circle>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

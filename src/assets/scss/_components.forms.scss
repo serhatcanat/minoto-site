@@ -1,0 +1,347 @@
+.inputwrap {
+	display: block;
+	position: relative;
+	touch-action: manipulation;
+
+	input[type='file'] + label,
+	select + label,
+	input,
+	textarea {
+		@include font-main;
+		border: 0.1rem solid $color-gray-light;
+		color: $color-text;
+		border-radius: $radius-general;
+		padding: 1.5rem 1.5rem;
+		line-height: 1.8rem;
+		font-size: 1.4rem;
+		width: 100%;
+		min-width: 100%;
+		max-width: 100%;
+		display: block;
+		transition: color $transition-hover ease, border-color $transition-hover ease;
+		background-color: $color-white;
+		touch-action: manipulation;
+
+		&:focus {
+			border-color: $color-blue;
+		}
+
+		@include placeholder() {
+			color: $color-gray;
+		}
+	}
+
+	&.textwrap {
+		@include font-medium;
+		padding: 2rem 0;
+		line-height: 2rem;
+		font-size: 1.4rem;
+		letter-spacing: -0.015em;
+	}
+
+	&.error {
+		input[type='text'],
+		input[type='password'],
+		input[type='email'],
+		input[type='file'] + label,
+		textarea {
+			border-color: $color-red;
+		}
+	}
+
+	&.input-full {
+		.input-label {
+			opacity: 1;
+			transform: translate3d(0, 0, 0);
+			pointer-events: auto;
+		}
+	}
+
+	&.no-select {
+		.checkwrap{
+			input {
+				+ label {
+					user-select: none;
+				}
+			}
+		}
+	}
+
+	.input-label {
+		@include font-medium;
+		position: absolute;
+		left: 0.7rem;
+		bottom: calc(100% - 1rem);
+		font-size: 1.2rem;
+		line-height: 1.4rem;
+		background-color: $color-white;
+		padding: 0.2rem 0.8rem;
+		border-radius: $radius-general;
+		letter-spacing: 0.03em;
+		color: $color-gray;
+		opacity: 0;
+		pointer-events: none;
+		transform: translate3d(0, 0.3rem, 0);
+		transition: transform $transition-hover ease, opacity $transition-hover ease;
+		touch-action: manipulation;
+	}
+
+	.input-icon {
+		position: absolute;
+		font-size: 2rem;
+		color: $color-gray-light;
+		top: 2.5rem;
+		transform: translateY(-50%);
+		pointer-events: none;
+	}
+
+	.input-error {
+		@include font-medium;
+		font-size: 1.2rem;
+		margin-top: 0.5rem;
+		color: $color-red;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow: hidden;
+	}
+
+	/// Types
+	&.type-file {
+		input + label {
+			cursor: pointer;
+			color: $color-gray;
+			cursor: pointer;
+			text-overflow: ellipsis;
+			overflow: hidden;
+
+			padding-left: 5.7rem;
+		}
+
+		&.input-full {
+			input + label {
+				color: $color-blue;
+			}
+
+			.input-icon {
+				color: $color-blue;
+			}
+		}
+
+		input[type='file'] {
+			pointer-events: none;
+			touch-action: manipulation;
+			opacity: 0;
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 2rem;
+			height: 2rem;
+		}
+
+		.input-icon {
+			left: 1.5rem;
+			font-size: 3rem;
+			color: $color-gray;
+		}
+	}
+
+	&.type-select {
+		select {
+			position: absolute;
+			opacity: 0;
+			top: 0;
+			left: 0;
+			height: 5rem;
+			width: 100%;
+			z-index: 2;
+			touch-action: manipulation;
+
+			+ label {
+				color: $color-gray;
+
+				&:before {
+					@include icon('angle-down');
+					position: absolute;
+					right: 2rem;
+					top: 50%;
+					transform: translateY(-50%);
+					font-size: 0.9rem;
+					color: $color-gray;
+				}
+			}
+
+			&:focus {
+				+ label {
+					border-color: $color-blue;
+				}
+			}
+		}
+
+		&.input-full {
+			select + label {
+				color: $color-text;
+			}
+		}
+	}
+
+	&.type-date {
+		input {
+			padding-right: 5rem;
+			touch-action: manipulation;
+		}
+
+		.input-icon {
+			right: 2rem;
+		}
+	}
+
+	/// Styles
+	&.dark {
+		input[type='file'] + label, select + label, input, textarea{
+			background-color: $color-gray-light;
+		}
+	}
+}
+
+@include media() {
+	.inputwrap {
+		input[type='file'] + label,
+		select + label,
+		input,
+		textarea {
+			font-size: 2.8rem;
+			padding: 2.8rem 3.6rem;
+			line-height: 3.6rem;
+			border-radius: $radius-general-mobile;
+		}
+
+		.input-icon {
+			top: 4.4rem;
+			font-size: 4rem;
+		}
+
+		// Types
+
+		&.type-file {
+			input + label {
+				padding-left: 10rem;
+			}
+
+			.input-icon {
+				left: 3.6rem;
+				font-size: 4rem;
+			}
+		}
+
+		&.type-select{
+			select{
+				height: 9.4rem;
+				
+				+ label {
+					&:before{
+						font-size: 2.2rem;
+					}
+				}
+			}
+		}
+
+		&.type-date {
+			.input-icon {
+				right: 3.6rem;
+			}
+		}
+
+		&.textwrap{
+			padding: 3.1rem 0;
+			font-size: 2.8rem;
+			line-height: 3.2rem;
+		}
+	}
+}
+
+.checkwrap {
+	position: relative;
+	padding: 2rem 0 2rem 2.3rem;
+
+	input {
+		opacity: 0;
+		position: absolute;
+		left: 0;
+		top: 2rem;
+		pointer-events: none;
+
+		&:checked {
+			+ label{
+				color: $color-primary;
+
+				span{
+					background-color: $color-primary;
+					border-color: $color-primary;
+					&:before {
+						opacity: 1;
+					}
+				}
+			}
+		}
+
+		+ label {
+			@include font-medium;
+			font-size: 1.4rem;
+			letter-spacing: -0.015em;
+			line-height: 2rem;
+			cursor: pointer;
+			transition: color $transition-hover ease;
+
+			span {
+				position: absolute;
+				top: 2.2rem;
+				left: 0;
+				width: 1.4rem;
+				height: 1.4rem;
+				display: inline-block;
+				border: 0.1rem solid $color-text;
+				vertical-align: middle;
+				cursor: pointer;
+				transform: translate3d(0, 0, 0);
+				transition: border-color $transition-hover ease, background-color $transition-hover ease;
+
+				&:before {
+					@include icon('check');
+					display: block;
+					font-size: .8rem;
+					position: absolute;
+					top: 52%;
+					left: 53%;
+					transform: translate(-50%, -50%);
+					color: $color-text-negative;
+					opacity: 0;
+					transition: opacity $transition-hover ease;
+				}
+			}
+		}
+	}
+}
+
+@include media() {
+	.checkwrap{
+		padding: 3.1rem 0 3.1rem 7.8rem;
+
+		input {
+			+ label{
+				font-size: 2.8rem;
+				line-height: 3.2rem;
+
+				span {
+					width: 5rem;
+					height: 5rem;
+					top: 2.2rem;
+					border-radius: $radius-general-mobile;
+
+					&:before{
+						font-size: 2.6rem;
+					}
+				}
+			}
+		}
+	}
+}

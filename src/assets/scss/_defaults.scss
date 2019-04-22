@@ -1,0 +1,78 @@
+@include font-face('Barlow', '../fonts/Barlow-Medium', $weight-medium);
+@include font-face('Barlow', '../fonts/Barlow-SemiBold', $weight-semibold);
+
+@mixin font-main{
+	font-family: 'Barlow', Arial, Helvetica, sans-serif;
+}
+
+//@mixin font-light{ font-weight: $weight-light; }
+//@mixin font-regular{ font-weight: $weight-regular; }
+@mixin font-medium{ font-weight: $weight-medium; }
+@mixin font-semibold{ font-weight: $weight-semibold; }
+//@mixin font-bold{ font-weight: $weight-bold; }
+
+html{
+	position: relative;
+	font-size: 10px;
+	-ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    text-rendering: optimizeLegibility !important;
+	-webkit-font-smoothing: antialiased !important;
+	-moz-osx-font-smoothing: grayscale !important; 
+	//background-color: $color-black;
+}
+
+body{
+	@include font-main;
+	@include font-medium;
+	font-size: 1.6rem;
+	opacity: 1;
+	margin: 0;
+	padding: 0;
+	//background-color: $color-white;
+
+	&.block-overflow {
+		overflow: hidden;
+		height: 100vh;
+	}
+}
+
+/*.site-content{
+	&.loading{
+		&:before{
+			@extend %pseudo;
+			position: absolute;
+			top: 0;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			z-index: 999;
+			background-color: $color-white;
+		}
+	}
+}*/
+
+@include media(1600) {
+	html{
+		//font-size: .625vw;
+		@include calcFontSize(1600);
+	}
+}
+
+@include media() {
+	html{
+		font-size: 10px;
+	}
+
+	body{
+		font-size: 2.8rem;
+	}
+}
+
+@include media(750) {
+	html{
+		@include calcFontSize(375);
+		//@include calcFontSize(750);
+	}
+}

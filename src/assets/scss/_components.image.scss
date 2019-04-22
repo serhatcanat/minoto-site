@@ -1,0 +1,19 @@
+.image {
+	transition: opacity 300ms ease;
+
+	&.image-loading{
+		opacity: 0!important;
+	}
+}
+
+.imagewrap {
+	&.bg {
+		background-size: cover;
+		background-position: center center;
+		background-repeat: no-repeat;
+
+		&.contain {
+			background-size: contain;
+		}
+	}
+}

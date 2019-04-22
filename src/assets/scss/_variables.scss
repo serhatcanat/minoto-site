@@ -1,0 +1,55 @@
+// Colors
+$color-white: #fff;
+$color-black: #000;
+
+
+$color-text: #161d4c;
+$color-text-negative: $color-white;
+$color-text-negative-light: #8a92a6;
+
+$color-gray-light: #f7f7fa;
+$color-gray: #eaebf3;
+
+$color-blue: #145aff;
+$color-turquoise: #16d2d3;
+
+$color-red: #ff2757;
+$color-red-light: #ff5a60;
+
+$color-error: $color-red-light;
+$color-success: $color-turquoise;
+$color-primary: $color-blue;
+
+// Font Weighting
+$weight-light: 300;
+$weight-regular: 400;
+$weight-medium: 500;
+$weight-semibold: 600;
+$weight-bold: 700;
+
+$fontweight-heading: $weight-semibold;
+$fontweight-bold: $weight-semibold;
+
+$darken-ratio: 7%;
+
+//transition
+$transition-fast: 180ms;
+$transition-hover: 200ms;
+$transition-anim: 400ms;
+$transition-long: 600ms;
+
+//radiusses
+$radius-general: .3rem;
+$radius-general-mobile: .6rem;
+
+//easing
+$ease-1: "cubic-bezier(0.32, 0.28, 0, 0.97)";
+
+//shadows
+$shadow-general: #{"0rem .3rem 2.0rem 0rem rgba(0, 0, 0, 0.22)"};
+$shadow-shallow: #{"0rem .1rem 1.0rem 0rem rgba(0, 0, 0, 0.02); "};
+
+//wrapper widths
+$wrapper-regular: 160rem;
+$wrapper-narrow: 117rem;
+$wrapper-narrower: 90rem;

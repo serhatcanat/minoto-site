@@ -1,0 +1,106 @@
+.section{
+	&.footer {
+		background-color: $color-text;
+		color: $color-text-negative;
+		padding: 5rem 0 7.6rem;
+		font-size: 1.4rem;
+
+		.footer-wrap {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.footer-logo{
+			display: inline-block;
+			width: 9.4rem;
+
+			img {
+				width: 100%;
+			}
+		}
+
+		.footer-nav {
+			width: 55.72%;
+			display: flex;
+			justify-content: space-between;
+		}
+
+			.nav-col {
+				line-height: 2.43;
+			}
+
+			.nav-contact{
+				i {
+					margin-right: .9rem;
+				}
+			}
+
+				.contact-social {
+					margin-top: 1.8rem;
+
+					li {
+						display: inline-block;
+						width: 3rem;
+						height: 3rem;
+
+						+ li {
+							margin-left: 1rem;
+						}
+					}
+				}
+
+			.nav-app {
+
+			}
+
+				.app-title {
+					line-height: 3.4rem;
+					text-transform: uppercase;
+					margin-bottom: .3rem;
+				}
+
+				.app-link {
+					width: calc(50% - .3rem);
+
+					+ .app-link {
+						margin-left: .6rem;
+					}
+				}
+
+			.nav-subscription {
+				margin-top: 2.1rem;
+			}
+
+				.subscription-input {
+					background: transparent;
+					border: .1rem solid $color-text-negative-light;
+					color: $color-text-negative;
+					border-radius: $radius-general;
+					display: block;
+					font-size: 1.1rem;
+					padding: 1.9rem 1.7rem;
+					line-height: 1.3rem;
+					width: 100%;
+
+					@include placeholder() {
+						color: $color-text-negative-light;
+					}
+				}
+
+		.footer-copyright {
+			margin-top: 8rem;
+			font-size: 1.2rem;
+			color: $color-text-negative-light;
+		}
+
+			.copyright-disclaimer {
+				font-size: 1.2rem;
+			}
+
+			.copyright-designby {
+				a {
+					text-decoration: underline;
+				}
+			}
+	}
+}

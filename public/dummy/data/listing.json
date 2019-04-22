@@ -1,0 +1,220 @@
+{
+	"status" : "ok",
+	"filters" : [
+		{
+			"name" : "uretimyeri",
+			"title" : "Üretim Yeri",
+			"expanded" : true,
+			"display" : "list",
+			"showCounts" : false,
+			"opts" : [
+				{
+					"title" : "Yerli Üretim",
+					"icon" : "/dummy/images/filter-domestic-product.svg",
+					"value" : "yerli",
+					"selected" : true
+				},
+				{
+					"title" : "İthal",
+					"icon" : false,
+					"value" : "ithal",
+					"selected" : false
+				}
+			]
+		},
+		{
+			"name" : "kasa",
+			"title" : "Kasa Tipi",
+			"expanded" : true,
+			"display" : "icons",
+			"showCounts" : false,
+			"opts" : [
+				{
+					"title" : "Elektrikli, Hybrid",
+					"icon" : "/images/icon/bodytypes/electric.svg",
+					"value" : "elektrik",
+					"selected" : false
+				},
+				{
+					"title" : "Sedan",
+					"icon" : "/images/icon/bodytypes/sedan.svg",
+					"value" : "sedan",
+					"selected" : true
+				},
+				{
+					"title" : "Cabrio",
+					"icon" : "/images/icon/bodytypes/cabrio.svg",
+					"value" : "cabrio",
+					"selected" : false
+				},
+				{
+					"title" : "SUV",
+					"icon" : "/images/icon/bodytypes/suv.svg",
+					"value" : "suv",
+					"selected" : false
+				}
+			]
+		},
+		{
+			"name" : "marka",
+			"title" : "Marka",
+			"expanded" : true,
+			"display" : "list",
+			"showCounts" : true,
+			"opts" : [
+				{
+					"title" : "Acura",
+					"count" : 10,
+					"icon" : false,
+					"value" : "acura",
+					"selected" : true
+				},
+				{
+					"title" : "Aston Martin",
+					"count" : 3,
+					"icon" : false,
+					"value" : "astonmartin",
+					"selected" : false
+				},
+				{
+					"title" : "Mercedes",
+					"count" : 50,
+					"icon" : false,
+					"value" : "mercedes",
+					"selected" : true
+				},
+				{
+					"title" : "Pagani",
+					"count" : 10,
+					"icon" : false,
+					"value" : "pagani",
+					"selected" : false
+				},
+				{
+					"title" : "Renault",
+					"count" : 73,
+					"icon" : false,
+					"value" : "renault",
+					"selected" : false
+				},
+				{
+					"title" : "Toyota",
+					"count" : 186,
+					"icon" : false,
+					"value" : "toyota",
+					"selected" : false
+				}
+			]
+		},
+		{
+			"name" : "yakit",
+			"title" : "Yakıt",
+			"expanded" : false,
+			"display" : "list",
+			"showCounts" : false,
+			"opts" : [
+				{
+					"title" : "Benzin",
+					"value" : "benzin"
+				},
+				{
+					"title" : "Dizel",
+					"value" : "dizel"
+				},
+				{
+					"title" : "Elektrik/Hibrit",
+					"value" : "elektrik"
+				}
+			]
+		}
+	],
+	"results": [
+		{
+			"type": "advert",
+			"title": "Volvo S90 T8 Twin Engine eAWD Inscription",
+			"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
+			"status": 1,
+			"price": 720000.5,
+			"currentViewers": 5,
+			"labels": [
+				"2018",
+				"Sıfır KM"
+			]
+		},
+		{
+			"type": "advert",
+			"title": "BMW 118i, Joy Plus",
+			"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
+			"status": 2,
+			"image": "/dummy/images/product-thumb.jpg",
+			"price": 720000,
+			"currentViewers": 0,
+			"labels": []
+		},
+		{
+			"type": "advert",
+			"title": "BMW 118i, Joy Plus",
+			"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
+			"status": 1,
+			"image": "/dummy/images/product-thumb.jpg",
+			"price": 1800000,
+			"currentViewers": 0,
+			"labels": []
+		},
+		{
+			"type": "advert",
+			"title": "BMW 118i, Joy Plus",
+			"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
+			"status": 1,
+			"image": "/dummy/images/product-thumb.jpg",
+			"price": 1900000,
+			"currentViewers": 0,
+			"favorited": true,
+			"labels": []
+		},
+		{
+			"type": "banner",
+			"title": "Minoto 2018’in otomobillerini seçti",
+			"image": "/dummy/images/listing-banner-small.jpg",
+			"url": "http://google.com/",
+			"size": 1
+		},
+		{
+			"type": "advert",
+			"title": "BMW 118i, Joy Plus",
+			"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
+			"status": 3,
+			"image": "/dummy/images/product-thumb.jpg",
+			"price": 1800000,
+			"currentViewers": 0,
+			"labels": []
+		},
+		{
+			"type": "advert",
+			"title": "BMW 118i, Joy Plus",
+			"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
+			"status": 1,
+			"image": "/dummy/images/product-thumb.jpg",
+			"price": 1800000,
+			"currentViewers": 0,
+			"labels": []
+		},
+		{
+			"type": "advert",
+			"title": "BMW 118i, Joy Plus",
+			"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
+			"status": 1,
+			"image": "/dummy/images/product-thumb.jpg",
+			"price": 1800000,
+			"currentViewers": 0,
+			"labels": []
+		},
+		{
+			"type": "banner",
+			"title": "Kenan Doğulu\"nun minoto\"ya özel seçtikleri",
+			"image": "/dummy/images/listing-banner-large.jpg",
+			"url": "http://google.com/",
+			"size": 2
+		}
+	]
+}
