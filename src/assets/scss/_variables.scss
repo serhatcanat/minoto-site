@@ -22,6 +22,7 @@ $color-success: $color-turquoise;
 $color-primary: $color-blue;
 
 // Font Weighting
+$weight-extralight: 200;
 $weight-light: 300;
 $weight-regular: 400;
 $weight-medium: 500;
@@ -36,6 +37,7 @@ $darken-ratio: 7%;
 //transition
 $transition-fast: 180ms;
 $transition-hover: 200ms;
+$transition-anim-fast: 300ms;
 $transition-anim: 400ms;
 $transition-long: 600ms;
 

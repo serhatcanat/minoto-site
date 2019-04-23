@@ -2,6 +2,7 @@ import React from 'react'
 
 // Partials
 import Image from 'components/partials/image'
+import Slider from 'components/partials/slider'
 
 // Deps
 import debounce from 'lodash/debounce'
@@ -129,7 +130,7 @@ export default class SearchBar extends React.Component{
 						data.groups.map((group, g_nth) => (
 						<div className="results-group" key={g_nth}>
 							{group.title && <strong className="group-title">{group.title}</strong>}
-							<div className="group-wrap">
+							<Slider className="group-wrap" scrollBar>
 								<ul className="group-list">
 									{group.results.map((result, r_nth) => (
 										<li className="list-item" key={'g_'+r_nth}>
@@ -142,7 +143,7 @@ export default class SearchBar extends React.Component{
 										</li>
 									))}
 								</ul>
-							</div>
+							</Slider>
 							{group.cta && (
 								<div className="group-cta">
 									<a className="cta-link" href={group.cta.link}>{group.cta.title} <i className="icon-angle-right"></i></a>

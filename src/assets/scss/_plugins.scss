@@ -1,0 +1,11 @@
+.swiper-container.slider-component {
+
+	&.slider-scrollbar {
+		position: relative;
+		.swiper-slide {
+			height: auto;
+			box-sizing: border-box;
+		}
+	}
+
+}

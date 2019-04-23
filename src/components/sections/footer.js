@@ -1,12 +1,13 @@
 import React from 'react'
 
+// Partials
+import Image from 'components/partials/image'
+
 // Assets
 import image_icon_facebook from 'assets/images/icon/facebook.svg'
 import image_icon_instagram from 'assets/images/icon/instagram.svg'
 import image_icon_youtube from 'assets/images/icon/youtube.svg'
-
-// Partials
-import Image from 'components/partials/image'
+import image_logo_white from 'assets/images/logo-white.svg'
 
 export default class Footer extends React.Component {
 	render() {
@@ -15,7 +16,7 @@ export default class Footer extends React.Component {
 				<div className="footer-wrap wrapper narrow">
 					<div className="footer-col">
 							<a className="footer-logo" href="/">
-								<Image alt="Minoto" src="static/images/logo-white.svg" />
+								<Image alt="Minoto" src={image_logo_white} />
 							</a>
 					</div>
 					<nav className="footer-col footer-nav">

@@ -1,3 +1,4 @@
+@include font-face('Barlow', '../fonts/Barlow-ExtraLight', $weight-extralight);
 @include font-face('Barlow', '../fonts/Barlow-Medium', $weight-medium);
 @include font-face('Barlow', '../fonts/Barlow-SemiBold', $weight-semibold);
 
@@ -5,6 +6,7 @@
 	font-family: 'Barlow', Arial, Helvetica, sans-serif;
 }
 
+@mixin font-extralight{ font-weight: $weight-extralight; }
 //@mixin font-light{ font-weight: $weight-light; }
 //@mixin font-regular{ font-weight: $weight-regular; }
 @mixin font-medium{ font-weight: $weight-medium; }
