@@ -19,7 +19,6 @@ export default class ProductListing extends React.Component {
 		super(props)
 		this.state = {
 			results: false,
-			query: (history.location.search ? history.location.search.replace('?=', '') : ''),
 			filters: false,
 			loading: true,
 			initialLoad: false,
@@ -28,25 +27,23 @@ export default class ProductListing extends React.Component {
 		this.initialize = this.initialize.bind(this);
 		this.filtersUpdated = this.filtersUpdated.bind(this);
 		this.formRef = React.createRef();
+
+		this.query = (history.location.search ? history.location.search.replace('?=', '') : '');
+		this.dummyBool = false;
 	}
 
 	componentDidMount() {
-		this.initialize();
+		let vm = this;
+		vm.initialize();
 
-		//history.listen(function (e) {
-			//console.log(e)
-		//});
+		history.listen(function (e) {
+			vm.formToQuery(e.search.replace('?=', ''));
+		});
 	}
 
 	componentDidUpdate(prevProps, prevState) {
 		if(!isEqual(prevState.filters, this.state.filters)){
-			if(window.dynamicHistory){
-				this.setState({query: serialize(this.formRef.current)});
-			}
-		}
-
-		if(prevState.query !== this.state.query){
-			window.dynamicHistory.push('?='+this.state.query);
+			this.formToQuery();
 		}
 	}
 
@@ -54,15 +51,36 @@ export default class ProductListing extends React.Component {
 		this.updateResults();
 	}
 
-	updateResults() {
+	formToQuery(newQuery = false) {
+		if(!newQuery){
+			newQuery = serialize(this.formRef.current, '|')
+		}
+		if(this.query !== newQuery){
+			this.query = newQuery;
+			if(history.location.search !== '?='+newQuery){
+				window.dynamicHistory.push('?='+newQuery);
+			}
+			this.updateResults(newQuery);
+		}
+	}
+
+	updateResults(queryString = false) {
 		let vm = this;
 
-		if(vm.state.initialLoad){
-			this.setState({query: serialize(this.formRef.current)});
+		vm.setState({loading: true});
+		if(!queryString){
+			queryString = vm.query;
 		}
 
 		setTimeout(function() {
-			axios.get('/dummy/data/listing.json?='+vm.state.query).then(res => {
+			let requestURL = '/dummy/data/listing.json?='+queryString;
+
+			if(vm.dummyBool){
+				requestURL = '/dummy/data/listing-test.json?='+queryString
+			}
+			vm.dummyBool = !vm.dummyBool;
+
+			axios.get(requestURL).then(res => {
 
 				if(res.data.status === 'ok'){
 					vm.setState({ results: res.data.results, filters: res.data.filters, initialLoad: true, loading: false })
@@ -74,9 +92,10 @@ export default class ProductListing extends React.Component {
 		}, 1000);
 	}
 
+
+
 	filtersUpdated(){
-		this.setState({loading: true});
-		this.updateResults();
+		this.formToQuery();
 	}
 
 	render() {
@@ -204,9 +223,9 @@ class ProductFilter extends React.Component {
 
 	render() {
 		let vm = this;
-		let filterData = vm.props.data;
 
 		let filterContent = false;
+		let filterData = vm.props.data;
 
 
 		switch(filterData.display){
@@ -225,7 +244,7 @@ class ProductFilter extends React.Component {
 		if(filterContent){
 			return (
 				<div className={"filters-filter type-" + filterData.display + (vm.state.active ? ' active' : '') + (vm.state.show ? ' show' : '')}>
-					<button className="filter-title" onClick={vm.toggle}>{filterData.title}</button>
+					<button type="button" className="filter-title" onClick={vm.toggle}>{filterData.title}</button>
 
 					<div className="filter-content">
 						{filterContent}
@@ -248,11 +267,11 @@ class FilterTypeList extends React.Component {
 		this.handleChange = this.handleChange.bind(this);
 	}
 
-	/*componentDidUpdate(prevProps){
+	componentDidUpdate(prevProps){
 		if(!isEqual(prevProps.data, this.props.data)){
 			this.setState({opts: this.props.data.opts});
 		}
-	}*/
+	}
 
 	handleChange(e, nth) {
 		let newOpts = this.state.opts;
@@ -317,6 +336,12 @@ class FilterTypeIcons extends React.Component {
 		this.handleChange = this.handleChange.bind(this);
 	}
 
+	componentDidUpdate(prevProps){
+		if(!isEqual(prevProps.data, this.props.data)){
+			this.setState({opts: this.props.data.opts});
+		}
+	}
+
 	handleChange(e, nth) {
 		let newOpts = this.state.opts;
 		newOpts[nth].selected = e.target.checked;
@@ -350,7 +375,7 @@ class FilterTypeIcons extends React.Component {
 									className="content-icon"
 									src={opt.icon}
 								>
-									<img src={opt.icon} />
+									<Image src={opt.icon} />
 								</SVG>
 								<p className="content-title">
 									{opt.title}
@@ -374,12 +399,20 @@ class FilterTypeRange extends React.Component {
 		this.lateUpdate = debounce(this.lateUpdate.bind(this), 500);
 	}
 
+	componentDidUpdate(prevProps){
+		if(!isEqual(prevProps.data, this.props.data)){
+			this.setState({opts: this.props.data.opts});
+		}
+	}
+
 	handleChange(e, nth) {
 		let newOpts = clone(this.state.opts);
-		newOpts[nth].value = e.target.value;
+		if(newOpts[nth].value !== e.target.value){
+			newOpts[nth].value = e.target.value;
 
-		this.setState({opts: newOpts});
-		this.lateUpdate();
+			this.setState({opts: newOpts});
+			this.lateUpdate();
+		}
 	}
 
 	lateUpdate(){

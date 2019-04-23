@@ -35,7 +35,7 @@ export function isDefined(variable) {
 	return !(typeof variable === 'undefined' || variable === null);
 }
 
-export function serializeArray(form) {
+export function serializeArray(form, seperator = ',') {
 	var serialized = {};
 	for (var i = 0; i < form.elements.length; i++) {
 
@@ -46,10 +46,11 @@ export function serializeArray(form) {
 			for (var n = 0; n < field.options.length; n++) {
 				if (!field.options[n].selected) continue;
 				let val = field.options[n].value;
-				if(serialized[field.name]){
-					val = serialized[field.name] +=','+val;
+				let name = field.name.replace('[]', '');
+				if(serialized[name] && name + '[]' === field.name){
+					val = serialized[name] +=seperator+val;
 				}
-				serialized[field.name] = val;
+				serialized[name] = val;
 
 				//serialized.push(encodeURIComponent(field.name) + "=" + encodeURIComponent(field.options[n].value));
 			}
@@ -57,21 +58,20 @@ export function serializeArray(form) {
 
 		else if ((field.type !== 'checkbox' && field.type !== 'radio') || field.checked) {
 			let val = field.value;
-			if(serialized[field.name]){
-				val = serialized[field.name] +=','+val;
+			let name = field.name.replace('[]', '');
+			if(serialized[name] && name + '[]' === field.name){
+				val = serialized[name] +=seperator+val;
 			}
-			serialized[field.name] = val;
+			serialized[name] = val;
 			//serialized.push(encodeURIComponent(field.name) + "=" + encodeURIComponent(field.value));
 		}
 	}
 
 	return serialized;
 
-	//return serialized.join('&');
-
 };
 
-export function serialize(form) {
+export function serialize(form, seperator) {
 	var data = serializeArray(form);
 	var serialized = [];
 
@@ -79,6 +79,5 @@ export function serialize(form) {
 		let key = Object.keys(data)[k];
 		serialized.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));
 	}
-
 	return serialized.join('&');
 }
