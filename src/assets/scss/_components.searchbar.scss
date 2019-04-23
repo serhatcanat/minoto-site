@@ -1,0 +1,140 @@
+.searchbar {
+	position: relative;
+	width: 57rem;
+
+	&.show {
+		.searchbar-input {
+			border-color: $color-primary;
+		}
+
+		.searchbar-results {
+			opacity: 1;
+			transform: translate3d(0, 0rem, 0);
+		}
+	}
+
+	.searchbar-input {
+		width: 100%;
+		display: block;
+		line-height: 4.4rem;
+		padding: 0 6rem 0 2rem;
+		border-radius: $radius-general;
+		background-color: $color-white;
+		border: .1rem solid $color-gray;
+		transition: border-color $transition-hover ease;
+	}
+
+	.searchbar-loader {
+		@include spin;
+		position: absolute;
+		top: 2.3rem;
+		right: 8.5rem;
+		color: $color-gray;
+	}
+
+	.searchbar-submit {
+		position: absolute;
+		top: .5rem;
+		right: .5rem;
+		padding: .8rem 1.4rem;
+		text-transform: uppercase;
+
+		i {
+			font-size: 1.4rem;
+			margin-right: 1.1rem;
+		}
+	}
+
+	.searchbar-results {
+		position: absolute;
+		top: 100%;
+		left: 0;
+		width: 100%;
+		background: $color-white;
+		border-radius: $radius-general;
+		font-size: 1.4rem;
+		box-shadow: 0 12px 18px 0 rgba(29, 42, 68, 0.13);
+		overflow: hidden;
+		opacity: 0;
+		transform: translate3d(0, -.3rem, 0);
+		transition: opacity $transition-hover ease, transform $transition-hover ease;
+	}
+
+		.results-group {
+			color: $color-primary;
+		}
+
+			.group-title {
+				display: block;
+				background-color: $color-gray;
+				color: $color-text;
+				font-size: 1.1rem;
+				text-transform: uppercase;
+				padding: .8rem 2rem .8rem;
+				line-height: 1.4rem;
+			}
+
+			.group-wrap {
+
+			}
+
+			.group-list {
+
+			}
+
+				.list-item {
+
+					a{
+						display: flex;
+						align-items: center;
+						line-height: 1.7rem;
+						padding: 0 2rem .2rem;
+						height: 5.2rem;
+						transition: background-color $transition-hover ease;
+
+						&:hover, &:active {
+							background-color: $color-gray-light;
+						}
+					}
+
+					+ .list-item {
+						border-top: .1rem solid $color-gray-light;
+					}
+				}
+
+					.item-image {
+						width: 3.7rem;
+						height: 3.7rem;
+						border-radius: 50%;
+						border-right-color: .1rem solid $color-gray-light;
+						margin-right: 1.8rem;
+					}
+
+			.group-cta {
+				border-top: .1rem solid $color-gray-light;
+				color: $color-text;
+				padding: .6rem 1.1rem .4rem;
+			}
+
+				.cta-link {
+					@include font-semibold;
+					display: block;
+					text-align: center;
+					text-transform: uppercase;
+					border: .1rem solid $color-gray;
+					font-size: 1.3rem;
+					line-height: 3.8rem;
+					transition: background-color $transition-hover ease;
+
+					&:hover, &:active {
+						background-color: $color-gray-light;
+					}
+
+					i {
+						font-size: 1rem;
+						display: inline-block;
+						vertical-align: middle;
+						margin: -.3rem 0 0 1rem;
+					}
+				}
+}

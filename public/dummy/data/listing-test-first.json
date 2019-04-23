@@ -12,13 +12,13 @@
 					"title" : "Yerli Üretim",
 					"logo" : "/dummy/images/filter-domestic-product.svg",
 					"value" : "yerli",
-					"selected" : true
+					"selected" : false
 				},
 				{
 					"title" : "İthal",
 					"logo" : false,
 					"value" : "ithal",
-					"selected" : true
+					"selected" : false
 				}
 			]
 		},
@@ -39,7 +39,7 @@
 					"title" : "Sedan",
 					"icon" : "/assets/images/icon/bodytypes/sedan.svg",
 					"value" : "sedan",
-					"selected" : true
+					"selected" : false
 				},
 				{
 					"title" : "Cabrio",
@@ -57,7 +57,7 @@
 					"title" : "Hatchback",
 					"icon" : "/assets/images/icon/bodytypes/hatchback.svg",
 					"value" : "hatchback",
-					"selected" : true
+					"selected" : false
 				}
 			]
 		},
@@ -73,7 +73,7 @@
 					"count" : 10,
 					"icon" : false,
 					"value" : "acura",
-					"selected" : true
+					"selected" : false
 				},
 				{
 					"title" : "Aston Martin",
@@ -87,7 +87,7 @@
 					"count" : 50,
 					"icon" : false,
 					"value" : "mercedes",
-					"selected" : true
+					"selected" : false
 				},
 				{
 					"title" : "Pagani",
@@ -164,12 +164,12 @@
 				{
 					"name" : "min",
 					"text" : "MIN TL",
-					"value" : "500"
+					"value" : ""
 				},
 				{
 					"name" : "max",
 					"text" : "MAX TL",
-					"value" : "50000"
+					"value" : ""
 				}
 			]
 		}

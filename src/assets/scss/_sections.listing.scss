@@ -103,7 +103,6 @@
 						color: $color-text-light;
 
 						&:nth-child(2n+2){
-							border-left: .1rem solid $color-gray;
 							padding-left: 1.5rem;
 
 							&:last-child {
@@ -112,6 +111,7 @@
 						}
 
 						&:nth-child(2n+1){
+							border-right: .1rem solid $color-gray;
 							padding-right: 1.5rem;
 
 							&:last-child, &:nth-last-child(2) {

@@ -9,12 +9,16 @@
 	text-align: center;
 	transition: background-color $transition-hover ease, color $transition-hover ease;
 
+	&:hover, &:active{
+		background-color: darken($color-primary, 10);
+	}
+
 	// Colors
 	&.white {
 		background-color: $color-white;
 		color: $color-primary;
 
-		&:hover {
+		&:hover, &:active {
 			background-color: darken($color-white, 10);
 		}
 	}

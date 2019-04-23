@@ -21,6 +21,7 @@ export default class ProductListing extends React.Component {
 			results: false,
 			filters: false,
 			loading: true,
+			query: ((history.location.search && history.location.search !== '') ? history.location.search.replace('?', '') : ''),
 			initialLoad: false,
 		}
 
@@ -28,7 +29,7 @@ export default class ProductListing extends React.Component {
 		this.filtersUpdated = this.filtersUpdated.bind(this);
 		this.formRef = React.createRef();
 
-		this.query = (history.location.search ? history.location.search.replace('?=', '') : '');
+		//this.query = ((history.location.search && history.location.search !== '') ? history.location.search.replace('?', '') : '');
 		this.dummyBool = false;
 	}
 
@@ -37,13 +38,19 @@ export default class ProductListing extends React.Component {
 		vm.initialize();
 
 		history.listen(function (e) {
-			vm.formToQuery(e.search.replace('?=', ''));
+			console.log('Debug (History Changed):' + e.search.replace('?', ''));
+			vm.urlChanged(e.search.replace('?', ''));
 		});
 	}
 
 	componentDidUpdate(prevProps, prevState) {
 		if(!isEqual(prevState.filters, this.state.filters)){
-			this.formToQuery();
+			console.log('Debug (Filters Updated)');
+			this.filtersToQuery();
+		}
+
+		if(!isEqual(prevState.query, this.state.query)){
+			this.updateResults();
 		}
 	}
 
@@ -51,16 +58,17 @@ export default class ProductListing extends React.Component {
 		this.updateResults();
 	}
 
-	formToQuery(newQuery = false) {
-		if(!newQuery){
-			newQuery = serialize(this.formRef.current, '|')
+	urlChanged(){
+		let query = ((history.location.search && history.location.search !== '') ? history.location.search.replace('?', '') : '')
+		if(query !== this.statequery){
+			this.setState({query: query});
 		}
-		if(this.query !== newQuery){
-			this.query = newQuery;
-			if(history.location.search !== '?='+newQuery){
-				window.dynamicHistory.push('?='+newQuery);
-			}
-			this.updateResults(newQuery);
+	}
+
+	filtersToQuery() {
+		let newQuery = serialize(this.formRef.current, '|', true)
+		if(history.location.search !== '?'+newQuery){
+			window.dynamicHistory.push((newQuery !== '' ? '?'+newQuery : ''));
 		}
 	}
 
@@ -69,16 +77,19 @@ export default class ProductListing extends React.Component {
 
 		vm.setState({loading: true});
 		if(!queryString){
-			queryString = vm.query;
+			queryString = vm.state.query;
 		}
 
 		setTimeout(function() {
-			let requestURL = '/dummy/data/listing.json?='+queryString;
+			let requestURL = '/dummy/data/listing.json?'+queryString;
 
-			if(vm.dummyBool){
-				requestURL = '/dummy/data/listing-test.json?='+queryString
+			/*if(vm.dummyBool){
+				requestURL = '/dummy/data/listing-test.json?'+queryString
 			}
-			vm.dummyBool = !vm.dummyBool;
+			vm.dummyBool = !vm.dummyBool;*/
+			if(queryString === ''){
+				requestURL = '/dummy/data/listing-test-first.json?'+queryString
+			}
 
 			axios.get(requestURL).then(res => {
 
@@ -95,14 +106,15 @@ export default class ProductListing extends React.Component {
 
 
 	filtersUpdated(){
-		this.formToQuery();
+		console.log('Debug: Inputs Updated');
+		this.filtersToQuery();
 	}
 
 	render() {
 		let vm = this;
 		let itemsAt = 0;
 		return (
-			<section className="section listing loader-container">
+			<section className={"section listing loader-container " + vm.props.className}>
 				<Loader loading={vm.state.loading || !vm.state.results} strict={!vm.state.initialLoad} />
 				{(vm.props.filters ? (
 					<ProductFilters filters={vm.state.filters} onUpdate={vm.filtersUpdated} ref={vm.formRef} />

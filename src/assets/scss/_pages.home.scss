@@ -1,5 +1,19 @@
 .section{
 	&.home-intro {
-		
+		position: relative;
+		z-index: 2;
+
+		.intro-search {
+			position: absolute;
+			z-index: 2;
+			top: 44%;
+			left: 50%;
+			transform: translate3d(-50%, -50%, 0);
+		}
+	}
+
+	&.home-listing {
+		position: relative;
+		z-index: 1;
 	}
 }

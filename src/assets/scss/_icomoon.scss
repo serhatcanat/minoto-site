@@ -41,6 +41,10 @@
  	-moz-osx-font-smoothing: grayscale;
 }
 
+.icon-search:before {
+	content: "\e90b";
+}
+
 .icon-spinner:before {
 	content: "\e90a";
 }

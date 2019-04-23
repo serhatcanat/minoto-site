@@ -35,7 +35,7 @@ export function isDefined(variable) {
 	return !(typeof variable === 'undefined' || variable === null);
 }
 
-export function serializeArray(form, seperator = ',') {
+export function serializeArray(form, seperator = ',', ignoreEmpty = false) {
 	var serialized = {};
 	for (var i = 0; i < form.elements.length; i++) {
 
@@ -46,11 +46,14 @@ export function serializeArray(form, seperator = ',') {
 			for (var n = 0; n < field.options.length; n++) {
 				if (!field.options[n].selected) continue;
 				let val = field.options[n].value;
-				let name = field.name.replace('[]', '');
-				if(serialized[name] && name + '[]' === field.name){
-					val = serialized[name] +=seperator+val;
+
+				if(!(ignoreEmpty && val === '')){
+					let name = field.name.replace('[]', '');
+					if(serialized[name] && name + '[]' === field.name){
+						val = serialized[name] +=seperator+val;
+					}
+					serialized[name] = val;
 				}
-				serialized[name] = val;
 
 				//serialized.push(encodeURIComponent(field.name) + "=" + encodeURIComponent(field.options[n].value));
 			}
@@ -58,11 +61,14 @@ export function serializeArray(form, seperator = ',') {
 
 		else if ((field.type !== 'checkbox' && field.type !== 'radio') || field.checked) {
 			let val = field.value;
-			let name = field.name.replace('[]', '');
-			if(serialized[name] && name + '[]' === field.name){
-				val = serialized[name] +=seperator+val;
+
+			if(!(ignoreEmpty && val === '')){
+				let name = field.name.replace('[]', '');
+				if(serialized[name] && name + '[]' === field.name){
+					val = serialized[name] +=seperator+val;
+				}
+				serialized[name] = val;
 			}
-			serialized[name] = val;
 			//serialized.push(encodeURIComponent(field.name) + "=" + encodeURIComponent(field.value));
 		}
 	}
@@ -71,8 +77,8 @@ export function serializeArray(form, seperator = ',') {
 
 };
 
-export function serialize(form, seperator) {
-	var data = serializeArray(form);
+export function serialize(form, seperator = ',', ignoreEmpty = false) {
+	var data = serializeArray(form, seperator, ignoreEmpty);
 	var serialized = [];
 
 	for(let k = 0; k < Object.keys(data).length; k++){

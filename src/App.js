@@ -11,12 +11,12 @@ import Navigator from './controllers/navigator'
 class App extends Component {
 	render() {
 		return (
-			<main id="site-content">
+			<div id="site-content">
 				<ResponsiveWatcher />
 				<Header />
 				<Navigator />
 				<Footer />
-			</main>
+			</div>
 		);
 	}
 }
