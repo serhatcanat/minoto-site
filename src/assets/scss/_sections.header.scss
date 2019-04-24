@@ -33,6 +33,11 @@
 				@include font-semibold;
 				font-size: 1.4rem;
 				text-transform: uppercase;
+				transition: color $transition-hover ease;
+
+				&.active, &:hover, &:active {
+					color: $color-primary;
+				}
 
 				+ .nav-link {
 					margin-left: 4rem;

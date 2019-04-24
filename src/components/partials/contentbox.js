@@ -3,6 +3,7 @@ import React from 'react';
 // Partials
 import PopInfo from 'components/partials/popinfo.js';
 import Image from 'components/partials/image.js';
+import Link from 'components/partials/link.js';
 
 // Deps
 import { formatNumber } from 'functions/helpers.js';
@@ -12,10 +13,9 @@ import extend from 'lodash/extend';
 import image_default from 'assets/images/contentbox-placeholder.jpg'
 
 class ContentBox extends React.Component {
-
 	render() {
 		let vm = this;
-		let classes = 'contentbox ' + vm.props.className + (this.props.url && ' has-link');
+		let classes = 'contentbox ' + vm.props.className + (this.props.url && ' has-link' + ' type-' + vm.props.type);
 
 		let bottomNote = false;
 		let badge = false;
@@ -39,40 +39,80 @@ class ContentBox extends React.Component {
 
 		let favHeart = (vm.props.faved ? <i className="contentbox-favicon icon-heart"></i> : false);
 
-		const Wrap = (this.props.url ? 'a' : 'div');
+		const Wrap = (this.props.url ? Link : 'div');
 
-		let content = (
-			<Wrap className="contentbox-innerwrap">
-				<div className="contentbox-imagewrap">
-					{badge}
-					{favHeart}
-					<Image bg className="contentbox-image" src={vm.props.image} />
-				</div>
-				<div className="contentbox-content">
-					<strong className="contentbox-title">{vm.props.title}</strong>
-					{(vm.props.subtitle || vm.props.price) && (
-						<div className="contentbox-info">
-							<p className="info-subtitle">{vm.props.subtitle}</p>
-							{vm.props.price && <strong className="info-price">{formatNumber(vm.props.price)} TL</strong>}
+		let content = false;
+
+		switch(vm.props.type){
+			case 'plain':
+				content = (
+					<Wrap className="contentbox-innerwrap" href={this.props.url}>
+						<div className="contentbox-imagewrap">
+							{badge}
+							{favHeart}
+							<Image bg contain className="contentbox-image" src={vm.props.image} />
 						</div>
-					)}
-					{((vm.props.labels.length || bottomNote || !vm.props.additionsOptional) ?
-						<div className="content-additions">
-							{((vm.props.labels.length) ?
-								<div className="additions-labels">
-									{vm.props.labels.map((label, nth) => {
-									return (
-										<span key={nth}>{label}</span>
-									)
-									})}
+						<div className="contentbox-content">
+							<strong className="contentbox-title">{vm.props.title}</strong>
+							{(vm.props.subtitle || vm.props.price) && (
+								<div className="contentbox-info">
+									<p className="info-subtitle">{vm.props.subtitle}</p>
+									{vm.props.price && <strong className="info-price">{formatNumber(vm.props.price)} TL</strong>}
+								</div>
+							)}
+							{((vm.props.labels.length || bottomNote || !vm.props.additionsOptional) ?
+								<div className="content-additions">
+									{((vm.props.labels.length) ?
+										<div className="additions-labels">
+											{vm.props.labels.map((label, nth) => {
+											return (
+												<span key={nth}>{label}</span>
+											)
+											})}
+										</div>
+									: null )}
+									{bottomNote}
 								</div>
 							: null )}
-							{bottomNote}
 						</div>
-					: null )}
-				</div>
-			</Wrap>
-		);
+					</Wrap>
+				)
+			break;
+			default:
+				content = (
+					<Wrap className="contentbox-innerwrap" href={this.props.url}>
+						<div className="contentbox-imagewrap">
+							{badge}
+							{favHeart}
+							<Image bg className="contentbox-image" src={vm.props.image} />
+						</div>
+						<div className="contentbox-content">
+							<strong className="contentbox-title">{vm.props.title}</strong>
+							{(vm.props.subtitle || vm.props.price) && (
+								<div className="contentbox-info">
+									<p className="info-subtitle">{vm.props.subtitle}</p>
+									{vm.props.price && <strong className="info-price">{formatNumber(vm.props.price)} TL</strong>}
+								</div>
+							)}
+							{((vm.props.labels.length || bottomNote || !vm.props.additionsOptional) ?
+								<div className="content-additions">
+									{((vm.props.labels.length) ?
+										<div className="additions-labels">
+											{vm.props.labels.map((label, nth) => {
+											return (
+												<span key={nth}>{label}</span>
+											)
+											})}
+										</div>
+									: null )}
+									{bottomNote}
+								</div>
+							: null )}
+						</div>
+					</Wrap>
+				);
+			break;
+		}
 
 		return (
 			<div className={classes}>
@@ -93,4 +133,5 @@ ContentBox.defaultProps = {
 	bottomNote: false,
 	additionsOptional: false,
 	faved: false,
+	type: 'regular',
 };

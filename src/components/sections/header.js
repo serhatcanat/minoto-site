@@ -2,6 +2,7 @@ import React from 'react'
 
 // Partials
 import Image from 'components/partials/image'
+import Link from 'components/partials/link'
 
 // Assets
 import image_icon_facebook from 'assets/images/icon/facebook.svg'
@@ -51,13 +52,13 @@ export default class Header extends React.Component {
 		return (
 			<header className="section header">
 				<div className="header-wrap wrapper">
-					<a className="header-logo" href="/">
+					<Link className="header-logo" href="home">
 						<Image alt="Minoto" src={image_logo} />
-					</a>
+					</Link>
 
 					<nav className="header-nav">
 						
-						<a className="nav-link" href="/">Tüm Bayiler</a>
+						<Link className="nav-link" navLink href="dealers">Tüm Bayiler</Link>
 						
 						<a className="nav-link" href="/">Üye Ol</a>
 						

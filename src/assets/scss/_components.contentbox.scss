@@ -161,4 +161,16 @@
 					color: $color-success;
 				}
 			}
+
+	&.type-plain {
+		.contentbox-imagewrap {
+			.contentbox-image {
+				top: 50%;
+				left: 50%;
+				width: 50%;
+				height: 50%;
+				transform: translate3d(-50%, -50%, 0);
+			}
+		}
+	}
 }

@@ -1,20 +1,56 @@
 import React from 'react'
-import { Router, Route } from 'react-router-dom'
+
+// Deps
+import { Route } from 'react-router-dom'
 import history from 'controllers/history'
+import routes from 'data/routes'
 
 // Pages
 import Home from 'pages/home'
+import Sitemap from 'pages/sitemap'
+import Dealers from 'pages/dealers'
+
+const pageRegistry = {
+	Home: Home,
+	Sitemap: Sitemap,
+	Dealers: Dealers,
+}
 
 export default class Navigator extends React.Component {
 	componentDidMount() {
 		window.dynamicHistory = history;
+
+		history.listen(function (e) {
+			console.log(e);
+		});
+	}
+
+	renderRoutes(){
+		//let vm = this
+
+		return Object.keys(routes).map((key, index) => {
+			let route = routes[key]
+			let routeProps = {
+				key: index,
+				exact: route.exact,
+				component: pageRegistry[route.component],
+				name: route.component
+			}
+
+			if (route.path) {
+				routeProps.path = route.path
+			}
+
+			return <Route {...routeProps} />
+		})
 	}
 
 	render () {
+		let data = this.renderRoutes();
 		return (
-			<Router history={history}>
-				<Route path="/" exact component={Home} />
-			</Router>
+			<main className="content-main">
+				{data}
+			</main>
 		)
 	}
 }

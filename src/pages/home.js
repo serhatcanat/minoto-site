@@ -1,6 +1,6 @@
 import React from 'react'
 
-// Pages
+// Sections
 import Listing from 'components/sections/listing.js'
 
 // Partials

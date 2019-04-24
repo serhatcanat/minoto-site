@@ -21,6 +21,7 @@ export default class ProductListing extends React.Component {
 			results: false,
 			filters: false,
 			loading: true,
+			listingType: 'dealer',
 			query: ((history.location.search && history.location.search !== '') ? history.location.search.replace('?', '') : ''),
 			initialLoad: false,
 		}
@@ -81,20 +82,26 @@ export default class ProductListing extends React.Component {
 		}
 
 		setTimeout(function() {
-			let requestURL = '/dummy/data/listing.json?'+queryString;
+			let requestURL = vm.props.source+'?'+queryString;
 
 			/*if(vm.dummyBool){
 				requestURL = '/dummy/data/listing-test.json?'+queryString
 			}
 			vm.dummyBool = !vm.dummyBool;*/
-			if(queryString === ''){
+			/*if(queryString === ''){
 				requestURL = '/dummy/data/listing-test-first.json?'+queryString
-			}
+			}*/
 
 			axios.get(requestURL).then(res => {
 
 				if(res.data.status === 'ok'){
-					vm.setState({ results: res.data.results, filters: res.data.filters, initialLoad: true, loading: false })
+					vm.setState({
+						results: res.data.results,
+						filters: res.data.filters,
+						initialLoad: true,
+						loading: false,
+						listingType: res.data.listingType,
+					})
 				}
 				else {
 					console.log('error');
@@ -119,7 +126,7 @@ export default class ProductListing extends React.Component {
 				{(vm.props.filters ? (
 					<ProductFilters filters={vm.state.filters} onUpdate={vm.filtersUpdated} ref={vm.formRef} />
 				) : null)}
-				<div className="listing-content">
+				<div className={"listing-content type-" + vm.state.listingType}>
 					{(vm.state.results.length ?
 						<ul className="content-results">
 							{vm.state.results.map((item, nth) => {
@@ -135,26 +142,49 @@ export default class ProductListing extends React.Component {
 										);
 									break;
 									default:
-										contents.push(
-											<li key={nth} className="results-item">
-												<ContentBox
-													className={((item.status === 2 || item.status === 3) ? 'inactive' : '')}
-													title={item.title}
-													subtitle={item.dealer}
-													image={item.image}
-													price={item.price}
-													labels={item.labels}
-													faved={item.favorited}
-													badge={item.status !== 1 && (item.status === 2 ? {text: 'Rezerve', note: '02.02.2019 Tarihine Kadar Opsiyonludur'} : {text : 'Satıldı', type : 'error'})}
-													bottomNote={(item.currentViewers > 0 ? item.currentViewers + ' kişi Bakıyor' : false )}
-													url='http://www.google.com/'
-												/>
-											</li>
-										);
+										switch(vm.state.listingType){
+											case "dealer":
+												contents.push(
+													<li key={nth} className="results-item">
+														<ContentBox
+															type="plain"
+															className={((item.status === 2 || item.status === 3) ? 'inactive' : '')}
+															title={item.title}
+															subtitle={item.dealer}
+															image={item.image}
+															price={item.price}
+															labels={item.labels}
+															faved={item.favorited}
+															badge={(item.status !== 1 ? false : (item.status === 2 ? {text: 'Rezerve', note: '02.02.2019 Tarihine Kadar Opsiyonludur'} : {text : 'Satıldı', type : 'error'}))}
+															bottomNote={(item.currentViewers > 0 ? item.currentViewers + ' kişi Bakıyor' : false )}
+															url={item.link}
+														/>
+													</li>
+												)
+											break;
+											default: //listing
+												contents.push(
+													<li key={nth} className="results-item">
+														<ContentBox
+															className={((item.status === 2 || item.status === 3) ? 'inactive' : '')}
+															title={item.title}
+															subtitle={item.dealer}
+															image={item.image}
+															price={item.price}
+															labels={item.labels}
+															faved={item.favorited}
+															badge={(item.status !== 1 ? false : (item.status === 2 ? {text: 'Rezerve', note: '02.02.2019 Tarihine Kadar Opsiyonludur'} : {text : 'Satıldı', type : 'error'}))}
+															bottomNote={(item.currentViewers > 0 ? item.currentViewers + ' kişi Bakıyor' : false )}
+															url={item.link}
+														/>
+													</li>
+												);
+											break;
+										}
 									break;
 								}
 
-								if(itemsAt === 8){
+								if(itemsAt === 8 && vm.props.showAds){
 									contents.push(<div key={"adwrap_" + nth} className="results-adwrap results-item x4">
 										<a className="adwrap-link" href="http://www.citroen.com.tr" target="_blank" title="Citroen" rel="noopener noreferrer" >
 											<Image src="/dummy/images/listing-ad.jpg" />
@@ -177,6 +207,8 @@ export default class ProductListing extends React.Component {
 ProductListing.defaultProps = {
 	className : '',
 	filters: true,
+	source: '/dummy/data/listing.json',
+	showAds: true,
 };
 
 // Filters

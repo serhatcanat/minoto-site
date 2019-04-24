@@ -1,0 +1,242 @@
+{
+	"status" : "ok",
+	"listingType" : "dealer",
+	"filters" : [
+		{
+			"name" : "sehir",
+			"title" : "Şehir",
+			"expanded" : true,
+			"display" : "list",
+			"showCounts" : false,
+			"opts" : [
+				{
+					"title" : "İstanbul",
+					"value" : "34",
+					"selected" : true
+				},
+				{
+					"title" : "Adana",
+					"value" : "01",
+					"selected" : false
+				},
+				{
+					"title" : "Mersin",
+					"value" : "33",
+					"selected" : false
+				},
+				{
+					"title" : "Antalya",
+					"value" : "07",
+					"selected" : false
+				},
+				{
+					"title" : "Muğla",
+					"value" : "48",
+					"selected" : false
+				},
+				{
+					"title" : "Aydın",
+					"value" : "09",
+					"selected" : false
+				},
+				{
+					"title" : "İzmir",
+					"value" : "35",
+					"selected" : false
+				}
+			]
+		},
+		{
+			"name" : "bayi",
+			"title" : "Bayi",
+			"expanded" : true,
+			"display" : "list",
+			"showCounts" : true,
+			"opts" : [
+				{
+					"title" : "Doğuş Otomotiv",
+					"value" : "21",
+					"count" : 88,
+					"selected" : true
+				},
+				{
+					"title" : "Borusan Oto",
+					"value" : "22",
+					"count" : 10,
+					"selected" : true
+				},
+				{
+					"title" : "Kosifler Oto",
+					"value" : "23",
+					"count" : 4780,
+					"selected" : true
+				}
+			]
+		},
+		{
+			"name" : "marka",
+			"title" : "Marka",
+			"expanded" : false,
+			"display" : "list",
+			"showCounts" : true,
+			"opts" : [
+				{
+					"title" : "Acura",
+					"count" : 10,
+					"icon" : false,
+					"value" : "acura",
+					"selected" : false
+				},
+				{
+					"title" : "Aston Martin",
+					"count" : 3,
+					"icon" : false,
+					"value" : "astonmartin",
+					"selected" : false
+				},
+				{
+					"title" : "Mercedes",
+					"count" : 50,
+					"icon" : false,
+					"value" : "mercedes",
+					"selected" : false
+				},
+				{
+					"title" : "Pagani",
+					"count" : 10,
+					"icon" : false,
+					"value" : "pagani",
+					"selected" : false
+				},
+				{
+					"title" : "Renault",
+					"count" : 73,
+					"icon" : false,
+					"value" : "renault",
+					"selected" : false
+				},
+				{
+					"title" : "Toyota",
+					"count" : 186,
+					"icon" : false,
+					"value" : "toyota",
+					"selected" : false
+				}
+			]
+		}
+	],
+	"results": [
+		{
+			"type": "advert",
+			"title": "Volvo S90 T8 Twin Engine eAWD Inscription",
+			"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
+			"link": "/bayiler/21",
+			"faved" : false,
+			"count": 192,
+			"image": "/dummy/images/dealer-2.jpg",
+			"labels": [
+				"Audi",
+				"BMW",
+				"Volkswagen"
+			]
+		},
+		{
+			"type": "advert",
+			"title": "BMW 118i, Joy Plus",
+			"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
+			"link": "/bayiler/21",
+			"faved" : true,
+			"count": 192,
+			"image": "/dummy/images/dealer-3.jpg",
+			"labels": [
+				"Audi",
+				"BMW",
+				"Volkswagen"
+			]
+		},
+		{
+			"type": "advert",
+			"title": "BMW 118i, Joy Plus",
+			"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
+			"link": "/bayiler/21",
+			"faved" : true,
+			"count": 192,
+			"image": "/dummy/images/dealer-2.jpg",
+			"labels": [
+				"Audi",
+				"BMW",
+				"Volkswagen"
+			]
+		},
+		{
+			"type": "advert",
+			"title": "BMW 118i, Joy Plus",
+			"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
+			"link": "/bayiler/21",
+			"faved" : true,
+			"count": 192,
+			"image": "/dummy/images/dealer-4.jpg",
+			"labels": [
+				"Audi",
+				"BMW",
+				"Volkswagen"
+			]
+		},
+		{
+			"type": "advert",
+			"title": "BMW 118i, Joy Plus",
+			"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
+			"link": "/bayiler/21",
+			"faved" : true,
+			"count": 192,
+			"image": "/dummy/images/dealer-2.jpg",
+			"labels": [
+				"Audi",
+				"BMW",
+				"Volkswagen"
+			]
+		},
+		{
+			"type": "advert",
+			"title": "BMW 118i, Joy Plus",
+			"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
+			"link": "/bayiler/21",
+			"faved" : true,
+			"count": 192,
+			"image": "/dummy/images/dealer-2.jpg",
+			"labels": [
+				"Audi",
+				"BMW",
+				"Volkswagen"
+			]
+		},
+		{
+			"type": "advert",
+			"title": "BMW 118i, Joy Plus",
+			"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
+			"link": "/bayiler/21",
+			"faved" : true,
+			"count": 192,
+			"image": "/dummy/images/dealer-2.jpg",
+			"labels": [
+				"Audi",
+				"BMW",
+				"Volkswagen"
+			]
+		},
+		{
+			"type": "advert",
+			"title": "BMW 118i, Joy Plus",
+			"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
+			"link": "/bayiler/21",
+			"faved" : true,
+			"count": 192,
+			"image": "/dummy/images/dealer-2.jpg",
+			"labels": [
+				"Audi",
+				"BMW",
+				"Volkswagen"
+			]
+		}
+	]
+}

@@ -1,0 +1,30 @@
+.section{
+	&.dealers-listing {
+		.listing-content {
+			padding: 0;
+		}
+
+			.content-results {
+				padding: 0;
+			}
+
+				.results-item{
+					padding: 0;
+
+					.contentbox{
+						&:before{ display: none; }
+
+						&:hover {
+							.contentbox-innerwrap{
+								border-color: $color-gray-light;
+							}
+						}
+
+						.contentbox-innerwrap {
+							border-left: none;
+							border-top: none;
+						}
+					}
+				}
+	}
+}
