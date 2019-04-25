@@ -4,7 +4,7 @@ import React from 'react'
 import Listing from 'components/sections/listing.js'
 
 // Partials
-import Link from 'components/partials/link'
+//import Link from 'components/partials/link'
 
 // Assets
 

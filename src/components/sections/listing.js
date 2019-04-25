@@ -32,16 +32,21 @@ export default class ProductListing extends React.Component {
 
 		//this.query = ((history.location.search && history.location.search !== '') ? history.location.search.replace('?', '') : '');
 		this.dummyBool = false;
+		this.listenerAbort = false;
 	}
 
 	componentDidMount() {
 		let vm = this;
 		vm.initialize();
 
-		history.listen(function (e) {
+		vm.listenerAbort = history.listen(function (e) {
 			console.log('Debug (History Changed):' + e.search.replace('?', ''));
 			vm.urlChanged(e.search.replace('?', ''));
 		});
+	}
+
+	componentWillUnmount() {
+		this.listenerAbort();
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -151,10 +156,11 @@ export default class ProductListing extends React.Component {
 															className={((item.status === 2 || item.status === 3) ? 'inactive' : '')}
 															title={item.title}
 															subtitle={item.dealer}
+															additionTitle={item.count + ' ARAÇ'}
 															image={item.image}
-															price={item.price}
 															labels={item.labels}
 															faved={item.favorited}
+															favControls={'/dummy/data/fav/dealer/'+item.id}
 															badge={(item.status !== 1 ? false : (item.status === 2 ? {text: 'Rezerve', note: '02.02.2019 Tarihine Kadar Opsiyonludur'} : {text : 'Satıldı', type : 'error'}))}
 															bottomNote={(item.currentViewers > 0 ? item.currentViewers + ' kişi Bakıyor' : false )}
 															url={item.link}

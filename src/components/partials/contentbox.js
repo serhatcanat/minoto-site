@@ -15,7 +15,7 @@ import image_default from 'assets/images/contentbox-placeholder.jpg'
 class ContentBox extends React.Component {
 	render() {
 		let vm = this;
-		let classes = 'contentbox ' + vm.props.className + (this.props.url && ' has-link' + ' type-' + vm.props.type);
+		let classes = 'contentbox ' + vm.props.className + (this.props.url && ' has-link') + ' type-' + vm.props.type;
 
 		let bottomNote = false;
 		let badge = false;
@@ -37,7 +37,14 @@ class ContentBox extends React.Component {
 			}
 		}
 
-		let favHeart = (vm.props.faved ? <i className="contentbox-favicon icon-heart"></i> : false);
+		let favControls = false;
+
+		if(vm.props.favControls){
+			favControls = <button type="button" className="contentbox-favicon"><i className={'icon-'+(vm.props.faved ? 'heart' : 'heart-empty')}></i></button>
+		}
+		else if(vm.props.faved){
+			favControls = <span className="contentbox-favicon"><i className="icon-heart"></i></span>
+		}
 
 		const Wrap = (this.props.url ? Link : 'div');
 
@@ -49,19 +56,19 @@ class ContentBox extends React.Component {
 					<Wrap className="contentbox-innerwrap" href={this.props.url}>
 						<div className="contentbox-imagewrap">
 							{badge}
-							{favHeart}
+							{favControls}
 							<Image bg contain className="contentbox-image" src={vm.props.image} />
 						</div>
 						<div className="contentbox-content">
 							<strong className="contentbox-title">{vm.props.title}</strong>
-							{(vm.props.subtitle || vm.props.price) && (
-								<div className="contentbox-info">
-									<p className="info-subtitle">{vm.props.subtitle}</p>
-									{vm.props.price && <strong className="info-price">{formatNumber(vm.props.price)} TL</strong>}
-								</div>
+							{(vm.props.subtitle) && (
+								<p className="contentbox-subtitle">{vm.props.subtitle}</p>
 							)}
 							{((vm.props.labels.length || bottomNote || !vm.props.additionsOptional) ?
-								<div className="content-additions">
+								<div className="contentbox-additions">
+									{vm.props.additionTitle && (
+										<div className="additions-title">{vm.props.additionTitle}</div>
+									)}
 									{((vm.props.labels.length) ?
 										<div className="additions-labels">
 											{vm.props.labels.map((label, nth) => {
@@ -83,7 +90,7 @@ class ContentBox extends React.Component {
 					<Wrap className="contentbox-innerwrap" href={this.props.url}>
 						<div className="contentbox-imagewrap">
 							{badge}
-							{favHeart}
+							{favControls}
 							<Image bg className="contentbox-image" src={vm.props.image} />
 						</div>
 						<div className="contentbox-content">
@@ -95,7 +102,7 @@ class ContentBox extends React.Component {
 								</div>
 							)}
 							{((vm.props.labels.length || bottomNote || !vm.props.additionsOptional) ?
-								<div className="content-additions">
+								<div className="contentbox-additions">
 									{((vm.props.labels.length) ?
 										<div className="additions-labels">
 											{vm.props.labels.map((label, nth) => {
@@ -134,4 +141,5 @@ ContentBox.defaultProps = {
 	additionsOptional: false,
 	faved: false,
 	type: 'regular',
+	faveControls: false,
 };

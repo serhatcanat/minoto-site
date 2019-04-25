@@ -127,11 +127,12 @@
 	],
 	"results": [
 		{
+			"id": 1,
 			"type": "advert",
-			"title": "Volvo S90 T8 Twin Engine eAWD Inscription",
-			"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
+			"title": "Doğuş Otomotiv",
+			"dealer": "İSTİNYE - ÜSKÜDAR - KAĞITHANE",
 			"link": "/bayiler/21",
-			"faved" : false,
+			"favorited" : false,
 			"count": 192,
 			"image": "/dummy/images/dealer-2.jpg",
 			"labels": [
@@ -141,11 +142,12 @@
 			]
 		},
 		{
+			"id": 1,
 			"type": "advert",
-			"title": "BMW 118i, Joy Plus",
-			"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
+			"title": "Volcar Otomotiv Sanayii",
+			"dealer": "İSTİNYE - ÜSKÜDAR - KAĞITHANE",
 			"link": "/bayiler/21",
-			"faved" : true,
+			"favorited" : true,
 			"count": 192,
 			"image": "/dummy/images/dealer-3.jpg",
 			"labels": [
@@ -155,25 +157,26 @@
 			]
 		},
 		{
+			"id": 1,
 			"type": "advert",
-			"title": "BMW 118i, Joy Plus",
-			"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
+			"title": "Kosifler Oto",
+			"dealer": "İSTİNYE - ÜSKÜDAR - KAĞITHANE",
 			"link": "/bayiler/21",
-			"faved" : true,
+			"favorited" : false,
 			"count": 192,
 			"image": "/dummy/images/dealer-2.jpg",
 			"labels": [
 				"Audi",
-				"BMW",
-				"Volkswagen"
+				"BMW"
 			]
 		},
 		{
+			"id": 1,
 			"type": "advert",
-			"title": "BMW 118i, Joy Plus",
-			"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
+			"title": "Borusan Oto",
+			"dealer": "İSTİNYE - ÜSKÜDAR - KAĞITHANE",
 			"link": "/bayiler/21",
-			"faved" : true,
+			"favorited" : false,
 			"count": 192,
 			"image": "/dummy/images/dealer-4.jpg",
 			"labels": [
@@ -183,11 +186,12 @@
 			]
 		},
 		{
+			"id": 1,
 			"type": "advert",
-			"title": "BMW 118i, Joy Plus",
-			"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
+			"title": "Borusan Oto",
+			"dealer": "İSTİNYE - ÜSKÜDAR - KAĞITHANE",
 			"link": "/bayiler/21",
-			"faved" : true,
+			"favorited" : false,
 			"count": 192,
 			"image": "/dummy/images/dealer-2.jpg",
 			"labels": [
@@ -197,11 +201,12 @@
 			]
 		},
 		{
+			"id": 1,
 			"type": "advert",
 			"title": "BMW 118i, Joy Plus",
-			"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
+			"dealer": "İSTİNYE - ÜSKÜDAR - KAĞITHANE",
 			"link": "/bayiler/21",
-			"faved" : true,
+			"favorited" : false,
 			"count": 192,
 			"image": "/dummy/images/dealer-2.jpg",
 			"labels": [
@@ -211,11 +216,12 @@
 			]
 		},
 		{
+			"id": 1,
 			"type": "advert",
 			"title": "BMW 118i, Joy Plus",
-			"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
+			"dealer": "İSTİNYE - ÜSKÜDAR - KAĞITHANE",
 			"link": "/bayiler/21",
-			"faved" : true,
+			"favorited" : false,
 			"count": 192,
 			"image": "/dummy/images/dealer-2.jpg",
 			"labels": [
@@ -225,11 +231,12 @@
 			]
 		},
 		{
+			"id": 1,
 			"type": "advert",
 			"title": "BMW 118i, Joy Plus",
-			"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
+			"dealer": "İSTİNYE - ÜSKÜDAR - KAĞITHANE",
 			"link": "/bayiler/21",
-			"faved" : true,
+			"favorited" : false,
 			"count": 192,
 			"image": "/dummy/images/dealer-2.jpg",
 			"labels": [
