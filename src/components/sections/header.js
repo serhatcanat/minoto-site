@@ -3,6 +3,7 @@ import React from 'react'
 // Partials
 import Image from 'components/partials/image'
 import Link from 'components/partials/link'
+import Slider from 'components/partials/slider'
 
 // Assets
 import image_icon_facebook from 'assets/images/icon/facebook.svg'
@@ -26,18 +27,24 @@ export default class Header extends React.Component {
 
 	componentDidUpdate(prevProps, prevState) {
 		let vm = this;
+		let scrollBarWidth = window.innerWidth - document.documentElement.clientWidth
+
 		if(prevState.menuOpen !== vm.state.menuOpen){
 			if(vm.menuTimeout !== false){ clearTimeout(vm.menuTimeout); }
 			if(vm.state.menuOpen === true){
 				vm.setState({ menuActive: true });
 				vm.menuTimeout = setTimeout(function() {
 					vm.setState({ menuShow: true });
+					document.documentElement.style.marginRight = scrollBarWidth + 'px'
+					document.body.classList.add('block-overflow');
 				}, 20);
 			}
 			else {
 				vm.setState({ menuShow: false });
 				vm.menuTimeout = setTimeout(function() {
 					vm.setState({ menuActive: false });
+					document.documentElement.style.marginRight = ''
+					document.body.classList.remove('block-overflow');
 				}, 600);
 			}
 		}
@@ -60,9 +67,9 @@ export default class Header extends React.Component {
 						
 						<Link className="nav-link" navLink href="dealers">Tüm Bayiler</Link>
 						
-						<a className="nav-link" href="/">Üye Ol</a>
+						<Link className="nav-link" href="/">Üye Ol</Link>
 						
-						<a className="nav-link" href="/">Giriş Yap</a>
+						<Link className="nav-link" href="/">Giriş Yap</Link>
 
 						<button className={"nav-menubtn" + (vm.state.menuOpen ? ' open' : '')} onClick={vm.toggleMenu}>
 							<div className="menubtn-inner">
@@ -75,54 +82,95 @@ export default class Header extends React.Component {
 
 						{vm.state.menuActive && (
 							<div className={"nav-menu" + (vm.state.menuShow ? ' show' : '')}>
-								<div className="menu-content">
-									<div className="content-innerwrap">
-										<div className="menu-header">
-											<Image className="menu-logo" src={image_logo_primary} />
+								<div className="menu-outerwrap">
+									<Slider className="menu-content" scrollBar>
+										<div className="content-innerwrap">
+											<div className="menu-header">
+												<Image className="menu-logo" src={image_logo_primary} />
 
-											<div className="menu-social">
-												<a href="http://www.facebook.com" target="_blank" rel="noopener noreferrer" title="Bizi Instagram'da Takip Edin">
-													<Image src={image_icon_instagram} alt="Instagram" />
-												</a>
-												<a href="http://www.facebook.com" target="_blank" rel="noopener noreferrer" title="Bizi YouTube'da Takip Edin">
-													<Image src={image_icon_youtube} alt="YouTube" />
-												</a>
-												<a href="http://www.facebook.com" target="_blank" rel="noopener noreferrer" title="Bizi Facebook'da Takip Edin">
-													<Image src={image_icon_facebook} alt="Facebook" />
-												</a>
+												<div className="menu-social">
+													<Link href="http://www.facebook.com" target="_blank" rel="noopener noreferrer" title="Bizi Instagram'da Takip Edin">
+														<Image src={image_icon_instagram} alt="Instagram" />
+													</Link>
+													<Link href="http://www.facebook.com" target="_blank" rel="noopener noreferrer" title="Bizi YouTube'da Takip Edin">
+														<Image src={image_icon_youtube} alt="YouTube" />
+													</Link>
+													<Link href="http://www.facebook.com" target="_blank" rel="noopener noreferrer" title="Bizi Facebook'da Takip Edin">
+														<Image src={image_icon_facebook} alt="Facebook" />
+													</Link>
+												</div>
+											</div>
+
+											<ul className="menu-items">
+												<li className="menu-item">
+													<Link href="/">
+														<span>Bayiler</span>
+														<span className="item-count">192</span>
+													</Link>
+												</li>
+												<li className="menu-item">
+													<Link href="/">
+														<span>Markalar</span>
+														<span className="item-count">82</span>
+													</Link>
+												</li>
+												<li className="menu-item">
+													<Link href="/">
+														<span>Minoto Nedir?</span>
+													</Link>
+												</li>
+												<li className="menu-item">
+													<Link href="/">
+														<span>Blog</span>
+													</Link>
+												</li>
+												<li className="menu-item">
+													<Link href="/">
+														<span>İletişim</span>
+													</Link>
+												</li>
+											</ul>
+
+											<ul className="menu-sublinks">
+												<li className="sublinks-item">
+													<Link href="/">Araç Karşılaştır</Link>
+												</li>
+												<li className="sublinks-item">
+													<Link href="/">Araç Liste Fiyatları</Link>
+												</li>
+												<li className="sublinks-item">
+													<Link href="/">Sıkça Sorulan Sorular</Link>
+												</li>
+												<li className="sublinks-item">
+													<Link href="/">Nasıl Bayi Olurum?</Link>
+												</li>
+											</ul>
+
+											<ul className="menu-thumblinks">
+												<li className="thumblinks-item">
+													<Link href="/">
+														<Image className="thumblinks-image" src="/dummy/images/sidemenu-thumb.jpg" />
+														Volvo XC 40 İncelemesi
+													</Link>
+												</li>
+												<li className="thumblinks-item">
+													<Link href="/">
+														<Image className="thumblinks-image" src="/dummy/images/sidemenu-thumb.jpg" />
+														VW T-Cross İlk İnceleme
+													</Link>
+												</li>
+											</ul>
+
+											<div className="menu-applinks">
+												<Link className="applinks-link btn block white" href="http://www.google.com" target="_blank" rel="noopener noreferrer">
+													<i className="icon-appstore pre"></i> Apple Store
+												</Link>
+												<Link className="applinks-link btn block white" href="http://www.google.com" target="_blank" rel="noopener noreferrer">
+													<i className="icon-playstore pre"></i> Google Play
+												</Link>
 											</div>
 										</div>
-
-										<ul className="menu-items">
-											<li className="menu-item">
-												<a href="/">
-													<span>Bayiler</span>
-													<span className="item-count">192</span>
-												</a>
-											</li>
-											<li className="menu-item">
-												<a href="/">
-													<span>Markalar</span>
-													<span className="item-count">82</span>
-												</a>
-											</li>
-											<li className="menu-item">
-												<a href="/">
-													<span>Minoto Nedir?</span>
-												</a>
-											</li>
-											<li className="menu-item">
-												<a href="/">
-													<span>Blog</span>
-												</a>
-											</li>
-											<li className="menu-item">
-												<a href="/">
-													<span>İletişim</span>
-												</a>
-											</li>
-										</ul>
-									</div>
+									</Slider>
 								</div>
 							</div>
 						)}

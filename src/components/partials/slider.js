@@ -23,8 +23,13 @@ export default class Slider extends React.Component {
 	}
 
 	componentDidMount(){
-		if(this.container.current){
-			this.instance = new Swiper('#' + this.id, this.state.opts);
+		let vm = this;
+		if(vm.container.current){
+			vm.instance = new Swiper('#' + vm.id, vm.state.opts);
+
+			setTimeout(function(){
+				vm.instance.update();
+			}, 50);
 		}
 	}
 
@@ -43,13 +48,17 @@ export default class Slider extends React.Component {
 		let opts = {}
 
 		if(vm.props.scrollBar){
-			opts.direction = 'vertical';
-			opts.freeMode = true;
-			opts.slidesPerView = 'auto';
-			opts.scrollbar = {
-				el: '.swiper-scrollbar'
-			};
-			opts.mousewheel = true;
+			opts = extend({}, opts, {
+				direction: 'vertical',
+				freeMode: true,
+				slidesPerView: 'auto',
+				mousewheel: {
+					sensitivity: 0.6,
+				},
+				scrollbar: {
+					el: '.swiper-scrollbar',
+				}
+			});
 		}
 
 		return extend({}, opts, vm.props.opts);

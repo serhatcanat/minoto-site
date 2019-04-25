@@ -1,4 +1,5 @@
 @include font-face('Barlow', '../fonts/Barlow-ExtraLight', $weight-extralight);
+@include font-face('Barlow', '../fonts/Barlow-Regular', $weight-regular);
 @include font-face('Barlow', '../fonts/Barlow-Medium', $weight-medium);
 @include font-face('Barlow', '../fonts/Barlow-SemiBold', $weight-semibold);
 
@@ -8,7 +9,7 @@
 
 @mixin font-extralight{ font-weight: $weight-extralight; }
 //@mixin font-light{ font-weight: $weight-light; }
-//@mixin font-regular{ font-weight: $weight-regular; }
+@mixin font-regular{ font-weight: $weight-regular; }
 @mixin font-medium{ font-weight: $weight-medium; }
 @mixin font-semibold{ font-weight: $weight-semibold; }
 //@mixin font-bold{ font-weight: $weight-bold; }

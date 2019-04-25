@@ -123,6 +123,7 @@
 				bottom: 0;
 				z-index: 5;
 				background: rgba($color-black, .7);
+				color: $color-text-negative;
 				opacity: 0;
 				transition: opacity $transition-anim-fast ease $transition-anim-fast;
 
@@ -130,7 +131,7 @@
 					opacity: 1;
 					transition: opacity $transition-anim-fast ease;
 
-					.menu-content {
+					.menu-outerwrap {
 						opacity: 1;
 						transform: translate3d(0, 0, 0);
 						transition: transform $transition-anim-fast ease ($transition-anim-fast/2), opacity $transition-anim-fast ease ($transition-anim-fast/2);
@@ -144,7 +145,7 @@
 				}
 			}
 
-				.menu-content {
+				.menu-outerwrap {
 					background-color: $color-text;
 					color: $color-text-negative;
 					position: absolute;
@@ -153,15 +154,24 @@
 					height: 100%;
 					width: 58.4rem;
 					opacity: 0;
-					padding: 10.1rem 8.1rem 0 6.3rem;
 					transform: translate3d(100%, 0, 0);
 					transition: transform $transition-anim-fast ease, opacity $transition-anim-fast ease 100ms;
 				}
 
+				.menu-content {
+					position: absolute;
+					top: 0;
+					left: 0;
+					right: 0;
+					bottom: 0;				
+				}
+
 					.content-innerwrap {
 						opacity: 0;
+						font-size: 1.4rem;
 						transform: translate3d(20%, 0, 0);
 						transition: transform $transition-anim-fast ease, opacity $transition-anim-fast ease 100ms;
+						padding: 10.1rem 8.1rem 5rem 6.3rem;
 					}
 
 				.menu-header {
@@ -212,6 +222,50 @@
 
 						+ .menu-item {
 							border-top: .1rem solid rgba($color-text-negative, .2);
+						}
+					}
+
+				.menu-sublinks {
+					@include font-regular;
+					font-size: 1.4rem;
+					text-transform: uppercase;
+					margin-top: 4rem;
+				}
+
+					.sublinks-item {
+						display: inline-block;
+						margin-right: 5rem;
+						margin-bottom: 2rem;
+					}
+
+				.menu-thumblinks {
+					margin-top: 6rem;
+				}
+
+					.thumblinks-item {
+						@include font-regular;
+						display: inline-block;
+						width: 21rem;
+
+						&:nth-child(2n+2){
+							margin-left: 2rem;
+						}
+					}
+
+					.thumblinks-image {
+						margin-bottom: 1.2rem;
+					}
+
+				.menu-applinks {
+					margin-top: 8rem;
+				}
+
+					.applinks-link{
+						display: inline-block;
+						width: calc(50% - 1rem);
+
+						+ .applinks-link {
+							margin-left: 2rem;
 						}
 					}
 	}
