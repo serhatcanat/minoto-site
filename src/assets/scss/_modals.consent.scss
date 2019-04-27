@@ -1,0 +1,15 @@
+.modal-container.modal-consent{
+	.modal-closebtn {
+		background-color: $color-gray-light;
+		color: $color-text;
+
+		&:hover, &:active {
+			color: $color-text-negative;
+			background-color: $color-text;
+		}
+	}
+
+	.consent-banner {
+		width: 100%;
+	}
+}

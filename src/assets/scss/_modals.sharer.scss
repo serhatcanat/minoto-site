@@ -1,0 +1,83 @@
+.modal-container.modal-sharer{
+	.modal-innercontent {
+		padding-top: 1.6rem;
+	}
+
+	.sharer-title {
+		font-size: 1.6rem;
+	}
+
+	.sharer-media {
+		padding: 5.3rem 0 3rem;
+		text-align: center;
+	}
+
+		.media-link {
+			display: inline-block;
+			position: relative;
+			width: 6rem;
+			height: 6rem;
+			font-size: 2.8rem;
+			border-radius: 50%;
+			background: $color-text;
+			color: $color-text-negative;
+			transition: background-color $transition-hover ease;
+
+			i {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				transform: translate3d(-50%, -50%, 0);
+			}
+
+			+ .media-link {
+				margin-left: 4.8rem;
+			}
+
+			&.facebook {
+				background-color: $color-facebook;
+				&:hover, &:active {
+					background-color: darken($color-facebook, 10);
+				}
+			}
+
+			&.twitter {
+				background-color: $color-twitter;
+				&:hover, &:active {
+					background-color: darken($color-twitter, 10);
+				}
+			}
+
+			&.whatsapp {
+				background-color: $color-whatsapp;
+				&:hover, &:active {
+					background-color: darken($color-whatsapp, 7);
+				}
+			}
+
+			&:hover, &:active {
+				background-color: darken($color-text, 15);
+			}
+		}
+
+	.sharer-info {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		border-top: .1rem solid $color-gray;
+		padding: 1.9rem 0 0;
+	}
+
+		.info-link {
+			font-size: 1.8rem;
+		}
+
+		.info-copy {
+			border-color: $color-gray;
+			width: 13.5rem;
+
+			&:hover, &:active {
+				border-color: $color-primary;
+			}
+		}
+}

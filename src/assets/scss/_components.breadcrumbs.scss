@@ -1,0 +1,22 @@
+.breadcrumbs {
+	@include font-medium;
+	font-size: 0;
+	letter-spacing: 0;
+	color: $color-text-light;
+
+	.breadcrumbs-item {
+		font-size: 1.2rem;
+		display: inline-block;
+		text-transform: uppercase;
+
+		+ .breadcrumbs-item {
+			&:before{
+				@include icon('caret-right');
+				font-size: .6em;
+				display: inline-block;
+				vertical-align: middle;
+				margin: -.2rem .5rem 0;
+			}
+		}
+	}
+}

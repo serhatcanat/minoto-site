@@ -7,19 +7,38 @@
 	line-height: 2rem;
 	padding: 1.3rem 1rem;
 	text-align: center;
-	transition: background-color $transition-hover ease, color $transition-hover ease;
+	border: .1rem solid $color-primary;
+	transition: background-color $transition-hover ease, color $transition-hover ease, border-color $transition-hover ease;
 
 	&:hover, &:active{
 		background-color: darken($color-primary, 10);
+		border-color: darken($color-primary, 10);
+	}
+
+	&.hollow {
+		background-color: transparent;
+		color: $color-primary;
+
+		&:hover, &:active {
+			background-color: darken($color-primary, 10);
+			color: $color-text-negative;
+		}
 	}
 
 	// Colors
 	&.white {
 		background-color: $color-white;
 		color: $color-primary;
+		border-color: $color-white;
 
 		&:hover, &:active {
 			background-color: darken($color-white, 10);
+			border-color: darken($color-white, 10);
+		}
+
+		&.hollow {
+			background-color: transparent;
+			color: $color-text;
 		}
 	}
 
@@ -27,6 +46,24 @@
 	&.block {
 		width: 100%;
 		display: block;
+	}
+
+	&.uppercase {
+		text-transform: uppercase;
+	}
+
+	&.big {
+		font-size: 1.4rem;
+	}
+
+	&.wide {
+		padding-left: 2.4rem;
+		padding-right: 2.4rem;
+	}
+
+	&.low {
+		padding-top: .7rem;
+		padding-bottom: .8rem;	
 	}
 
 	// Inner Elements

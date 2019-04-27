@@ -15,6 +15,9 @@
 @import '_components.forms.scss';
 @import '_components.loader.scss';
 @import '_components.searchbar.scss';
+@import '_components.breadcrumbs.scss';
+
+@import '_modals.scss';
 
 @import '_sections.header.scss';
 @import '_sections.footer.scss';
@@ -22,3 +25,5 @@
 
 @import '_pages.home.scss';
 @import '_pages.dealers.scss';
+@import '_pages.sitemap.scss';
+@import '_pages.detail.scss';

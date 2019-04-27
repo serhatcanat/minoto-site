@@ -10,7 +10,7 @@ import { formatNumber } from 'functions/helpers.js';
 import extend from 'lodash/extend'; 
 
 // Assets
-import image_default from 'assets/images/contentbox-placeholder.jpg'
+import image_default from 'assets/images/defaults/contentbox-placeholder.jpg'
 
 class ContentBox extends React.Component {
 	render() {

@@ -1,0 +1,23 @@
+.modal-container.modal-confirm{
+	.confirm-question {
+		text-align: center;
+		font-size: 1.8rem;
+		line-height: 2.6rem;
+		padding: 0 2rem;
+	}
+
+	.confirm-opts {
+		margin-top: 3.6rem;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between;
+	}
+
+		.opts-opt {
+			flex: 1;
+
+			+ .opts-opt {
+				margin-left: 2rem;
+			}
+		}
+}

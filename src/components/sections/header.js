@@ -5,6 +5,9 @@ import Image from 'components/partials/image'
 import Link from 'components/partials/link'
 import Slider from 'components/partials/slider'
 
+// Deps
+import { openModal } from "functions/modals";
+
 // Assets
 import image_icon_facebook from 'assets/images/icon/facebook.svg'
 import image_icon_instagram from 'assets/images/icon/instagram.svg'
@@ -69,7 +72,7 @@ export default class Header extends React.Component {
 						
 						<Link className="nav-link" href="/">Üye Ol</Link>
 						
-						<Link className="nav-link" href="/">Giriş Yap</Link>
+						<button className="nav-link" onClick={() => {openModal('login')}}>Giriş Yap</button>
 
 						<button className={"nav-menubtn" + (vm.state.menuOpen ? ' open' : '')} onClick={vm.toggleMenu}>
 							<div className="menubtn-inner">

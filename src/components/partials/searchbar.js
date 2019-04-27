@@ -9,7 +9,7 @@ import debounce from 'lodash/debounce'
 import axios from 'axios'
 
 // Assets
-import image_autocomplete_default from 'assets/images/autocomplete-default.jpg'
+import image_autocomplete_default from 'assets/images/defaults/autocomplete-thumb.jpg'
 
 export default class SearchBar extends React.Component{
 	constructor(props) {

@@ -74,6 +74,7 @@ export default class ProductListing extends React.Component {
 	filtersToQuery() {
 		let newQuery = serialize(this.formRef.current, '|', true)
 		if(history.location.search !== '?'+newQuery){
+			console.log(this.state.initialLoad)
 			window.dynamicHistory.push((newQuery !== '' ? '?'+newQuery : ''));
 		}
 	}

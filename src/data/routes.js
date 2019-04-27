@@ -19,5 +19,12 @@ module.exports = {
 		exact: true,
 		linkTitle: "Bayiler",
 		title: "Bayiler"
+	},
+	detail: {
+		path: "/ilan/:id/:prettylink?",
+		component: "Detail",
+		exact: true,
+		linkTitle: "İlan Detay",
+		title: "İlan Detay"
 	}
 }

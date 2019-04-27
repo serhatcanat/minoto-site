@@ -1,0 +1,22 @@
+.page{
+	&.sitemap {
+		padding: 5rem 0;
+		h1 {
+			margin: 0 0 5rem;
+		}
+		section {
+			+ section {
+				margin-top: 5rem;
+			}
+
+			.btn {
+				min-width: 20rem;
+				margin-right: 2rem;
+			}
+		}
+
+		h2 {
+			margin-bottom: 2rem;
+		}
+	}
+}

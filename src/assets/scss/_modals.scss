@@ -1,0 +1,120 @@
+.modal-container {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 20;
+
+	.modal-overlay {
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba($color-black,.6);
+		opacity: 0;
+		transition: opacity 300ms ease 200ms;
+		z-index: 1;
+	}
+
+	.modal-outerwrap {
+		position: absolute;
+		z-index: 2;
+		top: 0;
+		left: 0;
+		overflow: auto;
+		overflow-x: hidden;
+		overflow-y: auto;
+		width: 100%;
+		height: 100%;
+		-webkit-backface-visibility: hidden;
+	}
+
+	.modal-content {
+		position: relative;
+		margin: 10vh auto 5rem;
+		background-color: $color-white;
+		border-radius: $radius-general;
+		max-width: calc(100% - 10rem);
+		width: 90rem;
+		box-shadow: $shadow-general;
+		opacity: 0;
+		z-index: 2;
+		transform: translateY(-1.5rem);
+		transition: opacity $transition-anim ease, transform $transition-anim-fast ease;
+		-webkit-backface-visibility: hidden;
+	}
+
+	.modal-innercontent {
+		padding: 2.6rem 2rem 2rem;
+	}
+	
+	.modal-closebtn {
+		position: absolute;
+		top: 1.4rem;
+		right: 1.4rem;
+		color: $color-text-negative;
+		background-color: $color-text;
+		width: 2.4rem;
+		height: 2.4rem;
+		border-radius: 50%;
+		font-size: .8rem;
+		transition: color $transition-hover ease, background-color $transition-hover ease;
+
+		&:hover, &:active {
+			color: $color-text;
+			background-color: $color-gray-light;
+		}
+	}
+
+	/*.modal-loader {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 40;
+		background-color: $color-gray-light;
+		opacity: 0;
+		transition: opacity $transition-hover ease;
+		border-radius: $radius-general;
+
+		i {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			color: $color-gray;
+			font-size: 3rem;
+		}
+
+		&.show {
+			opacity: 1;
+		}
+	}*/
+
+	&.show {
+		.modal-overlay {
+			opacity: 1;
+			transition: opacity $transition-anim-fast ease;
+		}
+
+		.modal-content {
+			opacity: 1;
+			transform: translateY(0);
+			transition: opacity $transition-anim-fast ease $transition-hover, transform $transition-anim-fast ease $transition-hover;
+		}
+	}
+
+	&.narrow {
+		.modal-content {
+			width: 50rem;
+		}
+	}
+}
+
+@import '_modals.login.scss';
+@import '_modals.confirm.scss';
+@import '_modals.consent.scss';
+@import '_modals.sharer.scss';

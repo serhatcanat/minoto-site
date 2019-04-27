@@ -9,11 +9,13 @@ import routes from 'data/routes'
 import Home from 'pages/home'
 import Sitemap from 'pages/sitemap'
 import Dealers from 'pages/dealers'
+import Detail from 'pages/detail'
 
 const pageRegistry = {
 	Home: Home,
 	Sitemap: Sitemap,
 	Dealers: Dealers,
+	Detail: Detail,
 }
 
 export default class Navigator extends React.Component {
@@ -53,4 +55,10 @@ export default class Navigator extends React.Component {
 			</main>
 		)
 	}
+}
+
+export function ListingLink (params) {
+	return '/ara/?' + params.map(function(param, nth){
+		return param.key + '=' + param.val;
+	});
 }
