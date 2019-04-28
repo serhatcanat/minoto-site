@@ -6,6 +6,15 @@
 			height: auto;
 			box-sizing: border-box;
 		}
+
+		.swiper-scrollbar {
+			background-color: transparent;
+			border-radius: $radius-general;
+		}
+
+		.swiper-scrollbar-drag {
+			background-color: rgba(#8697a8, 0.5);
+		}
 	}
 
 }

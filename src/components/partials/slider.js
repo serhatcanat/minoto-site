@@ -12,24 +12,25 @@ export default class Slider extends React.Component {
 	constructor(props) {
 		super(props);
 
-		this.state = {
+		/*this.state = {
 			opts: this.setOpts()
-		};
+		};*/
 
 		this.instance = false;
 		this.container = React.createRef();
 		this.setOpts = this.setOpts.bind(this);
+		this.slideChanged = this.slideChanged.bind(this);
 		this.id = (this.props.id ? this.props.id : uid('slider'));
 	}
 
 	componentDidMount(){
 		let vm = this;
 		if(vm.container.current){
-			vm.instance = new Swiper('#' + vm.id, vm.state.opts);
+			vm.instance = new Swiper('#' + vm.id, vm.setOpts());
 
 			setTimeout(function(){
 				vm.instance.update();
-			}, 50);
+			}, 100);
 		}
 	}
 
@@ -43,17 +44,49 @@ export default class Slider extends React.Component {
 		this.instance.destroy(true);
 	}
 
+	update() {
+		this.instance.update();
+		if(this.instance.params.loop){
+			this.instance.loopDestroy();
+			this.instance.loopCreate();
+		}
+	}
+
+	next() {
+		this.instance.slideNext();
+	}
+
+	prev() {
+		this.instance.slidePrev();
+	}
+
+	slideChanged(e){
+		if(this.instance){
+			if(this.props.onChange){
+				this.props.onChange(this.instance.realIndex);
+			}
+		}
+	}
+
 	setOpts() {
 		let vm = this;
-		let opts = {}
+		let opts = {
+			loop: vm.props.loop,
+			loopedSlides: 1,
+			slidesPerView: vm.props.slides,
+			on: {
+				slideChange: function(){ vm.slideChanged(); }
+			}
+		}
 
 		if(vm.props.scrollBar){
 			opts = extend({}, opts, {
-				direction: 'vertical',
+				direction: (vm.props.horizontal ? 'horizontal' : 'vertical'),
 				freeMode: true,
 				slidesPerView: 'auto',
 				mousewheel: {
 					sensitivity: 0.6,
+					releaseOnEdges: true,
 				},
 				scrollbar: {
 					el: '.swiper-scrollbar',
@@ -87,5 +120,7 @@ Slider.defaultProps = {
 	className: "",
 	scrollBar: false,
 	id: false,
+	loop: false,
+	slides: 1,
 	opts: {},
 };

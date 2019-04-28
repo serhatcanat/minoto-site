@@ -2,6 +2,7 @@
 @include font-face('Barlow', '../fonts/Barlow-Regular', $weight-regular);
 @include font-face('Barlow', '../fonts/Barlow-Medium', $weight-medium);
 @include font-face('Barlow', '../fonts/Barlow-SemiBold', $weight-semibold);
+@include font-face('Barlow', '../fonts/Barlow-Bold', $weight-bold);
 
 @mixin font-main{
 	font-family: 'Barlow', Arial, Helvetica, sans-serif;
@@ -12,7 +13,7 @@
 @mixin font-regular{ font-weight: $weight-regular; }
 @mixin font-medium{ font-weight: $weight-medium; }
 @mixin font-semibold{ font-weight: $weight-semibold; }
-//@mixin font-bold{ font-weight: $weight-bold; }
+@mixin font-bold{ font-weight: $weight-bold; }
 
 html{
 	position: relative;
@@ -33,6 +34,7 @@ body{
 	opacity: 1;
 	margin: 0;
 	padding: 0;
+	overflow-x: hidden;
 	//background-color: $color-white;
 
 	&.block-overflow {

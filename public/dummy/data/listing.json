@@ -210,9 +210,9 @@
 		},
 		{
 			"type": "advert",
-			"title": "BMW 118i, Joy Plus",
+			"title": "BMW 118i, Joy",
 			"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
-			"status": 1,
+			"status": 3,
 			"image": "/dummy/images/product-thumb.jpg",
 			"price": 1900000,
 			"currentViewers": 0,

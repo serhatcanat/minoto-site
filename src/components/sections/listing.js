@@ -22,7 +22,7 @@ export default class ProductListing extends React.Component {
 			filters: false,
 			loading: true,
 			listingType: 'dealer',
-			query: ((history.location.search && history.location.search !== '') ? history.location.search.replace('?', '') : ''),
+			query: (this.props.query ? this.props.query : ((history.location.search && history.location.search !== '') ? history.location.search.replace('?', '') : '')),
 			initialLoad: false,
 		}
 
@@ -50,7 +50,7 @@ export default class ProductListing extends React.Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		if(!isEqual(prevState.filters, this.state.filters)){
+		if(this.props.filters && !isEqual(prevState.filters, this.state.filters)){
 			console.log('Debug (Filters Updated)');
 			this.filtersToQuery();
 		}
@@ -127,7 +127,7 @@ export default class ProductListing extends React.Component {
 		let vm = this;
 		let itemsAt = 0;
 		return (
-			<section className={"section listing loader-container " + vm.props.className}>
+			<section className={"section listing loader-container " + vm.props.className + (vm.props.filters ? ' has-filters' : '')}>
 				<Loader loading={vm.state.loading || !vm.state.results} strict={!vm.state.initialLoad} />
 				{(vm.props.filters ? (
 					<ProductFilters filters={vm.state.filters} onUpdate={vm.filtersUpdated} ref={vm.formRef} />
@@ -180,7 +180,7 @@ export default class ProductListing extends React.Component {
 															price={item.price}
 															labels={item.labels}
 															faved={item.favorited}
-															badge={(item.status !== 1 ? false : (item.status === 2 ? {text: 'Rezerve', note: '02.02.2019 Tarihine Kadar Opsiyonludur'} : {text : 'Satıldı', type : 'error'}))}
+															badge={(item.status === 1 ? false : (item.status === 2 ? {text: 'Rezerve', note: '02.02.2019 Tarihine Kadar Opsiyonludur'} : {text : 'Satıldı', type : 'error'}))}
 															bottomNote={(item.currentViewers > 0 ? item.currentViewers + ' kişi Bakıyor' : false )}
 															url={item.link}
 														/>
@@ -214,8 +214,10 @@ export default class ProductListing extends React.Component {
 ProductListing.defaultProps = {
 	className : '',
 	filters: true,
+	urlBinding: true,
 	source: '/dummy/data/listing.json',
 	showAds: true,
+	query: false,
 };
 
 // Filters

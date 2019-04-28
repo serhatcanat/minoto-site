@@ -1,4 +1,6 @@
 .btn {
+	@include font-semibold;
+	position: relative;
 	border-radius: $radius-general;
 	display: inline-block;
 	background-color: $color-primary;
@@ -39,6 +41,33 @@
 		&.hollow {
 			background-color: transparent;
 			color: $color-text;
+
+			&:hover, &:active {
+				background-color: darken($color-white, 10);
+				color: $color-primary;
+			}
+		}
+	}
+
+	&.dark {
+		background-color: $color-gray;
+		color: $color-text;
+		border-color: $color-gray;
+
+		&:hover, &:active {
+			background-color: darken($color-gray, 10);
+			border-color: darken($color-gray, 10);
+		}
+
+		&.hollow {
+			background-color: transparent;
+			color: $color-text;
+
+			&:hover, &:active {
+				background-color: $color-gray;
+				border-color: $color-gray;
+				color: $color-text;
+			}
 		}
 	}
 
@@ -66,6 +95,22 @@
 		padding-bottom: .8rem;	
 	}
 
+	&.small-icon {
+		i {
+			font-size: .9rem;
+		}
+	}
+
+	&.has-info {
+		padding-right: 2.6rem;
+		padding-left: 2.6rem;
+	}
+
+	// States
+	&:disabled {
+		opacity: 0.5
+	}
+
 	// Inner Elements
 	i {
 		display: inline-block;
@@ -79,6 +124,22 @@
 
 		&.post {
 			margin-left: 1rem;
+		}
+	}
+
+	.btn-info {
+		position: absolute;
+		right: 1rem;
+		top: 50%;
+		transform: translate3d(0, -25%, 0);
+		font-size: 1.4rem;
+		height: 1.4rem;
+		line-height: 1.4rem;
+		opacity: .5;
+		transition: opacity $transition-hover ease;
+
+		&:hover {
+			opacity: 1;
 		}
 	}
 }

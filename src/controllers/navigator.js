@@ -1,7 +1,7 @@
 import React from 'react'
 
 // Deps
-import { Route } from 'react-router-dom'
+import { Route, matchPath } from 'react-router-dom'
 import history from 'controllers/history'
 import routes from 'data/routes'
 
@@ -61,4 +61,38 @@ export function ListingLink (params) {
 	return '/ara/?' + params.map(function(param, nth){
 		return param.key + '=' + param.val;
 	});
+}
+
+export function getActiveRouteKey(url = false, getObject = false){
+	if(url === false) { url = window.location.pathname.replace(/\/$/, ''); }
+
+	let returnData = false;
+
+	Object.keys(routes).forEach((key, index) => {
+		let route = routes[key];
+		let match = matchPath(url, route.path);
+		if (match && match.isExact) {
+			returnData = (getObject ? route : key);
+		}
+	});
+
+	return returnData;
+}
+
+export function getActiveRoute(url = false){
+	return getActiveRouteKey(url, true);
+}
+
+export function changeURLParam(value, param, route = false, noMismatch = false) {
+	let routeObject = (route === false ? getActiveRoute() : routes[route]);
+	let data = false;
+
+	if(routeObject){
+		data = routeObject.path.replace(':'+param+'?', value).replace(':'+param, value);
+		if(noMismatch && data === routeObject.path){
+			data = false;
+		}
+	}
+
+	return data;
 }

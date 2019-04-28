@@ -1,0 +1,31 @@
+.table {
+	border: none;
+	border-collapse: collapse;
+	font-size: 1.4rem;
+
+	td, th {
+		@include font-medium;
+		border: none;
+		padding: 1rem 2rem;
+		line-height: 2rem;
+		text-align: left;
+	}
+
+	td {
+		@include font-bold;
+		color: $color-primary;
+	}
+
+	tr{
+		&:nth-child(odd){
+			td, th {
+				background-color: $color-gray-light;
+			}
+		}
+		&:nth-child(even){
+			td, th {
+				background-color: $color-ice;
+			}
+		}
+	}
+}

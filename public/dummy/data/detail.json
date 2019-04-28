@@ -1,0 +1,252 @@
+{
+	"status": "ok",
+	"info": {
+		"id": 110289920,
+		"title": "Audi A3, 3.0 T Premium Plus CDI",
+		"price": 182000,
+		"listingPrice": 195000,
+		"date": "17.12.2018",
+		"reserved": true,
+		"reservationEndDate": "03.05.2019",
+		"highlights": [
+			{
+				"title": "2018 Model",
+				"label": "2018"
+			},
+			{
+				"title": "0 KM",
+				"label": "Sıfır KM"
+			},
+			{
+				"title": "Yerli Üretim",
+				"image" : "/dummy/images/filter-domestic-product.svg"
+			}
+		],
+		"mainFeatures": [
+			{
+				"icon": "fuel",
+				"title": "Yakıt",
+				"label" :"Benzin"
+			},
+			{
+				"icon": "transmission",
+				"title": "Vites",
+				"label": "Otomatik"
+			},
+			{
+				"icon": "engine",
+				"title": "Güç",
+				"label": "235 PS"
+			}
+		],
+		"costs": {
+			"total": 30590,
+			"expenses": [
+				{
+					"title": "Ortalama yakıt masrafı (Yıllık 15.000 km için)",
+					"cost": 3590
+				},
+				{
+					"title": "Trafik sigortası primi (Tavsiye edilen)",
+					"cost": 20000
+				},
+				{
+					"title": "Motorlu taşıtlar vergisi (Yıllık toplam)",
+					"cost": 7000
+				}
+			]
+		},
+		"gallery": [
+			{
+				"thumb": "/dummy/images/detail/5.jpg",
+				"medium": "/dummy/images/detail/5.jpg",
+				"full": "/dummy/images/detail/5.jpg"
+			},
+			{
+				"thumb": "/dummy/images/detail/1.jpg",
+				"medium": "/dummy/images/detail/1.jpg",
+				"full": "/dummy/images/detail/1.jpg"
+			},
+			{
+				"thumb": "/dummy/images/detail/2.jpg",
+				"medium": "/dummy/images/detail/2.jpg",
+				"full": "/dummy/images/detail/2.jpg"
+			},
+			{
+				"thumb": "/dummy/images/detail/3.jpg",
+				"medium": "/dummy/images/detail/3.jpg",
+				"full": "/dummy/images/detail/3.jpg"
+			},
+			{
+				"thumb": "/dummy/images/detail/4.jpg",
+				"medium": "/dummy/images/detail/4.jpg",
+				"full": "/dummy/images/detail/4.jpg"
+			},
+			{
+				"thumb": "/dummy/images/detail/6.jpg",
+				"medium": "/dummy/images/detail/6.jpg",
+				"full": "/dummy/images/detail/6.jpg"
+			},
+			{
+				"thumb": "/dummy/images/detail/7.jpg",
+				"medium": "/dummy/images/detail/7.jpg",
+				"full": "/dummy/images/detail/7.jpg"
+			},
+			{
+				"thumb": "/dummy/images/detail/8.jpg",
+				"medium": "/dummy/images/detail/8.jpg",
+				"full": "/dummy/images/detail/8.jpg"
+			},
+			{
+				"thumb": "/dummy/images/detail/9.jpg",
+				"medium": "/dummy/images/detail/9.jpg",
+				"full": "/dummy/images/detail/9.jpg"
+			},
+			{
+				"thumb": "/dummy/images/detail/10.jpg",
+				"medium": "/dummy/images/detail/10.jpg",
+				"full": "/dummy/images/detail/10.jpg"
+			},
+			{
+				"thumb": "/dummy/images/detail/11.jpg",
+				"medium": "/dummy/images/detail/11.jpg",
+				"full": "/dummy/images/detail/11.jpg"
+			},
+			{
+				"thumb": "/dummy/images/detail/13.jpg",
+				"medium": "/dummy/images/detail/13.jpg",
+				"full": "/dummy/images/detail/13.jpg"
+			}
+		],
+		"description": "<h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h2><p>Quisque rutrum consectetur sagittis. Donec quis augue mauris. Suspendisse pulvinar, odio et ultricies pretium, felis lectus volutpat ipsum, et facilisis erat leo in felis. Aenean et ipsum ac eros rhoncus laoreet at sed justo. Suspendisse eu elit feugiat, efficitur tellus ut, ullamcorper sem. Nunc pharetra mauris non augue dictum lobortis. Ut bibendum elementum euismod. Suspendisse condimentum erat in consectetur ornare. Vivamus ac posuere purus. Duis eu dolor sed urna congue pellentesque. Donec eget laoreet metus. Suspendisse malesuada justo quis enim mattis volutpat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec lorem nisi, luctus eget varius eu, venenatis at enim. Fusce vitae ligula facilisis, mattis neque eu, maximus leo.</p><p>Nam ultrices purus vitae justo aliquet, nec luctus augue sollicitudin. Proin id consectetur libero. Curabitur efficitur augue quis quam eleifend, quis laoreet lorem dictum. Donec vel mollis odio. In pretium semper urna, consectetur hendrerit nisi porta at. Quisque volutpat congue magna at vulputate. Nullam sodales quis quam et varius. Sed molestie lacinia justo et porttitor. Suspendisse vitae aliquet sapien. Mauris quis malesuada quam. Nunc efficitur quis tortor sed ullamcorper. Fusce posuere, nibh sit amet lacinia venenatis, metus enim finibus lacus, eget feugiat justo sem ac est. Nunc eu dignissim justo. Praesent mollis felis id leo scelerisque porta. In consectetur ante est, nec pretium velit ullamcorper ut.</p><h3>Morbi laoreet tortor nec sem vulputate mattis.</h3><p>Fusce et urna in nisi ornare imperdiet. Vivamus malesuada purus quis mauris fermentum feugiat. Mauris ullamcorper arcu dolor, vel pulvinar est consectetur id. Duis eu turpis pulvinar, vestibulum justo in, <strong>convallis felis.</strong> Nunc bibendum egestas sapien suscipit tincidunt. Ut eu tempus massa.</p><p>Nam tempus libero quis velit bibendum, a viverra metus varius. Suspendisse semper varius lectus eget consequat. Pellentesque dapibus pellentesque neque, vel tincidunt mi vulputate nec. Donec sollicitudin dictum elementum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam fermentum risus sit amet ligula cursus, et gravida lacus vestibulum. Curabitur interdum massa fermentum odio congue egestas. Proin convallis, lorem vitae ullamcorper commodo, felis tellus blandit nunc, vitae malesuada felis arcu in libero. Donec lacus ex, ultrices eu turpis nec, semper lobortis dolor.</p><p>Vestibulum rhoncus et augue congue egestas. Maecenas ac tellus vel odio convallis ultricies nec porta metus. Maecenas et lectus tellus. Aliquam vitae enim lobortis, consectetur ante ac, fringilla mi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis dignissim, sem quis egestas condimentum, risus mauris ultricies nibh, vitae viverra ipsum ante eget velit. Mauris a metus nec ipsum faucibus porttitor non ac risus. Praesent vehicula turpis at efficitur porta. Duis a quam nec leo gravida gravida. Proin at sem venenatis, tristique neque id, pellentesque lacus. Pellentesque id felis bibendum, malesuada sapien vel, accumsan felis. Nulla iaculis ullamcorper ipsum congue feugiat. Donec ante ipsum, consequat non blandit id, consectetur vel nunc. Aliquam non nulla in justo blandit blandit. Praesent velit ante, gravida sed tincidunt in, eleifend ut tellus.</p>",
+		"technicalSpecs": [
+			{
+				"title": "Genel Bakış",
+				"specs": [
+					{
+						"label": "Araç Tipi",
+						"content": "Binek Araç / C Segment"
+					},
+					{
+						"label": "Kasa Tipi / Kapı Sayısı",
+						"content": "Sedan / 4 Kapı"
+					},
+					{
+						"label": "Renk",
+						"content": "Gri / Antrasit Narrow Grey"
+					},
+					{
+						"label": "Üretim Yılı (İlk / Son)",
+						"content": "2018 / Üretim Devam Ediyor"
+					},
+					{
+						"label": "Yakıt Tüketimi (Şehir içi / Şehir dışı)",
+						"content": "5,4 lt / 3,9 lt"
+					},
+					{
+						"label": "Şanzıman",
+						"content": "S-Tronic / 7 Vites / Önden Çekiş"
+					}
+				]
+			},
+			{
+				"title": "Motor ve Performans",
+				"specs": [
+					{
+						"label": "Araç Tipi",
+						"content": "Binek Araç / C Segment"
+					},
+					{
+						"label": "Kasa Tipi / Kapı Sayısı",
+						"content": "Sedan / 4 Kapı"
+					},
+					{
+						"label": "Motor Tipi",
+						"content": "Benzinli / 3 Silindir"
+					},
+					{
+						"label": "Renk",
+						"content": "Gri / Antrasit Narrow Grey"
+					},
+					{
+						"label": "Üretim Yılı (İlk / Son)",
+						"content": "2018 / Üretim Devam Ediyor"
+					},
+					{
+						"label": "Yakıt Tüketimi (Şehir içi / Şehir dışı)",
+						"content": "5,4 lt / 3,9 lt"
+					},
+					{
+						"label": "Şanzıman",
+						"content": "S-Tronic / 7 Vites / Önden Çekiş"
+					},
+					{
+						"label": "Motor Tipi",
+						"content": "Benzinli / 3 Silindir"
+					}
+				]
+			},
+			{
+				"title": "Diğer Özellikler",
+				"specs": [
+					{
+						"label": "Araç Tipi",
+						"content": "Binek Araç / C Segment"
+					},
+					{
+						"label": "Kasa Tipi / Kapı Sayısı",
+						"content": "Sedan / 4 Kapı"
+					},
+					{
+						"label": "Motor Tipi",
+						"content": "Benzinli / 3 Silindir"
+					},
+					{
+						"label": "Renk",
+						"content": "Gri / Antrasit Narrow Grey"
+					},
+					{
+						"label": "Üretim Yılı (İlk / Son)",
+						"content": "2018 / Üretim Devam Ediyor"
+					},
+					{
+						"label": "Yakıt Tüketimi (Şehir içi / Şehir dışı)",
+						"content": "5,4 lt / 3,9 lt"
+					},
+					{
+						"label": "Şanzıman",
+						"content": "S-Tronic / 7 Vites / Önden Çekiş"
+					},
+					{
+						"label": "Motor Tipi",
+						"content": "Benzinli / 3 Silindir"
+					}
+				]
+			}
+		],
+		"pressGallery": [
+			{
+				"thumb": "/dummy/images/detail/5.jpg",
+				"full": "/dummy/images/detail/5.jpg"
+			},
+			{
+				"thumb": "/dummy/images/detail/1.jpg",
+				"full": "/dummy/images/detail/1.jpg"
+			},
+			{
+				"thumb": "/dummy/images/detail/2.jpg",
+				"full": "/dummy/images/detail/2.jpg"
+			},
+			{
+				"thumb": "/dummy/images/detail/3.jpg",
+				"full": "/dummy/images/detail/3.jpg"
+			},
+			{
+				"thumb": "/dummy/images/detail/4.jpg",
+				"full": "/dummy/images/detail/4.jpg"
+			}
+		],
+		"ncap": 4,
+		"activeViewers": 3
+	}
+}

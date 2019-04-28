@@ -6,6 +6,28 @@
 		display: flex;
 		justify-content: space-between;
 
+		&.has-filters {
+			.listing-content {
+				width: calc(100% - 28rem);
+			}
+
+			.results-item {
+				width: 25%;
+
+				&.x2 {
+					width: 50%;
+				}
+
+				&.x3 {
+					width: 75%;
+				}
+
+				&.x4 {
+					width: 100%;
+				}
+			}
+		}
+
 		.listing-filters {
 			width: 28rem;
 			padding: 2.5rem 2.5rem;
@@ -243,7 +265,7 @@
 
 		.listing-content {
 			padding: 1rem 1.5rem;
-			width: calc(100% - 28rem);
+			width: 100%;
 		}
 
 			.content-results {
@@ -255,19 +277,23 @@
 
 				.results-item {
 					position: relative;
-					width: 25%;
+					width: 20%;
 					padding: 1.5rem;
 					display: flex;
 
 					&.x2 {
-						width: 50%;
+						width: 40%;
 					}
 
 					&.x3 {
-						width: 75%;
+						width: 60%;
 					}
 
 					&.x4 {
+						width: 80%;
+					}
+
+					&.x5 {
 						width: 100%;
 					}
 

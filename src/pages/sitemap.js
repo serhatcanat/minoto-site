@@ -21,6 +21,7 @@ export default class Home extends React.Component {
 						<h2>Sayfalar</h2>
 						<Link className="btn primary" href="home" />
 						<Link className="btn primary" href="detail" params='12345' />
+						<Link className="btn primary" href="dealers" />
 					</section>
 
 					<section>

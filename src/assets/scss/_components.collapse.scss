@@ -1,0 +1,22 @@
+.collapse {
+	display: none;
+	transition: max-height $transition-anim-fast ease, opacity $transition-anim-fast ease;
+	overflow: hidden;
+	opacity: 0;
+
+	&.active {
+		display: block;
+	}
+
+	&.hide {
+		max-height: 0!important;
+	}
+
+	&.show {
+		opacity: 1;
+	}
+
+	&.shown {
+		overflow: visible;
+	}
+}

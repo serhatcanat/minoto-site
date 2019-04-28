@@ -11,29 +11,41 @@ class PopInfo extends React.Component {
 
 		this.show = this.show.bind(this);
 		this.hide = this.hide.bind(this);
+		this.timeout = false;
 	}
 
 	show() {
 		let vm = this;
+		if(vm.timeout){
+			clearTimeout(vm.timeout);
+		}
+
 		vm.setState({active: true});
-		setTimeout(function() {
+		vm.timeout = setTimeout(function() {
 			vm.setState({ show: true });
+			vm.timeout = false;
 		}, 20);
 	}
 
 	hide() {
 		let vm = this;
+		if(vm.timeout){
+			clearTimeout(vm.timeout);
+		}
+
 		vm.setState({show: false});
-		setTimeout(function() {
+		vm.timeout = setTimeout(function() {
 			vm.setState({ active: false });
+			vm.timeout = false;
 		}, 220);
 	}
 
 	render() {
 		let vm = this;
 		let classes = 'popinfo-wrap ' + vm.props.className + (vm.props.nowrap ? ' nowrap' : '');
+		let Tag = vm.props.tag;
 		return (
-			<button className={classes} onMouseOver={vm.show} onMouseLeave={vm.hide}>
+			<Tag className={classes} onMouseOver={vm.show} onMouseLeave={vm.hide}>
 				{vm.props.children}
 				{vm.state.active &&
 					<div className={"popinfo-content"+ (vm.state.show ? ' show' : '')}>
@@ -43,7 +55,7 @@ class PopInfo extends React.Component {
 					</div>
 				}
 
-			</button>
+			</Tag>
 		);
 	}
 }
@@ -54,4 +66,5 @@ PopInfo.defaultProps = {
 	className : '',
 	content: '',
 	nowrap: false,
+	tag: 'button',
 };

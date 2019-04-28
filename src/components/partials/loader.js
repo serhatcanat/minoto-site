@@ -46,7 +46,9 @@ export default class Loader extends React.Component{
 	}
 
 	checkDimensions(){
-		this.setState({ oversize: this.container.current.offsetHeight > this.props.oversizeLimit });
+		if(this.state.active){
+			this.setState({ oversize: this.container.current.offsetHeight > this.props.oversizeLimit });
+		}
 	}
 
 	componentWillUnmount(){

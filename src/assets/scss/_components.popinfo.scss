@@ -1,11 +1,13 @@
 .popinfo-wrap {
 	position: relative;
+	cursor: pointer;
 
 	.popinfo-content {
+		@include font-main;
 		@include font-medium;
 		position: absolute;
 		top: calc(100%);
-		left: 0;
+		left: -1.7rem;
 		width: auto;
 		color: $color-text-negative;
 		font-size: 1.2rem;

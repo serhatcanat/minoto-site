@@ -1,0 +1,77 @@
+.tabs-container {
+	.tabs-labels {
+		position: relative;
+		text-align: center;
+		//border-bottom: .1rem solid $color-gray;
+		&:before {
+			@extend %pseudo;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			height: 0.1rem;
+			background-color: $color-gray;
+			z-index: 1;
+		}
+	}
+
+	.labels-innerwrap {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.labels-item {
+		@include font-semibold;
+		color: $color-text-light;
+		position: relative;
+		font-size: 1.4rem;
+		line-height: 1.8rem;
+		padding: 1.8rem .6rem;
+		height: 5.4rem;
+		text-transform: uppercase;
+		text-align: center;
+		transition: color $transition-hover ease;
+		position: relative;
+		z-index: 2;
+		margin: 0 2.4rem;
+		//flex: 1;
+
+		&:before {
+			@extend %pseudo;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			height: 0.2rem;
+			background-color: $color-blue;
+			transform: scaleX(0);
+			opacity: 0;
+			transition: transform $transition-long ease, opacity $transition-long ease;
+		}
+
+		&.active {
+			color: $color-blue;
+			&:before {
+				opacity: 1;
+				transform: scaleX(1);
+			}
+		}
+	}
+
+	.tabs-items {
+	}
+
+	.items-tab {
+		opacity: 0;
+		transition: opacity 350ms ease;
+
+		&.show {
+			opacity: 1;
+		}
+	}
+
+	.tabs-content {
+		padding: 11rem 0 20rem;
+	}
+}

@@ -1,5 +1,132 @@
-export function formatNumber(num) {
-	return num.toFixed(2).replace('.', ',').toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.')
+import extend from "lodash/extend"
+
+export function scrollTo(inputOpts, endFunction = false) {
+	let defaultOpts = {
+		to: 0,
+		offset: 0,
+		duration: 'auto',
+		easing: true,
+		target: 'body',
+		axis: 'y',
+	}
+
+	let opts = extend({}, defaultOpts, inputOpts);
+
+	if (!isDefined(window.scrollTimeout)) {
+		window.scrollTimeout = {};
+	}
+
+	let id = 'body';
+
+	if (opts.target !== 'body') {
+		if (!opts.target.hasAttribute('id')) {
+			opts.target.id = uid();
+		}
+
+		id = opts.target.id;
+	}
+
+	if (!isDefined(window.scrollTimeout[id])) {
+		window.scrollTimeout[id] = null;
+	}
+
+	let to = opts.to;
+	let offset = opts.offset;
+	let duration = opts.duration;
+	let easing = opts.easing;
+
+	let axisString = (opts.axis === 'y' ? 'Top' : 'Left');
+	//let sizeString = (opts.axis === 'y' ? 'Height' : 'Width');
+
+	if (to !== parseFloat(to, 10)) {
+		if (opts.target === 'body') {
+			to = to.getBoundingClientRect()[axisString.toLowerCase()] + document.documentElement['scroll' + axisString];
+		}
+		else {
+			to = to['offset' + axisString];
+		}
+		//to = to.offsetTop + window.innerHeight;
+	}
+
+	to = to + offset;
+
+	if (duration === 0) {
+		if (opts.target === 'body') {
+			document.documentElement['scroll' + axisString] = to;
+			document.body['scroll' + axisString] = to;
+		}
+		else {
+			opts.target['scroll' + axisString] = to;
+		}
+	}
+	else {
+		let start = (opts.target === 'body' ? Math.max(document.body['scroll' + axisString], document.documentElement['scroll' + axisString]) : opts.target['scroll' + axisString]),
+			change = to - start,
+			currentTime = 0,
+			increment = 20;
+
+		if (duration === 'auto') {
+			let distance = Math.abs(start - to);
+
+			let multiplier = .8;
+
+			if (distance < 500) {
+				multiplier = 1.2;
+			}
+			if (distance > 1500) {
+				multiplier = .5;
+			}
+			duration = distance * multiplier;
+
+			if (duration < 500) { duration = 500; }
+			if (duration > 900) { duration = 900; }
+		}
+		var animateScroll = function () {
+			if (window.scrollTimeout[id] !== null) {
+				clearTimeout(window.scrollTimeout[id]);
+				window.scrollTimeout[id] = null;
+			}
+			currentTime += increment;
+			//console.log(currentTime);
+			var val = 0;
+			if (easing) {
+				val = Math.easeInOutQuad(currentTime, start, change, duration);
+			}
+			else {
+				val = Math.linearTween(currentTime, start, change, duration);
+			}
+			if (opts.target === 'body') {
+				document.documentElement['scroll' + axisString] = val;
+				document.body['scroll' + axisString] = val;
+			}
+			else {
+				opts.target['scroll' + axisString] = val;
+			}
+
+			if (currentTime < duration) {
+				window.scrollTimeout[id] = setTimeout(animateScroll, increment);
+			}
+			else if (endFunction !== false) {
+				endFunction();
+			}
+		};
+		animateScroll();
+	}
+}
+
+export function formatNumber(num, opts = {}) {
+	let options = extend({}, {
+		showDecimals: false,
+		decimals: 2
+	}, opts)
+	let plainNum = Math.trunc(num);
+	let result = plainNum.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+
+	if(options.showDecimals){
+		result += (num - plainNum).toFixed(options.decimals).toString().replace('.', ',').replace('0,', ',');
+	}
+
+	return result;
 }
 
 export function imageLoad(src, returnFunction, additionalData = null) {
@@ -86,4 +213,16 @@ export function serialize(form, seperator = ',', ignoreEmpty = false) {
 		serialized.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));
 	}
 	return serialized.join('&');
+}
+
+export function blockOverflow(block = true){
+	if(block){
+		let scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
+		document.documentElement.style.marginRight = scrollBarWidth + 'px'
+		document.body.classList.add('block-overflow');
+	}
+	else {
+		document.documentElement.style.marginRight = ''
+		document.body.classList.remove('block-overflow');
+	}
 }

@@ -12,7 +12,7 @@ import extend from 'lodash/extend';
 // Assets
 import image_default from 'assets/images/defaults/contentbox-placeholder.jpg'
 
-class ContentBox extends React.Component {
+export default class ContentBox extends React.Component {
 	render() {
 		let vm = this;
 		let classes = 'contentbox ' + vm.props.className + (this.props.url && ' has-link') + ' type-' + vm.props.type;
@@ -128,8 +128,6 @@ class ContentBox extends React.Component {
 		);
 	}
 }
-
-export default ContentBox;
 
 ContentBox.defaultProps = {
 	className : '',

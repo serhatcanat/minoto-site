@@ -41,6 +41,26 @@
  	-moz-osx-font-smoothing: grayscale;
 }
 
+.icon-question:before {
+	content: "\e91b";
+}
+
+.icon-fuel:before {
+	content: "\e918";
+}
+
+.icon-star:before {
+	content: "\e917";
+}
+
+.icon-transmission:before {
+	content: "\e919";
+}
+
+.icon-engine:before {
+	content: "\e91a";
+}
+
 .icon-whatsapp:before {
 	content: "\e914";
 }

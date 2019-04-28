@@ -16,6 +16,7 @@ export default class ShareModal extends React.Component {
 			copied: false,
 		}
 
+		this.shareURL = (this.props.url ? this.props.url : window.location.href);
 		this.copyTimeout = false;
 		this.copyURL = this.copyURL.bind(this);
 	}
@@ -26,7 +27,7 @@ export default class ShareModal extends React.Component {
 		}
 		const el = document.createElement('textarea');
 		el.style.opacity = "0"
-		el.value = vm.props.url;
+		el.value = vm.shareURL;
 		document.body.appendChild(el);
 		el.select();
 		document.execCommand('copy');
@@ -47,13 +48,13 @@ export default class ShareModal extends React.Component {
 					<p className="sharer-title">Paylaş</p>
 
 					<div className="sharer-media">
-						<Link type="a" className="media-link twitter" href={"http://twitter.com/share?text=text goes here&url="+vm.props.url+"&hashtags=minoto,sifirarac"} target="_blank">
+						<Link type="a" className="media-link twitter" href={"http://twitter.com/share?text=text goes here&url="+vm.shareURL+"&hashtags=minoto,sifirarac"} target="_blank">
 							<i className="icon-twitter"></i>
 						</Link>
-						<Link type="a" className="media-link facebook" href={"https://www.facebook.com/sharer/sharer.php?u=" + vm.props.url} target="_blank">
+						<Link type="a" className="media-link facebook" href={"https://www.facebook.com/sharer/sharer.php?u=" + vm.shareURL} target="_blank">
 							<i className="icon-facebook"></i>
 						</Link>
-						<Link type="a" className="media-link whatsapp" href={"whatsapp://send?text="+vm.props.url} data-action="share/whatsapp/share" target="_blank">
+						<Link type="a" className="media-link whatsapp" href={"whatsapp://send?text="+vm.shareURL} data-action="share/whatsapp/share" target="_blank">
 							<i className="icon-whatsapp"></i>
 						</Link>
 						<Link type="a" className="media-link email" href={"mailto:?subject=Bak Minoto'da Ne Buldum!&body=" + (vm.props.urlTitle ? vm.props.urlTitle + ': ' : '') + vm.props.url} target="_blank">
@@ -62,7 +63,7 @@ export default class ShareModal extends React.Component {
 					</div>
 
 					<div className="sharer-info">
-						<span className="info-link">{vm.props.url}</span>
+						<span className="info-link">{vm.shareURL}</span>
 						<button className="info-copy btn primary wide low hollow uppercase" onClick={vm.copyURL}>{(vm.state.copied ? 'Kopyalandı!' : 'Linki Kopyala')}</button>
 					</div>
 				</div>

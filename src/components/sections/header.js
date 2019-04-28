@@ -7,6 +7,7 @@ import Slider from 'components/partials/slider'
 
 // Deps
 import { openModal } from "functions/modals";
+import { blockOverflow } from "functions/helpers";
 
 // Assets
 import image_icon_facebook from 'assets/images/icon/facebook.svg'
@@ -30,7 +31,6 @@ export default class Header extends React.Component {
 
 	componentDidUpdate(prevProps, prevState) {
 		let vm = this;
-		let scrollBarWidth = window.innerWidth - document.documentElement.clientWidth
 
 		if(prevState.menuOpen !== vm.state.menuOpen){
 			if(vm.menuTimeout !== false){ clearTimeout(vm.menuTimeout); }
@@ -38,16 +38,14 @@ export default class Header extends React.Component {
 				vm.setState({ menuActive: true });
 				vm.menuTimeout = setTimeout(function() {
 					vm.setState({ menuShow: true });
-					document.documentElement.style.marginRight = scrollBarWidth + 'px'
-					document.body.classList.add('block-overflow');
+					blockOverflow(true);
 				}, 20);
 			}
 			else {
 				vm.setState({ menuShow: false });
 				vm.menuTimeout = setTimeout(function() {
 					vm.setState({ menuActive: false });
-					document.documentElement.style.marginRight = ''
-					document.body.classList.remove('block-overflow');
+					blockOverflow(false);
 				}, 600);
 			}
 		}

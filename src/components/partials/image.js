@@ -94,5 +94,6 @@ export default class Image extends React.Component {
 }
 
 Image.defaultProps = {
+	className: '',
 	alt: "Görsel",
 };
