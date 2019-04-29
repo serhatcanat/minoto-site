@@ -1,0 +1,130 @@
+{
+	"status" : "ok",
+	"brands": [
+		{
+			"title" : "Acura",
+			"url": "/listing/?marka=acura",
+			"count": 1431
+		},
+		{
+			"title" : "Aston Martin",
+			"url": "/listing/?marka=acura",
+			"count": 677
+		},
+		{
+			"title" : "Mercedes",
+			"url": "/listing/?marka=acura",
+			"count": 617
+		},
+		{
+			"title" : "Pagani",
+			"url": "/listing/?marka=acura",
+			"count": 887
+		},
+		{
+			"title" : "Renault",
+			"url": "/listing/?marka=acura",
+			"count": 108
+		},
+		{
+			"title" : "Toyota",
+			"url": "/listing/?marka=acura",
+			"count": 15
+		},
+		{
+			"title" : "Acura",
+			"url": "/listing/?marka=acura",
+			"count": 99
+		},
+		{
+			"title" : "Aston Martin",
+			"url": "/listing/?marka=acura",
+			"count": 15
+		},
+		{
+			"title" : "Mercedes",
+			"url": "/listing/?marka=acura",
+			"count": 485
+		},
+		{
+			"title" : "Pagani",
+			"url": "/listing/?marka=acura",
+			"count": 15
+		},
+		{
+			"title" : "Renault",
+			"url": "/listing/?marka=acura",
+			"count": 15
+		},
+		{
+			"title" : "Toyota",
+			"url": "/listing/?marka=acura",
+			"count": 15
+		},
+		{
+			"title" : "Aston Martin",
+			"url": "/listing/?marka=acura",
+			"count": 15
+		},
+		{
+			"title" : "Mercedes",
+			"url": "/listing/?marka=acura",
+			"count": 15
+		},
+		{
+			"title" : "Pagani",
+			"url": "/listing/?marka=acura",
+			"count": 35
+		},
+		{
+			"title" : "Renault",
+			"url": "/listing/?marka=acura",
+			"count": 1290
+		},
+		{
+			"title" : "Toyota",
+			"url": "/listing/?marka=acura",
+			"count": 15
+		},
+		{
+			"title" : "Acura",
+			"url": "/listing/?marka=acura",
+			"count": 15
+		},
+		{
+			"title" : "Aston Martin",
+			"url": "/listing/?marka=acura",
+			"count": 15
+		},
+		{
+			"title" : "Mercedes",
+			"url": "/listing/?marka=acura",
+			"count": 1614
+		},
+		{
+			"title" : "Pagani",
+			"url": "/listing/?marka=acura",
+			"count": 21
+		},
+		{
+			"title" : "Renault",
+			"url": "/listing/?marka=acura",
+			"count": 15
+		},
+		{
+			"title" : "Toyota",
+			"url": "/listing/?marka=acura",
+			"count": 48
+		},
+		{
+			"title" : "Renault",
+			"url": "/listing/?marka=acura",
+			"count": 15
+		},
+		{
+			"title" : "Renault",
+			"url": "/listing/?marka=acura",
+			"count": 15
+		}
+	]
+}

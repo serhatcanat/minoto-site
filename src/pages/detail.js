@@ -2,6 +2,7 @@ import React from 'react'
 
 // Sections
 import Listing from 'components/sections/listing'
+import SubscriptionBar from 'components/sections/subscriptionbar'
 
 // Partials
 import Breadcrumbs from 'components/partials/breadcrumbs'
@@ -12,6 +13,7 @@ import PopInfo from 'components/partials/popinfo.js';
 import Collapse from 'components/partials/collapse.js';
 import Slider from 'components/partials/slider.js';
 import Tabs from 'components/partials/tabs.js';
+import Link from 'components/partials/link.js';
 
 // Deps
 import { ListingLink } from 'controllers/navigator'
@@ -21,6 +23,7 @@ import parse from 'html-react-parser';
 import axios from 'axios';
 
 // Assets
+import image_avatar from 'assets/images/defaults/avatar.svg';
 
 export default class Detail extends React.Component {
 	constructor(props) {
@@ -223,14 +226,64 @@ export default class Detail extends React.Component {
 										<span className="controls-note">{product.reservationEndDate}'a kadar rezerve edilmiştir.</span>
 									}
 								</div>
+
+								{product.dealer &&
+									<div className="content-dealer">
+										<div className="dealer-head">
+											<Link href={product.dealer.url}>
+												{product.dealer.validated && 
+													<span className="dealer-badge"><i className="badge-bg icon-ribbon"></i><i className="badge-icon icon-check"></i></span>
+												}
+												<strong className="dealer-title">{product.dealer.title}</strong>
+											</Link>
+											<p className="dealer-info">
+												<span className="info-location">{product.dealer.location}</span>
+												<span className={"info-workinghours " + (product.dealer.open ? 'open' : 'closed')}>
+													{product.dealer.workingHours}
+													<span>|</span>
+													{(product.dealer.open ? 'Şu an açık' : 'Şu an kapalı')}
+												</span>
+											</p>
+										</div>
+										{product.dealer.rep &&
+											<div className="dealer-rep">
+												<Image src={product.dealer.rep.image ? product.dealer.rep.image : image_avatar} className="rep-image" />
+												<strong className="rep-title">{product.dealer.rep.name}</strong>
+												<span className="rep-role">{product.dealer.rep.role}</span>
+											</div>
+										}
+										<div className="dealer-controls">
+											<Btn type="a" icon="phone" block uppercase href={"tel:+9"+product.dealer.phone.replace(' ', '')}>{product.dealer.phone}</Btn>
+											<Btn type="link" icon="envelope" text uppercase block href={'/user/message/todealer/'+product.dealer.id}>Mesaj Gönder</Btn>
+										</div>
+									</div>
+								}
 							</div>
 						</div>
 					</section>
 
 					<section className="section detail-related">
-						<h2 className="related-title">Benzer araçlar</h2>
-						<Listing urlBinding={false} filters={false} source="/dummy/data/detail-related.json" query="id=1234" showAds={false} />
+						<div className="wrapper">
+							<div className="related-innerwrap">
+								<h2 className="related-title">Benzer araçlar</h2>
+								<Listing urlBinding={false} filters={false} source="/dummy/data/detail-related.json" query="id=1234" size={5} showAds={false} />
+							</div>
+						</div>
 					</section>
+
+					<SubscriptionBar className="detail-subscription" heading={"Daha fazla "+ product.brand.title +" modelleri için sizi bilgilendirelim!"} />
+
+					{product.ads &&
+						<section className="section detail-banners">
+							<div className="wrapper">
+								{product.ads.map((ad, nth) => (
+									<Link type='a' href={ad.url} title={ad.title} key={nth} className={"banners-item x-"+ad.size}>
+										<Image src={ad.image} />
+									</Link>
+								))}
+							</div>
+						</section>
+					}
 				</div>
 			}
 			</main>

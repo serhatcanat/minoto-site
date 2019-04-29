@@ -28,12 +28,12 @@ export class FormInput extends React.Component {
 	onChange(status) {
 		if(this.props.onChange){
 			this.props.onChange(this.props.name, status.error);
-			this.setState({
-				error: status.error,
-				touched: status.touched,
-				value: status.value,
-			});
 		}
+		this.setState({
+			error: status.error,
+			touched: status.touched,
+			value: status.value,
+		});
 	}
 
 	render() {
@@ -49,7 +49,7 @@ export class FormInput extends React.Component {
 
 		let Input = false;
 		let inputProps = extend(
-			pick(vm.props, ['value', 'label', 'type', 'placeholder', 'name', 'multiple', 'children', 'readOnly', 'onChange', 'decimals', 'wrapperId', 'checked']),
+			pick(vm.props, ['value', 'label', 'type', 'placeholder', 'name', 'multiple', 'children', 'readOnly', 'onChange', 'decimals', 'wrapperId', 'checked', 'hideError']),
 			{ id: id }
 		)
 
@@ -132,15 +132,15 @@ class InputText extends React.Component {
 	handleChange(e) {
 		let vm = this;
 		e.persist();
-		if (vm.props.type !== "number" || e.target.validity.valid) {
+		//if (vm.props.type !== "number" || e.target.validity.valid) {
 			vm.validate(e.target.value, true);
-		}
+		//}
 
-		if (vm.props.onChange) {
+		/*if (vm.props.onChange) {
 			setTimeout(function () {
 				vm.props.onChange(e);
 			}, 10);
-		}
+		}*/
 	}
 
 	validate(value, touch) {
@@ -193,7 +193,7 @@ class InputText extends React.Component {
 					id={vm.props.id}
 					{...additionalProps}
 				/>
-				{vm.props.touched && vm.state.error ? (
+				{vm.props.touched && vm.state.error && vm.props.hideError !== true ? (
 					<div className="input-error">
 						{vm.state.errorMessage}
 					</div>
@@ -577,19 +577,20 @@ export class InputForm extends React.Component {
 
 	handleSubmit(e) {
 		e.preventDefault();
-		this.setState({ forceTouch: true, sending: true })
+		this.setState({ forceTouch: true })
 		if (this.validate()) {
-			console.log('submit');
+			this.setState({ sending: true });
 
-		} else {
-			console.log('Form submission is Invalid');
+			if(this.props.onSubmit){
+				this.props.onSubmit(e.nativeEvent)
+			}
+
 		}
 
 	}
 
 	modifyChildren(children, props) {
 		return React.Children.map(children, child => {
-			console.log(child);
 			if (child !== null) {
 				if (!child.props) {
 					return child

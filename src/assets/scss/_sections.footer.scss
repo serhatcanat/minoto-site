@@ -1,9 +1,11 @@
 .section{
 	&.footer {
-		background-color: $color-text;
-		color: $color-text-negative;
-		padding: 5rem 0 7.6rem;
-		font-size: 1.4rem;
+		.footer-bottom {
+			background-color: $color-text;
+			color: $color-text-negative;
+			padding: 5rem 0 7.6rem;
+			font-size: 1.4rem;
+		}
 
 		.footer-wrap {
 			display: flex;
@@ -102,5 +104,29 @@
 					text-decoration: underline;
 				}
 			}
+
+		.footer-brands {
+			background-color: $color-gray-light;
+			color: $color-text-light;
+			padding: 6rem 0;
+			font-size: 1.4rem;
+		}
+
+			.brands-list {
+				//column-count: 6;
+				//column-gap: 4rem;
+				display: flex;
+				justify-content: space-between;
+			}
+
+			.brands-item {
+				//width: 16.66666666666667%;
+				line-height: 2rem;
+				padding: 1rem 0;
+			}
+
+				.item-count {
+					margin-left: .4rem;
+				}
 	}
 }

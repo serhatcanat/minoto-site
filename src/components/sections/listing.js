@@ -127,7 +127,7 @@ export default class ProductListing extends React.Component {
 		let vm = this;
 		let itemsAt = 0;
 		return (
-			<section className={"section listing loader-container " + vm.props.className + (vm.props.filters ? ' has-filters' : '')}>
+			<section className={"section listing loader-container " + vm.props.className + (vm.props.filters ? ' has-filters' : '') + ' size-'+vm.props.size}>
 				<Loader loading={vm.state.loading || !vm.state.results} strict={!vm.state.initialLoad} />
 				{(vm.props.filters ? (
 					<ProductFilters filters={vm.state.filters} onUpdate={vm.filtersUpdated} ref={vm.formRef} />
@@ -217,6 +217,7 @@ ProductListing.defaultProps = {
 	urlBinding: true,
 	source: '/dummy/data/listing.json',
 	showAds: true,
+	size: 4,
 	query: false,
 };
 

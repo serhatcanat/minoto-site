@@ -1,0 +1,30 @@
+{
+	"status": "ok",
+	"info": {
+		"title": "Doğuş Otomotiv",
+		"cover": "/dummy/images/dealer-cover.jpg",
+		"validated": true,
+		"address": "Maslak Mahallesi Ahi Evran Cad. No:4 Doğuş Center Maslak Sarıyer/İstanbul",
+		"workingHours": "08:00 - 20:00",
+		"open": true,
+		"validated": true,
+		"phone": "0800 212 98 98",
+		"listingCount": 2430,
+		"branches": [
+			{
+				"id": 1234,
+				"title": "Doğuş Oto Kartal",
+				"workingHours": "08:00 - 20:00",
+				"phone": "0800 212 98 98",
+				"open": true
+			},
+			{
+				"id": 1234,
+				"title": "Doğuş Oto Beşiktaş",
+				"workingHours": "08:00 - 18:00",
+				"phone": "0800 212 98 98",
+				"open": false
+			}
+		]
+	}
+}

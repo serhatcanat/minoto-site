@@ -602,12 +602,126 @@
 					color: $color-primary;
 					font-size: 1.2rem;
 				}
+		
+			.content-dealer {
+				background-color: $color-gray-light;
+				border-radius: $radius-general;
+				margin-top: 3rem;
+
+				.dealer-head{
+					padding: 2.7rem 2.1rem 2.7rem 5.3rem;
+					position: relative;
+				}
+
+				.dealer-badge {
+					position: absolute;
+					top: 2.8rem;
+					left: 2.1rem;
+					width: 2.2rem;
+					height: 2.2rem;
+					font-size: 2.2rem;
+					color: $color-primary;
+					display: inline-block;
+				}
+
+					.badge-icon {
+						color: $color-white;
+						font-size: 1.2rem;
+						position: absolute;
+						z-index: 2;
+						top: 53%;
+						left: 50%;
+						transform: translate3d(-50%, -50%, 0);
+					}
+
+				.dealer-title {
+					@include font-semibold;
+					font-size: 1.8rem;
+					text-decoration: underline;
+					text-transform: uppercase;
+					display: block;
+					padding-top: .2rem;
+				}
+
+				.dealer-info {
+					@include font-semibold;
+					margin-top: 1rem;
+					color: rgba($color-text, .5);
+					text-transform: uppercase;
+					font-size: 1.2rem;
+				}
+
+					.info-workinghours {
+						margin-left: 1rem;
+
+						span {
+							margin: 0 1rem;
+						}
+
+						&.open {
+							color: $color-success;
+						}
+					}
+
+				.dealer-rep {
+					padding: 1.6rem 2rem 1.7rem;
+					border-top: .1rem solid rgba($color-text, .2);
+				}
+
+					.rep-image {
+						border-radius: 50%;
+						display: inline-block;
+						vertical-align: middle;
+						height: 3.6rem;
+						margin-right: 1rem;
+					}
+
+					.rep-title {
+						@include font-medium;
+						display: inline-block;
+						vertical-align: middle;
+						font-size: 1.6rem;
+					}
+
+					.rep-role {
+						text-transform: uppercase;
+						color: rgba($color-text, .4);
+						display: inline-block;
+						vertical-align: middle;
+						font-size: 1.2rem;
+						margin-left: 1.5rem;
+					}
+
+				.dealer-controls {
+					display: flex;
+
+					> * {
+						min-width: 50%;
+						border-radius: 0;
+
+						&:nth-child(2n+1){
+							border-bottom-left-radius: $radius-general;
+							margin-right: .1rem;
+						}
+
+						&:nth-child(2n+2){
+							border-bottom-right-radius: $radius-general;
+						}
+					}
+				}
+			}
+
 		}
 
 		&.detail-related {
 			border-top: .1rem solid $color-gray-light;
 			padding: 5.4rem 0 10.1rem;
 			margin-top: 3.3rem;
+
+			.related-innerwrap {
+				width: calc(100% + 3rem);
+				margin: 0 -1.5rem;
+			}
 
 			.section.listing{
 				.listing-content {
@@ -624,6 +738,24 @@
 				text-align: center;
 				margin-bottom: 4.4rem;
 				font-size: 2.2rem;
+			}
+		}
+
+		&.detail-banners {
+			padding: 7rem 0 10.2rem;
+			text-align: center;
+
+			.banners-item {
+				height: 33rem;
+				display: inline-block;
+
+				+ .banners-item {
+					margin-left: 4rem;
+				}
+
+				img {
+					height: 100%;
+				}
 			}
 		}
 	}

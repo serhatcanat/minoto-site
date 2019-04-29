@@ -8,6 +8,7 @@
 	input,
 	textarea {
 		@include font-main;
+		@include font-medium;
 		border: 0.1rem solid $color-gray-light;
 		color: $color-text;
 		border-radius: $radius-general;
@@ -27,7 +28,8 @@
 		}
 
 		@include placeholder() {
-			color: $color-gray;
+			color: rgba($color-text, .5);
+			transition: color $transition-hover ease;
 		}
 	}
 

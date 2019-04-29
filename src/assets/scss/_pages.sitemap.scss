@@ -2,6 +2,7 @@
 	&.sitemap {
 		padding: 5rem 0;
 		h1 {
+			display: block;
 			margin: 0 0 5rem;
 		}
 		section {
@@ -9,13 +10,29 @@
 				margin-top: 5rem;
 			}
 
+			> * {
+				display: inline-block;
+				margin-right: 2rem;
+				margin-bottom: 2rem;
+
+				&.block {
+					display: block;
+				}
+			}
+
 			.btn {
 				min-width: 20rem;
-				margin-right: 2rem;
 			}
 		}
 
 		h2 {
+			display: block;
+			margin-bottom: 2rem;
+		}
+
+		h3 {
+			display: block;
+			margin-top: 2rem;
 			margin-bottom: 2rem;
 		}
 	}

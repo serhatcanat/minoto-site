@@ -41,6 +41,10 @@
  	-moz-osx-font-smoothing: grayscale;
 }
 
+.icon-ribbon:before {
+	content: "\e91c";
+}
+
 .icon-question:before {
 	content: "\e91b";
 }

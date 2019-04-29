@@ -1,7 +1,7 @@
 import React from 'react'
 
 // Deps
-import { Route, matchPath } from 'react-router-dom'
+import { Route, matchPath, Switch } from 'react-router-dom'
 import history from 'controllers/history'
 import routes from 'data/routes'
 
@@ -9,13 +9,17 @@ import routes from 'data/routes'
 import Home from 'pages/home'
 import Sitemap from 'pages/sitemap'
 import Dealers from 'pages/dealers'
+import Dealer from 'pages/dealer'
 import Detail from 'pages/detail'
+import NotFound from 'pages/notfound'
 
 const pageRegistry = {
 	Home: Home,
 	Sitemap: Sitemap,
+	Dealer: Dealer,
 	Dealers: Dealers,
 	Detail: Detail,
+	NotFound: NotFound,
 }
 
 export default class Navigator extends React.Component {
@@ -51,7 +55,9 @@ export default class Navigator extends React.Component {
 		let data = this.renderRoutes();
 		return (
 			<main className="content-main">
-				{data}
+				<Switch>
+					{data}
+				</Switch>
 			</main>
 		)
 	}

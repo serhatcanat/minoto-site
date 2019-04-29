@@ -60,7 +60,6 @@
 			position: relative;
 			width: 100%;
 			padding-bottom: 75.333333333%;
-			overflow: hidden;
 		}
 
 			.contentbox-image {
@@ -145,6 +144,7 @@
 					display: inline-block;
 					font-size: 1.2rem;
 					line-height: 1.6rem;
+					color: $color-text-light;
 					border: .1rem solid $color-gray-light;
 					margin-right: .6rem;
 					border-radius: $radius-general;
@@ -209,6 +209,7 @@
 					border: none;
 					padding: 0;
 					margin-right: 0;
+					color: $color-text;
 					text-transform: none;
 
 					+ span {

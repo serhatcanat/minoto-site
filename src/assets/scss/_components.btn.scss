@@ -40,11 +40,32 @@
 
 		&.hollow {
 			background-color: transparent;
-			color: $color-text;
+			color: $color-white;
 
 			&:hover, &:active {
 				background-color: darken($color-white, 10);
 				color: $color-primary;
+			}
+		}
+	}
+
+	&.text {
+		background-color: $color-text;
+		color: $color-text-negative;
+		border-color: $color-text;
+
+		&:hover, &:active {
+			background-color: darken($color-text, 10);
+			border-color: darken($color-text, 10);
+		}
+
+		&.hollow {
+			background-color: transparent;
+			color: $color-text;
+
+			&:hover, &:active {
+				background-color: darken($color-text, 10);
+				color: $color-text-negative;
 			}
 		}
 	}
@@ -111,8 +132,28 @@
 		opacity: 0.5
 	}
 
+	&.status-loading {
+		&:disabled {
+			opacity: 1;
+		}
+	}
+
+	&.show-status {
+		.btn-content {
+			transform: scale(0.5);
+			opacity: 0;
+			transition: opacity $transition-hover ease, transform $transition-hover ease;
+		}
+
+		.btn-statuswrap {
+			opacity: .8;
+			transform: translate3d(-50%, -50%, 0) scale(1);
+			transition: opacity $transition-hover ease $transition-fast, transform $transition-hover ease $transition-fast;
+		}
+	}
+
 	// Inner Elements
-	i {
+	.btn-icon {
 		display: inline-block;
 		vertical-align: middle;
 		font-size: 1.8rem;
@@ -127,11 +168,42 @@
 		}
 	}
 
+	.btn-content {
+		display: block;
+		width: 100%;
+		transition: opacity $transition-hover ease $transition-fast, transform $transition-hover ease $transition-fast;
+	}
+
+	.btn-statuswrap {
+		opacity: 0;
+		display: block;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate3d(-50%, -50%, 0) scale(.5);
+		transition: opacity $transition-hover ease, transform $transition-hover ease;
+	}
+
+	.btn-loader {
+		@include spin;
+		font-size: 2.4rem;
+		display: block;
+		width: 2.4rem;
+		height: 2.4rem;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+	}
+
+	.btn-status {
+		font-size: 2rem;
+	}
+
 	.btn-info {
 		position: absolute;
 		right: 1rem;
 		top: 50%;
-		transform: translate3d(0, -25%, 0);
+		transform: translate3d(0, -50%, 0);
 		font-size: 1.4rem;
 		height: 1.4rem;
 		line-height: 1.4rem;

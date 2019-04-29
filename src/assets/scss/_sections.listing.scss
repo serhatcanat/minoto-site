@@ -10,7 +10,36 @@
 			.listing-content {
 				width: calc(100% - 28rem);
 			}
+		}
 
+		&.size-5 {
+			.results-item{
+				width: 20%;
+
+				&.x2 {
+					width: 40%;
+				}
+
+				&.x3 {
+					width: 60%;
+				}
+
+				&.x4 {
+					width: 80%;
+				}
+
+				&.x5 {
+					width: 100%;
+				}
+
+				> * {
+					flex: 1;
+					width: 100%;
+				}
+			}
+		}
+
+		&.size-4 {
 			.results-item {
 				width: 25%;
 
@@ -277,30 +306,8 @@
 
 				.results-item {
 					position: relative;
-					width: 20%;
 					padding: 1.5rem;
 					display: flex;
-
-					&.x2 {
-						width: 40%;
-					}
-
-					&.x3 {
-						width: 60%;
-					}
-
-					&.x4 {
-						width: 80%;
-					}
-
-					&.x5 {
-						width: 100%;
-					}
-
-					> * {
-						flex: 1;
-						width: 100%;
-					}
 				}
 
 					.item-banner {

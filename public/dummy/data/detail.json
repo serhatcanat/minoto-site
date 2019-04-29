@@ -8,6 +8,10 @@
 		"date": "17.12.2018",
 		"reserved": true,
 		"reservationEndDate": "03.05.2019",
+		"brand": {
+			"id": 10,
+			"title": "Audi"
+		},
 		"highlights": [
 			{
 				"title": "2018 Model",
@@ -118,6 +122,21 @@
 				"full": "/dummy/images/detail/13.jpg"
 			}
 		],
+		"dealer": {
+			"id": 21312,
+			"title": "Doğuş Otomotiv",
+			"location": "Levent - İstanbul",
+			"workingHours": "08:00 - 20:00",
+			"open": true,
+			"validated": true,
+			"url": "/bayi/dogus-oto-levent",
+			"rep": {
+				"name": "Sinan Akça",
+				"role": "Müşteri Temsilcisi",
+				"image": false
+			},
+			"phone": "0800 212 98 98"
+		},
 		"description": "<h2>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h2><p>Quisque rutrum consectetur sagittis. Donec quis augue mauris. Suspendisse pulvinar, odio et ultricies pretium, felis lectus volutpat ipsum, et facilisis erat leo in felis. Aenean et ipsum ac eros rhoncus laoreet at sed justo. Suspendisse eu elit feugiat, efficitur tellus ut, ullamcorper sem. Nunc pharetra mauris non augue dictum lobortis. Ut bibendum elementum euismod. Suspendisse condimentum erat in consectetur ornare. Vivamus ac posuere purus. Duis eu dolor sed urna congue pellentesque. Donec eget laoreet metus. Suspendisse malesuada justo quis enim mattis volutpat. Interdum et malesuada fames ac ante ipsum primis in faucibus. Donec lorem nisi, luctus eget varius eu, venenatis at enim. Fusce vitae ligula facilisis, mattis neque eu, maximus leo.</p><p>Nam ultrices purus vitae justo aliquet, nec luctus augue sollicitudin. Proin id consectetur libero. Curabitur efficitur augue quis quam eleifend, quis laoreet lorem dictum. Donec vel mollis odio. In pretium semper urna, consectetur hendrerit nisi porta at. Quisque volutpat congue magna at vulputate. Nullam sodales quis quam et varius. Sed molestie lacinia justo et porttitor. Suspendisse vitae aliquet sapien. Mauris quis malesuada quam. Nunc efficitur quis tortor sed ullamcorper. Fusce posuere, nibh sit amet lacinia venenatis, metus enim finibus lacus, eget feugiat justo sem ac est. Nunc eu dignissim justo. Praesent mollis felis id leo scelerisque porta. In consectetur ante est, nec pretium velit ullamcorper ut.</p><h3>Morbi laoreet tortor nec sem vulputate mattis.</h3><p>Fusce et urna in nisi ornare imperdiet. Vivamus malesuada purus quis mauris fermentum feugiat. Mauris ullamcorper arcu dolor, vel pulvinar est consectetur id. Duis eu turpis pulvinar, vestibulum justo in, <strong>convallis felis.</strong> Nunc bibendum egestas sapien suscipit tincidunt. Ut eu tempus massa.</p><p>Nam tempus libero quis velit bibendum, a viverra metus varius. Suspendisse semper varius lectus eget consequat. Pellentesque dapibus pellentesque neque, vel tincidunt mi vulputate nec. Donec sollicitudin dictum elementum. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam fermentum risus sit amet ligula cursus, et gravida lacus vestibulum. Curabitur interdum massa fermentum odio congue egestas. Proin convallis, lorem vitae ullamcorper commodo, felis tellus blandit nunc, vitae malesuada felis arcu in libero. Donec lacus ex, ultrices eu turpis nec, semper lobortis dolor.</p><p>Vestibulum rhoncus et augue congue egestas. Maecenas ac tellus vel odio convallis ultricies nec porta metus. Maecenas et lectus tellus. Aliquam vitae enim lobortis, consectetur ante ac, fringilla mi. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Duis dignissim, sem quis egestas condimentum, risus mauris ultricies nibh, vitae viverra ipsum ante eget velit. Mauris a metus nec ipsum faucibus porttitor non ac risus. Praesent vehicula turpis at efficitur porta. Duis a quam nec leo gravida gravida. Proin at sem venenatis, tristique neque id, pellentesque lacus. Pellentesque id felis bibendum, malesuada sapien vel, accumsan felis. Nulla iaculis ullamcorper ipsum congue feugiat. Donec ante ipsum, consequat non blandit id, consectetur vel nunc. Aliquam non nulla in justo blandit blandit. Praesent velit ante, gravida sed tincidunt in, eleifend ut tellus.</p>",
 		"technicalSpecs": [
 			{
@@ -244,6 +263,20 @@
 			{
 				"thumb": "/dummy/images/detail/4.jpg",
 				"full": "/dummy/images/detail/4.jpg"
+			}
+		],
+		"ads": [
+			{
+				"title": "Kenan Doğulu\"nun minoto\"ya özel seçtikleri",
+				"image": "/dummy/images/listing-banner-large.jpg",
+				"url": "http://google.com/",
+				"size": 2
+			},
+			{
+				"title": "Minoto 2018’in otomobillerini seçti",
+				"image": "/dummy/images/listing-banner-small.jpg",
+				"url": "http://google.com/",
+				"size": 1
 			}
 		],
 		"ncap": 4,
