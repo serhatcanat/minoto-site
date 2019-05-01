@@ -81,6 +81,48 @@ export default class About extends React.Component {
 								</div>
 							</div>
 						</div>
+
+						<div className="team-member">
+							<Image className="member-image" src="/dummy/images/profile-picture.jpg" bg alt="Ferhat Albayrak" />
+							<div className="member-content">
+								<strong className="member-position">CEO</strong>
+								<h4 className="member-name">Ferhat Albayrak</h4>
+
+								<div className="member-contact">
+									<Link tag="a" title="Ferhat Albayrak LinkedIn Profili" href="http://www.linkedin.com" target="_blank" rel="nofollow">
+										<Image src={image_icon_linkedin} alt="LinkedIn" />
+									</Link>
+								</div>
+							</div>
+						</div>
+
+						<div className="team-member">
+							<Image className="member-image" src="/dummy/images/profile-picture.jpg" bg alt="Kaan Boyner" />
+							<div className="member-content">
+								<strong className="member-position">CEO</strong>
+								<h4 className="member-name">Kaan Boyner</h4>
+
+								<div className="member-contact">
+									<Link tag="a" title="Kaan Boyner LinkedIn Profili" href="http://www.linkedin.com" target="_blank" rel="nofollow">
+										<Image src={image_icon_linkedin} alt="LinkedIn" />
+									</Link>
+								</div>
+							</div>
+						</div>
+
+						<div className="team-member">
+							<Image className="member-image" src="/dummy/images/profile-picture.jpg" bg alt="Ferhat Albayrak" />
+							<div className="member-content">
+								<strong className="member-position">CEO</strong>
+								<h4 className="member-name">Ferhat Albayrak</h4>
+
+								<div className="member-contact">
+									<Link tag="a" title="Ferhat Albayrak LinkedIn Profili" href="http://www.linkedin.com" target="_blank" rel="nofollow">
+										<Image src={image_icon_linkedin} alt="LinkedIn" />
+									</Link>
+								</div>
+							</div>
+						</div>
 					</div>
 				</section>
 			</main>
