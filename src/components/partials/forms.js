@@ -187,10 +187,10 @@ class InputText extends React.Component {
 				}
 				<input
 					onChange={vm.handleChange}
-					value={vm.state.value}
-					name={vm.props.name}
+					value={vm.state.value ? vm.state.value : undefined}
+					name={vm.props.name ? vm.props.name : undefined}
 					type={type}
-					id={vm.props.id}
+					id={vm.props.id ? vm.props.id : undefined}
 					{...additionalProps}
 				/>
 				{vm.props.touched && vm.state.error && vm.props.hideError !== true ? (

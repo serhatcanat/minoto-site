@@ -1,6 +1,7 @@
 {
 	"status": "ok",
 	"info": {
+		"id": 1231231,
 		"title": "Doğuş Otomotiv",
 		"cover": "/dummy/images/dealer-cover.jpg",
 		"validated": true,
@@ -10,6 +11,7 @@
 		"validated": true,
 		"phone": "0800 212 98 98",
 		"listingCount": 2430,
+		"branchCount": 2430,
 		"branches": [
 			{
 				"id": 1234,
@@ -17,6 +19,13 @@
 				"workingHours": "08:00 - 20:00",
 				"phone": "0800 212 98 98",
 				"open": true
+			},
+			{
+				"id": 1234,
+				"title": "Doğuş Oto Maslak",
+				"workingHours": "08:00 - 18:00",
+				"phone": "0800 212 98 98",
+				"open": false
 			},
 			{
 				"id": 1234,

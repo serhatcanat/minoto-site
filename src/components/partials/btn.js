@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 // Partials
 import PopInfo from 'components/partials/popinfo.js';
+import Link from 'components/partials/link.js';
 
 // Deps
 import omit from 'lodash/omit'
@@ -61,7 +62,16 @@ export default class Btn extends React.Component {
 
 	render() {
 		let vm = this;
-		let Elem = vm.props.tag;
+		let Elem = false;
+
+		switch(vm.props.tag){
+			case 'link':
+				Elem = Link;
+			break;
+			default:
+				Elem = vm.props.tag;
+			break;
+		}
 		let props = omit(vm.props, ['tag', 'icon', 'leftIcon', 'rightIcon', 'note', 'block', 'hollow', 'uppercase', 'primary', 'low', 'wide', 'white', 'dark', 'text', 'smallIcon', 'loading', 'status']);
 
 		let leftIcon = (vm.props.leftIcon ? vm.props.leftIcon : (vm.props.icon ? vm.props.icon : false));

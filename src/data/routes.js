@@ -4,7 +4,27 @@ module.exports = {
 		component: "Home",
 		exact: true,
 		linkTitle: "Anasayfa",
-		title: "Anasayfa"
+		title: "Anasayfa",
+		meta: {
+			keywords: "Minoto, Sıfır Otomobil, Bayiler",
+			description: "Minoto: Sıfır Otomobilin Yeni Adresi"
+		},
+		// Bu şekilde head kısmına custom meta da eklenebilir.
+		/*head: [
+			{
+				key: "meta",
+				content: false,
+				props: {
+					name: "description",
+					content: "Minoto, Sıfır Otomobilin Yeni Adresi"
+				}
+			},
+			{
+				key: "description",
+				content: "Minoto, Sıfır Otomobilin Yeni Adresi",
+				props: {}
+			}
+		]*/
 	},
 	sitemap: {
 		path: "/sitemap",
@@ -39,6 +59,6 @@ module.exports = {
 		component: "NotFound",
 		exact: false,
 		linkTitle: "404",
-		title: "404"
+		title: "Sayfa Bulunamadı"
 	}
 }

@@ -8,8 +8,7 @@
 
 			.info-sum {
 				background-color: $color-gray-light;
-				padding: 2.7rem 2.5rem 1.5rem 3.5rem;
-			}
+				padding: 2.7rem 1.8rem 1.5rem 3.5rem;
 
 				.sum-title {
 					@include font-semibold;
@@ -57,6 +56,7 @@
 					font-size: 1.2rem;
 					text-transform: uppercase;
 					margin-top: 1.4rem;
+					color: $color-error;
 
 					span {
 						margin: 0 1rem;
@@ -65,6 +65,169 @@
 					&.open {
 						color: $color-success;
 					}
+				}
+
+				.sum-controls {
+					margin-top: 2rem;
+					font-size: 0;
+					letter-spacing: 0;
+
+					.btn {
+						width: calc(50% - .6rem);
+						font-size: 1.1rem;
+						padding: .9rem 0;
+
+						&:nth-child(2n+2){
+							margin-left: 1.2rem;
+						}
+
+						.btn-icon {
+							font-size: 1.3rem;
+
+							&.pre {
+								margin-right: .5rem;
+							}
+						}
+					}
+				}
+			}
+
+			.info-search {
+				position: relative;
+				padding: 1.9rem 1.1rem 1.9rem 2.2rem;
+			}
+
+				.search-submit {
+					width: 3.8rem;
+					position: absolute;
+					right: 1.9rem;
+					top: 50%;
+					font-size: 1.4rem;
+					color: rgba($color-text, .3);
+					transform: translate3d(0, -50%, 0);
+				}
+
+			.info-branches {
+				padding: 1.4rem 0 1.4rem 1rem;
+			}
+
+				.branches-head {
+					padding: 0 0 .8rem 2.4rem;
+				}
+
+					.head-info {
+						font-size: 1.4rem;
+						color: $color-primary;
+						text-transform: uppercase;
+						text-decoration: underline;
+
+						+ .head-info {
+							margin-left: 2.8rem;
+						}
+					}
+
+					.head-title {
+						@include font-semibold;
+						color: rgba($color-text, .5);
+						font-size: 1.2rem;
+						line-height: 1.4rem;
+						margin-top: 1rem;
+						display: block;
+						text-transform: uppercase;
+					}
+
+				.branches-list {
+
+					.list-branch {
+						border-top: .1rem solid $color-gray;
+
+						&:last-child {
+							border-bottom: .1rem solid $color-gray;
+						}
+						
+						&.open {
+							background-color: $color-gray-light;
+							transition: background-color $transition-hover ease;
+						}
+					}
+
+						.branch-sum {
+							position: relative;
+							text-align: left;
+							display: block;
+							width: 100%;
+							padding: 1.3rem 2rem 1.1rem 2.4rem;
+
+							&:before {
+								@include icon('angle-down');
+								position: absolute;
+								right: 1.6rem;
+								color: $color-gray;
+								font-size: .9rem;
+								top: 2.3rem;
+								line-height: 1.4rem;
+							}
+						}
+
+						.branch-title {
+							color: rgba($color-text, .7);
+							text-transform: uppercase;
+							font-size: 1.6rem;
+							line-height: 2rem;
+						}
+
+						.branch-workinghours {
+							display: block;
+							font-size: 1.2rem;
+							line-height: 1.4rem;
+							text-transform: uppercase;
+							margin-top: .3rem;
+							color: $color-error;
+
+							span {
+								margin: 0 1rem;
+							}
+
+							&.open {
+								color: $color-success;
+							}
+						}
+
+						.branch-details .collapse-innerwrap {
+							padding: 1.2rem 1.3rem 2rem 2.4rem;
+						}
+
+							.details-showonmap {
+								font-size: 1.4rem;
+								display: inline-block;
+								margin-bottom: 1.3rem;
+								line-height: 2rem;
+								color: $color-primary;
+								text-decoration: underline;
+							}
+
+							.details-controls {
+								font-size: 0;
+								letter-spacing: 0;
+
+								.btn {
+									width: calc(50% - .6rem);
+									font-size: 1.1rem;
+									padding: .9rem 0;
+
+									&:nth-child(2n+2){
+										margin-left: 1.2rem;
+									}
+
+									.btn-icon {
+										font-size: 1.3rem;
+
+										&.pre {
+											margin-right: .5rem;
+										}
+									}
+								}
+							}
 				}
 
 		.detail-right {

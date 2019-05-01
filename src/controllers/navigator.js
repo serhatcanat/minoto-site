@@ -3,7 +3,10 @@ import React from 'react'
 // Deps
 import { Route, matchPath, Switch } from 'react-router-dom'
 import history from 'controllers/history'
+import { setTitle, setMeta, setHead } from 'controllers/head'
 import routes from 'data/routes'
+import store from "data/store";
+import { setPage } from "data/store.generic";
 
 // Pages
 import Home from 'pages/home'
@@ -27,8 +30,12 @@ export default class Navigator extends React.Component {
 		window.dynamicHistory = history;
 
 		history.listen(function (e) {
-			console.log(e);
+			let activeKey = getActiveRouteKey(e.pathname)
+			changePage(activeKey ? activeKey : 'notfound');
 		});
+
+		let activeKey = getActiveRouteKey()
+		changePage(activeKey ? activeKey : 'notfound');
 	}
 
 	renderRoutes(){
@@ -71,14 +78,14 @@ export function ListingLink (params) {
 
 export function getActiveRouteKey(url = false, getObject = false){
 	if(url === false) { url = window.location.pathname.replace(/\/$/, ''); }
-
 	let returnData = false;
-
 	Object.keys(routes).forEach((key, index) => {
 		let route = routes[key];
-		let match = matchPath(url, route.path);
-		if (match && match.isExact) {
-			returnData = (getObject ? route : key);
+		if(route.path){
+			let match = matchPath(url, route.path);
+			if (match && match.isExact) {
+				returnData = (getObject ? route : key);
+			}
 		}
 	});
 
@@ -101,4 +108,20 @@ export function changeURLParam(value, param, route = false, noMismatch = false) 
 	}
 
 	return data;
+}
+
+export function changePage(key){
+	let route = routes[key];
+	setTitle(route.title);
+	let pageData = {
+		key: key,
+		data: route
+	}
+	if(store.getState().generic.currentPage.key !== key){
+		window.scroll(0, 0);
+		store.dispatch(setPage(pageData));
+	}
+	
+	setMeta((route.meta ? route.meta : false), true);
+	setHead((route.head ? route.head : false), true);
 }

@@ -6,9 +6,13 @@ import Listing from 'components/sections/listing.js'
 // Partials
 import Loader from 'components/partials/loader'
 import Image from 'components/partials/image'
+import Btn from 'components/partials/btn'
+import Collapse from 'components/partials/collapse'
+import { InputForm, FormInput } from 'components/partials/forms'
 
 // Deps
 import axios from 'axios';
+import { setTitle } from 'controllers/head'
 
 // Assets
 
@@ -30,6 +34,8 @@ export default class Dealer extends React.Component {
 				vm.setState({
 					dealerData: res.data.info
 				})
+
+				setTitle(res.data.info.title);
 			}
 			else {
 				console.log('error');
@@ -67,6 +73,30 @@ export default class Dealer extends React.Component {
 									<span>|</span>
 									{(dealer.open ? 'Şu an açık' : 'Şu an kapalı')}
 								</span>
+
+								<div className="sum-controls">
+									<Btn tag="a" icon="phone" primary low uppercase href={'tel:+9'+dealer.phone.replace(' ', '')}>{dealer.phone}</Btn>
+									<Btn tag="link" icon="envelope" text low uppercase href={'/user/message/todealer/'+dealer.id}>Mesaj Gönder</Btn>
+								</div>
+							</div>
+
+							<InputForm className="info-search">
+								<FormInput placeholder={dealer.title+' üzerinde ara'} />
+								<button type="submit" className="search-submit"><i className="icon-search"></i></button>
+							</InputForm>
+
+							<div className="info-branches">
+								<div className="branches-head">
+									<span className="head-info">{dealer.branchCount} Bayi</span>
+									<span className="head-info">{dealer.listingCount} Araç</span>
+									<strong className="head-title">Şubeler / Lokasyonlar</strong>
+								</div>
+
+								<ul className="branches-list">
+									{dealer.branches.map((branch, nth) => (
+										<BranchInfo data={branch} key={nth} />
+									))}
+								</ul>
 							</div>
 						</aside>
 						<div className="detail-right">
@@ -78,6 +108,41 @@ export default class Dealer extends React.Component {
 				</div>
 			</main>
 
+		)
+	}
+}
+
+class BranchInfo extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			open: false,
+		};
+	}
+
+	render() {
+		let branch = this.props.data;
+		return (
+			<li className={"list-branch" + (this.state.open ? ' open' : '')}>
+				<button className="branch-sum" onClick={() => { this.setState({open: !this.state.open}); }}>
+					<strong className="branch-title">{branch.title}</strong>
+
+					<span className={"branch-workinghours " + (branch.open ? 'open' : 'closed')}>
+						{branch.workingHours}
+						<span>|</span>
+						{(branch.open ? 'Açık' : 'Kapalı')}
+					</span>
+				</button>
+
+				<Collapse className="branch-details" open={this.state.open}>
+					<button type="button" className="details-showonmap">Haritada gör</button>
+
+					<div className="details-controls">
+						<Btn tag="a" icon="phone" primary low uppercase href={'tel:+9'+branch.phone.replace(' ', '')}>{branch.phone}</Btn>
+						<Btn tag="link" icon="envelope" text low uppercase href={'/user/message/todealer/'+branch.id}>Mesaj Gönder</Btn>
+					</div>
+				</Collapse>
+			</li>
 		)
 	}
 }

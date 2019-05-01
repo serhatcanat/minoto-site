@@ -5,7 +5,7 @@ const initialState = {
   currentPage: '',
   mobile: (window.innerWidth <= defaults.mobileBreakPoint),
   mobileBreakPoint: defaults.mobileBreakPoint,
-  mapsAPIkey: "AIzaSyALrfxwFjzKOjRxhqpEAe1AjGeQWmn9XSY",
+  mapsAPIkey: defaults.mapsAPIkey,
   windowWidth: window.innerWidth,
 };
 

@@ -40,7 +40,7 @@ export default class ProductListing extends React.Component {
 		vm.initialize();
 
 		vm.listenerAbort = history.listen(function (e) {
-			console.log('Debug (History Changed):' + e.search.replace('?', ''));
+			//console.log('Debug (History Changed):' + e.search.replace('?', ''));
 			vm.urlChanged(e.search.replace('?', ''));
 		});
 	}
@@ -51,7 +51,7 @@ export default class ProductListing extends React.Component {
 
 	componentDidUpdate(prevProps, prevState) {
 		if(this.props.filters && !isEqual(prevState.filters, this.state.filters)){
-			console.log('Debug (Filters Updated)');
+			//console.log('Debug (Filters Updated)');
 			this.filtersToQuery();
 		}
 
@@ -74,7 +74,6 @@ export default class ProductListing extends React.Component {
 	filtersToQuery() {
 		let newQuery = serialize(this.formRef.current, '|', true)
 		if(history.location.search !== '?'+newQuery){
-			console.log(this.state.initialLoad)
 			window.dynamicHistory.push((newQuery !== '' ? '?'+newQuery : ''));
 		}
 	}
