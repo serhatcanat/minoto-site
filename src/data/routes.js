@@ -69,6 +69,13 @@ module.exports = {
 		linkTitle: "Minoto Nedir",
 		title: "Minoto Nedir",
 	},
+	account: {
+		path: "/hesabim/:page?/:section?/:param?",
+		component: "Account",
+		exact: true,
+		linkTitle: "Hesabım",
+		title: "Hesabım",
+	},
 	notfound: {
 		path: false,
 		component: "NotFound",

@@ -1,0 +1,130 @@
+.section {
+	&.account-nav {
+		border-bottom: .1rem solid $color-gray-light;
+		text-align: center;
+		padding: 1.9rem 0;
+		margin-bottom: 3.4rem;
+
+		.nav-item {
+			 @include font-medium;
+			 position: relative;
+			 display: inline-block;
+			 font-size: 1.4rem;
+			 line-height: 2.4rem;
+			 padding-bottom: 1rem;
+			 transition:  color $transition-hover ease;
+			 text-transform: uppercase;
+
+			 &:before {
+			 	@extend %pseudo;
+			 	position: absolute;
+			 	height: .4rem;
+			 	left: 0;
+			 	bottom: 0;
+			 	width: 100%;
+			 	background: $color-primary;
+			 	transform: scaleX(0);
+			 	opacity: 0;
+			 	transition: opacity $transition-hover ease, transform $transition-hover ease;
+			 }
+
+			 + .nav-item {
+			 	margin-left: 4.7rem;
+			 }
+
+			 &.active {
+			 	color: $color-primary;
+			 	&:before {
+			 		transform: scaleX(1);
+			 		opacity: 1;
+			 	}
+			 }
+
+			 &:hover {
+		 		color: $color-primary;
+			 	&:before {
+			 		transform: scaleX(.5);
+			 		opacity: .9;
+			 	}
+			 }
+		}
+	}
+
+	&.account-wrap {
+		padding: 0 0 3rem;
+	}
+
+	&.account-profile {
+
+		.profile-wrap {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.profile-sum {
+			width: 27rem;
+			text-align: center;
+			border-radius: $radius-big;
+			border: .1rem solid $color-gray-light;
+			padding: 2rem 1rem 0;
+		}
+
+			.sum-image {
+				width: 12rem;
+				height: 12rem;
+				border-radius: 50%;
+				margin: 0 auto;
+			}
+
+			.sum-name {
+				@include font-medium;
+				font-size: 1.8rem;
+				line-height: 2.2rem;
+				margin-top: .9rem;
+			}
+
+			.sum-location {
+				font-size: 1.4rem;
+				color: $color-text-light;
+				margin-top: .7rem;
+				line-height: 1.8rem;
+
+				i {
+					margin-right: .2rem;
+				}
+			}
+
+			.sum-completion {
+				border-top: .1rem solid $color-gray-light;
+				padding: 3rem 0 3rem;
+				margin-top: 2.6rem;
+			}
+
+				.completion-bar {
+					height: 1rem;
+					border-radius: .5rem;
+					background-color: $color-gray-light;
+					overflow: hidden;
+				}
+
+					.bar-progress {
+						background-color: $color-primary;
+						width: 10%;
+						height: 100%;
+						transform-origin: 0 50%;
+						border-radius: .5rem;
+						transition: width $transition-anim ease;
+					}
+
+				.completion-status {
+					@include font-regular;
+					margin-top: 2rem;
+					font-size: 1.4rem;
+					color: rgba($color-text, .6);
+
+					span {
+						color: rgba($color-primary, .6);
+					}
+				}
+	}
+}

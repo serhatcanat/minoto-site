@@ -28,6 +28,7 @@ import Dealer from 'pages/dealer'
 import Detail from 'pages/detail'
 import ListPrices from 'pages/listprices'
 import About from 'pages/about'
+import Account from 'pages/account'
 
 import NotFound from 'pages/notfound'
 
@@ -39,6 +40,7 @@ const pageRegistry = {
 	Detail: Detail,
 	ListPrices: ListPrices,
 	About: About,
+	Account: Account,
 	NotFound: NotFound,
 }
 

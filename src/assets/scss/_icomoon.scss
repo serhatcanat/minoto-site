@@ -41,6 +41,10 @@
  	-moz-osx-font-smoothing: grayscale;
 }
 
+.icon-marker:before {
+	content: "\e91d";
+}
+
 .icon-ribbon:before {
 	content: "\e91c";
 }

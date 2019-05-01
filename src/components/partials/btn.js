@@ -98,31 +98,37 @@ export default class Btn extends React.Component {
 		if(Elem === 'button'){ props.type = (vm.props.type ? vm.props.type : 'button'); }
 
 		props.className += ' btn';
+		if(vm.props.children){
+			return (
+				<Elem {...props}>
+					<span className="btn-content">
+						{leftIcon && <i className={"btn-icon pre icon-" + leftIcon}></i>}
+						{vm.props.children}
+						{rightIcon && <i className={"btn-icon post icon-" + rightIcon}></i>}
 
-		return (
-			<Elem {...props}>
-				<span className="btn-content">
-					{leftIcon && <i className={"btn-icon pre icon-" + leftIcon}></i>}
-					{vm.props.children}
-					{rightIcon && <i className={"btn-icon post icon-" + rightIcon}></i>}
-
-					{vm.props.note &&
-						<PopInfo className="btn-info icon-question" content={vm.props.note} tag="i" nowrap></PopInfo>
-					}
-
-				</span>
-				{vm.state.statusActive && 
-					<span className="btn-statuswrap">
-						{vm.state.status === 'loading' &&
-							<i className="btn-loader icon-spinner"></i>
+						{vm.props.note &&
+							<PopInfo className="btn-info icon-question" content={vm.props.note} tag="i" nowrap></PopInfo>
 						}
-						{vm.state.status !== 'loading' &&
-							<i className={"btn-status icon-"+vm.state.status}></i>
-						}
+
 					</span>
-				}
-			</Elem>
-		)
+					{vm.state.statusActive && 
+						<span className="btn-statuswrap">
+							{vm.state.status === 'loading' &&
+								<i className="btn-loader icon-spinner"></i>
+							}
+							{vm.state.status !== 'loading' &&
+								<i className={"btn-status icon-"+vm.state.status}></i>
+							}
+						</span>
+					}
+				</Elem>
+			)
+		}
+		else{
+			return (
+				<Elem {...props} />
+			)
+		}
 	}
 }
 

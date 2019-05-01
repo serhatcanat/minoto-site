@@ -21,6 +21,7 @@ import { openModal } from "functions/modals";
 import { formatNumber, blockOverflow } from 'functions/helpers.js';
 import parse from 'html-react-parser';
 import axios from 'axios';
+import { setTitle } from 'controllers/head'
 
 // Assets
 import image_avatar from 'assets/images/defaults/avatar.svg';
@@ -44,6 +45,8 @@ export default class Detail extends React.Component {
 				vm.setState({
 					productData: res.data.info
 				})
+
+				setTitle(res.data.info.title);
 			}
 			else {
 				console.log('error');

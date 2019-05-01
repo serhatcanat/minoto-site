@@ -3,7 +3,7 @@ import React from 'react'
 // Sections
 
 // Partials
-import Link from 'components/partials/link'
+//import Link from 'components/partials/link'
 import Btn from 'components/partials/btn'
 
 // Deps
@@ -20,17 +20,21 @@ export default class Home extends React.Component {
 
 					<section>
 						<h2>Sayfalar</h2>
-						<Link className="btn primary" href="home" />
-						<Link className="btn primary" href="detail" params='12345' />
-						<Link className="btn primary" href="dealers" />
-						<Link className="btn primary" href="dealer" params='12321' />
+						<Btn tag="link" className="btn" dark href="home" />
+						<Btn tag="link" className="btn" dark href="detail" params={{id: "12345"}} />
+						<Btn tag="link" className="btn" dark href="dealers" />
+						<Btn tag="link" className="btn" dark href="dealer" params={{id: "12345"}} />
+						<Btn tag="link" className="btn" dark href="listprices" />
+						<Btn tag="link" className="btn" dark href="account" />
+						<Btn tag="link" className="btn" dark href="notfound" />
+						<Btn tag="link" className="btn" dark href="about" />
 					</section>
 
 					<section>
 						<h2>Komponentler</h2>
 						<h3>Modallar</h3>
-						<button className="btn primary" type="button" onClick={() => openModal('consent')}>Veri İzni</button>
-						<button className="btn primary" type="button" onClick={() => openModal({action: 'share', url: 'http://www.thinkerfox.com'})}>Paylaş</button>
+						<button className="btn" type="button" onClick={() => openModal('consent')}>Veri İzni</button>
+						<button className="btn" type="button" onClick={() => openModal({action: 'share', url: 'http://www.thinkerfox.com'})}>Paylaş</button>
 
 						<h3>Butonlar</h3>
 						<Btn primary>Ana Renk</Btn>

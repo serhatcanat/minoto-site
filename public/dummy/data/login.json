@@ -1,0 +1,15 @@
+{
+	"status":"ok",
+	"user":{
+		"username":"yutonet",
+		"avatar":"/dummy/images/profile-picture.jpg",
+		"name":"Yunus",
+		"surname":"Tabakoğlu",
+		"email":"yutonet@gmail.com",
+		"location":"İstanbul",
+		"phone":"+905358779565",
+		"gender":"m",
+		"birthyear":"1991",
+		"profileCompletion": 70
+	}
+}

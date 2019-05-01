@@ -78,7 +78,12 @@ export default class ProductListing extends React.Component {
 	filtersToQuery() {
 		let newQuery = serialize(this.formRef.current, '|', true)
 		if(history.location.search !== '?'+newQuery){
-			window.dynamicHistory.push((newQuery !== '' ? '?'+newQuery : ''));
+			if(this.state.query === ""){
+				window.dynamicHistory.replace((newQuery !== '' ? '?'+newQuery : ''));
+			}
+			else{
+				window.dynamicHistory.push((newQuery !== '' ? '?'+newQuery : ''));
+			}
 		}
 	}
 
