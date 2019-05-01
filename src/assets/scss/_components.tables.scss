@@ -2,6 +2,7 @@
 	border: none;
 	border-collapse: collapse;
 	font-size: 1.4rem;
+	width: 100%;
 
 	td, th {
 		@include font-medium;
@@ -12,19 +13,19 @@
 	}
 
 	td {
-		@include font-bold;
-		color: $color-primary;
+		//@include font-bold;
+		//color: $color-primary;
 	}
 
 	tr{
 		&:nth-child(odd){
 			td, th {
-				background-color: $color-gray-light;
+				background-color: rgba($color-gray-light, .7);
 			}
 		}
 		&:nth-child(even){
 			td, th {
-				background-color: $color-ice;
+				background-color: rgba($color-ice, .7);
 			}
 		}
 	}

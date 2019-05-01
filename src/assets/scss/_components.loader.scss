@@ -1,6 +1,7 @@
 .loader-container {
 	position: relative;
 	min-height: 30rem;
+	z-index: 1;
 
 	> .loader {
 		position: absolute;

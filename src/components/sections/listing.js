@@ -33,6 +33,7 @@ export default class ProductListing extends React.Component {
 		//this.query = ((history.location.search && history.location.search !== '') ? history.location.search.replace('?', '') : '');
 		this.dummyBool = false;
 		this.listenerAbort = false;
+		this.urlTimeout = false;
 	}
 
 	componentDidMount() {
@@ -40,18 +41,17 @@ export default class ProductListing extends React.Component {
 		vm.initialize();
 
 		vm.listenerAbort = history.listen(function (e) {
-			//console.log('Debug (History Changed):' + e.search.replace('?', ''));
 			vm.urlChanged(e.search.replace('?', ''));
 		});
 	}
 
 	componentWillUnmount() {
+		if(this.urlTimeout){ clearTimeout(this.urlTimeout); this.urlTimeout = false; }
 		this.listenerAbort();
 	}
 
 	componentDidUpdate(prevProps, prevState) {
 		if(this.props.filters && !isEqual(prevState.filters, this.state.filters)){
-			//console.log('Debug (Filters Updated)');
 			this.filtersToQuery();
 		}
 
@@ -65,10 +65,14 @@ export default class ProductListing extends React.Component {
 	}
 
 	urlChanged(){
-		let query = ((history.location.search && history.location.search !== '') ? history.location.search.replace('?', '') : '')
-		if(query !== this.statequery){
-			this.setState({query: query});
-		}
+		let vm = this;
+		if(vm.urlTimeout){ clearTimeout(vm.urlTimeout); vm.urlTimeout = false; }
+		vm.urlTimeout = setTimeout(function() {
+			let query = ((history.location.search && history.location.search !== '') ? history.location.search.replace('?', '') : '')
+			if(query !== vm.statequery){
+				vm.setState({query: query});
+			}
+		}, 30);
 	}
 
 	filtersToQuery() {

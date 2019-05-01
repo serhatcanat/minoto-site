@@ -1,5 +1,17 @@
 import React from 'react'
 
+// Sections
+import Header from 'components/sections/header'
+import Footer from 'components/sections/footer'
+
+// Modals
+import LoginModal from 'components/modals/login'
+import ConsentModal from 'components/modals/consent'
+
+// Controllers
+import ResponsiveWatcher from 'controllers/responsive-watcher'
+import ModalsWrap from 'controllers/modals-wrap'
+
 // Deps
 import { Route, matchPath, Switch } from 'react-router-dom'
 import history from 'controllers/history'
@@ -14,6 +26,9 @@ import Sitemap from 'pages/sitemap'
 import Dealers from 'pages/dealers'
 import Dealer from 'pages/dealer'
 import Detail from 'pages/detail'
+import ListPrices from 'pages/listprices'
+import About from 'pages/about'
+
 import NotFound from 'pages/notfound'
 
 const pageRegistry = {
@@ -22,6 +37,8 @@ const pageRegistry = {
 	Dealer: Dealer,
 	Dealers: Dealers,
 	Detail: Detail,
+	ListPrices: ListPrices,
+	About: About,
 	NotFound: NotFound,
 }
 
@@ -30,12 +47,10 @@ export default class Navigator extends React.Component {
 		window.dynamicHistory = history;
 
 		history.listen(function (e) {
-			let activeKey = getActiveRouteKey(e.pathname)
-			changePage(activeKey ? activeKey : 'notfound');
+			changePage(getRoute(e.pathname, false, true));
 		});
 
-		let activeKey = getActiveRouteKey()
-		changePage(activeKey ? activeKey : 'notfound');
+		changePage(getRoute(false, false, true));
 	}
 
 	renderRoutes(){
@@ -61,11 +76,18 @@ export default class Navigator extends React.Component {
 	render () {
 		let data = this.renderRoutes();
 		return (
-			<main className="content-main">
+			<div className="site-content">
+				<ResponsiveWatcher />
+				<Header />
 				<Switch>
 					{data}
 				</Switch>
-			</main>
+				<Footer />
+				<ModalsWrap>
+					<LoginModal />
+					<ConsentModal />
+				</ModalsWrap>
+			</div>
 		)
 	}
 }
@@ -76,28 +98,32 @@ export function ListingLink (params) {
 	});
 }
 
-export function getActiveRouteKey(url = false, getObject = false){
+export function getRoute(url = false, getObject = false, includeCatch = false){
 	if(url === false) { url = window.location.pathname.replace(/\/$/, ''); }
-	let returnData = false;
+	let returnRoute = false;
+	let catchRoute = false;
 	Object.keys(routes).forEach((key, index) => {
 		let route = routes[key];
 		if(route.path){
 			let match = matchPath(url, route.path);
 			if (match && match.isExact) {
-				returnData = (getObject ? route : key);
+				returnRoute = (getObject ? route : key);
 			}
+		}
+		else if(includeCatch) {
+			catchRoute = (getObject ? route : key);
 		}
 	});
 
-	return returnData;
+	return (returnRoute ? returnRoute : catchRoute);
 }
 
-export function getActiveRoute(url = false){
-	return getActiveRouteKey(url, true);
+export function getCurrentRoute(url = false, includeCatch = true){
+	return getRoute(url, true, includeCatch);
 }
 
 export function changeURLParam(value, param, route = false, noMismatch = false) {
-	let routeObject = (route === false ? getActiveRoute() : routes[route]);
+	let routeObject = (route === false ? getCurrentRoute() : routes[route]);
 	let data = false;
 
 	if(routeObject){

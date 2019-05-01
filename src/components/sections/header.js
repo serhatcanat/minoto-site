@@ -4,10 +4,12 @@ import React from 'react'
 import Image from 'components/partials/image'
 import Link from 'components/partials/link'
 import Slider from 'components/partials/slider'
+import SearchBar from 'components/partials/searchbar.js'
 
 // Deps
 import { openModal } from "functions/modals";
 import { blockOverflow } from "functions/helpers";
+import { connect } from "react-redux";
 
 // Assets
 import image_icon_facebook from 'assets/images/icon/facebook.svg'
@@ -16,7 +18,13 @@ import image_icon_youtube from 'assets/images/icon/youtube.svg'
 import image_logo from 'assets/images/logo.svg'
 import image_logo_primary from 'assets/images/logo-primary.svg'
 
-export default class Header extends React.Component {
+const mapStateToProps = state => {
+	return {
+		currentPage: state.generic.currentPage,
+	};
+};
+
+class Header extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -27,6 +35,10 @@ export default class Header extends React.Component {
 
 		this.toggleMenu = this.toggleMenu.bind(this);
 		this.menuTimeout = false;
+	}
+
+	componentWillUnmount() {
+		if(this.menuTimeout){ clearTimeout(this.menuTimeout); this.menuTimeout = false; }
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -48,6 +60,10 @@ export default class Header extends React.Component {
 					blockOverflow(false);
 				}, 600);
 			}
+		}
+
+		if(prevProps.currentPage.key !== vm.props.currentPage.key && vm.state.menuOpen){
+			vm.setState({menuOpen: false});
 		}
 	}
 
@@ -104,7 +120,7 @@ export default class Header extends React.Component {
 
 											<ul className="menu-items">
 												<li className="menu-item">
-													<Link href="/">
+													<Link href="dealers">
 														<span>Bayiler</span>
 														<span className="item-count">192</span>
 													</Link>
@@ -116,7 +132,7 @@ export default class Header extends React.Component {
 													</Link>
 												</li>
 												<li className="menu-item">
-													<Link href="/">
+													<Link href="about">
 														<span>Minoto Nedir?</span>
 													</Link>
 												</li>
@@ -137,7 +153,7 @@ export default class Header extends React.Component {
 													<Link href="/">Araç Karşılaştır</Link>
 												</li>
 												<li className="sublinks-item">
-													<Link href="/">Araç Liste Fiyatları</Link>
+													<Link href="listprices">Araç Liste Fiyatları</Link>
 												</li>
 												<li className="sublinks-item">
 													<Link href="/">Sıkça Sorulan Sorular</Link>
@@ -177,7 +193,12 @@ export default class Header extends React.Component {
 						)}
 					</nav>
 				</div>
+				{!vm.props.currentPage.data.hideSearchFromHeader &&
+					<SearchBar className="header-search" />
+				}
 			</header>
 		)
 	}
 }
+
+export default connect(mapStateToProps)(Header);

@@ -12,11 +12,15 @@
 		+ .breadcrumbs-item {
 			&:before{
 				@include icon('caret-right');
-				font-size: .6em;
+				font-size: .5em;
 				display: inline-block;
 				vertical-align: middle;
-				margin: -.2rem .5rem 0;
+				margin: -.3rem .5rem 0;
 			}
 		}
+	}
+
+	&.section {
+		padding: 2.4rem 0 0;
 	}
 }

@@ -1,0 +1,172 @@
+{
+	"status": "ok",
+	"filters" : {
+		"year": [
+			{
+				"title": "Tüm Yıllar",
+				"value": "tum_yillar",
+				"selected": true
+			},
+			{
+				"title": "2018",
+				"value": "2018",
+				"selected": false
+			},
+			{
+				"title": "2019",
+				"value": "2019",
+				"selected": false
+			},
+			{
+				"title": "2020",
+				"value": "2020",
+				"selected": false
+			}
+		],
+		"brand": [
+			{
+				"title": "Tüm Markalar",
+				"value": "tum_markalar",
+				"selected": true
+			},
+			{
+				"title": "Audi",
+				"value": "audi",
+				"selected": false
+			},
+			{
+				"title": "Alfa Romeo",
+				"value": "alfaromeo",
+				"selected": false
+			},
+			{
+				"title": "Mercedes",
+				"value": "mercedes",
+				"selected": false
+			},
+			{
+				"title": "Volkswagen",
+				"value": "vw",
+				"selected": false
+			},
+			{
+				"title": "Renault",
+				"value": "renault",
+				"selected": false
+			}
+		]
+	},
+	"brands": [
+		{
+			"name": "Audi",
+			"logo": "/dummy/images/brand-logo-audi.png",
+			"listings": [
+				{
+					"model": "A3",
+					"type": "Cabrio",
+					"equipment": "1.2 TFSI",
+					"enginevolume": "1698 cc",
+					"transmission": "Yarı Otomatik",
+					"fuel": "Benzin",
+					"price": 1234800
+				},
+				{
+					"model": "A2",
+					"type": "Hatchback",
+					"equipment": "1.2 TFSI",
+					"enginevolume": "1698 cc",
+					"transmission": "Yarı Otomatik",
+					"fuel": "Benzin",
+					"price": 134500
+				},
+				{
+					"model": "A2",
+					"type": "Hatchback",
+					"equipment": "1.2 TFSI",
+					"enginevolume": "1698 cc",
+					"transmission": "Yarı Otomatik",
+					"fuel": "Benzin",
+					"price": 134500
+				},
+				{
+					"model": "A2",
+					"type": "Hatchback",
+					"equipment": "1.2 TFSI",
+					"enginevolume": "1698 cc",
+					"transmission": "Yarı Otomatik",
+					"fuel": "Benzin",
+					"price": 134500
+				},
+				{
+					"model": "A2",
+					"type": "Hatchback",
+					"equipment": "1.2 TFSI",
+					"enginevolume": "1698 cc",
+					"transmission": "Yarı Otomatik",
+					"fuel": "Benzin",
+					"price": 134500
+				},
+				{
+					"model": "A2",
+					"type": "Hatchback",
+					"equipment": "1.2 TFSI",
+					"enginevolume": "1698 cc",
+					"transmission": "Yarı Otomatik",
+					"fuel": "Benzin",
+					"price": 134500
+				}
+			]
+		},
+		{
+			"name": "Alfa Romeo",
+			"logo": "/dummy/images/brand-logo-alfa.png",
+			"listings": [
+				{
+					"model": "Guiletta",
+					"type": "Cabrio",
+					"equipment": "1.2 TFSI",
+					"enginevolume": "1698 cc",
+					"transmission": "Yarı Otomatik",
+					"fuel": "Benzin",
+					"price": 114800
+				},
+				{
+					"model": "A2",
+					"type": "Hatchback",
+					"equipment": "1.2 TFSI",
+					"enginevolume": "1698 cc",
+					"transmission": "Yarı Otomatik",
+					"fuel": "Benzin",
+					"price": 98800
+				},
+				{
+					"model": "A2",
+					"type": "Hatchback",
+					"equipment": "1.2 TFSI",
+					"enginevolume": "1698 cc",
+					"transmission": "Yarı Otomatik",
+					"fuel": "Benzin",
+					"price": 98800
+				},
+				{
+					"model": "A2",
+					"type": "Hatchback",
+					"equipment": "1.2 TFSI",
+					"enginevolume": "1698 cc",
+					"transmission": "Yarı Otomatik",
+					"fuel": "Benzin",
+					"price": 98800
+				},
+				{
+					"model": "A2",
+					"type": "Hatchback",
+					"equipment": "1.2 TFSI",
+					"enginevolume": "1698 cc",
+					"transmission": "Yarı Otomatik",
+					"fuel": "Benzin",
+					"price": 98800
+				}
+			]
+		}
+	]
+}

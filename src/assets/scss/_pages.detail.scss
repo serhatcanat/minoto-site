@@ -327,6 +327,10 @@
 
 							.group-table {
 								width: 100%;
+								td{
+									@include font-bold;
+									color: $color-primary;
+								}
 							}
 
 					.tab-gallery {

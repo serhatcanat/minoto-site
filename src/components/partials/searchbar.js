@@ -68,7 +68,6 @@ export default class SearchBar extends React.Component{
 		let vm = this;
 		let active = vm.state.inputVal.length;
 
-
 		if(active){
 			vm.setState({loading : true});
 			axios.get('/dummy/data/search-autocomplete.json').then(res => {

@@ -1,0 +1,173 @@
+.section {
+	&.about-head {
+		background-color: $color-text;
+		color: $color-white;
+		text-align: center;
+		padding: 9.6rem 0 16.8rem;
+
+		.head-title {
+			@include font-medium;
+			font-size: 3.6rem;
+			line-height: 4.3rem;
+			text-transform: lowercase;
+		}
+
+		.head-subtitle {
+			@include font-light;
+			font-size: 3.6rem;
+			line-height: 4.3rem;
+		}
+
+	}
+
+	&.about-intro {
+		margin-top: -11.6rem;
+		text-align: center;
+
+		.intro-image {
+			width: 117rem;
+			border-radius: $radius-general;
+			margin: 0 auto;
+		}
+
+		.intro-text {
+			width: 77rem;
+			margin: 0 auto;
+			padding: 8.7rem 0 12rem;
+			font-size: 1.8rem;
+			line-height: 2.8rem;
+		}
+	}
+
+	&.about-counts {
+		padding: 4rem 0;
+		border-top: .1rem solid rgba($color-text, .1);
+		border-bottom: .1rem solid rgba($color-text, .1);
+
+		.counts-wrap {
+			border-right-color: rgba($color-text, .1);
+			display: flex;
+		}
+
+		.counts-item {
+			flex: 1;
+			text-align: center;
+			padding: 8rem 0;
+
+			&:nth-child(3n+2){
+				border-left: .1rem solid rgba($color-text, .1);
+				border-right: .1rem solid rgba($color-text, .1);
+			}
+		}
+
+			.item-num {
+				@include font-bold;
+				font-size: 4.2rem;
+				display: block;
+				color: $color-success;
+				margin-bottom: 1.4rem;
+			}
+
+			.item-title {
+				@include font-regular;
+				font-size: 1.6rem;
+				line-height: 1.9rem;
+				color: $color-text-light;
+			}
+	}
+
+	&.about-brands {
+		padding: 13.8rem 0 14.4rem;
+		color: $color-text-light;
+
+		.brands-wrap {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.brands-image {
+			width: calc(50% - 1.5rem);
+		}
+
+		.brands-content {
+			@include font-extralight;
+			width: calc(50% - 1.5rem);
+			font-size: 1.8rem;
+			line-height: 3.2rem;
+		}
+
+			.content-title {
+				font-weight: inherit;
+				font-size: 4.2rem;
+				line-height: 5rem;
+			}
+
+			.content-text {
+				margin-top: 3rem;
+			}
+	}
+
+	&.about-team {
+		padding: 2.7rem 0 6.6rem;
+		border-top: .1rem solid $color-gray-light;
+
+		.team-title {
+			@include font-extralight;
+			color: $color-text-light;
+			text-align: center;
+			font-size: 4.2rem;
+			line-height: 5rem;
+		}
+
+		.team-wrap {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		.team-member {
+			width: 23rem;
+			border: .1rem solid $color-ice;
+			border-radius: $radius-big;
+		}
+
+			.member-image {
+				width: calc(100% + .2rem);
+				padding-bottom: 100%;
+				margin: -.1rem -.1rem 0;
+				border-radius: $radius-big;
+			}
+
+			.member-content {
+				padding: 2.1rem 2rem 2rem;
+			}
+
+			.member-position {
+				@include font-extralight;
+				font-size: 1.8rem;
+				line-height: 3.2rem;
+				color: $color-text-light;
+				display: block;
+			}
+
+			.member-name {
+				@include font-regular;
+				font-size: 2.2rem;
+				line-height: 3.2rem;
+			}
+
+			.member-contact {
+				font-size: 0;
+				margin-top: 2rem;
+
+				> * {
+					width: 4.2rem;
+					display: inline-block;
+
+					+ * {
+						margin-left: 1.5rem;
+					}
+				}
+			}
+	}
+}

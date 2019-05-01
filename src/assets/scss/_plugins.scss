@@ -18,3 +18,76 @@
 	}
 
 }
+
+.minoto-select {
+	font-size: 1.4rem;
+
+	.minoto-select__control {
+		@include font-medium;
+		border-radius: 0;
+		background-color: $color-gray-light;
+		border: .1rem solid $color-gray-light;
+		cursor: pointer;
+		min-height: 5rem;
+
+		&:hover {
+			border-color: $color-gray-light;
+		}
+
+
+	}
+
+	.minoto-select__control--menu-is-open,
+	.minoto-select__control--is-focused,
+	{
+		border-color: $color-gray-light;
+		box-shadow: none;
+	}
+
+	.minoto-select__value-container{
+		padding-left: 1.5rem;
+	}
+
+	.minoto-select__single-value{
+		color: $color-text;
+	}
+
+	.minoto-select__indicator-separator{
+		display: none;
+	}
+
+	.minoto-select__menu {
+		margin: 0;
+		border-radius: 0;
+		border-bottom-left-radius: $radius-general;
+		border-bottom-right-radius: $radius-general;
+		box-shadow: 0 12px 18px 0 rgba(29, 42, 68, 0.13);
+	}
+
+	.minoto-select__menu-list{
+		padding-top: 0;
+		padding-bottom: 0;
+		border-top: .1rem solid $color-ice;
+	}
+
+	.minoto-select__option{
+		transition: background-color $transition-hover ease;
+		border-bottom: .1rem solid $color-gray;
+		cursor: pointer;
+		padding: .7rem 1.6rem;
+		line-height: 1.7rem;
+
+		&:focus, &:active {
+			background-color: rgba($color-ice, .5);
+		}
+	}
+
+	.minoto-select__option--is-selected{
+		background-color: transparent;
+		color: $color-primary;
+	}
+
+	.minoto-select__option--is-focused{
+		background-color: rgba($color-ice, .2);
+	}
+}

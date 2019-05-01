@@ -99,7 +99,7 @@ export default class Footer extends React.Component {
 									<a className="footer-link" href="/">Markalar</a>
 								</li>
 								<li>
-									<a className="footer-link" href="/">Bayiler</a>
+									<Link className="footer-link" href="dealers">Bayiler</Link>
 								</li>
 								<li>
 									<Link className="footer-link" href="sitemap">Site Haritası</Link>
@@ -107,7 +107,7 @@ export default class Footer extends React.Component {
 							</ul>
 							<ul className="nav-col">
 								<li>
-									<a className="footer-link" href="/">Hakkında</a>
+									<Link className="footer-link" href="about">Hakkında</Link>
 								</li>
 								<li>
 									<a className="footer-link" href="/">Blog</a>

@@ -1,8 +1,11 @@
-import defaults from "data/config";
+import defaults from "data/config"
 
 const initialState = {
   loading: false,
-  currentPage: '',
+  currentPage: {
+  	key: "",
+  	data: {}
+  },
   mobile: (window.innerWidth <= defaults.mobileBreakPoint),
   mobileBreakPoint: defaults.mobileBreakPoint,
   mapsAPIkey: defaults.mapsAPIkey,

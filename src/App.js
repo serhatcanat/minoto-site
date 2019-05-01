@@ -1,18 +1,8 @@
 import React, { Component } from 'react'
 
-// Sections
-import Header from './components/sections/header'
-import Footer from './components/sections/footer'
-
-// Modals
-import LoginModal from './components/modals/login'
-import ConsentModal from './components/modals/consent'
-
 // Controllers
-import ResponsiveWatcher from './controllers/responsive-watcher'
-import Navigator from './controllers/navigator'
 import history from './controllers/history'
-import ModalsWrap from './controllers/modals-wrap'
+import Navigator from './controllers/navigator'
 
 // Deps
 import { Router } from 'react-router-dom'
@@ -26,16 +16,7 @@ class App extends Component {
 	render() {
 		return (
 			<Router history={history}>
-				<div id="site-content">
-					<ResponsiveWatcher />
-					<Header />
-					<Navigator />
-					<Footer />
-					<ModalsWrap>
-						<LoginModal />
-						<ConsentModal />
-					</ModalsWrap>
-				</div>
+				<Navigator />
 			</Router>
 		);
 	}
