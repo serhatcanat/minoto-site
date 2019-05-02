@@ -4,6 +4,7 @@ import React from 'react'
 import Login from 'pages/account/login'
 import Profile from 'pages/account/profile'
 import Notifications from 'pages/account/notifications'
+import Favorites from 'pages/account/favorites'
 
 // Sections
 
@@ -77,6 +78,7 @@ class Account extends React.Component {
 						<Switch>
 							<Route exact path={'/hesabim/profil'} component={Profile} />
 							<Route exact path={'/hesabim/bildirimler'} component={Notifications} />
+							<Route exact path={'/hesabim/favoriler'} component={Favorites} />
 							<Redirect to="/hesabim/profil" />
 						</Switch>
 					</div>

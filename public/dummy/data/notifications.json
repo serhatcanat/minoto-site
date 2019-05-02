@@ -1,0 +1,63 @@
+{
+	"status": "ok",
+	"groups": [
+		{
+			"title": "Bugün",
+			"notifications": [
+				{
+					"image": false,
+					"read": false,
+					"datetime": "14:11",
+					"content": "[Kosifler Oto](/bayi/12)'ya yeni otomobiller geldi."
+				},
+				{
+					"image": false,
+					"read": false,
+					"datetime": "14:11",
+					"content": "[Doğuş Oto](/bayi/12)'dan [Ali Yılmaz](/profil/121312) 4343524 ilan nolu 'Audi A3, 3.0 Premium Plus CDI' ilanına cevap verdi."
+				},
+				{
+					"image": "/dummy/images/brand-logo-alfa.png",
+					"read": true,
+					"datetime": "14:11",
+					"content": "[Alfa Romeo](/marka/citroen) marka yeni 'C-Elyssee 1.6 HDI Attraction' otomotiv geldi."
+				}
+			]
+		},
+		{
+			"title": "Daha Öncekiler",
+			"notifications": [
+				{
+					"image": false,
+					"read": false,
+					"datetime": "21 Aralık 2018 - 14:11",
+					"content": "[Kosifler Oto](/bayi/12)'ya yeni otomobiller geldi."
+				},
+				{
+					"image": false,
+					"read": true,
+					"datetime": "15 Şubat 2019 - 14:11",
+					"content": "[Doğuş Oto](/bayi/12)'dan [Ali Yılmaz](/profil/121312) 4343524 ilan nolu 'Audi A3, 3.0 Premium Plus CDI' ilanına cevap verdi."
+				},
+				{
+					"image": "/dummy/images/brand-logo-alfa.png",
+					"read": false,
+					"datetime": "10 Mart 2019 - 14:11",
+					"content": "[Alfa Romeo](/marka/citroen) marka yeni 'C-Elyssee 1.6 HDI Attraction' otomotiv geldi."
+				},
+				{
+					"image": false,
+					"read": true,
+					"datetime": "15 Şubat 2019 - 14:11",
+					"content": "[Doğuş Oto](/bayi/12)'dan [Ali Yılmaz](/profil/121312) 4343524 ilan nolu 'Audi A3, 3.0 Premium Plus CDI' ilanına cevap verdi."
+				},
+				{
+					"image": "/dummy/images/brand-logo-alfa.png",
+					"read": true,
+					"datetime": "10 Mart 2019 - 14:11",
+					"content": "[Alfa Romeo](/marka/citroen) marka yeni 'C-Elyssee 1.6 HDI Attraction' otomotiv geldi."
+				}
+			]
+		}
+	]
+}

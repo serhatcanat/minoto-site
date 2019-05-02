@@ -116,6 +116,10 @@
 		padding-bottom: .8rem;	
 	}
 
+	&.light {
+		@include font-regular;
+	}
+
 	&.small-icon {
 		i {
 			font-size: .9rem;

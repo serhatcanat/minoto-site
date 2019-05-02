@@ -8,6 +8,7 @@ import union from 'lodash/union';
 import extend from 'lodash/extend';
 import { uid } from 'functions/helpers';
 import { validation } from 'controllers/validation';
+import Select from 'components/partials/select'
 //import DayPickerInput from 'react-day-picker/DayPickerInput';
 
 //Partials
@@ -43,13 +44,15 @@ export class FormInput extends React.Component {
 			"inputwrap type-" + vm.props.type +
 			(vm.props.className ? ' ' + vm.props.className : '') +
 			((vm.state.touched || vm.props.forceTouch) && vm.state.error ? ' error' : '') +
+			(vm.props.popLabel ? ' pop-label' : '') +
+			(vm.props.disabled ? ' disabled' : '') +
 			((vm.state.value !== "" && vm.state.value !== false) ? ' input-full' : '');
 
 		let id = (vm.props.id ? vm.props.id : uid('form_input'));
 
 		let Input = false;
 		let inputProps = extend(
-			pick(vm.props, ['value', 'label', 'type', 'placeholder', 'name', 'multiple', 'children', 'readOnly', 'onChange', 'decimals', 'wrapperId', 'checked', 'hideError']),
+			pick(vm.props, ['value', 'label', 'type', 'placeholder', 'name', 'multiple', 'children', 'readOnly', 'onChange', 'decimals', 'wrapperId', 'checked', 'hideError', 'popLabel', 'disabled']),
 			{ id: id }
 		)
 
@@ -81,6 +84,9 @@ export class FormInput extends React.Component {
 				}
 				break;
 			case 'select':
+				if(vm.props.options){
+					inputProps.options = vm.props.options;
+				}
 				Input = InputSelect;
 				break;
 			default:
@@ -102,6 +108,7 @@ FormInput.defaultProps = {
 	multiple: false,
 	value: '',
 	label: '',
+	popLabel: false,
 };
 
 class InputText extends React.Component {
@@ -168,7 +175,7 @@ class InputText extends React.Component {
 		}
 
 		let labelText = false;
-		if (vm.props.label || vm.props.placeholder) {
+		if (vm.props.label || (vm.props.popLabel && (vm.props.label || vm.props.placeholder))) {
 			labelText = (vm.props.label ? vm.props.label : vm.props.placeholder);
 		}
 
@@ -191,6 +198,7 @@ class InputText extends React.Component {
 					name={vm.props.name ? vm.props.name : undefined}
 					type={type}
 					id={vm.props.id ? vm.props.id : undefined}
+					disabled={vm.props.disabled ? vm.props.disabled : undefined}
 					{...additionalProps}
 				/>
 				{vm.props.touched && vm.state.error && vm.props.hideError !== true ? (
@@ -302,28 +310,29 @@ class InputSelect extends React.Component {
 	}
 
 	componentDidMount() {
-		this.validate(this.state.value, this.input.current.options[this.input.current.selectedIndex].text, false);
+		this.validate(this.state.value);
 	}
 
-	handleChange(e) {
+	handleChange(option) {
 		let vm = this;
-		vm.validate(e.target.value, e.target.options[e.target.selectedIndex].text, true);
+		//console.log(e);
+		vm.validate(option, true);
 
 		if (vm.props.onChange) {
-			vm.props.onChange(e);
+			vm.props.onChange(option);
 		}
 	}
 
-	validate(value, text, touch) {
+	validate(option, touch = false) {
 		let vm = this;
-		let validStatus = validation(value, vm.props.validation);
+		let validStatus = validation(option.value, vm.props.validation);
 		vm.props.onChange({
-			value: value,
+			value: (option.value ? option.value : null),
 			error: (validStatus !== false),
 			touched: touch,
 		});
 
-		vm.setState({ labelText: text, value: value, error: (validStatus !== false), errorMessage: validStatus });
+		vm.setState({ value: option, error: (validStatus !== false), errorMessage: validStatus });
 	}
 
 	render() {
@@ -339,19 +348,14 @@ class InputSelect extends React.Component {
 				{labelText &&
 					<label className="input-label" htmlFor={vm.props.id}>{labelText}</label>
 				}
-				<select
-					ref={this.input}
-					name={vm.props.name}
+				<Select
+					value={vm.state.value}
 					onChange={vm.handleChange}
-					value={vm.state.value || ''}
+					options={vm.props.options}
 					id={vm.props.id}
-				>
-					{(vm.props.placeholder ? (
-						<option disabled hidden value="">{vm.props.placeholder}</option>
-					) : false)}
-					{vm.props.children}
-				</select>
-				<label htmlFor={vm.props.id}>{vm.state.labelText}</label>
+					name={vm.props.name}
+					placeholder={vm.props.placeholder}
+				/>
 				{vm.props.touched && vm.state.error ? (
 					<div className="input-error">
 						{vm.state.errorMessage}

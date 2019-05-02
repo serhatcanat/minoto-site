@@ -59,6 +59,7 @@
 		.profile-wrap {
 			display: flex;
 			justify-content: space-between;
+			align-items: flex-start;
 		}
 
 		.profile-sum {
@@ -126,5 +127,122 @@
 						color: rgba($color-primary, .6);
 					}
 				}
+
+		.profile-form {
+			width: calc(100% - 30rem);
+		}
+
+			.form-title {
+				@include font-regular;
+				font-size: 2.4rem;
+				line-height: 3rem;
+				padding-bottom: 2rem;
+				border-bottom: .1rem solid $color-gray-light;
+				margin-bottom: 2rem;
+			}
+
+			.form-group {
+				+ .form-group {
+					margin-top: 4rem;
+				}
+			}
+
+			.form-submit {
+				margin-top: 3.4rem;
+			}
+
+			.form-inputwrap {
+				width: 44rem;
+
+				+ .form-inputwrap {
+					margin-top: 2.6rem;
+				}
+
+				@for $i from 1 through 10 {
+					&:nth-last-child(#{$i}) {
+						z-index: $i;
+					}
+				}
+			}
+
+		.form-delete {
+			@include font-regular;
+			margin-top: 6rem;
+			color: $color-text-light;
+			font-size: 1.4rem;
+			text-decoration: underline;
+			line-height: 1.7rem;
+		}
+	}
+
+	&.account-notifications {
+		.notifications-group {
+			+ .notifications-group {
+				margin-top: 2rem;
+			}
+		}
+
+			.group-title {
+				@include font-medium;
+				font-size: 2.4rem;
+				line-height: 2.8rem;
+				padding-bottom: 1.6rem;
+				border-bottom: .1rem solid $color-gray-light;
+			}
+
+			.group-items {
+
+			}
+
+				.items-notification {
+					@include font-regular;
+					font-size: 1.5rem;
+					line-height: 2.1rem;
+					padding: 1.5rem 2rem;
+					border-bottom: .1rem solid $color-gray-light;
+					display: flex;
+					align-items: center;
+					flex-direction: row;
+					flex-wrap: wrap;
+
+					&.unread {
+						background-color: rgba($color-gray-light, .6);
+					}
+				}
+
+					.notification-link {
+						@include font-medium;
+						color: $color-primary;
+					}
+
+					.notification-image {
+						width: 5rem;
+						height: 5rem;
+						border-radius: 50%;
+						border: .1rem solid $color-gray-light;
+						margin-right: 1.7rem;
+					}
+
+					.notification-datetime {
+						@include font-regular;
+						color: rgba($color-text, .5);
+						margin-top: .1rem;
+						font-size: 1.3rem;
+					}
+	}
+
+	&.account-favorites {
+		.favorites-list {
+			width: calc(100% + 3rem);
+			margin: -2rem -1.5rem 0;
+			display: flex;
+			flex-direction: row;
+			flex-wrap: wrap;
+		}
+
+			.list-item {
+				padding: 2rem 1.5rem 0;
+				width: 25%;
+			}
 	}
 }

@@ -51,11 +51,18 @@
 		}
 	}
 
+	&.disabled {
+		opacity: .6;
+	}
+
 	&.input-full {
-		.input-label {
-			opacity: 1;
-			transform: translate3d(0, 0, 0);
-			pointer-events: auto;
+
+		&.pop-label {
+			.input-label {
+				opacity: 1;
+				transform: translate3d(0, 0, 0);
+				pointer-events: auto;
+			}
 		}
 	}
 
@@ -69,23 +76,33 @@
 		}
 	}
 
+	&.pop-label {
+		.input-label {
+			position: absolute;
+			display: inline-block;
+			left: 0.7rem;
+			bottom: calc(100% - 1rem);
+			font-size: 1.2rem;
+			line-height: 1.4rem;
+			background-color: $color-white;
+			padding: 0.2rem 0.8rem;
+			margin-bottom: 0;
+			border-radius: $radius-general;
+			opacity: 0;
+			pointer-events: none;
+			transform: translate3d(0, 0.3rem, 0);
+			transition: transform $transition-hover ease, opacity $transition-hover ease;
+			touch-action: manipulation;
+		}
+	}
+
 	.input-label {
-		@include font-medium;
-		position: absolute;
-		left: 0.7rem;
-		bottom: calc(100% - 1rem);
-		font-size: 1.2rem;
-		line-height: 1.4rem;
-		background-color: $color-white;
-		padding: 0.2rem 0.8rem;
-		border-radius: $radius-general;
-		letter-spacing: 0.03em;
-		color: $color-gray;
-		opacity: 0;
-		pointer-events: none;
-		transform: translate3d(0, 0.3rem, 0);
-		transition: transform $transition-hover ease, opacity $transition-hover ease;
-		touch-action: manipulation;
+		@include font-regular;
+		display: block;
+		font-size: 1.4rem;
+		line-height: 1.8rem;
+		margin-bottom: 1.4rem;
+		color: $color-text-light;
 	}
 
 	.input-icon {
@@ -144,45 +161,6 @@
 			left: 1.5rem;
 			font-size: 3rem;
 			color: $color-gray;
-		}
-	}
-
-	&.type-select {
-		select {
-			position: absolute;
-			opacity: 0;
-			top: 0;
-			left: 0;
-			height: 5rem;
-			width: 100%;
-			z-index: 2;
-			touch-action: manipulation;
-
-			+ label {
-				color: $color-gray;
-
-				&:before {
-					@include icon('angle-down');
-					position: absolute;
-					right: 2rem;
-					top: 50%;
-					transform: translateY(-50%);
-					font-size: 0.9rem;
-					color: $color-gray;
-				}
-			}
-
-			&:focus {
-				+ label {
-					border-color: $color-blue;
-				}
-			}
-		}
-
-		&.input-full {
-			select + label {
-				color: $color-text;
-			}
 		}
 	}
 

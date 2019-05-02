@@ -72,7 +72,13 @@ export default class Btn extends React.Component {
 				Elem = vm.props.tag;
 			break;
 		}
-		let props = omit(vm.props, ['tag', 'icon', 'leftIcon', 'rightIcon', 'note', 'block', 'hollow', 'uppercase', 'primary', 'low', 'wide', 'white', 'dark', 'text', 'smallIcon', 'loading', 'status']);
+		let props = omit(vm.props, [
+			// Data
+			'tag', 'icon', 'leftIcon', 'rightIcon', 'note', 'status',
+			// Colors
+			'hollow', 'primary', 'white', 'dark', 'text', 
+			// Forms & Styling
+			'light', 'block', 'uppercase', 'low', 'wide', 'big', 'smallIcon', 'loading']);
 
 		let leftIcon = (vm.props.leftIcon ? vm.props.leftIcon : (vm.props.icon ? vm.props.icon : false));
 		let rightIcon = (vm.props.rightIcon ? vm.props.rightIcon : false);
@@ -85,9 +91,11 @@ export default class Btn extends React.Component {
 		if(vm.props.text) { props.className += ' text'; }
 
 		if(vm.props.hollow) { props.className += ' hollow'; }
+		if(vm.props.light) { props.className += ' light'; }
 		if(vm.props.uppercase) { props.className += ' uppercase'; }
 		if(vm.props.low) { props.className += ' low'; }
 		if(vm.props.wide) { props.className += ' wide'; }
+		if(vm.props.big) { props.className += ' big'; }
 		if(vm.props.smallIcon) { props.className += ' small-icon'; }
 
 		if(vm.props.note) { props.className += ' has-info'; }
