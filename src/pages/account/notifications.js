@@ -7,7 +7,6 @@ import Image from 'components/partials/image'
 
 // Deps
 //import { connect } from "react-redux"
-import { setTitle } from 'controllers/head'
 import axios from 'axios'
 
 // Assets
@@ -25,7 +24,6 @@ export default class Notifications extends React.Component {
 
 	componentDidMount() {
 		let vm = this;
-		setTitle('Bildirimlerim');
 
 		axios.get(
 			'/dummy/data/notifications.json',

@@ -2,17 +2,13 @@ import React from 'react'
 
 // Partials
 import Loader from 'components/partials/loader'
-import Link from 'components/partials/link'
-import Image from 'components/partials/image'
 import ContentBox from 'components/partials/contentbox.js'
 
 // Deps
 //import { connect } from "react-redux"
-import { setTitle } from 'controllers/head'
 import axios from 'axios'
 
 // Assets
-import image_notification_default from 'assets/images/defaults/autocomplete-thumb.jpg'
 
 export default class Favorites extends React.Component {
 
@@ -26,7 +22,6 @@ export default class Favorites extends React.Component {
 
 	componentDidMount() {
 		let vm = this;
-		setTitle('Favorilerim');
 
 		axios.get(
 			'/dummy/data/user-favorites.json',

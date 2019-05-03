@@ -5,6 +5,8 @@ import Login from 'pages/account/login'
 import Profile from 'pages/account/profile'
 import Notifications from 'pages/account/notifications'
 import Favorites from 'pages/account/favorites'
+import Messages from 'pages/account/messages'
+import MessageConversation from 'pages/account/messages-conversation'
 
 // Sections
 
@@ -12,14 +14,21 @@ import Favorites from 'pages/account/favorites'
 //import Image from 'components/partials/image'
 import Link from 'components/partials/link'
 import Loader from 'components/partials/loader'
+import { renderRoutes } from 'controllers/navigator'
 
 // Deps
 import { connect } from "react-redux"
 import { checkLoginStatus } from "data/store.user"
 import { generatePath } from 'react-router';
-import { Route, Switch, Redirect } from 'react-router-dom'
 
-// Assets
+const pageRegistry = {
+	Login: Login,
+	Profile: Profile,
+	Notifications: Notifications,
+	Favorites: Favorites,
+	Messages: Messages,
+	MessageConversation: MessageConversation,
+}
 
 const mapStateToProps = state => {
 	return {
@@ -59,28 +68,13 @@ class Account extends React.Component {
 				{(!vm.state.loading && vm.props.user) &&
 					<div className="section account-wrap">
 						<nav className="section account-nav">
-							<Link className="nav-item" navLink href="account" params={{page: 'profil'}}>
-								Profilim
-							</Link>
-							<Link className="nav-item" navLink href="account" params={{page: 'bildirimler'}}>
-								Bildirimler
-							</Link>
-							<Link className="nav-item" navLink href="account" params={{page: 'favoriler'}}>
-								Favorilerim
-							</Link>
-							<Link className="nav-item" navLink href="account" params={{page: 'mesajlar'}}>
-								Mesajlarım
-							</Link>
-							<Link className="nav-item" navLink href="account" params={{page: 'rezervasyonlar'}}>
-								Rezerve Ettiklerim
-							</Link>
+							<Link className="nav-item" navLink href="account.profile" />
+							<Link className="nav-item" navLink href="account.notifications" />
+							<Link className="nav-item" navLink href="account.favorites" />
+							<Link className="nav-item" navLink href="account.messages" exact={false} />
+							<Link className="nav-item" navLink href="account.reservations" />
 						</nav>
-						<Switch>
-							<Route exact path={'/hesabim/profil'} component={Profile} />
-							<Route exact path={'/hesabim/bildirimler'} component={Notifications} />
-							<Route exact path={'/hesabim/favoriler'} component={Favorites} />
-							<Redirect to="/hesabim/profil" />
-						</Switch>
+						{renderRoutes({group: 'account', registry: pageRegistry, catchRedirect: 'account.profile'})}
 					</div>
 				}
 				{(!vm.state.loading && !vm.props.user) &&

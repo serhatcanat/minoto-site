@@ -4,15 +4,23 @@ import React from 'react';
 import { Link, NavLink } from 'react-router-dom'
 import routes from 'data/routes'
 import omit from 'lodash/omit'
+import { isDefined } from 'functions/helpers'
 
 export default class LinkItem extends React.Component {
 	render() {
 		let to = this.props.href;
-		let props = omit(this.props, ['href', 'type', 'navLink', 'params']);
+		let props = omit(this.props, ['href', 'type', 'navLink', 'params', 'routeGroup', 'activeClassName']);
 		let params = this.props.params;
 		let content = this.props.children;
+		let type = this.props.type;
 		let Elem = Link;
-		switch(this.props.type){
+
+		if(this.props.navLink){
+			Elem = NavLink;
+			props.activeClassName = this.props.activeClassName
+		}
+
+		switch(type){
 			case "a":
 				props.href = to;
 				Elem = 'a';
@@ -20,12 +28,20 @@ export default class LinkItem extends React.Component {
 			case "route":
 				props.to = to;
 			break;
-			default:
-				let target = routes[this.props.href];
+			default: // link
+				let href = this.props.href;
+				let routeGroup = this.props.routeGroup;
+				let hrefParts = this.props.href.split('.');
+				if(hrefParts.length === 2){
+					routeGroup = hrefParts[0];
+					href = hrefParts[1];
+				}
+
+				let target = routes[routeGroup][href];
 				
 				if(target){
 
-					if(target.exact){ props.exact = 'true'; }
+					if(target.exact && this.props.navLink && !isDefined(props.exact)){ props.exact = true; }
 					content = (this.props.children ? this.props.children : (this.props.linkTitle ? target.linkTitle : target.title));
 
 					if(target.path){
@@ -49,13 +65,6 @@ export default class LinkItem extends React.Component {
 
 			break;
 		}
-
-
-		if(this.props.navLink){
-			Elem = NavLink;
-			props.activeClassName = (this.props.activeClassName ? this.props.activeClassName : 'active')
-			if(props.exact === 'true'){ props.exact = true; }
-		}
 		
 		return <Elem {...props}>{content}</Elem>
 	}
@@ -64,4 +73,7 @@ export default class LinkItem extends React.Component {
 LinkItem.defaultProps = {
 	navLink: false,
 	params: false,
+	type: 'link',
+	routeGroup: 'pages',
+	activeClassName: 'active',
 }

@@ -51,7 +51,7 @@
 	}
 
 	&.account-wrap {
-		padding: 0 0 3rem;
+		padding: 0 0 3.4rem;
 	}
 
 	&.account-profile {
@@ -243,6 +243,246 @@
 			.list-item {
 				padding: 2rem 1.5rem 0;
 				width: 25%;
+			}
+	}
+
+	&.account-messages {
+		.messages-list{}
+
+			.list-item {
+				+ .list-item {
+					margin-top: 2.2rem;
+				}
+			}
+
+				.item-link {	
+					background-color: $color-gray-light;
+					padding: 1rem 2rem;
+					border-radius: $radius-general;
+					box-shadow: 0 .2rem .4rem 0 rgba(25, 42, 70, 0.1);
+					display: flex;
+					flex-flow: row wrap;
+					align-items: center;
+				}
+
+				.item-avatar {
+					width: 5rem;
+					height: 5rem;
+					border-radius: 50%;
+				}
+
+				.item-senderinfo {
+					text-align: center;
+					font-size: 1.4rem;
+					line-height: 1.8rem;
+					position: relative;
+					padding: 0 1rem;
+					width: 11rem;
+
+					&:after {
+						@include pseudo;
+						position: absolute;
+						right: 0;
+						height: 2.2rem;
+						width: .1rem;
+						top: 50%;
+						transform: translate3d(0, -50%, 0);
+						background-color: rgba($color-text, .6);
+					}
+				}
+
+					.senderinfo-title {
+						color: $color-primary;
+						margin-bottom: .2rem;
+					}
+
+					.senderinfo-subtitle {
+						color: rgba($color-text, .6);
+					}
+
+				.item-title {
+					@include font-regular;
+					font-size: 1.6rem;
+					line-height: 1.9rem;
+					margin-left: 2.1rem;
+					flex-grow: 2;
+				}
+
+				.item-info {
+					white-space: nowrap;
+				}
+
+					.info-field {
+						@include font-regular;
+						color: rgba($color-text, .6);
+						display: inline-block;
+						font-size: 1.4rem;
+						padding: 0 2rem;
+						border-left: .1rem solid rgba($color-text, .6);
+						line-height: 2rem;
+						padding-bottom: .2rem;
+
+						strong {
+							font-weight: inherit;
+							font-size: 1.2rem;
+						}
+
+						&:last-child {
+							padding-right: 0;
+						}
+
+						button {
+							transition: color $transition-hover ease;
+
+							&:hover, &:active {
+								color: $color-text;
+							}
+						}
+					}
+	}
+
+	&.account-message-conversation {
+		.conversation-head {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			padding-bottom: 2.6rem;
+			line-height: 2.2rem;
+		}
+
+			.head-back {
+				font-size: 2.2rem;
+				width: 2.2rem;
+			}
+
+			.head-advertid {
+				font-size: 1.5rem;
+				color: $color-text-light;
+			}
+
+		.conversation-dealer {
+			background-color: $color-primary;
+			color: $color-white;
+			display: block;
+			padding: 1rem;
+			line-height: 5rem;
+			margin-bottom: 4.2rem;
+		}
+
+			.dealer-avatar {
+				width: 5rem;
+				height: 5rem;
+				border-radius: 50%;
+				display: inline-block;
+				vertical-align: middle;
+				margin-right: 3rem;
+			}
+
+			.dealer-title {
+				font-size: 1.6rem;
+			}
+
+		.conversation-sender {
+			@include font-semibold;
+			font-size: 1.6rem;
+			line-height: 5rem;
+			color: $color-primary;
+			padding-left: 1rem;
+		}
+
+			.sender-avatar {
+				width: 5rem;
+				height: 5rem;
+				border-radius: 50%;
+				display: inline-block;
+				vertical-align: middle;
+				margin-right: 1.1rem;
+			}
+
+		.conversation-content {
+			padding-left: 6.1rem;
+			padding-top: 2.1rem;
+		}
+
+		.conversation-title {
+			@include font-semibold;
+			font-size: 3.2rem;
+			color: rgba($color-text, .8);
+		}
+
+		.conversation-messages {
+		}
+
+			.messages-message {
+				padding: 3.2rem 0 2.9rem;
+				display: flex;
+				flex-flow: row wrap;
+
+				+ .messages-message {
+					border-top: .1rem solid $color-ice;
+				}
+			}
+
+				.message-content {
+					flex: 2;
+				}
+
+				.message-text {
+					@include font-regular;
+					font-size: 1.8rem;
+					line-height: 1.56em;
+				}
+
+				.message-datetime {
+					@include font-regular;
+					color: $color-text-light;
+					font-size: 1.5rem;
+					line-height: 1.8rem;
+					margin-top: 2rem;
+
+					i {
+						display: inline-block;
+						vertical-align: middle;
+						font-size: 1.8rem;
+						margin-top: -.3em;
+						margin-right: .4rem;
+					}
+				}
+
+				.message-profile {
+					width: 4.4rem;
+				}
+
+					.profile-image {
+						width: 2.6rem;
+						height: 2.6rem;
+						border-radius: 50%;
+					}
+
+		.conversation-composeform {
+			position: relative;
+			margin-top: 3rem;
+
+			.inputwrap input {
+				padding-left: 4.8rem;
+			}
+		}
+
+			.composeform-avatar {
+				position: absolute;
+				width: 2.6rem;
+				height: 2.6rem;
+				border-radius: 50%;
+				left: .9rem;
+				top: 1.1rem;
+				z-index: 3;
+			}
+
+			.composeform-submit {
+				position: absolute;
+				right: .4rem;
+				top: .4rem;
+				width: 7.6rem;
 			}
 	}
 }

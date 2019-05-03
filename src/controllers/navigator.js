@@ -13,12 +13,13 @@ import ResponsiveWatcher from 'controllers/responsive-watcher'
 import ModalsWrap from 'controllers/modals-wrap'
 
 // Deps
-import { Route, matchPath, Switch } from 'react-router-dom'
+import { Route, matchPath, Switch, Redirect } from 'react-router-dom'
 import history from 'controllers/history'
 import { setTitle, setMeta, setHead } from 'controllers/head'
 import routes from 'data/routes'
 import store from "data/store";
 import { setPage } from "data/store.generic";
+import extend from "lodash/extend";
 
 // Pages
 import Home from 'pages/home'
@@ -49,41 +50,20 @@ export default class Navigator extends React.Component {
 		window.dynamicHistory = history;
 
 		history.listen(function (e) {
-			changePage(getRoute(e.pathname, false, true));
+			let route = getRoute(e.pathname, false, true);
+			changePage(route[0], route[1]);
 		});
 
-		changePage(getRoute(false, false, true));
-	}
-
-	renderRoutes(){
-		//let vm = this
-
-		return Object.keys(routes).map((key, index) => {
-			let route = routes[key]
-			let routeProps = {
-				key: index,
-				exact: route.exact,
-				component: pageRegistry[route.component],
-				name: route.component
-			}
-
-			if (route.path) {
-				routeProps.path = route.path
-			}
-
-			return <Route {...routeProps} />
-		})
+		changePage();
 	}
 
 	render () {
-		let data = this.renderRoutes();
+		let routeData = renderRoutes();
 		return (
 			<div className="site-content">
 				<ResponsiveWatcher />
 				<Header />
-				<Switch>
-					{data}
-				</Switch>
+				{routeData}
 				<Footer />
 				<ModalsWrap>
 					<LoginModal />
@@ -104,17 +84,21 @@ export function getRoute(url = false, getObject = false, includeCatch = false){
 	if(url === false) { url = window.location.pathname.replace(/\/$/, ''); }
 	let returnRoute = false;
 	let catchRoute = false;
-	Object.keys(routes).forEach((key, index) => {
-		let route = routes[key];
-		if(route.path){
-			let match = matchPath(url, route.path);
-			if (match && match.isExact) {
-				returnRoute = (getObject ? route : key);
+	Object.keys(routes).forEach((groupKey, index) => {
+		let group = routes[groupKey];
+
+		Object.keys(group).forEach((key, index) => {
+			let route = routes[groupKey][key];
+			if(route.path){
+				let match = matchPath(url, route.path);
+				if (match && match.isExact) {
+					returnRoute = (getObject ? route : [key, groupKey]);
+				}
 			}
-		}
-		else if(includeCatch) {
-			catchRoute = (getObject ? route : key);
-		}
+			else if(includeCatch) {
+				catchRoute = (getObject ? route : [key, groupKey]);
+			}
+		});
 	});
 
 	return (returnRoute ? returnRoute : catchRoute);
@@ -138,8 +122,8 @@ export function changeURLParam(value, param, route = false, noMismatch = false) 
 	return data;
 }
 
-export function changePage(key){
-	let route = routes[key];
+export function changePage(key = false, group = 'pages'){
+	let route = (key ? routes[group][key] : getRoute(false, true, true));
 	setTitle(route.title);
 	let pageData = {
 		key: key,
@@ -152,4 +136,36 @@ export function changePage(key){
 	
 	setMeta((route.meta ? route.meta : false), true);
 	setHead((route.head ? route.head : false), true);
+}
+
+export function renderRoutes(opts = {}){
+	const defaultOpts = {
+		registry: pageRegistry,
+		group: 'pages',
+		catchRedirect: false,
+	}
+	opts = extend({}, defaultOpts, opts);
+	let routeData =  Object.keys(routes[opts.group]).map((key, index) => {
+		let route = routes[opts.group][key]
+		let routeProps = {
+			key: index,
+			exact: route.exact,
+			component: opts.registry[route.component],
+			name: route.component
+		}
+
+		if (route.path) {
+			routeProps.path = route.path
+		}
+
+		return <Route {...routeProps} />
+	});
+
+	if(opts.catchRedirect){
+		let catchOpts = opts.catchRedirect.split('.');
+		let to = routes[(catchOpts.length > 1 ? catchOpts[0] : 'pages')][catchOpts[catchOpts.length-1]].path;
+		routeData.push(<Redirect to={to} key="redir" />)
+	}
+
+	return <Switch>{routeData}</Switch>
 }

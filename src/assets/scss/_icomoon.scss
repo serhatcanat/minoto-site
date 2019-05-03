@@ -41,6 +41,14 @@
  	-moz-osx-font-smoothing: grayscale;
 }
 
+.icon-calendar:before {
+	content: "\e91f";
+}
+
+.icon-trash:before {
+	content: "\e91e";
+}
+
 .icon-marker:before {
 	content: "\e91d";
 }

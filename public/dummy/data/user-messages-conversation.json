@@ -1,0 +1,33 @@
+{
+	"status" : "ok",
+	"conversation": {
+		"title": "Audi A3, 3.0 T Premium Plus CDI",
+		"advertID": "10731453",
+		"sender": {
+			"title": "Ali Yılmaz",
+			"avatar": "/dummy/images/avatar.jpg",
+			"dealer": {
+				"id": 12321,
+				"title": "Doğuş Oto",
+				"avatar": "/dummy/images/dealer-3.jpg"
+			}
+		},
+		"messages": [
+			{
+				"from": "dealer",
+				"content": "Merhaba,\nDoğuş Oto’dan otomotiv baktığınız için öncelikle çok teşekkür ederiz.\nİlgilendiğiniz Audi A3, 3.0 T Premium Plus CDI modeli bayimize ulaşmıştır. Sizin için Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.\n\nTeşekkürler,\nSaygılarımla",
+				"datetime": "21 Haziran 2018, 02:18"
+			},
+			{
+				"from": "self",
+				"content": "Merhaba,\n Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur mattis elit ac velit imperdiet tempor. Suspendisse vehicula nisi non ligula tristique lacinia. Mauris bibendum mi non ipsum interdum, nec molestie nisl euismod. Nulla sapien elit, pharetra eget massa eleifend, convallis mollis massa. Donec vitae sollicitudin lacus. Pellentesque auctor tellus ut elit fringilla sodales. Cras tempor magna sed risus eleifend facilisis. Ut laoreet sem in sapien blandit, eget facilisis mi sollicitudin. Nulla facilisi. Nunc venenatis lorem et ultricies volutpat. Integer eget tortor quam. Etiam non tortor mauris. Pellentesque eu porttitor sem. Proin accumsan risus eget sollicitudin vehicula. Fusce ac ligula rhoncus, placerat orci sed, molestie lacus. Integer pretium orci eget sagittis facilisis.\nSed pulvinar nec purus eget feugiat. Etiam in eleifend magna. Maecenas dignissim tempus orci, et rutrum ante dignissim vel. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Praesent sodales turpis vitae efficitur congue. Curabitur vel nulla sed mauris ullamcorper finibus in tempus diam. Quisque ut hendrerit orci, quis convallis nisi. Fusce sem elit, ultrices quis lectus et, cursus euismod est. Duis dictum faucibus semper. Morbi tristique nulla sed turpis pulvinar venenatis sit amet in neque. Donec risus erat, egestas id consectetur ac, interdum nec orci. Suspendisse potenti. ",
+				"datetime": "21 Haziran 2018, 02:18"
+			},
+			{
+				"from": "dealer",
+				"content": "Merhaba,\nİlgilendiğiniz Audi A3, 3.0 T Premium Plus CDI modeli bayimize ulaşmıştır. Sizin için Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.\n\nVolkan Ölmez",
+				"datetime": "21 Haziran 2018, 02:18"
+			}
+		]
+	}
+}

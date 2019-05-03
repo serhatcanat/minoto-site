@@ -2,6 +2,7 @@ import React from 'react';
 //Deps
 import { imageLoad } from 'functions/helpers.js';
 import extend from 'lodash/extend'; 
+import omit from 'lodash/omit'; 
 
 export default class Image extends React.Component {
 
@@ -59,6 +60,7 @@ export default class Image extends React.Component {
 
 		if(vm.state.src){
 			let classes = 'image ' + vm.props.className + ((!vm.props.noLoad && vm.state.loading) ? ' image-loading' : '');
+			let props = omit(vm.props, ['src', 'className', 'webStyle', 'mobileStyle', 'contain', 'bg', 'alt']);
 
 			let style = (vm.props.mobile ? extend({}, vm.props.style, vm.props.mobileStyle) : extend({}, vm.props.style, vm.props.webStyle));
 
@@ -76,15 +78,17 @@ export default class Image extends React.Component {
 				
 				ImageElem = <div
 					className={classes}
-					style={styles} />
+					style={styles}
+					{...props} />
 			}
 			else{
 				ImageElem =
 					<img
 						className={classes}
 						src={vm.state.src}
-						alt={vm.props.alt}
 						style={style}
+						alt={vm.props.alt}
+						{...props}
 					/>
 			}
 		}
@@ -96,4 +100,7 @@ export default class Image extends React.Component {
 Image.defaultProps = {
 	className: '',
 	alt: "Görsel",
+	mobileStyle: false,
+	webStyle: false,
+	contain: false,
 };

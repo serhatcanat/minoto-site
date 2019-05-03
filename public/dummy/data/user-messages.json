@@ -1,0 +1,89 @@
+{
+	"status" : "ok",
+	"messages": [
+		{
+			"id": 5,
+			"title": "\"Audi A3 3.0 T Premium Plus CDI\" ilanına cevap verdi.",
+			"sender": {
+				"title": "Ali Yılmaz",
+				"subtitle": "Doğuş Oto",
+				"avatar": false
+			},
+			"advertID": "10731453",
+			"time": "02:17:14",
+			"read": false
+		},
+		{
+			"id": 5,
+			"title": "\"Audi A3 3.0 T Premium Plus CDI\" ilanına cevap verdi.",
+			"sender": {
+				"title": "Ali Yılmaz",
+				"subtitle": "Doğuş Oto",
+				"avatar": "/dummy/images/profile-picture.jpg"
+			},
+			"advertID": "10731453",
+			"time": "02:17:14",
+			"read": false
+		},
+		{
+			"id": 5,
+			"title": "\"Audi A3 3.0 T Premium Plus CDI\" ilanına cevap verdi.",
+			"sender": {
+				"title": "Ali Yılmaz",
+				"subtitle": "Doğuş Oto",
+				"avatar": false
+			},
+			"advertID": "10731453",
+			"time": "02:17:14",
+			"read": false
+		},
+		{
+			"id": 5,
+			"title": "\"Audi A3 3.0 T Premium Plus CDI\" ilanına cevap verdi.",
+			"sender": {
+				"title": "Ali Yılmaz",
+				"subtitle": "Doğuş Oto",
+				"avatar": "/dummy/images/profile-picture.jpg"
+			},
+			"advertID": "10731453",
+			"time": "02:17:14",
+			"read": false
+		},
+		{
+			"id": 5,
+			"title": "\"Audi A3 3.0 T Premium Plus CDI\" ilanına cevap verdi.",
+			"sender": {
+				"title": "Ali Yılmaz",
+				"subtitle": "Doğuş Oto",
+				"avatar": "/dummy/images/profile-picture.jpg"
+			},
+			"advertID": "10731453",
+			"time": "02:17:14",
+			"read": false
+		},
+		{
+			"id": 5,
+			"title": "\"Audi A3 3.0 T Premium Plus CDI\" ilanına cevap verdi.",
+			"sender": {
+				"title": "Ali Yılmaz",
+				"subtitle": "Doğuş Oto",
+				"avatar": false
+			},
+			"advertID": "10731453",
+			"time": "02:17:14",
+			"read": false
+		},
+		{
+			"id": 5,
+			"title": "\"Audi A3 3.0 T Premium Plus CDI\" ilanına cevap verdi.",
+			"sender": {
+				"title": "Ali Yılmaz",
+				"subtitle": "Doğuş Oto",
+				"avatar": "/dummy/images/profile-picture.jpg"
+			},
+			"advertID": "10731453",
+			"time": "02:17:14",
+			"read": false
+		}
+	]
+}

@@ -7,7 +7,6 @@ import { InputForm, FormInput } from 'components/partials/forms'
 
 // Deps
 import { connect } from "react-redux"
-import { setTitle } from 'controllers/head'
 
 // Assets
 import image_avatar from 'assets/images/defaults/avatar.svg';
@@ -40,10 +39,6 @@ class Profile extends React.Component {
 		this.setState({
 			submitting: true,
 		});
-	}
-
-	componentDidMount() {
-		setTitle('Profilim');
 	}
 
 	render () {
