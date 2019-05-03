@@ -15,7 +15,13 @@ export default class Home extends React.Component {
 		return (
 			<main className="page home">
 				<section className="section home-intro">
-					<SearchBar className="intro-search" />
+					<div className="intro-content">
+						<h1 className="intro-title"><span className="colored">
+							Minimum Efor</span> Maksimum Oto
+							<strong className="subtitle">Türkiye'nin Sıfır Km Otomobil Sitesi</strong>
+						</h1>
+						<SearchBar className="intro-search" />
+					</div>
 					<Image className="intro-bg" src={image_home_banner} />
 				</section>
 				<Listing className="home-listing" />

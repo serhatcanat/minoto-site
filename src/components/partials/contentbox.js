@@ -15,7 +15,7 @@ import image_default from 'assets/images/defaults/contentbox-placeholder.jpg'
 export default class ContentBox extends React.Component {
 	render() {
 		let vm = this;
-		let classes = 'contentbox ' + vm.props.className + (this.props.url && ' has-link') + ' type-' + vm.props.type;
+		let classes = 'contentbox ' + vm.props.className + (this.props.url ? ' has-link' : '') + ' type-' + vm.props.type;
 
 		let bottomNote = false;
 		let badge = false;

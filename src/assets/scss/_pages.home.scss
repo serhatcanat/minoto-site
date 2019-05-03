@@ -4,12 +4,37 @@
 		z-index: 2;
 		min-height: 20rem;
 
-		.intro-search {
+		.intro-content {
 			position: absolute;
 			z-index: 2;
-			top: 44%;
+			top: 33%;
 			left: 50%;
+			text-align: center;
 			transform: translate3d(-50%, -50%, 0);
+		}
+
+		.intro-title {
+			@include font-regular;
+			line-height: 3rem;
+			font-size: 4.2rem;
+			opacity: .2;
+
+			.colored {
+				color: $color-primary;
+			}
+
+			.subtitle {
+				@include font-medium;
+				display: block;
+				font-size: 2.2rem;
+				font-style: italic;
+				line-height: 3rem;
+				margin-top: 1.9rem;
+			}
+		}
+
+		.intro-search {
+			margin-top: 3.4rem;
 		}
 	}
 

@@ -2,6 +2,7 @@
 @include font-face('Barlow', '../fonts/subset-Barlow-Light', $weight-light);
 @include font-face('Barlow', '../fonts/subset-Barlow-Regular', $weight-regular);
 @include font-face('Barlow', '../fonts/subset-Barlow-Medium', $weight-medium);
+@include font-face('Barlow', '../fonts/subset-Barlow-MediumItalic', $weight-medium, italic);
 @include font-face('Barlow', '../fonts/subset-Barlow-SemiBold', $weight-semibold);
 @include font-face('Barlow', '../fonts/subset-Barlow-Bold', $weight-bold);
 
