@@ -485,4 +485,91 @@
 				width: 7.6rem;
 			}
 	}
+
+	&.account-reservations {
+		.reservations-list {
+
+		}
+
+			.list-reservation {
+				+ .list-reservation { margin-top: 1.5rem; }
+
+				&.expired {
+					.reservation-link {
+						background-color: transparent;
+					}
+				}
+			}
+
+				.reservation-link {
+					border: .1rem solid $color-ice;
+					background-color: $color-gray-light;
+					border-radius: $radius-general;
+					padding: 2.1rem 2.3rem 2.3rem;
+					display: flex;
+					align-items: center;
+				}
+
+				.reservation-image {
+					width: 10rem;
+					height: auto;
+					margin-right: 3.6rem;
+				}
+
+				.reservation-content {
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+					flex: 1;
+				}
+
+					.content-title {
+						@include font-regular;
+						display: block;
+						font-size: 1.8rem;
+						line-height: 2.2rem;
+					}
+
+					.content-dealer {
+						@include font-semibold;
+						font-size: 1.2rem;
+						line-height: 1.4rem;
+						margin-top: .5rem;
+						color: rgba($color-text, .5);
+					}
+
+					.content-info {
+						margin-top: .8rem;
+						color: rgba($color-text, .6);
+						line-height: 1.4rem;
+
+						div {
+							display: inline-block;
+
+							strong {
+								font-weight: inherit;
+								font-size: 1.2rem;
+							}
+
+							+ div {
+								border-left: .1rem solid rgba($color-text, .6);
+								margin-left: 2rem;
+								padding-left: 2rem;
+							}
+						}
+					}
+
+					.content-cancel {
+						@include font-medium;
+						font-size: 1.4rem;
+						color: $color-primary;
+						text-decoration: underline;
+
+						&:disabled {
+							color: rgba($color-text, .5);
+							cursor: default;
+						}
+					}
+
+	}
 }

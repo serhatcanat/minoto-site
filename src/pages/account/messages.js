@@ -7,6 +7,7 @@ import Image from 'components/partials/image'
 
 // Deps
 //import { connect } from "react-redux"
+import { openModal } from 'functions/modals'
 import axios from 'axios'
 
 // Assets
@@ -20,6 +21,8 @@ export default class Messages extends React.Component {
 		this.state = {
 			messages: false,
 		}
+
+		this.deleteConversation = this.deleteConversation.bind(this);
 	}
 
 	componentDidMount() {
@@ -32,6 +35,14 @@ export default class Messages extends React.Component {
 			if(res.data.status === 'ok'){
 				vm.setState({messages: res.data.messages})
 			}
+		});
+	}
+
+	deleteConversation(message){
+		openModal({
+			action: 'confirm',
+			question: '<strong>' + message.title + '</strong> başlıklı mesajı ve tüm içeriğini silmek istediğinizden emin misiniz?',
+			onConfirm: () => { console.log('silindi..'); }
 		});
 	}
 
@@ -61,7 +72,7 @@ export default class Messages extends React.Component {
 												{message.time}
 											</div>
 											<div className="info-field">
-												<button type="button" onClick={(e) => { e.preventDefault(); console.log('delete..'); }}><i className="icon-trash"></i></button>
+												<button type="button" onClick={(e) => { e.preventDefault(); this.deleteConversation(message); }}><i className="icon-trash"></i></button>
 											</div>
 										</div>
 									</Link>

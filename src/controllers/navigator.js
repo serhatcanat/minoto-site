@@ -6,6 +6,7 @@ import Footer from 'components/sections/footer'
 
 // Modals
 import LoginModal from 'components/modals/login'
+import RegisterModal from 'components/modals/register'
 import ConsentModal from 'components/modals/consent'
 
 // Controllers
@@ -30,6 +31,7 @@ import Detail from 'pages/detail'
 import ListPrices from 'pages/listprices'
 import About from 'pages/about'
 import Account from 'pages/account'
+import Reservation from 'pages/reservation'
 
 import NotFound from 'pages/notfound'
 
@@ -42,6 +44,7 @@ const pageRegistry = {
 	ListPrices: ListPrices,
 	About: About,
 	Account: Account,
+	Reservation: Reservation,
 	NotFound: NotFound,
 }
 
@@ -50,7 +53,7 @@ export default class Navigator extends React.Component {
 		window.dynamicHistory = history;
 
 		history.listen(function (e) {
-			let route = getRoute(e.pathname, false, true);
+			let route = getRouteFromUrl(e.pathname, false, true);
 			changePage(route[0], route[1]);
 		});
 
@@ -67,6 +70,7 @@ export default class Navigator extends React.Component {
 				<Footer />
 				<ModalsWrap>
 					<LoginModal />
+					<RegisterModal />
 					<ConsentModal />
 				</ModalsWrap>
 			</div>
@@ -80,7 +84,44 @@ export function ListingLink (params) {
 	});
 }
 
-export function getRoute(url = false, getObject = false, includeCatch = false){
+export function redirect(opts, params){
+	const defaultOpts = {
+		type: 'push'
+	}
+
+	opts = (Object.prototype.toString.call(opts) === "[object String]" ? extend({}, defaultOpts, {to: opts}) : extend({}, defaultOpts, opts));
+
+	let route = getRoute(opts.to).path;
+
+	if(route ){
+		switch(opts.type){
+			case "replace":
+				history.replace(route);
+			break;
+			default:
+				history.push(route);
+			break;
+		}
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+export function getRoute(key = false, group = 'pages'){
+	let routeGroup = group;
+	let keyParts = key.split('.');
+	if(keyParts.length === 2){
+		routeGroup = keyParts[0];
+		key = keyParts[1];
+	}
+
+	let target = routes[routeGroup][key];
+	return (target ? target : false);
+}
+
+export function getRouteFromUrl(url = false, getObject = false, includeCatch = false){
 	if(url === false) { url = window.location.pathname.replace(/\/$/, ''); }
 	let returnRoute = false;
 	let catchRoute = false;
@@ -105,7 +146,7 @@ export function getRoute(url = false, getObject = false, includeCatch = false){
 }
 
 export function getCurrentRoute(url = false, includeCatch = true){
-	return getRoute(url, true, includeCatch);
+	return getRouteFromUrl(false, true, true);
 }
 
 export function changeURLParam(value, param, route = false, noMismatch = false) {
@@ -123,7 +164,7 @@ export function changeURLParam(value, param, route = false, noMismatch = false) 
 }
 
 export function changePage(key = false, group = 'pages'){
-	let route = (key ? routes[group][key] : getRoute(false, true, true));
+	let route = (key ? routes[group][key] : getRouteFromUrl(false, true, true));
 	setTitle(route.title);
 	let pageData = {
 		key: key,

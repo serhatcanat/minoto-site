@@ -7,6 +7,7 @@ import Notifications from 'pages/account/notifications'
 import Favorites from 'pages/account/favorites'
 import Messages from 'pages/account/messages'
 import MessageConversation from 'pages/account/messages-conversation'
+import Reservations from 'pages/account/reservations'
 
 // Sections
 
@@ -28,6 +29,7 @@ const pageRegistry = {
 	Favorites: Favorites,
 	Messages: Messages,
 	MessageConversation: MessageConversation,
+	Reservations: Reservations,
 }
 
 const mapStateToProps = state => {

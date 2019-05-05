@@ -1,6 +1,7 @@
 .contentbox {
 	position: relative;
 	display: flex;
+	flex: 1;
 
 	&:hover {
 		&:before{

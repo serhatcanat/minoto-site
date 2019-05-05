@@ -28,6 +28,7 @@ export default class Home extends React.Component {
 						<Btn tag="link" className="btn" dark href="account" />
 						<Btn tag="link" className="btn" dark href="notfound" />
 						<Btn tag="link" className="btn" dark href="about" />
+						<Btn tag="link" className="btn" dark href="reservation" />
 					</section>
 
 					<section>
@@ -35,6 +36,9 @@ export default class Home extends React.Component {
 						<h3>Modallar</h3>
 						<button className="btn" type="button" onClick={() => openModal('consent')}>Veri İzni</button>
 						<button className="btn" type="button" onClick={() => openModal({action: 'share', url: 'http://www.thinkerfox.com'})}>Paylaş</button>
+						<button className="btn" type="button" onClick={() => openModal({action: 'options', question: "Bu işlemi gerçekleştirmek istediğinize emin misiniz?", title: "Soru", opts: [{
+							text: "Evet, Eminim", onClick: ()=>{alert('Evet, Emin')}, className: "primary"}, {text: "Hayır"}]})}>Soru</button>
+						<button className="btn" type="button" onClick={() => openModal({action: 'confirm', question: "Bu işlemi gerçekleştirmek istediğinize emin misiniz?", title: "Onay", onConfirm: () => { alert("Onaylıyor") }, onDeny: () => { alert("Onaylamıyor") }})}>Onay</button>
 
 						<h3>Butonlar</h3>
 						<Btn primary>Ana Renk</Btn>

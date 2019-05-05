@@ -2,9 +2,9 @@ import React from 'react';
 
 // Deps
 import { Link, NavLink } from 'react-router-dom'
-import routes from 'data/routes'
 import omit from 'lodash/omit'
 import { isDefined } from 'functions/helpers'
+import { getRoute } from 'controllers/navigator'
 
 export default class LinkItem extends React.Component {
 	render() {
@@ -29,15 +29,7 @@ export default class LinkItem extends React.Component {
 				props.to = to;
 			break;
 			default: // link
-				let href = this.props.href;
-				let routeGroup = this.props.routeGroup;
-				let hrefParts = this.props.href.split('.');
-				if(hrefParts.length === 2){
-					routeGroup = hrefParts[0];
-					href = hrefParts[1];
-				}
-
-				let target = routes[routeGroup][href];
+				let target = getRoute(this.props.href, this.props.routeGroup);
 				
 				if(target){
 

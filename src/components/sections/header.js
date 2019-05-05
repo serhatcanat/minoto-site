@@ -84,7 +84,7 @@ class Header extends React.Component {
 						
 						<Link className="nav-link" navLink href="dealers">Tüm Bayiler</Link>
 						
-						<Link className="nav-link" href="/">Üye Ol</Link>
+						<button className="nav-link" onClick={() => {openModal('register')}}>Üye Ol</button>
 						
 						<button className="nav-link" onClick={() => {openModal('login')}}>Giriş Yap</button>
 
@@ -126,7 +126,7 @@ class Header extends React.Component {
 													</Link>
 												</li>
 												<li className="menu-item">
-													<Link href="/">
+													<Link href="brands">
 														<span>Markalar</span>
 														<span className="item-count">82</span>
 													</Link>
@@ -137,12 +137,12 @@ class Header extends React.Component {
 													</Link>
 												</li>
 												<li className="menu-item">
-													<Link href="/">
+													<Link href="blog">
 														<span>Blog</span>
 													</Link>
 												</li>
 												<li className="menu-item">
-													<Link href="/">
+													<Link href="contact">
 														<span>İletişim</span>
 													</Link>
 												</li>

@@ -2,12 +2,16 @@ import React from 'react';
 
 // Modals
 import ShareModal from 'components/modals/share'
+import OptionsModal from 'components/modals/options'
+import TextModal from 'components/modals/text'
 
 // Deps
 import { connect } from "react-redux";
 import { closeModal } from "data/store.modals";
+import { blockOverflow } from "functions/helpers";
 import isEqual from "lodash/isEqual";
 import extend from "lodash/extend";
+import omit from "lodash/omit";
 
 const mapStateToProps = state => {
 	return {
@@ -30,33 +34,22 @@ class ModalsWrap extends React.Component {
 			show: false,
 		}
 
+		this.closeModal = this.closeModal.bind(this);
+
+		this.closeBtn = <button className="modal-closebtn" type="button" onClick={this.closeModal}><i className="icon-close"></i></button>;
+
 		this.defaultOpts = {
 			action: "show",
 			modalKey: false,
 			url: false,
 			urlTitle: false,
-			opts: [
-				{
-					title: "Evet",
-					className: "primary",
-					onClick: function(){ console.log('Evet')},
-				},
-				{
-					title: "Hayır",
-					className: "",
-					onClick: function(){ console.log('Hayır')},
-				},
-			]
+			closeBtn: this.closeBtn,
+			onClose: this.onClose,
+			className: "",
 		}
-
-		this.closeModal = this.closeModal.bind(this);
-
-		this.closeBtn = <button className="modal-closebtn" onClick={this.closeModal}><i className="icon-close"></i></button>;
 	}
 
-	componentDidMount(){
-		
-	}
+	componentDidMount(){}
 
 	componentDidUpdate(prevProps, prevState){
 		let vm = this;
@@ -71,6 +64,7 @@ class ModalsWrap extends React.Component {
 				setTimeout(function() {
 					vm.setState({data: false});
 					vm.setState({data: opts});
+					blockOverflow(false);
 				}, 600);
 			}
 			else {
@@ -81,15 +75,14 @@ class ModalsWrap extends React.Component {
 		if(!isEqual(prevState.data, vm.state.data)){
 			if(vm.state.data !== false){
 				setTimeout(function() {
+					blockOverflow();
 					vm.setState({show: true});
 				}, 30);
 			}
 		}
 	}
 
-	componentWillUnmount(){
-		
-	}
+	componentWillUnmount(){}
 
 	closeModal(){
 		this.props.closeModal();
@@ -101,7 +94,10 @@ class ModalsWrap extends React.Component {
 		let children = React.Children.toArray(vm.props.children);
 		let Content = false;
 
+
 		if(vm.state.data){
+			let props = omit(vm.state.data, ['action', 'modalKey'])
+			props.className = 'modal-content ' + props.className;
 
 			switch(vm.state.data.action){
 				case "show":
@@ -109,17 +105,36 @@ class ModalsWrap extends React.Component {
 						let item = children[k];
 						if(item.props.name === vm.state.data.modalKey){
 							Content = React.cloneElement(
-								item, {
-									className: "modal-content",
-									onClose: vm.closeModal,
-									closeBtn: vm.closeBtn,
-								}
+								item, {...props}
 							);
 						}
 					}
 				break;
 				case "share":
-					Content = <ShareModal className="modal-content" onClose={vm.closeModal} closeBtn={vm.closeBtn} url={vm.state.data.url} />
+					Content = <ShareModal {...props} />
+				break;
+				case "confirm":
+					props = extend({}, props, {
+						opts: [
+							{
+								text: "Evet",
+								className: "primary",
+								onClick: (props.onConfirm ? props.onConfirm : false),
+							},
+							{
+								text: "Hayır",
+								className: "dark",
+								onClick: (props.onDeny ? props.onDeny : false),
+							},
+						]
+					})
+					Content = <OptionsModal {...props} />
+				break;
+				case "options":
+					Content = <OptionsModal {...props} />
+				break;
+				case "text":
+					Content = <TextModal {...props} />
 				break;
 				default: break;
 			}

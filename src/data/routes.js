@@ -77,6 +77,13 @@ module.exports = {
 			linkTitle: "Hesabım",
 			title: "Hesabım",
 		},
+		reservation: {
+			path: "/rezervasyon/:id/:section?",
+			component: "Reservation",
+			exact: true,
+			linkTitle: "Rezervasyon",
+			title: "Rezervasyon",
+		},
 		notfound: {
 			path: false,
 			component: "NotFound",
@@ -127,6 +134,29 @@ module.exports = {
 			exact: true,
 			linkTitle: "Rezerve Ettiklerim",
 			title: "Rezerve Ettiklerim",
+		},
+		login: {
+			path: "/hesabim/giris",
+			component: "Login",
+			exact: true,
+			linkTitle: "Giriş",
+			title: "Giriş",
 		}
+	},
+	reservation: {
+		info: {
+			path: "/rezervasyon/:id/bilgi",
+			component: "Info",
+			exact: false,
+			linkTitle: "Rezervasyon",
+			title: "Rezervasyon",
+		},
+		payment: {
+			path: "/rezervasyon/:id/odeme",
+			component: "Payment",
+			exact: false,
+			linkTitle: "Ödeme",
+			title: "Ödeme",
+		},
 	}
 }

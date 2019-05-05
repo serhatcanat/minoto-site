@@ -41,6 +41,18 @@
  	-moz-osx-font-smoothing: grayscale;
 }
 
+.icon-security:before {
+	content: "\e923";
+}
+
+.icon-wallet:before {
+	content: "\e920";
+}
+
+.icon-handshake:before {
+	content: "\e921";
+}
+
 .icon-calendar:before {
 	content: "\e91f";
 }
@@ -123,6 +135,10 @@
 
 .icon-spinner:before {
 	content: "\e90a";
+}
+
+.icon-check-thin:before {
+	content: "\e922";
 }
 
 .icon-check:before {

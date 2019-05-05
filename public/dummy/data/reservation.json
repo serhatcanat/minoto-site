@@ -1,0 +1,17 @@
+{
+	"status": "ok",
+	"info": {
+		"complete": false,
+		"ref": "A5011CMinoto",
+		"price": 500,
+		"product": {
+			"title": "Volvo XC90 2.0 T3 AWD Geartronic R-Design",
+			"id": 432943312,
+			"image": "/dummy/images/product-thumb.jpg",
+			"price": 192000,
+			"dealer": {
+				"title": "Volcar Altunizade"
+			}
+		}
+	}
+}

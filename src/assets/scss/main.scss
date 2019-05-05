@@ -22,6 +22,12 @@
 @import '_components.tables.scss';
 
 @import '_modals.scss';
+@import '_modals.login.scss';
+@import '_modals.confirm.scss';
+@import '_modals.consent.scss';
+@import '_modals.sharer.scss';
+@import '_modals.options.scss';
+@import '_modals.text.scss';
 
 @import '_sections.header.scss';
 @import '_sections.footer.scss';
@@ -37,3 +43,4 @@
 @import '_pages.listprices.scss';
 @import '_pages.about.scss';
 @import '_pages.account.scss';
+@import '_pages.reservation.scss';

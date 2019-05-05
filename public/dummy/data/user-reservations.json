@@ -1,0 +1,71 @@
+{
+	"status" : "ok",
+	"reservations": [
+		{
+			"status": 2,
+			"id": 1232,
+			"datetime": "02:17:14",
+			"advert": {
+				"id": 1231239,
+				"title": "Volvo S90 T8 Twin Engine eAWD Inscription",
+				"dealer": "DOĞUŞ OTO - İSTANBUL",
+				"image": "/dummy/images/product-thumb.jpg"
+			}
+		},
+		{
+			"status": 1,
+			"id": 1232,
+			"datetime": "02:17:14",
+			"advert": {
+				"id": 1231239,
+				"title": "Volvo S90 T8 Twin Engine eAWD Inscription",
+				"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İSTANBUL",
+				"image": "/dummy/images/product-thumb.jpg"
+			}
+		},
+		{
+			"status": 2,
+			"id": 1232,
+			"datetime": "02:17:14",
+			"advert": {
+				"id": 1231239,
+				"title": "Volvo S90 T8 Twin Engine eAWD Inscription",
+				"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İSTANBUL",
+				"image": "/dummy/images/product-thumb.jpg"
+			}
+		},
+		{
+			"status": 2,
+			"id": 1232,
+			"datetime": "02:17:14",
+			"advert": {
+				"id": 1231239,
+				"title": "Volvo S90 T8 Twin Engine eAWD Inscription",
+				"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İSTANBUL",
+				"image": "/dummy/images/product-thumb.jpg"
+			}
+		},
+		{
+			"status": 2,
+			"id": 1232,
+			"datetime": "02:17:14",
+			"advert": {
+				"id": 1231239,
+				"title": "Volvo S90 T8 Twin Engine eAWD Inscription",
+				"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İSTANBUL",
+				"image": "/dummy/images/product-thumb.jpg"
+			}
+		},
+		{
+			"status": 2,
+			"id": 1232,
+			"datetime": "02:17:14",
+			"advert": {
+				"id": 1231239,
+				"title": "Volvo S90 T8 Twin Engine eAWD Inscription",
+				"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İSTANBUL",
+				"image": "/dummy/images/product-thumb.jpg"
+			}
+		}
+	]
+}

@@ -7,6 +7,8 @@ import { InputForm, FormInput } from 'components/partials/forms'
 
 // Deps
 import { connect } from "react-redux"
+import { openModal } from 'functions/modals'
+import { serializeArray } from "functions/helpers";
 
 // Assets
 import image_avatar from 'assets/images/defaults/avatar.svg';
@@ -32,13 +34,29 @@ class Profile extends React.Component {
 		}
 
 		this.saveData = this.saveData.bind(this);
+		this.deleteAccount = this.deleteAccount.bind(this);
+	}
+
+	deleteAccount() {
+		openModal({
+			action: 'confirm',
+			title: 'Hesap kaldırma',
+			question: 'Hesabınızı tüm bilgileriyle birlikte silmek istediğinizden emin misiniz?',
+			onConfirm: () => { console.log('silindi..'); }
+		});
 	}
 
 	saveData(e) {
-		console.log(e);
+		let vm = this;
+		// Form Data:
+		console.log(serializeArray(e.target));
 		this.setState({
 			submitting: true,
 		});
+
+		setTimeout(function() {
+			vm.setState({submitting: false})
+		}, 1000);
 	}
 
 	render () {
@@ -81,7 +99,7 @@ class Profile extends React.Component {
 							<Btn className="form-submit" type="submit" wide light text uppercase big status={vm.state.submitting && 'loading'} disabled={vm.state.submitting}>Güncelle</Btn>
 						</div>
 
-						<button className="form-delete" type="button" onClick={() => {console.log('hesap silme modalı')}}>Hesabımı sil</button>
+						<button className="form-delete" type="button" onClick={vm.deleteAccount}>Hesabımı sil</button>
 					</InputForm>
 				</div>
 			</section>

@@ -33,14 +33,6 @@
 		}
 	}
 
-	&.textwrap {
-		@include font-medium;
-		padding: 2rem 0;
-		line-height: 2rem;
-		font-size: 1.4rem;
-		letter-spacing: -0.015em;
-	}
-
 	&.error {
 		input[type='text'],
 		input[type='password'],
@@ -179,6 +171,16 @@
 	&.dark {
 		input[type='file'] + label, select + label, input, textarea{
 			background-color: $color-gray-light;
+		}
+	}
+
+	&.high {
+		input[type='file'] + label,
+		select + label,
+		input,
+		textarea{
+			padding-top: 1.5rem;
+			padding-bottom: 1.5rem;
 		}
 	}
 }

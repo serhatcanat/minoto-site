@@ -28,8 +28,12 @@ export class FormInput extends React.Component {
 
 	onChange(status) {
 		if(this.props.onChange){
-			this.props.onChange(this.props.name, status.error);
+			this.props.onChange(status.value, this.props.name, status.error, status.touched);
 		}
+		if(this.props.onChangeInForm){
+			this.props.onChangeInForm(status.value, this.props.name, status.error, status.touched);
+		}
+
 		this.setState({
 			error: status.error,
 			touched: status.touched,
@@ -194,7 +198,7 @@ class InputText extends React.Component {
 				}
 				<input
 					onChange={vm.handleChange}
-					value={vm.state.value ? vm.state.value : undefined}
+					value={vm.state.value}
 					name={vm.props.name ? vm.props.name : undefined}
 					type={type}
 					id={vm.props.id ? vm.props.id : undefined}
@@ -404,7 +408,7 @@ class InputCheck extends React.Component {
 		let vm = this;
 
 		let inputProps = {
-			name: vm.props.name,
+			name: (vm.props.name ? vm.props.name : undefined),
 			type: "checkbox",
 			onChange: vm.handleChange,
 			value: vm.state.value,
@@ -418,7 +422,7 @@ class InputCheck extends React.Component {
 					<input
 						{...inputProps}
 					/>
-					<label htmlFor={vm.props.id}><span></span> {vm.props.label}</label>
+					<label htmlFor={vm.props.id}><span></span> {vm.props.label ? vm.props.label : (vm.props.children ? vm.props.children : false)}</label>
 					{vm.props.touched && vm.state.error ? (
 						<div className="input-error">
 							{vm.state.errorMessage}
@@ -560,7 +564,7 @@ export class InputForm extends React.Component {
 		this.elementStateChange = this.elementStateChange.bind(this);
 	}
 
-	elementStateChange(name, error) {
+	elementStateChange(value, name, error, touched) {
 		let validElems = this.state.validElements;
 		let invalidElems = this.state.invalidElements;
 
@@ -624,7 +628,7 @@ export class InputForm extends React.Component {
 
 		return (
 			<form className={'form ' + vm.props.className} onSubmit={vm.handleSubmit} noValidate autoComplete={vm.props.autoComplete || ''}>
-				{vm.modifyChildren(vm.props.children, { onChange: vm.elementStateChange, forceTouch: vm.state.forceTouch })}
+				{vm.modifyChildren(vm.props.children, { onChangeInForm: vm.elementStateChange, forceTouch: vm.state.forceTouch })}
 			</form>
 		)
 	}
