@@ -19,34 +19,41 @@ export default class Collapse extends React.Component {
 			shown: props.open,
 		};
 
-		this.calculateDom = this.calculateDom.bind(this);
+		this.update = this.update.bind(this);
 		this.wrapper = React.createRef();
 	}
 
 	componentDidUpdate(prevProps){
+		if(prevProps.open !== this.props.open){
+			this.update();
+		}
+	}
+
+	componentDidMount(){
+		this.update();
+	}
+
+	update() {
 		let vm = this;
-		if(prevProps.open !== vm.props.open){
-			if(vm.props.open){
-				vm.setState({ active: true });
+		if(vm.props.open){
+			vm.setState({ active: true });
+			setTimeout(function() {
+				vm.setState({ wrapHeight: vm.wrapper.current.offsetHeight });
+				vm.setState({ show: true });
 				setTimeout(function() {
-					vm.calculateDom();
-					vm.setState({ show: true });
-					setTimeout(function() {
-						vm.setState({ shown: true });
-					}, 300);
-				}, 30);
-			}
-			else{
+					vm.setState({ shown: true, wrapHeight: 'none' });
+				}, 300);
+			}, 30);
+		}
+		else{
+			vm.setState({ wrapHeight: vm.wrapper.current.offsetHeight });
+			setTimeout(function() {
 				vm.setState({ show: false, shown: false });
 				setTimeout(function() {
 					vm.setState({ active: false });
 				}, 300);
-			}
+			}, 20);
 		}
-	}
-
-	calculateDom() {
-		this.setState({ wrapHeight: this.wrapper.current.offsetHeight });
 	}
 
 	render() {

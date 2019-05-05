@@ -25,13 +25,14 @@
 	.minoto-select__control {
 		@include font-medium;
 		border-radius: 0;
-		background-color: $color-gray-light;
-		border: .1rem solid $color-gray-light;
+		background-color: $color-white;
+		border: .1rem solid $color-ice;
 		cursor: pointer;
 		min-height: 5rem;
+		transition: border-color $transition-hover ease;
 
 		&:hover {
-			border-color: $color-gray-light;
+			border-color: $color-ice;
 		}
 
 

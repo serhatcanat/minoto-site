@@ -164,9 +164,10 @@ export function isDefined(variable) {
 
 export function serializeArray(form, seperator = ',', ignoreEmpty = false) {
 	var serialized = {};
-	for (var i = 0; i < form.elements.length; i++) {
+	let elements = (form.elements ? form.elements : form.querySelectorAll('input, textarea, select'));
+	for (var i = 0; i < elements.length; i++) {
 
-		var field = form.elements[i];
+		var field = elements[i];
 		if (!field.name || field.disabled || field.type === 'file' || field.type === 'reset' || field.type === 'submit' || field.type === 'button') continue;
 
 		if (field.type === 'select-multiple') {

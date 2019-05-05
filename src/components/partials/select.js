@@ -20,4 +20,5 @@ export default class Select extends React.Component {
 
 Select.defaultProps = {
 	theme: "minoto-select",
+	className: "",
 }

@@ -9,7 +9,7 @@
 	textarea {
 		@include font-main;
 		@include font-medium;
-		border: 0.1rem solid $color-gray-light;
+		border: 0.1rem solid $color-ice;
 		color: $color-text;
 		border-radius: $radius-general;
 		padding: 1.3rem 1.3rem;
@@ -39,7 +39,13 @@
 		input[type='email'],
 		input[type='file'] + label,
 		textarea {
-			border-color: $color-red;
+			border-color: $color-error;
+		}
+
+		.minoto-select{
+			.minoto-select__control{
+				border-color: $color-error;
+			}
 		}
 	}
 
@@ -71,6 +77,7 @@
 	&.pop-label {
 		.input-label {
 			position: absolute;
+			z-index: 2;
 			display: inline-block;
 			left: 0.7rem;
 			bottom: calc(100% - 1rem);
@@ -107,13 +114,15 @@
 	}
 
 	.input-error {
-		@include font-medium;
-		font-size: 1.2rem;
+		@include font-regular;
+		font-size: 1.1rem;
+		line-height: 1.6rem;
 		margin-top: 0.5rem;
-		color: $color-red;
+		color: $color-error;
 		white-space: nowrap;
 		text-overflow: ellipsis;
 		overflow: hidden;
+		padding-bottom: .9rem;
 	}
 
 	/// Types
@@ -278,8 +287,8 @@
 				position: absolute;
 				top: 2.2rem;
 				left: 0;
-				width: 1.4rem;
-				height: 1.4rem;
+				width: 1.8rem;
+				height: 1.8rem;
 				display: inline-block;
 				border: 0.1rem solid $color-text;
 				vertical-align: middle;
@@ -292,7 +301,7 @@
 					display: block;
 					font-size: .8rem;
 					position: absolute;
-					top: 52%;
+					top: 55%;
 					left: 53%;
 					transform: translate(-50%, -50%);
 					color: $color-text-negative;

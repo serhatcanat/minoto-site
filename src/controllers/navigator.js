@@ -84,7 +84,7 @@ export function ListingLink (params) {
 	});
 }
 
-export function redirect(opts, params){
+export function redirect(opts, params = false){
 	const defaultOpts = {
 		type: 'push'
 	}
@@ -93,7 +93,15 @@ export function redirect(opts, params){
 
 	let route = getRoute(opts.to).path;
 
-	if(route ){
+	if(params){
+		for(let k = 0; k < Object.keys(params).length; k++){
+			let key = Object.keys(params)[k];
+			route = route.replace(':'+key+'?', params[key]).replace(':'+key, params[key]);
+		}
+	}
+	route = route.split('/:')[0];
+
+	if(route){
 		switch(opts.type){
 			case "replace":
 				history.replace(route);

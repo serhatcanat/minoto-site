@@ -3,6 +3,7 @@ import React from 'react'
 // Pages
 import Info from 'pages/reservation/info'
 import Payment from 'pages/reservation/payment'
+import Sum from 'pages/reservation/sum'
 
 // Sections
 
@@ -17,6 +18,7 @@ import { renderRoutes, redirect } from 'controllers/navigator'
 const pageRegistry = {
 	Info: Info,
 	Payment: Payment,
+	Sum: Sum,
 }
 
 const mapStateToProps = state => {

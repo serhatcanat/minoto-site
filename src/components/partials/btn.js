@@ -7,6 +7,7 @@ import Link from 'components/partials/link.js';
 
 // Deps
 import omit from 'lodash/omit'
+import clone from 'lodash/clone'
 
 // Assets
 
@@ -16,10 +17,9 @@ export default class Btn extends React.Component {
 		super(props);
 
 		this.state = {
-			loading: props.loading,
 			statusActive: props.status !== false,
 			statusShow: props.status !== false,
-			status: props.status,
+			status: (props.loading ? 'loading' : props.status),
 		}
 
 		this.loadingTimeout = false;
@@ -28,24 +28,28 @@ export default class Btn extends React.Component {
 	componentDidUpdate(prevProps) {
 		let vm = this;
 
-		if(prevProps.status !== vm.props.status){
+
+		if(prevProps.status !== vm.props.status || prevProps.loading !== vm.props.loading){
+			let newProps = clone(vm.props);
+			newProps.status = (newProps.loading ? 'loading' : newProps.status);
+			
 			if(vm.loadingTimeout){
 				clearTimeout(vm.loadingTimeout);
 				vm.loadingTimeout = false;
 			}
 
-			if(vm.props.status){
+			if(newProps.status){
 				if(prevProps.status !== false){
 					vm.setState({ statusShow: false });
 					vm.loadingTimeout = setTimeout(function(){
-						vm.setState({ status: vm.props.status });
+						vm.setState({ status: newProps.status });
 						setTimeout(function() {
 							vm.setState({ statusShow: true });
 						}, 30);
 					}, 130)
 				}
 				else{
-					vm.setState({ statusActive: true, status: vm.props.status });
+					vm.setState({ statusActive: true, status: newProps.status });
 					vm.loadingTimeout = setTimeout(function(){
 						vm.setState({ statusShow: true });
 					}, 30)

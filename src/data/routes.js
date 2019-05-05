@@ -158,5 +158,12 @@ module.exports = {
 			linkTitle: "Ödeme",
 			title: "Ödeme",
 		},
+		sum: {
+			path: "/rezervasyon/:id/ozet",
+			component: "Sum",
+			exact: false,
+			linkTitle: "Rezervasyon Özeti",
+			title: "Rezervasyon Özeti",
+		},
 	}
 }

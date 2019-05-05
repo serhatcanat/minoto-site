@@ -1,0 +1,49 @@
+{
+	"status": "ok",
+	"districts": [
+		{
+			"value": 1,
+			"label": "Kadıköy"
+		},
+		{
+			"value": 6,
+			"label": "Fatih"
+		},
+		{
+			"value": 7,
+			"label": "Şişli"
+		},
+		{
+			"value": 31,
+			"label": "Beyoğlu"
+		},
+		{
+			"value": 33,
+			"label": "Küçükçekmece"
+		},
+		{
+			"value": 34,
+			"label": "Esenler"
+		},
+		{
+			"value": 35,
+			"label": "Bağcılar"
+		},
+		{
+			"value": 42,
+			"label": "Maltepe"
+		},
+		{
+			"value": 81,
+			"label": "Kartal"
+		},
+		{
+			"value": 82,
+			"label": "Pendik"
+		},
+		{
+			"value": 83,
+			"label": "Tuzla"
+		}
+	]
+}

@@ -1,0 +1,41 @@
+{
+	"status": "ok",
+	"cities": [
+		{
+			"value": 1,
+			"label": "Adana"
+		},
+		{
+			"value": 6,
+			"label": "Ankara"
+		},
+		{
+			"value": 7,
+			"label": "Antalya"
+		},
+		{
+			"value": 31,
+			"label": "Hatay"
+		},
+		{
+			"value": 33,
+			"label": "Mersin"
+		},
+		{
+			"value": 34,
+			"label": "İstanbul"
+		},
+		{
+			"value": 35,
+			"label": "İzmir"
+		},
+		{
+			"value": 42,
+			"label": "Konya"
+		},
+		{
+			"value": 81,
+			"label": "Düzce"
+		}
+	]
+}

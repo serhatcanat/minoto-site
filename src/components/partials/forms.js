@@ -2,13 +2,16 @@ import React from 'react';
 
 //Deps
 //import omit from 'lodash/omit';
-import pick from 'lodash/pick';
+//import pick from 'lodash/pick';
 import pull from 'lodash/pull';
 import union from 'lodash/union';
+import isEqual from 'lodash/isEqual';
 import extend from 'lodash/extend';
+import omit from 'lodash/omit';
 import { uid } from 'functions/helpers';
 import { validation } from 'controllers/validation';
 import Select from 'components/partials/select'
+import InputMask from 'react-input-mask';
 //import DayPickerInput from 'react-day-picker/DayPickerInput';
 
 //Partials
@@ -17,12 +20,21 @@ export class FormInput extends React.Component {
 	constructor(props) {
 		super(props);
 
-		this.onChange = this.onChange.bind(this);
-
 		this.state = {
 			error: false,
 			touched: false,
 			value: false,
+		}
+
+		this.onChange = this.onChange.bind(this);
+		this.validate = this.validate.bind(this);
+
+		this.input = React.createRef();
+	}
+
+	validate(){
+		if(this.input.current){
+			this.input.current.validate();
 		}
 	}
 
@@ -50,17 +62,20 @@ export class FormInput extends React.Component {
 			((vm.state.touched || vm.props.forceTouch) && vm.state.error ? ' error' : '') +
 			(vm.props.popLabel ? ' pop-label' : '') +
 			(vm.props.disabled ? ' disabled' : '') +
-			((vm.state.value !== "" && vm.state.value !== false) ? ' input-full' : '');
+			((vm.state.value !== "" && vm.state.value !== false && vm.state.value !== null) ? ' input-full' : '');
 
 		let id = (vm.props.id ? vm.props.id : uid('form_input'));
 
 		let Input = false;
 		let inputProps = extend(
-			pick(vm.props, ['value', 'label', 'type', 'placeholder', 'name', 'multiple', 'children', 'readOnly', 'onChange', 'decimals', 'wrapperId', 'checked', 'hideError', 'popLabel', 'disabled']),
-			{ id: id }
+			omit(vm.props, ['id', 'onChangeInForm', 'forceTouch', 'onChange', 'className', 'formInput']),
+			{
+				id: id,
+				onChange: vm.onChange,
+				touched: (vm.props.forceTouch || vm.state.touched),
+				className: wrapClasses
+			}
 		)
-
-		let validation = vm.props.validation;
 
 		switch (vm.props.type) {
 			/*case 'date':
@@ -74,24 +89,24 @@ export class FormInput extends React.Component {
 			break;*/
 			case 'file':
 				Input = InputFile;
-				if (validation === true || validation === false) {
-					validation = (validation ? ['fileRequired'] : false);
+				if (inputProps.validation === true || inputProps.validation === false) {
+					inputProps.validation = (inputProps.validation ? ['fileRequired'] : false);
 				}
-				else if (validation === 'required') {
-					validation = ['fileRequired'];
+				else if (inputProps.validation === 'required') {
+					inputProps.validation = ['fileRequired'];
 				}
 				else {
-					let reqIndex = validation.indexOf('required');
+					let reqIndex = inputProps.validation.indexOf('required');
 					if (reqIndex !== -1) {
-						validation[reqIndex] = 'fileRequired';
+						inputProps.validation[reqIndex] = 'fileRequired';
 					}
 				}
 				break;
 			case 'select':
-				if(vm.props.options){
-					inputProps.options = vm.props.options;
-				}
 				Input = InputSelect;
+				break;
+			case 'textarea':
+				Input = InputTextarea;
 				break;
 			default:
 				Input = InputText;
@@ -99,7 +114,7 @@ export class FormInput extends React.Component {
 		}
 
 		return (
-			<Input {...{ ...inputProps, ...{ className: wrapClasses, onChange: this.onChange, validation: validation, touched: (vm.props.forceTouch || vm.state.touched) } }} />
+			<Input {...inputProps} ref={vm.input} />
 		);
 	}
 }
@@ -113,82 +128,125 @@ FormInput.defaultProps = {
 	value: '',
 	label: '',
 	popLabel: false,
+	formInput: true,
 };
 
 class InputText extends React.Component {
 	constructor(props) {
 		super(props);
 
-		let validateProp = props.validation;
-		if (props.type === 'email') {
-			if (validateProp === true) {
-				validateProp = ['required', 'email'];
-			}
-		}
-
 		this.state = {
 			value: props.value,
 			error: false,
 			errorMessage: false,
-			validations: validateProp,
+			touched: false,
+			validation: this.calculateValidation(),
 		}
 
 		this.handleChange = this.handleChange.bind(this);
+		this.handleBlur = this.handleBlur.bind(this);
+		this.calculateValidation = this.calculateValidation.bind(this);
 	}
 
 	componentDidMount() {
-		this.validate(this.state.value, false);
+		this.validate();
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		if(!isEqual(prevProps.validation, this.props.validation)){
+			this.setState({ validation: this.calculateValidation()})
+		}
+		if(prevProps.value !== this.props.value){
+			this.setState({value: this.props.value});
+		}
+
+		if(prevState.value !== this.state.value || !isEqual(prevState.validation, this.state.validation)){
+			this.validate(this.state.value);
+		}
+
+		if(prevState.value !== this.state.value || prevState.touched !== this.state.touched || prevState.error !== this.state.error){
+
+			this.props.onChange({
+				error: this.state.error,
+				touched: this.state.touched,
+				value: this.state.value,
+			});
+
+		}
+	}
+
+	calculateValidation() {
+		let validateProp = this.props.validation;
+		if (this.props.type === 'email' && validateProp === true) {
+			validateProp = ['required', 'email'];
+		}
+		return validateProp;
 	}
 
 	handleChange(e) {
-		let vm = this;
 		e.persist();
-		//if (vm.props.type !== "number" || e.target.validity.valid) {
-			vm.validate(e.target.value, true);
-		//}
-
-		/*if (vm.props.onChange) {
-			setTimeout(function () {
-				vm.props.onChange(e);
-			}, 10);
-		}*/
+		this.setState({value: e.target.value});
 	}
 
-	validate(value, touch) {
-		let vm = this;
-		let validStatus = validation(value, vm.state.validations);
-		vm.setState({ value: value, error: (validStatus !== false), errorMessage: validStatus });
-		vm.props.onChange({
-			error: (validStatus !== false),
-			touched: touch,
-			value: value,
-		});
+	handleBlur(e) {
+		e.persist();
+		this.setState({value: e.target.value, touched: true});
+	}
+
+	validate(value = this.state.value) {
+		let validStatus = validation(value, this.state.validation);
+		this.setState({ error: (validStatus !== false), errorMessage: validStatus });
 	}
 
 	render() {
 		let vm = this;
-
-		let additionalProps = {};
-		let type = vm.props.type;
-		if (type === 'number') {
-			type = 'text';
-			additionalProps = {
-				pattern: (vm.props.decimals && vm.props.decimals > 0 ? "[0-9]*(.[0-9]{0,2})?$" : "[0-9]*"),
-				inputMode: "numeric",
-			}
-		}
+		let Elem = 'input';
 
 		let labelText = false;
+
+		let props = {
+			...omit(vm.props, ['onChange', 'placeholder', 'value', 'popLabel', 'validation', 'touched', 'className']),
+			onChange: vm.handleChange,
+			onBlur: vm.handleBlur,
+			value: vm.state.value,
+			placeholder: (vm.props.placeholder ? vm.props.placeholder + (vm.state.validation !== false ? ' *' : '') : undefined),
+		};
+
+		/*let props = {
+			onChange: vm.handleChange,
+			value: vm.state.value,
+			name: (vm.props.name ? vm.props.name : undefined),
+			id: (vm.props.id ? vm.props.id : undefined),
+			type: vm.props.type,
+			disabled: (vm.props.disabled ? vm.props.disabled : undefined),
+			readOnly: (vm.props.readOnly ? true : undefined),
+			placeholder: (vm.props.placeholder ? vm.props.placeholder + (vm.state.validation !== false ? ' *' : '') : undefined),
+		};*/
+
+		if (props.type === 'number') {
+			props.type = 'text';
+			props = extend({}, props, {
+				pattern: (vm.props.decimals && vm.props.decimals > 0 ? "[0-9]*(.[0-9]{0,2})?$" : "[0-9]*"),
+				inputMode: "numeric",
+			});
+		}
+
+		if(props.mask){
+			Elem = InputMask;
+			props = extend({}, props, {
+				maskChar: null,
+				formatChars: {
+					'1': '[1-9]',
+					'0': '[0-9]',
+					'9': '[0-9]',
+					'a': '[A-Za-z]',
+					'*': '[A-Za-z0-9]'
+				},
+			})
+		}
+
 		if (vm.props.label || (vm.props.popLabel && (vm.props.label || vm.props.placeholder))) {
 			labelText = (vm.props.label ? vm.props.label : vm.props.placeholder);
-		}
-
-		if (vm.props.readOnly) {
-			additionalProps['readOnly'] = true;
-		}
-
-		if (vm.props.placeholder) {
-			additionalProps.placeholder = vm.props.placeholder + (vm.state.validations !== false ? ' *' : '');
 		}
 
 		return (
@@ -196,15 +254,119 @@ class InputText extends React.Component {
 				{labelText &&
 					<label className="input-label" htmlFor={vm.props.id}>{labelText}</label>
 				}
-				<input
-					onChange={vm.handleChange}
-					value={vm.state.value}
-					name={vm.props.name ? vm.props.name : undefined}
-					type={type}
-					id={vm.props.id ? vm.props.id : undefined}
-					disabled={vm.props.disabled ? vm.props.disabled : undefined}
-					{...additionalProps}
+				<Elem
+					{...props}
 				/>
+				{vm.props.touched && vm.state.error && vm.props.hideError !== true ? (
+					<div className="input-error">
+						{vm.state.errorMessage}
+					</div>
+				) : null}
+			</div>
+		)
+	}
+}
+
+class InputTextarea extends React.Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			value: props.value,
+			error: false,
+			errorMessage: false,
+			touched: false,
+			validation: this.calculateValidation(),
+		}
+
+		this.handleChange = this.handleChange.bind(this);
+		this.handleBlur = this.handleBlur.bind(this);
+		this.calculateValidation = this.calculateValidation.bind(this);
+	}
+
+	componentDidMount() {
+		this.validate();
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		if(!isEqual(prevProps.validation, this.props.validation)){
+			this.setState({ validation: this.calculateValidation()})
+		}
+		if(prevProps.value !== this.props.value){
+			this.setState({value: this.props.value});
+		}
+
+		if(prevState.value !== this.state.value || !isEqual(prevState.validation, this.state.validation)){
+			this.validate(this.state.value);
+		}
+
+		if(prevState.value !== this.state.value || prevState.touched !== this.state.touched || prevState.error !== this.state.error){
+
+			this.props.onChange({
+				error: this.state.error,
+				touched: this.state.touched,
+				value: this.state.value,
+			});
+
+		}
+	}
+
+	calculateValidation() {
+		let validateProp = this.props.validation;
+		if (this.props.type === 'email' && validateProp === true) {
+			validateProp = ['required', 'email'];
+		}
+		return validateProp;
+	}
+
+	handleChange(e) {
+		e.persist();
+		this.setState({value: e.target.value});
+	}
+
+	handleBlur(e) {
+		e.persist();
+		this.setState({value: e.target.value, touched: true});
+	}
+
+	validate(value = this.state.value) {
+		let validStatus = validation(value, this.state.validation);
+		this.setState({ error: (validStatus !== false), errorMessage: validStatus });
+	}
+
+	render() {
+		let vm = this;
+
+		let labelText = false;
+
+		let props = {
+			...omit(vm.props, ['onChange', 'placeholder', 'value', 'popLabel', 'validation', 'touched', 'className']),
+			onChange: vm.handleChange,
+			onBlur: vm.handleBlur,
+			value: vm.state.value,
+			placeholder: (vm.props.placeholder ? vm.props.placeholder + (vm.state.validation !== false ? ' *' : '') : undefined),
+		};
+
+		if (props.type === 'number') {
+			props.type = 'text';
+			props = extend({}, props, {
+				pattern: (vm.props.decimals && vm.props.decimals > 0 ? "[0-9]*(.[0-9]{0,2})?$" : "[0-9]*"),
+				inputMode: "numeric",
+			});
+		}
+
+		if (vm.props.label || (vm.props.popLabel && (vm.props.label || vm.props.placeholder))) {
+			labelText = (vm.props.label ? vm.props.label : vm.props.placeholder);
+		}
+
+		return (
+			<div className={vm.props.className}>
+				{labelText &&
+					<label className="input-label" htmlFor={vm.props.id}>{labelText}</label>
+				}
+				<textarea {...props}>
+					{this.state.value}
+				</textarea>
 				{vm.props.touched && vm.state.error && vm.props.hideError !== true ? (
 					<div className="input-error">
 						{vm.state.errorMessage}
@@ -306,7 +468,7 @@ class InputSelect extends React.Component {
 		this.validate = this.validate.bind(this);
 
 		this.state = {
-			value: (props.value ? props.value : (props.placeholder ? "" : null)),
+			value: (props.value ? props.value : null),
 			labelText: (props.value ? props.value : (props.placeholder ? props.placeholder : null)),
 			error: false,
 			errorMessage: false,
@@ -319,19 +481,14 @@ class InputSelect extends React.Component {
 
 	handleChange(option) {
 		let vm = this;
-		//console.log(e);
 		vm.validate(option, true);
-
-		if (vm.props.onChange) {
-			vm.props.onChange(option);
-		}
 	}
 
 	validate(option, touch = false) {
 		let vm = this;
-		let validStatus = validation(option.value, vm.props.validation);
+		let validStatus = validation((option ? option.value : ""), vm.props.validation);
 		vm.props.onChange({
-			value: (option.value ? option.value : null),
+			value: (option ? option.value : null),
 			error: (validStatus !== false),
 			touched: touch,
 		});
@@ -423,12 +580,12 @@ class InputCheck extends React.Component {
 						{...inputProps}
 					/>
 					<label htmlFor={vm.props.id}><span></span> {vm.props.label ? vm.props.label : (vm.props.children ? vm.props.children : false)}</label>
-					{vm.props.touched && vm.state.error ? (
-						<div className="input-error">
-							{vm.state.errorMessage}
-						</div>
-					) : null}
 				</div>
+				{vm.props.touched && vm.state.error ? (
+					<div className="input-error">
+						{vm.state.errorMessage}
+					</div>
+				) : null}
 			</div>
 		)
 	}
@@ -560,8 +717,11 @@ export class InputForm extends React.Component {
 			forceTouch: false
 		}
 
+		this.submit = this.submit.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.elementStateChange = this.elementStateChange.bind(this);
+
+		this.form = React.createRef();
 	}
 
 	elementStateChange(value, name, error, touched) {
@@ -583,27 +743,32 @@ export class InputForm extends React.Component {
 		return (this.state.validElements.length >= this.validationCount);
 	}
 
-	handleSubmit(e) {
-		e.preventDefault();
+	handleSubmit(e = false) {
+		if(e){ e.preventDefault(); }
 		this.setState({ forceTouch: true })
 		if (this.validate()) {
 			this.setState({ sending: true });
 
 			if(this.props.onSubmit){
-				this.props.onSubmit(e.nativeEvent)
+				this.props.onSubmit((e ? e.nativeEvent : false), this.form.current);
 			}
 
 		}
 
 	}
 
+	submit() {
+		this.handleSubmit();
+	}
+
 	modifyChildren(children, props) {
 		return React.Children.map(children, child => {
 			if (child !== null) {
-				if (!child.props) {
+				if (!child.props || child.props.innerForm) {
+					//console.log('ignore: ' +(child.props ? child.props.name : 'nameless'));
 					return child
 				}
-				if (child.props.name && child.props.type !== "hidden") {
+				if (child.props.formInput /*child.props.name && child.props.type !== "hidden"*/) {
 					if (child.props.validation !== false) {
 						this.validationCount++;
 					}
@@ -624,17 +789,19 @@ export class InputForm extends React.Component {
 
 	render() {
 		let vm = this;
+		let Container = vm.props.tag;
 		vm.validationCount = 0;
 
 		return (
-			<form className={'form ' + vm.props.className} onSubmit={vm.handleSubmit} noValidate autoComplete={vm.props.autoComplete || ''}>
+			<Container className={'form ' + vm.props.className} onSubmit={vm.handleSubmit} noValidate autoComplete={vm.props.autoComplete || ''} ref={this.form}>
 				{vm.modifyChildren(vm.props.children, { onChangeInForm: vm.elementStateChange, forceTouch: vm.state.forceTouch })}
-			</form>
+			</Container>
 		)
 	}
 }
 
 InputForm.defaultProps = {
 	className: '',
+	tag: 'form',
 	onSubmit: function () { console.log('submitted'); },
 };

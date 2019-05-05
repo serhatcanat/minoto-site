@@ -1,7 +1,7 @@
 {
 	"status": "ok",
 	"info": {
-		"complete": false,
+		"complete": true,
 		"ref": "A5011CMinoto",
 		"price": 500,
 		"product": {
