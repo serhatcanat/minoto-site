@@ -26,7 +26,7 @@ export default class Info extends React.Component {
 	componentDidMount() {
 		let vm = this;
 
-		axios.get('/dummy/data/reservation.json').then(res => {
+		axios.get('/dummy/data/reservation.json', {props: {id: vm.props.match.params.id}}).then(res => {
 			if(res.data.status === 'ok'){
 				vm.setState({
 					loading: false,

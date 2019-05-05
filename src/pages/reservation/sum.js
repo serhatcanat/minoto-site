@@ -1,7 +1,6 @@
 import React from 'react'
 
 // Partials
-import Image from 'components/partials/image'
 import Loader from 'components/partials/loader'
 import ReservationNav from 'components/partials/reservation/nav'
 import ReservationSidebar from 'components/partials/reservation/sidebar'
@@ -9,9 +8,6 @@ import Link from 'components/partials/link'
 
 // Deps
 import axios from 'axios'
-
-// Assets
-import image_info from "assets/images/checkout-info-logo.jpg"
 
 export default class Sum extends React.Component {
 

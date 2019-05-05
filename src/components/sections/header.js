@@ -156,7 +156,7 @@ class Header extends React.Component {
 													<Link href="listprices">Araç Liste Fiyatları</Link>
 												</li>
 												<li className="sublinks-item">
-													<Link href="/">Sıkça Sorulan Sorular</Link>
+													<Link href="faq" />
 												</li>
 												<li className="sublinks-item">
 													<Link href="/">Nasıl Bayi Olurum?</Link>

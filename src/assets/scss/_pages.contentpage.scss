@@ -1,0 +1,52 @@
+.section{
+	&.contentpage {
+		position: relative;
+		min-height: 23rem;
+		padding: 8.3rem 0 7rem;
+
+		&:before {
+			@include pseudo;
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 100%;
+			background-color: $color-primary;
+			height: 23rem;
+			z-index: 1;
+		}
+
+		.contentpage-wrap {
+			position: relative;
+			z-index: 2;
+		}
+
+		.contentpage-content {
+			background: $color-white;
+			padding: 6.5rem 8.5rem;
+			box-shadow: 0 .1rem .2rem 0 rgba(144, 156, 177, 0.2);
+		}
+
+			.content-title {
+				@include font-light;
+				font-size: 3.2rem;
+				line-height: 1em;
+				text-align: center;
+				margin-bottom: 5.1rem;
+			}
+	}
+
+	&.contentpage-faq {
+		.faq-item{
+			+ .faq-item {
+				margin-top: .9rem;
+			}
+		}
+	}
+
+	&.contentpage-textarea {
+		@include font-regular;
+		font-size: 1.6rem;
+		line-height: 1.94em;
+		color: rgba($color-text, .7);
+	}
+}

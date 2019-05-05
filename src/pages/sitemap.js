@@ -28,7 +28,11 @@ export default class Home extends React.Component {
 						<Btn tag="link" className="btn" dark href="account" />
 						<Btn tag="link" className="btn" dark href="notfound" />
 						<Btn tag="link" className="btn" dark href="about" />
-						<Btn tag="link" className="btn" dark href="reservation" />
+						<Btn tag="link" className="btn" dark href="reservation.info" params={{id: "432943312"}} />
+						<Btn tag="link" className="btn" dark href="reservation.payment" params={{id: "432943312"}} />
+						<Btn tag="link" className="btn" dark href="reservation.sum" params={{id: "A5011CMinoto"}} />
+						<Btn tag="link" className="btn" dark href="faq" />
+						<Btn tag="link" className="btn" dark href="privacy" />
 					</section>
 
 					<section>

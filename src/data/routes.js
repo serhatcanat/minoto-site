@@ -84,6 +84,20 @@ module.exports = {
 			linkTitle: "Rezervasyon",
 			title: "Rezervasyon",
 		},
+		faq: {
+			path: "/sss",
+			component: "Faq",
+			exact: true,
+			linkTitle: "Sıkça Sorulan Sorular",
+			title: "Sıkça Sorulan Sorular",
+		},
+		privacy: {
+			path: "/kullanici-sozlesmesi",
+			component: "Privacy",
+			exact: true,
+			linkTitle: "Kullanıcı Sözleşmesi",
+			title: "Kullanıcı Sözleşmesi",
+		},
 		notfound: {
 			path: false,
 			component: "NotFound",
@@ -148,8 +162,8 @@ module.exports = {
 			path: "/rezervasyon/:id/bilgi",
 			component: "Info",
 			exact: false,
-			linkTitle: "Rezervasyon",
-			title: "Rezervasyon",
+			linkTitle: "Rezervasyon Bilgileri",
+			title: "Rezervasyon Bilgileri",
 		},
 		payment: {
 			path: "/rezervasyon/:id/odeme",

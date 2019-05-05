@@ -20,3 +20,44 @@
 		overflow: visible;
 	}
 }
+
+.collapse-group {
+	border: .1rem solid $color-ice;
+
+	&.open {
+		.collapse-group-trigger {
+			&:after {
+				transform: rotate(180deg);
+			}
+		}
+	}
+
+	.collapse-group-trigger {
+		@include font-medium;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		width: 100%;
+		text-align: left;
+		background-color: $color-ice;
+		padding: 1.6rem 2rem 1.5rem;
+		font-size: 1.6rem;
+		line-height: 1.9rem;
+
+		&:after {
+			display: inline-block;
+			color: rgba($color-text, .7);
+			@include icon('angle-down');
+		}
+	}
+
+	.collapse-group-collapse {
+		.collapse-innerwrap {
+			@include font-regular;
+			padding: 1.7rem 2rem;
+			font-size: 1.6rem;
+			line-height: 1.94em;
+			color: rgba($color-text, .7);
+		}
+	}
+}

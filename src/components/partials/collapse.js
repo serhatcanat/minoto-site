@@ -75,4 +75,35 @@ Collapse.defaultProps = {
 	open: false,
 };
 
-//
+export class CollapseGroup extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			open: props.open,
+		};
+
+		this.toggle = this.toggle.bind(this);
+	}
+
+	toggle(){
+		this.setState({open: !this.state.open});
+	}
+
+	render() {
+		let vm = this;
+		let classes = "collapse-group " + vm.props.className + (vm.state.open ? ' open' : ' closed');
+
+		return (
+			<div className={classes}>
+				<button className="collapse-group-trigger" onClick={this.toggle}>{this.props.label}</button>
+				<Collapse className="collapse-group-collapse" open={this.state.open}>{this.props.children}</Collapse>
+			</div>
+		)
+	}
+}
+
+CollapseGroup.defaultProps = {
+	className: '',
+	open: false,
+	label: "...",
+};

@@ -32,6 +32,8 @@ import ListPrices from 'pages/listprices'
 import About from 'pages/about'
 import Account from 'pages/account'
 import Reservation from 'pages/reservation'
+import Faq from 'pages/faq'
+import Privacy from 'pages/privacy'
 
 import NotFound from 'pages/notfound'
 
@@ -45,6 +47,9 @@ const pageRegistry = {
 	About: About,
 	Account: Account,
 	Reservation: Reservation,
+	Faq: Faq,
+	Privacy: Privacy,
+
 	NotFound: NotFound,
 }
 
