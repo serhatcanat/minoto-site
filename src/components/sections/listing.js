@@ -26,7 +26,7 @@ export default class ProductListing extends React.Component {
 			initialLoad: false,
 		}
 
-		this.initialize = this.initialize.bind(this);
+		this.removeFilter = this.removeFilter.bind(this);
 		this.filtersUpdated = this.filtersUpdated.bind(this);
 		this.formRef = React.createRef();
 
@@ -38,7 +38,8 @@ export default class ProductListing extends React.Component {
 
 	componentDidMount() {
 		let vm = this;
-		vm.initialize();
+
+		vm.updateResults();
 
 		vm.listenerAbort = history.listen(function (e) {
 			vm.urlChanged(e.search.replace('?', ''));
@@ -58,10 +59,10 @@ export default class ProductListing extends React.Component {
 		if(!isEqual(prevState.query, this.state.query)){
 			this.updateResults();
 		}
-	}
 
-	initialize() {
-		this.updateResults();
+		/*if(!isEqual(prevState.filters, this.state.filters)){
+			console.log(this.state.filters);
+		}*/
 	}
 
 	urlChanged(){
@@ -85,6 +86,11 @@ export default class ProductListing extends React.Component {
 				window.dynamicHistory.push((newQuery !== '' ? '?'+newQuery : ''));
 			}
 		}
+	}
+
+	removeFilter(name) {
+		let newFilters = clone(this.state.filters).filter((filter) => { return !(filter.name === name); });
+		this.setState({filters: newFilters});
 	}
 
 	updateResults(queryString = false) {
@@ -124,10 +130,7 @@ export default class ProductListing extends React.Component {
 		}, 1000);
 	}
 
-
-
 	filtersUpdated(){
-		console.log('Debug: Inputs Updated');
 		this.filtersToQuery();
 	}
 
@@ -137,10 +140,13 @@ export default class ProductListing extends React.Component {
 		return (
 			<section className={"section listing loader-container " + vm.props.className + (vm.props.filters ? ' has-filters' : '') + ' size-'+vm.props.size}>
 				<Loader loading={vm.state.loading || !vm.state.results} strict={!vm.state.initialLoad} />
-				{(vm.props.filters ? (
+				{vm.props.filters &&
 					<ProductFilters filters={vm.state.filters} onUpdate={vm.filtersUpdated} ref={vm.formRef} />
-				) : null)}
+				}
 				<div className={"listing-content type-" + vm.state.listingType}>
+					<aside className="content-top">
+						<ActiveFilters filters={vm.state.filters} onFilterRemove={vm.removeFilter} />
+					</aside>
 					{(vm.state.results.length ?
 						<ul className="content-results">
 							{vm.state.results.map((item, nth) => {
@@ -494,6 +500,53 @@ class FilterTypeRange extends React.Component {
 					</div>
 				))}
 				
+			</div>
+		)
+	}
+}
+
+// Top Filters
+class ActiveFilters extends React.Component {
+
+	render() {
+		let filters = [];
+
+		if(this.props.filters){
+			filters = this.props.filters.map((group, nth) => {
+				let text = false;
+				let data = false;
+				switch(group.display){
+					case "range":
+						data = group.opts.filter((filter) =>  {
+							return filter.value !== "";
+						}).map((filter) => {
+							return (filter.prefix !== "" ? filter.prefix + " " : '') + filter.value + (filter.postfix ? " " + filter.postfix : '');
+						});
+						if(data.length){ text = data.join(' - '); }
+					break;
+					default: // list, icons
+						data = group.opts.filter((filter) => {
+							return(filter.selected);
+						}).map((filter) => {
+							return filter.title;
+						});
+
+						if(data.length){ text = data.join(', '); }
+					break;
+				}
+
+				return text ? {name: group.name, title: group.title, label: text} : false;
+			}).filter((filter) => { return filter !== false; });
+		}
+
+		return (
+			<div className="top-activefilters">
+				{filters.map((filter, nth) => (
+					<span className="activefilters-item" key={nth} title={filter.title}>
+						{filter.label}
+						<button type="button" onClick={() => { this.props.onFilterRemove(filter.name); } } className="item-remove"><i className="icon-close"></i></button>
+					</span>
+				))}
 			</div>
 		)
 	}

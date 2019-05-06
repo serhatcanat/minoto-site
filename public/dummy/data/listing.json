@@ -165,11 +165,15 @@
 				{
 					"name" : "min",
 					"text" : "MIN TL",
+					"prefix": "",
+					"postfix": "TL",
 					"value" : ""
 				},
 				{
 					"name" : "max",
 					"text" : "MAX TL",
+					"prefix": "",
+					"postfix": "TL",
 					"value" : "50000"
 				}
 			]
