@@ -92,6 +92,46 @@
 		}
 	}
 
+	&.facebook {
+		background-color: $color-facebook;
+		border-color: $color-facebook;
+
+		&:hover, &:active {
+			background-color: darken($color-facebook, 10);
+			border-color: darken($color-facebook, 10);
+		}
+
+		&.hollow {
+			background-color: transparent;
+			color: $color-facebook;
+
+			&:hover, &:active {
+				background-color: darken($color-facebook, 10);
+				color: $color-text-negative;
+			}
+		}
+	}
+
+	&.google {
+		background-color: $color-google;
+		border-color: $color-google;
+
+		&:hover, &:active {
+			background-color: darken($color-google, 10);
+			border-color: darken($color-google, 10);
+		}
+
+		&.hollow {
+			background-color: transparent;
+			color: $color-google;
+
+			&:hover, &:active {
+				background-color: darken($color-google, 10);
+				color: $color-text-negative;
+			}
+		}
+	}
+
 	// Sizes & Shapes
 	&.block {
 		width: 100%;

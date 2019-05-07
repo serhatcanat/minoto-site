@@ -30,24 +30,24 @@ export function validation(value, controls = ['required']){
 		let data = false;
 		if(Array.isArray(control)){
 			key = control[0];
-			msg = control[1];
+			msg = (control[1] !== true ? control[1] : undefined);
 			if(control.length > 1){
 				data = control[2];
 			}
 		}
 
 		if(data !== false){
-			rerror = validateRaw[key](value, data);
+			rerror = validateRaw[key](msg, value, data);
 		}
 		else{
-			rerror = validateRaw[key](value);
+			rerror = validateRaw[key](msg, value);
 		}
 
 		if(rerror !== undefined){
 			error = rerror;
-			if(msg){
+			/*if(msg){
 				error = msg;
-			}
+			}*/
 		}
 
 		return error;
@@ -66,35 +66,49 @@ const validateRaw = {
 		return error;
 	}
 	*/
-	"email": function(value){
+	"email": function(msg = "Geçerli bir e-posta girmelisiniz.", value){
 		let error;
 		if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
-			error = 'Geçerli bir e-posta girmelisiniz.';
+			error = msg;
 		}
 		return error;
 	},
-	"required": function(value){
+	"required": function(msg = "Bu alanı doldurmalısınız.", value){
 		let error;
 		if(!value){
-			error = 'Bu alanı doldurmalısınız.';
+			error = msg;
 		}
 		return error;
 	},
-	"fileRequired": function(files){
+	"minLength": function(msg = "Bu alan en az {length} karakter içermelidir", value, length){
+		let error;
+		if(value.length < length){
+			error = msg.replace('{length}', length);;
+		}
+		return error;
+	},
+	"maxLength": function(msg = "Bu alan en fazla {length} karakter içermelidir", value, length){
+		let error;
+		if(value.length > length){
+			error = msg.replace('{length}', length);;
+		}
+		return error;
+	},
+	"fileRequired": function(msg = "Bu alanı doldurmalısınız.", files){
 		let error;
 		if(!files.length){
-			error = 'Bu alanı doldurmalısınız.';
+			error = msg;
 		}
 		return error;
 	},
-	"date": function(value){
+	"date": function(msg = "Geçerli bir tarih girmelisiniz.", value){
 		let error;
 		if(!value){
-			error = 'Geçerli bir tarih girmelisiniz.';
+			error = msg;
 		}
 		return error;
 	},
-	"creditcard": function(value){
+	"creditcard": function(msg = "Geçerli bir kart numarası girmelisiniz.", value){
 		let error;
 		let status = true
 		const reg = new RegExp(/^([0-9]{4} [0-9]{4} [0-9]{4} [0-9]{3,4})$/g);
@@ -102,11 +116,11 @@ const validateRaw = {
 		else (status = cardValidation.check(value.replace(/\s/g, '')));
 
 		if(!status){
-			error = 'Geçerli bir kart numarası girmelisiniz.';
+			error = msg;
 		}
 		return error;
 	},
-	"cvc": function(value, length = false){
+	"cvc": function(msg = "Geçerli bir CVC numarası girmelisiniz.", value, length = false){
 		let error;
 		let regString = /^([0-9]{3,4})$/g;
 		if (length === 3) {
@@ -116,11 +130,11 @@ const validateRaw = {
 		}
 		let regex = new RegExp(regString);
 		if(!regex.test(value)){
-			error = 'Geçerli bir CVC numarası girmelisiniz.'
+			error = msg;
 		}
 		return error;
 	},
-	"expiry": function(dateString, gaps = false) {
+	"expiry": function(msg = "Geçerli bir son kullanma tarihi girmelisiniz.", dateString, gaps = false) {
 		let error;
 
 		var curYear = parseInt((new Date()).getFullYear().toString().substr(-2));
@@ -134,7 +148,7 @@ const validateRaw = {
 		}
 
 		if (month > 12 || year < 19 || year < (curYear)) {
-			error = "Geçerli bir son kullanma tarihi girmelisiniz."
+			error = msg;
 		}
 
 		return error;

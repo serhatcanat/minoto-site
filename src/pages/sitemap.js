@@ -38,6 +38,9 @@ export default class Home extends React.Component {
 					<section>
 						<h2>Komponentler</h2>
 						<h3>Modallar</h3>
+						<button className="btn" type="button" onClick={() => openModal('login')}>Giriş</button>
+						<button className="btn" type="button" onClick={() => openModal('register')}>Üye Ol</button>
+						<button className="btn" type="button" onClick={() => openModal('recovery')}>Şifremi Unuttum</button>
 						<button className="btn" type="button" onClick={() => openModal('consent')}>Veri İzni</button>
 						<button className="btn" type="button" onClick={() => openModal({action: 'share', url: 'http://www.thinkerfox.com'})}>Paylaş</button>
 						<button className="btn" type="button" onClick={() => openModal({action: 'options', question: "Bu işlemi gerçekleştirmek istediğinize emin misiniz?", title: "Soru", opts: [{

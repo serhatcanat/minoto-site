@@ -14,7 +14,7 @@ export default class LoginModal extends React.Component {
 			<div className={vm.props.className}>
 				{vm.props.closeBtn}
 				<div className="modal-innercontent">
-					<h2 className="login-title">Üye ol</h2>
+					<h2 className="login-title">Şifremi unuttum</h2>
 
 					<InputForm className="login-form">
 						<FormInput
@@ -51,6 +51,6 @@ export default class LoginModal extends React.Component {
 
 LoginModal.defaultProps = {
 	className: "",
-	containerClass: "modal-login register",
-	name: "register"
+	containerClass: "modal-login recovery",
+	name: "recovery"
 }

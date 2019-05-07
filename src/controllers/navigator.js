@@ -7,6 +7,7 @@ import Footer from 'components/sections/footer'
 // Modals
 import LoginModal from 'components/modals/login'
 import RegisterModal from 'components/modals/register'
+import RecoveryModal from 'components/modals/recovery'
 import ConsentModal from 'components/modals/consent'
 
 // Controllers
@@ -76,6 +77,7 @@ export default class Navigator extends React.Component {
 				<ModalsWrap>
 					<LoginModal />
 					<RegisterModal />
+					<RecoveryModal />
 					<ConsentModal />
 				</ModalsWrap>
 			</div>
