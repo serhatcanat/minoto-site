@@ -80,17 +80,25 @@ const validateRaw = {
 		}
 		return error;
 	},
-	"minLength": function(msg = "Bu alan en az {length} karakter içermelidir", value, length){
+	"minLength": function(msg = "Bu alan en az {length} karakter içermelidir.", value, length){
 		let error;
 		if(value.length < length){
 			error = msg.replace('{length}', length);;
 		}
 		return error;
 	},
-	"maxLength": function(msg = "Bu alan en fazla {length} karakter içermelidir", value, length){
+	"maxLength": function(msg = "Bu alan en fazla {length} karakter içermelidir.", value, length){
 		let error;
 		if(value.length > length){
 			error = msg.replace('{length}', length);;
+		}
+		return error;
+	},
+	"compare": function(msg = "İki alan birbiri ile eşleşmiyor.", value, compare){
+		let error;
+		let compareItem = document.querySelector(compare);
+		if(!compareItem || compareItem.value !== value){
+			error = msg;
 		}
 		return error;
 	},

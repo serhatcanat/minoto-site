@@ -26,6 +26,7 @@ import extend from "lodash/extend";
 // Pages
 import Home from 'pages/home'
 import Sitemap from 'pages/sitemap'
+import Brands from 'pages/brands'
 import Dealers from 'pages/dealers'
 import Dealer from 'pages/dealer'
 import Detail from 'pages/detail'
@@ -41,8 +42,9 @@ import NotFound from 'pages/notfound'
 const pageRegistry = {
 	Home: Home,
 	Sitemap: Sitemap,
-	Dealer: Dealer,
+	Brands: Brands,
 	Dealers: Dealers,
+	Dealer: Dealer,
 	Detail: Detail,
 	ListPrices: ListPrices,
 	About: About,

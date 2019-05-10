@@ -141,7 +141,7 @@ export default class ProductListing extends React.Component {
 			<section className={"section listing loader-container " + vm.props.className + (vm.props.filters ? ' has-filters' : '') + ' size-'+vm.props.size}>
 				<Loader loading={vm.state.loading || !vm.state.results} strict={!vm.state.initialLoad} />
 				{vm.props.filters &&
-					<ProductFilters filters={vm.state.filters} onUpdate={vm.filtersUpdated} ref={vm.formRef} />
+					<ListingFilters filters={vm.state.filters} onUpdate={vm.filtersUpdated} ref={vm.formRef} />
 				}
 				<div className={"listing-content type-" + vm.state.listingType}>
 					<aside className="content-top">
@@ -236,7 +236,7 @@ ProductListing.defaultProps = {
 };
 
 // Filters
-const ProductFilters = React.forwardRef(function(props, ref){
+const ListingFilters = React.forwardRef(function(props, ref){
 	return (
 		<aside className="listing-filters">
 			<form className="filters-form" ref={ref}>
@@ -505,6 +505,41 @@ class FilterTypeRange extends React.Component {
 	}
 }
 
+class FilterTypeText extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			value: props.data.value,
+		}
+
+		this.handleChange = this.handleChange.bind(this);
+	}
+
+	componentDidUpdate(prevProps){
+		if(!isEqual(prevProps.data, this.props.data)){
+			this.setState({value: this.props.data.value});
+		}
+	}
+
+	handleChange(e) {
+		this.setState({value: e.target.value});
+	}
+
+	render() {
+		let vm = this;
+		let data = vm.props.data;
+		let opts = vm.state.opts;
+		return (
+			<div className="filter-inputs">
+				<div className="inputs-inputwrap">
+					 <input className="inputs-input" name={data.name} type="text" value={this.state.value} placeholder={data.title} onChange={(e) => vm.handleChange(e)} />
+				</div>
+				
+			</div>
+		)
+	}
+}
+
 // Top Filters
 class ActiveFilters extends React.Component {
 
@@ -523,6 +558,9 @@ class ActiveFilters extends React.Component {
 							return (filter.prefix !== "" ? filter.prefix + " " : '') + filter.value + (filter.postfix ? " " + filter.postfix : '');
 						});
 						if(data.length){ text = data.join(' - '); }
+					break;
+					case "text":
+						text = (group.value ? group.value : false);
 					break;
 					default: // list, icons
 						data = group.opts.filter((filter) => {

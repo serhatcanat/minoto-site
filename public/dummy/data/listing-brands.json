@@ -1,0 +1,25 @@
+{
+	"status" : "ok",
+	"listingType" : "brand",
+	"filters" : [
+		{
+			"name" : "isim",
+			"title" : "Marka Ara",
+			"expanded" : false,
+			"value": "",
+			"display" : "text"
+		}
+	],
+	"results": [
+		{
+			"id": 1,
+			"type": "advert",
+			"title": "Audi",
+			"dealer": "Kosifler Şahsuvaroğlu Volcar +63 Bayi",
+			"link": "/marka/audi",
+			"favorited" : false,
+			"count": 2430,
+			"image": "/dummy/images/brand-audi.svg"
+		}
+	]
+}

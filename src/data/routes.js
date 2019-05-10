@@ -35,6 +35,13 @@ module.exports = {
 			linkTitle: "Site Haritası",
 			title: "Site Haritası",
 		},
+		brands: {
+			path: "/markalar",
+			component: "Brands",
+			exact: true,
+			linkTitle: "Markalar",
+			title: "Markalar",
+		},
 		dealers: {
 			path: "/bayiler",
 			component: "Dealers",

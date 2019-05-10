@@ -43,7 +43,13 @@ export class FormInput extends React.Component {
 			this.props.onChange(status.value, this.props.name, status.error, status.touched);
 		}
 		if(this.props.onChangeInForm){
-			this.props.onChangeInForm(status.value, this.props.name, status.error, status.touched);
+			this.props.onChangeInForm({
+				value: status.value,
+				name: status.name,
+				error: status.error,
+				touched: status.touched,
+				validation: status.validation,
+			});
 		}
 
 		this.setState({
@@ -149,6 +155,13 @@ class InputText extends React.Component {
 	}
 
 	componentDidMount() {
+		this.props.onChange({
+			error: this.state.error,
+			touched: this.state.touched,
+			value: this.state.value,
+			validation: this.state.validation,
+		});
+
 		this.validate();
 	}
 
@@ -170,6 +183,7 @@ class InputText extends React.Component {
 				error: this.state.error,
 				touched: this.state.touched,
 				value: this.state.value,
+				validation: this.state.validation,
 			});
 
 		}
@@ -306,6 +320,7 @@ class InputTextarea extends React.Component {
 				error: this.state.error,
 				touched: this.state.touched,
 				value: this.state.value,
+				validation: this.state.validation,
 			});
 
 		}
@@ -491,6 +506,7 @@ class InputSelect extends React.Component {
 			value: (option ? option.value : null),
 			error: (validStatus !== false),
 			touched: touch,
+			validation: vm.props.validation,
 		});
 
 		vm.setState({ value: option, error: (validStatus !== false), errorMessage: validStatus });
@@ -558,6 +574,7 @@ class InputCheck extends React.Component {
 			error: (validStatus !== false),
 			touched: touch,
 			value: checked,
+			validation: this.props.validation,
 		});
 	}
 
@@ -712,35 +729,33 @@ export class InputForm extends React.Component {
 
 		this.validationCount = 0;
 		this.state = {
-			validElements: [],
-			invalidElements: [],
 			forceTouch: false
 		}
 
 		this.submit = this.submit.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.validate = this.validate.bind(this);
 		this.elementStateChange = this.elementStateChange.bind(this);
+
+		this.validElements = [];
+		this.invalidElements = [];
 
 		this.form = React.createRef();
 	}
 
-	elementStateChange(value, name, error, touched) {
-		let validElems = this.state.validElements;
-		let invalidElems = this.state.invalidElements;
-
-		if (error) {
-			validElems = pull(validElems, name);
-			invalidElems = union(invalidElems, [name]);
+	elementStateChange(state) {
+		if (state.error && state.validation !== false) {
+			this.validElements = pull(this.validElements, state.name);
+			this.invalidElements = union(this.invalidElements, [state.name]);
 		}
-		else {
-			invalidElems = pull(invalidElems, name);
-			validElems = union(validElems, [name]);
+		else if(state.validation !== false){
+			this.invalidElements = pull(this.invalidElements, state.name);
+			this.validElements = union(this.validElements, [state.name]);
 		}
-		this.setState({ validElements: validElems, invalidElements: invalidElems });
 	}
 
 	validate() {
-		return (this.state.validElements.length >= this.validationCount);
+		return (this.validElements.length >= this.validationCount);
 	}
 
 	handleSubmit(e = false) {

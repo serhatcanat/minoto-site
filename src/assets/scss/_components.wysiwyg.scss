@@ -1,9 +1,24 @@
 .wysiwyg {
 	color: rgba($color-text, 0.7);
+	line-height: 1.2em;
 	h1, h2, h3, h4, h5, h6 {
 		color: $color-text;
 		@include font-medium;
 		margin-top: 3rem;
+	}
+
+	strong, b {
+		color: $color-text;
+	}
+
+	ul {
+		list-style: disc inside;
+
+		li {
+			+ li {
+				margin-top: .5em;
+			}
+		}
 	}
 
 	> * {

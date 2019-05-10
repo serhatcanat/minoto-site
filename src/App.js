@@ -6,11 +6,11 @@ import Navigator from './controllers/navigator'
 
 // Deps
 import { Router } from 'react-router-dom'
-import { openModal } from 'functions/modals'
+//import { openModal } from 'functions/modals'
 
 class App extends Component {
 	componentDidMount(){
-		openModal('login');
+		//openModal('login');
 	}
 
 	render() {

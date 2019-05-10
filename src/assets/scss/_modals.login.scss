@@ -26,21 +26,42 @@
 
 		.form-field {
 			+ .form-field {
-				margin-top: 2rem;
+				margin-top: 1.7rem;
+			}
+
+			&.type-checkbox {
+				color: $color-text-light;
+
+				.checkwrap {
+					@include font-regular;
+				}
 			}
 		}
 
 	.login-nav {
 		@include font-medium;
-		color: $color-primary;
-		margin-top: .7rem;
-		font-size: 1.6rem;
+		color: $color-text-light;
+		margin-top: .9rem;
+		font-size: 1.4rem;
 		display: flex;
 		justify-content: space-between;
+
+		&.center {
+			justify-content: center;
+			margin-top: 3rem;
+		}
+
+		.nav-btn {
+			color: $color-primary;
+
+			i {
+				margin-right: .4rem;
+			}
+		}
 	}
 
 	.login-others {
-		margin-top: 2rem;
+		margin-top: 1.7rem;
 	}
 
 		.others-seperator {
