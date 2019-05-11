@@ -6,6 +6,7 @@ const initialState = {
   	key: "",
   	data: {}
   },
+  messages: [],
   mobile: (window.innerWidth <= defaults.mobileBreakPoint),
   mobileBreakPoint: defaults.mobileBreakPoint,
   mapsAPIkey: defaults.mapsAPIkey,
@@ -33,6 +34,16 @@ function globalReducer(state = initialState, action) {
 			currentPage: action.payload
 		});
 	}
+	else if (action.type === "ADD_MESSAGE") {
+		return Object.assign({}, state, {
+			messages: [...state.messages, action.payload]
+		});
+	}
+	else if (action.type === "CLEAR_MESSAGES") {
+		return Object.assign({}, state, {
+			messages: []
+		});
+	}
 	return state;
 };
 export default globalReducer;
@@ -52,4 +63,12 @@ export function setWw(payload) {
 
 export function setPage(payload) {
 	return { type: "SET_PAGE", payload }
+};
+
+export function addMessage(payload) {
+	return { type: "ADD_MESSAGE", payload }
+};
+
+export function clearMessages(payload) {
+	return { type: "CLEAR_MESSAGES", payload }
 };

@@ -442,7 +442,7 @@ class NewAddressForm extends React.Component {
 					validation={(this.state.corporate ?
 						{minLength: ["Geçerli bir şirket adı girmelisiniz.", 3]}
 						: 
-						{nameSurname: true}
+						{fullName: true}
 					)}
 					popLabel />
 				{this.state.corporate &&

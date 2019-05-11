@@ -3,6 +3,7 @@ import React from 'react'
 // Partials
 import Image from 'components/partials/image'
 import Link from 'components/partials/link'
+import Btn from 'components/partials/btn'
 
 // Functions
 import {formatNumber} from 'functions/helpers'
@@ -155,12 +156,8 @@ export default class Footer extends React.Component {
 						<div className="nav-col">
 							<div className="nav-app">
 								<h3 className="app-title">Mobil uygulamamızı indirdiniz mi?</h3>
-								<a className="app-link btn white" href="http://www.google.com" target="_blank" rel="noopener noreferrer">
-									<i className="icon-appstore pre"></i> Apple Store
-								</a>
-								<a className="app-link btn white" href="http://www.google.com" target="_blank" rel="noopener noreferrer">
-									<i className="icon-playstore pre"></i> Google Play
-								</a>
+								<Btn tag="a" className="app-link" white href="http://www.google.com" target="_blank" rel="noopener noreferrer" icon="appstore">Apple Store</Btn>
+								<Btn tag="a" className="app-link" white href="http://www.google.com" target="_blank" rel="noopener noreferrer" icon="playstore">Google Play</Btn>
 							</div>
 
 							<form className="nav-subscription">

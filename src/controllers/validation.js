@@ -37,17 +37,17 @@ export function validation(value, controls = ['required']) {
 			}
 		}
 
-		if (data !== false) {
-			rerror = validateRaw[key](msg, value, data);
-		} else {
-			rerror = validateRaw[key](msg, value);
+		if(validateRaw[key]){
+			if (data !== false) {
+				rerror = validateRaw[key](msg, value, data);
+			} else {
+				rerror = validateRaw[key](msg, value);
+			}
 		}
+		else { rerror = "Hatalı validation: " + key; }
 
 		if (rerror !== undefined) {
 			error = rerror;
-			/*if(msg){
-				error = msg;
-			}*/
 		}
 
 		return error;
@@ -64,7 +64,7 @@ const validateRaw = {
 		}
 		return error;
 	},
-	"nameSurname": function(msg = "Geçerli bir ad-soyad girmelisiniz.", value) {
+	"fullName": function(msg = "Geçerli bir ad-soyad girmelisiniz.", value) {
 		let error;
 		if (/\d/.test(value) || value.split(' ').length < 2 || value.replace(' ', '').length < 4) {
 			error = msg;

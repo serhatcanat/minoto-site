@@ -1,0 +1,32 @@
+.messenger-container {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 50;
+	padding: 1rem;
+
+	.messenger-message {
+		font-size: 1.6rem;
+		background-color: $color-success;
+		color: $color-white;
+		border-radius: $radius-big;
+		padding: 1rem 1.8em;
+		opacity: 0;
+		transform: translate3d(0, -.5rem, 0);
+		transition: transform $transition-anim ease, opacity $transition-anim ease;
+
+		+ .messenger-message{
+			margin-top: 1rem;
+		}
+
+		&.show {
+			opacity: 1;
+			transform: translate3d(0, 0, 0);
+		}
+
+		&.error {
+			background-color: $color-error;
+		}
+	}
+}

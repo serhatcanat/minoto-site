@@ -13,6 +13,7 @@ import ConsentModal from 'components/modals/consent'
 // Controllers
 import ResponsiveWatcher from 'controllers/responsive-watcher'
 import ModalsWrap from 'controllers/modals-wrap'
+import MessengerWrap from 'controllers/messenger'
 
 // Deps
 import { Route, matchPath, Switch, Redirect } from 'react-router-dom'
@@ -75,6 +76,7 @@ export default class Navigator extends React.Component {
 		return (
 			<div className="site-content">
 				<ResponsiveWatcher />
+				<MessengerWrap />
 				<Header />
 				{routeData}
 				<Footer />

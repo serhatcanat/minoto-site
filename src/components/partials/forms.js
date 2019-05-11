@@ -157,6 +157,7 @@ class InputText extends React.Component {
 	componentDidMount() {
 		this.props.onChange({
 			error: this.state.error,
+			name: this.props.name,
 			touched: this.state.touched,
 			value: this.state.value,
 			validation: this.state.validation,
@@ -181,6 +182,7 @@ class InputText extends React.Component {
 
 			this.props.onChange({
 				error: this.state.error,
+				name: this.props.name,
 				touched: this.state.touched,
 				value: this.state.value,
 				validation: this.state.validation,
@@ -318,6 +320,7 @@ class InputTextarea extends React.Component {
 
 			this.props.onChange({
 				error: this.state.error,
+				name: this.props.name,
 				touched: this.state.touched,
 				value: this.state.value,
 				validation: this.state.validation,
@@ -431,6 +434,7 @@ class InputFile extends React.Component {
 		vm.setState({ error: (validStatus !== false), errorMessage: validStatus });
 		vm.props.onChange({
 			error: (validStatus !== false),
+			name: this.props.name,
 			touched: touch,
 			value: value,
 		});
@@ -780,7 +784,6 @@ export class InputForm extends React.Component {
 		return React.Children.map(children, child => {
 			if (child !== null) {
 				if (!child.props || child.props.innerForm) {
-					//console.log('ignore: ' +(child.props ? child.props.name : 'nameless'));
 					return child
 				}
 				if (child.props.formInput /*child.props.name && child.props.type !== "hidden"*/) {
