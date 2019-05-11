@@ -227,3 +227,14 @@ export function blockOverflow(block = true){
 		document.body.classList.remove('block-overflow');
 	}
 }
+
+export function loadScript(url, endFunction) {
+	var script = document.createElement("script");
+	script.src = url;
+	if (isDefined(endFunction())) {
+		script.onload = function () {
+			endFunction();
+		};
+	}
+	document.getElementsByTagName("body")[0].appendChild(script);
+}

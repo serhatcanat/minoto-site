@@ -105,6 +105,13 @@ module.exports = {
 			linkTitle: "Kullanıcı Sözleşmesi",
 			title: "Kullanıcı Sözleşmesi",
 		},
+		contact: {
+			path: "/iletisim",
+			component: "Contact",
+			exact: true,
+			linkTitle: "İletişim",
+			title: "İletişim",
+		},
 		notfound: {
 			path: false,
 			component: "NotFound",

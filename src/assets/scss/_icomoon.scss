@@ -41,6 +41,10 @@
  	-moz-osx-font-smoothing: grayscale;
 }
 
+.icon-notification:before {
+	content: "\e929";
+}
+
 .icon-security:before {
 	content: "\e923";
 }

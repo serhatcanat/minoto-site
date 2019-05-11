@@ -36,6 +36,7 @@ import Account from 'pages/account'
 import Reservation from 'pages/reservation'
 import Faq from 'pages/faq'
 import Privacy from 'pages/privacy'
+import Contact from 'pages/contact'
 
 import NotFound from 'pages/notfound'
 
@@ -52,6 +53,7 @@ const pageRegistry = {
 	Reservation: Reservation,
 	Faq: Faq,
 	Privacy: Privacy,
+	Contact: Contact,
 
 	NotFound: NotFound,
 }

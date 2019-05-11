@@ -103,18 +103,20 @@ export default class Listing extends React.Component {
 
 		let requestURL = vm.props.source+'?'+queryString;
 
-		request.get(requestURL, false, function(payload, status){
-			if(payload){
-				vm.setState({
-					listingData: payload,
-					results: payload.results,
-					initialLoad: true,
-					loading: false,
-					//listingData.type: payload.type,
-					total: (payload.totalResults ? payload.totalResults : 0),
-				})
-			}
-		})
+		setTimeout(function() {
+			request.get(requestURL, false, function(payload, status){
+				if(payload){
+					vm.setState({
+						listingData: payload,
+						results: payload.results,
+						initialLoad: true,
+						loading: false,
+						//listingData.type: payload.type,
+						total: (payload.totalResults ? payload.totalResults : 0),
+					})
+				}
+			});
+		}, 500);
 	}
 
 	filtersUpdated(){

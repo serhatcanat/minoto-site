@@ -8,6 +8,10 @@
 	max-width: calc(100% - 5rem);
 	margin: 0 auto;
 
+	&.medium {
+		width: $wrapper-medium;
+	}
+
 	&.narrow {
 		width: $wrapper-narrow;
 		//width: $wrapper-narrow;

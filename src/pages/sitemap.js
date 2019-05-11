@@ -34,6 +34,7 @@ export default class Home extends React.Component {
 						<Btn tag="link" className="btn" dark href="reservation.sum" params={{id: "A5011CMinoto"}} />
 						<Btn tag="link" className="btn" dark href="faq" />
 						<Btn tag="link" className="btn" dark href="privacy" />
+						<Btn tag="link" className="btn" dark href="contact" />
 					</section>
 
 					<section>

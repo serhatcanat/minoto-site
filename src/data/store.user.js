@@ -50,14 +50,20 @@ export function checkLoginStatus(endFunction = false) {
 				if(res.data.status === 'ok'){
 					if(res.data.user && res.data.user !== false){
 						store.dispatch(setUserData(res.data.user));
-						endFunction(true);
+						if(endFunction){
+							endFunction(true);
+						}
 					}
 					else{
-						endFunction(false);
+						if(endFunction){
+							endFunction(false);
+						}
 					}
 				}
 				else{
-					endFunction(false);
+					if(endFunction){
+						endFunction(false);
+					}
 				}
 
 			}).then(() => {

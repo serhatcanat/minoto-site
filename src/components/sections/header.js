@@ -21,6 +21,7 @@ import image_logo_primary from 'assets/images/logo-primary.svg'
 const mapStateToProps = state => {
 	return {
 		currentPage: state.generic.currentPage,
+		user: state.user.user,
 	};
 };
 
@@ -73,6 +74,7 @@ class Header extends React.Component {
 
 	render() {
 		let vm = this;
+		let user = vm.props.user;
 		return (
 			<header className="section header">
 				<div className="header-wrap wrapper">
@@ -84,9 +86,23 @@ class Header extends React.Component {
 						
 						<Link className="nav-link" navLink href="dealers">Tüm Bayiler</Link>
 						
-						<button className="nav-link" onClick={() => {openModal('register')}}>Üye Ol</button>
-						
-						<button className="nav-link" onClick={() => {openModal('login')}}>Giriş Yap</button>
+						{user &&
+							<div className="nav-user">
+								<Link className="user-item avatar" href="account.profile" title={user.fullname}>
+									<Image bg src={user.avatar} />
+								</Link>
+
+								<Link className="user-item notifications" href="account.notifications" title="Bildirimlerim">
+									<i className="icon-notification"></i>
+								</Link>
+							</div>
+						}
+						{!user &&
+							<button className="nav-link" onClick={() => {openModal('register')}}>Üye Ol</button>
+						}
+						{!user &&
+							<button className="nav-link" onClick={() => {openModal('login')}}>Giriş Yap</button>
+						}
 
 						<button className={"nav-menubtn" + (vm.state.menuOpen ? ' open' : '')} onClick={vm.toggleMenu}>
 							<div className="menubtn-inner">
