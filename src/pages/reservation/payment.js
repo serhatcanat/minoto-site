@@ -127,7 +127,11 @@ export default class Info extends React.Component {
 											popLabel
 											name="name"
 											placeholder="Kart Üzerindeki Ad-Soyad"
-											validation={{required: "Ad ve soyadınızı girmelisiniz."}}
+											validation={{
+												required: "Ad ve soyadınızı girmelisiniz.",
+												minWords: ["Geçerli bir ad-soyad giriniz.", 2],
+												minLength: ["Geçerli bir ad-soyad giriniz.", 5]
+											}}
 											onChange={(v) => { this.changeInput('cardName', v); }} />
 										<FormInput
 											type="number"
@@ -135,7 +139,10 @@ export default class Info extends React.Component {
 											popLabel name="cardnumber"
 											placeholder="Kart Numarası"
 											mask="9999 9999 9999 9999"
-											validation={['creditcard', 'required']}
+											validation={{
+												'creditcard': true,
+												'required': true,
+											}}
 											onChange={(v) => { this.changeInput('cardNumber', v); }} />
 										<FormInput
 											type="number"
@@ -143,7 +150,10 @@ export default class Info extends React.Component {
 											popLabel name="expiry"
 											placeholder="AA/YY"
 											mask="99/99"
-											validation={['required', 'expiry']}
+											validation={{
+												'required': true,
+												'expiry': true,
+											}}
 											onChange={(v) => { this.changeInput('cardExpiry', v); }} />
 										<FormInput
 											type="number"
@@ -151,7 +161,10 @@ export default class Info extends React.Component {
 											popLabel name="cvc"
 											placeholder="CVC"
 											mask="9999"
-											validation={{required: "Güvenlik kodunu girmelisiniz.", cvc: ["Geçerli bir CVC girmelisiniz", this.state.cvcLength]}}
+											validation={{
+												required: "Güvenlik kodunu girmelisiniz.",
+												cvc: ["Geçerli bir CVC girmelisiniz", this.state.cvcLength]
+											}}
 											onChange={(v) => { this.changeInput('cardCvc', v); }} />
 										<FormInput
 											type="checkbox"
@@ -426,7 +439,11 @@ class NewAddressForm extends React.Component {
 					className="newaddress-field high"
 					name="newaddr_name"
 					placeholder={this.state.corporate ? "Şirket Adı" : "Ad Soyad"}
-					validation={true}
+					validation={(this.state.corporate ?
+						{minLength: ["Geçerli bir şirket adı girmelisiniz.", 3]}
+						: 
+						{nameSurname: true}
+					)}
 					popLabel />
 				{this.state.corporate &&
 					<FormInput
@@ -434,7 +451,10 @@ class NewAddressForm extends React.Component {
 						name="newaddr_email"
 						type="email"
 						placeholder="E-Posta Adresi"
-						validation={true}
+						validation={{
+							email: true,
+							required: true,
+						}}
 						popLabel />
 				}
 				{this.state.corporate &&
@@ -442,7 +462,9 @@ class NewAddressForm extends React.Component {
 						className="newaddress-field high"
 						name="newaddr_taxoffice"
 						placeholder="Vergi Dairesi"
-						validation={true}
+						validation={{
+							minLength: ["Geçerli bir vergi dairesi girmelisiniz.", 3]
+						}}
 						popLabel />
 				}
 				<FormInput
@@ -450,7 +472,12 @@ class NewAddressForm extends React.Component {
 					type="number"
 					name="newaddr_taxnum"
 					placeholder={this.state.corporate ? "Vergi No" : "TC Kimlik No"}
-					validation={true}
+					validation={(this.state.corporate ? {
+						minLength: ["Geçerli bir vergi dairesi girmelisiniz.", 10],
+						maxLength: ["Geçerli bir vergi dairesi girmelisiniz.", 10]
+					} : {
+						ID: true
+					})}
 					mask={this.state.corporate ? "9999999999" : "99999999999"}
 					popLabel />
 				<FormInput
@@ -458,15 +485,21 @@ class NewAddressForm extends React.Component {
 					type="number"
 					name="newaddr_phone_cell"
 					placeholder="Cep Telefonu"
-					validation={"Cep Telefonunuzu girmelisiniz."}
 					mask="(100) 000 00 00"
+					validation={{
+						minLength: ["Cep Telefonunuzu girmelisiniz.", 15],
+						maxLength: ["Cep Telefonunuzu girmelisiniz.", 15]
+					}}
 					popLabel />
 				<FormInput
 					className="newaddress-field high"
 					type="number"
 					name="newaddr_phone_alt"
-					placeholder={this.state.corporate ? "İş Telefonu" : "Ev Telefonu"}
 					mask="(100) 000 00 00"
+					validation={{
+						minLength: ["Cep Telefonunuzu girmelisiniz.", 15],
+						maxLength: ["Cep Telefonunuzu girmelisiniz.", 15]
+					}}
 					popLabel />
 				<FormInput
 					className="newaddress-field high"
@@ -494,7 +527,10 @@ class NewAddressForm extends React.Component {
 					type="textarea"
 					name="newaddr_address"
 					placeholder="Adres"
-					validation={"Adresinizi girmelisiniz."}
+					validation={{
+						required: "Adresinizi girmelisiniz",
+						minLength: ["Adresiniz en az {length} karakter içermelidir.", 15],
+					}}
 					popLabel />
 
 				<Btn

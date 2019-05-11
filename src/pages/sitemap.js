@@ -22,6 +22,7 @@ export default class Home extends React.Component {
 						<h2>Sayfalar</h2>
 						<Btn tag="link" className="btn" dark href="home" />
 						<Btn tag="link" className="btn" dark href="detail" params={{id: "12345"}} />
+						<Btn tag="link" className="btn" dark href="brands" />
 						<Btn tag="link" className="btn" dark href="dealers" />
 						<Btn tag="link" className="btn" dark href="dealer" params={{id: "12345"}} />
 						<Btn tag="link" className="btn" dark href="listprices" />

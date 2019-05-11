@@ -7,21 +7,19 @@ import SVG from 'react-inlinesvg';
 import Loader from 'components/partials/loader.js';
 
 // Deps
-import axios from 'axios';
 import debounce from 'lodash/debounce';
 import isEqual from 'lodash/isEqual';
 import clone from 'lodash/clone';
 import {serialize } from 'functions/helpers';
 import history from 'controllers/history'
+import request from 'controllers/request'
 
-export default class ProductListing extends React.Component {
+export default class Listing extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			results: false,
-			filters: false,
 			loading: true,
-			listingType: 'dealer',
+			listingData: false,
 			query: (this.props.query ? this.props.query : ((history.location.search && history.location.search !== '') ? history.location.search.replace('?', '') : '')),
 			initialLoad: false,
 		}
@@ -80,10 +78,12 @@ export default class ProductListing extends React.Component {
 		let newQuery = serialize(this.formRef.current, '|', true)
 		if(history.location.search !== '?'+newQuery){
 			if(this.state.query === ""){
-				window.dynamicHistory.replace((newQuery !== '' ? '?'+newQuery : ''));
+				if(newQuery !== ''){
+					window.dynamicHistory.replace('?'+newQuery);
+				}
 			}
 			else{
-				window.dynamicHistory.push((newQuery !== '' ? '?'+newQuery : ''));
+				window.dynamicHistory.push((newQuery !== '' ? '?'+newQuery : '?empty=empty'));
 			}
 		}
 	}
@@ -101,33 +101,20 @@ export default class ProductListing extends React.Component {
 			queryString = vm.state.query;
 		}
 
-		setTimeout(function() {
-			let requestURL = vm.props.source+'?'+queryString;
+		let requestURL = vm.props.source+'?'+queryString;
 
-			/*if(vm.dummyBool){
-				requestURL = '/dummy/data/listing-test.json?'+queryString
+		request.get(requestURL, false, function(payload, status){
+			if(payload){
+				vm.setState({
+					listingData: payload,
+					results: payload.results,
+					initialLoad: true,
+					loading: false,
+					//listingData.type: payload.type,
+					total: (payload.totalResults ? payload.totalResults : 0),
+				})
 			}
-			vm.dummyBool = !vm.dummyBool;*/
-			/*if(queryString === ''){
-				requestURL = '/dummy/data/listing-test-first.json?'+queryString
-			}*/
-
-			axios.get(requestURL).then(res => {
-
-				if(res.data.status === 'ok'){
-					vm.setState({
-						results: res.data.results,
-						filters: res.data.filters,
-						initialLoad: true,
-						loading: false,
-						listingType: res.data.listingType,
-					})
-				}
-				else {
-					console.log('error');
-				}
-			})
-		}, 1000);
+		})
 	}
 
 	filtersUpdated(){
@@ -136,96 +123,24 @@ export default class ProductListing extends React.Component {
 
 	render() {
 		let vm = this;
-		let itemsAt = 0;
 		return (
 			<section className={"section listing loader-container " + vm.props.className + (vm.props.filters ? ' has-filters' : '') + ' size-'+vm.props.size}>
 				<Loader loading={vm.state.loading || !vm.state.results} strict={!vm.state.initialLoad} />
 				{vm.props.filters &&
-					<ListingFilters filters={vm.state.filters} onUpdate={vm.filtersUpdated} ref={vm.formRef} />
+					<ListingFilters data={vm.state.listingData} onUpdate={vm.filtersUpdated} ref={vm.formRef} />
 				}
-				<div className={"listing-content type-" + vm.state.listingType}>
+				<div className={"listing-content type-" + vm.state.listingData.type}>
 					<aside className="content-top">
 						<ActiveFilters filters={vm.state.filters} onFilterRemove={vm.removeFilter} />
 					</aside>
-					{(vm.state.results.length ?
-						<ul className="content-results">
-							{vm.state.results.map((item, nth) => {
-								itemsAt += (item.size ? item.size : 1);
-								let contents = [];
-								switch(item.type){
-									case 'banner':
-										let Item = (item.url ? 'a' : 'div');
-										contents.push(
-											<li key={nth} className={"results-item x"+item.size}>
-												<Item className="item-banner"><Image className="banner-image" src={item.image} alt={item.title} bg /></Item>
-											</li>
-										);
-									break;
-									default:
-										switch(vm.state.listingType){
-											case "dealer":
-												contents.push(
-													<li key={nth} className="results-item">
-														<ContentBox
-															type="plain"
-															className={((item.status === 2 || item.status === 3) ? 'inactive' : '')}
-															title={item.title}
-															subtitle={item.dealer}
-															additionTitle={item.count + ' ARAÇ'}
-															image={item.image}
-															labels={item.labels}
-															faved={item.favorited}
-															favControls={'/dummy/data/fav/dealer/'+item.id}
-															badge={(item.status !== 1 ? false : (item.status === 2 ? {text: 'Rezerve', note: '02.02.2019 Tarihine Kadar Opsiyonludur'} : {text : 'Satıldı', type : 'error'}))}
-															bottomNote={(item.currentViewers > 0 ? item.currentViewers + ' kişi Bakıyor' : false )}
-															url={item.link}
-														/>
-													</li>
-												)
-											break;
-											default: //listing
-												contents.push(
-													<li key={nth} className="results-item">
-														<ContentBox
-															className={((item.status === 2 || item.status === 3) ? 'inactive' : '')}
-															title={item.title}
-															subtitle={item.dealer}
-															image={item.image}
-															price={item.price}
-															labels={item.labels}
-															faved={item.favorited}
-															badge={(item.status === 1 ? false : (item.status === 2 ? {text: 'Rezerve', note: '02.02.2019 Tarihine Kadar Opsiyonludur'} : {text : 'Satıldı', type : 'error'}))}
-															bottomNote={(item.currentViewers > 0 ? item.currentViewers + ' kişi Bakıyor' : false )}
-															url={item.link}
-														/>
-													</li>
-												);
-											break;
-										}
-									break;
-								}
-
-								if(itemsAt === 8 && vm.props.showAds){
-									contents.push(<div key={"adwrap_" + nth} className="results-adwrap results-item x4">
-										<a className="adwrap-link" href="http://www.citroen.com.tr" target="_blank" title="Citroen" rel="noopener noreferrer" >
-											<Image src="/dummy/images/listing-ad.jpg" />
-										</a>
-									</div>);
-								}
-
-								return contents;
-							})}
-						</ul>
-					:
-						<div className="results-error">Sonuç bulunamadı..</div>
-					)}
+					<ListingResults data={vm.state.listingData} />
 				</div>
 			</section>
 		);
 	}
 }
 
-ProductListing.defaultProps = {
+Listing.defaultProps = {
 	className : '',
 	filters: true,
 	urlBinding: true,
@@ -235,21 +150,132 @@ ProductListing.defaultProps = {
 	query: false,
 };
 
+// Results
+class ListingResults extends React.Component {
+	render() {
+		let vm = this;
+		let itemsAt = 0;
+		let data = vm.props.data;
+		let results = data.results;
+		if(results && results.length){
+			return (
+				<ul className="content-results">
+					{results.map((item, nth) => {
+						itemsAt += (item.size ? item.size : 1);
+						let contents = [];
+						switch(item.type){
+							case 'banner':
+								let Item = (item.url ? 'a' : 'div');
+								contents.push(
+									<li key={nth} className={"results-item x"+item.size}>
+										<Item className="item-banner"><Image className="banner-image" src={item.image} alt={item.title} bg /></Item>
+									</li>
+								);
+							break;
+							default:
+								switch(data.type){
+									case "dealer":
+										contents.push(
+											<li key={nth} className="results-item">
+												<ContentBox
+													type="plain"
+													className={((item.status === 2 || item.status === 3) ? 'inactive' : '')}
+													title={item.title}
+													subtitle={item.dealer}
+													additionTitle={item.count + ' ARAÇ'}
+													image={item.image}
+													labels={item.labels}
+													faved={item.favorited}
+													favControls={'/dummy/data/fav/dealer/'+item.id}
+													badge={(item.status !== 1 ? false : (item.status === 2 ? {text: 'Rezerve', note: '02.02.2019 Tarihine Kadar Opsiyonludur'} : {text : 'Satıldı', type : 'error'}))}
+													bottomNote={(item.currentViewers > 0 ? item.currentViewers + ' kişi Bakıyor' : false )}
+													url={item.link}
+												/>
+											</li>
+										)
+									break;
+									case "brand":
+										contents.push(
+											<li key={nth} className="results-item">
+												<ContentBox
+													type="plain"
+													className={((item.status === 2 || item.status === 3) ? 'inactive' : '')}
+													title={item.title}
+													labels={item.labels}
+													additionTitle={item.count + ' ARAÇ'}
+													image={item.image}
+													faved={item.favorited}
+													favControls={'/dummy/data/fav/dealer/'+item.id}
+													url={item.link}
+												/>
+											</li>
+										)
+									break;
+									default: //listing
+										contents.push(
+											<li key={nth} className="results-item">
+												<ContentBox
+													className={((item.status === 2 || item.status === 3) ? 'inactive' : '')}
+													title={item.title}
+													subtitle={item.dealer}
+													image={item.image}
+													price={item.price}
+													labels={item.labels}
+													faved={item.favorited}
+													badge={(item.status === 1 ? false : (item.status === 2 ? {text: 'Rezerve', note: '02.02.2019 Tarihine Kadar Opsiyonludur'} : {text : 'Satıldı', type : 'error'}))}
+													bottomNote={(item.currentViewers > 0 ? item.currentViewers + ' kişi Bakıyor' : false )}
+													url={item.link}
+												/>
+											</li>
+										);
+									break;
+								}
+							break;
+						}
+
+						if(itemsAt === 8 && vm.props.showAds){
+							contents.push(<div key={"adwrap_" + nth} className="results-adwrap results-item x4">
+								<a className="adwrap-link" href="http://www.citroen.com.tr" target="_blank" title="Citroen" rel="noopener noreferrer" >
+									<Image src="/dummy/images/listing-ad.jpg" />
+								</a>
+							</div>);
+						}
+
+						return contents;
+					})}
+				</ul>
+			)
+		}
+		else {
+			return (
+				<div className="results-error">Sonuç bulunamadı..</div>
+			)
+		}
+	}
+}
+
 // Filters
 const ListingFilters = React.forwardRef(function(props, ref){
+	let data = props.data;
 	return (
 		<aside className="listing-filters">
+			{data.filtersTitle && 
+				<div className="filters-header">
+					<h1 className="header-title">{data.filtersTitle}</h1>
+				</div>
+			}
 			<form className="filters-form" ref={ref}>
-				{(props.filters ?
-				props.filters.map((filter, nth) => (
-					<ProductFilter data={filter} key={nth} onUpdate={props.onUpdate} />
+				{(props.data && data.filters ?
+				data.filters.map((filter, nth) => (
+					<ListingFilter data={filter} key={nth} onUpdate={props.onUpdate} />
 				)) : false )}
 			</form>
 		</aside>
 	)
 });
 
-class ProductFilter extends React.Component {
+// Single Filter
+class ListingFilter extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -306,13 +332,18 @@ class ProductFilter extends React.Component {
 			case "range":
 				filterContent = <FilterTypeRange data={filterData} onUpdate={vm.props.onUpdate} />;
 			break;
+			case "text":
+				filterContent = <FilterTypeText data={filterData} onUpdate={vm.props.onUpdate} />;
+			break;
 			default: break;
 		}
 
 		if(filterContent){
 			return (
-				<div className={"filters-filter type-" + filterData.display + (vm.state.active ? ' active' : '') + (vm.state.show ? ' show' : '')}>
-					<button type="button" className="filter-title" onClick={vm.toggle}>{filterData.title}</button>
+				<div className={"filters-filter type-" + filterData.display + (filterData.expandable !== false ? ' expandable' : '') + (vm.state.active ? ' active' : '') + (vm.state.show ? ' show' : '')}>
+					{filterData.expandable !== false &&
+						<button type="button" className="filter-title" onClick={vm.toggle}>{filterData.title}</button>
+					}
 
 					<div className="filter-content">
 						{filterContent}
@@ -513,6 +544,11 @@ class FilterTypeText extends React.Component {
 		}
 
 		this.handleChange = this.handleChange.bind(this);
+		this.update = this.update.bind(this);
+	}
+
+	componentDidMount(){
+		this.update();
 	}
 
 	componentDidUpdate(prevProps){
@@ -525,14 +561,18 @@ class FilterTypeText extends React.Component {
 		this.setState({value: e.target.value});
 	}
 
+	update(){
+		this.props.onUpdate();	
+	}
+
 	render() {
 		let vm = this;
 		let data = vm.props.data;
-		let opts = vm.state.opts;
 		return (
 			<div className="filter-inputs">
-				<div className="inputs-inputwrap">
+				<div className="inputwrap type-text">
 					 <input className="inputs-input" name={data.name} type="text" value={this.state.value} placeholder={data.title} onChange={(e) => vm.handleChange(e)} />
+					 <button className="inputs-submit" type="button" onClick={this.update}><i className="icon-search"></i></button>
 				</div>
 				
 			</div>
@@ -540,7 +580,7 @@ class FilterTypeText extends React.Component {
 	}
 }
 
-// Top Filters
+// Top Filter Controls
 class ActiveFilters extends React.Component {
 
 	render() {

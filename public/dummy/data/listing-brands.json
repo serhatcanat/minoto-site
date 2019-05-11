@@ -1,25 +1,216 @@
 {
 	"status" : "ok",
-	"listingType" : "brand",
-	"filters" : [
-		{
-			"name" : "isim",
-			"title" : "Marka Ara",
-			"expanded" : false,
-			"value": "",
-			"display" : "text"
-		}
-	],
-	"results": [
-		{
-			"id": 1,
-			"type": "advert",
-			"title": "Audi",
-			"dealer": "Kosifler Şahsuvaroğlu Volcar +63 Bayi",
-			"link": "/marka/audi",
-			"favorited" : false,
-			"count": 2430,
-			"image": "/dummy/images/brand-audi.svg"
-		}
-	]
+	"payload": {
+		"type": "brand",
+		"totalResults": 180,
+		"filtersTitle": "180 Marka",
+		"filters": [
+			{
+				"name" : "isim",
+				"title" : "Marka Ara",
+				"expanded" : false,
+				"value": "",
+				"display" : "text",
+				"expandable": false
+			}
+		],
+		"results": [
+			{
+				"id": 1,
+				"type": "brand",
+				"title": "Audi",
+				"labels": [
+					"Kosifler",
+					"Şahsuvaroğlu",
+					"Volcar",
+					"+63 Bayi"
+				],
+				"link": "/marka/audi",
+				"favorited" : false,
+				"count": 2430,
+				"image": "/dummy/images/brand-audi.svg"
+			},
+			{
+				"id": 1,
+				"type": "brand",
+				"title": "BMW",
+				"labels": [
+					"Kosifler",
+					"Şahsuvaroğlu",
+					"Volcar",
+					"+63 Bayi"
+				],
+				"link": "/marka/bmw",
+				"favorited" : false,
+				"count": 5330,
+				"image": "/dummy/images/brand-bmw.svg"
+			},
+			{
+				"id": 1,
+				"type": "brand",
+				"title": "Dacia",
+				"labels": [
+					"Kosifler",
+					"Şahsuvaroğlu",
+					"Volcar",
+					"+63 Bayi"
+				],
+				"link": "/marka/dacia",
+				"favorited" : false,
+				"count": 1205,
+				"image": "/dummy/images/brand-dacia.svg"
+			},
+			{
+				"id": 1,
+				"type": "brand",
+				"title": "Audi",
+				"labels": [
+					"Kosifler",
+					"Şahsuvaroğlu",
+					"Volcar",
+					"+63 Bayi"
+				],
+				"link": "/marka/audi",
+				"favorited" : true,
+				"count": 2430,
+				"image": "/dummy/images/brand-audi.svg"
+			},
+			{
+				"id": 1,
+				"type": "brand",
+				"title": "BMW",
+				"labels": [
+					"Kosifler",
+					"Şahsuvaroğlu",
+					"Volcar",
+					"+63 Bayi"
+				],
+				"link": "/marka/bmw",
+				"favorited" : false,
+				"count": 5330,
+				"image": "/dummy/images/brand-bmw.svg"
+			},
+			{
+				"id": 1,
+				"type": "brand",
+				"title": "Dacia",
+				"labels": [
+					"Kosifler",
+					"Şahsuvaroğlu",
+					"Volcar",
+					"+63 Bayi"
+				],
+				"link": "/marka/dacia",
+				"favorited" : false,
+				"count": 1205,
+				"image": "/dummy/images/brand-dacia.svg"
+			},
+			{
+				"id": 1,
+				"type": "brand",
+				"title": "BMW",
+				"labels": [
+					"Kosifler",
+					"Şahsuvaroğlu",
+					"Volcar",
+					"+63 Bayi"
+				],
+				"link": "/marka/bmw",
+				"favorited" : false,
+				"count": 5330,
+				"image": "/dummy/images/brand-bmw.svg"
+			},
+			{
+				"id": 1,
+				"type": "brand",
+				"title": "Dacia",
+				"labels": [
+					"Kosifler",
+					"Şahsuvaroğlu",
+					"Volcar",
+					"+63 Bayi"
+				],
+				"link": "/marka/dacia",
+				"favorited" : false,
+				"count": 1205,
+				"image": "/dummy/images/brand-dacia.svg"
+			},
+			{
+				"id": 1,
+				"type": "brand",
+				"title": "Audi",
+				"labels": [
+					"Kosifler",
+					"Şahsuvaroğlu",
+					"Volcar",
+					"+63 Bayi"
+				],
+				"link": "/marka/audi",
+				"favorited" : true,
+				"count": 2430,
+				"image": "/dummy/images/brand-audi.svg"
+			},
+			{
+				"id": 1,
+				"type": "brand",
+				"title": "BMW",
+				"labels": [
+					"Kosifler",
+					"Şahsuvaroğlu",
+					"Volcar",
+					"+63 Bayi"
+				],
+				"link": "/marka/bmw",
+				"favorited" : false,
+				"count": 5330,
+				"image": "/dummy/images/brand-bmw.svg"
+			},
+			{
+				"id": 1,
+				"type": "brand",
+				"title": "Dacia",
+				"labels": [
+					"Kosifler",
+					"Şahsuvaroğlu",
+					"Volcar",
+					"+63 Bayi"
+				],
+				"link": "/marka/dacia",
+				"favorited" : false,
+				"count": 1205,
+				"image": "/dummy/images/brand-dacia.svg"
+			},
+			{
+				"id": 1,
+				"type": "brand",
+				"title": "BMW",
+				"labels": [
+					"Kosifler",
+					"Şahsuvaroğlu",
+					"Volcar",
+					"+63 Bayi"
+				],
+				"link": "/marka/bmw",
+				"favorited" : false,
+				"count": 5330,
+				"image": "/dummy/images/brand-bmw.svg"
+			},
+			{
+				"id": 1,
+				"type": "brand",
+				"title": "Dacia",
+				"labels": [
+					"Kosifler",
+					"Şahsuvaroğlu",
+					"Volcar",
+					"+63 Bayi"
+				],
+				"link": "/marka/dacia",
+				"favorited" : false,
+				"count": 1205,
+				"image": "/dummy/images/brand-dacia.svg"
+			}
+		]
+
+	}
 }

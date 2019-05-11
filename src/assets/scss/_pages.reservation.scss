@@ -165,8 +165,22 @@
 					color: $color-primary;
 					text-decoration: underline;
 				}
-				.checkwrap input:checked + label{
-					color: inherit;
+				.checkwrap{
+					margin-bottom: 3.3rem;
+					input{
+						&:checked{
+							+ label{
+								color: inherit;
+							}
+						}
+
+						+ label {
+							@include font-regular;
+							white-space: nowrap;
+							overflow: visible;
+							color: $color-text-light;
+						}
+					}
 				}
 			}
 		}
@@ -263,11 +277,10 @@
 							border: .1rem solid $color-ice;
 							border-radius: $radius-general;
 							background-color: $color-gray-light;
-							padding: 1.5rem 1.4rem 1.5rem 4.2rem;
+							padding: 1.5rem 1.4rem 1.5rem 1.4rem;
 
 							input + label > span{
-								top: 1.6rem;
-								left: 1.4rem;
+								top: 47%;
 							}
 						}
 					}
