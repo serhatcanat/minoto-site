@@ -33,6 +33,8 @@
 		}
 	}
 
+	// States
+
 	&.error {
 		input[type='text'],
 		input[type='password'],
@@ -180,6 +182,13 @@
 	&.dark {
 		input[type='file'] + label, select + label, input, textarea{
 			background-color: $color-gray-light;
+		}
+
+		.minoto-select{
+			.minoto-select__control {
+				background-color: $color-gray-light;
+				border-color: $color-gray-light;
+			}
 		}
 	}
 

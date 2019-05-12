@@ -28,6 +28,13 @@ module.exports = {
 			],*/
 			hideSearchFromHeader: true,
 		},
+		search: {
+			path: "/arama",
+			component: "Search",
+			exact: true,
+			linkTitle: "Arama",
+			title: "Arama",
+		},
 		sitemap: {
 			path: "/sitemap",
 			component: "Sitemap",
@@ -42,6 +49,13 @@ module.exports = {
 			linkTitle: "Markalar",
 			title: "Markalar",
 		},
+		brand: {
+			path: "/marka/:id/:slug?",
+			component: "Brand",
+			exact: true,
+			linkTitle: "Marka",
+			title: "Marka",
+		},
 		dealers: {
 			path: "/bayiler",
 			component: "Dealers",
@@ -50,14 +64,14 @@ module.exports = {
 			title: "Bayiler",
 		},
 		dealer: {
-			path: "/bayi/:id/:prettylink?",
+			path: "/bayi/:id/:slug?",
 			component: "Dealer",
 			exact: true,
 			linkTitle: "Bayi",
 			title: "Bayi",
 		},
 		detail: {
-			path: "/ilan/:id/:prettylink?",
+			path: "/ilan/:id/:slug?",
 			component: "Detail",
 			exact: true,
 			linkTitle: "İlan Detay",

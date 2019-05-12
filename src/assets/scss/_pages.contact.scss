@@ -23,7 +23,6 @@
 
 		.info-details {
 			width: 62.1rem;
-			padding-bottom: 1.5rem;
 			border-bottom: .1rem solid $color-ice;
 		}
 
@@ -31,9 +30,9 @@
 				@include font-regular;
 				display: flex;
 				flex-flow: row wrap;
-				line-height: 2rem;
+				line-height: 3rem;
 				font-size: 1.8rem;
-				padding: 1.5rem 0;
+				padding: .7rem 0;
 				+ .details-item {
 					border-top: .1rem solid $color-ice;
 				}

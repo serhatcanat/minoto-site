@@ -11,7 +11,6 @@ import { checkLoginStatus } from "data/store.user"
 
 class App extends Component {
 	componentDidMount(){
-		//openModal('login');
 		checkLoginStatus();
 	}
 

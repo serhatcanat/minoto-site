@@ -1,6 +1,6 @@
 .section{
 	&.header {
-		padding: 1.7rem 0 2.5rem;
+		padding: 1.8rem 0 1.8rem;
 		border-bottom: .1rem solid $color-gray-light;
 		position: relative;
 		z-index: 20;
@@ -8,6 +8,7 @@
 		.header-wrap{
 			display: flex;
 			justify-content: space-between;
+			align-items: center;
 		}
 
 		.header-search {
@@ -28,7 +29,6 @@
 
 		.header-nav {
 			position: relative;
-			padding-top: .3rem;
 			line-height: 4rem;
 			box-sizing: content-box;
 			height: 4rem;

@@ -5,12 +5,18 @@ import { pushMessage } from 'controllers/messenger'
 export default {
 	get: function(target, params = false, finalFunction = false){
 		if(params === false){ params = {}; }
-		axios.get(target, {params: prepareParams(params)})
+
+		let ajaxToken = axios.CancelToken;
+		let ajaxController = ajaxToken.source();
+
+		axios.get(target, {params: prepareParams(params), cancelToken: ajaxController.token})
 		.then(res => {
 			evaluateData(res, finalFunction);
 		}).catch(error => {
 			evaluateData({status: 500, error: error}, finalFunction)
 		});
+
+		return ajaxController;
 	},
 	post: function(target, params = false, finalFunction = false){
 		if(params === false){ params = {}; }
@@ -23,30 +29,30 @@ export default {
 	}
 }
 
-function evaluateData(res, finalFunction = false){
-	switch(res.status){
+function evaluateData(response, finalFunction = false){
+	switch(response.status){
 		case 200:
 			if(finalFunction){
-				finalFunction(res.data.payload, res.status, res);
+				finalFunction(response.data.payload, response.status, response);
 			}
 		break;
 		case 500:
-			pushMessage(res.error.message, {type: "error"});
+			pushMessage(response.error.message, {type: "error"});
 			if(finalFunction){
-				finalFunction(false, res.status, res);
+				finalFunction(false, response.status, response);
 			}
 		break;
 		default:
 			if(finalFunction){
-				finalFunction(false, res.status, res);
+				finalFunction(false, response.status, response);
 			}
 		break;
 
 	}
 
-	if(res.data.messages){
-		for(let p = 0; p < res.data.messages.length; p++){
-			pushMessage('', res.data.messages[p]);
+	if(response.data.messages){
+		for(let p = 0; p < response.data.messages.length; p++){
+			pushMessage('', response.data.messages[p]);
 		}
 	}
 }

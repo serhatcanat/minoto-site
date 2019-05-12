@@ -11,8 +11,10 @@ import Collapse from 'components/partials/collapse'
 import { InputForm, FormInput } from 'components/partials/forms'
 
 // Deps
-import axios from 'axios';
 import { setTitle } from 'controllers/head'
+import request from 'controllers/request'
+import { redirect } from 'controllers/navigator'
+import { openModal } from 'functions/modals'
 
 // Assets
 
@@ -29,18 +31,18 @@ export default class Dealer extends React.Component {
 
 	initialize() {
 		let vm = this;
-		axios.get('/dummy/data/dealer.json?id='+vm.props.match.params.id).then(res => {
-			if(res.data.status === 'ok'){
+		request.get('/dummy/data/dealer.json', { id: vm.props.match.params.id }, function(payload){
+			if(payload){
 				vm.setState({
-					dealerData: res.data.info
+					dealerData: payload
 				})
 
-				setTitle(res.data.info.title);
+				setTitle(payload.title);
 			}
 			else {
-				console.log('error');
+				redirect("notfound");
 			}
-		})
+		});
 	}
 
 	componentDidMount() {
@@ -66,7 +68,9 @@ export default class Dealer extends React.Component {
 									<div>
 										{dealer.address}
 									</div>
-									<button type="button" className="address-showonmap">Haritada gör</button>
+									{dealer.location &&
+										<button type="button" className="address-showonmap" onClick={() => openModal('map', {markers: [{ lat: dealer.location.lat, lng: dealer.location.lng }]})}>Haritada gör</button>
+									}
 								</div>
 								<span className={"sum-workinghours " + (dealer.open ? 'open' : 'closed')}>
 									{dealer.workingHours}
@@ -135,7 +139,9 @@ class BranchInfo extends React.Component {
 				</button>
 
 				<Collapse className="branch-details" open={this.state.open}>
-					<button type="button" className="details-showonmap">Haritada gör</button>
+					{branch.location &&
+						<button type="button" className="details-showonmap" onClick={() => openModal('map', {markers: [{ lat: branch.location.lat, lng: branch.location.lng }]})}>Haritada gör</button>
+					}
 
 					<div className="details-controls">
 						<Btn tag="a" icon="phone" primary low uppercase href={'tel:+9'+branch.phone.replace(' ', '')}>{branch.phone}</Btn>

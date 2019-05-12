@@ -21,10 +21,11 @@ export default class Home extends React.Component {
 					<section>
 						<h2>Sayfalar</h2>
 						<Btn tag="link" className="btn" dark href="home" />
-						<Btn tag="link" className="btn" dark href="detail" params={{id: "12345"}} />
+						<Btn tag="link" className="btn" dark href="detail" params={{id: "12345", slug: "audi-a3-30-t-premium-plus-cdi"}} />
 						<Btn tag="link" className="btn" dark href="brands" />
+						<Btn tag="link" className="btn" dark href="brand" params={{id: "21446", slug: "audi" }} />
 						<Btn tag="link" className="btn" dark href="dealers" />
-						<Btn tag="link" className="btn" dark href="dealer" params={{id: "12345"}} />
+						<Btn tag="link" className="btn" dark href="dealer" params={{id: "12345", slug: "dogus-otomotiv" }} />
 						<Btn tag="link" className="btn" dark href="listprices" />
 						<Btn tag="link" className="btn" dark href="account" />
 						<Btn tag="link" className="btn" dark href="notfound" />
@@ -44,10 +45,29 @@ export default class Home extends React.Component {
 						<button className="btn" type="button" onClick={() => openModal('register')}>Üye Ol</button>
 						<button className="btn" type="button" onClick={() => openModal('recovery')}>Şifremi Unuttum</button>
 						<button className="btn" type="button" onClick={() => openModal('consent')}>Veri İzni</button>
-						<button className="btn" type="button" onClick={() => openModal({action: 'share', url: 'http://www.thinkerfox.com'})}>Paylaş</button>
-						<button className="btn" type="button" onClick={() => openModal({action: 'options', question: "Bu işlemi gerçekleştirmek istediğinize emin misiniz?", title: "Soru", opts: [{
-							text: "Evet, Eminim", onClick: ()=>{alert('Evet, Emin')}, className: "primary"}, {text: "Hayır"}]})}>Soru</button>
-						<button className="btn" type="button" onClick={() => openModal({action: 'confirm', question: "Bu işlemi gerçekleştirmek istediğinize emin misiniz?", title: "Onay", onConfirm: () => { alert("Onaylıyor") }, onDeny: () => { alert("Onaylamıyor") }})}>Onay</button>
+						<button className="btn" type="button" onClick={() => openModal('share', {url: 'http://www.thinkerfox.com'})}>Paylaş</button>
+						<button className="btn" type="button" onClick={() => openModal('options', {
+							question: "Bu işlemi gerçekleştirmek istediğinize emin misiniz?",
+							title: "Soru", opts: [
+								{
+									text: "Evet, Eminim",
+									onClick: ()=>{alert('Evet, Emin')},
+									className: "primary"
+								},
+								{text: "Hayır"}
+							]
+						})}>Soru</button>
+						<button className="btn" type="button" onClick={() => openModal('confirm', {
+							question: "Bu işlemi gerçekleştirmek istediğinize emin misiniz?",
+							title: "Onay",
+							onConfirm: () => { alert("Onaylıyor") },
+							onDeny: () => { alert("Onaylamıyor") }
+						})}>Onay</button>
+						<button className="btn" type="button" onClick={() => openModal('map', {markers: [{
+							html: false,
+							lat: 41.109604,
+							lng: 29.022052
+						}]})}>Harita</button>
 
 						<h3>Butonlar</h3>
 						<Btn primary>Ana Renk</Btn>

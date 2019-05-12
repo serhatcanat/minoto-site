@@ -71,12 +71,14 @@ export class FormInput extends React.Component {
 			((vm.state.value !== "" && vm.state.value !== false && vm.state.value !== null) ? ' input-full' : '');
 
 		let id = (vm.props.id ? vm.props.id : uid('form_input'));
+		let name = (vm.props.name ? vm.props.name : id);
 
 		let Input = false;
 		let inputProps = extend(
-			omit(vm.props, ['id', 'onChangeInForm', 'forceTouch', 'onChange', 'className', 'formInput']),
+			omit(vm.props, ['id', 'onChangeInForm', 'forceTouch', 'onChange', 'className', 'formInput', 'name']),
 			{
 				id: id,
+				name: name,
 				onChange: vm.onChange,
 				touched: (vm.props.forceTouch || vm.state.touched),
 				className: wrapClasses

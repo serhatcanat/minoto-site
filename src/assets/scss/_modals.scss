@@ -52,6 +52,7 @@
 	
 	.modal-closebtn {
 		position: absolute;
+		z-index: 50;
 		top: 1.4rem;
 		right: 1.4rem;
 		color: $color-text-negative;

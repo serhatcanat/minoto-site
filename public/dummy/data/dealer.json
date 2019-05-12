@@ -1,6 +1,5 @@
 {
-	"status": "ok",
-	"info": {
+	"payload": {
 		"id": 1231231,
 		"title": "Doğuş Otomotiv",
 		"cover": "/dummy/images/dealer-cover.jpg",
@@ -12,12 +11,20 @@
 		"phone": "0800 212 98 98",
 		"listingCount": 2430,
 		"branchCount": 2430,
+		"location": {
+			"lat": 41.109604,
+			"lng": 29.022052
+		},
 		"branches": [
 			{
 				"id": 1234,
 				"title": "Doğuş Oto Kartal",
 				"workingHours": "08:00 - 20:00",
 				"phone": "0800 212 98 98",
+				"location": {
+					"lat": 41.109604,
+					"lng": 29.022052
+				},
 				"open": true
 			},
 			{
@@ -32,6 +39,10 @@
 				"title": "Doğuş Oto Beşiktaş",
 				"workingHours": "08:00 - 18:00",
 				"phone": "0800 212 98 98",
+				"location": {
+					"lat": 41.109604,
+					"lng": 29.022052
+				},
 				"open": false
 			}
 		]

@@ -10,9 +10,9 @@ import Loader from 'components/partials/loader'
 import Select from 'components/partials/select'
 
 // Deps
-import axios from 'axios'
 import { formatNumber } from 'functions/helpers'
-import { generatePath } from 'react-router';
+import request from 'controllers/request'
+import { generatePath } from 'react-router'
 
 // Assets
 
@@ -31,7 +31,6 @@ export default class ListPrices extends React.Component {
 		this.changeYear = this.changeYear.bind(this);
 		this.changeBrand = this.changeBrand.bind(this);
 
-		this.ajaxToken = axios.CancelToken;
 		this.ajaxController = false;
 	}
 
@@ -39,55 +38,53 @@ export default class ListPrices extends React.Component {
 		let vm = this;
 		vm.setState({brands: false});
 
-		if(this.ajaxController !== false){
+		if(vm.ajaxController !== false){
 			vm.ajaxController.cancel('Canceled duplicate request.');
 		}
-		this.ajaxController = this.ajaxToken.source();
 		setTimeout(function() {
-			axios.get(
+			vm.ajaxController = request.get(
 				'/dummy/data/listprices.json',
 				{
-					params: {
-						year: vm.props.match.params.year ? vm.props.match.params.year : 'tum_yillar',
-						brand: vm.props.match.params.brand ? vm.props.match.params.brand : 'tum_markalar'
-					},
-					cancelToken: vm.ajaxController.token
-				}
-			).then(res => {
-				this.ajaxController = false;
-				if(res.data.status === 'ok'){
-					let yearFilters = res.data.filters.year.map(function(filter, nth){
-						let filterData = {
-							value: filter.value,
-							label: filter.title,
-						}
-						if(filter.selected){
-							vm.setState({ selectedYear: filterData });
-						}
-						return filterData;
-					});
+					year: vm.props.match.params.year ? vm.props.match.params.year : 'tum_yillar',
+					brand: vm.props.match.params.brand ? vm.props.match.params.brand : 'tum_markalar'
+				},
+				function(payload){
+					vm.ajaxController = false;
 
-					let brandFilters = res.data.filters.brand.map(function(filter, nth){
-						let filterData = {
-							value: filter.value,
-							label: filter.title,
-						}
-						if(filter.selected){
-							vm.setState({ selectedBrand: filterData });
-						}
-						return filterData;
-					});
+					if(payload){
+						let yearFilters = payload.filters.year.map(function(filter, nth){
+							let filterData = {
+								value: filter.value,
+								label: filter.title,
+							}
+							if(filter.selected){
+								vm.setState({ selectedYear: filterData });
+							}
+							return filterData;
+						});
 
-					vm.setState({
-						brands: res.data.brands,
-						yearFilters: yearFilters,
-						brandFilters: brandFilters
-					});
+						let brandFilters = payload.filters.brand.map(function(filter, nth){
+							let filterData = {
+								value: filter.value,
+								label: filter.title,
+							}
+							if(filter.selected){
+								vm.setState({ selectedBrand: filterData });
+							}
+							return filterData;
+						});
+
+						vm.setState({
+							brands: payload.brands,
+							yearFilters: yearFilters,
+							brandFilters: brandFilters
+						});
+					}
+					else {
+						console.log('error');
+					}
 				}
-				else {
-					console.log('error');
-				}
-			});
+			);
 		}, 20);
 	}
 
@@ -143,20 +140,22 @@ export default class ListPrices extends React.Component {
 							<h1 className="head-title">Araç Liste fiyatları.</h1>
 							<div className="head-filters">
 							{vm.state.yearFilters &&
-								<Select
-									className="filters-item"
-									value={vm.state.selectedYear}
-									onChange={vm.changeYear}
-									options={vm.state.yearFilters}
-								/>
+								<div className="inputwrap dark filters-item">
+									<Select
+										value={vm.state.selectedYear}
+										onChange={vm.changeYear}
+										options={vm.state.yearFilters}
+									/>
+								</div>
 							}
 							{vm.state.brandFilters &&
-								<Select
-									className="filters-item"
-									value={vm.state.selectedBrand}
-									onChange={vm.changeBrand}
-									options={vm.state.brandFilters}
-								/>
+								<div className="inputwrap dark filters-item">
+									<Select
+										value={vm.state.selectedBrand}
+										onChange={vm.changeBrand}
+										options={vm.state.brandFilters}
+									/>
+								</div>
 							}
 							</div>
 						</div>

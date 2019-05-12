@@ -9,6 +9,7 @@ import LoginModal from 'components/modals/login'
 import RegisterModal from 'components/modals/register'
 import RecoveryModal from 'components/modals/recovery'
 import ConsentModal from 'components/modals/consent'
+import MapModal from 'components/modals/map'
 
 // Controllers
 import ResponsiveWatcher from 'controllers/responsive-watcher'
@@ -26,8 +27,10 @@ import extend from "lodash/extend";
 
 // Pages
 import Home from 'pages/home'
+import Search from 'pages/search'
 import Sitemap from 'pages/sitemap'
 import Brands from 'pages/brands'
+import Brand from 'pages/brand'
 import Dealers from 'pages/dealers'
 import Dealer from 'pages/dealer'
 import Detail from 'pages/detail'
@@ -43,8 +46,10 @@ import NotFound from 'pages/notfound'
 
 const pageRegistry = {
 	Home: Home,
+	Search: Search,
 	Sitemap: Sitemap,
 	Brands: Brands,
+	Brand: Brand,
 	Dealers: Dealers,
 	Dealer: Dealer,
 	Detail: Detail,
@@ -85,6 +90,7 @@ export default class Navigator extends React.Component {
 					<RegisterModal />
 					<RecoveryModal />
 					<ConsentModal />
+					<MapModal />
 				</ModalsWrap>
 			</div>
 		)

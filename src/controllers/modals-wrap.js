@@ -39,8 +39,7 @@ class ModalsWrap extends React.Component {
 		this.closeBtn = <button className="modal-closebtn" type="button" onClick={this.closeModal}><i className="icon-close"></i></button>;
 
 		this.defaultOpts = {
-			action: "show",
-			modalKey: false,
+			modal: "",
 			url: false,
 			urlTitle: false,
 			closeBtn: this.closeBtn,
@@ -54,9 +53,7 @@ class ModalsWrap extends React.Component {
 	componentDidUpdate(prevProps, prevState){
 		let vm = this;
 		if(!isEqual(prevProps.modalData, vm.props.modalData)){
-			let opts = (vm.props.modalData === false ? false : (Object.prototype.toString.call(vm.props.modalData) === "[object String]" ? 
-				extend({}, vm.defaultOpts, {modalKey: vm.props.modalData}) : extend({}, vm.defaultOpts, vm.props.modalData))
-			);
+			let opts = (vm.props.modalData === false ? false : extend({}, vm.defaultOpts, vm.props.modalData));
 
 			if(vm.state.show){
 				vm.setState({show: false});
@@ -96,20 +93,10 @@ class ModalsWrap extends React.Component {
 
 
 		if(vm.state.data){
-			let props = omit(vm.state.data, ['action', 'modalKey'])
+			let props = omit(vm.state.data, ['modal'])
 			props.className = 'modal-content ' + props.className;
 
-			switch(vm.state.data.action){
-				case "show":
-					for(let k = 0; k < children.length; k++){
-						let item = children[k];
-						if(item.props.name === vm.state.data.modalKey){
-							Content = React.cloneElement(
-								item, {...props}
-							);
-						}
-					}
-				break;
+			switch(vm.state.data.modal){
 				case "share":
 					Content = <ShareModal {...props} />
 				break;
@@ -136,7 +123,16 @@ class ModalsWrap extends React.Component {
 				case "text":
 					Content = <TextModal {...props} />
 				break;
-				default: break;
+				default:
+					for(let k = 0; k < children.length; k++){
+						let item = children[k];
+						if(item.props.name === vm.state.data.modal){
+							Content = React.cloneElement(
+								item, {...props}
+							);
+						}
+					}
+				break;
 			}
 		}
 
@@ -155,7 +151,7 @@ class ModalsWrap extends React.Component {
 			);
 		}
 		else { 
-			if(vm.state.data){ console.log('Modals Error: Modal not found.') };
+			if(vm.state.data){ console.log('Modals Error: Modal "'+vm.props.modal+'" not found.') };
 			return false;
 		}
 	}

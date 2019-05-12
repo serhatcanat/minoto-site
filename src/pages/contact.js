@@ -27,6 +27,7 @@ export default class Contact extends React.Component {
 		vm.setState({ loading: true });
 		//post statikte 404 verdiği için dummy olarak get
 		//request.post('/dummy/data/contactform.json', serializeArray(e.target), function(response){
+		//..
 		request.get('/dummy/data/contactform.json', serializeArray(e.target), function(response){
 			if(response !== false){
 				// Dummy timeout etc..

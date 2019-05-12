@@ -88,9 +88,33 @@ export default class Listing extends React.Component {
 		}
 	}
 
-	removeFilter(name) {
-		let newFilters = clone(this.state.filters).filter((filter) => { return !(filter.name === name); });
-		this.setState({filters: newFilters});
+	removeFilter(name = false) {
+		let newData = clone(this.state.listingData);
+		newData.filters = newData.filters.map((filter) => {
+			if(filter.name === name || name === false){
+				let newFilter = filter;
+
+				if(newFilter.value){ newFilter.value = "" };
+				if(newFilter.opts){
+					newFilter.opts = newFilter.opts.map((opt) => {
+						let newOpt = opt;
+						if(newOpt.selected){
+							newOpt.selected = false;
+						}
+						if(newOpt.value){
+							newOpt.value = "";
+						}
+
+						return newOpt;
+					});
+				}
+
+				return newFilter;
+			}
+			else return filter;
+		});
+		
+		this.setState({listingData: newData});
 	}
 
 	updateResults(queryString = false) {
@@ -133,7 +157,7 @@ export default class Listing extends React.Component {
 				}
 				<div className={"listing-content type-" + vm.state.listingData.type}>
 					<aside className="content-top">
-						<ActiveFilters filters={vm.state.filters} onFilterRemove={vm.removeFilter} />
+						<ActiveFilters data={vm.state.listingData} onFilterRemove={vm.removeFilter} />
 					</aside>
 					<ListingResults data={vm.state.listingData} />
 				</div>
@@ -588,8 +612,8 @@ class ActiveFilters extends React.Component {
 	render() {
 		let filters = [];
 
-		if(this.props.filters){
-			filters = this.props.filters.map((group, nth) => {
+		if(this.props.data && this.props.data.filters){
+			filters = this.props.data.filters.map((group, nth) => {
 				let text = false;
 				let data = false;
 				switch(group.display){
@@ -619,15 +643,18 @@ class ActiveFilters extends React.Component {
 			}).filter((filter) => { return filter !== false; });
 		}
 
-		return (
-			<div className="top-activefilters">
-				{filters.map((filter, nth) => (
-					<span className="activefilters-item" key={nth} title={filter.title}>
-						{filter.label}
-						<button type="button" onClick={() => { this.props.onFilterRemove(filter.name); } } className="item-remove"><i className="icon-close"></i></button>
-					</span>
-				))}
-			</div>
-		)
+		if(filters.length){
+			return (
+				<div className="top-activefilters">
+					{filters.map((filter, nth) => (
+						<span className="activefilters-item" key={nth} title={filter.title}>
+							{filter.label}
+							<button type="button" onClick={() => { this.props.onFilterRemove(filter.name); } } className="item-remove"><i className="icon-close"></i></button>
+						</span>
+					))}
+				</div>
+			)
+		}
+		else return false;
 	}
 }

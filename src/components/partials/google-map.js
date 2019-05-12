@@ -24,7 +24,7 @@ class GoogleMap extends React.PureComponent{
 		this.mapContainer = React.createRef();
 
 		this.settings = {
-			maxZoom: 13,
+			maxZoom: 17,
 			zoom: 7,
 			lat:39.4251863,
 			lng:35.2107457,

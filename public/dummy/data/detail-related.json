@@ -1,109 +1,110 @@
 {
-	"status" : "ok",
-	"listingType" : "listing",
-	"results": [
-		{
-			"type": "advert",
-			"title": "Volvo S90 T8 Twin Engine eAWD Inscription",
-			"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
-			"status": 1,
-			"price": 720000.5,
-			"currentViewers": 5,
-			"labels": [
-				"2018",
-				"Sıfır KM"
-			]
-		},
-		{
-			"type": "advert",
-			"title": "BMW 118i, Joy Plus",
-			"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
-			"status": 2,
-			"image": "/dummy/images/product-thumb.jpg",
-			"price": 720000,
-			"currentViewers": 0,
-			"labels": []
-		},
-		{
-			"type": "advert",
-			"title": "BMW 118i, Joy Plus",
-			"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
-			"status": 1,
-			"image": "/dummy/images/product-thumb.jpg",
-			"price": 1800000,
-			"currentViewers": 0,
-			"labels": []
-		},
-		{
-			"type": "advert",
-			"title": "BMW 118i, Joy",
-			"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
-			"status": 3,
-			"image": "/dummy/images/product-thumb.jpg",
-			"price": 1900000,
-			"currentViewers": 0,
-			"favorited": true,
-			"labels": []
-		},
-		{
-			"type": "advert",
-			"title": "BMW 118i, Joy Plus",
-			"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
-			"status": 1,
-			"image": "/dummy/images/product-thumb.jpg",
-			"price": 1800000,
-			"currentViewers": 0,
-			"labels": []
-		},
-		{
-			"type": "advert",
-			"title": "BMW 118i, Joy Plus",
-			"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
-			"status": 1,
-			"image": "/dummy/images/product-thumb.jpg",
-			"price": 1800000,
-			"currentViewers": 0,
-			"labels": []
-		},
-		{
-			"type": "advert",
-			"title": "BMW 118i, Joy Plus",
-			"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
-			"status": 1,
-			"image": "/dummy/images/product-thumb.jpg",
-			"price": 1800000,
-			"currentViewers": 0,
-			"labels": []
-		},
-		{
-			"type": "advert",
-			"title": "BMW 118i, Joy Plus",
-			"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
-			"status": 1,
-			"image": "/dummy/images/product-thumb.jpg",
-			"price": 720000,
-			"currentViewers": 0,
-			"labels": []
-		},
-		{
-			"type": "advert",
-			"title": "BMW 118i, Joy Plus",
-			"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
-			"status": 1,
-			"image": "/dummy/images/product-thumb.jpg",
-			"price": 720000,
-			"currentViewers": 0,
-			"labels": []
-		},
-		{
-			"type": "advert",
-			"title": "BMW 118i, Joy Plus",
-			"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
-			"status": 1,
-			"image": "/dummy/images/product-thumb.jpg",
-			"price": 720000,
-			"currentViewers": 0,
-			"labels": []
-		}
-	]
+	"payload": {
+		"type": "listing",
+		"results": [
+			{
+				"type": "advert",
+				"title": "Volvo S90 T8 Twin Engine eAWD Inscription",
+				"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
+				"status": 1,
+				"price": 720000.5,
+				"currentViewers": 5,
+				"labels": [
+					"2018",
+					"Sıfır KM"
+				]
+			},
+			{
+				"type": "advert",
+				"title": "BMW 118i, Joy Plus",
+				"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
+				"status": 2,
+				"image": "/dummy/images/product-thumb.jpg",
+				"price": 720000,
+				"currentViewers": 0,
+				"labels": []
+			},
+			{
+				"type": "advert",
+				"title": "BMW 118i, Joy Plus",
+				"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
+				"status": 1,
+				"image": "/dummy/images/product-thumb.jpg",
+				"price": 1800000,
+				"currentViewers": 0,
+				"labels": []
+			},
+			{
+				"type": "advert",
+				"title": "BMW 118i, Joy",
+				"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
+				"status": 3,
+				"image": "/dummy/images/product-thumb.jpg",
+				"price": 1900000,
+				"currentViewers": 0,
+				"favorited": true,
+				"labels": []
+			},
+			{
+				"type": "advert",
+				"title": "BMW 118i, Joy Plus",
+				"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
+				"status": 1,
+				"image": "/dummy/images/product-thumb.jpg",
+				"price": 1800000,
+				"currentViewers": 0,
+				"labels": []
+			},
+			{
+				"type": "advert",
+				"title": "BMW 118i, Joy Plus",
+				"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
+				"status": 1,
+				"image": "/dummy/images/product-thumb.jpg",
+				"price": 1800000,
+				"currentViewers": 0,
+				"labels": []
+			},
+			{
+				"type": "advert",
+				"title": "BMW 118i, Joy Plus",
+				"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
+				"status": 1,
+				"image": "/dummy/images/product-thumb.jpg",
+				"price": 1800000,
+				"currentViewers": 0,
+				"labels": []
+			},
+			{
+				"type": "advert",
+				"title": "BMW 118i, Joy Plus",
+				"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
+				"status": 1,
+				"image": "/dummy/images/product-thumb.jpg",
+				"price": 720000,
+				"currentViewers": 0,
+				"labels": []
+			},
+			{
+				"type": "advert",
+				"title": "BMW 118i, Joy Plus",
+				"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
+				"status": 1,
+				"image": "/dummy/images/product-thumb.jpg",
+				"price": 720000,
+				"currentViewers": 0,
+				"labels": []
+			},
+			{
+				"type": "advert",
+				"title": "BMW 118i, Joy Plus",
+				"dealer": "ŞAHSUVAROĞLU OTOMOTİV - İST…",
+				"status": 1,
+				"image": "/dummy/images/product-thumb.jpg",
+				"price": 720000,
+				"currentViewers": 0,
+				"labels": []
+			}
+		]
+	}
 }
