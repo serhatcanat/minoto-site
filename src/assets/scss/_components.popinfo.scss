@@ -19,6 +19,18 @@
 		opacity: 0;
 		transition: opacity $transition-hover ease, transform $transition-hover ease;
 
+		&.rtl {
+			left: auto;
+			right: -1.7rem;
+
+			.popinfo-bg {
+				&:before {
+					left: auto;
+					right: 2rem;
+				}
+			}
+		}
+
 		&.show {
 			opacity: 1;
 			transform: translate3d(0, 0, 0);

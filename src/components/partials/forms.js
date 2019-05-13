@@ -223,7 +223,7 @@ class InputText extends React.Component {
 		let labelText = false;
 
 		let props = {
-			...omit(vm.props, ['onChange', 'placeholder', 'value', 'popLabel', 'validation', 'touched', 'className']),
+			...omit(vm.props, ['onChange', 'placeholder', 'value', 'popLabel', 'validation', 'touched', 'className', 'hideError']),
 			onChange: vm.handleChange,
 			onBlur: vm.handleBlur,
 			value: vm.state.value,
@@ -360,7 +360,7 @@ class InputTextarea extends React.Component {
 		let labelText = false;
 
 		let props = {
-			...omit(vm.props, ['onChange', 'placeholder', 'value', 'popLabel', 'validation', 'touched', 'className']),
+			...omit(vm.props, ['onChange', 'placeholder', 'value', 'popLabel', 'validation', 'touched', 'className', 'hideError']),
 			onChange: vm.handleChange,
 			onBlur: vm.handleBlur,
 			value: vm.state.value,

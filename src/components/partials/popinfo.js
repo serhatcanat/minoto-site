@@ -7,10 +7,13 @@ class PopInfo extends React.Component {
 		this.state = {
 			active: false,
 			show: false,
+			rtl: false,
 		}
 
 		this.show = this.show.bind(this);
 		this.hide = this.hide.bind(this);
+
+		this.contentWrap = React.createRef();
 		this.timeout = false;
 	}
 
@@ -18,11 +21,20 @@ class PopInfo extends React.Component {
 		let vm = this;
 		if(vm.timeout){
 			clearTimeout(vm.timeout);
+			vm.setState({active: false, rtl: false});
 		}
 
-		vm.setState({active: true});
+		vm.setState({active: true, rtl: false});
 		vm.timeout = setTimeout(function() {
-			vm.setState({ show: true });
+			let rect = vm.contentWrap.current.getBoundingClientRect();
+			let rtl = ((rect.x + rect.width) > (window.innerWidth - 10));
+
+			vm.setState({ rtl: rtl });
+
+			vm.timeout = setTimeout(function() {
+				vm.setState({ show: true });
+			}, 20);
+
 			vm.timeout = false;
 		}, 20);
 	}
@@ -35,7 +47,7 @@ class PopInfo extends React.Component {
 
 		vm.setState({show: false});
 		vm.timeout = setTimeout(function() {
-			vm.setState({ active: false });
+			vm.setState({ active: false, rtl: false });
 			vm.timeout = false;
 		}, 220);
 	}
@@ -48,7 +60,7 @@ class PopInfo extends React.Component {
 			<Tag className={classes} onMouseOver={vm.show} onMouseLeave={vm.hide}>
 				{vm.props.children}
 				{vm.state.active &&
-					<div className={"popinfo-content"+ (vm.state.show ? ' show' : '')}>
+					<div className={"popinfo-content"+ (vm.state.show ? ' show' : '') + (vm.state.rtl ? ' rtl' : '')} ref={this.contentWrap}>
 						<span className="popinfo-text">{vm.props.content}</span>
 						<div className="popinfo-bg">
 						</div>

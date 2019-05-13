@@ -9,6 +9,7 @@ import SearchBar from 'components/partials/searchbar.js'
 
 // Assets
 import image_home_banner from 'assets/images/home-banner.jpg'
+import image_home_banner_mobile from 'assets/images/home-banner-mobile.jpg'
 
 export default class Home extends React.Component {
 	render () {
@@ -22,7 +23,7 @@ export default class Home extends React.Component {
 						</h1>
 						<SearchBar className="intro-search" />
 					</div>
-					<Image className="intro-bg" src={image_home_banner} />
+					<Image className="intro-bg" src={image_home_banner} mobile={image_home_banner_mobile} />
 				</section>
 				<Listing className="home-listing" />
 			</main>

@@ -52,7 +52,7 @@ Responsive.defaultProps = {
 };
 
 const mapStateToProps = state => {
-	return { mobile: state.globalData.mobile };
+	return { mobile: state.generic.mobile };
 };
 
 export default connect(mapStateToProps)(Responsive);

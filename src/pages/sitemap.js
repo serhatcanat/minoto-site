@@ -21,6 +21,7 @@ export default class Home extends React.Component {
 					<section>
 						<h2>Sayfalar</h2>
 						<Btn tag="link" className="btn" dark href="home" />
+						<Btn tag="link" className="btn" dark href="search" />
 						<Btn tag="link" className="btn" dark href="detail" params={{id: "12345", slug: "audi-a3-30-t-premium-plus-cdi"}} />
 						<Btn tag="link" className="btn" dark href="brands" />
 						<Btn tag="link" className="btn" dark href="brand" params={{id: "21446", slug: "audi" }} />

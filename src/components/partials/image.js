@@ -3,8 +3,23 @@ import React from 'react';
 import { imageLoad } from 'functions/helpers.js';
 import extend from 'lodash/extend'; 
 import omit from 'lodash/omit'; 
+import { connect } from "react-redux";
 
-export default class Image extends React.Component {
+class Image extends React.Component {
+	render() {
+		let props = omit(this.props, ['src', 'mobile', 'mobileState', 'dispatch']);
+		if(this.props.mobile){
+			return (
+				<ImageElem {...props} src={(this.props.mobileState ? this.props.mobile : this.props.src)} />
+			)
+		}
+		else {
+			return ( <ImageElem {...props} src={this.props.src} /> )
+		}
+	}
+}
+
+class ImageElem extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -63,7 +78,6 @@ export default class Image extends React.Component {
 			let props = omit(vm.props, ['src', 'className', 'webStyle', 'mobileStyle', 'contain', 'bg', 'alt']);
 
 			let style = (vm.props.mobile ? extend({}, vm.props.style, vm.props.mobileStyle) : extend({}, vm.props.style, vm.props.webStyle));
-
 			if(vm.props.bg) {
 				classes += ' imagewrap bg';
 
@@ -100,7 +114,14 @@ export default class Image extends React.Component {
 Image.defaultProps = {
 	className: '',
 	alt: "Görsel",
+	mobile: false,
 	mobileStyle: false,
 	webStyle: false,
 	contain: false,
 };
+
+const mapStateToProps = state => {
+	return { mobileState: state.generic.mobile };
+};
+
+export default connect(mapStateToProps)(Image);

@@ -117,6 +117,104 @@
 				]
 			},
 			{
+				"name" : "model",
+				"title" : "Model",
+				"expanded" : true,
+				"display" : "tree",
+				"opts" : [
+					{
+						"title" : "3 Serisi",
+						"children" : [
+							{
+								"title": "3.20",
+								"children": [
+									{
+										"title": "Comfort Line",
+										"value": "320-comfort",
+										"selected": false
+									},
+									{
+										"title": "M-Sport",
+										"value": "320-m-sport",
+										"selected": true
+									},
+									{
+										"title": "High Line",
+										"value": "320-high-line",
+										"selected": false
+									}
+								]
+							},
+							{
+								"title": "3.25",
+								"children": [
+									{
+										"title": "Comfort Line",
+										"value": "325-comfort",
+										"selected": false
+									},
+									{
+										"title": "M-Sport",
+										"value": "325-m-sport",
+										"selected": false
+									},
+									{
+										"title": "High Line",
+										"value": "325-high-line",
+										"selected": false
+									}
+								]
+							}
+						]
+					},
+					{
+						"title" : "5 Serisi",
+						"children" : [
+							{
+								"title": "5.20",
+								"children": [
+									{
+										"title": "Comfort Line",
+										"value": "520-comfort",
+										"selected": false
+									},
+									{
+										"title": "M-Sport",
+										"value": "520-m-sport",
+										"selected": false
+									},
+									{
+										"title": "High Line",
+										"value": "520-high-line",
+										"selected": false
+									}
+								]
+							},
+							{
+								"title": "5.25",
+								"children": [
+									{
+										"title": "Comfort Line",
+										"value": "525-comfort",
+										"selected": false
+									},
+									{
+										"title": "M-Sport",
+										"value": "525-m-sport",
+										"selected": false
+									},
+									{
+										"title": "High Line",
+										"value": "525-high-line",
+										"selected": false
+									}
+								]
+							}
+						]
+					}
+				]
+			},
+			{
 				"name" : "yakit",
 				"title" : "Yakıt",
 				"expanded" : false,

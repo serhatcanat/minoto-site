@@ -352,6 +352,9 @@ class ListingFilter extends React.Component {
 			case "list":
 				filterContent = <FilterTypeList data={filterData} onUpdate={vm.props.onUpdate} />;
 			break;
+			case "tree":
+				filterContent = <FilterTypeTree data={filterData} onUpdate={vm.props.onUpdate} />;
+			break;
 			case "icons":
 				filterContent = <FilterTypeIcons data={filterData} onUpdate={vm.props.onUpdate} />;
 			break;
@@ -450,6 +453,247 @@ class FilterTypeList extends React.Component {
 		)
 	}
 }
+
+class FilterTypeTree extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			opts: props.data.opts,
+		}
+
+		this.handleChange = this.handleChange.bind(this);
+	}
+
+	componentDidUpdate(prevProps){
+		if(!isEqual(prevProps.data, this.props.data)){
+			this.setState({opts: this.props.data.opts});
+		}
+	}
+
+	handleChange(newChild, nth) {
+		/*let newOpts = this.state.opts;
+		newOpts[nth].selected = e.target.checked;
+
+		this.setState({opts: newOpts});
+
+		this.props.onUpdate();*/
+
+		let newOpts = clone(this.state.opts);
+		newOpts[nth] = newChild;
+		this.setState({ opts: newOpts });
+
+		this.props.onUpdate();
+	}
+
+	render() {
+		let vm = this;
+		let data = vm.props.data;
+		let opts = vm.state.opts;
+		return (
+			<ul className="filter-list">
+				{opts.map((opt, nth) => {
+					let idprefix = 'filter_input_'+data.name;
+					return(
+						<TreeFilterItem data={opt} name={data.name} idprefix={idprefix} nth={nth} key={nth} level={1} onChange={(e) => {this.handleChange(e, nth)}} />
+					)
+				})}
+			</ul>
+		)
+	}
+}
+
+	class TreeFilterItem extends React.Component {
+		constructor(props) {
+			super(props)
+			let active = this.calculateActive(props.data);
+
+			this.state = {
+				data: props.data,
+				expanded: active,
+				active: active,
+			}
+
+			//this.handleChange = this.handleChange.bind(this);
+			this.toggleExpand = this.toggleExpand.bind(this);
+			this.calculateActive = this.calculateActive.bind(this);
+			this.handleValueChange = this.handleValueChange.bind(this);
+			this.handleParentChange = this.handleParentChange.bind(this);
+			this.deselectChildren = this.deselectChildren.bind(this);
+			this.selectChildren = this.selectChildren.bind(this);
+			this.handleChildrenChange = this.handleChildrenChange.bind(this);
+
+			this.id = props.idprefix + '_' + props.nth;
+		}
+
+		componentDidUpdate(prevProps, prevState){
+			if(isEqual(prevState.data, this.state.data)){
+				if(!isEqual(this.state.data, this.props.data)){
+					let active = this.calculateActive(this.props.data);
+					this.setState({
+						data: this.props.data,
+						active: active,
+					});
+				}
+			}
+			else {
+				this.props.onChange(this.state.data);
+			}
+		}
+
+		calculateActive(data = this.state.data){
+			let result = false;
+
+			if(data.children && data.children.length){
+				for(let k = 0; k < data.children.length; k++){
+					if(data.children[k]){
+						if(data.children[k].value){
+							if(data.children[k].selected){
+								result = true;
+							}
+						}
+						else if(result === false) {
+							result = this.calculateActive(data.children[k]);
+						}
+					}
+				}
+			}
+
+			return result;
+		}
+
+		deselectChildren(data = this.state.data){
+			let vm = this;
+			let newData = clone(data);
+			if(newData.children){
+				newData.children = newData.children.map(function(child, nth){
+					let newChild = child;
+					if(newChild.children){
+						newChild = vm.deselectChildren(newChild);
+					}
+					else {
+						newChild.selected = false;
+					}
+					return newChild;
+				});
+			}
+
+			vm.setState({data: newData});
+		}
+
+		selectChildren(data = this.state.data){
+			let vm = this;
+			let newData = clone(data);
+			if(newData.children){
+				newData.children = newData.children.map(function(child, nth){
+					let newChild = child;
+					if(newChild.children){
+						newChild = vm.selectChildren(newChild);
+					}
+					else {
+						newChild.selected = true;
+					}
+					return newChild;
+				});
+			}
+
+			vm.setState({data: newData});
+		}
+
+		toggleExpand(){
+			this.setState({expanded: !this.state.expanded});
+		}
+
+		handleValueChange(e){
+			let newData = clone(this.state.data);
+			newData.selected = e.target.checked;
+			this.setState({ data: newData })
+		}
+
+		handleParentChange(e){
+			let active = e.target.checked;
+			if(active){
+				this.selectChildren();
+			}
+			else{
+				this.deselectChildren();
+			}
+
+			this.setState({active: active});
+		}
+
+		handleChildrenChange(newChild, nth){
+			let newData = clone(this.state.data);
+			newData.children[nth] = newChild;
+			let active = this.calculateActive(newData);
+			this.setState({ data: newData, active: active });
+			this.props.onChange(newData);
+		}
+
+		render() {
+			let vm = this;
+			let data = vm.state.data;
+			let name = vm.props.name;
+			return (
+				<li className={"filter-item level-"+vm.props.level}>
+					{(data && data.value ?
+						<div className="inputwrap type-checkbox no-select">
+							<div className="item-wrap">
+								<div className="checkwrap">
+									<input
+										key={vm.id}
+										type="checkbox"
+										name={name + '[]'}
+										id={vm.id}
+										value={data.value}
+										checked={data.selected ? true : false}
+										onChange={(e) => vm.handleValueChange(e)} />
+									<label htmlFor={vm.id}>
+										<span></span>
+										<div className="item-text checkwrap-content">
+											<div className="text-title">
+												{data.title}
+											</div>
+										</div>
+									</label>
+								</div>
+							</div>
+						</div>
+					:
+						data &&
+						<div className={"item-subgroup" + (vm.state.expanded ? ' expanded' : '')}>
+							<button className="item-wrap" type="button" onClick={vm.toggleExpand}>
+								<div className="inputwrap type-checkbox no-select">
+									<div className="checkwrap">
+										<input
+											key={vm.id}
+											type="checkbox"
+											id={vm.id}
+											checked={vm.state.active}
+											onChange={vm.handleParentChange} />
+										<label htmlFor={vm.id}>
+											<span></span>
+											<div className="item-text checkwrap-content">
+												<div className="text-title">
+													{data.title}
+												</div>
+											</div>
+										</label>
+									</div>
+								</div>
+							</button>
+							<ul className="item-submenu">
+								{data.children.map((opt, nth) => {
+									return(
+										<TreeFilterItem data={opt} name={name} idprefix={vm.id} key={nth} nth={nth} level={vm.props.level+1} onChange={(e) => {this.handleChildrenChange(e, nth)}} />
+									)
+								})}
+							</ul>
+						</div>
+					)}
+				</li>
+			)
+		}
+	}
 
 class FilterTypeIcons extends React.Component {
 	constructor(props) {

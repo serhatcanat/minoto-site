@@ -5,6 +5,7 @@ import Image from 'components/partials/image'
 import Link from 'components/partials/link'
 import Slider from 'components/partials/slider'
 import SearchBar from 'components/partials/searchbar.js'
+import Responsive from 'components/partials/responsive.js'
 
 // Deps
 import { openModal } from "functions/modals";
@@ -83,26 +84,28 @@ class Header extends React.Component {
 					</Link>
 
 					<nav className="header-nav">
-						
-						<Link className="nav-link" navLink href="dealers">Tüm Bayiler</Link>
-						
-						{user &&
-							<div className="nav-user">
-								<Link className="user-item avatar" href="account.profile" title={user.fullname}>
-									<Image bg src={user.avatar} />
-								</Link>
+							
+						<Responsive type="only-web">
+							<Link className="nav-link" navLink href="dealers">Tüm Bayiler</Link>
+							
+							{user &&
+								<div className="nav-user">
+									<Link className="user-item avatar" href="account.profile" title={user.fullname}>
+										<Image bg src={user.avatar} />
+									</Link>
 
-								<Link className="user-item notifications" href="account.notifications" title="Bildirimlerim">
-									<i className="icon-notification"></i>
-								</Link>
-							</div>
-						}
-						{!user &&
-							<button className="nav-link" onClick={() => {openModal('register')}}>Üye Ol</button>
-						}
-						{!user &&
-							<button className="nav-link" onClick={() => {openModal('login')}}>Giriş Yap</button>
-						}
+									<Link className="user-item notifications" href="account.notifications" title="Bildirimlerim">
+										<i className="icon-notification"></i>
+									</Link>
+								</div>
+							}
+							{!user &&
+								<button className="nav-link" onClick={() => {openModal('register')}}>Üye Ol</button>
+							}
+							{!user &&
+								<button className="nav-link" onClick={() => {openModal('login')}}>Giriş Yap</button>
+							}
+						</Responsive>
 
 						<button className={"nav-menubtn" + (vm.state.menuOpen ? ' open' : '')} onClick={vm.toggleMenu}>
 							<div className="menubtn-inner">
@@ -210,7 +213,9 @@ class Header extends React.Component {
 					</nav>
 				</div>
 				{!vm.props.currentPage.data.hideSearchFromHeader &&
-					<SearchBar className="header-search" />
+					<Responsive type="only-web">
+						<SearchBar className="header-search" />
+					</Responsive>
 				}
 			</header>
 		)
