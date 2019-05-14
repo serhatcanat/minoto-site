@@ -107,11 +107,21 @@
 			white-space: nowrap;
 			text-overflow: ellipsis;
 			overflow: hidden;
+
+			@include media {
+				white-space: normal;
+				line-height: 1.9rem;
+				height: 3.8rem;
+			}
 		}
 
 		.contentbox-info {
 			display: flex;
 			margin-top: .8rem;
+
+			@include media {
+				display: block;
+			}
 		}
 
 			.info-subtitle {
@@ -138,6 +148,10 @@
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
+
+			@include media {
+				display: block;
+			}
 		}
 
 			.additions-labels {
@@ -160,6 +174,10 @@
 
 				&.success {
 					color: $color-success;
+				}
+
+				@include media {
+					display: none;
 				}
 			}
 

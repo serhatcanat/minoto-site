@@ -13,8 +13,13 @@ import clone from 'lodash/clone';
 import {serialize } from 'functions/helpers';
 import history from 'controllers/history'
 import request from 'controllers/request'
+import { connect } from "react-redux";
 
-export default class Listing extends React.Component {
+const mapStateToProps = state => {
+	return { mobile: state.generic.mobile };
+};
+
+class Listing extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -42,6 +47,8 @@ export default class Listing extends React.Component {
 		vm.listenerAbort = history.listen(function (e) {
 			vm.urlChanged(e.search.replace('?', ''));
 		});
+
+		console.log(this.formRef.current);
 	}
 
 	componentWillUnmount() {
@@ -153,13 +160,16 @@ export default class Listing extends React.Component {
 			<section className={"section listing loader-container " + vm.props.className + (vm.props.filters ? ' has-filters' : '') + ' size-'+vm.props.size}>
 				<Loader loading={vm.state.loading || !vm.state.results} strict={!vm.state.initialLoad} />
 				{vm.props.filters &&
-					<ListingFilters data={vm.state.listingData} onUpdate={vm.filtersUpdated} ref={vm.formRef} />
+					<ListingFilters data={vm.state.listingData} mobile={vm.props.mobile} onUpdate={vm.filtersUpdated} formRef={vm.formRef} />
 				}
 				<div className={"listing-content type-" + vm.state.listingData.type}>
 					<aside className="content-top">
-						<ActiveFilters data={vm.state.listingData} onFilterRemove={vm.removeFilter} />
+						
+						{!vm.props.mobile &&
+							<ActiveFilters data={vm.state.listingData} onFilterRemove={vm.removeFilter} />
+						}
 					</aside>
-					<ListingResults data={vm.state.listingData} />
+					<ListingResults data={vm.state.listingData} mobile={vm.props.mobile} />
 				</div>
 			</section>
 		);
@@ -175,6 +185,8 @@ Listing.defaultProps = {
 	size: 4,
 	query: false,
 };
+
+export default connect(mapStateToProps)(Listing);
 
 // Results
 class ListingResults extends React.Component {
@@ -193,8 +205,8 @@ class ListingResults extends React.Component {
 							case 'banner':
 								let Item = (item.url ? 'a' : 'div');
 								contents.push(
-									<li key={nth} className={"results-item x"+item.size}>
-										<Item className="item-banner"><Image className="banner-image" src={item.image} alt={item.title} bg /></Item>
+									<li key={nth} className={"results-item banner x"+item.size}>
+										<Item className="item-banner"><Image className="banner-image" src={item.image} alt={item.title} bg={!vm.props.mobile} /></Item>
 									</li>
 								);
 							break;
@@ -280,25 +292,42 @@ class ListingResults extends React.Component {
 	}
 }
 
-// Filters
-const ListingFilters = React.forwardRef(function(props, ref){
-	let data = props.data;
-	return (
-		<aside className="listing-filters">
-			{data.filtersTitle && 
-				<div className="filters-header">
-					<h1 className="header-title">{data.filtersTitle}</h1>
+class ListingFilters extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			active: false,
+			show: false,
+		}
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		if(prevProps.mobile !== this.props.mobile){
+			this.setState({active: false, expanded: false})
+		}
+	}
+
+	render() {
+		let data = this.props.data;
+		return (
+			<aside className={"listing-filters" + (this.state.active ? ' active' : '') + (this.state.show ? ' show' : '')}>
+				<div className="filters-innerwrap">
+					{data.filtersTitle && 
+						<div className="filters-header">
+							<h1 className="header-title">{data.filtersTitle}</h1>
+						</div>
+					}
+					<form className="filters-form" ref={this.props.formRef}>
+						{(data && data.filters ?
+						data.filters.map((filter, nth) => (
+							<ListingFilter data={filter} key={nth} onUpdate={this.props.onUpdate} />
+						)) : false )}
+					</form>
 				</div>
-			}
-			<form className="filters-form" ref={ref}>
-				{(props.data && data.filters ?
-				data.filters.map((filter, nth) => (
-					<ListingFilter data={filter} key={nth} onUpdate={props.onUpdate} />
-				)) : false )}
-			</form>
-		</aside>
-	)
-});
+			</aside>
+		)
+	}
+}
 
 // Single Filter
 class ListingFilter extends React.Component {

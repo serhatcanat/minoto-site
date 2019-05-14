@@ -6,6 +6,7 @@ import Link from 'components/partials/link'
 import Slider from 'components/partials/slider'
 import SearchBar from 'components/partials/searchbar.js'
 import Responsive from 'components/partials/responsive.js'
+import Btn from 'components/partials/btn.js'
 
 // Deps
 import { openModal } from "functions/modals";
@@ -122,7 +123,9 @@ class Header extends React.Component {
 									<Slider className="menu-content" scrollBar>
 										<div className="content-innerwrap">
 											<div className="menu-header">
-												<Image className="menu-logo" src={image_logo_primary} />
+												<Responsive type="only-web">
+													<Image className="menu-logo" src={image_logo_primary} />
+												</Responsive>
 
 												<div className="menu-social">
 													<Link href="http://www.facebook.com" target="_blank" rel="noopener noreferrer" title="Bizi Instagram'da Takip Edin">
@@ -198,12 +201,12 @@ class Header extends React.Component {
 											</ul>
 
 											<div className="menu-applinks">
-												<Link className="applinks-link btn block white" href="http://www.google.com" target="_blank" rel="noopener noreferrer">
-													<i className="icon-appstore pre"></i> Apple Store
-												</Link>
-												<Link className="applinks-link btn block white" href="http://www.google.com" target="_blank" rel="noopener noreferrer">
-													<i className="icon-playstore pre"></i> Google Play
-												</Link>
+												<Btn tag="link" className="applinks-link btn block white" href="http://www.google.com" target="_blank" rel="noopener noreferrer" icon="appstore">
+													Apple Store
+												</Btn>
+												<Btn className="applinks-link btn block white" href="http://www.google.com" target="_blank" rel="noopener noreferrer" icon="playstore">
+													Google Play
+												</Btn>
 											</div>
 										</div>
 									</Slider>

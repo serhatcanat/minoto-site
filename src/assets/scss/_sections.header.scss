@@ -204,6 +204,10 @@
 				opacity: 0;
 				transition: opacity $transition-anim-fast ease $transition-anim-fast;
 
+				@include media {
+					background: rgba($color-text, .5);
+				}
+
 				&.show {
 					opacity: 1;
 					transition: opacity $transition-anim-fast ease;
@@ -233,6 +237,13 @@
 					opacity: 0;
 					transform: translate3d(100%, 0, 0);
 					transition: transform $transition-anim-fast ease, opacity $transition-anim-fast ease 100ms;
+
+					@include media {
+						width: 72.26%;
+						left: 0;
+						right: auto;
+						transform: translate3d(-100%, 0, 0);
+					}
 				}
 
 				.menu-content {
@@ -249,11 +260,20 @@
 						transform: translate3d(20%, 0, 0);
 						transition: transform $transition-anim-fast ease, opacity $transition-anim-fast ease 100ms;
 						padding: 10.1rem 8.1rem 5rem 6.3rem;
+
+						@include media {
+							transform: translate3d(-6%, 0, 0);
+							padding: 2.1rem 3rem 1.2rem;
+						}
 					}
 
 				.menu-header {
 					display: flex;
 					justify-content: space-between;
+
+					@include media {
+						justify-content: flex-end;
+					}
 				}
 
 					.menu-logo {
@@ -281,6 +301,11 @@
 					@include font-extralight;
 					font-size: 3.2rem;
 					margin-top: 5rem;
+
+					@include media {
+						font-size: 1.6rem;
+						border-bottom: .1rem solid rgba($color-text-negative, .1);
+					}
 				}
 
 					.menu-item {
@@ -289,6 +314,10 @@
 							justify-content: space-between;
 							height: 8rem;
 							align-items: center;
+
+							@include media {
+								height: 5.5rem;
+							}
 						}
 
 						.item-count {
@@ -297,7 +326,7 @@
 						}
 
 						+ .menu-item {
-							border-top: .1rem solid rgba($color-text-negative, .2);
+							border-top: .1rem solid rgba($color-text-negative, .1);
 						}
 					}
 
@@ -306,16 +335,39 @@
 					font-size: 1.4rem;
 					text-transform: uppercase;
 					margin-top: 4rem;
+
+					@include media {
+						margin-top: 2.7rem;
+					}
 				}
 
 					.sublinks-item {
 						display: inline-block;
 						margin-right: 5rem;
 						margin-bottom: 2rem;
+
+						@include media {
+							font-size: 1.1rem;
+							line-height: 1.3rem;
+							display: block;
+							margin-right: 0;
+							margin-bottom: 0;
+
+							+ .sublinks-item {
+								margin-top: 2.7rem;
+							}
+						}
 					}
 
 				.menu-thumblinks {
 					margin-top: 6rem;
+					line-height: 0;
+
+					@include media {
+						margin-top: 2.7rem;
+						padding-top: 2rem;
+						border-top: .1rem solid rgba($color-text-negative, .1);
+					}
 				}
 
 					.thumblinks-item {
@@ -323,25 +375,58 @@
 						display: inline-block;
 						width: 21rem;
 
+						@include media {
+							line-height: 1.8rem;
+						}
+
 						&:nth-child(2n+2){
 							margin-left: 2rem;
+
+							@include media {
+								margin-left: 0;
+								margin-top: 1.7rem;
+							}
 						}
 					}
 
 					.thumblinks-image {
 						margin-bottom: 1.2rem;
+
+						@include media {
+							margin-bottom: .8rem;
+						}
 					}
 
 				.menu-applinks {
 					margin-top: 8rem;
+
+					@include media {
+						margin-top: 1.9rem;
+						border-top: .1rem solid rgba($color-text-negative, .1);
+						padding-top: 3rem;
+					}
 				}
 
 					.applinks-link{
 						display: inline-block;
 						width: calc(50% - 1rem);
 
+						@include media {
+							width: calc(50% - .5rem);
+							padding-left: 0;
+							padding-right: 0;
+
+							.btn-icon.pre{
+								margin-right: .5rem;
+							}
+						}
+
 						+ .applinks-link {
 							margin-left: 2rem;
+
+							@include media {
+								margin-left: 1rem;
+							}
 						}
 					}
 	}

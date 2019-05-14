@@ -11,6 +11,10 @@
 		&.has-filters {
 			.listing-content {
 				width: calc(100% - 28rem);
+
+				@include media {
+					width: 100%;
+				}
 			}
 		}
 
@@ -56,6 +60,18 @@
 				&.x4 {
 					width: 100%;
 				}
+
+				@include media {
+					width: 50%;
+
+					&.banner {
+						width: 100%;
+
+						.banner-image {
+							position: static;
+						}
+					}
+				}
 			}
 		}
 
@@ -63,6 +79,14 @@
 			width: 28rem;
 			padding: 2.1rem 2.5rem;
 			border-right: .1rem solid $color-gray-light;
+
+			@include media {
+				display: none;
+
+				&.active {
+					display: block;
+				}
+			}
 		}
 
 			.filters-header {
@@ -417,6 +441,10 @@
 			padding: 1rem 1.5rem;
 			width: 100%;
 
+			@include media {
+				padding: 0 .75rem;
+			}
+
 			&.type-brand {
 				padding: 0;
 				.content-top {
@@ -476,12 +504,26 @@
 					position: relative;
 					padding: 1.5rem;
 					display: flex;
+
+					@include media {
+						padding: .75rem;
+					}
+
+					.contentbox {
+						width: 100%;
+					}
 				}
 
 					.item-banner {
 						position: relative;
 						flex: 1;
 						min-height: 32rem;
+						width: 100%;
+
+						@include media {
+							flex: none;
+							min-height: auto;
+						}
 					}
 
 						.banner-image {
