@@ -500,6 +500,12 @@ class InputSelect extends React.Component {
 		this.validate(this.state.value);
 	}
 
+	componentDidUpdate(prevProps) {
+		if(!isEqual(prevProps.value, this.props.value)){
+			this.setState({value: this.props.value});
+		}
+	}
+
 	handleChange(option) {
 		let vm = this;
 		vm.validate(option, true);
@@ -522,23 +528,24 @@ class InputSelect extends React.Component {
 		let vm = this;
 
 		let labelText = false;
-		if (vm.props.label || vm.props.placeholder) {
+
+		if (vm.props.label || (vm.props.popLabel && (vm.props.label || vm.props.placeholder))) {
 			labelText = (vm.props.label ? vm.props.label : vm.props.placeholder);
 		}
+
+		let props = {
+			...omit(vm.props, ['onChange', 'placeholder', 'value', 'popLabel', 'validation', 'touched', 'className', 'hideError']),
+			onChange: vm.handleChange,
+			value: vm.state.value,
+			placeholder: (vm.props.placeholder ? vm.props.placeholder + (vm.props.validation !== false ? ' *' : '') : undefined),
+		};
 
 		return (
 			<div className={vm.props.className} id={vm.props.wrapperId || ''}>
 				{labelText &&
 					<label className="input-label" htmlFor={vm.props.id}>{labelText}</label>
 				}
-				<Select
-					value={vm.state.value}
-					onChange={vm.handleChange}
-					options={vm.props.options}
-					id={vm.props.id}
-					name={vm.props.name}
-					placeholder={vm.props.placeholder}
-				/>
+				<Select {...props} />
 				{vm.props.touched && vm.state.error ? (
 					<div className="input-error">
 						{vm.state.errorMessage}

@@ -280,6 +280,7 @@
 				]
 			}
 		],
+		"order" : "date_asc",
 		"results": [
 			{
 				"type": "advert",

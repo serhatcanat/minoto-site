@@ -5,15 +5,17 @@ import ContentBox from 'components/partials/contentbox.js'
 import Image from 'components/partials/image.js';
 import SVG from 'react-inlinesvg';
 import Loader from 'components/partials/loader.js';
+import { FormInput } from 'components/partials/forms.js';
 
 // Deps
 import debounce from 'lodash/debounce';
 import isEqual from 'lodash/isEqual';
 import clone from 'lodash/clone';
-import {serialize } from 'functions/helpers';
+import {serializeArray } from 'functions/helpers';
 import history from 'controllers/history'
 import request from 'controllers/request'
 import { connect } from "react-redux";
+import queryString from 'query-string';
 
 const mapStateToProps = state => {
 	return { mobile: state.generic.mobile };
@@ -22,21 +24,25 @@ const mapStateToProps = state => {
 class Listing extends React.Component {
 	constructor(props) {
 		super(props)
+		
 		this.state = {
 			loading: true,
 			listingData: false,
-			query: (this.props.query ? this.props.query : ((history.location.search && history.location.search !== '') ? history.location.search.replace('?', '') : '')),
-			initialLoad: false,
+			query: (this.props.query ? this.props.query : ((history.location.search && history.location.search !== '') ? queryString.parse(history.location.search) : {})),
+			order: null,
+			initialLoad: true,
 		}
 
 		this.removeFilter = this.removeFilter.bind(this);
 		this.filtersUpdated = this.filtersUpdated.bind(this);
+		this.updateOrder = this.updateOrder.bind(this);
 		this.formRef = React.createRef();
 
 		//this.query = ((history.location.search && history.location.search !== '') ? history.location.search.replace('?', '') : '');
 		this.dummyBool = false;
 		this.listenerAbort = false;
 		this.urlTimeout = false;
+
 	}
 
 	componentDidMount() {
@@ -47,8 +53,6 @@ class Listing extends React.Component {
 		vm.listenerAbort = history.listen(function (e) {
 			vm.urlChanged(e.search.replace('?', ''));
 		});
-
-		console.log(this.formRef.current);
 	}
 
 	componentWillUnmount() {
@@ -57,40 +61,66 @@ class Listing extends React.Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		if(this.props.filters && !isEqual(prevState.filters, this.state.filters)){
+		/*if(this.props.query && !isEqual(prevState.query, this.state.query)){
+			this.filtersToQuery();
+		}*/
+
+		if(!isEqual(prevProps.query, this.props.query)){
+			this.updateURL();
+			this.updateResults();
+		}
+
+		if(!isEqual(prevState.listingData, this.state.listingData)){
 			this.filtersToQuery();
 		}
 
 		if(!isEqual(prevState.query, this.state.query)){
+			this.updateURL();
 			this.updateResults();
 		}
-
-		/*if(!isEqual(prevState.filters, this.state.filters)){
-			console.log(this.state.filters);
-		}*/
 	}
 
 	urlChanged(){
 		let vm = this;
 		if(vm.urlTimeout){ clearTimeout(vm.urlTimeout); vm.urlTimeout = false; }
 		vm.urlTimeout = setTimeout(function() {
-			let query = ((history.location.search && history.location.search !== '') ? history.location.search.replace('?', '') : '')
-			if(query !== vm.statequery){
+			let query = queryString.parse((history.location.search && history.location.search !== '') ? history.location.search.replace('?', '') : '');
+			if(!isEqual(vm.state.query, query)){
 				vm.setState({query: query});
+
+				if(query.siralama){
+					vm.setState({order: query.siralama});
+				}
 			}
 		}, 30);
 	}
 
-	filtersToQuery() {
-		let newQuery = serialize(this.formRef.current, '|', true)
-		if(history.location.search !== '?'+newQuery){
-			if(this.state.query === ""){
-				if(newQuery !== ''){
-					window.dynamicHistory.replace('?'+newQuery);
+	filtersToQuery(){
+		let newQuery = serializeArray(this.formRef.current, '|', true);
+
+		if(this.state.order !== null){
+			newQuery.siralama = this.state.order;
+		}
+		else if(newQuery.siralama){
+			delete newQuery.siralama;
+		}
+
+		if(!isEqual(this.state.query, newQuery)){
+			this.setState({query: newQuery});
+		}
+
+	}
+
+	updateURL() {
+		let query = queryString.stringify(this.state.query);
+		if(history.location.search !== '?'+query){
+			if(query !== ''){
+				if(this.state.initialLoad){
+					window.dynamicHistory.replace('?'+query);
 				}
-			}
-			else{
-				window.dynamicHistory.push((newQuery !== '' ? '?'+newQuery : '?empty=empty'));
+				else{
+					window.dynamicHistory.push('?'+query);
+				}
 			}
 		}
 	}
@@ -124,15 +154,13 @@ class Listing extends React.Component {
 		this.setState({listingData: newData});
 	}
 
-	updateResults(queryString = false) {
+	updateResults() {
 		let vm = this;
 
 		vm.setState({loading: true});
-		if(!queryString){
-			queryString = vm.state.query;
-		}
 
-		let requestURL = vm.props.source+'?'+queryString;
+		let q = queryString.stringify(vm.state.query);
+		let requestURL = vm.props.source+'?'+q;
 
 		setTimeout(function() {
 			request.get(requestURL, false, function(payload, status){
@@ -140,14 +168,33 @@ class Listing extends React.Component {
 					vm.setState({
 						listingData: payload,
 						results: payload.results,
-						initialLoad: true,
+						order: payload.order ? payload.order : null,
 						loading: false,
 						//listingData.type: payload.type,
 						total: (payload.totalResults ? payload.totalResults : 0),
-					})
+					});
+
+					if(vm.state.initialLoad){
+						setTimeout(function() {
+							vm.setState({ initialLoad: false });
+						}, 40);
+					}
 				}
 			});
-		}, 500);
+		}, 500); /// Dummy Delay
+	}
+
+	updateOrder(order){
+		let newQuery = clone(this.state.query);
+
+		if(order === null && newQuery.order){
+			delete newQuery.order;
+		}
+		else if(order !== null){
+			newQuery['siralama'] = order;
+		}
+
+		this.setState({query: newQuery, order: order});
 	}
 
 	filtersUpdated(){
@@ -156,6 +203,24 @@ class Listing extends React.Component {
 
 	render() {
 		let vm = this;
+
+		let options = [
+			{value: 'price_desc', label: "Fiyata Göre (Önce Yüksek)"},
+			{value: 'price_asc', label: "Fiyata Göre (Önce Düşük)"},
+			{value: 'date_desc', label: "Tarihe Göre (Önce Yüksek)"},
+			{value: 'date_asc', label: "Tarihe Göre (Önce Düşük)"}
+		]
+
+		let orderVal = null;
+		//(vm.state.order === null ? null : {value: vm.state.order, label: vm.state.order});
+		if(vm.state.order && vm.state.order !== null){
+			for(let k = 0; k < options.length; k++){
+				if(options[k].value === vm.state.order){
+					orderVal = options[k];
+				}
+			}
+		}
+
 		return (
 			<section className={"section listing loader-container " + vm.props.className + (vm.props.filters ? ' has-filters' : '') + ' size-'+vm.props.size}>
 				<Loader loading={vm.state.loading || !vm.state.results} strict={!vm.state.initialLoad} />
@@ -164,10 +229,19 @@ class Listing extends React.Component {
 				}
 				<div className={"listing-content type-" + vm.state.listingData.type}>
 					<aside className="content-top">
-						
+						top: <span>{vm.state.order}</span>
 						{!vm.props.mobile &&
 							<ActiveFilters data={vm.state.listingData} onFilterRemove={vm.removeFilter} />
 						}
+
+						<FormInput
+							type="select"
+							placeholder="Sırala"
+							isSearchable={false}
+							value={orderVal}
+							onChange={vm.updateOrder}
+							options={options}
+							className="top-order" />
 					</aside>
 					<ListingResults data={vm.state.listingData} mobile={vm.props.mobile} />
 				</div>
