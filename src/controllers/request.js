@@ -13,7 +13,7 @@ export default {
 		.then(res => {
 			evaluateData(res, finalFunction);
 		}).catch(error => {
-			evaluateData({status: 500, error: error}, finalFunction)
+			evaluateData({status: 500, error: error, data: {}}, finalFunction)
 		});
 
 		return ajaxController;
@@ -24,7 +24,7 @@ export default {
 		.then(res => {
 			evaluateData(res, finalFunction);
 		}).catch(error => {
-			evaluateData({status: 500, error: error}, finalFunction)
+			evaluateData({status: 500, error: error, data: {}}, finalFunction)
 		});
 	}
 }
@@ -37,6 +37,7 @@ function evaluateData(response, finalFunction = false){
 			}
 		break;
 		case 500:
+			console.log(response.error);
 			pushMessage(response.error.message, {type: "error"});
 			if(finalFunction){
 				finalFunction(false, response.status, response);

@@ -1,6 +1,5 @@
 {
-	"status" : "ok",
-	"conversation": {
+	"payload": {
 		"title": "Audi A3, 3.0 T Premium Plus CDI",
 		"advertID": "10731453",
 		"sender": {

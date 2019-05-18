@@ -9,8 +9,11 @@ import { FormInput, InputForm } from 'components/partials/forms'
 
 // Deps
 import { connect } from "react-redux"
-import axios from 'axios'
 import parse from 'html-react-parser'
+import { serializeArray } from 'functions/helpers'
+import { setTitle } from 'controllers/head'
+import request from 'controllers/request'
+import { redirect } from 'controllers/navigator'
 
 // Assets
 import image_avatar from 'assets/images/defaults/avatar.svg';
@@ -28,20 +31,52 @@ class MessageDetail extends React.Component {
 
 		this.state = {
 			conversation: false,
+			loading: false,
 		}
+
+		this.sendMessage = this.sendMessage.bind(this);
+
+		this.composeForm = React.createRef();
 	}
 
 	componentDidMount() {
 		let vm = this;
 
-		axios.get(
+		request.get(
 			'/dummy/data/user-messages-conversation.json',
-			{ params: {} }
-		).then(res => {
-			if(res.data.status === 'ok'){
-				vm.setState({conversation: res.data.conversation})
+			{ },
+			function(payload){
+				if(payload){
+					vm.setState({
+						conversation: payload
+					})
+
+					setTitle(payload.sender.title + ' Mesajları');
+				}
+				else {
+					redirect("notfound");
+				}
 			}
-		});
+		);
+	}
+
+	sendMessage(e) {
+		let vm = this;
+		let formData = serializeArray(e.target);
+		vm.setState({loading: true});
+
+		//burası aslında post olacak, netekim dummy json data'da 404 verdiği için get şimdilik
+		//request.post(
+		request.get(
+			'/dummy/data/user-messages-conversation.json',
+			formData,
+			function(payload){
+				vm.setState({loading: false});
+				if(payload){
+					vm.composeForm.current.reset();
+				}
+			}
+		);
 	}
 
 	render () {
@@ -110,10 +145,14 @@ class MessageDetail extends React.Component {
 								</div>
 							}
 
-							<InputForm className="conversation-composeform">
+							<InputForm className="conversation-composeform" onSubmit={this.sendMessage} ref={this.composeForm}>
 								<Image className="composeform-avatar" bg alt={this.props.user.fullname} src={(this.props.user.avatar ? this.props.user.avatar : image_avatar)} />
-								<FormInput name="message" placeholder="Cevap yaz..." />
-								<Btn type="submit" className="composeform-submit" primary uppercase low>Gönder</Btn>
+								<FormInput
+									type="textarea"
+									name="message"
+									validation={{required: "Mesaj alanını doldurmalısınız.", minLength: ["Mesajınız en az {length} karakter içermelidir.", 10]}}
+									placeholder="Cevap yaz..." disabled={this.state.loading} />
+								<Btn type="submit" className="composeform-submit" primary uppercase low loading={this.state.loading} disabled={this.state.loading}>Gönder</Btn>
 							</InputForm>
 						</div>
 					</div>

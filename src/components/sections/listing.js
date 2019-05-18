@@ -11,6 +11,7 @@ import { FormInput } from 'components/partials/forms.js';
 import debounce from 'lodash/debounce';
 import isEqual from 'lodash/isEqual';
 import clone from 'lodash/clone';
+import extend from 'lodash/extend';
 import {serializeArray } from 'functions/helpers';
 import history from 'controllers/history'
 import request from 'controllers/request'
@@ -50,14 +51,16 @@ class Listing extends React.Component {
 
 		vm.updateResults();
 
-		vm.listenerAbort = history.listen(function (e) {
-			vm.urlChanged(e.search.replace('?', ''));
-		});
+		if(vm.props.urlBinding){
+			vm.listenerAbort = history.listen(function (e) {
+				vm.urlChanged(e.search.replace('?', ''));
+			});
+		}
 	}
 
 	componentWillUnmount() {
 		if(this.urlTimeout){ clearTimeout(this.urlTimeout); this.urlTimeout = false; }
-		this.listenerAbort();
+		if(this.listenerAbort){ this.listenerAbort(); }
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -66,8 +69,7 @@ class Listing extends React.Component {
 		}*/
 
 		if(!isEqual(prevProps.query, this.props.query)){
-			this.updateURL();
-			this.updateResults();
+			this.setState({query: this.props.query});
 		}
 
 		if(!isEqual(prevState.listingData, this.state.listingData)){
@@ -96,7 +98,14 @@ class Listing extends React.Component {
 	}
 
 	filtersToQuery(){
-		let newQuery = serializeArray(this.formRef.current, '|', true);
+		let newQuery = {};
+		if(this.formRef.current){
+			newQuery = serializeArray(this.formRef.current, '|', true);
+		}
+
+		if(this.props.query){
+			newQuery = extend(newQuery, this.props.query);
+		}
 
 		if(this.state.order !== null){
 			newQuery.siralama = this.state.order;
@@ -112,14 +121,16 @@ class Listing extends React.Component {
 	}
 
 	updateURL() {
-		let query = queryString.stringify(this.state.query);
-		if(history.location.search !== '?'+query){
-			if(query !== ''){
-				if(this.state.initialLoad){
-					window.dynamicHistory.replace('?'+query);
-				}
-				else{
-					window.dynamicHistory.push('?'+query);
+		if(this.props.urlBinding){
+			let query = queryString.stringify(this.state.query);
+			if(history.location.search !== '?'+query){
+				if(query !== ''){
+					if(this.state.initialLoad){
+						window.dynamicHistory.replace('?'+query);
+					}
+					else{
+						window.dynamicHistory.push('?'+query);
+					}
 				}
 			}
 		}

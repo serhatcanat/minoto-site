@@ -11,6 +11,8 @@ import Collapse from 'components/partials/collapse'
 import { InputForm, FormInput } from 'components/partials/forms'
 
 // Deps
+import debounce from 'lodash/debounce'
+import isEqual from 'lodash/isEqual'
 import { setTitle } from 'controllers/head'
 import request from 'controllers/request'
 import { redirect } from 'controllers/navigator'
@@ -24,9 +26,23 @@ export default class Dealer extends React.Component {
 		this.state = {
 			dealerData: false,
 			loading: true,
+			searchText: '',
+			listingQuery: false,
 		}
 
 		this.initialize = this.initialize.bind(this);
+		this.changeSearch = this.changeSearch.bind(this);
+		this.updateSearch = debounce(this.updateSearch.bind(this), 50);
+	}
+
+	componentDidMount() {
+		this.initialize();
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		if(!isEqual(prevState.dealerData, this.state.dealerData) || prevState.searchText !== this.state.searchText){
+			this.updateSearch();
+		}
 	}
 
 	initialize() {
@@ -45,8 +61,20 @@ export default class Dealer extends React.Component {
 		});
 	}
 
-	componentDidMount() {
-		this.initialize();
+	changeSearch(e) {
+		this.setState({searchText: e});
+	}
+
+	updateSearch() {
+		if(this.state.dealerData){
+			let query = {dealer: this.state.dealerData.id};
+
+			if(this.state.searchText !== ''){
+				query.search = this.state.searchText;
+			}
+
+			this.setState({listingQuery: query});
+		}
 	}
 
 	render () {
@@ -85,7 +113,7 @@ export default class Dealer extends React.Component {
 							</div>
 
 							<InputForm className="info-search">
-								<FormInput placeholder={dealer.title+' üzerinde ara'} />
+								<FormInput placeholder={dealer.title+' üzerinde ara'} value={vm.state.searchText} onChange={vm.changeSearch} />
 								<button type="submit" className="search-submit"><i className="icon-search"></i></button>
 							</InputForm>
 
@@ -105,7 +133,9 @@ export default class Dealer extends React.Component {
 						</aside>
 						<div className="detail-right">
 							<Image className="dealer-cover" src={dealer.cover} />
-							<Listing className="dealer-listing" urlBinding={false} filters={false} source="/dummy/data/detail-related.json" query="id=1234" showAds={false} />
+							{vm.state.listingQuery &&
+								<Listing className="dealer-listing" urlBinding={false} filters={false} source="/dummy/data/detail-related.json" query={vm.state.listingQuery} showAds={false} />
+							}
 						</div>
 					</section>
 				}

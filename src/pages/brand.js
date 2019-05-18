@@ -12,10 +12,13 @@ import Link from 'components/partials/link'
 import { InputForm, FormInput } from 'components/partials/forms'
 
 // Deps
+import debounce from 'lodash/debounce'
+import isEqual from 'lodash/isEqual'
 import { setTitle } from 'controllers/head'
 import request from 'controllers/request'
 import { redirect } from 'controllers/navigator'
 import { formatNumber } from 'functions/helpers'
+import { openModal } from 'functions/modals'
 
 // Assets
 
@@ -25,9 +28,23 @@ export default class Brand extends React.Component {
 		this.state = {
 			brandData: false,
 			loading: true,
+			searchText: '',
+			listingQuery: false,
 		}
 
 		this.initialize = this.initialize.bind(this);
+		this.changeSearch = this.changeSearch.bind(this);
+		this.updateSearch = debounce(this.updateSearch.bind(this), 50);
+	}
+
+	componentDidMount() {
+		this.initialize();
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		if(!isEqual(prevState.brandData, this.state.brandData) || prevState.searchText !== this.state.searchText){
+			this.updateSearch();
+		}
 	}
 
 	initialize() {
@@ -46,8 +63,20 @@ export default class Brand extends React.Component {
 		});
 	}
 
-	componentDidMount() {
-		this.initialize();
+	changeSearch(e) {
+		this.setState({searchText: e});
+	}
+
+	updateSearch() {
+		if(this.state.brandData){
+			let query = {dealer: this.state.brandData.id};
+
+			if(this.state.searchText !== ''){
+				query.search = this.state.searchText;
+			}
+
+			this.setState({listingQuery: query});
+		}
 	}
 
 	render () {
@@ -76,7 +105,7 @@ export default class Brand extends React.Component {
 							</div>
 
 							<InputForm className="info-search">
-								<FormInput placeholder="Marka Ara" />
+								<FormInput placeholder="Marka Ara" value={vm.state.searchText} onChange={vm.changeSearch} />
 								<button type="submit" className="search-submit"><i className="icon-search"></i></button>
 							</InputForm>
 
@@ -92,7 +121,9 @@ export default class Brand extends React.Component {
 							</div>
 						</aside>
 						<div className="detail-right">
-							<Listing className="brand-listing" urlBinding={false} filters={false} source="/dummy/data/detail-related.json" query="id=1234" showAds={false} />
+							{vm.state.listingQuery &&
+								<Listing className="brand-listing" urlBinding={false} filters={false} source="/dummy/data/detail-related.json" query={vm.state.listingQuery} showAds={false} />
+							}
 						</div>
 					</section>
 				}
@@ -126,7 +157,9 @@ class BranchInfo extends React.Component {
 				</button>
 
 				<Collapse className="branch-details" open={this.state.open}>
-					<button type="button" className="details-showonmap">Haritada gör</button>
+					{branch.location &&
+						<button type="button" className="details-showonmap" onClick={() => openModal('map', {markers: [{ lat: branch.location.lat, lng: branch.location.lng }]})}>Haritada gör</button>
+					}
 
 					<div className="details-controls">
 						<Btn tag="a" icon="phone" primary low uppercase href={'tel:+9'+branch.phone.replace(' ', '')}>{branch.phone}</Btn>

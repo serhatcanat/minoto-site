@@ -149,9 +149,7 @@ export default class SearchBar extends React.Component{
 				case "Escape":
 					vm.hide();
 				break;
-				default:
-					console.log(e.key);
-				break;
+				default: break;
 			}
 		}
 	}

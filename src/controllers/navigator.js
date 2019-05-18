@@ -118,9 +118,9 @@ export function redirect(opts, params = false){
 			route = route.replace(':'+key+'?', params[key]).replace(':'+key, params[key]);
 		}
 	}
-	route = route.split('/:')[0];
 
 	if(route){
+		route = route.split('/:')[0];
 		switch(opts.type){
 			case "replace":
 				history.replace(route);

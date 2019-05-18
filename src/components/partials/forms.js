@@ -29,6 +29,7 @@ export class FormInput extends React.Component {
 
 		this.onChange = this.onChange.bind(this);
 		this.validate = this.validate.bind(this);
+		this.reset = this.reset.bind(this);
 
 		this.input = React.createRef();
 	}
@@ -58,6 +59,10 @@ export class FormInput extends React.Component {
 			touched: status.touched,
 			value: status.value,
 		});
+	}
+
+	reset(){
+		this.input.current.reset();
 	}
 
 	render() {
@@ -156,6 +161,7 @@ class InputText extends React.Component {
 
 		this.handleChange = this.handleChange.bind(this);
 		this.handleBlur = this.handleBlur.bind(this);
+		this.reset = this.reset.bind(this);
 		this.calculateValidation = this.calculateValidation.bind(this);
 	}
 
@@ -217,6 +223,10 @@ class InputText extends React.Component {
 	validate(value = this.state.value) {
 		let validStatus = validation(value, this.state.validation);
 		this.setState({ error: (validStatus !== false), errorMessage: validStatus });
+	}
+
+	reset() {
+		this.setState({value: '', touched: false});
 	}
 
 	render() {
@@ -308,6 +318,7 @@ class InputTextarea extends React.Component {
 
 		this.handleChange = this.handleChange.bind(this);
 		this.handleBlur = this.handleBlur.bind(this);
+		this.reset = this.reset.bind(this);
 		this.calculateValidation = this.calculateValidation.bind(this);
 	}
 
@@ -356,6 +367,10 @@ class InputTextarea extends React.Component {
 	handleBlur(e) {
 		e.persist();
 		this.setState({value: e.target.value, touched: true});
+	}
+
+	reset() {
+		this.setState({value: '', touched: false});
 	}
 
 	validate(value = this.state.value) {
@@ -759,10 +774,12 @@ export class InputForm extends React.Component {
 		}
 
 		this.submit = this.submit.bind(this);
+		this.reset = this.reset.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.validate = this.validate.bind(this);
 		this.elementStateChange = this.elementStateChange.bind(this);
 
+		this.elems = [];
 		this.validElements = [];
 		this.invalidElements = [];
 
@@ -802,7 +819,25 @@ export class InputForm extends React.Component {
 		this.handleSubmit();
 	}
 
+	reset() {
+		//let inputs = this.form.current.querySelector('input, textarea');
+		/*for(let k = 0; k < inputs.length; k++){
+			let input = inputs[k];
+			if(input.getAttribute('type'))
+		}*/
+
+		//let children = React.Children.toArray(this.props.children);
+		for(let k = 0; k < this.elems.length; k++){
+			let elem = this.elems[k];
+			if(elem){
+				elem.reset();
+			}
+		}
+		this.setState({ forceTouch: false })
+	}
+
 	modifyChildren(children, props) {
+		this.elements = false;
 		return React.Children.map(children, child => {
 			if (child !== null) {
 				if (!child.props || child.props.innerForm) {
@@ -834,7 +869,7 @@ export class InputForm extends React.Component {
 
 		return (
 			<Container className={'form ' + vm.props.className} onSubmit={vm.handleSubmit} noValidate autoComplete={vm.props.autoComplete || ''} ref={this.form}>
-				{vm.modifyChildren(vm.props.children, { onChangeInForm: vm.elementStateChange, forceTouch: vm.state.forceTouch })}
+				{vm.modifyChildren(vm.props.children, { onChangeInForm: vm.elementStateChange, forceTouch: vm.state.forceTouch, ref: function(ref){ vm.elems.push(ref) } })}
 			</Container>
 		)
 	}
