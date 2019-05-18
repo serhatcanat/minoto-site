@@ -124,7 +124,7 @@ export default class Detail extends React.Component {
 								<span className="controls-date">{product.date}</span>
 								<button className="controls-btn"><i className="icon-heart-empty"></i> Favorilere Ekle</button>
 								<button className="controls-btn"><i className="icon-compare"></i> Karşılaştır (3)</button>
-								<button className="controls-btn" onClick={() => openModal({action: 'share'})}><i className="icon-share"></i> Paylaş</button>
+								<button className="controls-btn" onClick={() => openModal('share')}><i className="icon-share"></i> Paylaş</button>
 							</div>
 						</div>
 					</section>

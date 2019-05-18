@@ -7,7 +7,7 @@ class PopInfo extends React.Component {
 		this.state = {
 			active: false,
 			show: false,
-			rtl: false,
+			rtl: props.rtl,
 		}
 
 		this.show = this.show.bind(this);
@@ -19,24 +19,30 @@ class PopInfo extends React.Component {
 
 	show() {
 		let vm = this;
-		if(vm.timeout){
-			clearTimeout(vm.timeout);
-			vm.setState({active: false, rtl: false});
-		}
+		if(!this.state.show){
+			if(vm.timeout){
+				clearTimeout(vm.timeout);
+				vm.setState({active: false, rtl: false});
+			}
 
-		vm.setState({active: true, rtl: false});
-		vm.timeout = setTimeout(function() {
-			let rect = vm.contentWrap.current.getBoundingClientRect();
-			let rtl = ((rect.x + rect.width) > (window.innerWidth - 10));
-
-			vm.setState({ rtl: rtl });
-
+			vm.setState({active: true, rtl: false});
 			vm.timeout = setTimeout(function() {
-				vm.setState({ show: true });
-			}, 20);
+				let rect = vm.contentWrap.current.getBoundingClientRect();
+				let rtl = (vm.props.rtl ? 
+					!(rect.x < 10)
+					:
+					((rect.x + rect.width) > (window.innerWidth - 10))
+				);
 
-			vm.timeout = false;
-		}, 20);
+				vm.setState({ rtl: rtl });
+
+				vm.timeout = setTimeout(function() {
+					vm.setState({ show: true });
+				}, 30);
+
+				vm.timeout = false;
+			}, 30);
+		}
 	}
 
 	hide() {
@@ -45,11 +51,13 @@ class PopInfo extends React.Component {
 			clearTimeout(vm.timeout);
 		}
 
-		vm.setState({show: false});
 		vm.timeout = setTimeout(function() {
-			vm.setState({ active: false, rtl: false });
-			vm.timeout = false;
-		}, 220);
+			vm.setState({show: false});
+			vm.timeout = setTimeout(function() {
+				vm.setState({ active: false, rtl: false });
+				vm.timeout = false;
+			}, 220);
+		}, 60);
 	}
 
 	render() {
@@ -61,7 +69,7 @@ class PopInfo extends React.Component {
 				{vm.props.children}
 				{vm.state.active &&
 					<div className={"popinfo-content"+ (vm.state.show ? ' show' : '') + (vm.state.rtl ? ' rtl' : '')} ref={this.contentWrap}>
-						<span className="popinfo-text">{vm.props.content}</span>
+						<div className="popinfo-text">{vm.props.content}</div>
 						<div className="popinfo-bg">
 						</div>
 					</div>
@@ -78,5 +86,6 @@ PopInfo.defaultProps = {
 	className : '',
 	content: '',
 	nowrap: false,
+	rtl: false,
 	tag: 'button',
 };

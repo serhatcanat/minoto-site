@@ -61,7 +61,7 @@ export default class ReservationNav extends React.Component {
 						}
 						{this.props.section === 'payment' && 
 							<div className="sidebar-agreement">
-								<FormInput type="checkbox" value={this.state.agreementSelected} onChange={this.agreementChanged}><button type="button" className="agreement-link" onClick={() => { openModal({action: 'text', content: agreement, title: "Ön Bilgilendirme Koşulları"})}}>Ön Bilgilendirme Koşulları</button>'nı okudum, onaylıyorum.</FormInput>
+								<FormInput type="checkbox" value={this.state.agreementSelected} onChange={this.agreementChanged}><button type="button" className="agreement-link" onClick={() => { openModal('text', {content: agreement, title: "Ön Bilgilendirme Koşulları"})}}>Ön Bilgilendirme Koşulları</button>'nı okudum, onaylıyorum.</FormInput>
 								<Btn block uppercase onClick={this.proceed}>Rezerve Etmek İstiyorum</Btn>
 							</div>
 						}

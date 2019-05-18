@@ -39,8 +39,7 @@ export default class Messages extends React.Component {
 	}
 
 	deleteConversation(message){
-		openModal({
-			action: 'confirm',
+		openModal('confirm', {
 			question: '<strong>' + message.title + '</strong> başlıklı mesajı ve tüm içeriğini silmek istediğinizden emin misiniz?',
 			onConfirm: () => { console.log('silindi..'); }
 		});

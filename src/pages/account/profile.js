@@ -38,8 +38,7 @@ class Profile extends React.Component {
 	}
 
 	deleteAccount() {
-		openModal({
-			action: 'confirm',
+		openModal('confirm', {
 			title: 'Hesap kaldırma',
 			question: 'Hesabınızı tüm bilgileriyle birlikte silmek istediğinizden emin misiniz?',
 			onConfirm: () => { console.log('silindi..'); }

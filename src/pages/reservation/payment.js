@@ -27,6 +27,7 @@ import image_logo_visa from 'assets/images/payment/icons/visa.svg'
 import image_logo_visa_electron from 'assets/images/payment/icons/visa_electron.svg'
 import image_logo_amex from 'assets/images/payment/icons/amex.svg'
 import image_logo_troy from 'assets/images/payment/icons/troy.svg'
+import image_iyzico_security from 'assets/images/payment/iyzico-security-badge.png'
 
 const cardLogos = {
 	mastercard: image_logo_mastercard,
@@ -122,7 +123,9 @@ export default class Info extends React.Component {
 								<div className="payment-cardinfo no-select">
 									<InputForm className="cardinfo-form" ref={this.paymentForm}>
 										<FormInput
-											type="text" className="form-field high name"
+											type="text"
+											className="form-field name"
+											icon="user"
 											value={this.state.cardName}
 											popLabel
 											name="name"
@@ -136,6 +139,7 @@ export default class Info extends React.Component {
 										<FormInput
 											type="number"
 											className="form-field high cardnumber"
+											icon="card"
 											popLabel name="cardnumber"
 											placeholder="Kart Numarası"
 											mask="9999 9999 9999 9999"
@@ -147,6 +151,7 @@ export default class Info extends React.Component {
 										<FormInput
 											type="number"
 											className="form-field high half"
+											icon="calendar"
 											popLabel name="expiry"
 											placeholder="AA/YY"
 											mask="99/99"
@@ -157,10 +162,13 @@ export default class Info extends React.Component {
 											onChange={(v) => { this.changeInput('cardExpiry', v); }} />
 										<FormInput
 											type="number"
-											className="form-field high half"
+											className="form-field high half cvc"
+											icon="lock"
 											popLabel name="cvc"
 											placeholder="CVC"
 											mask="9999"
+											info="Kartınızın arka tarafında bulunan son 3 haneli rakamı giriniz."
+											infoProps={{nowrap: true, rtl: true}}
 											validation={{
 												required: "Güvenlik kodunu girmelisiniz.",
 												cvc: ["Geçerli bir CVC girmelisiniz", this.state.cvcLength]
@@ -170,6 +178,8 @@ export default class Info extends React.Component {
 											type="checkbox"
 											className="form-field high iyzico"
 											name="iyzico"
+											info={<div className="iyzico-info"><div className="info-image"><Image src={image_iyzico_security} /></div><span>Ödemenizi 3 gün daha iyzico güvencesi altında tutuyoruz.  Alışverişinizle ilgili tüm sorularınızı ve iade işlemleriniz için iyzico destek ekibine ulaşabilirsiniz.</span></div>}
+											infoProps={{rtl: true}}
 											validation={{required: "İyzico Korumalı Alışveriş Sözleşmesini onaylamalısınız."}}
 											label="iyzico Korumalı Alışveriş" />
 

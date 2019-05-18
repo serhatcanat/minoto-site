@@ -10,11 +10,12 @@ import extend from 'lodash/extend';
 import omit from 'lodash/omit';
 import { uid } from 'functions/helpers';
 import { validation } from 'controllers/validation';
-import Select from 'components/partials/select'
 import InputMask from 'react-input-mask';
 //import DayPickerInput from 'react-day-picker/DayPickerInput';
 
 //Partials
+import Select from 'components/partials/select'
+import PopInfo from 'components/partials/popinfo'
 
 export class FormInput extends React.Component {
 	constructor(props) {
@@ -68,6 +69,8 @@ export class FormInput extends React.Component {
 			((vm.state.touched || vm.props.forceTouch) && vm.state.error ? ' error' : '') +
 			(vm.props.popLabel ? ' pop-label' : '') +
 			(vm.props.disabled ? ' disabled' : '') +
+			(vm.props.icon ? ' has-icon' : '') +
+			(vm.props.info ? ' has-info' : '') +
 			((vm.state.value !== "" && vm.state.value !== false && vm.state.value !== null) ? ' input-full' : '');
 
 		let id = (vm.props.id ? vm.props.id : uid('form_input'));
@@ -223,7 +226,7 @@ class InputText extends React.Component {
 		let labelText = false;
 
 		let props = {
-			...omit(vm.props, ['onChange', 'placeholder', 'value', 'popLabel', 'validation', 'touched', 'className', 'hideError']),
+			...omit(vm.props, ['onChange', 'placeholder', 'value', 'popLabel', 'validation', 'touched', 'className', 'hideError', 'icon', 'info', 'infoProps']),
 			onChange: vm.handleChange,
 			onBlur: vm.handleBlur,
 			value: vm.state.value,
@@ -269,6 +272,12 @@ class InputText extends React.Component {
 
 		return (
 			<div className={vm.props.className}>
+				{vm.props.icon &&
+					<i className={"input-icon icon-" + vm.props.icon}></i>
+				}
+				{vm.props.info &&
+					<PopInfo className={"input-info"} content={vm.props.info} {...vm.props.infoProps}><i className="icon-question"></i></PopInfo>
+				}
 				{labelText &&
 					<label className="input-label" htmlFor={vm.props.id}>{labelText}</label>
 				}
@@ -609,7 +618,11 @@ class InputCheck extends React.Component {
 					<input
 						{...inputProps}
 					/>
-					<label htmlFor={vm.props.id}><span></span> {vm.props.label ? vm.props.label : (vm.props.children ? vm.props.children : false)}</label>
+					<label htmlFor={vm.props.id}><span></span> {vm.props.label ? vm.props.label : (vm.props.children ? vm.props.children : false)}
+					</label>
+					{vm.props.info &&
+						<PopInfo className={"input-info"} content={vm.props.info} {...vm.props.infoProps}><i className="icon-question"></i></PopInfo>
+					}
 				</div>
 				{vm.props.touched && vm.state.error ? (
 					<div className="input-error">

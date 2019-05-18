@@ -78,37 +78,39 @@
 				max-height: 20rem;
 			}
 
-			.group-list {
+			.group-item {
 
-			}
-
-				.list-item {
-
-					a{
-						display: flex;
-						align-items: center;
-						line-height: 1.7rem;
-						padding: 0 2rem .2rem;
-						height: 5.2rem;
-						transition: background-color $transition-hover ease;
-
-						&:hover, &:active {
-							background-color: $color-gray-light;
-						}
-					}
-
-					+ .list-item {
-						border-top: .1rem solid $color-gray-light;
+				&.focused {
+					a {
+						background-color: $color-gray-light;
 					}
 				}
 
-					.item-image {
-						width: 3.7rem;
-						height: 3.7rem;
-						border-radius: 50%;
-						border-right-color: .1rem solid $color-gray-light;
-						margin-right: 1.8rem;
+				a{
+					display: flex;
+					align-items: center;
+					line-height: 1.7rem;
+					padding: 0 2rem .2rem;
+					height: 5.2rem;
+					transition: background-color $transition-hover ease;
+
+					&:hover, &:active {
+						background-color: $color-gray-light;
 					}
+				}
+
+				+ .group-item {
+					border-top: .1rem solid $color-gray-light;
+				}
+			}
+
+				.item-image {
+					width: 3.7rem;
+					height: 3.7rem;
+					border-radius: 50%;
+					border-right-color: .1rem solid $color-gray-light;
+					margin-right: 1.8rem;
+				}
 
 			.group-cta {
 				border-top: .1rem solid $color-gray-light;

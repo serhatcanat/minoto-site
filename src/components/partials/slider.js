@@ -32,6 +32,15 @@ export default class Slider extends React.Component {
 				vm.instance.update();
 			}, 100);
 		}
+
+		if(window.inss){
+		}
+		else{
+			
+			window.inss = [];
+		}
+
+		window.inss.push(vm.instance);
 	}
 
 	componentDidUpdate(prevProps, prevState){
@@ -60,6 +69,10 @@ export default class Slider extends React.Component {
 		this.instance.slidePrev();
 	}
 
+	slideTo(index, speed = undefined, runCallbacks = undefined){
+		this.instance.slideTo(index, speed, runCallbacks);
+	}
+
 	slideChanged(e){
 		if(this.instance){
 			if(this.props.onChange){
@@ -83,6 +96,7 @@ export default class Slider extends React.Component {
 			opts = extend({}, opts, {
 				direction: (vm.props.horizontal ? 'horizontal' : 'vertical'),
 				freeMode: true,
+				freeModeMomentum: true,
 				slidesPerView: 'auto',
 				mousewheel: {
 					sensitivity: 0.6,

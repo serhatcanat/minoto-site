@@ -229,7 +229,6 @@ class Listing extends React.Component {
 				}
 				<div className={"listing-content type-" + vm.state.listingData.type}>
 					<aside className="content-top">
-						top: <span>{vm.state.order}</span>
 						{!vm.props.mobile &&
 							<ActiveFilters data={vm.state.listingData} onFilterRemove={vm.removeFilter} />
 						}

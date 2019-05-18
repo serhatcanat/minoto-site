@@ -106,15 +106,6 @@
 		color: $color-text-light;
 	}
 
-	.input-icon {
-		position: absolute;
-		font-size: 2rem;
-		color: $color-gray-light;
-		top: 2.5rem;
-		transform: translateY(-50%);
-		pointer-events: none;
-	}
-
 	.input-error {
 		@include font-regular;
 		font-size: 1.1rem;
@@ -127,7 +118,34 @@
 		//padding-bottom: .9rem;
 	}
 
+	.input-icon {
+		position: absolute;
+		font-size: 2rem;
+		color: rgba($color-text, .4);
+		top: 2.3rem;
+		left: 1.7rem;
+		transform: translateY(-50%);
+		pointer-events: none;
+	}
+
+	.input-info {
+		position: absolute;
+		top: 2.3rem;
+		right: 1.1rem;
+		color: rgba($color-text, .5);
+		transform: translate3d(0, -50%, 0);
+		font-size: 1.4rem;
+		line-height: 0;
+
+		.popinfo-content {
+			min-width: 20rem;
+		}
+	}
+
 	/// Types
+	&.type-text {
+	}
+
 	&.type-file {
 		input + label {
 			cursor: pointer;
@@ -199,6 +217,24 @@
 		textarea{
 			padding-top: 1.5rem;
 			padding-bottom: 1.5rem;
+		}
+
+		.input-icon {
+			top: 2.5rem;
+		}
+
+		.input-info {
+			top: 2.5rem;
+		}
+	}
+
+	&.has-icon {
+		input[type='text'],
+		input[type='password'],
+		input[type='email'],
+		input[type='file'] + label,
+		textarea {
+			padding-left: 5.2rem;
 		}
 	}
 }
@@ -289,7 +325,7 @@
 			position: relative;
 			font-size: 1.4rem;
 			letter-spacing: -0.015em;
-			padding: .2rem 0 .4rem 2.7rem;
+			padding: .2rem 0 .4rem 2.8rem;
 			line-height: 1.7rem;
 			cursor: pointer;
 			transition: color $transition-hover ease;

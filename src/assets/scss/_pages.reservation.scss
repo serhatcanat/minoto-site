@@ -265,9 +265,18 @@
 				.form-field {
 					margin-bottom: .9rem;
 					width: 100%;
+					z-index: 1;
 
 					&.half{
 						width: calc(50% - .5rem);
+					}
+
+					&.has-info {
+						z-index: 2;
+					}
+
+					&.cvc {
+						z-index: 3;
 					}
 
 					&.iyzico {
@@ -287,6 +296,28 @@
 
 					&.billing {
 						margin-top: 2rem;
+					}
+
+					.input-info{
+						.popinfo-content {
+							width: 33rem;
+						}
+
+						.iyzico-info {
+							display: flex;
+							flex-flow: row wrap;
+							align-items: center;
+
+							.info-image {
+								width: 3.8rem;
+								margin-right: 2.2rem;
+								margin-left: .7rem;
+							}
+
+							span {
+								flex: 1;
+							}
+						}
 					}
 
 				}
@@ -360,14 +391,14 @@
 									padding: 0 1.4rem;
 									border-bottom: .1rem solid $color-ice;
 									.checkwrap {
-										padding: 2.8rem 0 2.8rem 2.8rem;
+										padding: 2.8rem 0 2.8rem 0;
 
 										input{
 											+ label{
 												display: block;
 
 												> span {
-													top: 2.8rem;
+													top: 1rem;
 												}
 											}
 										}
@@ -429,7 +460,7 @@
 							}
 
 							.newaddress-type {
-								margin-bottom: .6rem;
+								margin: 1.8rem 0 2.6rem
 							}
 
 								.type-opt {

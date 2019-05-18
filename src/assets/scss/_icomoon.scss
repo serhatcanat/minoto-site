@@ -41,8 +41,20 @@
  	-moz-osx-font-smoothing: grayscale;
 }
 
+.icon-user:before {
+	content: "\e92a";
+}
+
+.icon-card:before {
+	content: "\e92b";
+}
+
 .icon-notification:before {
 	content: "\e929";
+}
+
+.icon-lock:before {
+	content: "\e92c";
 }
 
 .icon-security:before {
@@ -59,6 +71,10 @@
 
 .icon-calendar:before {
 	content: "\e91f";
+}
+
+.icon-calendar-2:before {
+	content: "\e92d";
 }
 
 .icon-trash:before {

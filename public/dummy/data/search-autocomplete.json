@@ -1,80 +1,81 @@
 {
-	"status" : "ok",
-	"groups": [
-		{
-			"title" : false,
-			"results" : [
-				{
-					"title": "BMW",
-					"target": "/?=marka=bmw"
-				},
-				{
-					"title": "BMW > 1 Serisi",
-					"target": "/?=marka=bmw&model=1s"
-				},
-				{
-					"title": "BMW > 3 Serisi",
-					"target": "/?=marka=bmw&model=3"
-				},
-				{
-					"title": "BMW > 5 Serisi > 5.18i",
-					"target": "/?=marka=bmw&model=518i"
-				},
-				{
-					"title": "BMW > X Serisi > X6",
-					"target": "/?=marka=bmw&model=x"
-				},
-				{
-					"title": "BMW > 3 Serisi",
-					"target": "/?=marka=bmw&model=3"
-				},
-				{
-					"title": "BMW > 5 Serisi > 5.18i",
-					"target": "/?=marka=bmw&model=518i"
-				},
-				{
-					"title": "BMW > X Serisi > X6",
-					"target": "/?=marka=bmw&model=x"
+	"payload": {	
+		"groups": [
+			{
+				"title" : false,
+				"results" : [
+					{
+						"title": "BMW",
+						"target": "/?=marka=bmw"
+					},
+					{
+						"title": "BMW > 1 Serisi",
+						"target": "/?=marka=bmw&model=1s"
+					},
+					{
+						"title": "BMW > 3 Serisi",
+						"target": "/?=marka=bmw&model=3"
+					},
+					{
+						"title": "BMW > 5 Serisi > 5.18i",
+						"target": "/?=marka=bmw&model=518i"
+					},
+					{
+						"title": "BMW > X Serisi > X6",
+						"target": "/?=marka=bmw&model=x"
+					},
+					{
+						"title": "BMW > 3 Serisi",
+						"target": "/?=marka=bmw&model=3"
+					},
+					{
+						"title": "BMW > 5 Serisi > 5.18i",
+						"target": "/?=marka=bmw&model=518i"
+					},
+					{
+						"title": "BMW > X Serisi > X6",
+						"target": "/?=marka=bmw&model=x"
+					}
+				],
+				"cta" : {
+					"title" : "Tüm BMW Modellerini Gör",
+					"link" : "/?=marka=bmw"
 				}
-			],
-			"cta" : {
-				"title" : "Tüm BMW Modellerini Gör",
-				"link" : "/?=marka=bmw"
+			},
+			{
+				"title" : "Bayi",
+				"hasimages" : true,
+				"results" : [
+					{
+						"title" : "Kosifler Oto Acıbadem - BMW",
+						"image" : "/dummy/images/dealer.jpg",
+						"link" : "/bayi/kosifler-oto-acibadem"
+					},
+					{
+						"title" : "Kosifler Oto Maslak - BMW",
+						"image" : "/dummy/images/dealer.jpg",
+						"link" : "/bayi/kosifler-oto-acibadem"
+					},
+					{
+						"title" : "Doğuş Oto - BMW",
+						"link" : "/bayi/kosifler-oto-acibadem"
+					}
+				]
+			},
+			{
+				"title" : "Blog",
+				"hasimages" : false,
+				"results" : [
+					{
+						"title" : "BMW sınıfının en çok satan modeli oldu...",
+						"link" : "/blog/bmw-sinifinin-en-cok-satan-modeli"
+					},
+					{
+						"title" : "BMW 320d göz dolduran konforu ekonomi ile birleştiriyor.",
+						"link" : "/blog/bmw-320d"
+					}
+				]
 			}
-		},
-		{
-			"title" : "Bayi",
-			"hasimages" : true,
-			"results" : [
-				{
-					"title" : "Kosifler Oto Acıbadem - BMW",
-					"image" : "/dummy/images/dealer.jpg",
-					"link" : "/bayi/kosifler-oto-acibadem"
-				},
-				{
-					"title" : "Kosifler Oto Maslak - BMW",
-					"image" : "/dummy/images/dealer.jpg",
-					"link" : "/bayi/kosifler-oto-acibadem"
-				},
-				{
-					"title" : "Doğuş Oto - BMW",
-					"link" : "/bayi/kosifler-oto-acibadem"
-				}
-			]
-		},
-		{
-			"title" : "Blog",
-			"hasimages" : false,
-			"results" : [
-				{
-					"title" : "BMW sınıfının en çok satan modeli oldu...",
-					"link" : "/blog/bmw-sinifinin-en-cok-satan-modeli"
-				},
-				{
-					"title" : "BMW 320d göz dolduran konforu ekonomi ile birleştiriyor.",
-					"link" : "/blog/bmw-320d"
-				}
-			]
-		}
-	]
+		]
+	}
 }
