@@ -126,6 +126,20 @@ module.exports = {
 			linkTitle: "İletişim",
 			title: "İletişim",
 		},
+		blogDetail: {
+			path: "/blog/detay/:slug",
+			component: "BlogDetail",
+			exact: true,
+			linkTitle: "Minoto Blog",
+			title: "Minoto Blog",
+		},
+		blog: {
+			path: "/blog/:action?/:search?",
+			component: "Blog",
+			exact: true,
+			linkTitle: "Minoto Blog",
+			title: "Minoto Blog",
+		},
 		notfound: {
 			path: false,
 			component: "NotFound",

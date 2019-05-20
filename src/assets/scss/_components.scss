@@ -16,6 +16,11 @@
 		width: $wrapper-narrow;
 		//width: $wrapper-narrow;
 	}
+
+	&.narrower {
+		width: $wrapper-narrower;
+		//width: $wrapper-narrow;
+	}
 }
 
 @include media() {

@@ -10,7 +10,7 @@ export default class Breadcrumbs extends React.Component {
 		if(vm.props.standalone){ classes += ' section' }
 
 		let content = <ul className="breadcrumbs-list">
-			{vm.props.data.map(function(crumb, nth){
+			{vm.props.data && vm.props.data.map(function(crumb, nth){
 				let href = crumb.href;
 				let title = crumb.title
 				return (
@@ -21,6 +21,14 @@ export default class Breadcrumbs extends React.Component {
 					</li>
 				)
 			})}
+			{vm.props.children && React.Children.toArray(vm.props.children).map((crumb, nth) => {
+				return (
+					<li key={nth} className="breadcrumbs-item">
+						{crumb}
+					</li>
+				)
+			})}
+			
 		</ul>
 
 		return (

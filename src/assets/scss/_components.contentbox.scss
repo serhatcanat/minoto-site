@@ -100,6 +100,11 @@
 				text-shadow: rgb(255, 255, 255) .1rem 0rem 0rem, rgb(255, 255, 255) .0540302rem .0841471rem 0rem, rgb(255, 255, 255) -.0416147rem .0909297rem 0rem, rgb(255, 255, 255) -.0989992rem .014112rem 0rem, rgb(255, 255, 255) -.0653644rem -.0756802rem 0rem, rgb(255, 255, 255) .0283662rem -.0958924rem 0rem, rgb(255, 255, 255) .096017rem -.0279415rem 0rem;
 			}
 
+		.contentbox-pretitle {
+			font-size: 1.2rem;
+			margin-bottom: 1.6rem;
+		}
+
 		.contentbox-title {
 			@include font-semibold;
 			font-size: 1.4rem;
@@ -238,5 +243,15 @@
 					}
 				}
 			}
+	}
+
+	&.type-blogpost {
+		.contentbox-title {
+			@include font-regular;
+			font-size: 2.4rem;
+			line-height: 3.2rem;
+			white-space: normal;
+
+		}
 	}
 }

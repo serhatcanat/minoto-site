@@ -1,6 +1,5 @@
 import React from 'react'
 
-
 // Partials
 import { CollapseGroup } from 'components/partials/collapse'
 

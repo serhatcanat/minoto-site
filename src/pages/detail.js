@@ -21,6 +21,7 @@ import { openModal } from "functions/modals";
 import { formatNumber, blockOverflow } from 'functions/helpers.js';
 import parse from 'html-react-parser';
 import axios from 'axios';
+//import request from 'controllers/request'
 import { setTitle } from 'controllers/head'
 
 // Assets

@@ -32,6 +32,7 @@ export class FormInput extends React.Component {
 		this.reset = this.reset.bind(this);
 
 		this.input = React.createRef();
+		this.id = (props.id ? props.id : uid('form_input'));
 	}
 
 	validate(){
@@ -77,15 +78,14 @@ export class FormInput extends React.Component {
 			(vm.props.icon ? ' has-icon' : '') +
 			(vm.props.info ? ' has-info' : '') +
 			((vm.state.value !== "" && vm.state.value !== false && vm.state.value !== null) ? ' input-full' : '');
-
-		let id = (vm.props.id ? vm.props.id : uid('form_input'));
-		let name = (vm.props.name ? vm.props.name : id);
+		
+		let name = (vm.props.name ? vm.props.name : vm.id);
 
 		let Input = false;
 		let inputProps = extend(
 			omit(vm.props, ['id', 'onChangeInForm', 'forceTouch', 'onChange', 'className', 'formInput', 'name']),
 			{
-				id: id,
+				id: vm.id,
 				name: name,
 				onChange: vm.onChange,
 				touched: (vm.props.forceTouch || vm.state.touched),
@@ -144,6 +144,7 @@ FormInput.defaultProps = {
 	value: '',
 	label: '',
 	popLabel: false,
+	hideAsterisk: false,
 	formInput: true,
 };
 
@@ -236,11 +237,11 @@ class InputText extends React.Component {
 		let labelText = false;
 
 		let props = {
-			...omit(vm.props, ['onChange', 'placeholder', 'value', 'popLabel', 'validation', 'touched', 'className', 'hideError', 'icon', 'info', 'infoProps']),
+			...omit(vm.props, ['onChange', 'placeholder', 'value', 'popLabel', 'validation', 'touched', 'className', 'hideError', 'icon', 'info', 'infoProps', 'hideAsterisk']),
 			onChange: vm.handleChange,
 			onBlur: vm.handleBlur,
 			value: vm.state.value,
-			placeholder: (vm.props.placeholder ? vm.props.placeholder + (vm.state.validation !== false ? ' *' : '') : undefined),
+			placeholder: (vm.props.placeholder ? vm.props.placeholder + (vm.state.validation !== false && !vm.props.hideAsterisk ? ' *' : '') : undefined),
 		};
 
 		/*let props = {
@@ -384,11 +385,11 @@ class InputTextarea extends React.Component {
 		let labelText = false;
 
 		let props = {
-			...omit(vm.props, ['onChange', 'placeholder', 'value', 'popLabel', 'validation', 'touched', 'className', 'hideError']),
+			...omit(vm.props, ['onChange', 'placeholder', 'value', 'popLabel', 'validation', 'touched', 'className', 'hideError', 'hideAsterisk']),
 			onChange: vm.handleChange,
 			onBlur: vm.handleBlur,
 			value: vm.state.value,
-			placeholder: (vm.props.placeholder ? vm.props.placeholder + (vm.state.validation !== false ? ' *' : '') : undefined),
+			placeholder: (vm.props.placeholder ? vm.props.placeholder + (vm.state.validation !== false && !vm.props.hideAsterisk ? ' *' : '') : undefined),
 		};
 
 		if (props.type === 'number') {

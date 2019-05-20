@@ -1,0 +1,86 @@
+{
+	"payload": {
+		"categories": [
+			{
+				"slug": "son-eklenenler",
+				"title": "Son Eklenenler"
+			},
+			{
+				"slug": "otomotiv",
+				"title": "Otomotiv"
+			},
+			{
+				"slug": "video",
+				"title": "Video"
+			},
+			{
+				"slug": "genel",
+				"title": "Genel"
+			},
+			{
+				"slug": "hepsi",
+				"title": "Hepsi"
+			},
+			{
+				"slug": "otomotiv",
+				"title": "Otomotiv"
+			}
+		],
+		"results": [
+			{
+				"slug": "2019-un-en-iyi-10-otomobilini-listeledik",
+				"title": "2019’un en iyi 10 otomobilini listeledik.",
+				"image": "/dummy/images/product-thumb.jpg",
+				"date": "13.09.2018"
+			},
+			{
+				"slug": "2019-un-en-iyi-10-otomobilini-listeledik",
+				"title": "2019’un en iyi 10 otomobilini listeledik.",
+				"image": "/dummy/images/product-thumb.jpg",
+				"date": "13.09.2018"
+			},
+			{
+				"slug": "2019-un-en-iyi-10-otomobilini-listeledik",
+				"title": "2019’un en iyi 10 otomobilini listeledik.",
+				"image": "/dummy/images/product-thumb.jpg",
+				"date": "13.09.2018"
+			},
+			{
+				"slug": "2019-un-en-iyi-10-otomobilini-listeledik",
+				"title": "2019’un en iyi 10 otomobilini listeledik.",
+				"image": "/dummy/images/product-thumb.jpg",
+				"date": "13.09.2018"
+			},
+			{
+				"slug": "2019-un-en-iyi-10-otomobilini-listeledik",
+				"title": "2019’un en iyi 10 otomobilini listeledik.",
+				"image": "/dummy/images/product-thumb.jpg",
+				"date": "13.09.2018"
+			},
+			{
+				"slug": "2019-un-en-iyi-10-otomobilini-listeledik",
+				"title": "2019’un en iyi 10 otomobilini listeledik.",
+				"image": "/dummy/images/product-thumb.jpg",
+				"date": "13.09.2018"
+			},
+			{
+				"slug": "2019-un-en-iyi-10-otomobilini-listeledik",
+				"title": "2019’un en iyi 10 otomobilini listeledik.",
+				"image": "/dummy/images/product-thumb.jpg",
+				"date": "13.09.2018"
+			},
+			{
+				"slug": "2019-un-en-iyi-10-otomobilini-listeledik",
+				"title": "2019’un en iyi 10 otomobilini listeledik.",
+				"image": "/dummy/images/product-thumb.jpg",
+				"date": "13.09.2018"
+			},
+			{
+				"slug": "2019-un-en-iyi-10-otomobilini-listeledik",
+				"title": "2019’un en iyi 10 otomobilini listeledik.",
+				"image": "/dummy/images/product-thumb.jpg",
+				"date": "13.09.2018"
+			}
+		]
+	}
+}
