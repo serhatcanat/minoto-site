@@ -5,6 +5,11 @@
 		color: $color-text;
 		@include font-medium;
 		margin-top: 3em;
+		margin-bottom: .5em;
+
+		+ * {
+			margin-top: 0em;
+		}
 	}
 
 	strong, b {
@@ -50,7 +55,7 @@
 	}
 
 	> * {
-		margin: 1em 0 .5em;
+		margin: 2em 0 1em;
 
 		&:first-child {
 			margin-top: 0;
