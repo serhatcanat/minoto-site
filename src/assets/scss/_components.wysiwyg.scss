@@ -4,7 +4,7 @@
 	h1, h2, h3, h4, h5, h6 {
 		color: $color-text;
 		@include font-medium;
-		margin-top: 3rem;
+		margin-top: 3em;
 	}
 
 	strong, b {
@@ -21,8 +21,36 @@
 		}
 	}
 
+	blockquote {
+		font-family: inherit;
+		color: $color-text;
+		font-size: 1.45em;
+		line-height: 1.44em;
+		position: relative;
+
+		&:before, &:after {
+			position: absolute;
+			color: $color-black;
+			font-size: 6em;
+			opacity: .05;
+		}
+
+		&:before {
+			content: '“';
+			top: .25em;
+			right: calc(100% + .1em);
+		}
+
+		&:after {
+			content: '“';
+			bottom: .25em;
+			left: calc(100% + 0em);
+			transform: rotate(180deg);
+		}
+	}
+
 	> * {
-		margin: 2rem 0 1rem;
+		margin: 1em 0 .5em;
 
 		&:first-child {
 			margin-top: 0;

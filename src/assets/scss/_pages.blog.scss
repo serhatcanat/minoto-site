@@ -97,21 +97,111 @@
 
 	&.blog-detail {
 		padding-bottom: 10rem;
-		
+
 		.detail-image{
 		}
 
-		.detail-content {
-			font-size: 2.2rem;
-			line-height: 2em;
+		.detail-wrap {
+			display: flex;
+			flex-flow: row wrap;
+			padding-right: 20rem;
+			align-items: flex-start;
 		}
 
-		.content-title {
-			@include font-medium;
-			max-width: 57rem;
-			font-size: 4.2rem;
-			line-height: 5.2rem;
-			color: $color-primary;
+		.detail-meta {
+			width: 100%;
+			text-align: right;
+			font-size: 1.2rem;
+			margin-bottom: 2.8rem;
 		}
+
+		.detail-content {
+			flex: 1;
+		}
+
+
+			.content-text {
+				font-size: 2.2rem;
+				line-height: 1.86em;
+
+				h2, h3, h4, h5, h6 {
+					@include font-semibold;
+					font-size: 1em;
+				}
+			}
+
+				.text-title {
+					@include font-medium;
+					max-width: 57rem;
+					font-size: 4.2rem;
+					line-height: 1.24em;
+					color: $color-primary;
+				}
+
+		.detail-sharer {
+			width: 20rem;
+			padding-right: 15.8rem;
+		}
+
+			.sharer-title {
+				@include font-semibold;
+				text-transform: uppercase;
+				font-size: 1rem;
+				margin-bottom: 1.6rem;
+				display: block;
+			}
+
+			.sharer-opts{}
+
+				.opts-item {
+					width: 100%;
+
+					+ .opts-item {
+						margin-top: 2rem;
+					}
+
+					img {
+						width: 100%;
+					}
+				}
+
+			.sharer-link {
+				&.icon {
+					width: 4.2rem;
+					height: 4.2rem;
+					display: block;
+					color: $color-text-negative;
+					background-color: $color-text;
+					border-radius: 50%;
+					line-height: 4.2rem;
+					text-align: center;
+					font-size: 2.2rem;
+				}
+			}
+
+		.detail-relevant {
+			margin-top: 10.5rem;
+		}
+
+			.relevant-title {
+				@include font-medium;
+				color: $color-text-light;
+				display: block;
+				text-align: center;
+				font-size: 2.2rem;
+				padding-bottom: 1.3rem;
+				border-bottom: .1rem solid $color-gray-light;
+			}
+
+			.relevant-items {
+				margin: 0 -1.5rem;
+				display: flex;
+				flex-flow: row wrap;
+			}
+
+			.relevant-item {
+				width: 33.333333%;
+				padding: 1.5rem;
+			}
 	}
 }
