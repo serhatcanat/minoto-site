@@ -65,7 +65,12 @@
 					width: 50%;
 
 					&.banner {
-						width: 100%;
+
+						align-items: flex-start;
+
+						&.x2 {
+							width: 100%;
+						}
 
 						.banner-image {
 							position: static;
@@ -82,12 +87,58 @@
 
 			@include media {
 				display: none;
+				position: fixed;
+				top: 0;
+				left: 0;
+				bottom: 0;
+				z-index: 1000;
+				width: 100%;
+				background-color: rgba($color-text, .5);
+				padding: 0;
+				opacity: 0;
+				transition: opacity $transition-anim-fast ease;
 
 				&.active {
 					display: block;
+
+					&.show {
+						opacity: 1;
+						.filters-content {
+							transform: translate3d(0, 0, 0);
+						}
+					}
 				}
 			}
 		}
+
+			.filters-content {
+				@include media {
+					position: relative;
+					background-color: $color-white;
+					width: 27rem;
+					padding: 0 0 10rem;
+					height: 100%;
+					transform: translate3d(-100%, 0, 0);
+					transition: transform $transition-anim-fast ease;
+				}
+			}
+
+			.filters-innerwrap {
+				padding: 2.1rem 2.5rem 0;
+				height: 100%;
+				overflow: auto;
+				overflow-x: hidden;
+				overflow-y: auto;
+			}
+
+			.filters-controls {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				width: 100%;
+				background-color: $color-white;
+				padding: 2.1rem 2.5rem;
+			}
 
 			.filters-header {
 				padding-bottom: 1.6rem;
@@ -442,7 +493,7 @@
 			width: 100%;
 
 			@include media {
-				padding: 0 .75rem;
+				padding: 0;
 			}
 
 			&.type-brand {
@@ -464,8 +515,24 @@
 				z-index: 2;
 				padding: 1rem 1.5rem .5rem;
 				display: flex;
+				align-items: center;
 				justify-content: space-between;
+
+				@include media {
+					padding: 1rem 1.5rem 1rem;
+					border-bottom: .1rem solid $color-ice;
+				}
 			}
+
+				.top-filterstrigger {
+					@include font-medium;
+					font-size: 1.4rem;
+
+					i {
+						margin-right: 1.3rem;
+						font-size: 1.5rem;
+					}
+				}
 
 				.top-activefilters {
 
@@ -503,6 +570,10 @@
 					width: 23rem;
 					margin-left: auto;
 
+					@include media {
+						width: calc(100% - 11rem);
+					}
+
 					.minoto-select{
 						.minoto-select__control {
 							border: none;
@@ -522,6 +593,14 @@
 							svg path {
 								fill: $color-primary;
 							}
+
+							@include media {
+								width: 1.5rem;
+
+								svg path {
+									fill: $color-text;
+								}
+							}
 						}
 
 						.minoto-select__placeholder, .minoto-select__single-value {
@@ -530,6 +609,13 @@
 							font-size: 1.2rem;
 							text-transform: uppercase;
 							color: $color-primary;
+							overflow: visible;
+
+							@include media {
+								@include font-medium;
+								font-size: 1.4rem;
+								color: $color-text;
+							}
 						}
 
 						.minoto-select__menu-list{
@@ -541,6 +627,11 @@
 							padding: 1.8rem 2rem;
 							color: $color-primary;
 							font-size: 1.4rem;
+
+							@include media {
+								padding: 1.2rem 2rem;
+								color: $color-text;
+							}
 						}
 					}
 				}
@@ -552,6 +643,10 @@
 				padding: 0 0 1.5rem;
 				position: relative;
 				z-index: 1;
+
+				@include media {
+					padding: .75rem .75rem 2rem;
+				}
 			}
 
 				.results-item {

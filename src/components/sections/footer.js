@@ -4,6 +4,7 @@ import React from 'react'
 import Image from 'components/partials/image'
 import Link from 'components/partials/link'
 import Btn from 'components/partials/btn'
+import Responsive from 'components/partials/responsive'
 
 // Functions
 import {formatNumber} from 'functions/helpers'
@@ -69,23 +70,25 @@ export default class Footer extends React.Component {
 		return (
 			<footer className="section footer">
 				{vm.state.brands &&
-					<div className="footer-brands">
-						<div className="brands-wrap wrapper narrow">
-							<nav className="brands-list">
-								{brands.map((group, nth) => (
-									<div className="list-group" key={nth}>
-										{group.map((brand, nt) => (
-											<div className="brands-item" key={nt}>
-												<Link href={brand.url}>
-													{brand.title} {brand.count && <span className="item-count">({formatNumber(brand.count)})</span>}
-												</Link>
-											</div>
-										))}
-									</div>
-								))}
-							</nav>
+					<Responsive type="only-web">
+						<div className="footer-brands">
+							<div className="brands-wrap wrapper narrow">
+								<nav className="brands-list">
+									{brands.map((group, nth) => (
+										<div className="list-group" key={nth}>
+											{group.map((brand, nt) => (
+												<div className="brands-item" key={nt}>
+													<Link href={brand.url}>
+														{brand.title} {brand.count && <span className="item-count">({formatNumber(brand.count)})</span>}
+													</Link>
+												</div>
+											))}
+										</div>
+									))}
+								</nav>
+							</div>
 						</div>
-					</div>
+					</Responsive>
 				}
 				<div className="footer-bottom">
 					<div className="footer-wrap wrapper narrow">
@@ -129,9 +132,11 @@ export default class Footer extends React.Component {
 								</li>
 							</ul>
 							<div className="nav-col nav-contact">
-								<p className="contact-title">İletişim için</p>
-								<p className="contact-phone"><a href="tel:08002129898" title="Telefon"><i className="icon-phone"></i> 0800 212 98 98</a></p>
-								<p className="contact-phone"><a href="mailto:info@minoto.com" title="E-Posta"><i className="icon-envelope"></i> info@minoto.com</a></p>
+								<div className="contact-text">
+									<p className="contact-title">İletişim için</p>
+									<p className="contact-phone"><a href="tel:08002129898" title="Telefon"><i className="icon-phone"></i> 0800 212 98 98</a></p>
+									<p className="contact-phone"><a href="mailto:info@minoto.com" title="E-Posta"><i className="icon-envelope"></i> info@minoto.com</a></p>
+								</div>
 
 								<ul className="contact-social">
 									<li>
@@ -153,14 +158,14 @@ export default class Footer extends React.Component {
 							</div>
 						</nav>
 
-						<div className="nav-col">
-							<div className="nav-app">
+						<div className="footer-col">
+							<div className="footer-app">
 								<h3 className="app-title">Mobil uygulamamızı indirdiniz mi?</h3>
 								<Btn tag="a" className="app-link" white href="http://www.google.com" target="_blank" rel="noopener noreferrer" icon="appstore">Apple Store</Btn>
 								<Btn tag="a" className="app-link" white href="http://www.google.com" target="_blank" rel="noopener noreferrer" icon="playstore">Google Play</Btn>
 							</div>
 
-							<form className="nav-subscription">
+							<form className="footer-subscription">
 								<input type="text" className="subscription-input" placeholder="E-postanızı yazın, bizden haberler verelim." />
 							</form>
 						</div>

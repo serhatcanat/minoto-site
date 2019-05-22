@@ -14,7 +14,7 @@
 		border-radius: $radius-general;
 		padding: 1.3rem 1.3rem;
 		line-height: 1.8rem;
-		font-size: 1.4rem;
+		font-size: 1.5rem;
 		width: 100%;
 		min-width: 100%;
 		max-width: 100%;
@@ -359,30 +359,6 @@
 
 			.checkwrap-content {
 
-			}
-		}
-	}
-}
-
-@include media() {
-	.checkwrap{
-		padding: 3.1rem 0 3.1rem 7.8rem;
-
-		input {
-			+ label{
-				font-size: 2.8rem;
-				line-height: 3.2rem;
-
-				span {
-					width: 5rem;
-					height: 5rem;
-					top: 2.2rem;
-					border-radius: $radius-general-mobile;
-
-					&:before{
-						font-size: 2.6rem;
-					}
-				}
 			}
 		}
 	}

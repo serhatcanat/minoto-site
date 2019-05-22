@@ -10,6 +10,10 @@
 		.footer-wrap {
 			display: flex;
 			justify-content: space-between;
+
+			@include media {
+				display: block;
+			}
 		}
 
 		.footer-logo{
@@ -21,10 +25,23 @@
 			}
 		}
 
+		.footer-col {
+			@include media {
+				+ .footer-col {
+					margin-top: 2rem;
+				}
+			}
+		}
+
 		.footer-nav {
 			width: 55.72%;
 			display: flex;
 			justify-content: space-between;
+
+			@include media {
+				width: auto;
+				flex-flow: row wrap;
+			}
 		}
 
 			.nav-col {
@@ -34,6 +51,13 @@
 			.nav-contact{
 				i {
 					margin-right: .9rem;
+				}
+
+				@include media {
+					width: 100%;
+					margin-top: 2rem;
+					display: flex;
+					justify-content: space-between;
 				}
 			}
 
@@ -49,10 +73,13 @@
 							margin-left: 1rem;
 						}
 					}
+
+					@include media {
+						margin-top: 0;
+					}
 				}
 
-			.nav-app {
-
+			.footer-app {
 			}
 
 				.app-title {
@@ -69,7 +96,7 @@
 					}
 				}
 
-			.nav-subscription {
+			.footer-subscription {
 				margin-top: 2.1rem;
 			}
 
@@ -93,6 +120,10 @@
 			margin-top: 8rem;
 			font-size: 1.2rem;
 			color: $color-text-negative-light;
+
+			@include media {
+				margin-top: 4rem;
+			}
 		}
 
 			.copyright-disclaimer {

@@ -48,13 +48,17 @@
 		display: block;
 		z-index: 2;
 		background: $color-white;
-		border: .1rem solid $color-gray-light;
+		border: .1rem solid $color-ice;
 		transition: border-color $transition-hover ease;
 	}
 
 	.contentbox-content {
 		padding: 1.8rem 1rem 1.4rem;
 		flex: 1;
+
+		@include media {
+			padding: .5rem 1rem .9rem;
+		}
 	}
 
 		.contentbox-imagewrap {
@@ -87,6 +91,11 @@
 
 				&.error {
 					background-color: $color-red-light;
+				}
+
+				@include media {
+					font-size: 1.4rem;
+					line-height: 2.6rem;
 				}
 			}
 

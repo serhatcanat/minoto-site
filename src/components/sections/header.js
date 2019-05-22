@@ -78,7 +78,7 @@ class Header extends React.Component {
 		let vm = this;
 		let user = vm.props.user;
 		return (
-			<header className="section header">
+			<header className={"section header" + (vm.state.menuActive ? ' menu-active' : '')}>
 				<div className="header-wrap wrapper">
 					<Link className="header-logo" href="home">
 						<Image alt="Minoto" src={image_logo} />

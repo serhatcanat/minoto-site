@@ -41,6 +41,10 @@
  	-moz-osx-font-smoothing: grayscale;
 }
 
+.icon-filter:before {
+	content: "\e92e";
+}
+
 .icon-user:before {
 	content: "\e92a";
 }

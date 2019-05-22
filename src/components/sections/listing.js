@@ -5,6 +5,7 @@ import ContentBox from 'components/partials/contentbox.js'
 import Image from 'components/partials/image.js';
 import SVG from 'react-inlinesvg';
 import Loader from 'components/partials/loader.js';
+import Btn from 'components/partials/btn.js';
 import { FormInput } from 'components/partials/forms.js';
 
 // Deps
@@ -16,6 +17,7 @@ import {serializeArray } from 'functions/helpers';
 import history from 'controllers/history'
 import request from 'controllers/request'
 import { connect } from "react-redux";
+import { blockOverflow } from "functions/helpers";
 import queryString from 'query-string';
 
 const mapStateToProps = state => {
@@ -32,6 +34,7 @@ class Listing extends React.Component {
 			query: (this.props.query ? this.props.query : ((history.location.search && history.location.search !== '') ? queryString.parse(history.location.search) : {})),
 			order: null,
 			initialLoad: true,
+			expandFilters: false,
 		}
 
 		this.removeFilter = this.removeFilter.bind(this);
@@ -80,6 +83,14 @@ class Listing extends React.Component {
 			this.updateURL();
 			this.updateResults();
 		}
+
+		if(prevState.expandFilters !== this.state.expandFilters){
+			blockOverflow(this.state.expandFilters);
+		}
+
+		if(prevProps.mobile !== this.props.mobile){
+			this.setState({expandFilters: false})
+		}
 	}
 
 	urlChanged(){
@@ -117,7 +128,6 @@ class Listing extends React.Component {
 		if(!isEqual(this.state.query, newQuery)){
 			this.setState({query: newQuery});
 		}
-
 	}
 
 	updateURL() {
@@ -223,7 +233,6 @@ class Listing extends React.Component {
 		]
 
 		let orderVal = null;
-		//(vm.state.order === null ? null : {value: vm.state.order, label: vm.state.order});
 		if(vm.state.order && vm.state.order !== null){
 			for(let k = 0; k < options.length; k++){
 				if(options[k].value === vm.state.order){
@@ -236,10 +245,18 @@ class Listing extends React.Component {
 			<section className={"section listing loader-container " + vm.props.className + (vm.props.filters ? ' has-filters' : '') + ' size-'+vm.props.size}>
 				<Loader loading={vm.state.loading || !vm.state.results} strict={!vm.state.initialLoad} />
 				{vm.props.filters &&
-					<ListingFilters data={vm.state.listingData} mobile={vm.props.mobile} onUpdate={vm.filtersUpdated} formRef={vm.formRef} />
+					<ListingFilters data={vm.state.listingData} mobile={vm.props.mobile} onUpdate={vm.filtersUpdated} expanded={vm.state.expandFilters} formRef={vm.formRef} onClose={() => { vm.setState({ expandFilters: false})}} />
 				}
 				<div className={"listing-content type-" + vm.state.listingData.type}>
 					<aside className="content-top">
+						{vm.props.mobile &&
+							<button className="top-filterstrigger" type="button" onClick={() => { vm.setState({ expandFilters: !vm.state.expandFilters}) }}>
+								<i className="icon-filter"></i> Filtrele 
+								{(vm.state.listingData.filters && vm.state.listingData.filters.length) &&
+									<span> ({vm.state.listingData.filters.length})</span>
+								}
+							</button>
+						}
 						{!vm.props.mobile &&
 							<ActiveFilters data={vm.state.listingData} onFilterRemove={vm.removeFilter} />
 						}
@@ -356,11 +373,7 @@ class ListingResults extends React.Component {
 						}
 
 						if(itemsAt === 8 && vm.props.showAds){
-							contents.push(<div key={"adwrap_" + nth} className="results-adwrap results-item x4">
-								<a className="adwrap-link" href="http://www.citroen.com.tr" target="_blank" title="Citroen" rel="noopener noreferrer" >
-									<Image src="/dummy/images/listing-ad.jpg" />
-								</a>
-							</div>);
+							contents.push(<AdWrap key={nth} />);
 						}
 
 						return contents;
@@ -383,11 +396,36 @@ class ListingFilters extends React.Component {
 			active: false,
 			show: false,
 		}
+
+		this.closeSelf = this.closeSelf.bind(this);
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		if(prevProps.mobile !== this.props.mobile){
-			this.setState({active: false, expanded: false})
+		let vm = this;
+
+		if(prevProps.mobile !== vm.props.mobile){
+			vm.setState({active: false, expanded: false})
+		}
+
+		if(prevProps.expanded !== vm.props.expanded){
+			if(vm.props.expanded){
+				vm.setState({ active: true });
+				setTimeout(function() {
+					vm.setState({ show: true })
+				}, 30);
+			}
+			else {
+				vm.setState({ show: false });
+				setTimeout(function() {
+					vm.setState({ active: false })
+				}, 250);
+			}
+		}
+	}
+
+	closeSelf(){
+		if(this.props.onClose){
+			this.props.onClose();
 		}
 	}
 
@@ -395,18 +433,26 @@ class ListingFilters extends React.Component {
 		let data = this.props.data;
 		return (
 			<aside className={"listing-filters" + (this.state.active ? ' active' : '') + (this.state.show ? ' show' : '')}>
-				<div className="filters-innerwrap">
-					{data.filtersTitle && 
-						<div className="filters-header">
-							<h1 className="header-title">{data.filtersTitle}</h1>
+				<div className="filters-content">
+					<div className="filters-innerwrap">
+						{data.filtersTitle && 
+							<div className="filters-header">
+								<h1 className="header-title">{data.filtersTitle}</h1>
+							</div>
+						}
+						<form className="filters-form" ref={this.props.formRef}>
+							{(data && data.filters ?
+							data.filters.map((filter, nth) => (
+								<ListingFilter data={filter} key={nth} onUpdate={this.props.onUpdate} />
+							)) : false )}
+						</form>
+
+					</div>
+					{this.props.mobile && 
+						<div className="filters-controls">
+							<Btn block uppercase className="controls-btn" onClick={this.closeSelf}>Ara</Btn>
 						</div>
 					}
-					<form className="filters-form" ref={this.props.formRef}>
-						{(data && data.filters ?
-						data.filters.map((filter, nth) => (
-							<ListingFilter data={filter} key={nth} onUpdate={this.props.onUpdate} />
-						)) : false )}
-					</form>
 				</div>
 			</aside>
 		)
@@ -1013,5 +1059,18 @@ class ActiveFilters extends React.Component {
 			)
 		}
 		else return false;
+	}
+}
+
+// Ads
+class AdWrap extends React.Component {
+	render() {
+		return (
+			<div className="results-adwrap results-item x4">
+				<a className="adwrap-link" href="http://www.citroen.com.tr" target="_blank" title="Citroen" rel="noopener noreferrer" >
+					<Image src="/dummy/images/listing-ad.jpg" />
+				</a>
+			</div>
+		)
 	}
 }

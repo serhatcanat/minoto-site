@@ -8,6 +8,11 @@
 		@include media() {
 			padding: 0;
 			border-bottom: none;
+			z-index: 1;
+
+			&.menu-active {
+				z-index: 1001;
+			}
 		}
 
 		.header-wrap{
