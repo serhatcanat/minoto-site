@@ -4,6 +4,10 @@
 		height: 52rem;
 		max-height: 70vh;
 
+		@include media {
+			height: 25rem;
+		}
+
 		.map-container {
 			height: 100%;
 		}
@@ -12,18 +16,31 @@
 	&.contact-info {
 		padding: 8.1rem 0 9rem;
 
+		@include media {
+			padding: 3rem 0 5rem;
+		}
+
 		.info-wrap {
 			display: flex;
 			justify-content: space-between;
+
+			@include media {
+				display: block;
+			}
 		}
 
 		.info-section {
-			width: 64.8rem;
+			
 		}
 
 		.info-details {
 			width: 62.1rem;
 			border-bottom: .1rem solid $color-ice;
+
+			@include media {
+				width: calc(100% + 3rem);
+				margin: 0 -1.5rem;
+			}
 		}
 
 			.details-item {
@@ -36,12 +53,24 @@
 				+ .details-item {
 					border-top: .1rem solid $color-ice;
 				}
+
+				@include media {
+					@include font-medium;
+					border-top: .1rem solid $color-ice;
+					padding: 1.5rem 1.5rem;
+					font-size: 1.4rem;
+					line-height: 1.8rem;
+				}
 			}
 
 				.item-heading {
 					color: $color-text-light;
 					font-weight: inherit;
 					width: 19rem;
+
+					@include media {
+						width: 14.5rem;
+					}
 				}
 
 				.item-content {
@@ -49,13 +78,22 @@
 				}
 
 		.info-form {
+			width: 64.8rem;
 
+			@include media {
+				width: auto;
+				margin-top: 1.3rem;
+			}
 		}
 
 			.form-typeselection {
 				font-size: 0;
 				letter-spacing: 0;
 				padding-bottom: 1rem;
+
+				@include media {
+					padding-bottom: .6rem;
+				}
 			}
 
 				.typeselection-opt {
@@ -64,6 +102,10 @@
 
 					+ .typeselection-opt {
 						margin-left: 4.8rem;
+
+						@include media {
+							margin-left: 2.8rem;
+						}
 					}
 
 					input {
@@ -96,6 +138,10 @@
 						cursor: pointer;
 						transition: color $transition-hover ease;
 
+						@include media {
+							padding-bottom: .3rem;
+						}
+
 						&:after {
 							@include pseudo;
 							position: absolute;
@@ -106,6 +152,10 @@
 							background-color: $color-text;
 							transform: scaleX(0);
 							transition: background-color $transition-hover ease, transform $transition-hover ease;
+
+							@include media {
+								height: .1rem;
+							}
 						}
 					}
 				}
@@ -115,6 +165,11 @@
 				padding: .6rem .4rem 1.6rem;
 				display: flex;
 				flex-flow: row wrap;
+
+				@include media {
+					border-radius: $radius-general;
+					padding: .5rem .5rem 1rem;
+				}
 			}
 
 			.form-section {
@@ -124,11 +179,19 @@
 				&.x2 {
 					width: 100%;
 				}
+
+				@include media {
+					padding: .5rem;
+				}
 			}
 
 			.form-controls {
 				width: 100%;
 				text-align: center;
+
+				@include media {
+					margin-top: .5rem;
+				}
 
 				> * {
 					width: 15.5rem;

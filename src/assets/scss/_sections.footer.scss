@@ -5,6 +5,10 @@
 			color: $color-text-negative;
 			padding: 5rem 0 7.6rem;
 			font-size: 1.4rem;
+
+			@include media {
+				padding: 3rem 0 3.3rem;
+			}
 		}
 
 		.footer-wrap {
@@ -13,12 +17,17 @@
 
 			@include media {
 				display: block;
+				padding: 0 1.5rem;
 			}
 		}
 
 		.footer-logo{
 			display: inline-block;
 			width: 9.4rem;
+
+			@include media {
+				width: 10.4rem;
+			}
 
 			img {
 				width: 100%;
@@ -45,7 +54,12 @@
 		}
 
 			.nav-col {
-				line-height: 2.43;
+				line-height: 2.43em;
+
+				@include media {
+					font-size: 1.4rem;
+					line-height: 2.14em;
+				}
 			}
 
 			.nav-contact{
@@ -55,9 +69,10 @@
 
 				@include media {
 					width: 100%;
-					margin-top: 2rem;
+					margin-top: 6rem;
 					display: flex;
 					justify-content: space-between;
+					align-items: center;
 				}
 			}
 
@@ -80,29 +95,48 @@
 				}
 
 			.footer-app {
+				@include media {
+					padding: 0 3rem;
+					text-align: center;
+				}
 			}
 
 				.app-title {
 					line-height: 3.4rem;
 					text-transform: uppercase;
 					margin-bottom: .3rem;
+
+					@include media {
+						@include font-regular;
+						font-size: 1.4rem;
+						margin-bottom: 1rem;
+					}
 				}
 
 				.app-link {
-					width: calc(50% - .3rem);
+					width: calc(50% - .75rem);
 
 					+ .app-link {
 						margin-left: .6rem;
+
+						@include media {
+							margin-left: 1.5rem;
+						}
 					}
 				}
 
 			.footer-subscription {
 				margin-top: 2.1rem;
+
+				@include media {
+					margin-top: 4rem;
+					margin-bottom: 4.4rem;
+				}
 			}
 
 				.subscription-input {
 					background: transparent;
-					border: .1rem solid $color-text-negative-light;
+					border: .1rem solid rgba($color-white, .2);
 					color: $color-text-negative;
 					border-radius: $radius-general;
 					display: block;
@@ -110,6 +144,11 @@
 					padding: 1.9rem 1.7rem;
 					line-height: 1.3rem;
 					width: 100%;
+
+					@include media {
+						padding: 1.3rem 1rem;
+						line-height: 1.2rem;
+					}
 
 					@include placeholder() {
 						color: $color-text-negative-light;
@@ -122,7 +161,7 @@
 			color: $color-text-negative-light;
 
 			@include media {
-				margin-top: 4rem;
+				margin-top: 4.8rem;
 			}
 		}
 
@@ -131,6 +170,10 @@
 			}
 
 			.copyright-designby {
+				@include media {
+					margin-top: 2.6rem;
+				}
+
 				a {
 					text-decoration: underline;
 				}
@@ -141,19 +184,31 @@
 			color: $color-text-light;
 			padding: 6rem 0;
 			font-size: 1.4rem;
+
+			@include media {
+				padding: 2.7rem 1.5rem;
+			}
 		}
 
 			.brands-list {
-				//column-count: 6;
-				//column-gap: 4rem;
 				display: flex;
 				justify-content: space-between;
 			}
+
+				/*.list-group {
+					@include media {
+						width: calc(50% - 1.5rem);
+					}
+				}*/
 
 			.brands-item {
 				//width: 16.66666666666667%;
 				line-height: 2rem;
 				padding: 1rem 0;
+
+				@include media {
+					font-size: 1.2rem;
+				}
 			}
 
 				.item-count {
