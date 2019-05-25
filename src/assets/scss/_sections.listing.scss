@@ -42,6 +42,23 @@
 					flex: 1;
 					width: 100%;
 				}
+
+				@include media {
+					width: 50%;
+
+					&.banner {
+
+						align-items: flex-start;
+
+						&.x2 {
+							width: 100%;
+						}
+
+						.banner-image {
+							position: static;
+						}
+					}
+				}
 			}
 		}
 
@@ -683,12 +700,12 @@
 							height: 100%;
 						}
 
-				.results-adwrap {
+				.results-ad {
 					text-align: center;
 					display: block;
 				}
 
-					.adwrap-link {
+					.ad-link {
 						display: inline-block;
 						height: 9rem;
 						flex: none;

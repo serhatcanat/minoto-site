@@ -1,6 +1,6 @@
 {
 	"status": "ok",
-	"info": {
+	"payload": {
 		"id": 110289920,
 		"title": "Audi A3, 3.0 T Premium Plus CDI",
 		"price": 182000,
@@ -10,6 +10,7 @@
 		"reservationEndDate": "03.05.2019",
 		"brand": {
 			"id": 10,
+			"key": "audi",
 			"title": "Audi"
 		},
 		"highlights": [

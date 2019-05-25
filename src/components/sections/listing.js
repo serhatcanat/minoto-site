@@ -191,7 +191,6 @@ class Listing extends React.Component {
 						results: payload.results,
 						order: payload.order ? payload.order : null,
 						loading: false,
-						//listingData.type: payload.type,
 						total: (payload.totalResults ? payload.totalResults : 0),
 					});
 
@@ -248,28 +247,30 @@ class Listing extends React.Component {
 					<ListingFilters data={vm.state.listingData} mobile={vm.props.mobile} onUpdate={vm.filtersUpdated} expanded={vm.state.expandFilters} formRef={vm.formRef} onClose={() => { vm.setState({ expandFilters: false})}} />
 				}
 				<div className={"listing-content type-" + vm.state.listingData.type}>
-					<aside className="content-top">
-						{vm.props.mobile &&
-							<button className="top-filterstrigger" type="button" onClick={() => { vm.setState({ expandFilters: !vm.state.expandFilters}) }}>
-								<i className="icon-filter"></i> Filtrele 
-								{(vm.state.listingData.filters && vm.state.listingData.filters.length) &&
-									<span> ({vm.state.listingData.filters.length})</span>
-								}
-							</button>
-						}
-						{!vm.props.mobile &&
-							<ActiveFilters data={vm.state.listingData} onFilterRemove={vm.removeFilter} />
-						}
+					{vm.props.topSection &&
+						<aside className="content-top">
+							{vm.props.mobile &&
+								<button className="top-filterstrigger" type="button" onClick={() => { vm.setState({ expandFilters: !vm.state.expandFilters}) }}>
+									<i className="icon-filter"></i> Filtrele 
+									{(vm.state.listingData.filters && vm.state.listingData.filters.length) &&
+										<span> ({vm.state.listingData.filters.length})</span>
+									}
+								</button>
+							}
+							{!vm.props.mobile &&
+								<ActiveFilters data={vm.state.listingData} onFilterRemove={vm.removeFilter} />
+							}
 
-						<FormInput
-							type="select"
-							placeholder="Sırala"
-							isSearchable={false}
-							value={orderVal}
-							onChange={vm.updateOrder}
-							options={options}
-							className="top-order" />
-					</aside>
+							<FormInput
+								type="select"
+								placeholder="Sırala"
+								isSearchable={false}
+								value={orderVal}
+								onChange={vm.updateOrder}
+								options={options}
+								className="top-order" />
+						</aside>
+					}
 					<ListingResults data={vm.state.listingData} mobile={vm.props.mobile} />
 				</div>
 			</section>
@@ -280,6 +281,7 @@ class Listing extends React.Component {
 Listing.defaultProps = {
 	className : '',
 	filters: true,
+	topSection: true,
 	urlBinding: true,
 	source: '/dummy/data/listing.json',
 	showAds: true,
@@ -373,7 +375,7 @@ class ListingResults extends React.Component {
 						}
 
 						if(itemsAt === 8 && vm.props.showAds){
-							contents.push(<AdWrap key={nth} />);
+							contents.push(<Ad key={nth} />);
 						}
 
 						return contents;
@@ -1063,11 +1065,11 @@ class ActiveFilters extends React.Component {
 }
 
 // Ads
-class AdWrap extends React.Component {
+class Ad extends React.Component {
 	render() {
 		return (
-			<div className="results-adwrap results-item x4">
-				<a className="adwrap-link" href="http://www.citroen.com.tr" target="_blank" title="Citroen" rel="noopener noreferrer" >
+			<div className="results-ad results-item x4">
+				<a className="ad-link" href="http://www.citroen.com.tr" target="_blank" title="Citroen" rel="noopener noreferrer" >
 					<Image src="/dummy/images/listing-ad.jpg" />
 				</a>
 			</div>

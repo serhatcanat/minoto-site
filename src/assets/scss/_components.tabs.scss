@@ -19,6 +19,14 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
+
+		@include media {
+			display: block;
+			white-space: nowrap;
+			overflow: auto;
+			overflow-x: scroll;
+			overflow-y: hidden;
+		}
 	}
 
 	.labels-item {
@@ -36,6 +44,10 @@
 		z-index: 2;
 		margin: 0 2.4rem;
 		//flex: 1;
+
+		@include media {
+			margin: 0 1rem;
+		}
 
 		&:before {
 			@extend %pseudo;

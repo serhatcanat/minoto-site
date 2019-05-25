@@ -5,6 +5,11 @@
 			color: $color-text-light;
 			border-bottom: .1rem solid $color-gray-light;
 
+			@include media {
+				background-color: $color-gray-light;
+				padding: 1.1rem 1.5rem;
+			}
+
 			.top-wrap {
 				display: flex;
 				justify-content: space-between;
@@ -46,25 +51,108 @@
 				}
 		}
 
+		&.detail-topinfo {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			line-height: 2rem;
+			padding: 1.4rem 0;
+
+			@include media {
+				padding: 0;
+				line-height: 1.8rem;
+			}
+
+			.topinfo-highlights {
+
+				li {
+					display: inline-block;
+					display: inline-block;
+					vertical-align: middle;
+
+
+					> * {
+						display: block;
+					}
+
+					+ li {
+						margin-left: .7rem;
+					}
+				}
+
+				span {
+					display: block;
+					border: .1rem solid $color-ice;
+					font-size: 1.2rem;
+					text-transform: uppercase;
+					border-radius: $radius-general;
+					color: $color-text-light;
+					line-height: 2rem;
+					padding: 0 .5rem;
+					background-color: $color-white;
+
+					@include media {
+						color: $color-text;
+					}
+				}
+
+				img {
+					height: 1.8rem;
+				}
+			}
+
+			.topinfo-id {
+				text-transform: uppercase;
+				color: $color-text;
+				font-size: 1.4rem;
+
+				@include media {
+					font-size: 1.2rem;
+				}
+
+				strong {
+					@include font-medium;
+					font-size: 1.2rem;
+					color: $color-text-light;
+				}
+			}
+		}
+
 		&.detail-content {
 
 			.content-wrap {
 				display: flex;
-				flex-flow: row;
-				flex-wrap: wrap;
+				flex-flow: row wrap;
+
+				@include media {
+					display: block;
+				}
 			}
 
 			.content-left {
 				width: calc(100% - 46rem);
+
+				@include media {
+					width: auto;
+				}
 			}
 
 			.content-right{
 				width: 46rem;
 				padding: 0 3rem;
+
+				@include media {
+					width: auto;
+				}
 			}
 
 			.content-gallery {
 				background-color: $color-white;
+
+				@include media {
+					width: calc(100% + 3rem);
+					margin: 0 -1.5rem;
+				}
 
 				&.fullscreen {
 					position: fixed;
@@ -81,10 +169,18 @@
 					.gallery-mainslider{
 						padding-bottom: 0;
 						height: calc(100% - 12rem);
+
+						@include media {
+							height: 100%;
+						}
 					}
 
 						.mainslider-fullscreen {
 							display: none;
+						}
+
+						.imagewrap-image {
+							background-size: contain;
 						}
 
 					.gallery-thumbs {
@@ -106,6 +202,10 @@
 					width: 100%;
 					position: relative;
 					padding-bottom: 52.6%;
+
+					@include media {
+						padding-bottom: 60%;
+					}
 				}
 
 					.mainslider-nav {
@@ -116,6 +216,7 @@
 						height: 4.8rem;
 						line-height: 4.8rem;
 						font-size: 3rem;
+						z-index: 2;
 
 						&.prev {
 							left: 0;
@@ -123,6 +224,10 @@
 
 						&.next {
 							right: 0;
+						}
+
+						@include media {
+							color: $color-text-negative;
 						}
 					}
 
@@ -132,6 +237,12 @@
 						left: 10.5rem;
 						right: 10.5rem;
 						bottom: 0;
+						z-index: 1;
+
+						@include media {
+							left: 0;
+							right: 0;
+						}
 					}
 
 						.slider-imagewrap {
@@ -148,6 +259,10 @@
 							background-position: center;
 							opacity: 0;
 							transition: opacity $transition-hover ease;
+
+							@include media {
+								background-size: cover;
+							}
 
 
 							&.swiper-lazy-loaded {
@@ -266,10 +381,18 @@
 			}
 
 				.details-tabs {
+					@include media {
+						margin: 0 -1.5rem;
+						width: calc(100% + 3rem);
+					}
 				}
 
 					.tabs-tab {
 						padding: 5.6rem 5.6rem;
+
+						@include media {
+							padding: 2.6rem 1.5rem;
+						}
 					}
 
 					.tab-content {
@@ -305,24 +428,52 @@
 
 					.tab-textarea {
 						background-color: $color-gray-light;
-						padding: 3.6rem 3.2rem;						
+						padding: 3.6rem 3.2rem;
+						font-size: 1.5rem;
+						line-height: 1.47em;
+
+						@include media {
+							font-size: 1.4rem;
+							line-height: 1.57em;
+							padding: 1.6rem 2rem 2rem;
+
+							h1, h2, h3, h4, h5, h6 {
+								line-height: 1.38em;
+							}
+						}				
 					}
 
 					.tab-specslist {
 						display: flex;
 						justify-content: space-between;
-						flex-direction: row;
-						flex-wrap: wrap;
+						flex-flow: row wrap;
+
+						@include media {
+							display: block;
+						}
 					}
 
 						.specslist-group {
 							width: calc(50% - 3rem);
+
+							@include media {
+								width: auto;
+							}
+
+							+ .specslist-group {
+								margin-top: 3.6rem;
+							}
 						}
 
 							.group-title {
 								@include font-semibold;
 								font-size: 1.8rem;
 								margin-bottom: 2rem;
+
+								@include media {
+									font-size: 1.5rem;
+									margin-bottom: 1.1rem;
+								}
 							}
 
 							.group-table {
@@ -330,6 +481,14 @@
 								td{
 									@include font-bold;
 									color: $color-primary;
+								}
+
+								th {
+									padding-right: 1rem;
+								}
+
+								td {
+									padding-left: 1rem;
 								}
 							}
 
@@ -362,6 +521,14 @@
 						.gallery-item {
 							display: inline-block;
 							height: 34rem;
+
+							@include media {
+								height: auto;
+
+								+ .gallery-item {
+									margin-top: 1.5rem;
+								}
+							}
 						}
 
 							.item-btn {
@@ -378,343 +545,340 @@
 							.item-image {
 								height: 100%;
 								transition: opacity $transition-hover ease;
+
+								@include media {
+									height: auto;
+								}
 							}
 
 					.tab-expand {
 						margin-top: 5.6rem;
 					}
-	
-			.content-topinfo {
-				display: flex;
-				justify-content: space-between;
-				line-height: 2rem;
-				padding: 1.4rem 0;
+
+					.tab-related {
+						margin: -1.5rem -1.5rem;
+						width: calc(100% + 3rem);
+					}
+
+			.detail-info {
+				@include media {
+					padding-top: 1rem;
+				}
 			}
 
-				.topinfo-highlights {
+				.info-title {
+					@include font-semibold;
+					font-size: 2.2rem;
+					line-height: 2.8rem;
+				}
+
+				.info-mainfeatures {
+					padding: 1.4rem 0;
+					color: $color-text-light;
 
 					li {
 						display: inline-block;
-						display: inline-block;
-						vertical-align: middle;
-
-
-						> * {
-							display: block;
-						}
+						font-size: 1.4rem;
 
 						+ li {
-							margin-left: .7rem;
+							margin-left: 1.8rem;
 						}
 					}
 
-					span {
-						display: block;
-						border: .1rem solid $color-ice;
-						font-size: 1.2rem;
-						text-transform: uppercase;
-						border-radius: $radius-general;
-						color: $color-text-light;
-						line-height: 2rem;
-						padding: 0 .3rem;
-					}
-
-					img {
-						height: 1.8rem;
+					i {
+						font-size: 1.3rem;
+						margin-right: .6rem;
 					}
 				}
 
-				.topinfo-id {
-					strong {
-						@include font-medium;
-						color: $color-text-light;
-					}
-				}
-
-			.content-title {
-				@include font-semibold;
-				font-size: 2.2rem;
-				line-height: 2.8rem;
-			}
-
-			.content-mainfeatures {
-				padding: 1.4rem 0;
-				color: $color-text-light;
-
-				li {
-					display: inline-block;
-					font-size: 1.4rem;
-
-					+ li {
-						margin-left: 1.8rem;
-					}
-				}
-
-				i {
-					font-size: 1.3rem;
-					margin-right: .6rem;
-				}
-			}
-
-			.content-ncap {
-				@include font-semibold;
-				border-top: .1rem solid $color-ice;
-				border-bottom: .1rem solid $color-ice;
-				font-size: 1.2rem;
-				color: rgba($color-text, .7);
-				padding: 1rem 0;
-
-				> * {
-					display: inline-block;
-					vertical-align: middle;
-				}
-			}
-
-				.ncap-stars {
-					color: $color-gray;
-					font-size: 1.8rem;
-					display: inline-block;
-					margin-left: 1.2rem;
-
-					i.active {
-						color: $color-yellow;
-					}
-
-					i + i {
-						margin-left: .5rem;
-					}
-				}
-
-			.content-price {
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				padding: 1.5rem 0;
-			}
-
-				.price-current {
+				.info-ncap {
 					@include font-semibold;
-					font-size: 3.8rem;
-					color: $color-primary;
-				}
+					border-top: .1rem solid $color-ice;
+					border-bottom: .1rem solid $color-ice;
+					font-size: 1.2rem;
+					color: rgba($color-text, .7);
+					padding: 1rem 0;
 
-				.price-listing {
-					font-size: 1.4rem;
-					strong {
-						@include font-medium;
-						color: $color-text-light;
+					> * {
+						display: inline-block;
+						vertical-align: middle;
 					}
 
-					span {
-						text-decoration: line-through;
+					@include media {
+						padding: 1rem 1.5rem;
+						width: calc(100% + 3rem);
+						margin: 0 -1.5rem;
 					}
 				}
 
-			.content-costs {
-				position: relative;
-				padding: 1.4rem 0;
-				font-size: 1.4rem;
-				line-height: 1.6rem;
-				z-index: 2;
-			}
+					.ncap-stars {
+						color: $color-gray;
+						font-size: 1.8rem;
+						display: inline-block;
+						margin-left: 1.2rem;
 
-				.costs-sum {
+						i.active {
+							color: $color-yellow;
+						}
+
+						i + i {
+							margin-left: .5rem;
+						}
+					}
+
+				.info-price {
+					display: flex;
+					justify-content: space-between;
+					align-items: center;
+					padding: 1.5rem 0;
+				}
+
+					.price-current {
+						@include font-semibold;
+						font-size: 3.8rem;
+						color: $color-primary;
+
+						@include media {
+							font-size: 2.8rem;
+							line-height: 3.4rem;
+						}
+					}
+
+					.price-listing {
+						font-size: 1.4rem;
+						strong {
+							@include font-medium;
+							color: $color-text-light;
+						}
+
+						span {
+							text-decoration: line-through;
+						}
+					}
+
+				.info-costs {
 					position: relative;
-					background-color: $color-gray-light;
-					display: block;
-					width: 100%;
-					border-radius: $radius-general;
-					padding: 1.2rem 1.5rem;
-					text-align: left;
+					padding: 1.4rem 0;
+					font-size: 1.4rem;
+					line-height: 1.6rem;
+					z-index: 2;
 
-					&:after{
-						position: absolute;
-						right: 1.5rem;
-						opacity: .5;
-						font-size: .7rem;
-						color: $color-text;
-						@include icon('caret-down');
-						top: 50%;
-						transform: translate3d(0, -50%, 0);
-					}
-
-					strong {
-						color: $color-text-light;
+					@include media {
+						padding: 0;
 					}
 				}
 
-				.costs-wrap {
-					margin-top: .2rem;
-				}
-
-				.costs-list {
-					border-radius: $radius-general;
-					background-color: $color-ice;
-				}
-
-					.list-cost {
+					.costs-sum {
+						position: relative;
+						background-color: $color-gray-light;
+						display: block;
+						width: 100%;
+						border-radius: $radius-general;
 						padding: 1.2rem 1.5rem;
-						display: flex;
-						justify-content: space-between;
+						text-align: left;
+
+						&:after{
+							position: absolute;
+							right: 1.5rem;
+							opacity: .5;
+							font-size: .7rem;
+							color: $color-text;
+							@include icon('caret-down');
+							top: 50%;
+							transform: translate3d(0, -50%, 0);
+						}
+
+						strong {
+							color: $color-text-light;
+						}
 					}
 
-						.cost-info {
+					.costs-wrap {
+						margin-top: .2rem;
+					}
+
+					.costs-list {
+						border-radius: $radius-general;
+						background-color: $color-ice;
+					}
+
+						.list-cost {
+							padding: 1.2rem 1.5rem;
+							display: flex;
+							justify-content: space-between;
+						}
+
+							.cost-info {
+								margin-left: 1rem;
+								> i {
+									opacity: .5;
+									font-size: 1.2rem;
+								}
+							}
+
+							.cost-num {
+								width: 7rem;
+							}
+
+				.info-controls {
+					position: relative;
+					z-index: 1;	
+
+					@include media {
+						position: fixed;
+						bottom: 0;
+						left: 0;
+						width: 100%;
+						background: $color-white;
+						padding: 1rem 2rem;
+						z-index: 20;
+						border-top: .1rem solid $color-ice;
+					}
+				}
+
+					.controls-buttons {
+					}
+
+					.controls-button {
+						width: calc(50% - 1rem);
+						position: relative;
+						margin-bottom: .7rem;
+
+						&:first-child {
+							z-index: 2;
+						}
+
+						&:nth-child(2n+2) {
+							margin-left: 2rem;
+						}
+
+						&:disabled {
+							opacity: 1;
+							border-color: $color-gray-light;
+							color: $color-text-light;
+
+							&:hover, &:active {
+								background-color: transparent;
+							}
+						}
+					}
+
+					.controls-note {
+						color: $color-primary;
+						font-size: 1.2rem;
+					}
+			
+				.info-dealer {
+					background-color: $color-gray-light;
+					border-radius: $radius-general;
+					margin-top: 3rem;
+
+					@include media {
+						margin-top: 1.5rem;
+					}
+
+					.dealer-head{
+						padding: 2.7rem 2.1rem 2.7rem 5.3rem;
+						position: relative;
+					}
+
+					.dealer-badge {
+						position: absolute;
+						top: 2.8rem;
+						left: 2.1rem;
+						width: 2.2rem;
+						height: 2.2rem;
+						font-size: 2.2rem;
+						color: $color-primary;
+						display: inline-block;
+					}
+
+						.badge-icon {
+							color: $color-white;
+							font-size: 1.2rem;
+							position: absolute;
+							z-index: 2;
+							top: 53%;
+							left: 50%;
+							transform: translate3d(-50%, -50%, 0);
+						}
+
+					.dealer-title {
+						@include font-semibold;
+						font-size: 1.8rem;
+						text-decoration: underline;
+						text-transform: uppercase;
+						display: block;
+						padding-top: .2rem;
+					}
+
+					.dealer-info {
+						@include font-semibold;
+						margin-top: 1rem;
+						color: rgba($color-text, .5);
+						text-transform: uppercase;
+						font-size: 1.2rem;
+					}
+
+						.info-workinghours {
 							margin-left: 1rem;
-							> i {
-								opacity: .5;
-								font-size: 1.2rem;
+
+							span {
+								margin: 0 1rem;
+							}
+
+							&.open {
+								color: $color-success;
 							}
 						}
 
-						.cost-num {
-							width: 7rem;
+					.dealer-rep {
+						padding: 1.6rem 2rem 1.7rem;
+						border-top: .1rem solid rgba($color-text, .2);
+					}
+
+						.rep-image {
+							border-radius: 50%;
+							display: inline-block;
+							vertical-align: middle;
+							height: 3.6rem;
+							margin-right: 1rem;
 						}
 
-			.content-controls {
-				position: relative;
-				z-index: 1;	
-			}
-
-				.controls-buttons {
-				}
-
-				.controls-button {
-					width: calc(50% - 1rem);
-					position: relative;
-					margin-bottom: .7rem;
-
-					&:first-child {
-						z-index: 2;
-					}
-
-					&:nth-child(2n+2) {
-						margin-left: 2rem;
-					}
-
-					&:disabled {
-						opacity: 1;
-						border-color: $color-gray-light;
-						color: $color-text-light;
-
-						&:hover, &:active {
-							background-color: transparent;
-						}
-					}
-				}
-
-				.controls-note {
-					color: $color-primary;
-					font-size: 1.2rem;
-				}
-		
-			.content-dealer {
-				background-color: $color-gray-light;
-				border-radius: $radius-general;
-				margin-top: 3rem;
-
-				.dealer-head{
-					padding: 2.7rem 2.1rem 2.7rem 5.3rem;
-					position: relative;
-				}
-
-				.dealer-badge {
-					position: absolute;
-					top: 2.8rem;
-					left: 2.1rem;
-					width: 2.2rem;
-					height: 2.2rem;
-					font-size: 2.2rem;
-					color: $color-primary;
-					display: inline-block;
-				}
-
-					.badge-icon {
-						color: $color-white;
-						font-size: 1.2rem;
-						position: absolute;
-						z-index: 2;
-						top: 53%;
-						left: 50%;
-						transform: translate3d(-50%, -50%, 0);
-					}
-
-				.dealer-title {
-					@include font-semibold;
-					font-size: 1.8rem;
-					text-decoration: underline;
-					text-transform: uppercase;
-					display: block;
-					padding-top: .2rem;
-				}
-
-				.dealer-info {
-					@include font-semibold;
-					margin-top: 1rem;
-					color: rgba($color-text, .5);
-					text-transform: uppercase;
-					font-size: 1.2rem;
-				}
-
-					.info-workinghours {
-						margin-left: 1rem;
-
-						span {
-							margin: 0 1rem;
+						.rep-title {
+							@include font-medium;
+							display: inline-block;
+							vertical-align: middle;
+							font-size: 1.6rem;
 						}
 
-						&.open {
-							color: $color-success;
-						}
-					}
-
-				.dealer-rep {
-					padding: 1.6rem 2rem 1.7rem;
-					border-top: .1rem solid rgba($color-text, .2);
-				}
-
-					.rep-image {
-						border-radius: 50%;
-						display: inline-block;
-						vertical-align: middle;
-						height: 3.6rem;
-						margin-right: 1rem;
-					}
-
-					.rep-title {
-						@include font-medium;
-						display: inline-block;
-						vertical-align: middle;
-						font-size: 1.6rem;
-					}
-
-					.rep-role {
-						text-transform: uppercase;
-						color: rgba($color-text, .4);
-						display: inline-block;
-						vertical-align: middle;
-						font-size: 1.2rem;
-						margin-left: 1.5rem;
-					}
-
-				.dealer-controls {
-					display: flex;
-
-					> * {
-						min-width: 50%;
-						border-radius: 0;
-
-						&:nth-child(2n+1){
-							border-bottom-left-radius: $radius-general;
-							margin-right: .1rem;
+						.rep-role {
+							text-transform: uppercase;
+							color: rgba($color-text, .4);
+							display: inline-block;
+							vertical-align: middle;
+							font-size: 1.2rem;
+							margin-left: 1.5rem;
 						}
 
-						&:nth-child(2n+2){
-							border-bottom-right-radius: $radius-general;
+					.dealer-controls {
+						display: flex;
+
+						> * {
+							min-width: 50%;
+							border-radius: 0;
+
+							&:nth-child(2n+1){
+								border-bottom-left-radius: $radius-general;
+								margin-right: .1rem;
+							}
+
+							&:nth-child(2n+2){
+								border-bottom-right-radius: $radius-general;
+							}
 						}
 					}
 				}
-			}
-
 		}
 
 		&.detail-related {
@@ -753,12 +917,24 @@
 				height: 33rem;
 				display: inline-block;
 
+				@include media {
+					height: auto;
+				}
+
 				+ .banners-item {
 					margin-left: 4rem;
+
+					@include media {
+						margin: 1.5rem 0 0;
+					}
 				}
 
 				img {
 					height: 100%;
+
+					@include media {
+						height: auto;
+					}
 				}
 			}
 		}
