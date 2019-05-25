@@ -155,6 +155,7 @@ module.exports = {
 			exact: true,
 			linkTitle: "Profilim",
 			title: "Profilim",
+			requiresLogin: true,
 		},
 		notifications: {
 			path: "/hesabim/bildirimler",
@@ -162,6 +163,7 @@ module.exports = {
 			exact: true,
 			linkTitle: "Bildirimler",
 			title: "Bildirimler",
+			requiresLogin: true,
 		},
 		favorites: {
 			path: "/hesabim/favorilerim",
@@ -169,6 +171,7 @@ module.exports = {
 			exact: true,
 			linkTitle: "Favorilerim",
 			title: "Favorilerim",
+			requiresLogin: true,
 		},
 		messages: {
 			path: "/hesabim/mesajlarim",
@@ -176,6 +179,7 @@ module.exports = {
 			exact: true,
 			linkTitle: "Mesajlarım",
 			title: "Mesajlarım",
+			requiresLogin: true,
 		},
 		messageDetail: {
 			path: "/hesabim/mesajlarim/mesaj/:id",
@@ -183,6 +187,7 @@ module.exports = {
 			exact: true,
 			linkTitle: "Mesaj Detay",
 			title: "Mesaj Detay",
+			requiresLogin: true,
 		},
 		reservations: {
 			path: "/hesabim/rezervasyonlarim",
@@ -190,6 +195,7 @@ module.exports = {
 			exact: true,
 			linkTitle: "Rezerve Ettiklerim",
 			title: "Rezerve Ettiklerim",
+			requiresLogin: true,
 		},
 		login: {
 			path: "/hesabim/giris",
@@ -197,6 +203,23 @@ module.exports = {
 			exact: true,
 			linkTitle: "Giriş",
 			title: "Giriş",
+			requiresLogin: false,
+		},
+		register: {
+			path: "/hesabim/uye-ol",
+			component: "Register",
+			exact: true,
+			linkTitle: "Üye Ol",
+			title: "Üye Ol",
+			requiresLogin: false,
+		},
+		recovery: {
+			path: "/hesabim/sifremi-unuttum",
+			component: "Recovery",
+			exact: true,
+			linkTitle: "Şifremi Unuttum",
+			title: "Şifre Hatırlatma",
+			requiresLogin: false,
 		}
 	},
 	reservation: {

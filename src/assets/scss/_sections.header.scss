@@ -302,14 +302,30 @@
 						}
 					}
 
+				.menu-userbar {
+					@include font-regular;
+					margin-top: 2rem;
+					font-size: 1.6rem;
+					line-height: 3rem;
+					text-decoration: underline;
+					color: $color-turquoise;
+				}
+
+					.userbar-link {
+						+ .userbar-link {
+							margin-left: 2.9rem;
+						}
+					}
+
 				.menu-items {
 					@include font-extralight;
 					font-size: 3.2rem;
-					margin-top: 5rem;
+					margin-top: 1.3rem;
 
 					@include media {
 						font-size: 1.6rem;
 						border-bottom: .1rem solid rgba($color-text-negative, .1);
+						border-top: .1rem solid rgba($color-text-negative, .1);
 					}
 				}
 

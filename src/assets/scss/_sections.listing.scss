@@ -512,19 +512,6 @@
 			@include media {
 				padding: 0;
 			}
-
-			&.type-brand {
-				padding: 0;
-				.content-top {
-					display: none;
-				}
-			}
-
-			&.type-dealer {
-				.content-top {
-					display: none;
-				}
-			}
 		}
 
 			.content-top {

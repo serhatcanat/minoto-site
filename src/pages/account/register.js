@@ -1,7 +1,7 @@
 import React from 'react'
 
 // Partials
-import LoginForm from 'components/partials/form-login'
+import RegisterForm from 'components/partials/form-register'
 
 // Deps
 import { connect } from "react-redux"
@@ -14,7 +14,7 @@ const mapStateToProps = state => {
 	};
 };
 
-class Login extends React.Component {
+class Register extends React.Component {
 
 	componentDidMount() {
 		this.checkUser();
@@ -38,7 +38,7 @@ class Login extends React.Component {
 				<section className="section account-login">
 					<div className="wrapper narrow">
 						<div className="login-wrap">
-							<LoginForm type="self" />
+							<RegisterForm type="self" />
 						</div>
 					</div>
 				</section>
@@ -49,4 +49,4 @@ class Login extends React.Component {
 }
 
 
-export default connect(mapStateToProps)(Login);
+export default connect(mapStateToProps)(Register);

@@ -2,6 +2,8 @@ import React from 'react'
 
 // Pages
 import Login from 'pages/account/login'
+import Register from 'pages/account/register'
+import Recovery from 'pages/account/recovery'
 import Profile from 'pages/account/profile'
 import Notifications from 'pages/account/notifications'
 import Favorites from 'pages/account/favorites'
@@ -15,15 +17,17 @@ import Reservations from 'pages/account/reservations'
 //import Image from 'components/partials/image'
 import Link from 'components/partials/link'
 import Loader from 'components/partials/loader'
-import { renderRoutes } from 'controllers/navigator'
+import { renderRoutes, redirect } from 'controllers/navigator'
 
 // Deps
 import { connect } from "react-redux"
 import { checkLoginStatus } from "data/store.user"
-import { generatePath } from 'react-router';
+import isEqual from 'lodash/isEqual';
 
 const pageRegistry = {
 	Login: Login,
+	Register: Register,
+	Recovery: Recovery,
 	Profile: Profile,
 	Notifications: Notifications,
 	Favorites: Favorites,
@@ -35,6 +39,7 @@ const pageRegistry = {
 const mapStateToProps = state => {
 	return {
 		user: state.user.user,
+		currentPage: state.generic.currentPage,
 	};
 };
 
@@ -45,21 +50,39 @@ class Account extends React.Component {
 		this.state = {
 			loading: (props.user ? false : true)
 		}
+
+		this.checkLogin = this.checkLogin.bind(this);
 	}
 
 	componentDidMount() {
+		this.checkLogin();
+	}
+
+	componentDidUpdate(prevProps){
+		if(prevProps.currentPage.fullKey !== this.props.currentPage.fullKey){
+			this.checkLogin();
+		}
+		else if(this.props.user !== false && this.state.loading && !isEqual(prevProps.user, this.props.user)){
+			this.setState({loading: false});
+		}
+	}
+
+	checkLogin() {
 		let vm = this;
 
-		checkLoginStatus(function(status){
-			if(!status){
-				const path = generatePath(
-					vm.props.match.path,
-					{ page: 'giris' }
-				);
-  				vm.props.history.replace(path);
-			}
+		if(vm.props.currentPage.data.requiresLogin){
+			checkLoginStatus(function(status){
+				if(!status){
+					redirect('account.login');
+				}
+				else {
+					vm.setState({loading: false});
+				}
+			})
+		}
+		else {
 			vm.setState({loading: false});
-		})
+		}
 	}
 
 	render () {
@@ -67,20 +90,19 @@ class Account extends React.Component {
 		return (
 			<main className="page account loader-container">
 				<Loader loading={vm.state.loading} />
-				{(!vm.state.loading && vm.props.user) &&
+				{(!vm.state.loading && !(!vm.props.user && vm.props.currentPage.data.requiresLogin)) &&
 					<div className="section account-wrap">
-						<nav className="section account-nav">
-							<Link className="nav-item" navLink href="account.profile" />
-							<Link className="nav-item" navLink href="account.notifications" />
-							<Link className="nav-item" navLink href="account.favorites" />
-							<Link className="nav-item" navLink href="account.messages" exact={false} />
-							<Link className="nav-item" navLink href="account.reservations" />
-						</nav>
+						{vm.props.currentPage.data.requiresLogin &&
+							<nav className="section account-nav">
+								<Link className="nav-item" navLink href="account.profile" />
+								<Link className="nav-item" navLink href="account.notifications" />
+								<Link className="nav-item" navLink href="account.favorites" />
+								<Link className="nav-item" navLink href="account.messages" exact={false} />
+								<Link className="nav-item" navLink href="account.reservations" />
+							</nav>
+						}
 						{renderRoutes({group: 'account', registry: pageRegistry, catchRedirect: 'account.profile'})}
 					</div>
-				}
-				{(!vm.state.loading && !vm.props.user) &&
-					<Login />
 				}
 			</main>
 		)

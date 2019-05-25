@@ -1,6 +1,5 @@
 {
-	"status":"ok",
-	"user":{
+	"payload": {
 		"username":"yutonet",
 		"avatar":"/dummy/images/profile-picture.jpg",
 		"name":"Yunus",

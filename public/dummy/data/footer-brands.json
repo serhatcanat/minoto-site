@@ -1,6 +1,5 @@
 {
-	"status" : "ok",
-	"brands": [
+	"payload": [
 		{
 			"title" : "Acura",
 			"url": "/listing/?marka=acura",

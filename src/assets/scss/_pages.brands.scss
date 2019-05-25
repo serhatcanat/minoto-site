@@ -1,0 +1,18 @@
+.section{
+	&.brands-listing {
+		.listing-content.type-brand {
+			padding: 0;
+
+			@include media {
+				margin: 0 -1.5rem 2rem;
+				width: calc(100% + 3rem);
+			}
+
+			.content-top {
+				@include mediaMin {	
+					display: none;
+				}
+			}
+		}
+	}
+}

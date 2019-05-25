@@ -201,17 +201,32 @@
 		.contentbox-imagewrap {
 			padding-bottom: 50%;
 
+			@include media {
+				margin-top: .6rem;
+				padding-bottom: 65%;
+				margin-bottom: .6rem;
+			}
+
 			.contentbox-image {
 				top: 50%;
 				left: 50%;
 				width: 50%;
 				height: 50%;
 				transform: translate3d(-50%, -50%, 0);
+
+				@include media {
+					width: 75%;
+					height: 80%;
+				}
 			}
 		}
 
 		.contentbox-content {
 			padding: 0 2.2rem 1.5rem;
+
+			@include media {
+				padding: 0 0 1rem;
+			}
 		}
 
 		.contentbox-subtitle {
@@ -225,6 +240,10 @@
 			border-top: .1rem solid $color-gray-light;
 			padding: 1.5rem 0 0;
 			display: block;
+
+			@include media {
+				margin-top: .5rem;
+			}
 		}
 
 			.additions-title {

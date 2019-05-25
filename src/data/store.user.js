@@ -1,6 +1,6 @@
 import store from "data/store";
-import axios from 'axios';
 import Cookies from 'js-cookie';
+import request from 'controllers/request'
 
 const initialState = {
 	token: false,
@@ -41,23 +41,11 @@ export function checkLoginStatus(endFunction = false) {
 
 	//if(session){
 		if(!store.getState().user.initialized){
-			axios.get('/dummy/data/login.json', {
-				params: {
-					session: session
-				}
-			})
-			.then(res => {
-				if(res.data.status === 'ok'){
-					if(res.data.user && res.data.user !== false){
-						store.dispatch(setUserData(res.data.user));
-						if(endFunction){
-							endFunction(true);
-						}
-					}
-					else{
-						if(endFunction){
-							endFunction(false);
-						}
+			request.get('/dummy/data/login.json', { session: session }, function(payload){
+				if(payload){
+					store.dispatch(setUserData(payload));
+					if(endFunction){
+						endFunction(true);
 					}
 				}
 				else{
@@ -65,9 +53,6 @@ export function checkLoginStatus(endFunction = false) {
 						endFunction(false);
 					}
 				}
-
-			}).then(() => {
-				//store.dispatch(setUserInitialized(true));
 			});
 		}
 	/*}

@@ -10,8 +10,8 @@ import Responsive from 'components/partials/responsive'
 import {formatNumber} from 'functions/helpers'
 
 // Deps
-import axios from 'axios'
 import { connect } from "react-redux";
+import request from 'controllers/request'
 
 // Assets
 import image_icon_facebook from 'assets/images/icon/facebook.svg'
@@ -39,7 +39,15 @@ class Footer extends React.Component {
 
 	initialize(){
 		let vm = this;
-		axios.get('/dummy/data/footer-brands.json').then(res => {
+		request.get('/dummy/data/footer-brands.json', {}, function(payload){
+			if(payload){
+				vm.setState({
+					brands: payload
+				});
+			}
+		});
+
+		/*axios.get('/dummy/data/footer-brands.json').then(res => {
 			if(res.data.status === 'ok'){
 				vm.setState({
 					brands: res.data.brands
@@ -48,7 +56,7 @@ class Footer extends React.Component {
 			else {
 				console.log('error');
 			}
-		})
+		})*/
 	}
 
 	render() {

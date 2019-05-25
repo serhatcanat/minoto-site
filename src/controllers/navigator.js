@@ -69,6 +69,12 @@ const pageRegistry = {
 }
 
 export default class Navigator extends React.Component {
+	constructor(props) {
+		super(props);
+
+		changePage();
+	}
+
 	componentDidMount() {
 		window.dynamicHistory = history;
 
@@ -76,8 +82,6 @@ export default class Navigator extends React.Component {
 			let route = getRouteFromUrl(e.pathname, false, true);
 			changePage(route[0], route[1]);
 		});
-
-		changePage();
 	}
 
 	render () {
@@ -163,8 +167,16 @@ export function getRouteFromUrl(url = false, getObject = false, includeCatch = f
 			let route = routes[groupKey][key];
 			if(route.path){
 				let match = matchPath(url, route.path);
-				if (match && match.isExact) {
-					returnRoute = (getObject ? route : [key, groupKey]);
+				if (match && match.isExact) 
+				{
+					if(getObject){
+						returnRoute = route;
+						returnRoute.key = key;
+						returnRoute.groupKey = groupKey;
+					}
+					else{
+						returnRoute = [key, groupKey];
+					}
 				}
 			}
 			else if(includeCatch) {
@@ -196,9 +208,16 @@ export function changeURLParam(value, param, route = false, noMismatch = false) 
 
 export function changePage(key = false, group = 'pages'){
 	let route = (key ? routes[group][key] : getRouteFromUrl(false, true, true));
+	if(route.key){
+		key = route.key;
+		group = route.groupKey;
+	}
 	setTitle(route.title);
+
 	let pageData = {
 		key: key,
+		group: group,
+		fullKey: group+"."+key,
 		data: route
 	}
 	if(store.getState().generic.currentPage.key !== key){

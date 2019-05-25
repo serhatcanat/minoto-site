@@ -1,15 +1,31 @@
 .section{
 	&.dealers-listing {
-		.listing-content {
+		.listing-content.type-dealer {
 			padding: 0;
-		}
+
+			@include media {
+				margin: 0 -1.5rem 2rem;
+				width: calc(100% + 3rem);
+			}
+
+			.content-top {
+				@include mediaMin {
+					display: none;
+				}
+			}
 
 			.content-results {
 				padding: 0;
+
+				@include media {
+					padding: .75rem;
+				}
 			}
 
 				.results-item{
-					padding: 0;
+					@include mediaMin {	
+						padding: 0;
+					}
 
 					.contentbox{
 						&:before{ display: none; }
@@ -21,10 +37,14 @@
 						}
 
 						.contentbox-innerwrap {
-							border-left: none;
-							border-top: none;
+							@include mediaMin {	
+								border-left: none;
+								border-top: none;
+							}
 						}
 					}
 				}
+		}
+
 	}
 }

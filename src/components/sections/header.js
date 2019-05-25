@@ -24,6 +24,7 @@ const mapStateToProps = state => {
 	return {
 		currentPage: state.generic.currentPage,
 		user: state.user.user,
+		//mobile: state.generic.mobile,
 	};
 };
 
@@ -101,10 +102,10 @@ class Header extends React.Component {
 								</div>
 							}
 							{!user &&
-								<button className="nav-link" onClick={() => {openModal('register')}}>Üye Ol</button>
+								<button className="nav-link" onClick={() => { openModal('register')}}>Üye Ol</button>
 							}
 							{!user &&
-								<button className="nav-link" onClick={() => {openModal('login')}}>Giriş Yap</button>
+								<button className="nav-link" onClick={() => { openModal('login')}}>Giriş Yap</button>
 							}
 						</Responsive>
 
@@ -139,6 +140,20 @@ class Header extends React.Component {
 													</Link>
 												</div>
 											</div>
+
+											<Responsive type="only-mobile">
+												<div className="menu-userbar">
+													{user &&
+														<Link className="userbar-link" href="account.profile">Hesabım</Link>
+													}
+													{!user &&
+														<button className="userbar-link" onClick={() => { vm.toggleMenu(); openModal('register')}}>Üye Ol</button>
+													}
+													{!user &&
+														<button className="userbar-link" onClick={() => { vm.toggleMenu(); openModal('login')}}>Giriş Yap</button>
+													}
+												</div>
+											</Responsive>
 
 											<ul className="menu-items">
 												<li className="menu-item">

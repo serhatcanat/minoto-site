@@ -29,6 +29,14 @@
 	}
 }
 
+@mixin mediaMin($width : 960){
+	$wpx: ($width * 1px);
+
+	@media (min-width: $wpx){
+		@content;
+	}
+}
+
 @mixin calcFontSize($screenWidth){
 	font-size: (1000/$screenWidth) * 1vw;
 }

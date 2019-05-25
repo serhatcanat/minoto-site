@@ -1,0 +1,104 @@
+.section.loginform {
+
+	.loginform-title {
+		@include font-regular;
+		line-height: 2.6rem;
+		color: $color-primary;
+		text-align: center;
+		font-size: 2.4rem;
+		margin-bottom: 3rem;
+	}
+
+	.loginform-form{}
+
+		.form-field {
+			+ .form-field {
+				margin-top: 1.7rem;
+			}
+
+			&.type-checkbox {
+				color: $color-text-light;
+
+				.checkwrap {
+					@include font-regular;
+				}
+			}
+		}
+
+	.loginform-nav {
+		@include font-medium;
+		color: $color-text-light;
+		margin-top: .9rem;
+		font-size: 1.4rem;
+		display: flex;
+		justify-content: space-between;
+
+		@include media {
+			margin-top: 2.8rem;
+		}
+
+		&.center {
+			justify-content: center;
+			margin-top: 3rem;
+		}
+
+		.nav-btn {
+			color: $color-primary;
+
+			i {
+				margin-right: .4rem;
+			}
+		}
+	}
+
+	.loginform-others {
+		margin-top: 1.7rem;
+	}
+
+		.others-seperator {
+			@include font-regular;
+			color: $color-text-light;
+			text-align: center;
+			margin-bottom: 2.2rem;
+			position: relative;
+			font-size: 1.4rem;
+
+			&:before {
+				@include pseudo;
+				position: absolute;
+				top: 50%;
+				left: 0;
+				width: 100%;
+				z-index: 1;
+				height: .1rem;
+				background-color: $color-ice;
+			}
+
+			span {
+				display: inline-block;
+				position: relative;
+				z-index: 2;
+				background-color: $color-white;
+				padding: 0 1.5rem;
+			}
+		}
+
+		.others-opt {
+			+ .others-opt {
+				margin-top: 2rem;
+			}
+		}
+
+	&.type-self {
+		.loginform-title {
+			@include font-semibold;
+			font-size: 3.2rem;
+			text-align: left;
+
+			@include media {
+				font-size: 1.8rem;
+				margin-bottom: 2.2rem;
+			}
+		}
+	}
+}
