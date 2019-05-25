@@ -4,6 +4,7 @@ import React from 'react'
 import Loader from 'components/partials/loader'
 import Link from 'components/partials/link'
 import Image from 'components/partials/image'
+import Responsive from 'components/partials/responsive'
 
 // Deps
 //import { connect } from "react-redux"
@@ -58,20 +59,25 @@ export default class Messages extends React.Component {
 								<li key={nth} className="list-item">
 									<Link className="item-link" href={"/hesabim/mesajlarim/mesaj/"+message.id}>
 										<Image src={message.sender.avatar ? message.sender.avatar : image_avatar} className="item-avatar" bg />
-										<div className="item-senderinfo">
-											<p className="senderinfo-title">{message.sender.title}</p>
-											<p className="senderinfo-subtitle">{message.sender.subtitle}</p>
-										</div>
-										<strong className="item-title">{message.title}</strong>
-										<div className="item-info">
-											<div className="info-field">
-												<strong>İlan No:</strong> {message.advertID}
+										<div className="item-content">
+											<div className="item-senderinfo">
+												<p className="senderinfo-title">{message.sender.title}</p>
+												<Responsive type="only-mobile">
+													<p className="senderinfo-datetime">{message.time}</p>
+												</Responsive>
+												<p className="senderinfo-subtitle">{message.sender.subtitle}</p>
 											</div>
-											<div className="info-field">
-												{message.time}
-											</div>
-											<div className="info-field">
-												<button type="button" onClick={(e) => { e.preventDefault(); this.deleteConversation(message); }}><i className="icon-trash"></i></button>
+											<strong className="item-title">{message.title}</strong>
+											<div className="item-info">
+												<div className="info-field">
+													<strong>İlan No:</strong> {message.advertID}
+												</div>
+												<div className="info-field">
+													{message.time}
+												</div>
+												<div className="info-field">
+													<button type="button" onClick={(e) => { e.preventDefault(); this.deleteConversation(message); }}><i className="icon-trash"></i></button>
+												</div>
 											</div>
 										</div>
 									</Link>

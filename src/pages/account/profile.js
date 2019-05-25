@@ -66,15 +66,19 @@ class Profile extends React.Component {
 				<div className="profile-wrap wrapper narrow">
 					<aside className="profile-sum">
 						<Image className="sum-image" bg src={(user.avatar ? user.avatar : image_avatar)} />
-						<h1 className="sum-name">{user.name}</h1>
-						<p className="sum-location"><i className="icon-marker"></i> {user.location}</p>
-
-						<div className="sum-completion">
-							<div className="completion-bar">
-								<div className="bar-progress" style={{width: user.profileCompletion+'%'}}></div>
+						<div className="sum-content">
+							<div className="content-bio">
+								<h1 className="bio-name">{user.name}</h1>
+								<p className="bio-location"><i className="icon-marker"></i> {user.location}</p>
 							</div>
 
-							<div className="completion-status">Profiliniz <span>%{user.profileCompletion}</span> dolu</div>
+							<div className="content-completion">
+								<div className="completion-bar">
+									<div className="bar-progress" style={{width: user.profileCompletion+'%'}}></div>
+								</div>
+
+								<div className="completion-status">Profiliniz <span>%{user.profileCompletion}</span> dolu</div>
+							</div>
 						</div>
 					</aside>
 

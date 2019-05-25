@@ -5,48 +5,80 @@
 		padding: 1.9rem 0;
 		margin-bottom: 3.4rem;
 
+		@include media {
+			border-bottom: none;
+			text-align: left;
+			overflow: auto;
+			overflow-y: hidden;
+			overflow-x: auto;
+			padding-bottom: 0;
+		}
+
+		.nav-innerwrap {
+			@include media {
+				border-bottom: .3rem solid $color-gray-light;
+				padding: 0 1.5rem;
+				display: inline-block;
+				white-space: nowrap;
+			}
+		}
+
 		.nav-item {
-			 @include font-medium;
-			 position: relative;
-			 display: inline-block;
-			 font-size: 1.4rem;
-			 line-height: 2.4rem;
-			 padding-bottom: 1rem;
-			 transition:  color $transition-hover ease;
-			 text-transform: uppercase;
+			@include font-medium;
+			position: relative;
+			display: inline-block;
+			font-size: 1.4rem;
+			line-height: 2.4rem;
+			padding-bottom: 1rem;
+			transition:  color $transition-hover ease;
+			text-transform: uppercase;
 
-			 &:before {
-			 	@extend %pseudo;
-			 	position: absolute;
-			 	height: .4rem;
-			 	left: 0;
-			 	bottom: 0;
-			 	width: 100%;
-			 	background: $color-primary;
-			 	transform: scaleX(0);
-			 	opacity: 0;
-			 	transition: opacity $transition-hover ease, transform $transition-hover ease;
-			 }
+			@include media {
+				margin-bottom: -.3rem;
+				padding-bottom: 2.1rem;
+				line-height: 1.7rem;
+				color: $color-text-light;
+			}
 
-			 + .nav-item {
-			 	margin-left: 4.7rem;
-			 }
+			&:before {
+				@extend %pseudo;
+				position: absolute;
+				height: .4rem;
+				left: 0;
+				bottom: 0;
+				width: 100%;
+				background: $color-primary;
+				transform: scaleX(0);
+				opacity: 0;
+				transition: opacity $transition-hover ease, transform $transition-hover ease;
+			}
 
-			 &.active {
-			 	color: $color-primary;
-			 	&:before {
-			 		transform: scaleX(1);
-			 		opacity: 1;
-			 	}
-			 }
+			+ .nav-item {
+				margin-left: 4.7rem;
 
-			 &:hover {
-		 		color: $color-primary;
-			 	&:before {
-			 		transform: scaleX(.5);
-			 		opacity: .9;
-			 	}
-			 }
+				@include media {
+					margin-left: 2.2rem;
+				}
+			}
+
+			&.active {
+				color: $color-primary;
+				&:before {
+					transform: scaleX(1);
+					opacity: 1;
+				}
+			}
+
+			&:hover {
+				color: $color-primary;
+
+				@include mediaMin {
+					&:before {
+						transform: scaleX(.5);
+						opacity: .9;
+					}
+				}
+			}
 		}
 	}
 
@@ -60,6 +92,10 @@
 			display: flex;
 			justify-content: space-between;
 			align-items: flex-start;
+
+			@include media {
+				display: block;
+			}
 		}
 
 		.profile-sum {
@@ -68,6 +104,14 @@
 			border-radius: $radius-big;
 			border: .1rem solid $color-gray-light;
 			padding: 2rem 1rem 0;
+
+			@include media {
+				width: auto;
+				display: flex;
+				flex-flow: row wrap;
+				align-items: center;
+				padding: 1.4rem 1.5rem 1.3rem 1.4rem;
+			}
 		}
 
 			.sum-image {
@@ -75,61 +119,103 @@
 				height: 12rem;
 				border-radius: 50%;
 				margin: 0 auto;
+
+				@include media{
+					width: 7.3rem;
+					height: 7.3rem;
+				}
 			}
 
-			.sum-name {
-				@include font-medium;
-				font-size: 1.8rem;
-				line-height: 2.2rem;
+			.sum-content {
 				margin-top: .9rem;
-			}
 
-			.sum-location {
-				font-size: 1.4rem;
-				color: $color-text-light;
-				margin-top: .7rem;
-				line-height: 1.8rem;
-
-				i {
-					margin-right: .2rem;
+				@include media {
+					flex: 1;
+					margin-left: 3rem;
+					margin-top: 0;
 				}
 			}
 
-			.sum-completion {
-				border-top: .1rem solid $color-gray-light;
-				padding: 3rem 0 3rem;
-				margin-top: 2.6rem;
-			}
-
-				.completion-bar {
-					height: 1rem;
-					border-radius: .5rem;
-					background-color: $color-gray-light;
-					overflow: hidden;
+				.content-bio {
+					@include media {
+						display: flex;
+						justify-content: space-between;
+						align-items: center;
+					}
 				}
 
-					.bar-progress {
-						background-color: $color-primary;
-						width: 10%;
-						height: 100%;
-						transform-origin: 0 50%;
+					.bio-name {
+						@include font-medium;
+						font-size: 1.8rem;
+						line-height: 2.2rem;
+					}
+
+					.bio-location {
+						font-size: 1.4rem;
+						color: $color-text-light;
+						margin-top: .7rem;
+						line-height: 1.8rem;
+
+						@include media {
+							margin-top: 0;
+							color: inherit;
+						}
+
+						i {
+							margin-right: .2rem;
+						}
+					}
+
+				.content-completion {
+					border-top: .1rem solid $color-gray-light;
+					padding: 3rem 0 3rem;
+					margin-top: 2.6rem;
+
+					@include media {
+						padding: 0;
+						margin-top: 1.3rem;
+						text-align: left;
+					}
+				}
+
+					.completion-bar {
+						height: 1rem;
 						border-radius: .5rem;
-						transition: width $transition-anim ease;
+						background-color: $color-gray-light;
+						overflow: hidden;
 					}
 
-				.completion-status {
-					@include font-regular;
-					margin-top: 2rem;
-					font-size: 1.4rem;
-					color: rgba($color-text, .6);
+						.bar-progress {
+							background-color: $color-primary;
+							width: 10%;
+							height: 100%;
+							transform-origin: 0 50%;
+							border-radius: .5rem;
+							transition: width $transition-anim ease;
+						}
 
-					span {
-						color: rgba($color-primary, .6);
+					.completion-status {
+						@include font-regular;
+						margin-top: 2rem;
+						font-size: 1.4rem;
+						color: rgba($color-text, .6);
+
+						@include media {
+							margin-top: .9rem;
+						}
+
+						span {
+							color: rgba($color-primary, .6);
+						}
 					}
-				}
 
 		.profile-form {
 			width: calc(100% - 30rem);
+
+			@include media {
+				width: auto;
+				margin-top: 2.1rem;
+			}
 		}
 
 			.form-title {
@@ -139,6 +225,13 @@
 				padding-bottom: 2rem;
 				border-bottom: .1rem solid $color-gray-light;
 				margin-bottom: 2rem;
+
+				@include media {
+					font-size: 2rem;
+					line-height: 2.4rem;
+					padding-bottom: 1.4rem;
+					margin-bottom: 1.4rem;
+				}
 			}
 
 			.form-group {
@@ -149,10 +242,18 @@
 
 			.form-submit {
 				margin-top: 3.4rem;
+
+				@include media {
+					width: 100%;
+				}
 			}
 
 			.form-inputwrap {
 				width: 44rem;
+
+				@include media {
+					width: auto;
+				}
 
 				+ .form-inputwrap {
 					margin-top: 2.6rem;
@@ -187,7 +288,7 @@
 				font-size: 2.4rem;
 				line-height: 2.8rem;
 				padding-bottom: 1.6rem;
-				border-bottom: .1rem solid $color-gray-light;
+				border-bottom: .1rem solid $color-ice;
 			}
 
 			.group-items {
@@ -199,11 +300,15 @@
 					font-size: 1.5rem;
 					line-height: 2.1rem;
 					padding: 1.5rem 2rem;
-					border-bottom: .1rem solid $color-gray-light;
+					border-bottom: .1rem solid $color-ice;
 					display: flex;
 					align-items: center;
 					flex-direction: row;
 					flex-wrap: wrap;
+
+					@include media {
+						align-items: flex-start;
+					}
 
 					&.unread {
 						background-color: rgba($color-gray-light, .6);
@@ -221,6 +326,10 @@
 						border-radius: 50%;
 						border: .1rem solid $color-gray-light;
 						margin-right: 1.7rem;
+					}
+
+					.notification-content {
+						flex: 1;
 					}
 
 					.notification-datetime {
@@ -263,12 +372,29 @@
 					display: flex;
 					flex-flow: row wrap;
 					align-items: center;
+
+					@include media {
+						align-items: flex-start;
+						padding: 1.6rem 1.4rem 1.6rem 1.9rem;
+					}
 				}
 
 				.item-avatar {
 					width: 5rem;
 					height: 5rem;
 					border-radius: 50%;
+				}
+
+				.item-content {
+					flex: 1;
+					display: flex;
+					align-items: center;
+					flex-flow: row wrap;
+
+					@include media {
+						display: block;
+						margin-left: 2.3rem;
+					}
 				}
 
 				.item-senderinfo {
@@ -279,15 +405,27 @@
 					padding: 0 1rem;
 					width: 11rem;
 
-					&:after {
-						@include pseudo;
-						position: absolute;
-						right: 0;
-						height: 2.2rem;
-						width: .1rem;
-						top: 50%;
-						transform: translate3d(0, -50%, 0);
-						background-color: rgba($color-text, .6);
+					@include media {
+						width: auto;
+						text-align: left;
+						display: flex;
+						justify-content: space-between;
+						align-items: flex-end;
+						flex-flow: row wrap;
+						padding: 0;
+					}
+
+					@include mediaMin {
+						&:after {
+							@include pseudo;
+							position: absolute;
+							right: 0;
+							height: 2.2rem;
+							width: .1rem;
+							top: 50%;
+							transform: translate3d(0, -50%, 0);
+							background-color: rgba($color-text, .6);
+						}
 					}
 				}
 
@@ -296,8 +434,17 @@
 						margin-bottom: .2rem;
 					}
 
+					.senderinfo-datetime {
+						color: $color-text-light;
+					}
+
 					.senderinfo-subtitle {
 						color: rgba($color-text, .6);
+
+						@include media {
+							width: 100%;
+							margin-top: .5rem;
+						}
 					}
 
 				.item-title {
@@ -306,10 +453,20 @@
 					line-height: 1.9rem;
 					margin-left: 2.1rem;
 					flex-grow: 2;
+
+					@include media {
+						margin-left: 0;
+						margin-top: .5rem;
+						display: block;
+					}
 				}
 
 				.item-info {
 					white-space: nowrap;
+
+					@include media {
+						display: none;
+					}
 				}
 
 					.info-field {

@@ -94,11 +94,13 @@ class Account extends React.Component {
 					<div className="section account-wrap">
 						{vm.props.currentPage.data.requiresLogin &&
 							<nav className="section account-nav">
-								<Link className="nav-item" navLink href="account.profile" />
-								<Link className="nav-item" navLink href="account.notifications" />
-								<Link className="nav-item" navLink href="account.favorites" />
-								<Link className="nav-item" navLink href="account.messages" exact={false} />
-								<Link className="nav-item" navLink href="account.reservations" />
+								<div className="nav-innerwrap">
+									<Link className="nav-item" navLink href="account.profile" />
+									<Link className="nav-item" navLink href="account.notifications" />
+									<Link className="nav-item" navLink href="account.favorites" />
+									<Link className="nav-item" navLink href="account.messages" exact={false} />
+									<Link className="nav-item" navLink href="account.reservations" />
+								</div>
 							</nav>
 						}
 						{renderRoutes({group: 'account', registry: pageRegistry, catchRedirect: 'account.profile'})}
