@@ -4,6 +4,7 @@ import React from 'react'
 import Loader from 'components/partials/loader'
 import Link from 'components/partials/link'
 import Image from 'components/partials/image'
+import Responsive from 'components/partials/responsive'
 
 // Deps
 //import { connect } from "react-redux"
@@ -56,7 +57,9 @@ export default class Reservations extends React.Component {
 												<div>{reservation.datetime}</div>
 											</div>
 										</div>
-										<button className="content-cancel" onClick={(e) => { e.preventDefault(); }} disabled={reservation.status !== 1}>Rez. iptal et</button>
+										<Responsive type="only-web">
+											<button className="content-cancel" onClick={(e) => { e.preventDefault(); }} disabled={reservation.status !== 1}>Rez. iptal et</button>
+										</Responsive>
 									</div>
 								</Link>
 							</li>

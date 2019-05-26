@@ -668,12 +668,15 @@
 					padding: 2.1rem 2.3rem 2.3rem;
 					display: flex;
 					align-items: center;
+
+					@include media {
+						padding: 1.6rem;
+					}
 				}
 
 				.reservation-image {
 					width: 10rem;
 					height: auto;
-					margin-right: 3.6rem;
 				}
 
 				.reservation-content {
@@ -681,6 +684,13 @@
 					justify-content: space-between;
 					align-items: center;
 					flex: 1;
+					margin-left: 3.6rem;
+
+					@include media {
+						display: block;
+						margin-left: 1.8rem;
+						overflow: hidden;
+					}
 				}
 
 					.content-title {
@@ -688,6 +698,14 @@
 						display: block;
 						font-size: 1.8rem;
 						line-height: 2.2rem;
+
+						@include media {
+							font-size: 1.6rem;
+							line-height: 1.9rem;
+							white-space: nowrap;
+							overflow: hidden;
+							text-overflow: ellipsis;
+						}
 					}
 
 					.content-dealer {
@@ -696,6 +714,10 @@
 						line-height: 1.4rem;
 						margin-top: .5rem;
 						color: rgba($color-text, .5);
+						
+						@include media {
+							margin-top: .6rem;
+						}
 					}
 
 					.content-info {
