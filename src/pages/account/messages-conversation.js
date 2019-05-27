@@ -5,6 +5,7 @@ import Loader from 'components/partials/loader'
 import Link from 'components/partials/link'
 import Image from 'components/partials/image'
 import Btn from 'components/partials/btn'
+import Responsive from 'components/partials/responsive'
 import { FormInput, InputForm } from 'components/partials/forms'
 
 // Deps
@@ -87,8 +88,14 @@ class MessageDetail extends React.Component {
 				{conversation &&
 					<div className="wrapper narrow">
 						<div className="conversation-head">
-							<Link href="account.messages"><i className="icon-angle-left"></i></Link>
-							<span className="head-advertid">İlan no: {conversation.advertID}</span>
+							<Link className="head-back" href="account.messages">
+								<i className="icon-angle-left"></i>
+								<Responsive type="only-mobile"><span>Geri Dön</span></Responsive>
+							</Link>
+							<Responsive>
+								<span className="head-advertid">İlan no: {conversation.advertID}</span>
+								<Link className="head-advertlink" href="detail" params={{id: conversation.advertID, slug: conversation.advertSlug}}>İlana Git</Link>
+							</Responsive>
 						</div>
 						{conversation.sender.dealer &&
 							<Link className="conversation-dealer" href="dealer" params={{id: conversation.sender.dealer.id}}>
@@ -99,7 +106,11 @@ class MessageDetail extends React.Component {
 
 						{conversation.sender &&
 							<div className="conversation-sender">
-								<Image className="sender-avatar" bg src={(conversation.sender.avatar ? conversation.sender.avatar : image_avatar)} /> <span>{conversation.sender.title}</span>
+								<Image className="sender-avatar" bg src={(conversation.sender.avatar ? conversation.sender.avatar : image_avatar)} />
+								<span className="sender-name">{conversation.sender.title}</span>
+								<Responsive type="only-mobile">
+									<span className="sender-advertid">İlan no: {conversation.advertID}</span>
+								</Responsive>
 							</div>
 						}
 

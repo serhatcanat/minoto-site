@@ -3,6 +3,7 @@ import React from 'react'
 // Partials
 //import Link from 'components/partials/link'
 import Image from 'components/partials/image'
+import Responsive from 'components/partials/responsive'
 import Btn from 'components/partials/btn'
 import { FormInput } from 'components/partials/forms'
 import { openModal } from "functions/modals";
@@ -47,22 +48,28 @@ export default class ReservationNav extends React.Component {
 								<Image className="imagewrap-image" src={reservation.product.image} />
 								<span className="imagewrap-price">{formatNumber(reservation.product.price)} TL</span>
 							</div>
-							<p className="advertinfo-id"><strong>İlan No:</strong> {reservation.product.id}</p>
-							<p className="advertinfo-title">{reservation.product.title}</p>
-							<div className="advertinfo-info dealer">
-								<strong>Rezerve Edilen Bayi:</strong> <span>{reservation.product.dealer.title}</span>
-							</div>
-							<div className="advertinfo-info price">
-								<strong>Rezerve Edilen Bayi:</strong> <span>{formatNumber(reservation.price)} TL</span>
+							<div className="advertinfo-content">
+								<p className="content-id"><strong>İlan No:</strong> {reservation.product.id}</p>
+								<p className="content-title">{reservation.product.title}</p>
+								<div className="content-info dealer">
+									<strong><Responsive type="only-web">Rezerve Edilen </Responsive>Bayi:</strong> <span>{reservation.product.dealer.title}</span>
+								</div>
+								<div className="content-info price">
+									<strong>Rezerve Ücreti:</strong> <span>{formatNumber(reservation.price)} TL</span>
+								</div>
 							</div>
 						</div>
 						{this.props.section === 'info' && 
-							<Btn tag="link" block uppercase href="reservation.payment" params={{id: reservation.product.id}}>Rezerve Etmek İstiyorum</Btn>
+							<div className="sidebar-controls">
+								<Btn tag="link" block uppercase href="reservation.payment" params={{id: reservation.product.id}}>Rezerve Etmek İstiyorum</Btn>
+							</div>
 						}
 						{this.props.section === 'payment' && 
-							<div className="sidebar-agreement">
-								<FormInput type="checkbox" value={this.state.agreementSelected} onChange={this.agreementChanged}><button type="button" className="agreement-link" onClick={() => { openModal('text', {content: agreement, title: "Ön Bilgilendirme Koşulları"})}}>Ön Bilgilendirme Koşulları</button>'nı okudum, onaylıyorum.</FormInput>
-								<Btn block uppercase onClick={this.proceed}>Rezerve Etmek İstiyorum</Btn>
+							<div className="sidebar-controls">
+								<div className="sidebar-agreement">
+									<FormInput type="checkbox" value={this.state.agreementSelected} onChange={this.agreementChanged}><button type="button" className="agreement-link" onClick={() => { openModal('text', {content: agreement, title: "Ön Bilgilendirme Koşulları"})}}>Ön Bilgilendirme Koşulları</button>'nı okudum, onaylıyorum.</FormInput>
+									<Btn block uppercase onClick={this.proceed}>Rezerve Etmek İstiyorum</Btn>
+								</div>
 							</div>
 						}
 					</div>

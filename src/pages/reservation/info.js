@@ -2,6 +2,7 @@ import React from 'react'
 
 // Partials
 import Image from 'components/partials/image'
+import Responsive from 'components/partials/responsive'
 import Loader from 'components/partials/loader'
 import ReservationNav from 'components/partials/reservation/nav'
 import ReservationSidebar from 'components/partials/reservation/sidebar'
@@ -68,8 +69,9 @@ export default class Info extends React.Component {
 										</div>
 									</div>
 								</div>
-
-								<Image className="info-logo" src={image_info} />
+								<Responsive type="only-web">
+									<Image className="info-logo" src={image_info} />
+								</Responsive>
 							</section>
 						</div>
 					</div>

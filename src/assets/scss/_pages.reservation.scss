@@ -2,7 +2,10 @@
 	&.reservation-layout {
 		display: flex;
 		justify-content: flex-end;
-		flex: 1;
+
+		@include media {
+			flex-flow: row wrap;
+		}
 
 		.layout-content {
 			flex: 1;
@@ -12,15 +15,32 @@
 			padding-top: 4.3rem;
 			padding-bottom: 7rem;
 
+			@include media {
+				width: 100%;
+				order: 2;
+				display: block;
+				padding: 2.5rem 1.5rem 1.8rem;
+			}
+
 			.content-innerwrap {
 				width: calc(86.5% - 7rem);
 				max-width: 93.7rem;
+
+				@include media {
+					width: auto;
+					max-width: none;
+				}
 			}
 
 			.content-nav {
 				margin-bottom: 6.6rem;
 				display: flex;
 				justify-content: flex-start;
+
+				@include media {
+					margin-bottom: 2.8rem;
+					justify-content: space-between;
+				}
 			}
 
 				.nav-item {
@@ -33,8 +53,18 @@
 					border-radius: $radius-general;
 					color: $color-text-light;
 
+					@include media {
+						width: 10.5rem;
+						height: 6.5rem;
+						border-color: $color-ice;
+					}
+
 					+ .nav-item {
 						margin-left: 4rem;
+
+						@include media {
+							margin-left: 0;
+						}
 					}
 
 					&.active {
@@ -54,15 +84,10 @@
 
 					.item-icon {
 						font-size: 3.5rem;
-						width: 3.5rem;
-						height: 3.5rem;
 						text-align: center;
 
-						&.check {
-							border: .2rem solid;
-							border-radius: 50%;
-							font-size: 1.6rem;
-							line-height: 3.3rem;
+						@include media {
+							font-size: 2.7rem;
 						}
 					}
 
@@ -73,6 +98,13 @@
 						text-align: left;
 						font-size: 1.6rem;
 						line-height: 1.9rem;
+
+						@include media {
+							font-size: 1.4rem;
+							line-height: 1.6rem;
+							margin-left: .7rem;
+							width: auto;
+						}
 
 						strong {
 							@include font-semibold;
@@ -85,19 +117,40 @@
 		.layout-sidebar {
 			width: 28.125%;
 			background-color: rgba($color-gray-light, .8);
+
+			@include media {
+				width: 100%;
+				order: 1;
+			}
 			
 			.sidebar-content{
 				max-width: 35rem;
 				width: 77.777%;
 				padding: 5rem 0 5rem 5rem;
+
+				@include media {
+					width: auto;
+					max-width: none;
+					padding: 1.5rem 1.5rem;
+				}
 			}
 
 			.sidebar-advertinfo{
 				margin-bottom: 3.1rem;
+
+				@include media {
+					margin-bottom: 0;
+					display: flex;
+					align-items: center;
+				}
 			}
 
 				.advertinfo-imagewrap {
 					position: relative;
+
+					@include media {
+						width: 13.8rem;
+					}
 				}
 
 					.imagewrap-price {
@@ -110,55 +163,106 @@
 						line-height: 3rem;
 						padding: 0 1.6rem;
 						font-size: 1.5rem;
-					}
 
-				.advertinfo-id {
-					@include font-medium;
-					font-size: 1.4rem;
-					text-transform: uppercase;
-					color: $color-text-light;
-					margin-top: 1.8rem;
-					line-height: 1.7rem;
-
-					strong {
-						font-size: 1.2rem;
-						font-weight: inherit;
-					}
-				}
-
-				.advertinfo-title {
-					@include font-medium;
-					font-size: 1.8rem;
-					line-height: 1.33em;
-					margin-top: .8rem;
-					padding-bottom: 1.3rem;
-					border-bottom: .1rem solid $color-ice;
-				}
-
-				.advertinfo-info {
-					@include font-medium;
-					color: $color-text-light;
-					line-height: 2.4rem;
-					padding: .9rem 0;
-					border-bottom: .1rem solid $color-ice;
-
-					strong {
-						@include font-regular;
-						font-size: 1.4rem;
-					}
-
-					span {
-						color: $color-text;
-					}
-
-					&.price {
-						span {
-							@include font-semibold;
-							color: $color-primary;
-							font-size: 1.8rem;
+						@include media {
+							font-size: 1.3rem;
+							line-height: 2.4rem;
+							padding: 0 .7rem;
 						}
 					}
+
+				.advertinfo-content {
+					@include media {
+						flex: 1;
+						padding-left: 1.5rem;
+					}
 				}
+
+					.content-id {
+						@include font-medium;
+						font-size: 1.4rem;
+						text-transform: uppercase;
+						color: $color-text-light;
+						margin-top: 1.8rem;
+						line-height: 1.7rem;
+
+						@include media {
+							font-size: 1.1rem;
+							margin-top: 0;
+						}
+
+						strong {
+							font-size: 1.2rem;
+							font-weight: inherit;
+
+							@include media {
+								font-size: inherit;
+							}
+						}
+					}
+
+					.content-title {
+						@include font-medium;
+						font-size: 1.8rem;
+						line-height: 1.33em;
+						margin-top: .8rem;
+						padding-bottom: 1.3rem;
+						border-bottom: .1rem solid $color-ice;
+
+						@include media {
+							font-size: 1.4rem;
+							line-height: 1.6rem;
+							border-bottom: none;
+							margin-top: .5rem;
+							padding-bottom: 0;
+						}
+					}
+
+					.content-info {
+						@include font-medium;
+						color: $color-text-light;
+						line-height: 2.4rem;
+						padding: .9rem 0;
+						border-bottom: .1rem solid $color-ice;
+
+						@include media {
+							line-height: 2.4rem;
+							font-size: 1.2rem;
+							padding: .2rem 0;
+						}
+
+						strong {
+							@include font-regular;
+							font-size: 1.4rem;
+
+							@include media {
+								font-size: inherit;
+							}
+						}
+
+						span {
+							color: $color-text;
+						}
+
+						&:last-child {
+							@include media {
+								padding-bottom: 0;
+								border-bottom: none;
+							}
+						}
+
+						&.price {
+							span {
+								@include font-semibold;
+								color: $color-primary;
+								font-size: 1.8rem;
+
+								@include media {
+									font-size: 1.6rem;
+								}
+							}
+						}
+					}
 
 			.sidebar-agreement {
 				.agreement-link {
@@ -167,6 +271,11 @@
 				}
 				.checkwrap{
 					margin-bottom: 3.3rem;
+
+					@include media {
+						margin-bottom: 2rem;
+					}
+
 					input{
 						&:checked{
 							+ label{
@@ -183,6 +292,19 @@
 					}
 				}
 			}
+
+			.sidebar-controls {
+				@include media {
+					position: fixed;
+					left: 0;
+					right: 0;
+					bottom: 0;
+					padding: 1.5rem;
+					z-index: 5;
+					background-color: $color-white;
+					box-shadow: $shadow-general;
+				}
+			}
 		}
 	}
 
@@ -195,6 +317,11 @@
 			margin-right: 12rem;
 			flex: 1;
 			padding-top: 1.4rem;
+
+			@include media {
+				margin: 0;
+				padding-top: 0;
+			}
 		}
 
 			.faq-item {
@@ -203,8 +330,17 @@
 				color: fade($color-text, .7);
 				line-height: 2.2rem;
 
+				@include media {
+					font-size: 1.3rem;
+					line-height: 2.2rem;
+				}
+
 				+ .faq-item {
 					margin-top: 5.4rem;
+
+					@include media {
+						margin-top: 2.3rem;
+					}
 				}
 			}
 
@@ -214,6 +350,12 @@
 					line-height: 2.9rem;
 					margin-bottom: 2.3rem;
 					color: $color-text;
+
+					@include media {
+						font-size: 1.8rem;
+						line-height: 2.2rem;
+						margin-bottom: .6rem;
+					}
 				}
 
 		.info-logo {
@@ -226,12 +368,21 @@
 			display: flex;
 			align-items: flex-start;
 			margin-bottom: 4.7rem;
+
+			@include media {
+				margin-bottom: 3.2rem;
+			}
 		}
 
 			.iyzico-icon {
 				color: $color-success;
 				font-size: 5rem;
 				margin-right: 1.8rem;
+
+				@include media {
+					font-size: 4.1rem;
+					margin-right: 1.3rem;
+				}
 			}
 
 			.iyzico-title {
@@ -239,6 +390,11 @@
 				line-height: 2.4rem;
 				margin-bottom: .6rem;
 				display: block;
+
+				@include media {
+					font-size: 1.6rem;
+					margin-top: -.5rem;
+				}
 			}
 
 			.iyzico-subtitle {
@@ -246,6 +402,11 @@
 				font-size: 1.5rem;
 				line-height: 1.8rem;
 				color: $color-text-light;
+
+				@include media {
+					font-size: 1.4rem;
+					line-height: 1.7rem;
+				}
 			}
 
 		.payment-cardinfo {
@@ -260,12 +421,20 @@
 				display: flex;
 				justify-content: space-between;
 				flex-flow: row wrap;
+
+				@include media {
+					padding-top: 0;
+				}
 			}
 
 				.form-field {
 					margin-bottom: .9rem;
 					width: 100%;
 					z-index: 1;
+
+					@include media {
+						margin-bottom: 1.5rem;
+					}
 
 					&.half{
 						width: calc(50% - .5rem);
@@ -282,6 +451,10 @@
 					&.iyzico {
 						margin-top: 2.9rem;
 
+						@include media {
+							margin-top: 0;
+						}
+
 						.checkwrap {
 							border: .1rem solid $color-ice;
 							border-radius: $radius-general;
@@ -296,6 +469,10 @@
 
 					&.billing {
 						margin-top: 2rem;
+
+						@include media {
+							margin-top: 0;
+						}
 					}
 
 					.input-info{
@@ -527,6 +704,12 @@
 		padding-right: 20%;
 		padding-bottom: 6rem;
 
+		@include media {
+			padding-right: 0;
+			padding-bottom: 0;
+			padding-top: 1rem;
+		}
+
 		.sum-check {
 			background-color: $color-success;
 			color: $color-white;
@@ -539,6 +722,15 @@
 			display: inline-block;
 			text-align: center;
 			margin-bottom: 4.9rem;
+
+			@include media {
+				width: 6.5rem;
+				height: 6.5rem;
+				line-height: 5.5rem;
+				font-size: 3.4rem;
+				padding-top: .7rem;
+				margin-bottom: 2.7rem;
+			}
 		}
 
 		.sum-title {
@@ -546,6 +738,11 @@
 			font-size: 1.8rem;
 			line-height: 2.2rem;
 			margin-bottom: 1.2rem;
+
+			@include media {
+				font-size: 1.6rem;
+				margin-bottom: 2.1rem;
+			}
 		}
 
 		.sum-text{
@@ -559,6 +756,11 @@
 			font-size: 1.8rem;
 			line-height: 2.2rem;
 			margin-top: 5.1rem;
+
+			@include media {
+				margin-top: 4.5rem;
+				font-size: 1.6rem;
+			}
 		}
 
 		.sum-links {
@@ -568,6 +770,11 @@
 			text-transform: uppercase;
 			color: $color-text-light;
 			font-size: 1.4rem;
+
+			@include media {
+				margin-top: 3.1rem;
+				padding: 3.1rem 0;
+			}
 		}
 
 			.links-item {
@@ -579,5 +786,5 @@
 }
 
 .page.reservation {
-	display: flex;
+	//display: flex;
 }

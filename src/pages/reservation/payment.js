@@ -3,6 +3,7 @@ import React from 'react'
 // Partials
 import Image from 'components/partials/image'
 import Loader from 'components/partials/loader'
+import Responsive from 'components/partials/responsive'
 import ReservationNav from 'components/partials/reservation/nav'
 import ReservationSidebar from 'components/partials/reservation/sidebar'
 import { InputForm, FormInput } from 'components/partials/forms'
@@ -186,14 +187,16 @@ export default class Info extends React.Component {
 										<BillingInfo formInput addresses={reservation.addresses} />
 									</InputForm>
 
-									<div className="cardinfo-preview">
-										<Image className="preview-cardinfo type" src={cardLogos[this.state.cardType]} />
-										<span className="preview-cardinfo name">{this.state.cardName}</span>
-										<span className="preview-cardinfo number">{this.state.cardNumber}</span>
-										<span className="preview-cardinfo expiry">{this.state.cardExpiry}</span>
-										<span className="preview-cardinfo cvc">{this.state.cardCvc}</span>
-										<Image className="preview-bg" src={image_card_preview} />
-									</div>
+									<Responsive type="only-web">
+										<div className="cardinfo-preview">
+											<Image className="preview-cardinfo type" src={cardLogos[this.state.cardType]} />
+											<span className="preview-cardinfo name">{this.state.cardName}</span>
+											<span className="preview-cardinfo number">{this.state.cardNumber}</span>
+											<span className="preview-cardinfo expiry">{this.state.cardExpiry}</span>
+											<span className="preview-cardinfo cvc">{this.state.cardCvc}</span>
+											<Image className="preview-bg" src={image_card_preview} />
+										</div>
+									</Responsive>
 								</div>
 							</section>
 						</div>

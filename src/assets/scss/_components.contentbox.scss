@@ -146,6 +146,11 @@
 				text-overflow: ellipsis;
 				overflow: hidden;
 				white-space: nowrap;
+
+				@include media {
+					font-size: 1.1rem;
+					line-height: 1.3rem;
+				}
 			}
 
 			.info-price {
@@ -154,6 +159,12 @@
 				text-align: right;
 				white-space: nowrap;
 				flex-grow: 2;
+
+				@include media {
+					margin-top: .8rem;
+					display: block;
+					text-align: left;
+				}
 			}
 
 		.contentbox-additions {
@@ -165,6 +176,7 @@
 
 			@include media {
 				display: block;
+				margin-top: .5rem;
 			}
 		}
 
