@@ -292,6 +292,20 @@
 			line-height: 3.2rem;
 			white-space: normal;
 
+			@include media {
+				font-size: 1.4rem;
+				line-height: 1.5rem;
+			}
+		}
+
+		.contentbox-pretitle {
+			margin-bottom: .6rem;
+		}
+
+		.contentbox-content {
+			@include media {
+				padding-top: .7rem;
+			}
 		}
 	}
 }

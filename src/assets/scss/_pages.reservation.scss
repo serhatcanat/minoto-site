@@ -630,6 +630,20 @@
 							.newaddress-field {
 								width: calc(50% - .5rem);
 								margin-bottom: 1rem;
+								z-index: 1;
+
+								&.city {
+									z-index: 3;
+								}
+
+								&.district {
+									z-index: 2;
+								}
+
+								@include media {
+									width: 100%;
+									margin-bottom: 1.5rem;
+								}
 
 								&.full {
 									width: 100%;

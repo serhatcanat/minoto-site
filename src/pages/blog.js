@@ -15,6 +15,7 @@ import { serializeArray } from 'functions/helpers'
 
 // Assets
 import image_blog_bg  from 'assets/images/blog-bg.svg'
+import image_blog_bg_mobile  from 'assets/images/blog-bg-mobile.svg'
 
 export default class Blog extends React.Component {
 	constructor(props) {
@@ -92,7 +93,7 @@ export default class Blog extends React.Component {
 				<section className="section blog-head">
 					<div className="head-wrap wrapper narrow">
 						<h1 className="head-title">minoto <strong>blog</strong></h1>
-						<Image className="head-bg" src={image_blog_bg} alt="minoto blog" />
+						<Image className="head-bg" src={image_blog_bg} mobile={image_blog_bg_mobile} alt="minoto blog" />
 
 						{categories &&
 							<div className="head-controls">
@@ -141,6 +142,7 @@ export default class Blog extends React.Component {
 											title={result.title}
 											image={result.image}
 											url="blogDetail"
+											additionsOptional
 											urlParams={{slug: result.slug}}
 										/>
 									</li>

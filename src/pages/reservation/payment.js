@@ -508,6 +508,7 @@ class NewAddressForm extends React.Component {
 					className="newaddress-field high"
 					type="number"
 					name="newaddr_phone_alt"
+					placeholder={(this.state.corporate ? 'İş Telefonu' : 'Ev Telefonu')}
 					mask="(100) 000 00 00"
 					validation={{
 						minLength: ["Cep Telefonunuzu girmelisiniz.", 15],
@@ -515,7 +516,7 @@ class NewAddressForm extends React.Component {
 					}}
 					popLabel />
 				<FormInput
-					className="newaddress-field high"
+					className="newaddress-field high city"
 					type="select"
 					name="newaddr_city"
 					placeholder="İl"
@@ -526,7 +527,7 @@ class NewAddressForm extends React.Component {
 					validation={"İl seçmelisiniz."}
 					popLabel />
 				<FormInput
-					className="newaddress-field high"
+					className="newaddress-field high district"
 					type="select"
 					name="newaddr_district"
 					placeholder="İlçe"

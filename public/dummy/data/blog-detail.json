@@ -2,6 +2,7 @@
 	"payload": {
 		"title": "Suzuki Vitara sınıfının en çok satan modeli oldu",
 		"image": "/dummy/images/blog-detail-cover.jpg",
+		"mobileImage": "/dummy/images/blog-detail-cover-mobile.jpg",
 		"date": "13.09.2018",
 		"category": "Genel",
 		"categorySlug": "genel",

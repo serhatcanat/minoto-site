@@ -5,6 +5,7 @@ import Image from 'components/partials/image'
 import Loader from 'components/partials/loader'
 import Link from 'components/partials/link'
 import ContentBox from 'components/partials/contentbox'
+import Responsive from 'components/partials/responsive'
 import Breadcrumbs from 'components/partials/breadcrumbs'
 
 // Deps
@@ -52,19 +53,23 @@ export default class BlogDetail extends React.Component {
 				<Loader loading={!data} strict />
 				{data &&
 					<section className="section blog-detail">
-						<Image className="detail-image" src={data.image} />
+						<Image className="detail-image" src={data.image} mobile={data.mobileImage} />
 
-						<Breadcrumbs className="detail-breadcrumbs" standalone>
-							<Link href="blog">Blog</Link>
-							<Link href="blog" params={{ action: data.categorySlug }}>{data.category}</Link>
-						</Breadcrumbs>
+						<Responsive type="only-web">
+							<Breadcrumbs className="detail-breadcrumbs" standalone>
+								<Link href="blog">Blog</Link>
+								<Link href="blog" params={{ action: data.categorySlug }}>{data.category}</Link>
+							</Breadcrumbs>
+						</Responsive>
 
 						<div className="detail-wrap wrapper narrow">
 							<div className="detail-meta">
 								<span className="meta-date">{data.date}</span>
 							</div>
 
-							<Sharer title={data.title} />
+							<Responsive type="only-web">
+								<Sharer title={data.title} />
+							</Responsive>
 							<div className="detail-content">
 								<div className="content-text wysiwyg">
 									<h1 className="text-title">{data.title}</h1>

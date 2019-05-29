@@ -3,9 +3,17 @@
 		background-color: $color-primary;
 		height: 21.5rem;
 
+		@include media {
+			height: 7rem;
+		}
+
 		.head-wrap {
 			padding: 5.9rem 0 0;
 			position: relative;
+
+			@include media {
+				padding: 0;
+			}
 		}
 
 		.head-title {
@@ -15,6 +23,12 @@
 			line-height: 3.8rem;
 			position: relative;
 			z-index: 2;
+
+			@include media {
+				font-size: 1.2rem;
+				padding-left: 3.5rem;
+				line-height: 2.8rem;
+			}
 
 			strong {
 				@include font-bold;
@@ -28,6 +42,10 @@
 			left: 50%;
 			transform: translate3d(-50%, 0, 0);
 			z-index: 1;
+
+			@include media {
+				height: 7rem;
+			}
 		}
 
 		.head-controls {
@@ -40,6 +58,13 @@
 			display: flex;
 			justify-content: space-between;
 			align-items: center;
+
+			@include media {
+				margin-top: 2.7rem;
+				display: block;
+				padding: 0;
+				box-shadow: none;
+			}
 		}
 
 			.controls-nav {
@@ -47,20 +72,50 @@
 				font-size: 1.6rem;
 				text-transform: uppercase;
 				display: flex;
+
+				@include media {
+					font-size: 1rem;
+					display: block;
+					text-align: center;
+					box-shadow: $shadow-shallow;
+					padding: .5rem;
+				}
 			}
 
 				.nav-item {
 
+					@include media {
+						padding: 0 1.5rem;
+						line-height: 2.5rem;
+						display: inline-block;
+					}
+
 					+ .nav-item {
-						padding-left: 2rem;
-						margin-left: 2rem;
-						border-left: .2rem solid rgba($color-text, .25);
+						@include mediaMin {
+							padding-left: 2rem;
+							margin-left: 2rem;
+							border-left: .2rem solid rgba($color-text, .25);
+						}
 					}
 				}
 
 			.controls-search {
 				width: 25rem;
 				position: relative;
+
+				@include media {
+					width: 100%;
+					margin-top: 1.5rem;
+				}
+
+				.inputwrap {
+					input[type="text"]{
+						@include media {
+							padding: .8rem .9rem;
+							line-height: 1.7rem;
+						}
+					}
+				}
 			}
 
 				.search-submit {
@@ -78,6 +133,11 @@
 		margin-top: 9.5rem;
 		padding-bottom: 10rem;
 
+		@include media {
+			margin-top: 10rem;
+			padding-bottom: 2.25rem;
+		}
+
 		.results-error {
 			color: $color-error;
 			text-align: center;
@@ -87,11 +147,20 @@
 			margin: 0 -1.5rem;
 			display: flex;
 			flex-flow: row wrap;
+
+			@include media {
+				margin: .25rem -.75rem 0;
+			}
 		}
 
 			.results-item {
 				padding: 1.5rem;
 				width: 33.333333%;
+
+				@include media {
+					padding: .75rem;
+					width: 50%;
+				}
 			}
 	}
 
@@ -106,6 +175,11 @@
 			flex-flow: row wrap;
 			padding-right: 20rem;
 			align-items: flex-start;
+
+			@include media {
+				padding-right: 0;
+				//padding: 0 1.5rem;
+			}
 		}
 
 		.detail-meta {
@@ -113,6 +187,11 @@
 			text-align: right;
 			font-size: 1.2rem;
 			margin-bottom: 2.8rem;
+
+			@include media {
+				padding-top: .8rem;
+				margin-bottom: .4rem;
+			}
 		}
 
 		.detail-content {
@@ -123,6 +202,13 @@
 			.content-text {
 				font-size: 2.2rem;
 				line-height: 1.86em;
+
+				@include media {
+					font-size: 1.4rem;
+					line-height: 2rem;
+					padding-left: 1.5rem;
+					padding-right: 1.5rem;
+				}
 
 				h2, h3, h4, h5, h6 {
 					@include font-semibold;
@@ -136,6 +222,12 @@
 					font-size: 4.2rem;
 					line-height: 1.24em;
 					color: $color-primary;
+
+					@include media {
+						font-size: 2.2rem;
+						line-height: 2.4rem;
+						margin-bottom: 1.8rem;
+					}
 				}
 
 		.detail-sharer {
@@ -181,6 +273,10 @@
 
 		.detail-relevant {
 			margin-top: 10.5rem;
+
+			@include media {
+				margin-top: 2rem;
+			}
 		}
 
 			.relevant-title {
@@ -190,11 +286,19 @@
 				text-align: center;
 				font-size: 2.2rem;
 				padding-bottom: 1.3rem;
+				margin: 0 auto;
 				border-bottom: .1rem solid $color-gray-light;
+
+				@include media {
+					font-size: 1.4rem;
+					padding-bottom: .6rem;
+					line-height: 2.8rem;
+					width: calc(100% - 3rem);
+				}
 			}
 
 			.relevant-items {
-				margin: 0 -1.5rem;
+				margin: 1.25rem -.75rem 0;
 				display: flex;
 				flex-flow: row wrap;
 			}
@@ -202,6 +306,11 @@
 			.relevant-item {
 				width: 33.333333%;
 				padding: 1.5rem;
+
+				@include media {
+					width: 50%;
+					padding: .75rem;
+				}
 			}
 	}
 }

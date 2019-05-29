@@ -34,17 +34,31 @@
 		line-height: 1.44em;
 		position: relative;
 
+		@include media {
+			padding-left: 3.9rem;
+			padding-right: 3.9rem;
+		}
+
 		&:before, &:after {
 			position: absolute;
 			color: $color-black;
 			font-size: 6em;
 			opacity: .05;
+
+			@include media {
+				font-size: 9rem;
+			}
 		}
 
 		&:before {
 			content: '“';
 			top: .25em;
 			right: calc(100% + .1em);
+
+			@include media {
+				left: 0;
+				right: auto;
+			}
 		}
 
 		&:after {
@@ -52,6 +66,11 @@
 			bottom: .25em;
 			left: calc(100% + 0em);
 			transform: rotate(180deg);
+
+			@include media {
+				right: 0;
+				left: auto;
+			}
 		}
 	}
 
