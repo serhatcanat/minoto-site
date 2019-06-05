@@ -703,5 +703,33 @@
 							display: block;
 						}
 					}
+
+			.content-infinitescroll {
+				opacity: 0;
+				text-align: center;
+				transition: opacity $transition-hover ease;
+
+				&.loading {
+					opacity: 1;
+				}
+
+				span {
+					display: inline-block;
+					position: relative;
+					height: 3rem;
+					margin-top: -1.5rem;
+
+				}
+
+				i {
+					@include spin;
+					position: absolute;
+					top: 50%;
+					left: 50%;
+					transform: translate(-50%, -50%);
+					color: $color-primary;
+					font-size: 2rem;
+				}
+			}
 	}
 }

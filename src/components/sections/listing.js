@@ -13,6 +13,7 @@ import debounce from 'lodash/debounce';
 import isEqual from 'lodash/isEqual';
 import clone from 'lodash/clone';
 import extend from 'lodash/extend';
+import throttle from 'lodash/throttle';
 import {serializeArray } from 'functions/helpers';
 import history from 'controllers/history'
 import request from 'controllers/request'
@@ -24,6 +25,10 @@ const mapStateToProps = state => {
 	return { mobile: state.generic.mobile };
 };
 
+const mapScrollStateToProps = state => {
+	return { scrollPos: state.generic.scrollPos };
+}
+
 class Listing extends React.Component {
 	constructor(props) {
 		super(props)
@@ -31,15 +36,20 @@ class Listing extends React.Component {
 		this.state = {
 			loading: true,
 			listingData: false,
+			results: false,
 			query: (this.props.query ? this.props.query : ((history.location.search && history.location.search !== '') ? queryString.parse(history.location.search) : {})),
 			order: null,
 			initialLoad: true,
 			expandFilters: false,
+			extending: false,
+			page: 1,
 		}
 
 		this.removeFilter = this.removeFilter.bind(this);
 		this.filtersUpdated = this.filtersUpdated.bind(this);
 		this.updateOrder = this.updateOrder.bind(this);
+		this.extendResults = this.extendResults.bind(this);
+		this.makeRequest = this.makeRequest.bind(this);
 		this.formRef = React.createRef();
 
 		//this.query = ((history.location.search && history.location.search !== '') ? history.location.search.replace('?', '') : '');
@@ -180,28 +190,43 @@ class Listing extends React.Component {
 
 		vm.setState({loading: true});
 
-		let q = queryString.stringify(vm.state.query);
-		let requestURL = vm.props.source+'?'+q;
-
 		setTimeout(function() {
-			request.get(requestURL, false, function(payload, status){
-				if(payload){
-					vm.setState({
-						listingData: payload,
-						results: payload.results,
-						order: payload.order ? payload.order : null,
-						loading: false,
-						total: (payload.totalResults ? payload.totalResults : 0),
-					});
-
-					if(vm.state.initialLoad){
-						setTimeout(function() {
-							vm.setState({ initialLoad: false });
-						}, 40);
-					}
-				}
-			});
+			vm.makeRequest();
 		}, 500); /// Dummy Delay
+	}
+
+	makeRequest(opts = {}, endFunction = false){
+		let vm = this;
+		opts = extend({page: 1}, opts);
+
+		//let q = queryString.stringify(vm.state.query);
+		let requestURL = vm.props.source; //+'?'+q;
+
+		request.get(requestURL, {...vm.state.query, ...{sayfa: opts.page}}, function(payload, status){
+			if(payload){
+				if(opts.page > 1){
+					payload.results = vm.state.results.concat(payload.results);
+				}
+				vm.setState({
+					listingData: payload,
+					results: payload.results,
+					order: payload.order ? payload.order : null,
+					loading: false,
+					total: (payload.totalResults ? payload.totalResults : 0),
+					page: payload.page ? payload.page : 1,
+				});
+
+				if(vm.state.initialLoad){
+					setTimeout(function() {
+						vm.setState({ initialLoad: false });
+					}, 40);
+				}
+
+				if(endFunction){
+					endFunction();
+				}
+			}
+		});
 	}
 
 	updateOrder(order){
@@ -219,6 +244,25 @@ class Listing extends React.Component {
 
 	filtersUpdated(){
 		this.filtersToQuery();
+	}
+
+	extendResults(){
+		let vm = this;
+
+		if(!vm.state.extending && vm.state.results){
+			let page = vm.state.page +1;
+			vm.setState({
+				extending: true,
+				page: page,
+			});
+
+			vm.makeRequest({page: page}, function(){
+				vm.setState({
+					extending: false
+				})
+			});
+		}
+
 	}
 
 	render() {
@@ -272,6 +316,9 @@ class Listing extends React.Component {
 						</aside>
 					}
 					<ListingResults data={vm.state.listingData} mobile={vm.props.mobile} />
+					{(vm.state.results.length < vm.state.total) &&
+						<InfiniteScroller loading={vm.state.extending} onExtend={vm.extendResults} />
+					}
 				</div>
 			</section>
 		);
@@ -365,7 +412,8 @@ class ListingResults extends React.Component {
 													faved={item.favorited}
 													badge={(item.status === 1 ? false : (item.status === 2 ? {text: 'Rezerve', note: '02.02.2019 Tarihine Kadar Opsiyonludur'} : {text : 'Satıldı', type : 'error'}))}
 													bottomNote={(item.currentViewers > 0 ? item.currentViewers + ' kişi Bakıyor' : false )}
-													url={item.link}
+													url="detail"
+													urlParams={{id: item.id, slug: item.slug}}
 												/>
 											</li>
 										);
@@ -460,6 +508,51 @@ class ListingFilters extends React.Component {
 		)
 	}
 }
+
+class InfiniteScrollerRaw extends React.Component {
+	constructor(props) {
+		super(props)
+		
+		this.state = {
+			
+		}
+
+		this.scrollElem = React.createRef();
+		this.trigger = throttle(this.trigger.bind(this), 1000);
+	}
+
+	componentDidUpdate(prevProps){
+		if(prevProps.scrollPos !== this.props.scrollPos){
+			let boundRect = this.scrollElem.current.getBoundingClientRect();
+			let viewport = {
+				top: 0,
+				bottom: window.innerHeight,
+			}
+			let bounds = {
+				top: boundRect.top,
+				bottom: boundRect.top + this.scrollElem.current.clientHeight
+			}
+
+			if((bounds.bottom >= viewport.top && bounds.bottom <= viewport.bottom) || (bounds.top <= viewport.bottom && bounds.top >= viewport.top)){
+				this.trigger();
+			}
+		}
+	}
+
+	trigger(){
+		this.props.onExtend();
+	}
+
+	render() {
+		return(
+			<div className={"content-infinitescroll" + (this.props.loading ? ' loading' : '')} ref={this.scrollElem}>
+				<span><i className="icon-spinner"></i></span>
+			</div>
+		)
+	}
+}
+
+let InfiniteScroller = connect(mapScrollStateToProps)(InfiniteScrollerRaw);
 
 // Single Filter
 class ListingFilter extends React.Component {

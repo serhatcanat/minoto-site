@@ -9,6 +9,7 @@ const initialState = {
   messages: [],
   mobile: (window.innerWidth <= defaults.mobileBreakPoint),
   mobileBreakPoint: defaults.mobileBreakPoint,
+  scrollPos: 0,
   mapsAPIkey: defaults.mapsAPIkey,
   windowWidth: window.innerWidth,
 };
@@ -27,6 +28,11 @@ function globalReducer(state = initialState, action) {
 	else if (action.type === "SET_WW") {
 		return Object.assign({}, state, {
 			windowWidth: action.payload
+		});
+	}
+	else if (action.type === "SET_SCROLLPOS") {
+		return Object.assign({}, state, {
+			scrollPos: action.payload
 		});
 	}
 	else if (action.type === "SET_PAGE") {
@@ -59,6 +65,10 @@ export function setMobile(payload) {
 
 export function setWw(payload) {
 	return { type: "SET_WW", payload }
+};
+
+export function setScrollPos(payload) {
+	return { type: "SET_SCROLLPOS", payload }
 };
 
 export function setPage(payload) {
