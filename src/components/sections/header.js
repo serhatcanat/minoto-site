@@ -42,37 +42,37 @@ class Header extends React.Component {
 	}
 
 	componentWillUnmount() {
-		if(this.menuTimeout){ clearTimeout(this.menuTimeout); this.menuTimeout = false; }
+		if (this.menuTimeout) { clearTimeout(this.menuTimeout); this.menuTimeout = false; }
 	}
 
 	componentDidUpdate(prevProps, prevState) {
 		let vm = this;
 
-		if(prevState.menuOpen !== vm.state.menuOpen){
-			if(vm.menuTimeout !== false){ clearTimeout(vm.menuTimeout); }
-			if(vm.state.menuOpen === true){
+		if (prevState.menuOpen !== vm.state.menuOpen) {
+			if (vm.menuTimeout !== false) { clearTimeout(vm.menuTimeout); }
+			if (vm.state.menuOpen === true) {
 				vm.setState({ menuActive: true });
-				vm.menuTimeout = setTimeout(function() {
+				vm.menuTimeout = setTimeout(function () {
 					vm.setState({ menuShow: true });
 					blockOverflow(true);
 				}, 20);
 			}
 			else {
 				vm.setState({ menuShow: false });
-				vm.menuTimeout = setTimeout(function() {
+				vm.menuTimeout = setTimeout(function () {
 					vm.setState({ menuActive: false });
 					blockOverflow(false);
 				}, 600);
 			}
 		}
 
-		if(prevProps.currentPage.key !== vm.props.currentPage.key && vm.state.menuOpen){
-			vm.setState({menuOpen: false});
+		if (prevProps.currentPage.key !== vm.props.currentPage.key && vm.state.menuOpen) {
+			vm.setState({ menuOpen: false });
 		}
 	}
 
-	toggleMenu(){
-		this.setState({ menuOpen : !this.state.menuOpen });
+	toggleMenu() {
+		this.setState({ menuOpen: !this.state.menuOpen });
 	}
 
 	render() {
@@ -86,10 +86,11 @@ class Header extends React.Component {
 					</Link>
 
 					<nav className="header-nav">
-							
+
 						<Responsive type="only-web">
-							<Link className="nav-link" navLink href="dealers">Tüm Bayiler</Link>
-							
+							<Link className="nav-link" navLink href="dealers">Bayiler</Link>
+							<Link className="nav-link" navLink href="brands">Markalar</Link>
+
 							{user &&
 								<div className="nav-user">
 									<Link className="user-item avatar" href="account.profile" title={user.fullname}>
@@ -102,10 +103,10 @@ class Header extends React.Component {
 								</div>
 							}
 							{!user &&
-								<button className="nav-link" onClick={() => { openModal('register')}}>Üye Ol</button>
+								<button className="nav-link" onClick={() => { openModal('register') }}>Üye Ol</button>
 							}
 							{!user &&
-								<button className="nav-link" onClick={() => { openModal('login')}}>Giriş Yap</button>
+								<button className="nav-link" onClick={() => { openModal('login') }}>Giriş Yap</button>
 							}
 						</Responsive>
 
@@ -147,10 +148,10 @@ class Header extends React.Component {
 														<Link className="userbar-link" href="account.profile">Hesabım</Link>
 													}
 													{!user &&
-														<button className="userbar-link" onClick={() => { vm.toggleMenu(); openModal('register')}}>Üye Ol</button>
+														<button className="userbar-link" onClick={() => { vm.toggleMenu(); openModal('register') }}>Üye Ol</button>
 													}
 													{!user &&
-														<button className="userbar-link" onClick={() => { vm.toggleMenu(); openModal('login')}}>Giriş Yap</button>
+														<button className="userbar-link" onClick={() => { vm.toggleMenu(); openModal('login') }}>Giriş Yap</button>
 													}
 												</div>
 											</Responsive>

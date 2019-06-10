@@ -11,6 +11,7 @@ function userReducer(state = initialState, action) {
 	if (action.type === "SET_USER_DATA") {
 		return Object.assign({}, state, {
 			user: action.payload
+			//user: false
 		});
 	}
 	/*else if (action.type === "CLOSE_MODAL") {
@@ -40,21 +41,21 @@ export function checkLoginStatus(endFunction = false) {
 	let session = Cookies.get('minoto-session');
 
 	//if(session){
-		if(!store.getState().user.initialized){
-			request.get('/dummy/data/login.json', { session: session }, function(payload){
-				if(payload){
-					store.dispatch(setUserData(payload));
-					if(endFunction){
-						endFunction(true);
-					}
+	if (!store.getState().user.initialized) {
+		request.get('/dummy/data/login.json', { session: session }, function (payload) {
+			if (payload) {
+				store.dispatch(setUserData(payload));
+				if (endFunction) {
+					endFunction(true);
 				}
-				else{
-					if(endFunction){
-						endFunction(false);
-					}
+			}
+			else {
+				if (endFunction) {
+					endFunction(false);
 				}
-			});
-		}
+			}
+		});
+	}
 	/*}
 	else {
 		endFunction(false);

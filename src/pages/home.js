@@ -12,12 +12,12 @@ import image_home_banner from 'assets/images/home-banner.jpg'
 import image_home_banner_mobile from 'assets/images/home-banner-mobile.jpg'
 
 export default class Home extends React.Component {
-	render () {
+	render() {
 		return (
 			<main className="page home">
 				<section className="section home-intro">
 					<div className="intro-content">
-						<h1 className="intro-title"><span className="colored">
+						<h1 className="intro-title" style={{ opacity: '0' }}><span className="colored">
 							Minimum Efor</span> Maksimum Oto
 							<strong className="subtitle">Türkiye'nin Sıfır Km Otomobil Sitesi</strong>
 						</h1>

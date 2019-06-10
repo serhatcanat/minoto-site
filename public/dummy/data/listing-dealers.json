@@ -1,127 +1,127 @@
 {
-	"status" : "ok",
+	"status": "ok",
 	"payload": {
-		"type" : "dealer",
-		"filters" : [
+		"type": "dealer",
+		"filters": [
 			{
-				"name" : "sehir",
-				"title" : "Şehir",
-				"expanded" : true,
-				"display" : "list",
-				"showCounts" : false,
-				"opts" : [
+				"name": "sehir",
+				"title": "Şehir",
+				"expanded": true,
+				"display": "list",
+				"showCounts": false,
+				"opts": [
 					{
-						"title" : "İstanbul",
-						"value" : "34",
-						"selected" : true
+						"title": "İstanbul",
+						"value": "34",
+						"selected": true
 					},
 					{
-						"title" : "Adana",
-						"value" : "01",
-						"selected" : false
+						"title": "Adana",
+						"value": "01",
+						"selected": false
 					},
 					{
-						"title" : "Mersin",
-						"value" : "33",
-						"selected" : false
+						"title": "Mersin",
+						"value": "33",
+						"selected": false
 					},
 					{
-						"title" : "Antalya",
-						"value" : "07",
-						"selected" : false
+						"title": "Antalya",
+						"value": "07",
+						"selected": false
 					},
 					{
-						"title" : "Muğla",
-						"value" : "48",
-						"selected" : false
+						"title": "Muğla",
+						"value": "48",
+						"selected": false
 					},
 					{
-						"title" : "Aydın",
-						"value" : "09",
-						"selected" : false
+						"title": "Aydın",
+						"value": "09",
+						"selected": false
 					},
 					{
-						"title" : "İzmir",
-						"value" : "35",
-						"selected" : false
+						"title": "İzmir",
+						"value": "35",
+						"selected": false
 					}
 				]
 			},
 			{
-				"name" : "bayi",
-				"title" : "Bayi",
-				"expanded" : true,
-				"display" : "list",
-				"showCounts" : true,
-				"opts" : [
+				"name": "bayi",
+				"title": "Bayi",
+				"expanded": true,
+				"display": "list",
+				"showCounts": true,
+				"opts": [
 					{
-						"title" : "Doğuş Otomotiv",
-						"value" : "21",
-						"count" : 88,
-						"selected" : true
+						"title": "Doğuş Otomotiv",
+						"value": "21",
+						"count": 88,
+						"selected": true
 					},
 					{
-						"title" : "Borusan Oto",
-						"value" : "22",
-						"count" : 10,
-						"selected" : true
+						"title": "Borusan Oto",
+						"value": "22",
+						"count": 10,
+						"selected": true
 					},
 					{
-						"title" : "Kosifler Oto",
-						"value" : "23",
-						"count" : 4780,
-						"selected" : true
+						"title": "Kosifler Oto",
+						"value": "23",
+						"count": 4780,
+						"selected": true
 					}
 				]
 			},
 			{
-				"name" : "marka",
-				"title" : "Marka",
-				"expanded" : false,
-				"display" : "list",
-				"showCounts" : true,
-				"opts" : [
+				"name": "marka",
+				"title": "Marka",
+				"expanded": false,
+				"display": "list",
+				"showCounts": true,
+				"opts": [
 					{
-						"title" : "Acura",
-						"count" : 10,
-						"icon" : false,
-						"value" : "acura",
-						"selected" : false
+						"title": "Acura",
+						"count": 10,
+						"icon": false,
+						"value": "acura",
+						"selected": false
 					},
 					{
-						"title" : "Aston Martin",
-						"count" : 3,
-						"icon" : false,
-						"value" : "astonmartin",
-						"selected" : false
+						"title": "Aston Martin",
+						"count": 3,
+						"icon": false,
+						"value": "astonmartin",
+						"selected": false
 					},
 					{
-						"title" : "Mercedes",
-						"count" : 50,
-						"icon" : false,
-						"value" : "mercedes",
-						"selected" : false
+						"title": "Mercedes",
+						"count": 50,
+						"icon": false,
+						"value": "mercedes",
+						"selected": false
 					},
 					{
-						"title" : "Pagani",
-						"count" : 10,
-						"icon" : false,
-						"value" : "pagani",
-						"selected" : false
+						"title": "Pagani",
+						"count": 10,
+						"icon": false,
+						"value": "pagani",
+						"selected": false
 					},
 					{
-						"title" : "Renault",
-						"count" : 73,
-						"icon" : false,
-						"value" : "renault",
-						"selected" : false
+						"title": "Renault",
+						"count": 73,
+						"icon": false,
+						"value": "renault",
+						"selected": false
 					},
 					{
-						"title" : "Toyota",
-						"count" : 186,
-						"icon" : false,
-						"value" : "toyota",
-						"selected" : false
+						"title": "Toyota",
+						"count": 186,
+						"icon": false,
+						"value": "toyota",
+						"selected": false
 					}
 				]
 			}
@@ -132,8 +132,8 @@
 				"type": "advert",
 				"title": "Doğuş Otomotiv",
 				"dealer": "İSTİNYE - ÜSKÜDAR - KAĞITHANE",
-				"link": "/bayiler/21",
-				"favorited" : false,
+				"link": "/bayi/21",
+				"favorited": false,
 				"count": 192,
 				"image": "/dummy/images/dealer-2.jpg",
 				"labels": [
@@ -147,8 +147,8 @@
 				"type": "advert",
 				"title": "Volcar Otomotiv Sanayii",
 				"dealer": "İSTİNYE - ÜSKÜDAR - KAĞITHANE",
-				"link": "/bayiler/21",
-				"favorited" : true,
+				"link": "/bayi/21",
+				"favorited": true,
 				"count": 192,
 				"image": "/dummy/images/dealer-3.jpg",
 				"labels": [
@@ -162,8 +162,8 @@
 				"type": "advert",
 				"title": "Kosifler Oto",
 				"dealer": "İSTİNYE - ÜSKÜDAR - KAĞITHANE",
-				"link": "/bayiler/21",
-				"favorited" : false,
+				"link": "/bayi/21",
+				"favorited": false,
 				"count": 192,
 				"image": "/dummy/images/dealer-2.jpg",
 				"labels": [
@@ -176,8 +176,8 @@
 				"type": "advert",
 				"title": "Borusan Oto",
 				"dealer": "İSTİNYE - ÜSKÜDAR - KAĞITHANE",
-				"link": "/bayiler/21",
-				"favorited" : false,
+				"link": "/bayi/21",
+				"favorited": false,
 				"count": 192,
 				"image": "/dummy/images/dealer-4.jpg",
 				"labels": [
@@ -191,8 +191,8 @@
 				"type": "advert",
 				"title": "Borusan Oto",
 				"dealer": "İSTİNYE - ÜSKÜDAR - KAĞITHANE",
-				"link": "/bayiler/21",
-				"favorited" : false,
+				"link": "/bayi/21",
+				"favorited": false,
 				"count": 192,
 				"image": "/dummy/images/dealer-2.jpg",
 				"labels": [
@@ -206,8 +206,8 @@
 				"type": "advert",
 				"title": "BMW 118i, Joy Plus",
 				"dealer": "İSTİNYE - ÜSKÜDAR - KAĞITHANE",
-				"link": "/bayiler/21",
-				"favorited" : false,
+				"link": "/bayi/21",
+				"favorited": false,
 				"count": 192,
 				"image": "/dummy/images/dealer-2.jpg",
 				"labels": [
@@ -221,8 +221,8 @@
 				"type": "advert",
 				"title": "BMW 118i, Joy Plus",
 				"dealer": "İSTİNYE - ÜSKÜDAR - KAĞITHANE",
-				"link": "/bayiler/21",
-				"favorited" : false,
+				"link": "/bayi/21",
+				"favorited": false,
 				"count": 192,
 				"image": "/dummy/images/dealer-2.jpg",
 				"labels": [
@@ -236,8 +236,8 @@
 				"type": "advert",
 				"title": "BMW 118i, Joy Plus",
 				"dealer": "İSTİNYE - ÜSKÜDAR - KAĞITHANE",
-				"link": "/bayiler/21",
-				"favorited" : false,
+				"link": "/bayi/21",
+				"favorited": false,
 				"count": 192,
 				"image": "/dummy/images/dealer-2.jpg",
 				"labels": [

@@ -9,7 +9,7 @@ import Listing from 'components/sections/listing.js'
 // Assets
 
 export default class Dealers extends React.Component {
-	render () {
+	render() {
 		return (
 			<main className="page dealers">
 				<div className="wrapper">

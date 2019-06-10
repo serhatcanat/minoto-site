@@ -7,7 +7,7 @@ import Btn from 'components/partials/btn'
 import Responsive from 'components/partials/responsive'
 
 // Functions
-import {formatNumber} from 'functions/helpers'
+import { formatNumber } from 'functions/helpers'
 
 // Deps
 import { connect } from "react-redux";
@@ -37,10 +37,10 @@ class Footer extends React.Component {
 		this.initialize();
 	}
 
-	initialize(){
+	initialize() {
 		let vm = this;
-		request.get('/dummy/data/footer-brands.json', {}, function(payload){
-			if(payload){
+		request.get('/dummy/data/footer-brands.json', {}, function (payload) {
+			if (payload) {
 				vm.setState({
 					brands: payload
 				});
@@ -63,17 +63,17 @@ class Footer extends React.Component {
 		let vm = this;
 		let brands = false;
 
-		if(vm.state.brands){
+		if (vm.state.brands) {
 			brands = [];
 			let groupCount = (vm.props.mobile ? 2 : 6);
 			let groupSize = Math.ceil(vm.state.brands.length / groupCount);
 
-			for(let k = 0; k < groupCount; k++){
-				let group = vm.state.brands.slice(k*groupSize, (k*groupSize)+groupSize).map(function(brand, nth){
-					if(((k*groupSize) + nth) < vm.state.brands.length){
+			for (let k = 0; k < groupCount; k++) {
+				let group = vm.state.brands.slice(k * groupSize, (k * groupSize) + groupSize).map(function (brand, nth) {
+					if (((k * groupSize) + nth) < vm.state.brands.length) {
 						return brand;
 					}
-					else{
+					else {
 						return false;
 					}
 				});
@@ -105,15 +105,15 @@ class Footer extends React.Component {
 				<div className="footer-bottom">
 					<div className="footer-wrap wrapper narrow">
 						<div className="footer-col">
-								<a className="footer-logo" href="/">
-									<Image alt="Minoto" src={image_logo_white} />
-								</a>
+							<a className="footer-logo" href="/">
+								<Image alt="Minoto" src={image_logo_white} />
+							</a>
 						</div>
 						<nav className="footer-col footer-nav">
 							<Responsive>
 								<ul className="nav-col">
 									<li>
-										<a className="footer-link" href="/">Markalar</a>
+										<Link className="footer-link" href="brands">Markalar</Link>
 									</li>
 									<li>
 										<Link className="footer-link" href="dealers">Bayiler</Link>
@@ -214,8 +214,8 @@ class Footer extends React.Component {
 						<div className="footer-col">
 							<div className="footer-app">
 								<h3 className="app-title">Mobil uygulamamızı indirdiniz mi?</h3>
-								<Btn tag="a" className="app-link" white {...(vm.props.mobile ? {low: true} : {})} href="http://www.google.com" target="_blank" rel="noopener noreferrer" icon="appstore">Apple Store</Btn>
-								<Btn tag="a" className="app-link" white {...(vm.props.mobile ? {low: true} : {})} href="http://www.google.com" target="_blank" rel="noopener noreferrer" icon="playstore">Google Play</Btn>
+								<Btn tag="a" className="app-link" white {...(vm.props.mobile ? { low: true } : {})} href="http://www.google.com" target="_blank" rel="noopener noreferrer" icon="appstore">Apple Store</Btn>
+								<Btn tag="a" className="app-link" white {...(vm.props.mobile ? { low: true } : {})} href="http://www.google.com" target="_blank" rel="noopener noreferrer" icon="playstore">Google Play</Btn>
 							</div>
 
 							{!vm.props.mobile &&
@@ -228,7 +228,7 @@ class Footer extends React.Component {
 							COPYRIGHT © 2019 MINOTO. ALL RIGHTS RESERVED.
 						</div>
 						<div className="copyright-designby footer-col">
-							Design by <a href="http://folstudio.com/" target="_blank" rel="noopener noreferrer">Fol</a>
+
 						</div>
 					</div>
 				</div>
