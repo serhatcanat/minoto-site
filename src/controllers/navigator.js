@@ -43,6 +43,7 @@ import Privacy from 'pages/privacy'
 import Contact from 'pages/contact'
 import Blog from 'pages/blog'
 import BlogDetail from 'pages/blog-detail'
+import DealerApplication from 'pages/dealer-application'
 
 import NotFound from 'pages/notfound'
 
@@ -64,6 +65,7 @@ const pageRegistry = {
 	Contact: Contact,
 	Blog: Blog,
 	BlogDetail: BlogDetail,
+	DealerApplication: DealerApplication,
 
 	NotFound: NotFound,
 }

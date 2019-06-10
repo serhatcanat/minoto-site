@@ -46,17 +46,6 @@ class Footer extends React.Component {
 				});
 			}
 		});
-
-		/*axios.get('/dummy/data/footer-brands.json').then(res => {
-			if(res.data.status === 'ok'){
-				vm.setState({
-					brands: res.data.brands
-				})
-			}
-			else {
-				console.log('error');
-			}
-		})*/
 	}
 
 	render() {

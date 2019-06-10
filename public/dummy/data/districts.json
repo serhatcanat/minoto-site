@@ -1,6 +1,5 @@
 {
-	"status": "ok",
-	"districts": [
+	"payload": [
 		{
 			"value": 1,
 			"label": "Kadıköy"

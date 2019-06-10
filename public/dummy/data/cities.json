@@ -1,6 +1,5 @@
 {
-	"status": "ok",
-	"cities": [
+	"payload": [
 		{
 			"value": 1,
 			"label": "Adana"

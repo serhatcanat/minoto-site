@@ -140,6 +140,13 @@ module.exports = {
 			linkTitle: "Minoto Blog",
 			title: "Minoto Blog",
 		},
+		dealerApplication: {
+			path: "/bayi-basvuru-formu",
+			component: "DealerApplication",
+			exact: true,
+			linkTitle: "Bayi Başvuru Formu",
+			title: "Bayi Başvuru Formu",
+		},
 		notfound: {
 			path: false,
 			component: "NotFound",

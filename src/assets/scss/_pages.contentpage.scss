@@ -52,6 +52,15 @@
 					margin-bottom: 1.3rem;
 				}
 			}
+
+			.content-subtitle {
+				@include font-light;
+				font-size: 2rem;
+				line-height: 1.2em;
+				text-align: center;
+				color: $color-text-light;
+				margin-bottom: 5rem;
+			}
 	}
 
 	&.contentpage-faq {
@@ -70,6 +79,27 @@
 
 		@include media {
 			font-size: 1.4rem;
+		}
+	}
+
+	&.contentpage-form {
+		max-width: 62rem;
+		margin: 0 auto;
+
+		.form-row {
+			width: calc(100% + 2.2rem);
+			margin: 0 -1.1rem;
+			display: flex;
+			flex-flow: row wrap;
+		}
+
+		.form-col {
+			width: 50%;
+			padding: 1.1rem;
+
+			&.x2 {
+				width: 100%;
+			}
 		}
 	}
 }

@@ -39,6 +39,7 @@ export default class Home extends React.Component {
 						<Btn tag="link" className="btn" dark href="contact" />
 						<Btn tag="link" className="btn" dark href="blog" />
 						<Btn tag="link" className="btn" dark href="blogDetail" params={{ slug: "lorem-ipsum-dolor-sit-amet" }}>Blog Detay</Btn>
+						<Btn tag="link" className="btn" dark href="dealerApplication" />
 					</section>
 
 					<section>

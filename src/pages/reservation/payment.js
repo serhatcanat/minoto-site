@@ -15,7 +15,7 @@ import { serializeArray } from 'functions/helpers'
 //import { uid } from 'functions/helpers'
 
 // Deps
-import axios from 'axios'
+import request from 'controllers/request'
 import cardValidation from 'controllers/card-validation'
 import { redirect } from 'controllers/navigator'
 
@@ -66,15 +66,15 @@ export default class Info extends React.Component {
 	componentDidMount() {
 		let vm = this;
 
-		axios.get('/dummy/data/reservation.json', {props: {id: vm.props.match.params.id}}).then(res => {
-			if(res.data.status === 'ok'){
-				if(res.data.info.complete){
-					redirect('reservation.sum', {id: res.data.info.ref});
+		request.get('/dummy/data/reservation.json', {id: vm.props.match.params.id}, function(payload){
+			if(payload){
+				if(payload.complete){
+					redirect('reservation.sum', {id: payload.ref});
 				}
-				else{	
+				else {
 					vm.setState({
 						loading: false,
-						reservation: res.data.info
+						reservation: payload
 					});
 				}
 			}
@@ -382,13 +382,20 @@ class NewAddressForm extends React.Component {
 
 	componentDidMount() {
 		let vm = this;
-		axios.get('/dummy/data/cities.json').then(res => {
+		request.get('/dummy/data/cities.json', {}, function(payload){
+			if(payload){
+				vm.setState({
+					cities: payload
+				});
+			}
+		});
+		/*axios.get('/dummy/data/cities.json').then(res => {
 			if(res.data.status === 'ok'){
 				vm.setState({
 					cities: res.data.cities
 				});
 			}
-		});
+		});*/
 	}
 
 	changeCity(city){
@@ -396,13 +403,21 @@ class NewAddressForm extends React.Component {
 
 		vm.setState({districts: false});
 		if(city){
-			axios.get('/dummy/data/districts.json', {params: {id: city}}).then(res => {
+			request.get('/dummy/data/districts.json', {id: city}, function(payload){
+				if(payload){
+					vm.setState({
+						districts: payload
+					});
+				}
+			});
+
+			/*axios.get('/dummy/data/districts.json', {params: {id: city}}).then(res => {
 				if(res.data.status === 'ok'){
 					vm.setState({
 						districts: res.data.districts
 					});
 				}
-			});
+			});*/
 		}
 	}
 
@@ -411,14 +426,23 @@ class NewAddressForm extends React.Component {
 		vm.setState({loading: true});
 
 		// console.log(serializeArray(form));
+
+		// Post olacak
+		request.get('/dummy/data/reservation.json', serializeArray(form), function(payload){
+			if(payload){
+				if(vm.props.onSave){
+					vm.props.onSave(payload.addresses);
+				}
+			}
+		});
 			
-		axios.get('/dummy/data/reservation.json', { params: serializeArray(form) }).then(res => {
+		/*axios.get('/dummy/data/reservation.json', { params: serializeArray(form) }).then(res => {
 			if(res.data.status === 'ok'){
 				if(vm.props.onSave){
 					vm.props.onSave(res.data.info.addresses);
 				}
 			}
-		});
+		});*/
 	}
 
 	setAddressType(corporate = false){

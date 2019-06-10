@@ -256,6 +256,7 @@ class InputText extends React.Component {
 		};*/
 
 		if (props.type === 'number') {
+			Elem = InputMask;
 			props.type = 'text';
 			props = extend({}, props, {
 				pattern: (vm.props.decimals && vm.props.decimals > 0 ? "[0-9]*(.[0-9]{0,2})?$" : "[0-9]*"),
@@ -272,8 +273,8 @@ class InputText extends React.Component {
 					'0': '[0-9]',
 					'9': '[0-9]',
 					'a': '[A-Za-z]',
-					'*': '[A-Za-z0-9]'
-				},
+					'*': '[A-Za-z0-9]',
+				}
 			})
 		}
 

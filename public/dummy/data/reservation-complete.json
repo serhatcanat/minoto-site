@@ -1,6 +1,5 @@
 {
-	"status": "ok",
-	"info": {
+	"payload": {
 		"complete": true,
 		"ref": "A5011CMinoto",
 		"price": 500,

@@ -2,8 +2,8 @@
 	"status" : "ok",
 	"payload": {
 		"type": "listing",
-		"totalResults": 180,
-		"filtersTitle": "1243 araç",
+		"totalResults": 22,
+		"filtersTitle": "22 araç",
 		"filters" : [
 			{
 				"name" : "uretimyeri",

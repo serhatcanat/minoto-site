@@ -8,7 +8,8 @@ import ReservationNav from 'components/partials/reservation/nav'
 import ReservationSidebar from 'components/partials/reservation/sidebar'
 
 // Deps
-import axios from 'axios'
+import request from 'controllers/request'
+import { redirect } from 'controllers/navigator'
 
 // Assets
 import image_info from "assets/images/checkout-info-logo.jpg"
@@ -27,14 +28,28 @@ export default class Info extends React.Component {
 	componentDidMount() {
 		let vm = this;
 
-		axios.get('/dummy/data/reservation.json', {props: {id: vm.props.match.params.id}}).then(res => {
+		request.get('/dummy/data/reservation.json', {id: vm.props.match.params.id}, function(payload){
+			if(payload){
+				if(payload.complete){
+					redirect('reservation.sum', {id: payload.ref});
+				}
+				else{
+					vm.setState({
+						loading: false,
+						reservation: payload
+					});
+				}
+			}
+		});
+
+		/*axios.get('/dummy/data/reservation.json', {props: {id: vm.props.match.params.id}}).then(res => {
 			if(res.data.status === 'ok'){
 				vm.setState({
 					loading: false,
 					reservation: res.data.info
 				});
 			}
-		});
+		});*/
 	}
 
 	render () {
