@@ -63,7 +63,10 @@ export class FormInput extends React.Component {
 	}
 
 	reset(){
-		this.input.current.reset();
+		if(this.input.current){
+			console.log(this.input.current);
+			this.input.current.reset();
+		}
 	}
 
 	render() {
@@ -468,6 +471,11 @@ class InputFile extends React.Component {
 		});
 	}
 
+	reset() {
+		this.setState({value: '', touched: false});
+		this.input.reset();
+	}
+
 	render() {
 		let vm = this;
 
@@ -539,15 +547,25 @@ class InputSelect extends React.Component {
 
 	validate(option, touch = false) {
 		let vm = this;
+
 		let validStatus = validation((option ? option.value : ""), vm.props.validation);
 		vm.props.onChange({
 			value: (option ? option.value : null),
+			name: this.props.name,
 			error: (validStatus !== false),
 			touched: touch,
 			validation: vm.props.validation,
 		});
 
 		vm.setState({ value: option, error: (validStatus !== false), errorMessage: validStatus });
+
+		if(vm.props.value === false && option){
+			vm.validate(false, false);
+		}
+	}
+
+	reset() {
+		this.setState({value: null, touched: false});
 	}
 
 	render() {
@@ -615,6 +633,10 @@ class InputCheck extends React.Component {
 			value: checked,
 			validation: this.props.validation,
 		});
+	}
+
+	reset() {
+		this.setState({value: this.props.value, checked: (this.props.checked ? true : false), touched: false});
 	}
 
 	render() {

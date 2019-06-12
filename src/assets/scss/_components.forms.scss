@@ -5,7 +5,7 @@
 
 	input[type='file'] + label,
 	select + label,
-	input,
+	> input,
 	textarea {
 		@include font-main;
 		@include font-medium;
@@ -36,7 +36,7 @@
 	// States
 
 	&.error {
-		input[type='text'],
+		> input[type='text'],
 		input[type='password'],
 		input[type='email'],
 		input[type='file'] + label,
@@ -196,6 +196,81 @@
 		}
 	}
 
+	&.type-checkbox {
+		.checkwrap {
+			@include font-medium;
+			position: relative;
+
+			input {
+				opacity: 0;
+				position: absolute;
+				left: 0;
+				top: 0;
+				pointer-events: none;
+
+				&:checked {
+					+ label{
+						color: $color-primary;
+
+						> span{
+							background-color: $color-primary;
+							border-color: $color-primary;
+							&:before {
+								opacity: 1;
+							}
+						}
+					}
+				}
+
+				+ label {
+					display: inline-block;
+					position: relative;
+					font-size: 1.4rem;
+					letter-spacing: -0.015em;
+					padding: .2rem 0 .4rem 2.8rem;
+					line-height: 1.7rem;
+					cursor: pointer;
+					transition: color $transition-hover ease;
+
+					> span {
+						position: absolute;
+						top: 50%;
+						left: 0;
+						width: 1.8rem;
+						height: 1.8rem;
+						display: inline-block;
+						border: 0.1rem solid $color-text;
+						vertical-align: middle;
+						cursor: pointer;
+						transform: translate3d(0, -50%, 0);
+						transition: border-color $transition-hover ease, background-color $transition-hover ease;
+
+						&:before {
+							@include icon('check');
+							display: block;
+							font-size: .8rem;
+							position: absolute;
+							top: 55%;
+							left: 53%;
+							transform: translate(-50%, -50%);
+							color: $color-text-negative;
+							opacity: 0;
+							transition: opacity $transition-hover ease;
+						}
+					}
+
+					.check-link {
+						color: $color-primary;
+					}
+
+					.checkwrap-content {
+
+					}
+				}
+			}
+		}
+	}
+
 	/// Styles
 	&.dark {
 		input[type='file'] + label, select + label, input, textarea{
@@ -213,7 +288,7 @@
 	&.high {
 		input[type='file'] + label,
 		select + label,
-		input,
+		> input,
 		textarea{
 			padding-top: 1.5rem;
 			padding-bottom: 1.5rem;
@@ -294,72 +369,3 @@
 		}
 	}
 }*/
-
-.checkwrap {
-	@include font-medium;
-	position: relative;
-
-	input {
-		opacity: 0;
-		position: absolute;
-		left: 0;
-		top: 0;
-		pointer-events: none;
-
-		&:checked {
-			+ label{
-				color: $color-primary;
-
-				> span{
-					background-color: $color-primary;
-					border-color: $color-primary;
-					&:before {
-						opacity: 1;
-					}
-				}
-			}
-		}
-
-		+ label {
-			display: inline-block;
-			position: relative;
-			font-size: 1.4rem;
-			letter-spacing: -0.015em;
-			padding: .2rem 0 .4rem 2.8rem;
-			line-height: 1.7rem;
-			cursor: pointer;
-			transition: color $transition-hover ease;
-
-			> span {
-				position: absolute;
-				top: 50%;
-				left: 0;
-				width: 1.8rem;
-				height: 1.8rem;
-				display: inline-block;
-				border: 0.1rem solid $color-text;
-				vertical-align: middle;
-				cursor: pointer;
-				transform: translate3d(0, -50%, 0);
-				transition: border-color $transition-hover ease, background-color $transition-hover ease;
-
-				&:before {
-					@include icon('check');
-					display: block;
-					font-size: .8rem;
-					position: absolute;
-					top: 55%;
-					left: 53%;
-					transform: translate(-50%, -50%);
-					color: $color-text-negative;
-					opacity: 0;
-					transition: opacity $transition-hover ease;
-				}
-			}
-
-			.checkwrap-content {
-
-			}
-		}
-	}
-}

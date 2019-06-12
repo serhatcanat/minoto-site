@@ -101,5 +101,50 @@
 				width: 100%;
 			}
 		}
+
+		.form-opts {
+			padding-top: 0;
+
+			.opts-inner {
+				margin-left: -1rem;
+				width: calc(100% + 1rem);
+			}
+
+			.opts-item {
+				display: inline-block;
+				border: .1rem solid $color-ice;
+				border-radius: 1.4rem;
+				line-height: 2.8rem;
+				padding: 0 1.6rem;
+				font-size: 1.2rem;
+				margin-left: 1rem;
+				margin-bottom: 1rem;
+				color: rgba($color-text, .5);
+
+				button {
+					font-size: .8rem;
+					margin-left: 1rem;
+					transition: color $transition-hover ease;
+
+					&:hover{
+						color: $color-text;
+					}
+				}
+			}
+		}
+
+		.form-agreement {
+			.checkwrap {
+				input + label{
+					color: $color-text-light;
+					@include font-regular;
+				}
+			}
+		}
+
+		.form-submitbtn {
+			max-width: 37rem;
+			margin: 0 auto;
+		}
 	}
 }
