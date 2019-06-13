@@ -7,6 +7,7 @@ import Slider from 'components/partials/slider'
 // Deps
 import debounce from 'lodash/debounce'
 import request from 'controllers/request'
+import { Link } from 'react-router-dom'
 
 // Assets
 import image_autocomplete_default from 'assets/images/defaults/autocomplete-thumb.jpg'
@@ -185,7 +186,6 @@ export default class SearchBar extends React.Component{
 
 	formSubmit(e){
 		e.preventDefault();
-		console.log('Submit');
 	}
 
 	render() {	
@@ -228,18 +228,18 @@ export default class SearchBar extends React.Component{
 							<Slider className="group-wrap" scrollBar ref={(ref) => vm.slideInstances[g_nth] = ref}>
 								{group.results.map((result, r_nth) => (
 									<div className={"group-item" + ((g_nth === vm.state.focusedGroup && r_nth === vm.state.focusedResult) ? ' focused' : '')} key={'g_'+r_nth}>
-										<a href={result.link}>
+										<Link to={result.link} onClick={vm.hide}>
 											{group.hasimages && (
 												<Image className="item-image" src={(result.image ? result.image : image_autocomplete_default)} />
 											)}
 											{result.title}
-										</a>
+										</Link>
 									</div>
 								))}
 							</Slider>
 							{group.cta && (
 								<div className="group-cta">
-									<a className="cta-link" href={group.cta.link}>{group.cta.title} <i className="icon-angle-right"></i></a>
+									<Link className="cta-link" onClick={vm.hide} to={group.cta.link}>{group.cta.title} <i className="icon-angle-right"></i></Link>
 								</div>
 							)}
 						</div>

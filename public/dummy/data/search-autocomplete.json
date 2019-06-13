@@ -6,40 +6,40 @@
 				"results" : [
 					{
 						"title": "BMW",
-						"target": "/?=marka=bmw"
+						"link": "/arama/?=marka=bmw"
 					},
 					{
 						"title": "BMW > 1 Serisi",
-						"target": "/?=marka=bmw&model=1s"
+						"link": "/arama/?=marka=bmw&model=1s"
 					},
 					{
 						"title": "BMW > 3 Serisi",
-						"target": "/?=marka=bmw&model=3"
+						"link": "/arama/?=marka=bmw&model=3"
 					},
 					{
 						"title": "BMW > 5 Serisi > 5.18i",
-						"target": "/?=marka=bmw&model=518i"
+						"link": "/arama/?=marka=bmw&model=518i"
 					},
 					{
 						"title": "BMW > X Serisi > X6",
-						"target": "/?=marka=bmw&model=x"
+						"link": "/arama/?=marka=bmw&model=x"
 					},
 					{
 						"title": "BMW > 3 Serisi",
-						"target": "/?=marka=bmw&model=3"
+						"link": "/arama/?=marka=bmw&model=3"
 					},
 					{
 						"title": "BMW > 5 Serisi > 5.18i",
-						"target": "/?=marka=bmw&model=518i"
+						"link": "/arama/?=marka=bmw&model=518i"
 					},
 					{
 						"title": "BMW > X Serisi > X6",
-						"target": "/?=marka=bmw&model=x"
+						"link": "/arama/?=marka=bmw&model=x"
 					}
 				],
 				"cta" : {
 					"title" : "Tüm BMW Modellerini Gör",
-					"link" : "/?=marka=bmw"
+					"link" : "/arama/?=marka=bmw"
 				}
 			},
 			{
