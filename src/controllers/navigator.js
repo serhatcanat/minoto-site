@@ -108,7 +108,7 @@ export default class Navigator extends React.Component {
 }
 
 export function ListingLink (params) {
-	return '/ara/?' + params.map(function(param, nth){
+	return '/arama/?' + params.map(function(param, nth){
 		return param.key + '=' + param.val;
 	});
 }
