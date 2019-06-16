@@ -64,7 +64,6 @@ export class FormInput extends React.Component {
 
 	reset(){
 		if(this.input.current){
-			console.log(this.input.current);
 			this.input.current.reset();
 		}
 	}

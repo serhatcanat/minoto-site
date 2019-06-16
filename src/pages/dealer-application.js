@@ -72,9 +72,8 @@ export default class Faq extends React.Component {
 	saveData(e) {
 		let vm = this;
 		// Form Data:
-		console.log('SAVE');
 		if(vm.state.selectedBrands.length){
-			console.log(serializeArray(e.target));
+			//console.log(serializeArray(e.target));
 			this.setState({
 				submitting: true,
 			});
