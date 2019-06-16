@@ -39,10 +39,11 @@ export default class ContentBox extends React.Component {
 
 		let favControls = false;
 
-		if(vm.props.favControls){
+		/*if(vm.props.favControls){
 			favControls = <button type="button" className="contentbox-favicon"><i className={'icon-'+(vm.props.faved ? 'heart' : 'heart-empty')}></i></button>
 		}
-		else if(vm.props.faved){
+		else */
+		if(vm.props.faved){
 			favControls = <span className="contentbox-favicon"><i className="icon-heart"></i></span>
 		}
 

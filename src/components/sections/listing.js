@@ -374,7 +374,7 @@ class ListingResults extends React.Component {
 													image={item.image}
 													labels={item.labels}
 													faved={item.favorited}
-													favControls={'/dummy/data/fav/dealer/'+item.id}
+													//favControls={'/dummy/data/fav/dealer/'+item.id}
 													badge={(item.status !== 1 ? false : (item.status === 2 ? {text: 'Rezerve', note: '02.02.2019 Tarihine Kadar Opsiyonludur'} : {text : 'Satıldı', type : 'error'}))}
 													bottomNote={(item.currentViewers > 0 ? item.currentViewers + ' kişi Bakıyor' : false )}
 													url={item.link}
@@ -393,7 +393,7 @@ class ListingResults extends React.Component {
 													additionTitle={item.count + ' ARAÇ'}
 													image={item.image}
 													faved={item.favorited}
-													favControls={'/dummy/data/fav/dealer/'+item.id}
+													//favControls={'/dummy/data/fav/dealer/'+item.id}
 													url={item.link}
 												/>
 											</li>

@@ -171,6 +171,10 @@
 
 			.filters-filter {
 
+				.content-scrollwrap {
+					max-height: 30rem;
+				}
+
 				&.expandable {
 					.filter-content {
 						display: none;

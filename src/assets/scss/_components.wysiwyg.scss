@@ -27,7 +27,7 @@
 		}
 	}
 
-	blockquote {
+	blockquote:not(.instagram-media) {
 		font-family: inherit;
 		color: $color-text;
 		font-size: 1.45em;
@@ -71,6 +71,25 @@
 				right: 0;
 				left: auto;
 			}
+		}
+	}
+
+	img {
+		&:not([style*="float"]){
+			width: calc(100% + 10rem);
+			margin: 0 -5rem;
+			max-width: none;
+			display: block;
+		}
+
+		&[style*="float:left"], &[style*="float: left"] {
+			width: auto;
+			margin: 2rem 2rem 2rem 0;
+		}
+
+		&[style*="float:right"], &[style*="float: right"] {
+			width: auto;
+			margin: 2rem 0 2rem 2rem;
 		}
 	}
 

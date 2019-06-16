@@ -113,6 +113,34 @@
 						"icon" : false,
 						"value" : "toyota",
 						"selected" : false
+					},
+					{
+						"title" : "Mercedes",
+						"count" : 50,
+						"icon" : false,
+						"value" : "mercedes",
+						"selected" : true
+					},
+					{
+						"title" : "Pagani",
+						"count" : 10,
+						"icon" : false,
+						"value" : "pagani",
+						"selected" : false
+					},
+					{
+						"title" : "Renault",
+						"count" : 73,
+						"icon" : false,
+						"value" : "renault",
+						"selected" : false
+					},
+					{
+						"title" : "Toyota",
+						"count" : 186,
+						"icon" : false,
+						"value" : "toyota",
+						"selected" : false
 					}
 				]
 			},
