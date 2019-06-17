@@ -33,6 +33,7 @@ import Brands from 'pages/brands'
 import Brand from 'pages/brand'
 import Dealers from 'pages/dealers'
 import Dealer from 'pages/dealer'
+import Branch from 'pages/branch'
 import Detail from 'pages/detail'
 import ListPrices from 'pages/listprices'
 import About from 'pages/about'
@@ -55,6 +56,7 @@ const pageRegistry = {
 	Brand: Brand,
 	Dealers: Dealers,
 	Dealer: Dealer,
+	Branch: Branch,
 	Detail: Detail,
 	ListPrices: ListPrices,
 	About: About,

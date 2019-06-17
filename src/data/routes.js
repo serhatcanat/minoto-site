@@ -70,6 +70,13 @@ module.exports = {
 			linkTitle: "Bayi",
 			title: "Bayi",
 		},
+		branch: {
+			path: "/sube/:id/:slug?",
+			component: "Branch",
+			exact: true,
+			linkTitle: "Şube",
+			title: "Şube",
+		},
 		detail: {
 			path: "/ilan/:id/:slug?",
 			component: "Detail",

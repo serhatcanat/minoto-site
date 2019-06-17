@@ -238,3 +238,7 @@ export function loadScript(url, endFunction) {
 	}
 	document.getElementsByTagName("body")[0].appendChild(script);
 }
+
+export function isExact(object1, object2){
+	return JSON.stringify(object1) === JSON.stringify(object2);
+}
