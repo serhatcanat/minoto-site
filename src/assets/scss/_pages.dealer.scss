@@ -8,13 +8,20 @@
 
 			.info-sum {
 				background-color: $color-gray-light;
-				padding: 2.7rem 1.8rem 1.5rem 3.5rem;
+				padding: 3rem 2rem 4rem;
+				text-align: center;
+
+				.sum-avatar {
+					width: 12rem;
+					height: 12rem;
+					border-radius: 50%;
+					display: block;
+					margin: 0 auto 1.1rem;
+				}
 
 				.sum-title {
 					@include font-semibold;
 					font-size: 1.8rem;
-					text-transform: uppercase;
-					text-decoration: underline;
 					line-height: 2.2rem;
 				}
 
@@ -40,7 +47,7 @@
 							transform: translate3d(-50%, -50%, 0);
 						}
 
-				.sum-address {
+				/*.sum-address {
 					font-size: 1.4rem;
 					line-height: 2rem;
 					margin-top: 2.2rem;
@@ -49,13 +56,13 @@
 					.address-showonmap {
 						color: $color-primary;
 						text-decoration: underline;
-					}
+					}*/
 
 				.sum-workinghours {
 					display: block;
 					font-size: 1.2rem;
 					text-transform: uppercase;
-					margin-top: 1.4rem;
+					margin-top: .5rem;
 					color: $color-error;
 
 					span {
@@ -68,18 +75,18 @@
 				}
 
 				.sum-controls {
-					margin-top: 2rem;
+					margin-top: 2.8rem;
 					font-size: 0;
 					letter-spacing: 0;
 
 					.btn {
-						width: calc(50% - .6rem);
-						font-size: 1.1rem;
-						padding: .9rem 0;
+						//width: calc(50% - .6rem);
+						//font-size: 1.1rem;
+						//padding: .9rem 0;
 
-						&:nth-child(2n+2){
-							margin-left: 1.2rem;
-						}
+						//&:nth-child(2n+2){
+						//	margin-left: 1.2rem;
+						//}
 
 						.btn-icon {
 							font-size: 1.3rem;
@@ -90,9 +97,23 @@
 						}
 					}
 				}
+
+				.sum-numbers {
+					margin-top: 4.5rem;
+					color: $color-primary;
+					font-size: 1.4rem;
+					text-decoration: underline;
+					text-transform: uppercase;
+				}
+
+					.numbers-elem {
+						+ .numbers-elem {
+							margin-left: 2.8rem;
+						}
+					}
 			}
 
-			.info-search {
+			/*.info-search {
 				position: relative;
 				padding: 1.9rem 1.1rem 1.9rem 2.2rem;
 			}
@@ -105,17 +126,17 @@
 					font-size: 1.4rem;
 					color: rgba($color-text, .3);
 					transform: translate3d(0, -50%, 0);
-				}
+				}*/
 
 			.info-branches {
-				padding: 1.4rem 0 1.4rem 1rem;
+				padding: 2.8rem 2.4rem 4rem 2.4rem;
 			}
 
 				.branches-head {
-					padding: 0 0 .8rem 2.4rem;
+					padding: 0 0 1.1rem 0;
 				}
 
-					.head-info {
+					/*.head-info {
 						font-size: 1.4rem;
 						color: $color-primary;
 						text-transform: uppercase;
@@ -124,14 +145,13 @@
 						+ .head-info {
 							margin-left: 2.8rem;
 						}
-					}
+					}*/
 
 					.head-title {
 						@include font-semibold;
 						color: rgba($color-text, .5);
 						font-size: 1.2rem;
 						line-height: 1.4rem;
-						margin-top: 1rem;
 						display: block;
 						text-transform: uppercase;
 					}
@@ -139,15 +159,17 @@
 				.branches-list {
 
 					.list-branch {
-						border-top: .1rem solid $color-gray;
+						//border-top: .1rem solid $color-ice;
+						border-bottom: .1rem solid $color-ice;
 
 						&:last-child {
-							border-bottom: .1rem solid $color-gray;
 						}
 						
 						&.open {
-							background-color: $color-gray-light;
-							transition: background-color $transition-hover ease;
+
+							.branch-details .collapse-innerwrap{
+								background-color: $color-gray-light;
+							}
 						}
 					}
 
@@ -156,7 +178,7 @@
 							text-align: left;
 							display: block;
 							width: 100%;
-							padding: 1.3rem 2rem 1.1rem 2.4rem;
+							padding: 1.5rem 0 1.5rem;
 
 							&:before {
 								@include icon('angle-down');
@@ -170,18 +192,37 @@
 						}
 
 						.branch-title {
-							color: rgba($color-text, .7);
-							text-transform: uppercase;
+							@include font-semibold;
+							color: rgba($color-text, .8);
 							font-size: 1.6rem;
 							line-height: 2rem;
+
+							&:before {
+								@extend %pseudo;
+								width: .5rem;
+								height: .5rem;
+								border-radius: 50%;
+								background-color: $color-success;
+								display: inline-block;
+								vertical-align: middle;
+								margin-right: .6rem;
+							}
 						}
 
+							.title-listingcount {
+								@include font-medium;
+								font-size: 1.2rem;
+								color: $color-text-light;
+								margin-left: .2rem;
+							}
+
 						.branch-workinghours {
+							@include font-medium;
 							display: block;
 							font-size: 1.2rem;
 							line-height: 1.4rem;
 							text-transform: uppercase;
-							margin-top: .3rem;
+							//margin-top: .3rem;
 							color: $color-error;
 
 							span {
@@ -193,14 +234,18 @@
 							}
 						}
 
-						.branch-details .collapse-innerwrap {
-							padding: 1.2rem 1.3rem 2rem 2.4rem;
+						.branch-details {
+							.collapse-innerwrap {
+								padding: 1rem 1.1rem 1.7rem 1.1rem;
+								transition: background-color $transition-hover ease;
+							}
 						}
 
 							.details-showonmap {
+								@include font-medium;
 								font-size: 1.4rem;
 								display: inline-block;
-								margin-bottom: 1.3rem;
+								margin: 1.5rem 0 0;
 								line-height: 2rem;
 								color: $color-primary;
 								text-decoration: underline;
@@ -209,11 +254,12 @@
 							.details-controls {
 								font-size: 0;
 								letter-spacing: 0;
+								margin-top: 1.7rem;
 
 								.btn {
-									width: calc(50% - .6rem);
+									//width: calc(50% - .6rem);
 									font-size: 1.1rem;
-									padding: .9rem 0;
+									//padding: .9rem 0;
 
 									&:nth-child(2n+2){
 										margin-left: 1.2rem;
@@ -229,6 +275,17 @@
 								}
 							}
 				}
+
+				.branches-extend {
+					@include font-medium;
+					font-size: 1.4rem;
+					color: $color-primary;
+					margin-top: 1.5rem;
+				}
+
+			.info-filters {
+				//margin-top: 4rem;
+			}
 
 		.detail-right {
 			width: calc(100% - 28rem);

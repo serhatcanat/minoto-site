@@ -118,6 +118,7 @@ Image.defaultProps = {
 	mobileStyle: false,
 	webStyle: false,
 	contain: false,
+	bg: false,
 };
 
 const mapStateToProps = state => {

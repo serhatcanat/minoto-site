@@ -8,12 +8,10 @@ import ListingFilters from 'components/sections/listing-filters.js'
 import Loader from 'components/partials/loader'
 import Image from 'components/partials/image'
 import Btn from 'components/partials/btn'
-import Collapse from 'components/partials/collapse'
-import { InputForm, FormInput } from 'components/partials/forms'
+//import { InputForm, FormInput } from 'components/partials/forms'
 
 // Deps
-import debounce from 'lodash/debounce'
-import isEqual from 'lodash/isEqual'
+import extend from 'lodash/extend'
 import { setTitle } from 'controllers/head'
 import request from 'controllers/request'
 import { redirect } from 'controllers/navigator'
@@ -35,7 +33,7 @@ export default class Branch extends React.Component {
 		this.initialize = this.initialize.bind(this);
 		this.changeSearch = this.changeSearch.bind(this);
 		//this.listingDataChanged = this.listingDataChanged.bind(this);
-		this.updateSearch = debounce(this.updateSearch.bind(this), 50);
+		this.updateFilters = this.updateFilters.bind(this);
 
 		this.formRef = React.createRef();
 		this.listingRef = false;
@@ -45,18 +43,13 @@ export default class Branch extends React.Component {
 		this.initialize();
 	}
 
-	componentDidUpdate(prevProps, prevState) {
-		if(!isEqual(prevState.branchData, this.state.branchData) || prevState.searchText !== this.state.searchText){
-			this.updateSearch();
-		}
-	}
-
 	initialize() {
 		let vm = this;
 		request.get('/dummy/data/branch.json', { id: vm.props.match.params.id }, function(payload){
 			if(payload){
 				vm.setState({
-					branchData: payload
+					branchData: payload,
+					listingQuery: {branch: payload.id}
 				})
 
 				setTitle(payload.title);
@@ -71,16 +64,15 @@ export default class Branch extends React.Component {
 		this.setState({searchText: e});
 	}
 
-	updateSearch() {
-		if(this.state.branchData){
-			let query = {branch: this.state.branchData.id};
+	updateFilters(newQuery){
+		//let newQuery = clone(this.props.query);
+		newQuery = extend({}, newQuery, {
+			branch: this.state.branchData.id,
+		});
 
-			if(this.state.searchText !== ''){
-				query.search = this.state.searchText;
-			}
-
-			this.setState({listingQuery: query});
-		}
+		this.setState({
+			listingQuery: newQuery
+		})
 	}
 
 	render () {
@@ -121,11 +113,7 @@ export default class Branch extends React.Component {
 							<ListingFilters
 								className="info-filters"
 								data={vm.state.listingData}
-								onUpdate={(newQuery) => {
-									vm.setState({
-										listingQuery: newQuery
-									})
-								}}
+								onUpdate={vm.updateFilters}
 								/*
 								onClose={() => { vm.setState({ expandFilters: false})}}
 								
@@ -155,43 +143,6 @@ export default class Branch extends React.Component {
 				</div>
 			</main>
 
-		)
-	}
-}
-
-class BranchInfo extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			open: false,
-		};
-	}
-
-	render() {
-		let branch = this.props.data;
-		return (
-			<li className={"list-branch" + (this.state.open ? ' open' : '')}>
-				<button className="branch-sum" onClick={() => { this.setState({open: !this.state.open}); }}>
-					<strong className="branch-title">{branch.title}</strong>
-
-					<span className={"branch-workinghours " + (branch.open ? 'open' : 'closed')}>
-						{branch.workingHours}
-						<span>|</span>
-						{(branch.open ? 'Açık' : 'Kapalı')}
-					</span>
-				</button>
-
-				<Collapse className="branch-details" open={this.state.open}>
-					{branch.location &&
-						<button type="button" className="details-showonmap" onClick={() => openModal('map', {markers: [{ lat: branch.location.lat, lng: branch.location.lng }]})}>Haritada gör</button>
-					}
-
-					<div className="details-controls">
-						<Btn tag="a" icon="phone" primary low uppercase href={'tel:+9'+branch.phone.replace(' ', '')}>{branch.phone}</Btn>
-						<Btn tag="link" icon="envelope" text low uppercase href={'/user/message/tobranch/'+branch.id}>Mesaj Gönder</Btn>
-					</div>
-				</Collapse>
-			</li>
 		)
 	}
 }

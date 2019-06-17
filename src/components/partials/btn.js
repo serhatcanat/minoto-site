@@ -82,7 +82,7 @@ export default class Btn extends React.Component {
 			// Colors
 			'hollow', 'primary', 'white', 'dark', 'text', 
 			// Forms & Styling
-			'light', 'block', 'uppercase', 'low', 'wide', 'big', 'smallIcon', 'loading']);
+			'light', 'block', 'uppercase', 'low', 'small', 'wide', 'big', 'smallIcon', 'loading']);
 
 		let leftIcon = (vm.props.leftIcon ? vm.props.leftIcon : (vm.props.icon ? vm.props.icon : false));
 		let rightIcon = (vm.props.rightIcon ? vm.props.rightIcon : false);
@@ -98,6 +98,7 @@ export default class Btn extends React.Component {
 		if(vm.props.light) { props.className += ' light'; }
 		if(vm.props.uppercase) { props.className += ' uppercase'; }
 		if(vm.props.low) { props.className += ' low'; }
+		if(vm.props.small) { props.className += ' small'; }
 		if(vm.props.wide) { props.className += ' wide'; }
 		if(vm.props.big) { props.className += ' big'; }
 		if(vm.props.smallIcon) { props.className += ' small-icon'; }

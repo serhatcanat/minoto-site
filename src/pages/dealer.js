@@ -2,15 +2,17 @@ import React from 'react'
 
 // Sections
 import Listing from 'components/sections/listing.js'
+import ListingFilters from 'components/sections/listing-filters.js'
 
 // Partials
 import Loader from 'components/partials/loader'
 import Image from 'components/partials/image'
 import Btn from 'components/partials/btn'
 import Collapse from 'components/partials/collapse'
-import { InputForm, FormInput } from 'components/partials/forms'
+//import { InputForm, FormInput } from 'components/partials/forms'
 
 // Deps
+import extend from 'lodash/extend'
 import debounce from 'lodash/debounce'
 import isEqual from 'lodash/isEqual'
 import { setTitle } from 'controllers/head'
@@ -28,10 +30,12 @@ export default class Dealer extends React.Component {
 			loading: true,
 			searchText: '',
 			listingQuery: false,
+			listingData: false,
 		}
 
 		this.initialize = this.initialize.bind(this);
 		this.changeSearch = this.changeSearch.bind(this);
+		this.updateFilters = this.updateFilters.bind(this);
 		this.updateSearch = debounce(this.updateSearch.bind(this), 50);
 	}
 
@@ -50,7 +54,8 @@ export default class Dealer extends React.Component {
 		request.get('/dummy/data/dealer.json', { id: vm.props.match.params.id }, function(payload){
 			if(payload){
 				vm.setState({
-					dealerData: payload
+					dealerData: payload,
+					listingQuery: {dealer: payload.id}
 				})
 
 				setTitle(payload.title);
@@ -77,6 +82,17 @@ export default class Dealer extends React.Component {
 		}
 	}
 
+	updateFilters(newQuery){
+		//let newQuery = clone(this.props.query);
+		newQuery = extend({}, newQuery, {
+			dealer: this.state.dealerData.id,
+		});
+
+		this.setState({
+			listingQuery: newQuery
+		})
+	}
+
 	render () {
 		let vm = this;
 		let dealer = vm.state.dealerData;
@@ -88,18 +104,11 @@ export default class Dealer extends React.Component {
 					<section className="section dealer-detail">
 						<aside className="detail-info">
 							<div className="info-sum">
+								<Image className="sum-avatar" src={dealer.avatar} bg />
 								<h1 className="sum-title">
-									<span className="title-badge"><i className="badge-bg icon-ribbon"></i><i className="badge-icon icon-check"></i></span>{dealer.title}
+									{dealer.title}
 								</h1>
 
-								<div className="sum-address">
-									<div>
-										{dealer.address}
-									</div>
-									{dealer.location &&
-										<button type="button" className="address-showonmap" onClick={() => openModal('map', {markers: [{ lat: dealer.location.lat, lng: dealer.location.lng }]})}>Haritada gör</button>
-									}
-								</div>
 								<span className={"sum-workinghours " + (dealer.open ? 'open' : 'closed')}>
 									{dealer.workingHours}
 									<span>|</span>
@@ -107,20 +116,25 @@ export default class Dealer extends React.Component {
 								</span>
 
 								<div className="sum-controls">
-									<Btn tag="a" icon="phone" primary low uppercase href={'tel:+9'+dealer.phone.replace(' ', '')}>{dealer.phone}</Btn>
-									<Btn tag="link" icon="envelope" text low uppercase href={'/user/message/todealer/'+dealer.id}>Mesaj Gönder</Btn>
+									<Btn tag="a" icon="phone" primary low wide href={'tel:+9'+dealer.phone.replace(' ', '')}>{dealer.phone}</Btn>
+								</div>
+
+								<div className="sum-numbers">
+									<span className="numbers-elem">{dealer.branchCount} Bayi</span>
+									<span className="numbers-elem">{dealer.listingCount} Araç</span>
 								</div>
 							</div>
 
+							{/*
 							<InputForm className="info-search">
 								<FormInput placeholder={dealer.title+' üzerinde ara'} value={vm.state.searchText} onChange={vm.changeSearch} />
 								<button type="submit" className="search-submit"><i className="icon-search"></i></button>
 							</InputForm>
+							*/}
 
 							<div className="info-branches">
 								<div className="branches-head">
-									<span className="head-info">{dealer.branchCount} Bayi</span>
-									<span className="head-info">{dealer.listingCount} Araç</span>
+									
 									<strong className="head-title">Şubeler / Lokasyonlar</strong>
 								</div>
 
@@ -129,12 +143,34 @@ export default class Dealer extends React.Component {
 										<BranchInfo data={branch} key={nth} />
 									))}
 								</ul>
+								<button className="branches-extend">+ Daha fazla göster</button>
 							</div>
+
+							<ListingFilters
+								className="info-filters"
+								data={vm.state.listingData}
+								onUpdate={vm.updateFilters}
+								/*
+								onClose={() => { vm.setState({ expandFilters: false})}}
+								
+								expanded={vm.state.expandFilters}
+								*/
+								/>
 						</aside>
 						<div className="detail-right">
 							<Image className="dealer-cover" src={dealer.cover} />
 							{vm.state.listingQuery &&
-								<Listing className="dealer-listing" urlBinding={false} filters={false} source="/dummy/data/detail-related.json" query={vm.state.listingQuery} showAds={false} />
+								<Listing
+									className="dealer-listing"
+									urlBinding={false}
+									filters={false}
+									source="/dummy/data/listing.json"
+									query={vm.state.listingQuery}
+									showAds={false}
+									onDataChange={(newData) => {
+										vm.setState({listingData: newData});
+									}}
+								/>
 							}
 						</div>
 					</section>
@@ -157,25 +193,26 @@ class BranchInfo extends React.Component {
 	render() {
 		let branch = this.props.data;
 		return (
-			<li className={"list-branch" + (this.state.open ? ' open' : '')}>
+			<li className={"list-branch" + (this.state.open ? ' open' : '') + (branch.open ? ' working' : '')}>
 				<button className="branch-sum" onClick={() => { this.setState({open: !this.state.open}); }}>
-					<strong className="branch-title">{branch.title}</strong>
+					<strong className="branch-title">{branch.title} <span className="title-listingcount">({branch.listingCount})</span></strong>
 
+				</button>
+
+				<Collapse className="branch-details" open={this.state.open}>
 					<span className={"branch-workinghours " + (branch.open ? 'open' : 'closed')}>
 						{branch.workingHours}
 						<span>|</span>
 						{(branch.open ? 'Açık' : 'Kapalı')}
 					</span>
-				</button>
 
-				<Collapse className="branch-details" open={this.state.open}>
 					{branch.location &&
 						<button type="button" className="details-showonmap" onClick={() => openModal('map', {markers: [{ lat: branch.location.lat, lng: branch.location.lng }]})}>Haritada gör</button>
 					}
 
 					<div className="details-controls">
-						<Btn tag="a" icon="phone" primary low uppercase href={'tel:+9'+branch.phone.replace(' ', '')}>{branch.phone}</Btn>
-						<Btn tag="link" icon="envelope" text low uppercase href={'/user/message/todealer/'+branch.id}>Mesaj Gönder</Btn>
+						<Btn tag="a" icon="phone" primary small uppercase href={'tel:+9'+branch.phone.replace(' ', '')}>{branch.phone}</Btn>
+						{/*<Btn tag="link" icon="envelope" text low uppercase href={'/user/message/todealer/'+branch.id}>Mesaj Gönder</Btn>*/}
 					</div>
 				</Collapse>
 			</li>

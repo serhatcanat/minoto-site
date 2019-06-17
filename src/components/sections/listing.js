@@ -101,7 +101,13 @@ class Listing extends React.Component {
 		}
 
 		if(!isExact(prevProps.query, this.props.query)){
-			this.setState({query: this.props.query});
+			let newQuery = clone(this.props.query);
+
+			if(this.state.order !== null){
+				newQuery.siralama = this.state.order;
+			}
+
+			this.setState({query: newQuery});
 		}
 	}
 
