@@ -1,21 +1,38 @@
 .image {
 	transition: opacity 300ms ease;
 
-	&.image-loading{
-		opacity: 0!important;
+	&.image-loading {
+		&:not(.image-iconloader){
+			opacity: 0!important;
+		}
 	}
 }
 
 .imagewrap {
-	&.bg {
-		background-size: cover;
-		background-position: center center;
-		background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center center;
+	background-repeat: no-repeat;
 
-		&.contain {
-			background-size: contain;
-		}
+	&.contain {
+		background-size: contain;
 	}
+
+	.imagewrap-loaderwrap {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+
+	}
+		.loaderwrap-icon {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate3d(-50%, -50%, 0);
+			color: $color-primary;
+			font-size: 7rem;
+			opacity: .7;
+		}
 }
 
 .inlinesvg {

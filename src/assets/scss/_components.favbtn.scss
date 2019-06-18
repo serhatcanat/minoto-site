@@ -1,0 +1,34 @@
+.fav-button {
+	width: 2.2rem;
+	height: 2rem;
+	font-size: 2.2rem;
+	color: rgba($color-text, .3);
+	overflow: hidden;
+
+	&.faved {
+		color: $color-primary;
+	}
+
+	.fav-button-btn{
+		position: relative;
+		width: 100%;
+		height: 100%;
+
+		&:disabled {
+			cursor: inherit;
+		}
+
+		i{
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate3d(-50%, -50%, 0);
+		}
+	}
+
+	&.disabled {
+		&:not(.faved){
+			display: none;
+		}
+	}
+}

@@ -7,14 +7,23 @@
 		}
 
 			.info-sum {
+				position: relative;
 				background-color: $color-gray-light;
 				padding: 3rem 2rem 4rem;
 				text-align: center;
+				min-height: 37.2rem;
+
+				.sum-favbtn {
+					position: absolute;
+					top: 2rem;
+					right: 2rem;
+				}
 
 				.sum-avatar {
 					width: 12rem;
 					height: 12rem;
 					border-radius: 50%;
+					overflow: hidden;
 					display: block;
 					margin: 0 auto 1.1rem;
 				}
@@ -61,6 +70,7 @@
 				.sum-workinghours {
 					display: block;
 					font-size: 1.2rem;
+					line-height: 1.4rem;
 					text-transform: uppercase;
 					margin-top: .5rem;
 					color: $color-error;
@@ -289,6 +299,10 @@
 
 		.detail-right {
 			width: calc(100% - 28rem);
+		}
+
+		.dealer-cover {
+			height: 37.2rem;
 		}
 
 		.dealer-listing {

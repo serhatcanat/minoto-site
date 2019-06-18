@@ -4,10 +4,11 @@
 		"title": "Audi",
 		"slug": "audi",
 		"logo": "/dummy/images/brand-audi.svg",
-		"dealerCount": 53,
+		"branchCount": 53,
 		"listingCount": 2430,
 		"priceListYear": 2018,
-		"dealers": [
+		"favorited": true,
+		"branches": [
 			{
 				"id": 1234,
 				"title": "Doğuş Oto Kartal",

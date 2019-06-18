@@ -10,8 +10,8 @@ import Image from 'components/partials/image'
 import Btn from 'components/partials/btn'
 import Collapse from 'components/partials/collapse'
 import Link from 'components/partials/link'
-import { InputForm, FormInput } from 'components/partials/forms'
-import { apiPath, storageSpace } from 'functions/helpers'
+import FavBtn from 'components/partials/favbtn'
+//import { InputForm, FormInput } from 'components/partials/forms'
 
 // Deps
 import debounce from 'lodash/debounce'
@@ -19,8 +19,8 @@ import isEqual from 'lodash/isEqual'
 import { setTitle } from 'controllers/head'
 import request from 'controllers/request'
 import { redirect } from 'controllers/navigator'
-import { formatNumber } from 'functions/helpers'
 import { openModal } from 'functions/modals'
+import { formatNumber, apiPath, storageSpace } from 'functions/helpers'
 
 // Assets
 
@@ -53,7 +53,8 @@ export default class Brand extends React.Component {
 	initialize() {
 		let vm = this;
 		let brand = window.location.pathname.split('/')[2];
-		request.get(apiPath(`brands/${brand}`), { id: vm.props.match.params.id }, function (payload) {
+		//request.get(apiPath(`brands/${brand}`), { id: vm.props.match.params.id }, function (payload) {
+		request.get('/dummy/data/brand.json', { id: vm.props.match.params.id }, function (payload) {
 			if (payload) {
 				vm.setState({
 					brandData: payload
@@ -94,7 +95,10 @@ export default class Brand extends React.Component {
 						<section className="section brand-detail">
 							<aside className="detail-info">
 								<div className="info-sum">
-									<Image className="sum-logo" title={brand.title} src={storageSpace('brands', brand.logo)} />
+									<FavBtn className="sum-favbtn" faved={brand.favorited} />
+									<Image className="sum-logo" bg title={brand.title} src={storageSpace('brands', brand.logo)} />
+
+									<h1 className="sum-title">{brand.title}</h1>
 
 									<div className="sum-numbers">
 										<span className="numbers-item">{formatNumber(brand.branchCount)} Bayi</span>
@@ -102,9 +106,7 @@ export default class Brand extends React.Component {
 									</div>
 
 									{brand.priceListYear &&
-										<div className="sum-pricelist">
-											<Link href="listprices" params={{ brand: brand.slug, year: brand.priceListYear }}>{brand.priceListYear} {brand.title} Fiyat Listesi</Link>
-										</div>
+										<Btn className="sum-pricelist" low wide tag="link" href="listprices" params={{ brand: brand.slug, year: brand.priceListYear }}>{brand.priceListYear} Fiyat Listesi</Btn>
 									}
 								</div>
 
@@ -113,16 +115,18 @@ export default class Brand extends React.Component {
 									<button type="submit" className="search-submit"><i className="icon-search"></i></button>
 								</InputForm>*/}
 
-								<div className="info-dealers">
+								{/*
+									<div className="info-dealers">
 
-									<h2 className="dealers-title">Bayiler</h2>
+										<h2 className="dealers-title">Bayiler</h2>
 
-									<ul className="dealers-list">
-										{brand.branches.map((branch, nth) => (
-											<BranchInfo data={branch} key={nth} />
-										))}
-									</ul>
-								</div>
+										<ul className="dealers-list">
+											{brand.branches.map((branch, nth) => (
+												<BranchInfo data={branch} key={nth} />
+											))}
+										</ul>
+									</div>
+								*/}
 
 								<ListingFilters
 									className="info-filters"
@@ -137,13 +141,14 @@ export default class Brand extends React.Component {
 							</aside>
 
 							<div className="detail-right">
-								<Image className="branch-cover" style={{ width: '100%' }} src={storageSpace('brands', brand.coverImage)} />
+								<Image className="brand-cover" bg style={{ width: '100%' }} src={storageSpace('brands', brand.coverImage)} />
 								{vm.state.listingQuery &&
 									<Listing
 										className="brand-listing"
 										urlBinding={false}
 										filters={false}
-										source={apiPath(`brands/${brand.slug}/car-posts`)}
+										//source={apiPath(`brands/${brand.slug}/car-posts`)}
+										source={'/dummy/data/listing.json'}
 										query={vm.state.listingQuery}
 										showAds={false}
 										onDataChange={(newData) => {

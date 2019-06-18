@@ -8,6 +8,7 @@ import ListingFilters from 'components/sections/listing-filters.js'
 import Loader from 'components/partials/loader'
 import Image from 'components/partials/image'
 import Btn from 'components/partials/btn'
+import FavBtn from 'components/partials/favbtn'
 import Collapse from 'components/partials/collapse'
 //import { InputForm, FormInput } from 'components/partials/forms'
 
@@ -22,6 +23,8 @@ import { openModal } from 'functions/modals'
 
 // Assets
 
+const branchExpandLimit = 4;
+
 export default class Dealer extends React.Component {
 	constructor(props) {
 		super(props)
@@ -31,6 +34,7 @@ export default class Dealer extends React.Component {
 			searchText: '',
 			listingQuery: false,
 			listingData: false,
+			expandBranches: false,
 		}
 
 		this.initialize = this.initialize.bind(this);
@@ -55,7 +59,7 @@ export default class Dealer extends React.Component {
 			if(payload){
 				vm.setState({
 					dealerData: payload,
-					listingQuery: {dealer: payload.id}
+					listingQuery: {dealer: payload.id},
 				})
 
 				setTitle(payload.title);
@@ -104,7 +108,8 @@ export default class Dealer extends React.Component {
 					<section className="section dealer-detail">
 						<aside className="detail-info">
 							<div className="info-sum">
-								<Image className="sum-avatar" src={dealer.avatar} bg />
+								<FavBtn className="sum-favbtn" faved={dealer.favorited} />
+								<Image className="sum-avatar" bg src={dealer.avatar} bg />
 								<h1 className="sum-title">
 									{dealer.title}
 								</h1>
@@ -139,11 +144,21 @@ export default class Dealer extends React.Component {
 								</div>
 
 								<ul className="branches-list">
-									{dealer.branches.map((branch, nth) => (
-										<BranchInfo data={branch} key={nth} />
-									))}
+									{dealer.branches.reduce((filtered, branch, nth) => {
+										if(nth < branchExpandLimit || vm.state.expandBranches){
+											filtered.push(<BranchInfo data={branch} key={nth} />)
+										}
+										return filtered;
+									}, [])}
 								</ul>
-								<button className="branches-extend">+ Daha fazla göster</button>
+								{dealer.branches.length > branchExpandLimit &&
+									<button className="branches-extend" onClick={() => { vm.setState({expandBranches: !vm.state.expandBranches}) }}>
+										{!vm.state.expandBranches ? 
+											<span>+ Daha fazla göster</span> :
+											<span>- Küçült</span>
+										}
+									</button>
+								}
 							</div>
 
 							<ListingFilters
@@ -158,7 +173,7 @@ export default class Dealer extends React.Component {
 								/>
 						</aside>
 						<div className="detail-right">
-							<Image className="dealer-cover" src={dealer.cover} />
+							<Image className="dealer-cover" bg src={dealer.cover} />
 							{vm.state.listingQuery &&
 								<Listing
 									className="dealer-listing"

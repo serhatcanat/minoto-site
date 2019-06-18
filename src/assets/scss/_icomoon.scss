@@ -41,6 +41,10 @@
  	-moz-osx-font-smoothing: grayscale;
 }
 
+.icon-minoto:before {
+	content: "\e930";
+}
+
 .icon-filter:before {
 	content: "\e92e";
 }

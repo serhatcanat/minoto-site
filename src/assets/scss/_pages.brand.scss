@@ -7,23 +7,41 @@
 		}
 
 			.info-sum {
+				position: relative;
 				background-color: $color-gray-light;
-				padding: 2.1rem 0 2.5rem 0;
-				color: $color-primary;
-				text-decoration: underline;
+				padding: 3rem 1rem 3rem;
 				font-size: 1.4rem;
 				line-height: 1.7rem;
 				text-align: center;
+				margin-bottom: 3rem;
+
+				.sum-favbtn {
+					position: absolute;
+					top: 2rem;
+					right: 2rem;
+				}
 
 				.sum-logo {
-					width: 8.8rem;
+					width: 12rem;
+					height: 12rem;
 					display: inline-block;
+					background-color: $color-white;
+					border-radius: 50%;
+					overflow: hidden;
+					margin-bottom: 1.1rem;
+				}
+
+				.sum-title {
+					@include font-semibold;
+					font-size: 1.8rem;
+					line-height: 2.2rem;
 				}
 
 				.sum-numbers {
-					margin-top: 2.9rem;
-					padding-bottom: 1.4rem;
-					border-bottom: .1rem solid $color-ice;
+					text-decoration: underline;
+					margin-top: 1.3rem;
+					//padding-bottom: 1.4rem;
+					//border-bottom: .1rem solid $color-ice;
 				}
 
 					.numbers-item + .numbers-item {
@@ -31,7 +49,7 @@
 					}
 
 				.sum-pricelist {
-					padding-top: 2.5rem;
+					margin-top: 1.7rem;
 				}
 			}
 
@@ -160,6 +178,21 @@
 
 		.detail-right {
 			width: calc(100% - 28rem);
+		}
+
+		.brand-cover {
+			height: 37.2rem;
+			width: 100%;
+			background-color: $color-ice;
+
+			.loaderwrap-icon{
+				top: auto;
+				left: auto;
+				right: -1rem;
+				bottom: -1rem;
+				font-size: 30rem;
+				transform: none;
+			}
 		}
 
 		.brand-listing {

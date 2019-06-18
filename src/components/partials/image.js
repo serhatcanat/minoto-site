@@ -75,11 +75,17 @@ class ImageElem extends React.Component {
 
 		if(vm.state.src){
 			let classes = 'image ' + vm.props.className + ((!vm.props.noLoad && vm.state.loading) ? ' image-loading' : '');
-			let props = omit(vm.props, ['src', 'className', 'webStyle', 'mobileStyle', 'contain', 'bg', 'alt']);
+			let props = omit(vm.props, ['src', 'className', 'webStyle', 'mobileStyle', 'contain', 'bg', 'alt', 'iconLoader']);
 
 			let style = (vm.props.mobile ? extend({}, vm.props.style, vm.props.mobileStyle) : extend({}, vm.props.style, vm.props.webStyle));
+
+
 			if(vm.props.bg) {
 				classes += ' imagewrap bg';
+
+				if(vm.props.iconLoader){
+					classes += ' image-iconloader';
+				}
 
 				if(vm.props.contain){
 					classes += ' contain';
@@ -93,7 +99,9 @@ class ImageElem extends React.Component {
 				ImageElem = <div
 					className={classes}
 					style={styles}
-					{...props} />
+					{...props}>
+						{(vm.props.iconLoader && !vm.props.noLoad && vm.state.loading) && <div className="imagewrap-loaderwrap"><i className="loaderwrap-icon icon-minoto" /></div>}
+					</div>
 			}
 			else{
 				ImageElem =
@@ -119,6 +127,7 @@ Image.defaultProps = {
 	webStyle: false,
 	contain: false,
 	bg: false,
+	iconLoader: true,
 };
 
 const mapStateToProps = state => {
