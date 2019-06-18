@@ -159,49 +159,52 @@ export default class ListPrices extends React.Component {
 							}
 							</div>
 						</div>
-						<div className="listprices-wrap loader-container">
-							<Loader loading={brands === false} />
-							{brands &&
-								<table className="table listprices-table">
-									<thead>
-										<tr>
-											<th>Marka</th>
-											<th>Model</th>
-											<th>Tip</th>
-											<th>Donanım Tipi</th>
-											<th>Motor Hacmi</th>
-											<th>Vites Tipi</th>
-											<th>Yakıt Türü</th>
-											<th>Fiyat</th>
-										</tr>
-									</thead>
-									
-									{brands.map((brand, nth) => (
-										<tbody key={nth}>
-											{brand.listings.map((item, ntx) => (
-												<tr key={ntx}>
-													{ntx === 0 &&
-														<td className="brand" rowSpan={brand.listings.length}>
-															<div className="brand-wrap">
-																<div className="brand-logowrap">
-																	<Image src={brand.logo} alt={brand.name} bg contain className="brand-logo"></Image>
+
+						<div className="listprices-outerwrap">
+							<div className="listprices-wrap loader-container">
+								<Loader loading={brands === false} />
+								{brands &&
+									<table className="table listprices-table">
+										<thead>
+											<tr>
+												<th>Marka</th>
+												<th>Model</th>
+												<th>Tip</th>
+												<th>Donanım Tipi</th>
+												<th>Motor Hacmi</th>
+												<th>Vites Tipi</th>
+												<th>Yakıt Türü</th>
+												<th>Fiyat</th>
+											</tr>
+										</thead>
+										
+										{brands.map((brand, nth) => (
+											<tbody key={nth}>
+												{brand.listings.map((item, ntx) => (
+													<tr key={ntx}>
+														{ntx === 0 &&
+															<td className="brand" rowSpan={brand.listings.length}>
+																<div className="brand-wrap">
+																	<div className="brand-logowrap">
+																		<Image src={brand.logo} alt={brand.name} bg contain className="brand-logo"></Image>
+																	</div>
 																</div>
-															</div>
-														</td>
-													}
-													<td>{item.model}</td>
-													<td>{item.type}</td>
-													<td>{item.equipment}</td>
-													<td>{item.enginevolume}</td>
-													<td>{item.transmission}</td>
-													<td>{item.fuel}</td>
-													<td>{formatNumber(item.price)} TL</td>
-												</tr>
-											))}
-										</tbody>
-									))}
-								</table>
-							}
+															</td>
+														}
+														<td>{item.model}</td>
+														<td>{item.type}</td>
+														<td>{item.equipment}</td>
+														<td>{item.enginevolume}</td>
+														<td>{item.transmission}</td>
+														<td>{item.fuel}</td>
+														<td>{formatNumber(item.price)} TL</td>
+													</tr>
+												))}
+											</tbody>
+										))}
+									</table>
+								}
+							</div>
 						</div>
 					</div>
 				</section>
