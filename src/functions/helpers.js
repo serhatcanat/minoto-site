@@ -1,4 +1,5 @@
 import extend from "lodash/extend"
+import { storagePath, apiBase } from "../config"
 
 export function scrollTo(inputOpts, endFunction = false) {
 	let defaultOpts = {
@@ -122,7 +123,7 @@ export function formatNumber(num, opts = {}) {
 	let plainNum = Math.trunc(num);
 	let result = plainNum.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
 
-	if(options.showDecimals){
+	if (options.showDecimals) {
 		result += (num - plainNum).toFixed(options.decimals).toString().replace('.', ',').replace('0,', ',');
 	}
 
@@ -175,10 +176,10 @@ export function serializeArray(form, seperator = ',', ignoreEmpty = false) {
 				if (!field.options[n].selected) continue;
 				let val = field.options[n].value;
 
-				if(!(ignoreEmpty && val === '')){
+				if (!(ignoreEmpty && val === '')) {
 					let name = field.name.replace('[]', '');
-					if(serialized[name] && name + '[]' === field.name){
-						val = serialized[name] +=seperator+val;
+					if (serialized[name] && name + '[]' === field.name) {
+						val = serialized[name] += seperator + val;
 					}
 					serialized[name] = val;
 				}
@@ -190,10 +191,10 @@ export function serializeArray(form, seperator = ',', ignoreEmpty = false) {
 		else if ((field.type !== 'checkbox' && field.type !== 'radio') || field.checked) {
 			let val = field.value;
 
-			if(!(ignoreEmpty && val === '')){
+			if (!(ignoreEmpty && val === '')) {
 				let name = field.name.replace('[]', '');
-				if(serialized[name] && name + '[]' === field.name){
-					val = serialized[name] +=seperator+val;
+				if (serialized[name] && name + '[]' === field.name) {
+					val = serialized[name] += seperator + val;
 				}
 				serialized[name] = val;
 			}
@@ -209,15 +210,15 @@ export function serialize(form, seperator = ',', ignoreEmpty = false) {
 	var data = serializeArray(form, seperator, ignoreEmpty);
 	var serialized = [];
 
-	for(let k = 0; k < Object.keys(data).length; k++){
+	for (let k = 0; k < Object.keys(data).length; k++) {
 		let key = Object.keys(data)[k];
 		serialized.push(encodeURIComponent(key) + '=' + encodeURIComponent(data[key]));
 	}
 	return serialized.join('&');
 }
 
-export function blockOverflow(block = true){
-	if(block){
+export function blockOverflow(block = true) {
+	if (block) {
 		let scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
 		document.documentElement.style.marginRight = scrollBarWidth + 'px'
 		document.body.classList.add('block-overflow');
@@ -239,6 +240,17 @@ export function loadScript(url, endFunction) {
 	document.getElementsByTagName("body")[0].appendChild(script);
 }
 
-export function isExact(object1, object2){
+export function isExact(object1, object2) {
 	return JSON.stringify(object1) === JSON.stringify(object2);
+}
+
+export function storageSpace(folder, file) {
+	if (file === '') {
+		return false;
+	}
+	return `${storagePath}${folder}/${file}`;
+}
+
+export function apiPath(endpoint) {
+	return `${apiBase}${endpoint}`;
 }

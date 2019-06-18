@@ -7,7 +7,7 @@ import Btn from 'components/partials/btn'
 import Responsive from 'components/partials/responsive'
 
 // Functions
-import { formatNumber } from 'functions/helpers'
+import { formatNumber, apiPath } from 'functions/helpers'
 
 // Deps
 import { connect } from "react-redux";
@@ -39,7 +39,7 @@ class Footer extends React.Component {
 
 	initialize() {
 		let vm = this;
-		request.get('/dummy/data/footer-brands.json', {}, function (payload) {
+		request.get(apiPath('brands/footer'), {}, function (payload) {
 			if (payload) {
 				vm.setState({
 					brands: payload
@@ -146,9 +146,6 @@ class Footer extends React.Component {
 										<Link className="footer-link" href="contact" />
 									</li>
 									<li>
-										<Link className="footer-link" href="faq">Yardım</Link>
-									</li>
-									<li>
 										<Link className="footer-link" href="faq" />
 									</li>
 									<li>
@@ -158,9 +155,6 @@ class Footer extends React.Component {
 							</Responsive>
 							<Responsive type="only-web">
 								<ul className="nav-col">
-									<li>
-										<Link className="footer-link" href="faq">Yardım</Link>
-									</li>
 									<li>
 										<Link className="footer-link" href="faq" />
 									</li>
@@ -172,23 +166,23 @@ class Footer extends React.Component {
 							<div className="nav-col nav-contact">
 								<div className="contact-text">
 									<p className="contact-title">İletişim</p>
-									<p className="contact-phone"><a href="tel:08002129898" title="Telefon"><i className="icon-phone"></i> 0800 212 98 98</a></p>
-									<p className="contact-phone"><a href="mailto:info@minoto.com" title="E-Posta"><i className="icon-envelope"></i> info@minoto.com</a></p>
+									<p className="contact-phone"><a href="tel:+902122833995" title="Telefon"><i className="icon-phone"></i> 0212 283 39 95</a></p>
+									<p className="contact-phone"><a href="mailto:merhaba@minoto.com" title="E-Posta"><i className="icon-envelope"></i> merhaba@minoto.com</a></p>
 								</div>
 
 								<ul className="contact-social">
 									<li>
-										<a href="http://www.facebook.com" target="_blank" rel="noopener noreferrer" title="Bizi Instagram'da Takip Edin">
+										<a href="http://www.instagram.com/minotoco" target="_blank" rel="noopener noreferrer" title="Bizi Instagram'da Takip Edin">
 											<Image src={image_icon_instagram} alt="Instagram" />
 										</a>
 									</li>
 									<li>
-										<a href="http://www.facebook.com" target="_blank" rel="noopener noreferrer" title="Bizi YouTube'da Takip Edin">
+										<a href="http://www.youtube.com/minotocom" target="_blank" rel="noopener noreferrer" title="Bizi YouTube'da Takip Edin">
 											<Image src={image_icon_youtube} alt="YouTube" />
 										</a>
 									</li>
 									<li>
-										<a href="http://www.facebook.com" target="_blank" rel="noopener noreferrer" title="Bizi Facebook'da Takip Edin">
+										<a href="http://www.facebook.com/minotocom" target="_blank" rel="noopener noreferrer" title="Bizi Facebook'da Takip Edin">
 											<Image src={image_icon_facebook} alt="Facebook" />
 										</a>
 									</li>
@@ -200,7 +194,7 @@ class Footer extends React.Component {
 							<FooterSubscription />
 						}
 
-						<div className="footer-col">
+						<div className="footer-col" style={{ opacity: '0' }}>
 							<div className="footer-app">
 								<h3 className="app-title">Mobil uygulamamızı indirdiniz mi?</h3>
 								<Btn tag="a" className="app-link" white {...(vm.props.mobile ? { low: true } : {})} href="http://www.google.com" target="_blank" rel="noopener noreferrer" icon="appstore">Apple Store</Btn>

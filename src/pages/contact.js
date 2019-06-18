@@ -28,13 +28,13 @@ export default class Contact extends React.Component {
 		//post statikte 404 verdiği için dummy olarak get
 		//request.post('/dummy/data/contactform.json', serializeArray(e.target), function(response){
 		//..
-		request.get('/dummy/data/contactform.json', serializeArray(e.target), function(response){
-			if(response !== false){
+		request.get('/dummy/data/contactform.json', serializeArray(e.target), function (response) {
+			if (response !== false) {
 				// Dummy timeout etc..
-				setTimeout(function(){
+				setTimeout(function () {
 					vm.setState({ loading: false, complete: true });
 
-					setTimeout(function(){
+					setTimeout(function () {
 						vm.setState({ loading: false, complete: false });
 					}, 1000);
 				}, 1000);
@@ -45,11 +45,11 @@ export default class Contact extends React.Component {
 		});
 	}
 
-	changeFormMode(e){
+	changeFormMode(e) {
 		this.setState({ formMode: e.target.value });
 	}
 
-	render () {
+	render() {
 		return (
 			<main className="page contact">
 				<section className="section contact-map">
@@ -57,8 +57,8 @@ export default class Contact extends React.Component {
 						className="map-container"
 						markers={[{
 							html: false,
-							lat: 41.109604,
-							lng: 29.022052
+							lat: 41.080463,
+							lng: 29.007294
 						}]}
 
 						settings={{
@@ -71,9 +71,9 @@ export default class Contact extends React.Component {
 						<ul className="info-section info-details">
 							<li className="details-item">
 								<strong className="item-heading">Ticaret Ünvanı</strong>
-								<span className="item-content">Minoto A.Ş.</span>
+								<span className="item-content">Minimum Otomotiv Bilişim A.Ş.</span>
 							</li>
-							<li className="details-item">
+							<li className="details-item" style={{ display: 'none' }}>
 								<strong className="item-heading">Ticari Sicil No</strong>
 								<span className="item-content">742942</span>
 							</li>
@@ -83,19 +83,19 @@ export default class Contact extends React.Component {
 							</li>
 							<li className="details-item">
 								<strong className="item-heading">Telefon</strong>
-								<span className="item-content"><Link type="a" href="tel:08002129898">0800 212 98 98</Link></span>
+								<span className="item-content"><Link type="a" href="tel:+902122833995">0212 283 39 95</Link></span>
 							</li>
 							<li className="details-item">
 								<strong className="item-heading">E-Posta</strong>
-								<span className="item-content"><Link type="a" href="mailto:info@minoto.com">info@minoto.com</Link></span>
+								<span className="item-content"><Link type="a" href="mailto:merhaba@minoto.com">merhaba@minoto.com</Link></span>
 							</li>
-							<li className="details-item">
+							<li className="details-item" style={{ display: 'none' }} >
 								<strong className="item-heading">Mersis No</strong>
 								<span className="item-content">69486208399</span>
 							</li>
 							<li className="details-item">
 								<strong className="item-heading">Adres</strong>
-								<span className="item-content">Maslak Mahallesi, Meydan Sokak Spring Giz Plaza 3630 Sarıyer İstanbul</span>
+								<span className="item-content">Esentepe Mahallesi, Oto Çk. Levent Loft II No:4 K:4 D:17, 34394 Şişli/İstanbul</span>
 							</li>
 						</ul>
 

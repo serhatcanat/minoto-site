@@ -130,13 +130,13 @@ class Header extends React.Component {
 												</Responsive>
 
 												<div className="menu-social">
-													<Link href="http://www.facebook.com" target="_blank" rel="noopener noreferrer" title="Bizi Instagram'da Takip Edin">
+													<Link href="http://www.instagram.com/minotocom" target="_blank" rel="noopener noreferrer" title="Bizi Instagram'da Takip Edin">
 														<Image src={image_icon_instagram} alt="Instagram" />
 													</Link>
-													<Link href="http://www.facebook.com" target="_blank" rel="noopener noreferrer" title="Bizi YouTube'da Takip Edin">
+													<Link href="http://www.youtube.com/minotocom" target="_blank" rel="noopener noreferrer" title="Bizi YouTube'da Takip Edin">
 														<Image src={image_icon_youtube} alt="YouTube" />
 													</Link>
-													<Link href="http://www.facebook.com" target="_blank" rel="noopener noreferrer" title="Bizi Facebook'da Takip Edin">
+													<Link href="http://www.facebook.com/minotocom" target="_blank" rel="noopener noreferrer" title="Bizi Facebook'da Takip Edin">
 														<Image src={image_icon_facebook} alt="Facebook" />
 													</Link>
 												</div>
@@ -216,7 +216,7 @@ class Header extends React.Component {
 												</li>
 											</ul>
 
-											<div className="menu-applinks">
+											<div className="menu-applinks" style={{ opacity: '0' }}>
 												<Btn tag="link" className="applinks-link btn block white" href="http://www.google.com" target="_blank" rel="noopener noreferrer" icon="appstore">
 													Apple Store
 												</Btn>

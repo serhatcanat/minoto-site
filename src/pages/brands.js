@@ -9,14 +9,14 @@ import Listing from 'components/sections/listing.js'
 // Assets
 
 export default class Brands extends React.Component {
-	render () {
+	render() {
 		return (
 			<main className="page brands">
 				<div className="wrapper">
 					<Listing
 						className="section brands-listing"
 						showAds={false}
-						source="/dummy/data/listing-brands.json" />
+						source="http://localhost:8000/v1/shared/brands/" />
 				</div>
 			</main>
 

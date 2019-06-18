@@ -11,17 +11,17 @@ import { InputForm, FormInput } from 'components/partials/forms'
 import request from 'controllers/request'
 import history from 'controllers/history'
 import { redirect } from 'controllers/navigator'
-import { serializeArray } from 'functions/helpers'
+import { serializeArray, storageSpace, apiPath } from 'functions/helpers'
 
 // Assets
-import image_blog_bg  from 'assets/images/blog-bg.svg'
-import image_blog_bg_mobile  from 'assets/images/blog-bg-mobile.svg'
+import image_blog_bg from 'assets/images/blog-bg.svg'
+import image_blog_bg_mobile from 'assets/images/blog-bg-mobile.svg'
 
 export default class Blog extends React.Component {
 	constructor(props) {
 
 		super(props)
-		
+
 		this.state = {
 			loading: true,
 			categories: false,
@@ -36,16 +36,16 @@ export default class Blog extends React.Component {
 
 	componentDidMount() {
 		let vm = this;
-
 		vm.initialize();
 
 		vm.listenerAbort = history.listen(function (e) {
+
 			vm.initialize();
 		});
 	}
 
 	componentWillUnmount() {
-		if(this.listenerAbort){
+		if (this.listenerAbort) {
 			this.listenerAbort();
 		}
 	}
@@ -53,37 +53,56 @@ export default class Blog extends React.Component {
 	initialize() {
 		let vm = this;
 
-		vm.setState({results: false});
+		let category = window.location.pathname.split('/')[2];
 
-		let action = vm.props.match.params.action;
+
+		vm.setState({ results: false });
+
 		let payload = {}
+		let endpoint = "articles";
 
-		if(action){
-			if(action === 'arama' && vm.props.match.params.search){
+		if (category) {
+			if (category === 'arama') {
+				let searchParam = window.location.pathname.split('/')[3];
 				payload.search = vm.props.match.params.search;
+				endpoint = `articles/search?search=${searchParam}`
 			}
-			else{
-				payload.category = action;
+			else if (category === 'son-eklenenler') {
+				endpoint = `articles/recently?record=1`
+
+			}
+			else {
+				payload.category = category;
+				endpoint = `${category}/articles`
 			}
 		}
 
-		request.get('/dummy/data/blog-list.json', payload, function(payload, status){
-			if(payload){
+
+		request.get(apiPath(endpoint), payload, function (payload, status) {
+			if (payload) {
 				vm.setState({
-					categories: payload.categories,
-					results: payload.results,
+					results: payload,
 					loading: false,
 				});
 			}
 		});
+
+		request.get(apiPath('articles/tags'), payload, function (payload, status) {
+			if (payload) {
+				vm.setState({
+					categories: payload,
+				});
+			}
+		});
+
 	}
 
 	makeSearch(e) {
 		let formData = serializeArray(e.target);
-		redirect('blog', {action: 'arama', search: formData.search});
+		redirect('blog', { action: 'arama', search: formData.search });
 	}
 
-	render () {
+	render() {
 		let categories = this.state.categories;
 		let results = this.state.results;
 
@@ -98,13 +117,23 @@ export default class Blog extends React.Component {
 						{categories &&
 							<div className="head-controls">
 								<nav className="controls-nav">
-								{categories.map((category, nth) => (
-									<div className="nav-item" key={nth}>
-										<Link href="blog" params={{action: category.slug}}>
-											{category.title}
+									<div className="nav-item">
+										<Link href="blog" >
+											TÜMÜ
 										</Link>
 									</div>
-								))}
+									<div className="nav-item">
+										<Link href="blog" params={{ action: 'son-eklenenler' }}>
+											SON EKLENENLER
+										</Link>
+									</div>
+									{categories.map((category, nth) => (
+										<div className="nav-item" key={nth}>
+											<Link href="blog" params={{ action: category.slug }}>
+												{category.title}
+											</Link>
+										</div>
+									))}
 								</nav>
 
 								<InputForm className="controls-search" onSubmit={this.makeSearch}>
@@ -133,24 +162,24 @@ export default class Blog extends React.Component {
 						<Loader loading={!results} strict />
 						<div className="wrapper narrow">
 							{results.length &&
-							<ul className="results-list">
-								{results.map((result, nth) => (
-									<li className="results-item" key={nth}>
-										<ContentBox
-											type="blogpost"
-											pretitle={result.date}
-											title={result.title}
-											image={result.image}
-											url="blogDetail"
-											additionsOptional
-											urlParams={{slug: result.slug}}
-										/>
-									</li>
-								))}
-							</ul>
+								<ul className="results-list">
+									{results.map((result, nth) => (
+										<li className="results-item" key={nth}>
+											<ContentBox
+												type="blogpost"
+												pretitle={result.date}
+												title={result.title}
+												image={storageSpace('articles', result.image)}
+												url="blogDetail"
+												additionsOptional
+												urlParams={{ slug: result.slug }}
+											/>
+										</li>
+									))}
+								</ul>
 							}
 							{results && results.length === 0 &&
-							<h2 className="results-error">Aradığınız özelliklerde bir blog yazısı bulunamadı.</h2>
+								<h2 className="results-error">Aradığınız özelliklerde bir blog yazısı bulunamadı.</h2>
 							}
 						</div>
 					</section>

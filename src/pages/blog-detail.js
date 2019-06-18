@@ -12,6 +12,7 @@ import Breadcrumbs from 'components/partials/breadcrumbs'
 import request from 'controllers/request'
 import { redirect } from 'controllers/navigator'
 import parse from 'html-react-parser';
+import { storageSpace, apiPath } from 'functions/helpers'
 
 // Assets
 import image_icon_facebook from 'assets/images/icon/facebook.svg'
@@ -24,7 +25,7 @@ import image_icon_link from 'assets/images/icon/link.svg'
 export default class BlogDetail extends React.Component {
 	constructor(props) {
 		super(props)
-		
+
 		this.state = {
 			blogData: false
 		}
@@ -33,8 +34,8 @@ export default class BlogDetail extends React.Component {
 	componentDidMount() {
 		let vm = this;
 
-		request.get('/dummy/data/blog-detail.json', {slug: vm.props.match.params.slug}, function(payload, status){
-			if(payload){
+		request.get(apiPath(`articles/${vm.props.match.params.slug}`), { slug: vm.props.match.params.slug }, function (payload, status) {
+			if (payload) {
 				vm.setState({
 					blogData: payload
 				});
@@ -42,10 +43,11 @@ export default class BlogDetail extends React.Component {
 			else {
 				redirect('notfound');
 			}
+			console.log(payload)
 		});
 	}
 
-	render () {
+	render() {
 		let data = this.state.blogData;
 
 		return (
@@ -53,18 +55,20 @@ export default class BlogDetail extends React.Component {
 				<Loader loading={!data} strict />
 				{data &&
 					<section className="section blog-detail">
-						<Image className="detail-image" src={data.image} mobile={data.mobileImage} />
+						<Image className="detail-image" src={storageSpace('articles', data.image)} mobile={storageSpace('articles', data.mobileImage)} />
 
 						<Responsive type="only-web">
 							<Breadcrumbs className="detail-breadcrumbs" standalone>
 								<Link href="blog">Blog</Link>
-								<Link href="blog" params={{ action: data.categorySlug }}>{data.category}</Link>
+								<Link href="blog" params={{ action: data.tags[0].tagSlug }}>{data.tags[0].tag}</Link>
 							</Breadcrumbs>
 						</Responsive>
 
 						<div className="detail-wrap wrapper narrow">
 							<div className="detail-meta">
-								<span className="meta-date">{data.date}</span>
+								<span className="meta-date">
+									{data.user} @ {data.date}
+								</span>
 							</div>
 
 							<Responsive type="only-web">
@@ -84,16 +88,16 @@ export default class BlogDetail extends React.Component {
 								<div className="wrapper narrow">
 									<ul className="relevant-items">
 										{data.relevant.map((article, nth) => (
-										<li className="relevant-item" key={nth}>
-											<ContentBox
-												type="blogpost"
-												pretitle={article.date}
-												title={article.title}
-												image={article.image}
-												url="blogDetail"
-												urlParams={{slug: article.slug}}
-											/>
-										</li>
+											<li className="relevant-item" key={nth}>
+												<ContentBox
+													type="blogpost"
+													pretitle={article.date}
+													title={article.title}
+													image={article.image}
+													url="blogDetail"
+													urlParams={{ slug: article.slug }}
+												/>
+											</li>
 										))}
 									</ul>
 								</div>
@@ -129,7 +133,7 @@ class Sharer extends React.Component {
 						</Link>
 					</li>
 					<li className="opts-item">
-						<Link type="a" className="sharer-link twitter" href={"http://twitter.com/share?text="+this.props.title+"&url="+window.location.href+"&hashtags=minoto,sifirarac"} target="_blank">
+						<Link type="a" className="sharer-link twitter" href={"http://twitter.com/share?text=" + this.props.title + "&url=" + window.location.href + "&hashtags=minoto,sifirarac"} target="_blank">
 							<Image src={image_icon_twitter} alt="Twitter" />
 						</Link>
 					</li>
@@ -144,7 +148,7 @@ class Sharer extends React.Component {
 						</Link>
 					</li>
 					<li className="opts-item">
-						<Link type="a" className="sharer-link whatsapp" href={"whatsapp://send?text="+window.location.href} data-action="share/whatsapp/share" target="_blank">
+						<Link type="a" className="sharer-link whatsapp" href={"whatsapp://send?text=" + window.location.href} data-action="share/whatsapp/share" target="_blank">
 							<Image src={image_icon_whatsapp} alt="WhatsApp" />
 						</Link>
 					</li>
