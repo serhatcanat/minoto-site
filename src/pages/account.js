@@ -17,12 +17,12 @@ import Reservations from 'pages/account/reservations'
 //import Image from 'components/partials/image'
 import Link from 'components/partials/link'
 import Loader from 'components/partials/loader'
-import { renderRoutes, redirect } from 'controllers/navigator'
 
 // Deps
 import { connect } from "react-redux"
 import { checkLoginStatus } from "data/store.user"
 import isEqual from 'lodash/isEqual';
+import { renderRoutes, redirect } from 'controllers/navigator'
 
 const pageRegistry = {
 	Login: Login,

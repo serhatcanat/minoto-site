@@ -1,6 +1,6 @@
 {
 	"status" : "ok",
-	"favorites": [
+	"payload": [
 		{
 			"type": "advert",
 			"title": "Volvo S90 T8 Twin Engine eAWD Inscription",

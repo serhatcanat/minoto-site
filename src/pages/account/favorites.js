@@ -3,10 +3,12 @@ import React from 'react'
 // Partials
 import Loader from 'components/partials/loader'
 import ContentBox from 'components/partials/contentbox.js'
+import Link from 'components/partials/link.js'
 
 // Deps
 //import { connect } from "react-redux"
-import axios from 'axios'
+import request from 'controllers/request'
+import { redirect } from 'controllers/navigator'
 
 // Assets
 
@@ -18,17 +20,31 @@ export default class Favorites extends React.Component {
 		this.state = {
 			favorites: false,
 		}
+
+		this.updateData = this.updateData.bind(this);
 	}
 
 	componentDidMount() {
-		let vm = this;
+		if(!this.props.match.params.section){
+			redirect('account.favorites', {section: "araclar"});
+		}
+		else{
+			this.updateData();
+		}
+	}
 
-		axios.get(
-			'/dummy/data/user-favorites.json',
-			{ params: {} }
-		).then(res => {
-			if(res.data.status === 'ok'){
-				vm.setState({favorites: res.data.favorites})
+	componentDidUpdate(prevProps) {
+		if(prevProps.match.params.section !== this.props.match.params.section){
+			this.updateData();
+		}
+	}
+
+	updateData() {
+		let vm = this;
+		vm.setState({ favorites: false });
+		request.get('/dummy/data/user-favorites.json', { group: this.props.match.params.section }, function(payload){
+			if(payload){
+				vm.setState({favorites: payload})
 			}
 		});
 	}
@@ -37,6 +53,11 @@ export default class Favorites extends React.Component {
 		let favorites = this.state.favorites;
 		return (
 			<section className="section account-favorites loader-container">
+				<nav className="favorites-nav">
+					<Link className="nav-link" navLink href="account.favorites" params={{ section: "araclar" }}>Araçlar</Link>
+					<Link className="nav-link" navLink href="account.favorites" params={{ section: "bayiler" }}>Bayiler</Link>
+					<Link className="nav-link" navLink href="account.favorites" params={{ section: "markalar" }}>Markalar</Link>
+				</nav>
 				<Loader loading={favorites === false} />
 				{favorites &&
 					<div className="wrapper narrow">

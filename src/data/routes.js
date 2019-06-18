@@ -180,9 +180,9 @@ module.exports = {
 			requiresLogin: true,
 		},
 		favorites: {
-			path: "/hesabim/favorilerim",
+			path: "/hesabim/favorilerim/:section?",
 			component: "Favorites",
-			exact: true,
+			exact: false,
 			linkTitle: "Favorilerim",
 			title: "Favorilerim",
 			requiresLogin: true,

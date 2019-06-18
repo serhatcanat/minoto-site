@@ -342,16 +342,48 @@
 	}
 
 	&.account-favorites {
+		margin-top: -3.4rem;
+
+		@include media {
+			margin-top: -1.6rem;
+		}
+
+		.favorites-nav {
+			text-align: center;
+			background-color: $color-gray-light;
+			line-height: 4.5rem;
+			margin-bottom: 3rem;
+
+			@include media {
+				margin-bottom: 1.6rem;
+				line-height: 3.8rem;
+			}
+		}
+
+			.nav-link {
+				text-transform: uppercase;
+				font-size: 1.4rem;
+				transition: color $transition-hover ease;
+
+				&.active, &:hover, &:active {
+					color: $color-primary;
+				}
+
+				+ .nav-link {
+					margin-left: 3.7rem;
+				}
+			}
+
 		.favorites-list {
 			width: calc(100% + 3rem);
-			margin: -2rem -1.5rem 0;
+			margin: 0 -1.5rem 0;
 			display: flex;
 			flex-direction: row;
 			flex-wrap: wrap;
 
 			@include media {
 				width: calc(100% + 1.5rem);
-				margin: -2rem -.75rem 0;
+				margin: 0 -.75rem 0;
 			}
 		}
 
