@@ -123,9 +123,9 @@ export default class Faq extends React.Component {
 							<div className="contentpage-content">
 								<h1 className="content-title">Bayi Başvuru Formu</h1>
 								<p className="content-subtitle">Minoto'da araçlarınızın listelenmesini istiyorsanız lütfen formu <br />doldurun.</p>
-								<InputForm className="section contentpage-form" ref={this.form} onSubmit={this.saveData}>
-									<div className="form-row">
-										<div className="form-col">
+								<InputForm className="section contentpage-form grid-container" ref={this.form} onSubmit={this.saveData}>
+									<div className="grid-row">
+										<div className="grid-col x6 m-x12">
 											<FormInput
 												type="text"
 												name="name"
@@ -133,7 +133,7 @@ export default class Faq extends React.Component {
 												validation={"Bir isim girmelisiniz."}
 												popLabel />
 										</div>
-										<div className="form-col">
+										<div className="grid-col x6 m-x12">
 											<FormInput
 												type="text"
 												name="manager"
@@ -142,8 +142,8 @@ export default class Faq extends React.Component {
 												popLabel />
 										</div>
 									</div>
-									<div className="form-row">
-										<div className="form-col">
+									<div className="grid-row">
+										<div className="grid-col x6 m-x12">
 											<FormInput
 												type="text"
 												name="taxoffice"
@@ -151,7 +151,7 @@ export default class Faq extends React.Component {
 												validation={"Vergi dairenizi girmelisiniz."}
 												popLabel />
 										</div>
-										<div className="form-col">
+										<div className="grid-col x6 m-x12">
 											<FormInput
 												type="number"
 												name="taxnumber"
@@ -161,8 +161,8 @@ export default class Faq extends React.Component {
 												popLabel />
 										</div>
 									</div>
-									<div className="form-row">
-										<div className="form-col">
+									<div className="grid-row">
+										<div className="grid-col x6 m-x12">
 											<FormInput
 												name="phone_land"
 												disabled={this.state.submitting}
@@ -174,7 +174,7 @@ export default class Faq extends React.Component {
 												}}
 												popLabel />
 										</div>
-										<div className="form-col">
+										<div className="grid-col x6 m-x12">
 											<FormInput
 												name="phone"
 												disabled={this.state.submitting}
@@ -187,8 +187,8 @@ export default class Faq extends React.Component {
 												popLabel />
 										</div>
 									</div>
-									<div className="form-row">
-										<div className="form-col x2">
+									<div className="grid-row">
+										<div className="grid-col x12">
 											<FormInput
 												type="textarea"
 												name="address"
@@ -197,8 +197,8 @@ export default class Faq extends React.Component {
 												popLabel />
 										</div>
 									</div>
-									<div className="form-row">
-										<div className="form-col">
+									<div className="grid-row">
+										<div className="grid-col x6 m-x12">
 											<FormInput
 												className="high city"
 												type="select"
@@ -211,7 +211,7 @@ export default class Faq extends React.Component {
 												validation={"İl seçmelisiniz."}
 												popLabel />
 										</div>
-										<div className="form-col">
+										<div className="grid-col x6 m-x12">
 											<FormInput
 												className="high district"
 												type="select"
@@ -224,8 +224,8 @@ export default class Faq extends React.Component {
 												popLabel />
 										</div>
 									</div>
-									<div className="form-row">
-										<div className={"form-col inputwrap" + ((!this.state.selectedBrands.length && this.state.touched) ? ' error' : '')}>
+									<div className="grid-row">
+										<div className={"grid-col x6 m-x12 inputwrap" + ((!this.state.selectedBrands.length && this.state.touched) ? ' error' : '')}>
 											<FormInput
 												className="high brands"
 												type="select"
@@ -241,8 +241,8 @@ export default class Faq extends React.Component {
 											}
 										</div>
 									</div>
-									<div className="form-row">
-										<div className="form-col x2 form-opts">
+									<div className="grid-row">
+										<div className="grid-col x12 form-opts">
 											<div className="opts-inner">
 												{this.state.selectedBrands.map((brand, nth) => (
 													<span className="opts-item" key={nth}>
@@ -254,8 +254,8 @@ export default class Faq extends React.Component {
 											</div>
 										</div>
 									</div>
-									<div className="form-row">
-										<div className="form-col x2">
+									<div className="grid-row">
+										<div className="grid-col x12">
 											<FormInput
 												type="checkbox"
 												className="form-agreement"
@@ -267,8 +267,8 @@ export default class Faq extends React.Component {
 												</FormInput>
 										</div>
 									</div>
-									<div className="form-row">
-										<div className="form-col x2 center">
+									<div className="grid-row">
+										<div className="grid-col x12 center">
 											<Btn
 												type="submit"
 												uppercase
