@@ -2,6 +2,7 @@ import React from 'react'
 
 // Sections
 import Listing from 'components/sections/listing.js'
+import { apiPath } from 'functions/helpers'
 
 // Partials
 //import Link from 'components/partials/link'
@@ -16,7 +17,7 @@ export default class Brands extends React.Component {
 					<Listing
 						className="section brands-listing"
 						showAds={false}
-						source="http://localhost:8000/v1/shared/brands/" />
+						source={apiPath('brands')} />
 				</div>
 			</main>
 
