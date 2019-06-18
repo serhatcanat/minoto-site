@@ -1,0 +1,8 @@
+.grid-container {
+	.grid-row {
+		width: calc(100% + 2.2rem);
+		margin: 0 -1.1rem;
+		display: flex;
+		flex-flow: row wrap;
+	}
+}
