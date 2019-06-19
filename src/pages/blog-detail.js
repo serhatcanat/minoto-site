@@ -67,7 +67,10 @@ export default class BlogDetail extends React.Component {
 						<div className="detail-wrap wrapper narrow">
 							<div className="detail-meta">
 								<span className="meta-date">
-									{data.user} @ {data.date}
+									{data.userTwitterUsername ? (<a style={{ color: '#1da1f2' }} href={`https://twitter.com/${data.userTwitterUsername}`} target="_blank" rel="noopener noreferrer"><i className="icon-twitter"></i> {data.user} </a>) : data.user}
+
+
+									@ {data.date}
 								</span>
 							</div>
 

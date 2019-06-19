@@ -53,8 +53,8 @@ export default class Brand extends React.Component {
 	initialize() {
 		let vm = this;
 		let brand = window.location.pathname.split('/')[2];
-		//request.get(apiPath(`brands/${brand}`), { id: vm.props.match.params.id }, function (payload) {
-		request.get('/dummy/data/brand.json', { id: vm.props.match.params.id }, function (payload) {
+		request.get(apiPath(`brands/${brand}`), { id: vm.props.match.params.id }, function (payload) {
+			//request.get('/dummy/data/brand.json', { id: vm.props.match.params.id }, function (payload) {
 			if (payload) {
 				vm.setState({
 					brandData: payload
@@ -141,14 +141,14 @@ export default class Brand extends React.Component {
 							</aside>
 
 							<div className="detail-right">
-								<Image className="brand-cover" bg style={{ width: '100%' }} src={storageSpace('brands', brand.coverImage)} />
+								<Image className="brand-cover" bg src={storageSpace('brands', brand.coverImage)} />
 								{vm.state.listingQuery &&
 									<Listing
 										className="brand-listing"
 										urlBinding={false}
 										filters={false}
-										//source={apiPath(`brands/${brand.slug}/car-posts`)}
-										source={'/dummy/data/listing.json'}
+										source={apiPath(`brands/${brand.slug}/car-posts`)}
+										//source={'/dummy/data/listing.json'}
 										query={vm.state.listingQuery}
 										showAds={false}
 										onDataChange={(newData) => {
