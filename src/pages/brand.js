@@ -115,18 +115,18 @@ export default class Brand extends React.Component {
 									<button type="submit" className="search-submit"><i className="icon-search"></i></button>
 								</InputForm>*/}
 
-								{/*
-									<div className="info-dealers">
 
-										<h2 className="dealers-title">Bayiler</h2>
+								<div className="info-dealers">
 
-										<ul className="dealers-list">
-											{brand.branches.map((branch, nth) => (
-												<BranchInfo data={branch} key={nth} />
-											))}
-										</ul>
-									</div>
-								*/}
+									<h2 className="dealers-title">Bayiler</h2>
+
+									<ul className="dealers-list">
+										{brand.branches.map((branch, nth) => (
+											<BranchInfo data={branch} key={nth} />
+										))}
+									</ul>
+								</div>
+
 
 								<ListingFilters
 									className="info-filters"

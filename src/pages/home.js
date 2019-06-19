@@ -7,6 +7,9 @@ import Listing from 'components/sections/listing.js'
 import Image from 'components/partials/image.js'
 import SearchBar from 'components/partials/searchbar.js'
 
+//Deps
+import { apiPath } from "functions/helpers";
+
 // Assets
 import image_home_banner from 'assets/images/home-banner.jpg'
 import image_home_banner_mobile from 'assets/images/home-banner-mobile.jpg'
@@ -25,7 +28,9 @@ export default class Home extends React.Component {
 					</div>
 					<Image className="intro-bg" src={image_home_banner} mobile={image_home_banner_mobile} />
 				</section>
-				<Listing className="home-listing" />
+				<Listing className="home-listing"
+				//source={apiPath('brands/search-test')} 
+				/>
 			</main>
 
 		)

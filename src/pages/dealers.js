@@ -6,6 +6,9 @@ import Listing from 'components/sections/listing.js'
 // Partials
 //import Link from 'components/partials/link'
 
+// Deps
+import { apiPath } from 'functions/helpers'
+
 // Assets
 
 export default class Dealers extends React.Component {
@@ -16,7 +19,9 @@ export default class Dealers extends React.Component {
 					<Listing
 						className="dealers-listing"
 						showAds={false}
-						source="/dummy/data/listing-dealers.json" />
+						// source="/dummy/data/listing-dealers.json"
+						source={apiPath('dealers')}
+					/>
 				</div>
 			</main>
 

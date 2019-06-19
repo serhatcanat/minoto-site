@@ -13,6 +13,7 @@ import Collapse from 'components/partials/collapse'
 //import { InputForm, FormInput } from 'components/partials/forms'
 
 // Deps
+import { apiPath, storageSpace } from 'functions/helpers'
 import extend from 'lodash/extend'
 import debounce from 'lodash/debounce'
 import isEqual from 'lodash/isEqual'
@@ -48,18 +49,18 @@ export default class Dealer extends React.Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		if(!isEqual(prevState.dealerData, this.state.dealerData) || prevState.searchText !== this.state.searchText){
+		if (!isEqual(prevState.dealerData, this.state.dealerData) || prevState.searchText !== this.state.searchText) {
 			this.updateSearch();
 		}
 	}
 
 	initialize() {
 		let vm = this;
-		request.get('/dummy/data/dealer.json', { id: vm.props.match.params.id }, function(payload){
-			if(payload){
+		request.get(apiPath(`dealers/${vm.props.match.params.id}`), { id: vm.props.match.params.id }, function (payload) {
+			if (payload) {
 				vm.setState({
 					dealerData: payload,
-					listingQuery: {dealer: payload.id},
+					listingQuery: { dealer: payload.id },
 				})
 
 				setTitle(payload.title);
@@ -71,22 +72,22 @@ export default class Dealer extends React.Component {
 	}
 
 	changeSearch(e) {
-		this.setState({searchText: e});
+		this.setState({ searchText: e });
 	}
 
 	updateSearch() {
-		if(this.state.dealerData){
-			let query = {dealer: this.state.dealerData.id};
+		if (this.state.dealerData) {
+			let query = { dealer: this.state.dealerData.id };
 
-			if(this.state.searchText !== ''){
+			if (this.state.searchText !== '') {
 				query.search = this.state.searchText;
 			}
 
-			this.setState({listingQuery: query});
+			this.setState({ listingQuery: query });
 		}
 	}
 
-	updateFilters(newQuery){
+	updateFilters(newQuery) {
 		//let newQuery = clone(this.props.query);
 		newQuery = extend({}, newQuery, {
 			dealer: this.state.dealerData.id,
@@ -97,99 +98,103 @@ export default class Dealer extends React.Component {
 		})
 	}
 
-	render () {
+	render() {
 		let vm = this;
 		let dealer = vm.state.dealerData;
 		return (
 			<main className="page dealer">
 				<Loader loading={dealer === false} strict={true} />
 				<div className="wrapper">
-				{dealer && 
-					<section className="section dealer-detail">
-						<aside className="detail-info">
-							<div className="info-sum">
-								<FavBtn className="sum-favbtn" faved={dealer.favorited} />
-								<Image className="sum-avatar" bg src={dealer.avatar} bg />
-								<h1 className="sum-title">
-									{dealer.title}
-								</h1>
+					{dealer &&
+						<section className="section dealer-detail">
+							<aside className="detail-info">
+								<div className="info-sum">
+									<FavBtn className="sum-favbtn" faved={dealer.favorited} />
+									<Image className="sum-avatar" bg src={storageSpace('dealers', dealer.avatar)} bg />
+									<h1 className="sum-title">
+										{dealer.title}
+									</h1>
 
-								<span className={"sum-workinghours " + (dealer.open ? 'open' : 'closed')}>
-									{dealer.workingHours}
-									<span>|</span>
-									{(dealer.open ? 'Şu an açık' : 'Şu an kapalı')}
-								</span>
+									<span style={{ opacity: '0' }} className={"sum-workinghours " + (dealer.open ? 'open' : 'closed')}>
+										{dealer.workingHours}
+										<span>|</span>
+										{(dealer.open ? 'Şu an açık' : 'Şu an kapalı')}
+									</span>
+									{
+										dealer.phone && (
+											<div className="sum-controls">
+												<Btn tag="a" icon="phone" primary low wide href={'tel:+9' + dealer.phone.replace(' ', '')}>{dealer.phone}</Btn>
+											</div>
+										)
+									}
 
-								<div className="sum-controls">
-									<Btn tag="a" icon="phone" primary low wide href={'tel:+9'+dealer.phone.replace(' ', '')}>{dealer.phone}</Btn>
+
+									<div className="sum-numbers">
+										<span className="numbers-elem">{dealer.branchCount} Bayi</span>
+										<span className="numbers-elem">{dealer.listingCount} Araç</span>
+									</div>
 								</div>
 
-								<div className="sum-numbers">
-									<span className="numbers-elem">{dealer.branchCount} Bayi</span>
-									<span className="numbers-elem">{dealer.listingCount} Araç</span>
-								</div>
-							</div>
-
-							{/*
+								{/*
 							<InputForm className="info-search">
 								<FormInput placeholder={dealer.title+' üzerinde ara'} value={vm.state.searchText} onChange={vm.changeSearch} />
 								<button type="submit" className="search-submit"><i className="icon-search"></i></button>
 							</InputForm>
 							*/}
 
-							<div className="info-branches">
-								<div className="branches-head">
-									
-									<strong className="head-title">Şubeler / Lokasyonlar</strong>
+								<div className="info-branches">
+									<div className="branches-head">
+
+										<strong className="head-title">Şubeler / Lokasyonlar</strong>
+									</div>
+
+									<ul className="branches-list">
+										{dealer.branches.reduce((filtered, branch, nth) => {
+											if (nth < branchExpandLimit || vm.state.expandBranches) {
+												filtered.push(<BranchInfo data={branch} key={nth} />)
+											}
+											return filtered;
+										}, [])}
+									</ul>
+									{dealer.branches.length > branchExpandLimit &&
+										<button className="branches-extend" onClick={() => { vm.setState({ expandBranches: !vm.state.expandBranches }) }}>
+											{!vm.state.expandBranches ?
+												<span>+ Daha fazla göster</span> :
+												<span>- Küçült</span>
+											}
+										</button>
+									}
 								</div>
 
-								<ul className="branches-list">
-									{dealer.branches.reduce((filtered, branch, nth) => {
-										if(nth < branchExpandLimit || vm.state.expandBranches){
-											filtered.push(<BranchInfo data={branch} key={nth} />)
-										}
-										return filtered;
-									}, [])}
-								</ul>
-								{dealer.branches.length > branchExpandLimit &&
-									<button className="branches-extend" onClick={() => { vm.setState({expandBranches: !vm.state.expandBranches}) }}>
-										{!vm.state.expandBranches ? 
-											<span>+ Daha fazla göster</span> :
-											<span>- Küçült</span>
-										}
-									</button>
-								}
-							</div>
-
-							<ListingFilters
-								className="info-filters"
-								data={vm.state.listingData}
-								onUpdate={vm.updateFilters}
+								<ListingFilters
+									className="info-filters"
+									data={vm.state.listingData}
+									onUpdate={vm.updateFilters}
 								/*
 								onClose={() => { vm.setState({ expandFilters: false})}}
 								
 								expanded={vm.state.expandFilters}
 								*/
 								/>
-						</aside>
-						<div className="detail-right">
-							<Image className="dealer-cover" bg src={dealer.cover} />
-							{vm.state.listingQuery &&
-								<Listing
-									className="dealer-listing"
-									urlBinding={false}
-									filters={false}
-									source="/dummy/data/listing.json"
-									query={vm.state.listingQuery}
-									showAds={false}
-									onDataChange={(newData) => {
-										vm.setState({listingData: newData});
-									}}
-								/>
-							}
-						</div>
-					</section>
-				}
+							</aside>
+							<div className="detail-right">
+								<Image className="dealer-cover" bg src={storageSpace('dealers', dealer.cover)} />
+								{vm.state.listingQuery &&
+									<Listing
+										className="dealer-listing"
+										urlBinding={false}
+										filters={false}
+										source="/dummy/data/listing.json"
+										query={vm.state.listingQuery}
+										showAds={false}
+										onDataChange={(newData) => {
+											vm.setState({ listingData: newData });
+										}}
+									/>
+								}
+							</div>
+						</section>
+					}
 				</div>
 			</main>
 
@@ -209,7 +214,7 @@ class BranchInfo extends React.Component {
 		let branch = this.props.data;
 		return (
 			<li className={"list-branch" + (this.state.open ? ' open' : '') + (branch.open ? ' working' : '')}>
-				<button className="branch-sum" onClick={() => { this.setState({open: !this.state.open}); }}>
+				<button className="branch-sum" onClick={() => { this.setState({ open: !this.state.open }); }}>
 					<strong className="branch-title">{branch.title} <span className="title-listingcount">({branch.listingCount})</span></strong>
 
 				</button>
@@ -222,12 +227,13 @@ class BranchInfo extends React.Component {
 					</span>
 
 					{branch.location &&
-						<button type="button" className="details-showonmap" onClick={() => openModal('map', {markers: [{ lat: branch.location.lat, lng: branch.location.lng }]})}>Haritada gör</button>
+						<button type="button" className="details-showonmap" onClick={() => openModal('map', { markers: [{ lat: branch.location.lat, lng: branch.location.lng }] })}>Haritada gör</button>
 					}
 
 					<div className="details-controls">
-						<Btn tag="a" icon="phone" primary small uppercase href={'tel:+9'+branch.phone.replace(' ', '')}>{branch.phone}</Btn>
+						<Btn tag="a" icon="phone" primary small uppercase href={'tel:+9' + branch.phone.replace(' ', '')}>{branch.phone}</Btn>
 						{/*<Btn tag="link" icon="envelope" text low uppercase href={'/user/message/todealer/'+branch.id}>Mesaj Gönder</Btn>*/}
+						<Btn tag="a" href={`/sube/${branch.id}/${branch.slug}`} icon="eye" text low uppercase>Detaylı Gör</Btn>
 					</div>
 				</Collapse>
 			</li>
