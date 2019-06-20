@@ -4,8 +4,9 @@ import React from 'react'
 import GoogleMap from 'components/partials/google-map'
 import Link from 'components/partials/link'
 import Btn from 'components/partials/btn'
-import { serializeArray } from 'functions/helpers'
+import { serializeArray, apiPath } from 'functions/helpers'
 import { InputForm, FormInput } from 'components/partials/forms'
+import axios from "axios";
 
 // Deps
 import request from 'controllers/request'
@@ -28,7 +29,29 @@ export default class Contact extends React.Component {
 		//post statikte 404 verdiği için dummy olarak get
 		//request.post('/dummy/data/contactform.json', serializeArray(e.target), function(response){
 		//..
-		request.get('/dummy/data/contactform.json', serializeArray(e.target), function (response) {
+
+		let record = {
+			name: e.target.elements.name.value,
+			email: e.target.elements.email.value,
+			phone: e.target.elements.phone.value,
+			company: e.target.elements.company.value,
+			body: e.target.elements.message.value,
+		};
+
+
+		axios.post(apiPath('mail/contact'), record).then(res => {
+			setTimeout(function () {
+				vm.setState({ loading: false, complete: true });
+
+				setTimeout(function () {
+					vm.setState({ loading: false, complete: false });
+				}, 1000);
+			}, 1000);
+		})
+
+
+		//request.get('/dummy/data/contactform.json', serializeArray(e.target), function (response) {
+		/* request.post(apiPath('mail/contact'), serializeArray(record), function (response) {
 			if (response !== false) {
 				// Dummy timeout etc..
 				setTimeout(function () {
@@ -42,7 +65,7 @@ export default class Contact extends React.Component {
 			else {
 				vm.setState({ loading: false });
 			}
-		});
+		}); */
 	}
 
 	changeFormMode(e) {
@@ -112,7 +135,7 @@ export default class Contact extends React.Component {
 										className="opt-input" />
 									<label htmlFor="typeselection_generic">Genel İletişim</label>
 								</div>
-								<div className="typeselection-opt">
+								<div className="typeselection-opt" style={{ display: 'none' }}>
 									<input
 										id="typeselection_dealer"
 										type="radio"

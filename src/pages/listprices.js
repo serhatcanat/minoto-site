@@ -10,7 +10,7 @@ import Loader from 'components/partials/loader'
 import Select from 'components/partials/select'
 
 // Deps
-import { formatNumber } from 'functions/helpers'
+import { formatNumber, apiPath, storageSpace } from 'functions/helpers'
 import request from 'controllers/request'
 import { generatePath } from 'react-router'
 
@@ -36,39 +36,40 @@ export default class ListPrices extends React.Component {
 
 	initialize() {
 		let vm = this;
-		vm.setState({brands: false});
+		vm.setState({ brands: false });
 
-		if(vm.ajaxController !== false){
+		if (vm.ajaxController !== false) {
 			vm.ajaxController.cancel('Canceled duplicate request.');
 		}
-		setTimeout(function() {
+		setTimeout(function () {
 			vm.ajaxController = request.get(
-				'/dummy/data/listprices.json',
+				//'/dummy/data/listprices.json',
+				apiPath('price-lists'),
 				{
-					year: vm.props.match.params.year ? vm.props.match.params.year : 'tum_yillar',
-					brand: vm.props.match.params.brand ? vm.props.match.params.brand : 'tum_markalar'
+					yil: vm.props.match.params.year ? vm.props.match.params.year : '',
+					marka: vm.props.match.params.brand ? vm.props.match.params.brand : ''
 				},
-				function(payload){
+				function (payload) {
 					vm.ajaxController = false;
-
-					if(payload){
-						let yearFilters = payload.filters.year.map(function(filter, nth){
+					console.log(payload)
+					if (payload) {
+						let yearFilters = payload.filters.year.map(function (filter, nth) {
 							let filterData = {
 								value: filter.value,
 								label: filter.title,
 							}
-							if(filter.selected){
+							if (filter.selected) {
 								vm.setState({ selectedYear: filterData });
 							}
 							return filterData;
 						});
 
-						let brandFilters = payload.filters.brand.map(function(filter, nth){
+						let brandFilters = payload.filters.brand.map(function (filter, nth) {
 							let filterData = {
 								value: filter.value,
 								label: filter.title,
 							}
-							if(filter.selected){
+							if (filter.selected) {
 								vm.setState({ selectedBrand: filterData });
 							}
 							return filterData;
@@ -93,29 +94,29 @@ export default class ListPrices extends React.Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		if(prevState.selectedYear && prevState.selectedBrand){
-			if(prevState.selectedYear.value !== this.state.selectedYear.value || prevState.selectedBrand.value !== this.state.selectedBrand.value){
-				const path = generatePath(this.props.match.path, {brand: this.state.selectedBrand.value, year: this.state.selectedYear.value});
-  				this.props.history.replace(path);
+		if (prevState.selectedYear && prevState.selectedBrand) {
+			if (prevState.selectedYear.value !== this.state.selectedYear.value || prevState.selectedBrand.value !== this.state.selectedBrand.value) {
+				const path = generatePath(this.props.match.path, { brand: this.state.selectedBrand.value, year: this.state.selectedYear.value });
+				this.props.history.replace(path);
 
-  				this.initialize();
+				this.initialize();
 			}
 		}
 	}
 
 	changeYear(option) {
-		this.setState({selectedYear: option});
+		this.setState({ selectedYear: option });
 	}
 
 	changeBrand(option) {
-		this.setState({selectedBrand: option});
+		this.setState({ selectedBrand: option });
 	}
 
 	changeModel(option) {
 
 	}
 
-	render () {
+	render() {
 		let vm = this;
 		let brands = vm.state.brands;
 		return (
@@ -139,24 +140,24 @@ export default class ListPrices extends React.Component {
 						<div className="listprices-head">
 							<h1 className="head-title">Araç Liste fiyatları.</h1>
 							<div className="head-filters">
-							{vm.state.yearFilters &&
-								<div className="inputwrap dark filters-item">
-									<Select
-										value={vm.state.selectedYear}
-										onChange={vm.changeYear}
-										options={vm.state.yearFilters}
-									/>
-								</div>
-							}
-							{vm.state.brandFilters &&
-								<div className="inputwrap dark filters-item">
-									<Select
-										value={vm.state.selectedBrand}
-										onChange={vm.changeBrand}
-										options={vm.state.brandFilters}
-									/>
-								</div>
-							}
+								{vm.state.yearFilters &&
+									<div className="inputwrap dark filters-item">
+										<Select
+											value={vm.state.selectedYear}
+											onChange={vm.changeYear}
+											options={vm.state.yearFilters}
+										/>
+									</div>
+								}
+								{vm.state.brandFilters &&
+									<div className="inputwrap dark filters-item">
+										<Select
+											value={vm.state.selectedBrand}
+											onChange={vm.changeBrand}
+											options={vm.state.brandFilters}
+										/>
+									</div>
+								}
 							</div>
 						</div>
 
@@ -169,15 +170,17 @@ export default class ListPrices extends React.Component {
 											<tr>
 												<th>Marka</th>
 												<th>Model</th>
-												<th>Tip</th>
-												<th>Donanım Tipi</th>
+												<th>Alt Model</th>
+												<th>Versiyon</th>
+												<th>Donanım</th>
 												<th>Motor Hacmi</th>
 												<th>Vites Tipi</th>
 												<th>Yakıt Türü</th>
 												<th>Fiyat</th>
+												<th>Kampanyalı Fiyat</th>
 											</tr>
 										</thead>
-										
+
 										{brands.map((brand, nth) => (
 											<tbody key={nth}>
 												{brand.listings.map((item, ntx) => (
@@ -186,7 +189,7 @@ export default class ListPrices extends React.Component {
 															<td className="brand" rowSpan={brand.listings.length}>
 																<div className="brand-wrap">
 																	<div className="brand-logowrap">
-																		<Image src={brand.logo} alt={brand.name} bg contain className="brand-logo"></Image>
+																		<Image src={storageSpace('brands', brand.logo)} alt={brand.name} bg contain className="brand-logo"></Image>
 																	</div>
 																</div>
 															</td>
@@ -194,10 +197,14 @@ export default class ListPrices extends React.Component {
 														<td>{item.model}</td>
 														<td>{item.type}</td>
 														<td>{item.equipment}</td>
+														<td>{item.equipmentMain}</td>
 														<td>{item.enginevolume}</td>
 														<td>{item.transmission}</td>
 														<td>{item.fuel}</td>
-														<td>{formatNumber(item.price)} TL</td>
+														<td>{formatNumber(item.price)} TL </td>
+														<td>
+															{item.price2 ? formatNumber(item.price2) + ' TL' : '-'}
+														</td>
 													</tr>
 												))}
 											</tbody>

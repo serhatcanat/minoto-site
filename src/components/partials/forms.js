@@ -35,17 +35,17 @@ export class FormInput extends React.Component {
 		this.id = (props.id ? props.id : uid('form_input'));
 	}
 
-	validate(){
-		if(this.input.current){
+	validate() {
+		if (this.input.current) {
 			this.input.current.validate();
 		}
 	}
 
 	onChange(status) {
-		if(this.props.onChange){
+		if (this.props.onChange) {
 			this.props.onChange(status.value, this.props.name, status.error, status.touched);
 		}
-		if(this.props.onChangeInForm){
+		if (this.props.onChangeInForm) {
 			this.props.onChangeInForm({
 				value: status.value,
 				name: status.name,
@@ -62,8 +62,8 @@ export class FormInput extends React.Component {
 		});
 	}
 
-	reset(){
-		if(this.input.current){
+	reset() {
+		if (this.input.current) {
 			this.input.current.reset();
 		}
 	}
@@ -80,7 +80,7 @@ export class FormInput extends React.Component {
 			(vm.props.icon ? ' has-icon' : '') +
 			(vm.props.info ? ' has-info' : '') +
 			((vm.state.value !== "" && vm.state.value !== false && vm.state.value !== null) ? ' input-full' : '');
-		
+
 		let name = (vm.props.name ? vm.props.name : vm.id);
 
 		let Input = false;
@@ -181,18 +181,18 @@ class InputText extends React.Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		if(!isEqual(prevProps.validation, this.props.validation)){
-			this.setState({ validation: this.calculateValidation()})
+		if (!isEqual(prevProps.validation, this.props.validation)) {
+			this.setState({ validation: this.calculateValidation() })
 		}
-		if(prevProps.value !== this.props.value){
-			this.setState({value: this.props.value});
+		if (prevProps.value !== this.props.value) {
+			this.setState({ value: this.props.value });
 		}
 
-		if(prevState.value !== this.state.value || !isEqual(prevState.validation, this.state.validation)){
+		if (prevState.value !== this.state.value || !isEqual(prevState.validation, this.state.validation)) {
 			this.validate(this.state.value);
 		}
 
-		if(prevState.value !== this.state.value || prevState.touched !== this.state.touched || prevState.error !== this.state.error){
+		if (prevState.value !== this.state.value || prevState.touched !== this.state.touched || prevState.error !== this.state.error) {
 
 			this.props.onChange({
 				error: this.state.error,
@@ -215,12 +215,12 @@ class InputText extends React.Component {
 
 	handleChange(e) {
 		e.persist();
-		this.setState({value: e.target.value});
+		this.setState({ value: e.target.value });
 	}
 
 	handleBlur(e) {
 		e.persist();
-		this.setState({value: e.target.value, touched: true});
+		this.setState({ value: e.target.value, touched: true });
 	}
 
 	validate(value = this.state.value) {
@@ -229,7 +229,7 @@ class InputText extends React.Component {
 	}
 
 	reset() {
-		this.setState({value: '', touched: false});
+		this.setState({ value: '', touched: false });
 	}
 
 	render() {
@@ -266,7 +266,7 @@ class InputText extends React.Component {
 			});
 		}
 
-		if(props.mask){
+		if (props.mask) {
 			Elem = InputMask;
 			props = extend({}, props, {
 				maskChar: null,
@@ -331,18 +331,18 @@ class InputTextarea extends React.Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		if(!isEqual(prevProps.validation, this.props.validation)){
-			this.setState({ validation: this.calculateValidation()})
+		if (!isEqual(prevProps.validation, this.props.validation)) {
+			this.setState({ validation: this.calculateValidation() })
 		}
-		if(prevProps.value !== this.props.value){
-			this.setState({value: this.props.value});
+		if (prevProps.value !== this.props.value) {
+			this.setState({ value: this.props.value });
 		}
 
-		if(prevState.value !== this.state.value || !isEqual(prevState.validation, this.state.validation)){
+		if (prevState.value !== this.state.value || !isEqual(prevState.validation, this.state.validation)) {
 			this.validate(this.state.value);
 		}
 
-		if(prevState.value !== this.state.value || prevState.touched !== this.state.touched || prevState.error !== this.state.error){
+		if (prevState.value !== this.state.value || prevState.touched !== this.state.touched || prevState.error !== this.state.error) {
 
 			this.props.onChange({
 				error: this.state.error,
@@ -365,16 +365,16 @@ class InputTextarea extends React.Component {
 
 	handleChange(e) {
 		e.persist();
-		this.setState({value: e.target.value});
+		this.setState({ value: e.target.value });
 	}
 
 	handleBlur(e) {
 		e.persist();
-		this.setState({value: e.target.value, touched: true});
+		this.setState({ value: e.target.value, touched: true });
 	}
 
 	reset() {
-		this.setState({value: '', touched: false});
+		this.setState({ value: '', touched: false });
 	}
 
 	validate(value = this.state.value) {
@@ -471,7 +471,7 @@ class InputFile extends React.Component {
 	}
 
 	reset() {
-		this.setState({value: '', touched: false});
+		this.setState({ value: '', touched: false });
 		this.input.reset();
 	}
 
@@ -534,8 +534,8 @@ class InputSelect extends React.Component {
 	}
 
 	componentDidUpdate(prevProps) {
-		if(!isEqual(prevProps.value, this.props.value)){
-			this.setState({value: this.props.value});
+		if (!isEqual(prevProps.value, this.props.value)) {
+			this.setState({ value: this.props.value });
 		}
 	}
 
@@ -558,13 +558,13 @@ class InputSelect extends React.Component {
 
 		vm.setState({ value: option, error: (validStatus !== false), errorMessage: validStatus });
 
-		if(vm.props.value === false && option){
+		if (vm.props.value === false && option) {
 			vm.validate(false, false);
 		}
 	}
 
 	reset() {
-		this.setState({value: null, touched: false});
+		this.setState({ value: null, touched: false });
 	}
 
 	render() {
@@ -635,7 +635,7 @@ class InputCheck extends React.Component {
 	}
 
 	reset() {
-		this.setState({value: this.props.value, checked: (this.props.checked ? true : false), touched: false});
+		this.setState({ value: this.props.value, checked: (this.props.checked ? true : false), touched: false });
 	}
 
 	render() {
@@ -814,7 +814,7 @@ export class InputForm extends React.Component {
 			this.validElements = pull(this.validElements, state.name);
 			this.invalidElements = union(this.invalidElements, [state.name]);
 		}
-		else if(state.validation !== false){
+		else if (state.validation !== false) {
 			this.invalidElements = pull(this.invalidElements, state.name);
 			this.validElements = union(this.validElements, [state.name]);
 		}
@@ -825,12 +825,12 @@ export class InputForm extends React.Component {
 	}
 
 	handleSubmit(e = false) {
-		if(e){ e.preventDefault(); }
+		if (e) { e.preventDefault(); }
 		this.setState({ forceTouch: true })
 		if (this.validate()) {
 			this.setState({ sending: true });
 
-			if(this.props.onSubmit){
+			if (this.props.onSubmit) {
 				this.props.onSubmit((e ? e.nativeEvent : false), this.form.current);
 			}
 
@@ -850,9 +850,9 @@ export class InputForm extends React.Component {
 		}*/
 
 		//let children = React.Children.toArray(this.props.children);
-		for(let k = 0; k < this.elems.length; k++){
+		for (let k = 0; k < this.elems.length; k++) {
 			let elem = this.elems[k];
-			if(elem){
+			if (elem) {
 				elem.reset();
 			}
 		}
@@ -892,7 +892,7 @@ export class InputForm extends React.Component {
 
 		return (
 			<Container className={'form ' + vm.props.className} onSubmit={vm.handleSubmit} noValidate autoComplete={vm.props.autoComplete || ''} ref={this.form}>
-				{vm.modifyChildren(vm.props.children, { onChangeInForm: vm.elementStateChange, forceTouch: vm.state.forceTouch, ref: function(ref){ vm.elems.push(ref) } })}
+				{vm.modifyChildren(vm.props.children, { onChangeInForm: vm.elementStateChange, forceTouch: vm.state.forceTouch, ref: function (ref) { vm.elems.push(ref) } })}
 			</Container>
 		)
 	}
