@@ -21,6 +21,8 @@ export default class Contact extends React.Component {
 
 		this.submit = this.submit.bind(this);
 		this.changeFormMode = this.changeFormMode.bind(this);
+
+		this.composeForm = React.createRef();
 	}
 
 	submit(e) {
@@ -42,6 +44,8 @@ export default class Contact extends React.Component {
 		axios.post(apiPath('mail/contact'), record).then(res => {
 			setTimeout(function () {
 				vm.setState({ loading: false, complete: true });
+
+				vm.composeForm.current.reset();
 
 				setTimeout(function () {
 					vm.setState({ loading: false, complete: false });
@@ -122,7 +126,7 @@ export default class Contact extends React.Component {
 							</li>
 						</ul>
 
-						<InputForm className="info-section info-form" onSubmit={this.submit}>
+						<InputForm className="info-section info-form" onSubmit={this.submit} ref={this.form}>
 							<div className="form-typeselection">
 								<div className="typeselection-opt">
 									<input

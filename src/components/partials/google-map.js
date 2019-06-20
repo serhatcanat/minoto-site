@@ -136,8 +136,8 @@ class GoogleMap extends React.PureComponent{
 		let markerInstance = new window.google.maps.Marker({
 			map: vm.mapInstance,
 			position: {
-				lat: opts.lat,
-				lng: opts.lng,
+				lat: parseFloat(opts.lat),
+				lng: parseFloat(opts.lng),
 			},
 			icon: opts.icon
 		});
