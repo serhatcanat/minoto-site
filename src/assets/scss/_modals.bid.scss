@@ -1,0 +1,36 @@
+.modal-container.modal-bid{
+
+	.modal-closebtn {
+		background-color: transparent;
+		color: $color-text-light;
+	}
+
+	.modal-content {
+		width: 65rem;
+	}
+
+	.modal-innercontent {
+		padding: 8rem 10rem 10rem;
+
+		@include media {
+			padding: 3rem 2rem;
+		}
+	}
+
+	.bid-title {
+		@include font-bold;
+		margin-bottom: 4rem;
+
+		strong {
+			font-weight: inherit;
+			color: $color-primary;
+		}
+	}
+
+	.bid-form {
+	}
+
+		.form-message {
+			margin-top: 4rem;
+		}
+}

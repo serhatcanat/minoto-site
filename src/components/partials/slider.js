@@ -87,6 +87,7 @@ export default class Slider extends React.Component {
 			loop: vm.props.loop,
 			loopedSlides: 1,
 			slidesPerView: vm.props.slides,
+			preventClicks: false,
 			preventClicksPropagation: false,
 			on: {
 				slideChange: function(){ vm.slideChanged(); }

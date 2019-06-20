@@ -8,10 +8,32 @@ import Btn from 'components/partials/btn'
 
 // Deps
 import { openModal } from 'functions/modals'
+import request from 'controllers/request'
 
 // Assets
 
 export default class Home extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			dummyProduct: false,
+		}
+	}
+
+	componentDidMount(){
+		let vm = this;
+
+		request.get('/dummy/data/detail.json', { id: 1}, function(payload, status){
+			if(payload){
+				vm.setState({
+					dummyProduct: payload
+				});
+
+				//openModal('bid', { advert: payload });
+			}
+		});
+	}
+
 	render() {
 		return (
 			<main className="page sitemap">
@@ -75,6 +97,7 @@ export default class Home extends React.Component {
 								lng: 29.022052
 							}]
 						})}>Harita</button>
+						<button className="btn" type="button" onClick={() => openModal('bid', { advert: this.state.dummyProduct })}>Teklif Ver</button>
 
 						<h3>Butonlar</h3>
 						<Btn primary>Ana Renk</Btn>

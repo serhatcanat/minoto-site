@@ -22,7 +22,7 @@ export default class Contact extends React.Component {
 		this.submit = this.submit.bind(this);
 		this.changeFormMode = this.changeFormMode.bind(this);
 
-		this.composeForm = React.createRef();
+		this.form = React.createRef();
 	}
 
 	submit(e) {
@@ -40,12 +40,16 @@ export default class Contact extends React.Component {
 			body: e.target.elements.message.value,
 		};
 
+		console.log(record);
+		console.log(serializeArray(e.target));
 
 		axios.post(apiPath('mail/contact'), record).then(res => {
 			setTimeout(function () {
 				vm.setState({ loading: false, complete: true });
 
-				vm.composeForm.current.reset();
+				if(vm.form.current){
+					vm.form.current.reset();
+				}
 
 				setTimeout(function () {
 					vm.setState({ loading: false, complete: false });

@@ -10,6 +10,7 @@ import RegisterModal from 'components/modals/register'
 import RecoveryModal from 'components/modals/recovery'
 import ConsentModal from 'components/modals/consent'
 import MapModal from 'components/modals/map'
+import BidModal from 'components/modals/bid'
 
 // Controllers
 import ResponsiveWatcher from 'controllers/responsive-watcher'
@@ -103,6 +104,7 @@ export default class Navigator extends React.Component {
 					<RecoveryModal />
 					<ConsentModal />
 					<MapModal />
+					<BidModal />
 				</ModalsWrap>
 			</div>
 		)
