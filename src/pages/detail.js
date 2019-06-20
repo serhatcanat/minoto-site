@@ -255,7 +255,7 @@ class DetailGallery extends React.Component {
 					<div className="gallery-thumbs">
 						<button className="thumbs-nav prev" onClick={() => { vm.thumbSlider.current.prev(); }}><i className="icon-angle-left"></i></button>
 						<button className="thumbs-nav next" onClick={() => { vm.thumbSlider.current.next(); }}><i className="icon-angle-right"></i></button>
-						<Slider className="thumbs-carousel" slides={10} ref={vm.thumbSlider} opts={{preventClicks: false, preventClicksPropagation: false}}>
+						<Slider className="thumbs-carousel" slides={10} ref={vm.thumbSlider} opts={{preventClicks: false}}>
 							{images.map((image, nth) => (
 								<button type="button" className={"carousel-imagebtn" + (vm.state.activeImage === nth ? ' active' : '')} key={nth} onClick={() => { vm.imageChange(nth); }}>
 									<Image className="carousel-image" key={nth} bg src={image.thumb} alt={product.title} />
