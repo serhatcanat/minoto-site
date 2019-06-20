@@ -85,6 +85,20 @@ const validateRaw = {
 		}
 		return error;
 	},
+	"minNum": function(msg = "Bu alan {length} değerinden küçük olmamalıdır.", value, length) {
+		let error;
+		if (parseFloat(value) < length) {
+			error = msg.replace('{length}', length);;
+		}
+		return error;
+	},
+	"maxNum": function(msg = "Bu alan {length} değerinden büyük olmamalıdır.", value, length) {
+		let error;
+		if (parseFloat(value) > length) {
+			error = msg.replace('{length}', length);;
+		}
+		return error;
+	},
 	"minLength": function(msg = "Bu alan en az {length} karakter içermelidir.", value, length) {
 		let error;
 		if (value.length < length) {

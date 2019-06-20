@@ -38,7 +38,7 @@ function evaluateData(response, finalFunction = false){
 		break;
 		case 500:
 			console.log(response.error);
-			pushMessage(response.error.message, {type: "error"});
+			pushMessage("HATA: İşlem gerçekleştirilemedi.", {type: "error"});
 			if(finalFunction){
 				finalFunction(false, response.status, response);
 			}

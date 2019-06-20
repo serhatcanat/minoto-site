@@ -29,7 +29,7 @@ export default class Home extends React.Component {
 					dummyProduct: payload
 				});
 
-				//openModal('bid', { advert: payload });
+				openModal('bid', { advert: payload });
 			}
 		});
 	}

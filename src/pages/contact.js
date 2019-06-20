@@ -37,7 +37,7 @@ export default class Contact extends React.Component {
 			email: e.target.elements.email.value,
 			phone: e.target.elements.phone.value,
 			company: e.target.elements.company.value,
-			body: e.target.elements.message.value,
+			body: e.target.elements.body.value,
 		};
 
 		console.log(record);
@@ -59,7 +59,7 @@ export default class Contact extends React.Component {
 
 
 		//request.get('/dummy/data/contactform.json', serializeArray(e.target), function (response) {
-		/* request.post(apiPath('mail/contact'), serializeArray(record), function (response) {
+		/* request.post(apiPath('mail/contact'), serializeArray(e.target), function (response) {
 			if (response !== false) {
 				// Dummy timeout etc..
 				setTimeout(function () {
@@ -143,6 +143,7 @@ export default class Contact extends React.Component {
 										className="opt-input" />
 									<label htmlFor="typeselection_generic">Genel İletişim</label>
 								</div>
+								{/*
 								<div className="typeselection-opt" style={{ display: 'none' }}>
 									<input
 										id="typeselection_dealer"
@@ -154,6 +155,7 @@ export default class Contact extends React.Component {
 										className="opt-input" />
 									<label htmlFor="typeselection_dealer">Bayi İletişim</label>
 								</div>
+								*/}
 							</div>
 							<div className="form-contentwrap">
 								{this.state.formMode === 'generic' &&
@@ -220,7 +222,7 @@ export default class Contact extends React.Component {
 								<div className="form-section x2">
 									<FormInput
 										popLabel
-										name="message"
+										name="body"
 										placeholder="Mesajınız"
 										type="textarea"
 										validation={{

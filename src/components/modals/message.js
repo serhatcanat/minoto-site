@@ -17,7 +17,7 @@ const mapStateToProps = state => {
 	};
 };
 
-class BidModalRaw extends React.Component {
+class MessageModalRaw extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -59,29 +59,20 @@ class BidModalRaw extends React.Component {
 			<div className={vm.props.className}>
 				{vm.props.closeBtn}
 				<div className="modal-innercontent">
-					<h1 className="bid-title"><strong>"{vm.props.advert.title}"</strong> başlıklı ilan için teklif ver</h1>
+					<h1 className="bid-title"><strong>"{vm.props.advert.title}"</strong> başlıklı ilan için mesaj gönder</h1>
 					{vm.props.user ?
 						!vm.state.complete ?
 							<InputForm className="bid-form" onSubmit={vm.submit}>
 								<input type="hidden" name="advert-id" value={vm.props.advert.id} />
 								<FormInput
-									className="form-price"
-									placeholder="Fiyat Teklifiniz"
-									popLabel
-									validation={{
-										required: "Bir fiyat teklifi girmelisiniz.",
-										minNum: ["Fiyat teklifi, liste fiyatının %3'ünden düşük olamaz.", (vm.props.advert.price * 0.97)],
-										maxNum: ["Fiyat teklifi, liste fiyatının %3'ünden yüksek olamaz.", (vm.props.advert.price * 1.03)],
-									}}
-									name="bid"
-									mask="10000000000"
-									disabled={vm.state.loading}
-									type="number" />
-								<FormInput
 									className="form-message"
 									placeholder="Mesajınız"
 									name="message"
 									popLabel
+									validation={{
+										required: "Bir mesaj yazmalısınız.",
+										minLength: ["Mesajınız en az {length} karakter içermelidir.", 15]
+									}}
 									disabled={vm.state.loading}
 									type="textarea" />
 
@@ -91,7 +82,7 @@ class BidModalRaw extends React.Component {
 									status={(vm.state.error ? 'error' : false)}
 									loading={vm.state.loading}
 									disabled={vm.state.loading}
-									type="submit">Teklif Ver</Btn>
+									type="submit">Mesaj Gönder</Btn>
 							</InputForm>
 						:
 							<div className="bid-complete">
@@ -107,7 +98,7 @@ class BidModalRaw extends React.Component {
 						
 						:
 						<div className="bid-login">
-							<p>Teklif vermek için giriş yapmalısınız.</p>
+							<p>Mesaj göndermek için giriş yapmalısınız.</p>
 
 							<Btn big wide onClick={() => openModal('login')}>Giriş Yap</Btn>
 						</div>
@@ -118,13 +109,13 @@ class BidModalRaw extends React.Component {
 	}
 }
 
-BidModalRaw.defaultProps = {
+MessageModalRaw.defaultProps = {
 	className: "",
 	containerClass: "modal-bid",
-	name: "bid",
+	name: "message",
 	advert: false,
 }
 
-let BidModal = connect(mapStateToProps)(BidModalRaw);
-BidModal.props = BidModalRaw.defaultProps;
-export default BidModal;
+let MessageModal = connect(mapStateToProps)(MessageModalRaw);
+MessageModal.props = MessageModalRaw.defaultProps;
+export default MessageModal;

@@ -23,6 +23,11 @@
 	}
 }
 
+.link {
+	color: $color-primary;
+	text-decoration: underline;
+}
+
 @include media() {
 	.wrapper {
 		max-width: calc(100% - 3rem);

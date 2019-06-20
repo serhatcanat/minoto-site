@@ -9,7 +9,7 @@ import Loader from 'components/partials/loader'
 import Image from 'components/partials/image'
 import Btn from 'components/partials/btn'
 import Collapse from 'components/partials/collapse'
-import Link from 'components/partials/link'
+//import Link from 'components/partials/link'
 import FavBtn from 'components/partials/favbtn'
 //import { InputForm, FormInput } from 'components/partials/forms'
 

@@ -1,4 +1,6 @@
 .modal-container.modal-bid{
+	text-align: center;
+	font-size: 1.8rem;
 
 	.modal-closebtn {
 		background-color: transparent;
@@ -20,6 +22,8 @@
 	.bid-title {
 		@include font-bold;
 		margin-bottom: 4rem;
+		font-size: 3.2rem;
+		line-height: 1.2em;
 
 		strong {
 			font-weight: inherit;
@@ -31,6 +35,43 @@
 	}
 
 		.form-message {
-			margin-top: 4rem;
+			margin-top: 2rem;
 		}
+
+		.form-submitbtn {
+			margin-top: 2rem;
+		}
+
+	.bid-complete {
+		font-size: 1.8rem;
+		line-height: 1.2em;
+	}
+
+		.complete-icon {
+			font-size: 10rem;
+			color: $color-success;
+		}
+
+		.complete-description {
+			margin-top: 2rem;
+
+			strong {
+				@include font-semibold;
+			}
+		}
+
+		.complete-controls {
+			@include font-semibold;
+			margin-top: 1.5rem;
+
+			> * + * {
+				margin-left: 2rem;
+			}
+		}
+
+	.bid-login {
+		> * + * {
+			margin-top: 2rem;
+		}
+	}
 }

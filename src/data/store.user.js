@@ -38,11 +38,28 @@ export function checkLoginStatus(endFunction = false) {
 		}
 	}, 500);*/
 
+	request.get('/dummy/data/login.json', { }, function (payload) {
+		console.log(payload);
+		if (payload) {
+			store.dispatch(setUserData(payload));
+			if (endFunction) {
+				endFunction(true);
+			}
+		}
+		else {
+			if (endFunction) {
+				endFunction(false);
+			}
+		}
+	});
+
+	/*
 	let session = Cookies.get('minoto-session');
 
 	if (session) {
 		if (!store.getState().user.initialized) {
 			request.get('/dummy/data/login.json', { session: session }, function (payload) {
+				console.log(payload);
 				if (payload) {
 					store.dispatch(setUserData(payload));
 					if (endFunction) {
@@ -60,6 +77,7 @@ export function checkLoginStatus(endFunction = false) {
 	else {
 		return false;
 	}
+	*/
 
 	return false;
 }

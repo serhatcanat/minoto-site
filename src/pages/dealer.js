@@ -110,7 +110,7 @@ export default class Dealer extends React.Component {
 							<aside className="detail-info">
 								<div className="info-sum">
 									<FavBtn className="sum-favbtn" faved={dealer.favorited} />
-									<Image className="sum-avatar" bg src={storageSpace('dealers', dealer.avatar)} bg />
+									<Image className="sum-avatar" bg src={storageSpace('dealers', dealer.avatar)} />
 									<h1 className="sum-title">
 										{dealer.title}
 									</h1>

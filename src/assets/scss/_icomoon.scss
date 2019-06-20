@@ -41,6 +41,10 @@
  	-moz-osx-font-smoothing: grayscale;
 }
 
+.icon-error:before {
+	content: "\e931";
+}
+
 .icon-minoto:before {
 	content: "\e930";
 }

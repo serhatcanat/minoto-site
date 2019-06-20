@@ -126,7 +126,7 @@ class ModalsWrap extends React.Component {
 				default:
 					for(let k = 0; k < children.length; k++){
 						let item = children[k];
-						if(item.props.name === vm.state.data.modal){
+						if(item.props.name === vm.state.data.modal || (item.type.props && item.type.props.name === vm.state.data.modal)){
 							Content = React.cloneElement(
 								item, {...props}
 							);
@@ -137,21 +137,22 @@ class ModalsWrap extends React.Component {
 		}
 
 		if(Content){
+			let props = (Content.type.props ? Content.type.props : Content.props);
 			return (
-				<div className={"modal-container " + Content.props.containerClass + (vm.state.show ? ' show' : '')}>
+				<div className={"modal-container " + props.containerClass + (vm.state.show ? ' show' : '')}>
 					<div className="modal-outerwrap">
 						{Content}
-						{(Content.props.preventClose ? 
+						{(props.preventClose ? 
 							<div className="modal-overlay"></div>
 						:
-							<button className="modal-overlay" onClick={() => { if(!Content.props.preventClose){vm.closeModal()}}}></button>
+							<button className="modal-overlay" onClick={() => { if(!props.preventClose){vm.closeModal()}}}></button>
 						)}
 					</div>
 				</div>
 			);
 		}
 		else { 
-			if(vm.state.data){ console.log('Modals Error: Modal "'+vm.props.modal+'" not found.') };
+			if(vm.state.data){ console.log('Modals Error: Modal "'+vm.state.data.modal+'" not found.') };
 			return false;
 		}
 	}

@@ -349,7 +349,7 @@ class DetailInfo extends React.Component {
 						<Btn className="controls-button" primary hollow uppercase note="Bu aracı rezerve edebilirsiniz" disabled={product.reserved}>
 							Rezerve Et
 						</Btn>
-						<Btn className="controls-button" primary uppercase note="Bu araç için teklif verebilirsiniz">
+						<Btn className="controls-button" onClick={() => openModal('bid', { advert: product })} primary uppercase note="Bu araç için teklif verebilirsiniz">
 							Teklif Ver
 						</Btn>
 					</div>
@@ -386,7 +386,7 @@ class DetailInfo extends React.Component {
 						}
 						<div className="dealer-controls">
 							<Btn type="a" icon="phone" block uppercase href={"tel:+9"+product.dealer.phone.replace(' ', '')}>{product.dealer.phone}</Btn>
-							<Btn type="link" icon="envelope" text uppercase block href={'/user/message/todealer/'+product.dealer.id}>Mesaj Gönder</Btn>
+							<Btn icon="envelope" text uppercase block onClick={() => openModal('message', { advert: product })}>Mesaj Gönder</Btn>
 						</div>
 					</div>
 				}
