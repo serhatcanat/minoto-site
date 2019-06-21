@@ -6,53 +6,79 @@ import Listing from 'components/sections/listing.js'
 // Partials
 import Image from 'components/partials/image.js'
 import SearchBar from 'components/partials/searchbar.js'
+import request from 'controllers/request'
 
 //Deps
-import { apiPath } from "functions/helpers";
+import { apiPath, storageSpace } from "functions/helpers";
 
 // Assets
 import image_home_banner from 'assets/images/home-banner.jpg'
 import image_home_banner_mobile from 'assets/images/home-banner-mobile.jpg'
 
-let title = "[Minimum Efor] Maksimum Oto";
-let title2 = "[Minimum Efor] Maksimum Oto";
-let colored = title.substring(
-	title.lastIndexOf("[") + 1,
-	title.lastIndexOf("]")
-)
-let regular = title2.substring(
-	title2.lastIndexOf("]") + 2,
-	title2.length
-)
 
-let image1 = 'https://minoto-test.ams3.digitaloceanspaces.com/homepage-slides/minimum-efor-maksimum-oto_main_1561105759.jpg'
-let image2 = 'https://minoto-test.ams3.digitaloceanspaces.com/homepage-slides/maksimum-oto_main_1561106106.jpg'
-let image2Mobile = 'https://minoto-test.ams3.digitaloceanspaces.com/homepage-slides/maksimum-oto_mobile_1561106122.jpg'
-
-let forceWhite = false;
 
 export default class Home extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			bannerData: false,
+			loading: true,
+		}
 
+		this.initialize = this.initialize.bind(this);
+	}
+
+	componentDidMount() {
+		this.initialize();
+	}
+
+	initialize() {
+		let vm = this;
+		request.get(apiPath(`homepage-slide`), null, function (payload) {
+			vm.setState({
+				bannerData: payload,
+			})
+		});
+	}
 	render() {
+		let banner = this.state.bannerData;
+
+
 		return (
 			<main className="page home">
-				<section className="section home-intro">
-					<div className="intro-content">
-						<h1 className={`intro-title ${forceWhite ? 'forceWhite' : ''}`} style={{ opacity: '1' }}>
-							<span className="colored">{colored}</span> {regular}
-							<strong className="subtitle">Türkiye'nin Sıfır Km Otomobil Sitesi</strong>
-						</h1>
-						<SearchBar className="intro-search" />
-					</div>
-					<Image
-						className="intro-bg"
-						//src={image_home_banner} 
-						src={image2}
-						mobile={image2Mobile} />
-				</section>
-				<Listing className="home-listing"
-				//source={apiPath('brands/search-test')} 
-				/>
+				{banner && (
+					<React.Fragment>
+
+						<section className="section home-intro">
+							<div className="intro-content">
+								<h1 className={`intro-title ${banner.text_color === 'white' ? 'forceWhite' : ''}`} style={{ opacity: '1' }}>
+									{
+										banner.title.charAt(0) === '[' ? (
+											<React.Fragment>
+												<span className="colored">
+													{banner.title.substring(banner.title.lastIndexOf("[") + 1, banner.title.lastIndexOf("]"))}
+												</span>{' '}
+												{
+													banner.title.substring(banner.title.lastIndexOf("]") + 2, banner.title.length)
+												}
+											</React.Fragment>
+										) : banner.title}
+
+									<strong className="subtitle">{banner.label}</strong>
+								</h1>
+								<SearchBar className="intro-search" />
+							</div>
+							<Image
+								className="intro-bg"
+								//src={image_home_banner} 
+								src={storageSpace('homepage-slides', banner.main_image)}
+								mobile={storageSpace('homepage-slides', banner.mobile_image)} />
+						</section>
+						<Listing className="home-listing"
+						//source={apiPath('brands/search-test')} 
+						/>
+					</React.Fragment>
+				)}
 			</main>
 
 		)
