@@ -80,6 +80,23 @@
 		@include media {
 			font-size: 1.4rem;
 		}
+		ol{
+			margin-left: 5rem;
+			padding-left: 1.5rem;
+			li{
+				margin-bottom: 3rem;
+			}
+		}
+		.text-center{
+			text-align: center;
+		}
+		.indent{
+			text-indent: 5rem;
+		}
+		.indent.noMargin{
+			margin-top: 0 !important;
+			margin-bottom: 0 !important;
+		}
 	}
 
 	&.contentpage-form {

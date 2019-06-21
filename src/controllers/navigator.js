@@ -43,6 +43,8 @@ import Account from 'pages/account'
 import Reservation from 'pages/reservation'
 import Faq from 'pages/faq'
 import Privacy from 'pages/privacy'
+import CookiePolicy from 'pages/cookie-policy'
+import GdprPolicy from 'pages/gdpr-policy'
 import Contact from 'pages/contact'
 import Blog from 'pages/blog'
 import BlogDetail from 'pages/blog-detail'
@@ -66,6 +68,8 @@ const pageRegistry = {
 	Reservation: Reservation,
 	Faq: Faq,
 	Privacy: Privacy,
+	CookiePolicy: CookiePolicy,
+	GdprPolicy: GdprPolicy,
 	Contact: Contact,
 	Blog: Blog,
 	BlogDetail: BlogDetail,
@@ -90,7 +94,7 @@ export default class Navigator extends React.Component {
 		});
 	}
 
-	render () {
+	render() {
 		let routeData = renderRoutes();
 		return (
 			<div className="site-content">
@@ -113,37 +117,37 @@ export default class Navigator extends React.Component {
 	}
 }
 
-export function ListingLink (params) {
-	return '/arama/?' + params.map(function(param, nth){
+export function ListingLink(params) {
+	return '/arama/?' + params.map(function (param, nth) {
 		return param.key + '=' + param.val;
 	});
 }
 
-export function redirect(opts, params = false){
+export function redirect(opts, params = false) {
 	const defaultOpts = {
 		type: 'push'
 	}
 
-	opts = (Object.prototype.toString.call(opts) === "[object String]" ? extend({}, defaultOpts, {to: opts}) : extend({}, defaultOpts, opts));
+	opts = (Object.prototype.toString.call(opts) === "[object String]" ? extend({}, defaultOpts, { to: opts }) : extend({}, defaultOpts, opts));
 
 	let route = getRoute(opts.to).path;
 
-	if(params){
-		for(let k = 0; k < Object.keys(params).length; k++){
+	if (params) {
+		for (let k = 0; k < Object.keys(params).length; k++) {
 			let key = Object.keys(params)[k];
-			route = route.replace(':'+key+'?', params[key]).replace(':'+key, params[key]);
+			route = route.replace(':' + key + '?', params[key]).replace(':' + key, params[key]);
 		}
 	}
 
-	if(route){
+	if (route) {
 		route = route.split('/:')[0];
-		switch(opts.type){
+		switch (opts.type) {
 			case "replace":
 				history.replace(route);
-			break;
+				break;
 			default:
 				history.push(route);
-			break;
+				break;
 		}
 		return true;
 	}
@@ -152,10 +156,10 @@ export function redirect(opts, params = false){
 	}
 }
 
-export function getRoute(key = false, group = 'pages'){
+export function getRoute(key = false, group = 'pages') {
 	let routeGroup = group;
 	let keyParts = key.split('.');
-	if(keyParts.length === 2){
+	if (keyParts.length === 2) {
 		routeGroup = keyParts[0];
 		key = keyParts[1];
 	}
@@ -164,8 +168,8 @@ export function getRoute(key = false, group = 'pages'){
 	return (target ? target : false);
 }
 
-export function getRouteFromUrl(url = false, getObject = false, includeCatch = false){
-	if(url === false) { url = window.location.pathname.replace(/\/$/, ''); }
+export function getRouteFromUrl(url = false, getObject = false, includeCatch = false) {
+	if (url === false) { url = window.location.pathname.replace(/\/$/, ''); }
 	let returnRoute = false;
 	let catchRoute = false;
 	Object.keys(routes).forEach((groupKey, index) => {
@@ -173,21 +177,20 @@ export function getRouteFromUrl(url = false, getObject = false, includeCatch = f
 
 		Object.keys(group).forEach((key, index) => {
 			let route = routes[groupKey][key];
-			if(route.path){
+			if (route.path) {
 				let match = matchPath(url, route.path);
-				if (match && match.isExact) 
-				{
-					if(getObject){
+				if (match && match.isExact) {
+					if (getObject) {
 						returnRoute = route;
 						returnRoute.key = key;
 						returnRoute.groupKey = groupKey;
 					}
-					else{
+					else {
 						returnRoute = [key, groupKey];
 					}
 				}
 			}
-			else if(includeCatch) {
+			else if (includeCatch) {
 				catchRoute = (getObject ? route : [key, groupKey]);
 			}
 		});
@@ -196,7 +199,7 @@ export function getRouteFromUrl(url = false, getObject = false, includeCatch = f
 	return (returnRoute ? returnRoute : catchRoute);
 }
 
-export function getCurrentRoute(url = false, includeCatch = true){
+export function getCurrentRoute(url = false, includeCatch = true) {
 	return getRouteFromUrl(false, true, true);
 }
 
@@ -204,9 +207,9 @@ export function changeURLParam(value, param, route = false, noMismatch = false) 
 	let routeObject = (route === false ? getCurrentRoute() : routes[route]);
 	let data = false;
 
-	if(routeObject){
-		data = routeObject.path.replace(':'+param+'?', value).replace(':'+param, value);
-		if(noMismatch && data === routeObject.path){
+	if (routeObject) {
+		data = routeObject.path.replace(':' + param + '?', value).replace(':' + param, value);
+		if (noMismatch && data === routeObject.path) {
 			data = false;
 		}
 	}
@@ -214,9 +217,9 @@ export function changeURLParam(value, param, route = false, noMismatch = false) 
 	return data;
 }
 
-export function changePage(key = false, group = 'pages'){
+export function changePage(key = false, group = 'pages') {
 	let route = (key ? routes[group][key] : getRouteFromUrl(false, true, true));
-	if(route.key){
+	if (route.key) {
 		key = route.key;
 		group = route.groupKey;
 	}
@@ -225,26 +228,26 @@ export function changePage(key = false, group = 'pages'){
 	let pageData = {
 		key: key,
 		group: group,
-		fullKey: group+"."+key,
+		fullKey: group + "." + key,
 		data: route
 	}
-	if(store.getState().generic.currentPage.key !== key){
+	if (store.getState().generic.currentPage.key !== key) {
 		window.scroll(0, 0);
 		store.dispatch(setPage(pageData));
 	}
-	
+
 	setMeta((route.meta ? route.meta : false), true);
 	setHead((route.head ? route.head : false), true);
 }
 
-export function renderRoutes(opts = {}){
+export function renderRoutes(opts = {}) {
 	const defaultOpts = {
 		registry: pageRegistry,
 		group: 'pages',
 		catchRedirect: false,
 	}
 	opts = extend({}, defaultOpts, opts);
-	let routeData =  Object.keys(routes[opts.group]).map((key, index) => {
+	let routeData = Object.keys(routes[opts.group]).map((key, index) => {
 		let route = routes[opts.group][key]
 		let routeProps = {
 			key: index,
@@ -260,9 +263,9 @@ export function renderRoutes(opts = {}){
 		return <Route {...routeProps} />
 	});
 
-	if(opts.catchRedirect){
+	if (opts.catchRedirect) {
 		let catchOpts = opts.catchRedirect.split('.');
-		let to = routes[(catchOpts.length > 1 ? catchOpts[0] : 'pages')][catchOpts[catchOpts.length-1]].path;
+		let to = routes[(catchOpts.length > 1 ? catchOpts[0] : 'pages')][catchOpts[catchOpts.length - 1]].path;
 		routeData.push(<Redirect to={to} key="redir" />)
 	}
 

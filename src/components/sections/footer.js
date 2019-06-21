@@ -151,6 +151,12 @@ class Footer extends React.Component {
 									<li>
 										<Link className="footer-link" href="privacy" />
 									</li>
+									<li>
+										<Link className="footer-link" href="gdprPolicy" />
+									</li>
+									<li>
+										<Link className="footer-link" href="cookiePolicy" />
+									</li>
 								</ul>
 							</Responsive>
 							<Responsive type="only-web">
@@ -160,6 +166,12 @@ class Footer extends React.Component {
 									</li>
 									<li>
 										<Link className="footer-link" href="privacy" />
+									</li>
+									<li>
+										<Link className="footer-link" href="gdprPolicy" />
+									</li>
+									<li>
+										<Link className="footer-link" href="cookiePolicy" />
 									</li>
 								</ul>
 							</Responsive>

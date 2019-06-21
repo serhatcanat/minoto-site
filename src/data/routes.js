@@ -126,6 +126,20 @@ module.exports = {
 			linkTitle: "Kullanıcı Sözleşmesi",
 			title: "Kullanıcı Sözleşmesi",
 		},
+		cookiePolicy: {
+			path: "/cerez-politikasi",
+			component: "CookiePolicy",
+			exact: true,
+			linkTitle: "Çerez Politikası",
+			title: "Çerez Politikası",
+		},
+		gdprPolicy: {
+			path: "/kisisel-verilerin-korunmasi",
+			component: "GdprPolicy",
+			exact: true,
+			linkTitle: "Kişisel Verilerin Korunması",
+			title: "Kişisel Verilerin Korunması",
+		},
 		contact: {
 			path: "/iletisim",
 			component: "Contact",
