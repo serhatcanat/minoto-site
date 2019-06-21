@@ -43,7 +43,6 @@ import Account from 'pages/account'
 import Reservation from 'pages/reservation'
 import Faq from 'pages/faq'
 import Privacy from 'pages/privacy'
-import CookiePolicy from 'pages/cookie-policy'
 import GdprPolicy from 'pages/gdpr-policy'
 import Contact from 'pages/contact'
 import Blog from 'pages/blog'
@@ -68,7 +67,6 @@ const pageRegistry = {
 	Reservation: Reservation,
 	Faq: Faq,
 	Privacy: Privacy,
-	CookiePolicy: CookiePolicy,
 	GdprPolicy: GdprPolicy,
 	Contact: Contact,
 	Blog: Blog,
