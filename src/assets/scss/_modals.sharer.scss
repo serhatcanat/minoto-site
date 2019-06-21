@@ -70,11 +70,13 @@
 
 		.info-link {
 			font-size: 1.8rem;
+			flex: 1;
 		}
 
 		.info-copy {
 			border-color: $color-gray;
 			width: 13.5rem;
+			margin-left: 2rem;
 
 			&:hover, &:active {
 				border-color: $color-primary;
