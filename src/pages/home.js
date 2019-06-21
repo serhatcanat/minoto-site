@@ -27,6 +27,7 @@ let regular = title2.substring(
 
 let image1 = 'https://minoto-test.ams3.digitaloceanspaces.com/homepage-slides/minimum-efor-maksimum-oto_main_1561105759.jpg'
 let image2 = 'https://minoto-test.ams3.digitaloceanspaces.com/homepage-slides/maksimum-oto_main_1561106106.jpg'
+let image2Mobile = 'https://minoto-test.ams3.digitaloceanspaces.com/homepage-slides/maksimum-oto_mobile_1561106122.jpg'
 
 let forceWhite = false;
 
@@ -47,7 +48,7 @@ export default class Home extends React.Component {
 						className="intro-bg"
 						//src={image_home_banner} 
 						src={image2}
-						mobile={image_home_banner_mobile} />
+						mobile={image2Mobile} />
 				</section>
 				<Listing className="home-listing"
 				//source={apiPath('brands/search-test')} 
