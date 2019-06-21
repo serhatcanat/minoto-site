@@ -64,7 +64,7 @@ export default class ShareModal extends React.Component {
 
 					<div className="sharer-info">
 						<span className="info-link">{vm.shareURL}</span>
-						<button className="info-copy btn primary wide low hollow uppercase" onClick={vm.copyURL}>{(vm.state.copied ? 'Kopyalandı!' : 'Linki Kopyala')}</button>
+						<button className="info-copy btn primary wide low hollow uppercase" onClick={vm.copyURL}>{(vm.state.copied ? 'Kopyalandı!' : 'Linki Kopyala')}</button>
 					</div>
 				</div>
 			</div>

@@ -15,7 +15,7 @@ export default class ConsentModal extends React.Component {
 			<div className={vm.props.className}>
 				{vm.props.closeBtn}
 
-				<Image className="consent-banner" src={image_consent_banner} />
+				<Image className="consent-banner" src={image_consent_banner} bg />
 				<div className="modal-innercontent">
 					<p className="confirm-question">Bana özel kampanya ve fırsatlardan haberdar olmayı kabul ediyorum.</p>
 
