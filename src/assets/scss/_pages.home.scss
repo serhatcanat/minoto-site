@@ -22,7 +22,15 @@
 				top: 46%;
 			}
 		}
-
+		.intro-title.forceWhite{
+			color: white;
+			.colored{
+				color: white;
+			}
+			.subtitle{
+				color: white;
+			}
+		}
 		.intro-title {
 			@include font-regular;
 			line-height: 3rem;
@@ -36,6 +44,7 @@
 			.colored {
 				color: $color-primary;
 			}
+		
 
 			.subtitle {
 				@include font-medium;
@@ -51,6 +60,8 @@
 					margin-top: .5rem;
 				}
 			}
+
+		
 		}
 
 		.intro-search {
