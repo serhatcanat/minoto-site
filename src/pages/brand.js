@@ -94,7 +94,7 @@ export default class Brand extends React.Component {
 						<section className="section brand-detail">
 							<aside className="detail-info">
 								<div className="info-sum">
-									<FavBtn className="sum-favbtn" faved={brand.favorited} />
+									<FavBtn className="sum-favbtn" faved={brand.favorited} type="brand" id={brand.id}  />
 									<Image className="sum-logo" bg title={brand.title} src={storageSpace('brands', brand.logo)} />
 
 									<h1 className="sum-title">{brand.title}</h1>
@@ -147,7 +147,6 @@ export default class Brand extends React.Component {
 										urlBinding={false}
 										filters={false}
 										source={`brands/${brand.slug}/car-posts`}
-										//source={'/dummy/data/listing.json'}
 										query={vm.state.listingQuery}
 										showAds={false}
 										onDataChange={(newData) => {

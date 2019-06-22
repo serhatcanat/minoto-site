@@ -14,6 +14,7 @@ import Collapse from 'components/partials/collapse.js';
 import Slider from 'components/partials/slider.js';
 import Tabs from 'components/partials/tabs.js';
 import Link from 'components/partials/link.js';
+import FavBtn from 'components/partials/favbtn'
 
 // Deps
 import { ListingLink } from 'controllers/navigator'
@@ -126,8 +127,11 @@ class Detail extends React.Component {
 											<span className="controls-viewers">{product.activeViewers} kişi bakıyor</span>
 										}
 										<span className="controls-date">{product.date}</span>
-										<button className="controls-btn"><i className="icon-heart-empty"></i> Favorilere Ekle</button>
-										<button className="controls-btn"><i className="icon-compare"></i> Karşılaştır (3)</button>
+										<FavBtn className="controls-btn" faved={product.favorited} type="advert" id={product.id}> Favorilere Ekle</FavBtn>
+										{/*<button className="controls-btn"><i className="icon-heart-empty"></i> Favorilere Ekle</button>*/}
+										{/*
+											<button className="controls-btn"><i className="icon-compare"></i> Karşılaştır (3)</button>
+										*/}
 										<button className="controls-btn" onClick={() => openModal('share')}><i className="icon-share"></i> Paylaş</button>
 									</div>
 								</div>
