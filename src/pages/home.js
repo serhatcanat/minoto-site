@@ -71,7 +71,7 @@ export default class Home extends React.Component {
 								className="intro-bg"
 								bg
 								//src={image_home_banner} 
-								src={storageSpace('homepage-slides', banner.main_iomage)}
+								src={storageSpace('homepage-slides', banner.main_image)}
 								mobile={storageSpace('homepage-slides', banner.mobile_image)} />
 						</section>
 						<Listing className="home-listing"

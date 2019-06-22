@@ -15,7 +15,7 @@ export default class ResetForm extends React.Component {
 		super(props);
 
 		this.state = {
-			loading: false,
+			loading: true,
 			submitting: false,
 			complete: false,
 			error: false,
@@ -25,8 +25,8 @@ export default class ResetForm extends React.Component {
 	}
 
 	componentDidMount() {
-		/*let vm = this;
-		request.post('users/control-token/'+vm.props.email+'/'+vm.props.token, {}, function(payload){
+		let vm = this;
+		request.get('users/control-token/'+vm.props.email+'/'+vm.props.token, {}, function(payload){
 			if(payload && payload.success){
 				vm.setState({
 					loading: false,
@@ -38,7 +38,7 @@ export default class ResetForm extends React.Component {
 					error: true,
 				});
 			}
-		});*/
+		});
 	}
 
 	submit(e) {
