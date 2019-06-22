@@ -23,7 +23,7 @@ import parse from 'html-react-parser';
 import { connect } from "react-redux";
 import request from 'controllers/request'
 import { setTitle } from 'controllers/head'
-import { apiPath, storageSpace } from "functions/helpers";
+//import { apiPath, storageSpace } from "functions/helpers";
 
 // Assets
 import image_avatar from 'assets/images/defaults/avatar.svg';

@@ -1,5 +1,4 @@
 import store from "data/store";
-import Cookies from 'js-cookie';
 import request from 'controllers/request'
 
 const initialState = {
@@ -11,14 +10,13 @@ function userReducer(state = initialState, action) {
 	if (action.type === "SET_USER_DATA") {
 		return Object.assign({}, state, {
 			user: action.payload
-			//user: false
 		});
 	}
-	/*else if (action.type === "CLOSE_MODAL") {
+	else if (action.type === "SET_TOKEN") {
 		return Object.assign({}, state, {
-			modalData: false
+			token: action.payload
 		});
-	}*/
+	}
 	return state;
 };
 export default userReducer;
@@ -31,27 +29,33 @@ function setUserData(data) {
 	};
 }
 
+function setToken(data) {
+	return {
+		type: 'SET_TOKEN',
+		payload: data
+	};
+}
+
 export function checkLoginStatus(endFunction = false) {
-	setTimeout(function() {
+	/*setTimeout(function() {
 		if(endFunction){
 			endFunction();
 		}
-	}, 500);
+	}, 500);*/
 
-	/*request.get('/dummy/data/login.json', { }, function (payload) {
-		console.log(payload);
-		if (payload) {
-			store.dispatch(setUserData(payload));
-			if (endFunction) {
-				endFunction(true);
-			}
+	if(localStorage["appState"]){
+		let appState = JSON.parse(localStorage["appState"]);
+		if(appState.isLoggedIn){
+			store.dispatch(setUserData(appState.user));
+			store.dispatch(setToken(appState.authToken));
+
+			request.get('user/check', {}, function (payload) {
+				if (payload && payload.isLoggedIn) {
+					store.dispatch(setUserData(payload));
+				}
+			});
 		}
-		else {
-			if (endFunction) {
-				endFunction(false);
-			}
-		}
-	});*/
+	}
 
 	/*
 	let session = Cookies.get('minoto-session');
@@ -80,4 +84,39 @@ export function checkLoginStatus(endFunction = false) {
 	*/
 
 	return false;
+}
+
+export function login(formData) {
+	request.post('user/login', formData, function(payload){
+		if(payload && payload.success){
+			const { name, id, email, auth_token } = payload.data;
+
+			let userData = {
+				name,
+				id,
+				email,
+				auth_token,
+				timestamp: new Date().toString()
+			};
+
+			let appState = {
+				isLoggedIn: true,
+				user: userData,
+				authToken: userData.auth_token,
+			}
+
+			localStorage["appState"] = JSON.stringify(appState);
+			store.dispatch(setUserData(payload));
+		}
+		else {
+			return false;
+		}
+	});
+}
+
+export function logout() {
+	localStorage["appState"] = JSON.stringify({isLoggedIn: false, user: false});
+
+	store.dispatch(setUserData(false));
+	store.dispatch(setToken(false));
 }

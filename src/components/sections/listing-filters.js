@@ -12,7 +12,7 @@ import clone from 'lodash/clone';
 import extend from 'lodash/extend';
 import { serializeArray, isExact } from 'functions/helpers';
 import { connect } from "react-redux";
-import { blockOverflow } from "functions/helpers";
+//import { blockOverflow } from "functions/helpers";
 
 const mapStateToProps = state => {
 	return { mobile: state.generic.mobile };

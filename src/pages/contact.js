@@ -9,7 +9,7 @@ import { InputForm, FormInput } from 'components/partials/forms'
 import axios from "axios";
 
 // Deps
-import request from 'controllers/request'
+//import request from 'controllers/request'
 
 export default class Contact extends React.Component {
 	constructor(props) {

@@ -12,8 +12,8 @@ import request from 'controllers/request'
 import { apiPath, storageSpace } from "functions/helpers";
 
 // Assets
-import image_home_banner from 'assets/images/home-banner.jpg'
-import image_home_banner_mobile from 'assets/images/home-banner-mobile.jpg'
+//import image_home_banner from 'assets/images/home-banner.jpg'
+//import image_home_banner_mobile from 'assets/images/home-banner-mobile.jpg'
 
 
 

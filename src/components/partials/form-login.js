@@ -27,11 +27,12 @@ export default class LoginForm extends React.Component {
 
 		axios
 			.post(apiPath('user/login'), record)
-			.then(response => {
+			/*.then(response => {
 				console.log(response);
 				return response;
-			})
+			})*/
 			.then(json => {
+				console.log(json);
 				if (json.data.success) {
 					alert("Login Successful!");
 					const { name, id, email, auth_token } = json.data.data;
