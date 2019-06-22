@@ -24,7 +24,6 @@ class MessageModalRaw extends React.Component {
 			loading: false,
 			complete: false,
 			error: false,
-			bid: false,
 		}
 
 		this.submit = this.submit.bind(this);
@@ -33,23 +32,15 @@ class MessageModalRaw extends React.Component {
 	submit(e) {
 		let vm = this;
 		let payload = serializeArray(e.target)
-		vm.setState({ loading: true, bid: false, error: false })
+		vm.setState({ loading: true, error: false })
 
-		console.log(serializeArray(e.target));
-
-		request.post('mail/contact', payload, function (response) {
-			console.log(response);
-			vm.setState({ loading: false, complete: true, bid: payload.bid });
-			/*if (response !== false) {
-				vm.setState({ loading: false, complete: true, bid: payload.bid });
+		request.post('messages/send-message', payload, function (response) {
+			if(response && response.success){
+				vm.setState({ loading: false, complete: true });
 			}
 			else {
 				vm.setState({ loading: false, error: true });
-
-				setTimeout(function() {
-					vm.setState({ error: false })
-				}, 3000);
-			}*/
+			}
 		}); 
 	}
 
@@ -80,7 +71,7 @@ class MessageModalRaw extends React.Component {
 									className="form-submitbtn"
 									big wide
 									status={(vm.state.error ? 'error' : false)}
-									loading={vm.state.loading}
+									loading={vm.state.loading && !vm.state.error}
 									disabled={vm.state.loading}
 									type="submit">Mesaj Gönder</Btn>
 							</InputForm>
@@ -88,11 +79,11 @@ class MessageModalRaw extends React.Component {
 							<div className="bid-complete">
 								<i className="complete-icon icon-check-round"></i>
 								<p className="complete-description">
-									<strong>{vm.state.bid}TL</strong>'lik teklifiniz kaydedildi.
+									Mesajınız gönderildi.
 								</p>
 								<div className="complete-controls">
 									<button type="button" className="link" onClick={closeModal}>İlana Dön</button>
-									<Link className="link" href="account.reservations">Rezervasyonlarıma Git</Link>
+									<Link className="link" href="account.messages">Mesajlarıma Git</Link>
 								</div>
 							</div>
 						

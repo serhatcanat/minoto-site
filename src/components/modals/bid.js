@@ -37,19 +37,13 @@ class BidModalRaw extends React.Component {
 
 		console.log(serializeArray(e.target));
 
-		request.post('mail/contact', payload, function (response) {
-			console.log(response);
-			vm.setState({ loading: false, complete: true, bid: payload.bid });
-			/*if (response !== false) {
+		request.post('messages/send-message', payload, function (response) {
+			if(response && response.success){
 				vm.setState({ loading: false, complete: true, bid: payload.bid });
 			}
 			else {
 				vm.setState({ loading: false, error: true });
-
-				setTimeout(function() {
-					vm.setState({ error: false })
-				}, 3000);
-			}*/
+			}
 		}); 
 	}
 

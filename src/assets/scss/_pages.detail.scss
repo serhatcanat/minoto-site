@@ -43,6 +43,12 @@
 					color: inherit;
 					overflow: visible;
 
+					&.faved {
+						.fav-button-icon {
+							color: $color-primary;
+						}
+					}
+
 					i, .fav-button-icon {
 						font-size: 2.4rem;
 						width: 2.4rem;

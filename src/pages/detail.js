@@ -127,7 +127,7 @@ class Detail extends React.Component {
 											<span className="controls-viewers">{product.activeViewers} kişi bakıyor</span>
 										}
 										<span className="controls-date">{product.date}</span>
-										<FavBtn className="controls-btn" faved={product.favorited} type="advert" id={product.id}> Favorilere Ekle</FavBtn>
+										<FavBtn className="controls-btn" faved={product.favorited} type="post" id={product.id}> Favorilere Ekle</FavBtn>
 										{/*<button className="controls-btn"><i className="icon-heart-empty"></i> Favorilere Ekle</button>*/}
 										{/*
 											<button className="controls-btn"><i className="icon-compare"></i> Karşılaştır (3)</button>

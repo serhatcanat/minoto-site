@@ -30,7 +30,7 @@ export default class FavBtn extends React.Component {
 		if(user){
 			vm.setState({submitting: true})
 
-			request.post('favorites', {type: vm.props.type, id: vm.props.id, email: user.email}, function(payload){
+			request.post('favorites', {type: vm.props.type, id: vm.props.id, email: user.email, faved: !vm.state.faved}, function(payload){
 				let faved = vm.state.faved;
 
 				if(payload && payload.success){
