@@ -35,7 +35,7 @@ export default class RecoveryForm extends React.Component {
 			email: formData.email,
 		});
 
-		request.post('users/forgot-password/'+formData.email, {}, function(payload){
+		request.get('users/forgot-password/'+formData.email, {}, function(payload){
 			if(payload && payload.success){
 				vm.setState({
 					submitting: false,
@@ -96,6 +96,11 @@ export default class RecoveryForm extends React.Component {
 					<h2 className="loginform-title">Şifremi Unuttum</h2>
 
 					<InputForm className="loginform-form" onSubmit={vm.submit}>
+						{vm.state.message &&
+							<div className={"loginform-message " + (vm.state.success ? 'success' : 'error')}>
+								<span>{vm.state.message}</span>
+							</div>
+						}
 						<FormInput
 							name="email"
 							type="email"

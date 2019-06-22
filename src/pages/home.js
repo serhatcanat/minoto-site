@@ -43,7 +43,6 @@ export default class Home extends React.Component {
 	render() {
 		let banner = this.state.bannerData;
 
-
 		return (
 			<main className="page home">
 				{banner && (
@@ -70,8 +69,9 @@ export default class Home extends React.Component {
 							</div>
 							<Image
 								className="intro-bg"
+								bg
 								//src={image_home_banner} 
-								src={storageSpace('homepage-slides', banner.main_image)}
+								src={storageSpace('homepage-slides', banner.main_iomage)}
 								mobile={storageSpace('homepage-slides', banner.mobile_image)} />
 						</section>
 						<Listing className="home-listing"

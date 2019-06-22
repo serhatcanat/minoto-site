@@ -1,20 +1,36 @@
 .image {
-	transition: opacity 300ms ease;
+	&:not(.imagewrap){
+		transition: opacity 300ms ease;
+	}
 
 	&.image-loading {
-		&:not(.image-iconloader){
+		&:not(.imagewrap){
 			opacity: 0!important;
+		}
+
+		&.imagewrap {
+			.imagewrap-image {
+				opacity: 0;
+			}
 		}
 	}
 }
 
 .imagewrap {
-	background-size: cover;
-	background-position: center center;
-	background-repeat: no-repeat;
 
 	&.contain {
-		background-size: contain;
+		.imagewrap-image{
+			background-size: contain;
+		}
+	}
+
+	.imagewrap-image {
+		width: 100%;
+		height: 100%;
+		background-size: cover;
+		background-position: center center;
+		background-repeat: no-repeat;
+		transition: opacity $transition-hover ease;
 	}
 
 	.imagewrap-loaderwrap {
@@ -23,6 +39,11 @@
 		height: 100%;
 		overflow: hidden;
 
+		.imagewrap-image {
+			position: absolute;
+			top: 0;
+			left: 0;
+		}
 	}
 		.loaderwrap-icon {
 			position: absolute;

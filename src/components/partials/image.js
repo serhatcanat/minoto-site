@@ -55,6 +55,7 @@ class ImageElem extends React.Component {
 
 	watchLoad() {
 		var vm = this;
+		vm.setState({ loading: true });
 		imageLoad(vm.state.src, function () {
 			if (vm._isMounted) {
 				vm.setState({ loading: false });
@@ -90,7 +91,7 @@ class ImageElem extends React.Component {
 					classes += ' contain';
 				}
 				let styles = {
-					backgroundImage: 'url(' + vm.state.src + ')',
+					//backgroundImage: 'url(' + vm.state.src + ')',
 					...style
 				};
 
@@ -98,7 +99,14 @@ class ImageElem extends React.Component {
 					className={classes}
 					style={styles}
 					{...props}>
-					{(vm.props.iconLoader && !vm.props.noLoad && vm.state.loading) && <div className="imagewrap-loaderwrap"><i className="loaderwrap-icon icon-minoto" /></div>}
+					{(vm.props.iconLoader && !vm.props.noLoad && vm.state.loading) ?
+						<div className="imagewrap-loaderwrap">
+							<div className="imagewrap-image" style={{backgroundImage: 'url(' + vm.state.src + ')'}}></div>
+							<i className="loaderwrap-icon icon-minoto" />
+						</div>
+						:
+						<div className="imagewrap-image" style={{backgroundImage: 'url(' + vm.state.src + ')'}}></div>
+					}
 				</div>
 			}
 			else {

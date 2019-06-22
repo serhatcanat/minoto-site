@@ -22,6 +22,7 @@
 				top: 46%;
 			}
 		}
+
 		.intro-title.forceWhite{
 			color: white;
 			.colored{
@@ -31,6 +32,7 @@
 				color: white;
 			}
 		}
+
 		.intro-title {
 			@include font-regular;
 			line-height: 3rem;
@@ -62,6 +64,25 @@
 			}
 
 		
+		}
+
+		.intro-bg {
+			height: 49rem;
+			background-color: $color-ice;
+
+			.loaderwrap-icon{
+				top: auto;
+				left: auto;
+				right: 0;
+				bottom: 0;
+				transform: none;
+				font-size: 21rem;
+			}
+
+			@include media {
+				height: 40rem;
+				max-height: 80vh;
+			}
 		}
 
 		.intro-search {
