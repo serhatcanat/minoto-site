@@ -88,7 +88,7 @@ export default class LoginForm extends React.Component {
 			if(payload.success){
 				setTimeout(function() {
 					closeModal();
-				}, 2000);
+				}, 1000);
 			}
 		});
 	}
@@ -109,19 +109,25 @@ export default class LoginForm extends React.Component {
 						name="email"
 						type="email"
 						label="E-Posta"
+						disabled={vm.state.loading}
 						validation={{ required: "E-posta adresinizi girmelisiniz", email: true }}
 						className="form-field" />
 					<FormInput
 						name="password"
 						type="password"
 						label="Şifre"
+						disabled={vm.state.loading}
 						validation={{ required: "Şifrenizi girmelisiniz.", minLength: ["Şifreniz en az {length} karakter içermelidir.", 6] }}
 						className="form-field" />
-					<Btn className="form-field" type="submit" block uppercase light>Giriş Yap</Btn>
+					<Btn
+						className="form-field"
+						type="submit"
+						loading={vm.state.loading}
+						block uppercase light>Giriş Yap</Btn>
 				</InputForm>
 				<div className="loginform-nav">
 					<button type="button" className="nav-btn" onClick={() => { vm.goToRecovery() }}>Şifremi unuttum</button>
-					<button type="button" className="nav-btn" onClick={() => { vm.goToRegister() }} >Üye ol</button>
+					<button type="button" className="nav-btn" onClick={() => { vm.goToRegister() }}>Üye ol</button>
 				</div>
 
 				<div className="loginform-others">

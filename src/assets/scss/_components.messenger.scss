@@ -8,7 +8,7 @@
 
 	.messenger-message {
 		font-size: 1.6rem;
-		background-color: $color-success;
+		background-color: $color-warning;
 		color: $color-white;
 		border-radius: $radius-big;
 		padding: 1rem 1.8em;
@@ -27,6 +27,14 @@
 
 		&.error {
 			background-color: $color-error;
+		}
+
+		&.warning {
+			background-color: $color-warning;
+		}
+
+		&.success {
+			background-color: $color-success;
 		}
 	}
 }

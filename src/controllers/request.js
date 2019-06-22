@@ -3,6 +3,7 @@ import axios from 'axios';
 import { pushMessage } from 'controllers/messenger'
 import extend from 'lodash/extend'
 import { apiPath } from 'functions/helpers'
+import store from "data/store"
 
 const defaultConfig = {
 	excludeApiPath: false,
@@ -22,7 +23,7 @@ export default {
 			target = apiPath(target);
 		}
 
-		axios.get(target, {params: prepareParams(params), cancelToken: ajaxController.token})
+		axios.get(target, {params: params, cancelToken: ajaxController.token, headers: headData()})
 		.then(res => {
 			evaluateData(res, finalFunction);
 		}).catch(error => {
@@ -40,7 +41,7 @@ export default {
 			target = apiPath(target);
 		}
 
-		axios.post(target, prepareParams(params))
+		axios.post(target, params, {headers: headData()})
 		.then(res => {
 			evaluateData(res, finalFunction);
 		}).catch(error => {
@@ -78,11 +79,8 @@ function evaluateData(response, finalFunction = false){
 	}
 }
 
-function prepareParams(params) {
-	let newParams = {
-		token: "12345", /// Buralara backend marifet, efendime söyleyeyim redux çılgınlığı vesaire
-		...params
+function headData() {
+	return {
+		token: store.getState().user.token
 	}
-	return newParams;
 }
-
