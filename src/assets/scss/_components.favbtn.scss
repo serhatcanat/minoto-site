@@ -2,8 +2,8 @@
 	min-width: 2.2rem;
 	height: 2rem;
 	color: rgba($color-text, .3);
-	overflow: hidden;
-	
+	//overflow: hidden;
+
 	&.faved {
 		color: $color-primary;
 	}
