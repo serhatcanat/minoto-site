@@ -105,12 +105,12 @@ class ModalsWrap extends React.Component {
 						opts: [
 							{
 								text: "Evet",
-								className: "primary",
+								className: (props.reverse ? "dark" : "primary"),
 								onClick: (props.onConfirm ? props.onConfirm : false),
 							},
 							{
 								text: "Hayır",
-								className: "dark",
+								className: (props.reverse ? "primary" : "dark"),
 								onClick: (props.onDeny ? props.onDeny : false),
 							},
 						]

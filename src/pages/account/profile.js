@@ -41,7 +41,8 @@ class Profile extends React.Component {
 		openModal('confirm', {
 			title: 'Hesap kaldırma',
 			question: 'Hesabınızı tüm bilgileriyle birlikte silmek istediğinizden emin misiniz?',
-			onConfirm: () => { console.log('silindi..'); }
+			onConfirm: () => { console.log('silindi..'); },
+			reverse: true,
 		});
 	}
 

@@ -32,13 +32,13 @@ function setUserData(data) {
 }
 
 export function checkLoginStatus(endFunction = false) {
-	/*setTimeout(function() {
+	setTimeout(function() {
 		if(endFunction){
 			endFunction();
 		}
-	}, 500);*/
+	}, 500);
 
-	request.get('/dummy/data/login.json', { }, function (payload) {
+	/*request.get('/dummy/data/login.json', { }, function (payload) {
 		console.log(payload);
 		if (payload) {
 			store.dispatch(setUserData(payload));
@@ -51,7 +51,7 @@ export function checkLoginStatus(endFunction = false) {
 				endFunction(false);
 			}
 		}
-	});
+	});*/
 
 	/*
 	let session = Cookies.get('minoto-session');
