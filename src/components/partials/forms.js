@@ -85,7 +85,7 @@ export class FormInput extends React.Component {
 
 		let Input = false;
 		let inputProps = extend(
-			omit(vm.props, ['id', 'onChangeInForm', 'forceTouch', 'onChange', 'className', 'formInput', 'name']),
+			omit(vm.props, ['id', 'onChangeInForm', 'forceTouch', 'onChange', 'className', 'formInput', 'name', 'onFeedback']),
 			{
 				id: vm.id,
 				name: name,
@@ -397,7 +397,7 @@ class InputTextarea extends React.Component {
 		let labelText = false;
 
 		let props = {
-			...omit(vm.props, ['onChange', 'placeholder', 'value', 'popLabel', 'validation', 'touched', 'className', 'hideError', 'hideAsterisk']),
+			...omit(vm.props, ['onChange', 'placeholder', 'value', 'popLabel', 'validation', 'touched', 'className', 'hideError', 'hideAsterisk', 'onFeedback']),
 			onChange: vm.handleChange,
 			onBlur: vm.handleBlur,
 			value: vm.state.value,
@@ -587,7 +587,7 @@ class InputSelect extends React.Component {
 		}
 
 		let props = {
-			...omit(vm.props, ['onChange', 'placeholder', 'value', 'popLabel', 'validation', 'touched', 'className', 'hideError']),
+			...omit(vm.props, ['onChange', 'placeholder', 'value', 'popLabel', 'validation', 'touched', 'className', 'hideError', 'onFeedback']),
 			onChange: vm.handleChange,
 			value: vm.state.value,
 			placeholder: (vm.props.placeholder ? vm.props.placeholder + (vm.props.validation !== false ? ' *' : '') : undefined),
