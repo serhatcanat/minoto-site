@@ -234,7 +234,7 @@ class Listing extends React.Component {
 					endFunction();
 				}
 			}
-		});
+		}, { excludeApiPath: vm.props.source === '/dummy/data/listing.json' });
 	}
 
 	updateOrder(order) {

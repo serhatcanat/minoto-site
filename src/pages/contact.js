@@ -59,7 +59,7 @@ export default class Contact extends React.Component {
 
 
 		//request.get('/dummy/data/contactform.json', serializeArray(e.target), function (response) {
-		/* request.post(apiPath('mail/contact'), serializeArray(e.target), function (response) {
+		/* request.post('mail/contact', serializeArray(e.target), function (response) {
 			if (response !== false) {
 				// Dummy timeout etc..
 				setTimeout(function () {

@@ -7,7 +7,7 @@ import Link from 'components/partials/link'
 
 // Deps
 import { connect } from "react-redux"
-import { serializeArray, apiPath } from 'functions/helpers'
+import { serializeArray } from 'functions/helpers'
 import request from 'controllers/request'
 import { closeModal, openModal } from 'functions/modals'
 
@@ -37,7 +37,7 @@ class MessageModalRaw extends React.Component {
 
 		console.log(serializeArray(e.target));
 
-		request.post(apiPath('mail/contact'), payload, function (response) {
+		request.post('mail/contact', payload, function (response) {
 			console.log(response);
 			vm.setState({ loading: false, complete: true, bid: payload.bid });
 			/*if (response !== false) {

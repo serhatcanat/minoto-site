@@ -16,7 +16,7 @@ import { setTitle } from 'controllers/head'
 import request from 'controllers/request'
 import { redirect } from 'controllers/navigator'
 import { openModal } from 'functions/modals'
-import { apiPath, storageSpace } from 'functions/helpers'
+import { storageSpace } from 'functions/helpers'
 
 // Assets
 
@@ -46,7 +46,7 @@ export default class Branch extends React.Component {
 
 	initialize() {
 		let vm = this;
-		request.get(apiPath(`branches/${vm.props.match.params.id}`), { id: vm.props.match.params.id }, function (payload) {
+		request.get(`branches/${vm.props.match.params.id}`, { id: vm.props.match.params.id }, function (payload) {
 			if (payload) {
 				vm.setState({
 					branchData: payload,

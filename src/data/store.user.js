@@ -1,5 +1,7 @@
+import extend from 'lodash/extend'
 import store from "data/store";
 import request from 'controllers/request'
+import { serializeArray } from 'functions/helpers'
 
 const initialState = {
 	token: false,
@@ -86,10 +88,11 @@ export function checkLoginStatus(endFunction = false) {
 	return false;
 }
 
-export function login(formData) {
-	request.post('user/login', formData, function(payload){
+export function login(form, finalFunction = false) {
+	request.post('user/login', serializeArray(form), function(payload){
+		console.log(payload);
 		if(payload && payload.success){
-			const { name, id, email, auth_token } = payload.data;
+			/*const { name, id, email, auth_token } = payload.data;
 
 			let userData = {
 				name,
@@ -97,7 +100,23 @@ export function login(formData) {
 				email,
 				auth_token,
 				timestamp: new Date().toString()
-			};
+			};*/
+
+			let userData = {
+				username: "",
+				avatar: "/dummy/images/profile-picture.jpg",
+				name: "Kullanıcı",
+				surname: "",
+				fullname: "",
+				email: "",
+				location: "",
+				phone: "",
+				gender: "",
+				birthyear: "",
+				profileCompletion: 0
+			}
+
+			extend({}, userData, payload.userData)
 
 			let appState = {
 				isLoggedIn: true,
@@ -106,10 +125,16 @@ export function login(formData) {
 			}
 
 			localStorage["appState"] = JSON.stringify(appState);
-			store.dispatch(setUserData(payload));
+			store.dispatch(setUserData(userData));
+			if(finalFunction){
+				finalFunction(extend({}, payload, {message: "Giriş Başarılı"}));
+			}
 		}
 		else {
-			return false;
+			logout();
+			if(finalFunction){
+				finalFunction(payload);
+			}
 		}
 	});
 }

@@ -51,6 +51,28 @@
 		}
 	}
 
+	.loginform-message {
+		text-align: center;
+		padding: 1.5rem 2rem;
+
+		background-color: $color-gray-light;
+		border-color: $color-ice;
+		border-radius: $radius-general;
+		margin-bottom: 2rem;
+
+		&.success {
+			background-color: $color-success;
+			border-color: darken($color-success, 10%);
+			color: $color-white;
+		}
+
+		&.error {
+			background-color: $color-error;
+			border-color: darken($color-error, 10%);
+			color: $color-white;
+		}
+	}
+
 	.loginform-others {
 		margin-top: 1.7rem;
 	}

@@ -9,7 +9,7 @@ import SearchBar from 'components/partials/searchbar.js'
 import request from 'controllers/request'
 
 //Deps
-import { apiPath, storageSpace } from "functions/helpers";
+import { storageSpace } from "functions/helpers";
 
 // Assets
 //import image_home_banner from 'assets/images/home-banner.jpg'
@@ -34,7 +34,7 @@ export default class Home extends React.Component {
 
 	initialize() {
 		let vm = this;
-		request.get(apiPath(`homepage-slide`), null, function (payload) {
+		request.get('homepage-slide', null, function (payload) {
 			vm.setState({
 				bannerData: payload,
 			})
@@ -75,7 +75,7 @@ export default class Home extends React.Component {
 								mobile={storageSpace('homepage-slides', banner.mobile_image)} />
 						</section>
 						<Listing className="home-listing"
-						// source={apiPath('brands/search-test')}
+							source={'brands/search-test'}
 						/>
 					</React.Fragment>
 				)}

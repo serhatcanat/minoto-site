@@ -34,9 +34,9 @@ export default class RegisterForm extends React.Component {
 				return response;
 			})
 			.then(json => {
-				if (json.data.success) {
+				if (json.data.payload.success) {
 					alert(`Registration Successful!`);
-					const { name, id, email, auth_token } = json.data.data;
+					const { name, id, email, auth_token } = json.data.payload;
 					let userData = {
 						name,
 						id,

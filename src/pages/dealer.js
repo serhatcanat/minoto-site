@@ -13,7 +13,7 @@ import Collapse from 'components/partials/collapse'
 //import { InputForm, FormInput } from 'components/partials/forms'
 
 // Deps
-import { apiPath, storageSpace } from 'functions/helpers'
+import { storageSpace } from 'functions/helpers'
 import extend from 'lodash/extend'
 import debounce from 'lodash/debounce'
 import isEqual from 'lodash/isEqual'
@@ -56,7 +56,7 @@ export default class Dealer extends React.Component {
 
 	initialize() {
 		let vm = this;
-		request.get(apiPath(`dealers/${vm.props.match.params.id}`), { id: vm.props.match.params.id }, function (payload) {
+		request.get(`dealers/${vm.props.match.params.id}`, { id: vm.props.match.params.id }, function (payload) {
 			if (payload) {
 				vm.setState({
 					dealerData: payload,

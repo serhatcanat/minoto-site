@@ -3,23 +3,29 @@ import React from 'react'
 // Partials
 import { InputForm, FormInput } from 'components/partials/forms'
 import Btn from 'components/partials/btn'
-import axios from "axios";
-import { apiPath } from 'functions/helpers'
+//import axios from "axios";
 // Deps
-import { openModal } from 'functions/modals'
+import { openModal, closeModal } from 'functions/modals'
 import { redirect } from 'controllers/navigator'
-//import { submitLogin } from "data/store.user"
+import { login } from "data/store.user"
 
 export default class LoginForm extends React.Component {
 	constructor(props) {
 		super(props)
 
-		this._loginUser = this._loginUser.bind(this);
+		this.state = {
+			loading: false,
+			message: false,
+			complete: false,
+			success: null,
+		}
+
+		//this._loginUser = this._loginUser.bind(this);
+		this.submit = this.submit.bind(this);
 	}
 
+	/*
 	_loginUser = (e) => {
-
-
 		let record = {
 			email: e.target.elements.email.value,
 			password: e.target.elements.password.value,
@@ -27,15 +33,15 @@ export default class LoginForm extends React.Component {
 
 		axios
 			.post(apiPath('user/login'), record)
-			/*.then(response => {
+			.then(response => {
 				console.log(response);
 				return response;
-			})*/
+			})
 			.then(json => {
 				console.log(json);
 				if (json.data.success) {
 					alert("Login Successful!");
-					const { name, id, email, auth_token } = json.data.data;
+					const { name, id, email, auth_token } = json.data.payload;
 
 					let userData = {
 						name,
@@ -63,6 +69,29 @@ export default class LoginForm extends React.Component {
 
 			});
 	};
+	*/
+
+	submit(e) {
+		let vm = this;
+
+		vm.setState({
+			loading: true,
+		})
+
+		login(e.target, function(payload){
+			vm.setState({
+				success: payload.success,
+				loading: false,
+				message: payload.message,
+			});
+
+			if(payload.success){
+				setTimeout(function() {
+					closeModal();
+				}, 2000);
+			}
+		});
+	}
 
 	render() {
 		let vm = this;
@@ -70,7 +99,12 @@ export default class LoginForm extends React.Component {
 			<div className={"section loginform type-" + vm.props.type}>
 				<h2 className="loginform-title">Giriş yap</h2>
 
-				<InputForm className="loginform-form" onSubmit={this._loginUser}>
+				<InputForm className="loginform-form" onSubmit={this.submit}>
+					{vm.state.message &&
+						<div className={"loginform-message " + (vm.state.success ? 'success' : 'error')}>
+							<span>{vm.state.message}</span>
+						</div>
+					}
 					<FormInput
 						name="email"
 						type="email"

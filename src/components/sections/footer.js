@@ -7,7 +7,7 @@ import Btn from 'components/partials/btn'
 import Responsive from 'components/partials/responsive'
 
 // Functions
-import { formatNumber, apiPath } from 'functions/helpers'
+import { formatNumber } from 'functions/helpers'
 
 // Deps
 import { connect } from "react-redux";
@@ -39,7 +39,7 @@ class Footer extends React.Component {
 
 	initialize() {
 		let vm = this;
-		request.get(apiPath('brands/footer'), {}, function (payload) {
+		request.get('brands/footer', {}, function (payload) {
 			if (payload) {
 				vm.setState({
 					brands: payload

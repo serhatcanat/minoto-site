@@ -11,7 +11,7 @@ import { InputForm, FormInput } from 'components/partials/forms'
 import request from 'controllers/request'
 import history from 'controllers/history'
 import { redirect } from 'controllers/navigator'
-import { serializeArray, storageSpace, apiPath } from 'functions/helpers'
+import { serializeArray, storageSpace } from 'functions/helpers'
 
 // Assets
 import image_blog_bg from 'assets/images/blog-bg.svg'
@@ -78,7 +78,7 @@ export default class Blog extends React.Component {
 		}
 
 
-		request.get(apiPath(endpoint), payload, function (payload, status) {
+		request.get(endpoint, payload, function (payload, status) {
 			if (payload) {
 				vm.setState({
 					results: payload,
@@ -87,7 +87,7 @@ export default class Blog extends React.Component {
 			}
 		});
 
-		request.get(apiPath('articles/tags'), payload, function (payload, status) {
+		request.get('articles/tags', payload, function (payload, status) {
 			if (payload) {
 				vm.setState({
 					categories: payload,

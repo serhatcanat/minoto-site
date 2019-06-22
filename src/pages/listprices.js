@@ -10,7 +10,7 @@ import Loader from 'components/partials/loader'
 import Select from 'components/partials/select'
 
 // Deps
-import { formatNumber, apiPath, storageSpace } from 'functions/helpers'
+import { formatNumber, storageSpace } from 'functions/helpers'
 import request from 'controllers/request'
 import { generatePath } from 'react-router'
 
@@ -44,7 +44,7 @@ export default class ListPrices extends React.Component {
 		setTimeout(function () {
 			vm.ajaxController = request.get(
 				//'/dummy/data/listprices.json',
-				apiPath('price-lists'),
+				'price-lists',
 				{
 					yil: vm.props.match.params.year ? vm.props.match.params.year : '',
 					marka: vm.props.match.params.brand ? vm.props.match.params.brand : ''

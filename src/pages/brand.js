@@ -20,7 +20,7 @@ import { setTitle } from 'controllers/head'
 import request from 'controllers/request'
 import { redirect } from 'controllers/navigator'
 import { openModal } from 'functions/modals'
-import { formatNumber, apiPath, storageSpace } from 'functions/helpers'
+import { formatNumber, storageSpace } from 'functions/helpers'
 
 // Assets
 
@@ -53,7 +53,7 @@ export default class Brand extends React.Component {
 	initialize() {
 		let vm = this;
 		let brand = window.location.pathname.split('/')[2];
-		request.get(apiPath(`brands/${brand}`), { id: vm.props.match.params.id }, function (payload) {
+		request.get(`brands/${brand}`, { id: vm.props.match.params.id }, function (payload) {
 			//request.get('/dummy/data/brand.json', { id: vm.props.match.params.id }, function (payload) {
 			if (payload) {
 				vm.setState({
@@ -147,7 +147,7 @@ export default class Brand extends React.Component {
 										className="brand-listing"
 										urlBinding={false}
 										filters={false}
-										source={apiPath(`brands/${brand.slug}/car-posts`)}
+										source={`brands/${brand.slug}/car-posts`}
 										//source={'/dummy/data/listing.json'}
 										query={vm.state.listingQuery}
 										showAds={false}

@@ -12,7 +12,7 @@ import Breadcrumbs from 'components/partials/breadcrumbs'
 import request from 'controllers/request'
 import { redirect } from 'controllers/navigator'
 import parse from 'html-react-parser';
-import { storageSpace, apiPath } from 'functions/helpers'
+import { storageSpace } from 'functions/helpers'
 
 // Assets
 import image_icon_facebook from 'assets/images/icon/facebook.svg'
@@ -34,7 +34,7 @@ export default class BlogDetail extends React.Component {
 	componentDidMount() {
 		let vm = this;
 
-		request.get(apiPath(`articles/${vm.props.match.params.slug}`), { slug: vm.props.match.params.slug }, function (payload, status) {
+		request.get(`articles/${vm.props.match.params.slug}`, { slug: vm.props.match.params.slug }, function (payload, status) {
 			if (payload) {
 				vm.setState({
 					blogData: payload
