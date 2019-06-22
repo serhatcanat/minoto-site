@@ -9,6 +9,7 @@ import { InputForm, FormInput } from 'components/partials/forms'
 import { connect } from "react-redux"
 import { openModal } from 'functions/modals'
 import { serializeArray } from "functions/helpers";
+import { logout } from "data/store.user"
 
 // Assets
 import image_avatar from 'assets/images/defaults/avatar.svg';
@@ -70,7 +71,9 @@ class Profile extends React.Component {
 						<div className="sum-content">
 							<div className="content-bio">
 								<h1 className="bio-name">{user.name}</h1>
-								<p className="bio-location"><i className="icon-marker"></i> {user.location}</p>
+								{user.location &&
+									<p className="bio-location"><i className="icon-marker"></i> {user.location}</p>
+								}
 							</div>
 
 							<div className="content-completion">
@@ -80,6 +83,8 @@ class Profile extends React.Component {
 
 								<div className="completion-status">Profiliniz <span>%{user.profileCompletion}</span> dolu</div>
 							</div>
+
+							<button className="content-logout" onClick={logout}>Çıkış Yap</button>
 						</div>
 					</aside>
 

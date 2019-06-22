@@ -129,6 +129,7 @@
 
 			.sum-content {
 				margin-top: .9rem;
+				padding-bottom: 2rem;
 
 				@include media {
 					flex: 1;
@@ -169,7 +170,7 @@
 
 				.content-completion {
 					border-top: .1rem solid $color-gray-light;
-					padding: 3rem 0 3rem;
+					padding: 3rem 0 2rem;
 					margin-top: 2.6rem;
 
 					@include media {
@@ -209,6 +210,12 @@
 							color: rgba($color-primary, .6);
 						}
 					}
+
+				.content-logout {
+					@include font-regular;
+					color: $color-error;
+					text-decoration: underline;
+				}
 
 		.profile-form {
 			width: calc(100% - 30rem);

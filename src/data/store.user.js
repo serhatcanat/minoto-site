@@ -2,6 +2,7 @@ import extend from 'lodash/extend'
 import store from "data/store"
 import request from 'controllers/request'
 import { serializeArray } from 'functions/helpers'
+import { redirect } from 'controllers/navigator'
 
 const initialState = {
 	token: false,
@@ -56,7 +57,7 @@ export function checkLoginStatus(endFunction = false) {
 					}
 				}
 				else{
-					logout();
+					logout(true);
 					if(endFunction){
 						endFunction(false);
 					}
@@ -88,7 +89,7 @@ export function login(form, finalFunction = false) {
 			}
 		}
 		else {
-			logout();
+			logout(true);
 			if(finalFunction){
 				finalFunction(payload);
 			}
@@ -102,16 +103,29 @@ export function register(form, finalFunction = false) {
 			updateUserData(payload);
 
 			if(finalFunction){
-				finalFunction(extend({}, payload, {message: "Giriş Başarılı"}));
+				finalFunction(extend({}, payload, {message: "Kayıt Başarılı"}));
 			}
 		}
 		else {
-			/*logout();
+			/*logout(true);
 			if(finalFunction){
 				finalFunction(payload);
 			}*/
 		}
 	})
+}
+
+export function logout(force = false) {
+	localStorage["appState"] = JSON.stringify({isLoggedIn: false, user: false, authToken: false});
+
+	store.dispatch(setUserData(false));
+	store.dispatch(setToken(false));
+
+	console.log(force);
+
+	if(force !== true){
+		redirect('home');
+	}
 }
 
 function updateUserData(payload){
@@ -138,11 +152,4 @@ function updateUserData(payload){
 	localStorage["appState"] = JSON.stringify(appState);
 	store.dispatch(setUserData(userData));
 	store.dispatch(setToken(userData.auth_token));
-}
-
-export function logout() {
-	localStorage["appState"] = JSON.stringify({isLoggedIn: false, user: false, authToken: false});
-
-	store.dispatch(setUserData(false));
-	store.dispatch(setToken(false));
 }
