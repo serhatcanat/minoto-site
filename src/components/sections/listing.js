@@ -451,7 +451,7 @@ class ListingResults extends React.Component {
 		}
 		else {
 			return (
-				<div className="results-error">Sonuç bulunamadı..</div>
+				<div className="results-error"><div className="error-message">Aradığınız Kriterlere Uygun Bir Sonuç Bulunamadı.</div></div>
 			)
 		}
 	}

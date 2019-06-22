@@ -42,7 +42,7 @@ export default class Faq extends React.Component {
 					cities: payload
 				});
 			}
-		});
+		}, { excludeApiPath: true });
 
 		request.get('/dummy/data/footer-brands.json', {}, function(payload){
 			if(payload){
@@ -50,7 +50,7 @@ export default class Faq extends React.Component {
 					brands: payload
 				});
 			}
-		});
+		}, { excludeApiPath: true });
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -96,7 +96,7 @@ export default class Faq extends React.Component {
 						districts: payload
 					});
 				}
-			});
+			}, { excludeApiPath: true });
 		}
 	}
 

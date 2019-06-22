@@ -36,16 +36,7 @@ export default class Sum extends React.Component {
 					});
 				}
 			}
-		});
-
-		/*axios.get('/dummy/data/reservation-complete.json', {props: {id: vm.props.match.params.id}}).then(res => {
-			if(res.data.status === 'ok'){
-				vm.setState({
-					loading: false,
-					reservation: res.data.info
-				});
-			}
-		});*/
+		}, { excludeApiPath: true });
 	}
 
 	render () {

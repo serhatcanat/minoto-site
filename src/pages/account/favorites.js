@@ -46,7 +46,7 @@ export default class Favorites extends React.Component {
 			if(payload){
 				vm.setState({favorites: payload})
 			}
-		});
+		}, { excludeApiPath: true });
 	}
 
 	render () {

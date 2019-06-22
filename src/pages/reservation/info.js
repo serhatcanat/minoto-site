@@ -40,7 +40,7 @@ export default class Info extends React.Component {
 					});
 				}
 			}
-		});
+		}, { excludeApiPath: true });
 
 		/*axios.get('/dummy/data/reservation.json', {props: {id: vm.props.match.params.id}}).then(res => {
 			if(res.data.status === 'ok'){

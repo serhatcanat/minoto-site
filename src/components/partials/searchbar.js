@@ -173,7 +173,7 @@ export default class SearchBar extends React.Component{
 				else {
 					console.log('error');
 				}
-			});
+			}, { excludeApiPath: true });
 		}
 		else {
 			vm.setState({ data: false, loading: false})

@@ -78,7 +78,7 @@ export default class Info extends React.Component {
 					});
 				}
 			}
-		});
+		}, { excludeApiPath: true });
 	}
 
 	/*componentDidUpdate(prevProps, prevState) {
@@ -388,14 +388,7 @@ class NewAddressForm extends React.Component {
 					cities: payload
 				});
 			}
-		});
-		/*axios.get('/dummy/data/cities.json').then(res => {
-			if(res.data.status === 'ok'){
-				vm.setState({
-					cities: res.data.cities
-				});
-			}
-		});*/
+		}, { excludeApiPath: true });
 	}
 
 	changeCity(city){
@@ -409,15 +402,7 @@ class NewAddressForm extends React.Component {
 						districts: payload
 					});
 				}
-			});
-
-			/*axios.get('/dummy/data/districts.json', {params: {id: city}}).then(res => {
-				if(res.data.status === 'ok'){
-					vm.setState({
-						districts: res.data.districts
-					});
-				}
-			});*/
+			}, { excludeApiPath: true });
 		}
 	}
 
@@ -434,15 +419,7 @@ class NewAddressForm extends React.Component {
 					vm.props.onSave(payload.addresses);
 				}
 			}
-		});
-			
-		/*axios.get('/dummy/data/reservation.json', { params: serializeArray(form) }).then(res => {
-			if(res.data.status === 'ok'){
-				if(vm.props.onSave){
-					vm.props.onSave(res.data.info.addresses);
-				}
-			}
-		});*/
+		}, { excludeApiPath: true });
 	}
 
 	setAddressType(corporate = false){

@@ -50,7 +50,7 @@ export default class ResetForm extends React.Component {
 			submitting: true,
 		});
 
-		request.post('user/recovery', formData, function(payload){
+		request.post('users/reset-password', formData, function(payload){
 			if(payload && payload.success){
 				vm.setState({
 					submitting: false,
@@ -101,6 +101,8 @@ export default class ResetForm extends React.Component {
 									<span>{vm.state.message}</span>
 								</div>
 							}
+							<FormInput type="hidden" name="email" value={vm.props.email} />
+							<FormInput type="hidden" name="token" value={vm.props.token} />
 							<FormInput
 								name="password"
 								id="reset-password"

@@ -54,7 +54,6 @@ export default class Brand extends React.Component {
 		let vm = this;
 		let brand = window.location.pathname.split('/')[2];
 		request.get(`brands/${brand}`, { id: vm.props.match.params.id }, function (payload) {
-			//request.get('/dummy/data/brand.json', { id: vm.props.match.params.id }, function (payload) {
 			if (payload) {
 				vm.setState({
 					brandData: payload

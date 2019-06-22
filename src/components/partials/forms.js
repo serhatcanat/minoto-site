@@ -91,7 +91,7 @@ export class FormInput extends React.Component {
 				name: name,
 				onChange: vm.onChange,
 				touched: (vm.props.forceTouch || vm.state.touched),
-				className: wrapClasses
+				className: wrapClasses,
 			}
 		)
 
@@ -224,8 +224,17 @@ class InputText extends React.Component {
 	}
 
 	validate(value = this.state.value) {
-		let validStatus = validation(value, this.state.validation);
-		this.setState({ error: (validStatus !== false), errorMessage: validStatus });
+		let vm = this;
+		let validStatus = validation(value, vm.state.validation);
+		let currentValidation = vm.state.errorMessage;
+
+		vm.setState({ error: (validStatus !== false), errorMessage: validStatus });
+
+		if(vm.state.validation.compare && !isEqual(validStatus, currentValidation)){
+			setTimeout(function() {
+				vm.props.onFeedback('validateAll');
+			}, 20);
+		}
 	}
 
 	reset() {
@@ -239,7 +248,7 @@ class InputText extends React.Component {
 		let labelText = false;
 
 		let props = {
-			...omit(vm.props, ['onChange', 'placeholder', 'value', 'popLabel', 'validation', 'touched', 'className', 'hideError', 'icon', 'info', 'infoProps', 'hideAsterisk']),
+			...omit(vm.props, ['onChange', 'placeholder', 'value', 'popLabel', 'validation', 'touched', 'className', 'hideError', 'icon', 'info', 'infoProps', 'hideAsterisk', 'onFeedback']),
 			onChange: vm.handleChange,
 			onBlur: vm.handleBlur,
 			value: vm.state.value,
@@ -548,6 +557,7 @@ class InputSelect extends React.Component {
 		let vm = this;
 
 		let validStatus = validation((option ? option.value : ""), vm.props.validation);
+
 		vm.props.onChange({
 			value: (option ? option.value : null),
 			name: this.props.name,
@@ -801,6 +811,7 @@ export class InputForm extends React.Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.validate = this.validate.bind(this);
 		this.elementStateChange = this.elementStateChange.bind(this);
+		this.elementFeedback = this.elementFeedback.bind(this);
 
 		this.elems = [];
 		this.validElements = [];
@@ -820,7 +831,25 @@ export class InputForm extends React.Component {
 		}
 	}
 
+	elementFeedback(event) {
+		switch(event){
+			case "validateAll":
+				this.validateChildren();
+			break;
+			default: break;
+		}
+	}
+
+	validateChildren(){
+		this.elems.forEach(function(elem, nth){
+			if(elem !== null){
+				elem.validate(undefined, true);
+			}
+		});
+	}
+
 	validate() {
+		this.validateChildren();
 		return (this.validElements.length >= this.validationCount);
 	}
 
@@ -892,7 +921,13 @@ export class InputForm extends React.Component {
 
 		return (
 			<Container className={'form ' + vm.props.className} onSubmit={vm.handleSubmit} noValidate autoComplete={vm.props.autoComplete || ''} ref={this.form}>
-				{vm.modifyChildren(vm.props.children, { onChangeInForm: vm.elementStateChange, forceTouch: vm.state.forceTouch, ref: function (ref) { vm.elems.push(ref) } })}
+				{
+					vm.modifyChildren(vm.props.children, {
+						onChangeInForm: vm.elementStateChange,
+						onFeedback: vm.elementFeedback,
+						forceTouch: vm.state.forceTouch,
+						ref: function (ref) { vm.elems.push(ref) }
+					})}
 			</Container>
 		)
 	}

@@ -17,6 +17,7 @@
 }
 
 .imagewrap {
+	overflow: hidden;
 
 	&.contain {
 		.imagewrap-image{

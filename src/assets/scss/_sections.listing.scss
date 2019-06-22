@@ -250,6 +250,21 @@
 				}
 			}
 
+				.results-error {
+					padding: 6rem;
+					text-align: center;
+				}
+
+					.error-message {
+						display: inline-block;
+						background-color: $color-gray-light;
+						border: .1rem solid $color-ice;
+						padding: 4.5rem 1rem;
+						font-size: 1.8rem;
+						max-width: 100%;
+						width: 58rem;
+					}
+
 				.results-item {
 					position: relative;
 					padding: 1.5rem;
