@@ -122,6 +122,7 @@ export default class LoginForm extends React.Component {
 					<Btn
 						className="form-field"
 						type="submit"
+						disabled={vm.state.loading}
 						loading={vm.state.loading}
 						block uppercase light>Giriş Yap</Btn>
 				</InputForm>

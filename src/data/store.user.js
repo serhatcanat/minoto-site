@@ -121,8 +121,6 @@ export function logout(force = false) {
 	store.dispatch(setUserData(false));
 	store.dispatch(setToken(false));
 
-	console.log(force);
-
 	if(force !== true){
 		redirect('home');
 	}

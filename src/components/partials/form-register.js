@@ -3,20 +3,28 @@ import React from 'react'
 // Partials
 import { InputForm, FormInput } from 'components/partials/forms'
 import Btn from 'components/partials/btn'
-import axios from "axios";
-import { apiPath } from 'functions/helpers'
 
 // Deps
-import { openModal } from 'functions/modals'
+import { openModal, closeModal } from 'functions/modals'
 import { redirect } from 'controllers/navigator'
+import { register } from "data/store.user"
 
 export default class RegisterForm extends React.Component {
 	constructor(props) {
-		super(props)
+		super(props);
 
-		this._registerUser = this._registerUser.bind(this);
+		this.state = {
+			loading: false,
+			message: false,
+			complete: false,
+			success: null,
+		}
+
+		//this._registerUser = this._registerUser.bind(this);
+		this.submit = this.submit.bind(this);
 	}
 
+	/*
 	_registerUser = (e) => {
 
 		let record = {
@@ -67,6 +75,29 @@ export default class RegisterForm extends React.Component {
 
 			});
 	};
+	*/
+
+	submit(e) {
+		let vm = this;
+
+		vm.setState({
+			loading: true,
+		})
+
+		register(e.target, function(payload){
+			vm.setState({
+				success: payload.success,
+				loading: false,
+				message: payload.message,
+			});
+
+			if(payload.success){
+				setTimeout(function() {
+					closeModal();
+				}, 1000);
+			}
+		});
+	}
 
 	render() {
 		let vm = this;
@@ -74,33 +105,43 @@ export default class RegisterForm extends React.Component {
 			<div className={"section loginform type-" + vm.props.type}>
 				<h2 className="loginform-title">Üye ol</h2>
 
-				<InputForm className="loginform-form" onSubmit={this._registerUser}>
+				<InputForm className="loginform-form" onSubmit={this.submit}>
+					{vm.state.message &&
+						<div className={"loginform-message " + (vm.state.success ? 'success' : 'error')}>
+							<span>{vm.state.message}</span>
+						</div>
+					}
 					<FormInput
 						name="name"
+						disabled={vm.state.loading}
 						type="text"
 						label="Ad-Soyad"
 						validation={{ required: "Adınızı ve soyadınızı girmelisiniz.", minLength: ["Çok kısa bir ad-soyad girdiniz", 5] }}
 						className="form-field" />
 					<FormInput
 						name="email"
+						disabled={vm.state.loading}
 						type="email"
 						label="E-Posta"
 						validation={{ required: "E-posta adresinizi girmelisiniz.", email: true }}
 						className="form-field" />
 					<FormInput
 						name="password"
+						disabled={vm.state.loading}
 						type="password"
 						label="Şifre"
 						//validation={{ required: "Şifrenizi girmelisiniz.", minLength: ["Şifreniz en az {length} karakter içermelidir.", 6], "compare": ["Şifreler uyumlu değildir.", "#register-password"] }}
 						className="form-field" />
 					<FormInput
 						name="password_repeat"
+						disabled={vm.state.loading}
 						type="password"
 						label="Şifre Tekrar"
 						//validation={{ required: "Şifrenizi girmelisiniz.", minLength: ["Şifreniz en az {length} karakter içermelidir.", 6], "compare": ["Şifreler uyumlu değildir.", "#register-password"] }}
 						className="form-field" />
 					<FormInput
 						name="agreement"
+						disabled={vm.state.loading}
 						type="checkbox"
 						validation={{ required: "Üye olmak için kullanıcı sözleşmesini kabul etmeniz gerekmektedir." }}
 						className="form-field">
@@ -108,11 +149,17 @@ export default class RegisterForm extends React.Component {
 					</FormInput>
 					<FormInput
 						name="agreement"
+						disabled={vm.state.loading}
 						type="checkbox"
 						className="form-field">
 						Size özel kampanya ve fırsatlarımızdan haberdar olabilirsiniz.
 					</FormInput>
-					<Btn className="form-field" type="submit" block uppercase light>Üye Ol</Btn>
+					<Btn
+						className="form-field"
+						type="submit"
+						disabled={vm.state.loading}
+						loading={vm.state.loading}
+						block uppercase light>Üye Ol</Btn>
 				</InputForm>
 				<div className="loginform-nav">
 					<span>
