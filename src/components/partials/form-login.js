@@ -17,7 +17,7 @@ export default class LoginForm extends React.Component {
 			loading: false,
 			message: false,
 			complete: false,
-			success: null,
+			success: false,
 		}
 
 		//this._loginUser = this._loginUser.bind(this);

@@ -235,7 +235,7 @@ module.exports = {
 			requiresLogin: false,
 		},
 		recovery: {
-			path: "/hesabim/sifremi-unuttum",
+			path: "/hesabim/sifremi-unuttum/:email?/:token?",
 			component: "Recovery",
 			exact: true,
 			linkTitle: "Şifremi Unuttum",

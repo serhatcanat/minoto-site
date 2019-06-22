@@ -2,6 +2,7 @@ import React from 'react'
 
 // Partials
 import RecoveryForm from 'components/partials/form-recovery'
+import ResetForm from 'components/partials/form-reset'
 
 // Deps
 import { connect } from "react-redux"
@@ -38,7 +39,11 @@ class Register extends React.Component {
 				<section className="section account-login">
 					<div className="wrapper narrow">
 						<div className="login-wrap">
-							<RecoveryForm type="self" />
+							{(this.props.match.params.email && this.props.match.params.token) ?
+								<ResetForm email={this.props.match.params.email} token={this.props.match.params.token} />
+								:
+								<RecoveryForm type="self" />
+							}
 						</div>
 					</div>
 				</section>

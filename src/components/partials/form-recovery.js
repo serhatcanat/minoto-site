@@ -8,6 +8,7 @@ import Btn from 'components/partials/btn'
 import { openModal } from 'functions/modals'
 import { redirect } from 'controllers/navigator'
 import { serializeArray } from "functions/helpers";
+import request from 'controllers/request'
 
 export default class RecoveryForm extends React.Component {
 	constructor(props) {
@@ -17,6 +18,7 @@ export default class RecoveryForm extends React.Component {
 			submitting: false,
 			complete: false,
 			email: false,
+			message: false,
 		}
 
 		this.submit = this.submit.bind(this);
@@ -25,20 +27,28 @@ export default class RecoveryForm extends React.Component {
 
 	submit(e) {
 		let vm = this;
-		// Form Data:
-		let data = serializeArray(e.target);
-		console.log(serializeArray(e.target));
+
+		let formData = serializeArray(e.target);
+
 		this.setState({
 			submitting: true,
-			email: data.email,
+			email: formData.email,
 		});
 
-		setTimeout(function() {
-			vm.setState({
-				submitting: false,
-				complete: true
-			})
-		}, 1000)
+		request.post('users/forgot-password/'+formData.email, {}, function(payload){
+			if(payload && payload.success){
+				vm.setState({
+					submitting: false,
+					complete: true,
+				});
+			}
+			else{
+				vm.setState({
+					submitting: false,
+					message: (payload && payload.message) ? payload.message : false,
+				});
+			}
+		});
 	}
 
 	reset() {
@@ -90,9 +100,17 @@ export default class RecoveryForm extends React.Component {
 							name="email"
 							type="email"
 							label="E-Postanızı giriniz"
+							disabled={vm.state.submitting}
 							validation={{required: "E-posta adresinizi girmelisiniz", email: true}}
 							className="form-field" />
-						<Btn className="form-field" type="submit" block uppercase light loading={vm.state.submitting} disabled={vm.state.submitting}>Şifremi Sıfırla</Btn>
+						<Btn
+							className="form-field"
+							block uppercase light
+							loading={vm.state.submitting}
+							disabled={vm.state.submitting}
+							type="submit">
+							Şifremi Sıfırla
+						</Btn>
 					</InputForm>
 					<div className="loginform-nav center">
 						<button type="button" className="nav-btn" onClick={() => { vm.goToLogin() }}><i className="icon-arrow-left"></i> Geri Dön</button>
