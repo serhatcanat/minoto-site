@@ -1,6 +1,7 @@
 import React from 'react';
+import loader from 'assets/images/loader.gif'
 
-export default class Loader extends React.Component{
+export default class Loader extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -14,56 +15,60 @@ export default class Loader extends React.Component{
 		this.checkDimensions = this.checkDimensions.bind(this);
 	}
 
-	componentDidMount(){
+	componentDidMount() {
 		this.checkDimensions();
 	}
 
-	componentDidUpdate(prevProps){
+	componentDidUpdate(prevProps) {
 		let vm = this;
 
-		if(prevProps.loading !== vm.props.loading){
+		if (prevProps.loading !== vm.props.loading) {
 
-		if(vm.timeout !== null){
-			clearTimeout(vm.timeout);
-		}
+			if (vm.timeout !== null) {
+				clearTimeout(vm.timeout);
+			}
 
-			if(vm.props.loading){
-				vm.setState({active: true});
-				vm.timeout = setTimeout (() => {
+			if (vm.props.loading) {
+				vm.setState({ active: true });
+				vm.timeout = setTimeout(() => {
 					this.checkDimensions();
-					vm.setState({show: true});
+					vm.setState({ show: true });
 					vm.timeout = null;
 				}, 50);
 			}
-			else{
-				vm.setState({show: false});
-				vm.timeout = setTimeout (() => {
-					vm.setState({active: false});
+			else {
+				vm.setState({ show: false });
+				vm.timeout = setTimeout(() => {
+					vm.setState({ active: false });
 					vm.timeout = null;
 				}, 400);
 			}
 		}
 	}
 
-	checkDimensions(){
-		if(this.state.active){
+	checkDimensions() {
+		if (this.state.active) {
 			this.setState({ oversize: this.container.current.offsetHeight > this.props.oversizeLimit });
 		}
 	}
 
-	componentWillUnmount(){
-		if(this.timeout !== null){
+	componentWillUnmount() {
+		if (this.timeout !== null) {
 			clearTimeout(this.timeout);
 		}
 
 	}
 
-	render() {	
+	render() {
 		//<i className="loader-icon spin icon-spinner"></i>	
 		return (this.state.active ? (
 			<div className={"loader" + this.props.className + (this.props.strict ? ' strict' : '') + (this.state.show ? ' show' : '') + (this.state.oversize ? ' oversize' : '')} ref={this.container}>
 				<div className="loader-spinnerwrap">
-					<i className="icon-spinner"></i>
+					{/* <i className="icon-spinner"></i> */}
+					<img src={loader} alt="" width="100" style={{
+						margin: "0 auto",
+						marginTop: "5%"
+					}} />
 				</div>
 			</div>
 		) : false);
