@@ -46,8 +46,8 @@ export default class ListPrices extends React.Component {
 				//'/dummy/data/listprices.json',
 				'price-lists',
 				{
-					yil: vm.props.match.params.year ? vm.props.match.params.year : '',
-					marka: vm.props.match.params.brand ? vm.props.match.params.brand : ''
+					yil: vm.props.match.params.year ? vm.props.match.params.year : '2019',
+					marka: vm.props.match.params.brand ? vm.props.match.params.brand : 'audi'
 				},
 				function (payload) {
 					vm.ajaxController = false;
@@ -176,7 +176,7 @@ export default class ListPrices extends React.Component {
 												<th>Motor Hacmi</th>
 												<th>Vites Tipi</th>
 												<th>Yakıt Türü</th>
-												<th>Fiyat</th>
+												<th style={{ minWidth: '120px' }}>Fiyat</th>
 												<th>Kampanyalı Fiyat</th>
 											</tr>
 										</thead>

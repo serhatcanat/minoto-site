@@ -17,7 +17,7 @@ import throttle from 'lodash/throttle';
 import history from 'controllers/history'
 import request from 'controllers/request'
 import { connect } from "react-redux";
-import { blockOverflow, isExact, storageSpace } from "functions/helpers";
+import { blockOverflow, isExact, storageSpace, apiPath } from "functions/helpers";
 import queryString from 'query-string';
 
 const mapStateToProps = state => {
@@ -234,7 +234,7 @@ class Listing extends React.Component {
 					endFunction();
 				}
 			}
-		}, { excludeApiPath: vm.props.source === '/dummy/data/listing.json' });
+		}, { excludeApiPath: vm.props.source === '/dummy/data/listing.json' || vm.props.source === '/dummy/data/detail-related.json' });
 	}
 
 	updateOrder(order) {
@@ -333,7 +333,7 @@ class Listing extends React.Component {
 								className="top-order" />
 						</aside>
 					}
-					<ListingResults data={vm.state.listingData} mobile={vm.props.mobile} />
+					<ListingResults loading={vm.state.loading} data={vm.state.listingData} mobile={vm.props.mobile} />
 					{(vm.state.results.length < vm.state.total) &&
 						<InfiniteScroller loading={vm.state.extending} onExtend={vm.extendResults} />
 					}
@@ -362,6 +362,7 @@ class ListingResults extends React.Component {
 		let vm = this;
 		let itemsAt = 0;
 		let data = vm.props.data;
+		let loading = vm.props.loading;
 		let results = data.results;
 		if (results && results.length) {
 			return (
@@ -451,7 +452,12 @@ class ListingResults extends React.Component {
 		}
 		else {
 			return (
-				<div className="results-error"><div className="error-message">Aradığınız Kriterlere Uygun Bir Sonuç Bulunamadı.</div></div>
+				<React.Fragment>
+					{
+						loading === false && (<div className="results-error"><div className="error-message">Aradığınız Kriterlere Uygun Bir Sonuç Bulunamadı.</div></div>)
+					}
+
+				</React.Fragment>
 			)
 		}
 	}

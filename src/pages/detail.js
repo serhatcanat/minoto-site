@@ -55,7 +55,7 @@ class Detail extends React.Component {
 
 				setTitle(payload.title);
 			}
-		}, { excludeApiPath: true});
+		}, { excludeApiPath: true });
 	}
 
 	componentDidMount() {
