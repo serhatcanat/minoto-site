@@ -379,17 +379,18 @@ class TreeFilterItem extends React.Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		if (isEqual(prevState.data, this.state.data)) {
-			if (!isEqual(this.state.data, this.props.data)) {
-				let active = this.calculateActive(this.props.data);
-				this.setState({
-					data: this.props.data,
+		let vm = this;
+		if (isExact(prevState.data, vm.state.data)) {
+			if (!isExact(vm.state.data, vm.props.data)) {
+				let active = vm.calculateActive(vm.props.data);
+				vm.setState({
+					data: vm.props.data,
 					active: active,
 				});
 			}
 		}
 		else {
-			this.props.onChange(this.state.data);
+			vm.props.onChange(vm.state.data);
 		}
 	}
 
@@ -415,11 +416,12 @@ class TreeFilterItem extends React.Component {
 	}
 
 	deselectChildren(data = this.state.data) {
+		console.log('deselectchildrem');
 		let vm = this;
 		let newData = clone(data);
 		if (newData.children) {
 			newData.children = newData.children.map(function (child, nth) {
-				let newChild = child;
+				let newChild = clone(child);
 				if (newChild.children) {
 					newChild = vm.deselectChildren(newChild);
 				}
@@ -433,12 +435,13 @@ class TreeFilterItem extends React.Component {
 		vm.setState({ data: newData });
 	}
 
-	selectChildren(data = this.state.data) {
+	selectChildren(inputData = false) {
 		let vm = this;
+		let data = (inputData ? inputData : vm.state.data);
 		let newData = clone(data);
 		if (newData.children) {
 			newData.children = newData.children.map(function (child, nth) {
-				let newChild = child;
+				let newChild = clone(child);
 				if (newChild.children) {
 					newChild = vm.selectChildren(newChild);
 				}
@@ -448,8 +451,12 @@ class TreeFilterItem extends React.Component {
 				return newChild;
 			});
 		}
-
-		vm.setState({ data: newData });
+		if(inputData){
+			return newData;
+		}
+		else{
+			vm.setState({ data: newData });
+		}
 	}
 
 	toggleExpand() {
@@ -460,14 +467,18 @@ class TreeFilterItem extends React.Component {
 		let newData = clone(this.state.data);
 		newData.selected = e.target.checked;
 		this.setState({ data: newData })
+		this.props.onChange(newData, this.props.nth);
 	}
 
 	handleParentChange(e) {
+		console.log('parant change');
 		let active = e.target.checked;
 		if (active) {
+			console.log('select children');
 			this.selectChildren();
 		}
 		else {
+			console.log('deselect children');
 			this.deselectChildren();
 		}
 
@@ -479,7 +490,7 @@ class TreeFilterItem extends React.Component {
 		newData.children[nth] = newChild;
 		let active = this.calculateActive(newData);
 		this.setState({ data: newData, active: active });
-		this.props.onChange(newData);
+		this.props.onChange(newData, nth);
 	}
 
 	render() {
@@ -489,13 +500,15 @@ class TreeFilterItem extends React.Component {
 
 		return (
 			<li className={"filter-item level-" + vm.props.level}>
-				{(data && data.value ?
+				{data &&
+					((data.value && !data.children) ?
 					<div className="inputwrap type-checkbox no-select">
 						<div className="item-wrap">
 							<div className="checkwrap">
 								<input
 									key={vm.id}
 									type="checkbox"
+									className="parent"
 									name={name + '[]'}
 									id={vm.id}
 									value={data.value}
@@ -513,14 +526,14 @@ class TreeFilterItem extends React.Component {
 						</div>
 					</div>
 					:
-					data &&
 					<div className={"item-subgroup" + (vm.state.expanded ? ' expanded' : '')}>
-						<button className="item-wrap" type="button" onClick={vm.toggleExpand}>
+						<div className="item-wrap">
 							<div className="inputwrap type-checkbox no-select">
 								<div className="checkwrap">
 									<input
 										key={vm.id}
 										type="checkbox"
+										className="child"
 										id={vm.id}
 										checked={vm.state.active}
 										onChange={vm.handleParentChange} />
@@ -534,7 +547,8 @@ class TreeFilterItem extends React.Component {
 									</label>
 								</div>
 							</div>
-						</button>
+							<button className="item-expand" type="button" onClick={vm.toggleExpand}></button>
+						</div>
 						<ul className="item-submenu">
 							{data.children.map((opt, nth) => {
 								return (

@@ -87,6 +87,7 @@ class Listing extends React.Component {
 		}
 
 		if (!isExact(prevState.query, this.state.query)) {
+			console.log(this.state.query);
 			this.updateURL();
 			this.updateResults();
 		}
@@ -197,9 +198,9 @@ class Listing extends React.Component {
 
 		vm.setState({ loading: true });
 
-		setTimeout(function () {
+		//setTimeout(function () {
 			vm.makeRequest();
-		}, 500); /// Dummy Delay
+		//}, 500); /// Dummy Delay
 	}
 
 	makeRequest(opts = {}, endFunction = false) {

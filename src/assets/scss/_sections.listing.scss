@@ -550,9 +550,12 @@
 					}
 
 						.item-wrap {
-							padding: 1rem;
+							padding: 0 0 0 1rem;
+							min-height: 4.2rem;
 							position: relative;
-							display: block;
+							display: flex;
+							flex-flow: row wrap;
+							align-items: center;
 							width: 100%;
 							text-align: left;
 							border-top: .1rem solid $color-gray;
@@ -563,11 +566,10 @@
 
 							.inputwrap {
 								display: inline-block;
+								max-width: calc(100% - 3rem);
 							}
 
 							.checkwrap {
-								padding: 0;
-
 								input{
 									top: 0;
 
@@ -581,6 +583,14 @@
 										}
 									}
 								}
+							}
+
+							.item-expand {
+								flex: 1;
+								margin-left: .5rem;
+								height: 4.1rem;
+								position: relative;
+								z-index: 2;
 							}
 						}
 
@@ -597,6 +607,7 @@
 									color: rgba($color-text, .3);
 									right: .8rem;
 									top: 50%;
+									z-index: 1;
 									transform: translate3d(0, -50%, 0);
 								}
 							}
