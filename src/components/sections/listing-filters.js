@@ -79,28 +79,37 @@ class ListingFilters extends React.Component {
 		}
 	}
 
-	serializeFilters() {
+	serializeFilters(echo = false) {
+		let vm = this;
 		let newQuery = {};
-		if (this.formRef.current) {
-			newQuery = serializeArray(this.formRef.current, '|', true);
+		
+		if (vm.formRef.current) {
+			newQuery = serializeArray(vm.formRef.current, '|', true);
 		}
 
-		if (this.props.query) {
-			newQuery = extend(newQuery, this.props.query);
+		if (vm.props.query) {
+			newQuery = extend({}, newQuery, vm.props.query);
 		}
 
-		if (this.props.order !== null) {
-			newQuery.siralama = this.state.order;
+		//console.log(newQuery);
+
+		if (vm.props.order !== null) {
+			newQuery.siralama = vm.state.order;
 		}
 		else if (newQuery.siralama) {
 			delete newQuery.siralama;
 		}
 
-		if (!isExact(this.query, newQuery)) {
-			this.query = newQuery;
-			if (this.props.onUpdate) {
-				this.props.onUpdate(newQuery);
+		if (!isExact(vm.query, newQuery)) {
+			vm.query = newQuery;
+			if (vm.props.onUpdate) {
+				vm.props.onUpdate(vm.query);
 			}
+		}
+		else if(!echo) {
+			setTimeout(function() {
+				vm.serializeFilters(true);
+			}, 15);
 		}
 	}
 
@@ -557,7 +566,7 @@ class FilterTypeIcons extends React.Component {
 	}
 
 	handleChange(e, nth) {
-		let newOpts = this.state.opts;
+		let newOpts = clone(this.state.opts);
 		newOpts[nth].selected = e.target.checked;
 
 		this.setState({ opts: newOpts });

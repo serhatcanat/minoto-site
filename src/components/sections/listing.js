@@ -55,7 +55,6 @@ class Listing extends React.Component {
 		this.dummyBool = false;
 		this.listenerAbort = false;
 		this.urlTimeout = false;
-
 	}
 
 	componentDidMount() {
@@ -152,13 +151,13 @@ class Listing extends React.Component {
 		if (this.props.urlBinding) {
 			let query = queryString.stringify(this.state.query);
 			if (history.location.search !== '?' + query) {
-				if (query !== '') {
-					if (this.state.initialLoad) {
+				if (this.state.initialLoad) {
+					if (query !== '') {
 						window.dynamicHistory.replace('?' + query);
 					}
-					else {
-						window.dynamicHistory.push('?' + query);
-					}
+				}
+				else {
+					window.dynamicHistory.push('?' + query);
 				}
 			}
 		}
@@ -270,7 +269,6 @@ class Listing extends React.Component {
 				})
 			});
 		}
-
 	}
 
 	render() {
