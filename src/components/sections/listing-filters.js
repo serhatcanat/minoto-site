@@ -82,7 +82,7 @@ class ListingFilters extends React.Component {
 	serializeFilters(echo = false) {
 		let vm = this;
 		let newQuery = {};
-		
+
 		if (vm.formRef.current) {
 			newQuery = serializeArray(vm.formRef.current, '|', true);
 		}

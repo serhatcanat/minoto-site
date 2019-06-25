@@ -303,6 +303,17 @@
 
 		.dealer-cover {
 			height: 37.2rem;
+			width: 100%;
+			background-color: $color-ice;
+
+			.loaderwrap-icon{
+				top: auto;
+				left: auto;
+				right: -1rem;
+				bottom: -1rem;
+				font-size: 30rem;
+				transform: none;
+			}
 		}
 
 		.dealer-listing {

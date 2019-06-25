@@ -15,6 +15,7 @@ import FavBtn from 'components/partials/favbtn'
 
 // Deps
 import debounce from 'lodash/debounce'
+import extend from 'lodash/extend'
 import isEqual from 'lodash/isEqual'
 import { setTitle } from 'controllers/head'
 import request from 'controllers/request'
@@ -37,6 +38,7 @@ export default class Brand extends React.Component {
 
 		this.initialize = this.initialize.bind(this);
 		this.changeSearch = this.changeSearch.bind(this);
+		this.updateFilters = this.updateFilters.bind(this);
 		this.updateSearch = debounce(this.updateSearch.bind(this), 50);
 	}
 
@@ -81,6 +83,16 @@ export default class Brand extends React.Component {
 
 			this.setState({ listingQuery: query });
 		}
+	}
+
+	updateFilters(newQuery) {
+		newQuery = extend({}, newQuery, {
+			id: this.state.brandData.id,
+		});
+
+		this.setState({
+			listingQuery: newQuery
+		})
 	}
 
 	render() {

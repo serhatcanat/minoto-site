@@ -124,7 +124,7 @@ export default class Branch extends React.Component {
 
 							</aside>
 							<div className="detail-right">
-								<Image className="branch-cover" src={storageSpace('dealers', branch.cover)} />
+								<Image className="branch-cover" bg src={storageSpace('dealers', branch.cover)} />
 								{vm.state.listingQuery &&
 									<Listing
 										className="branch-listing"
