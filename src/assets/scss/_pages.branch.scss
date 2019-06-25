@@ -2,8 +2,16 @@
 	&.branch-detail {
 		display: flex;
 
+		@include media {
+			display: block;
+		}
+
 		.detail-info {
 			width: 28rem;
+
+			@include media {
+				width: auto;
+			}
 		}
 
 			.info-sum {
@@ -94,6 +102,10 @@
 
 		.detail-right {
 			width: calc(100% - 28rem);
+
+			@include media {
+				width: auto;
+			}
 		}
 
 		.branch-cover {
@@ -113,6 +125,10 @@
 
 		.branch-listing {
 			border-left: .1rem solid $color-gray-light;
+
+			@include media {
+				border-left: none;
+			}
 		}
 	}
 }

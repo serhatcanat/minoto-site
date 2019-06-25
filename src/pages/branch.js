@@ -8,6 +8,7 @@ import ListingFilters from 'components/sections/listing-filters.js'
 import Loader from 'components/partials/loader'
 import Image from 'components/partials/image'
 import Btn from 'components/partials/btn'
+import Responsive from 'components/partials/responsive'
 //import { InputForm, FormInput } from 'components/partials/forms'
 
 // Deps
@@ -124,7 +125,9 @@ export default class Branch extends React.Component {
 
 							</aside>
 							<div className="detail-right">
-								<Image className="branch-cover" bg src={storageSpace('dealers', branch.cover)} />
+								<Responsive type="only-web">
+									<Image className="branch-cover" bg src={storageSpace('dealers', branch.cover)} />
+								</Responsive>
 								{vm.state.listingQuery &&
 									<Listing
 										className="branch-listing"

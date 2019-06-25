@@ -2,8 +2,16 @@
 	&.brand-detail {
 		display: flex;
 
+		@include media {
+			display: block;
+		}
+
 		.detail-info {
 			width: 28rem;
+
+			@include media {
+				width: auto;
+			}
 		}
 
 			.info-sum {
@@ -71,6 +79,10 @@
 
 			.info-dealers {
 				padding: 1.4rem 0 1.4rem 1rem;
+
+				@include media {
+					padding: 1.4rem 0;
+				}
 			}
 
 				.dealers-title {
@@ -178,6 +190,10 @@
 
 		.detail-right {
 			width: calc(100% - 28rem);
+
+			@include media {
+				width: auto;
+			}
 		}
 
 		.brand-cover {
@@ -197,6 +213,10 @@
 
 		.brand-listing {
 			border-left: .1rem solid $color-gray-light;
+
+			@include media {
+				border-left: none;
+			}
 		}
 	}
 }

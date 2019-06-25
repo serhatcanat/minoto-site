@@ -2,8 +2,16 @@
 	&.dealer-detail {
 		display: flex;
 
+		@include media {
+			display: block;
+		}
+
 		.detail-info {
 			width: 28rem;
+
+			@include media {
+				width: auto;
+			}
 		}
 
 			.info-sum {
@@ -140,6 +148,10 @@
 
 			.info-branches {
 				padding: 2.8rem 2.4rem 4rem 2.4rem;
+
+				@include media {
+					padding: 1.4rem 0;
+				}
 			}
 
 				.branches-head {
@@ -299,6 +311,10 @@
 
 		.detail-right {
 			width: calc(100% - 28rem);
+
+			@include media {
+				width: auto;
+			}
 		}
 
 		.dealer-cover {
@@ -318,6 +334,10 @@
 
 		.dealer-listing {
 			border-left: .1rem solid $color-gray-light;
+
+			@include media {
+				border-left: none;
+			}
 		}
 	}
 }

@@ -20,6 +20,10 @@
 			.listing-filters {
 				width: 28rem;
 				border-right: .1rem solid $color-gray-light;
+
+				@include media {
+					width: 100%;
+				}
 			}
 		}
 

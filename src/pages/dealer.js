@@ -10,6 +10,7 @@ import Image from 'components/partials/image'
 import Btn from 'components/partials/btn'
 import FavBtn from 'components/partials/favbtn'
 import Collapse from 'components/partials/collapse'
+import Responsive from 'components/partials/responsive'
 //import { InputForm, FormInput } from 'components/partials/forms'
 
 // Deps
@@ -107,7 +108,7 @@ export default class Dealer extends React.Component {
 				<div className="wrapper">
 					{dealer &&
 						<section className="section dealer-detail">
-							<aside className="detail-info">
+							<section className="detail-info">
 								<div className="info-sum">
 									<FavBtn className="sum-favbtn" faved={dealer.favorited} type="dealer" id={dealer.id} />
 									<Image className="sum-avatar" bg src={storageSpace('dealers', dealer.avatar)} />
@@ -176,9 +177,11 @@ export default class Dealer extends React.Component {
 								expanded={vm.state.expandFilters}
 								*/
 								/>
-							</aside>
+							</section>
 							<div className="detail-right">
-								<Image className="dealer-cover" bg src={storageSpace('dealers', dealer.cover)} />
+								<Responsive type="only-web">
+									<Image className="dealer-cover" bg src={storageSpace('dealers', dealer.cover)} />
+								</Responsive>
 								{vm.state.listingQuery &&
 									<Listing
 										className="dealer-listing"

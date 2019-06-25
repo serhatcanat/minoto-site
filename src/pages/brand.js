@@ -11,6 +11,7 @@ import Btn from 'components/partials/btn'
 import Collapse from 'components/partials/collapse'
 //import Link from 'components/partials/link'
 import FavBtn from 'components/partials/favbtn'
+import Responsive from 'components/partials/responsive'
 //import { InputForm, FormInput } from 'components/partials/forms'
 
 // Deps
@@ -152,7 +153,9 @@ export default class Brand extends React.Component {
 							</aside>
 
 							<div className="detail-right">
-								<Image className="brand-cover" bg src={storageSpace('brands', brand.coverImage)} />
+								<Responsive type="only-web">
+									<Image className="brand-cover" bg src={storageSpace('brands', brand.coverImage)} />
+								</Responsive>
 								{vm.state.listingQuery &&
 									<Listing
 										className="brand-listing"
