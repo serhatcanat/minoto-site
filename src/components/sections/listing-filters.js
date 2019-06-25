@@ -91,8 +91,6 @@ class ListingFilters extends React.Component {
 			newQuery = extend({}, newQuery, vm.props.query);
 		}
 
-		//console.log(newQuery);
-
 		if (vm.props.order !== null) {
 			newQuery.siralama = vm.state.order;
 		}
@@ -416,7 +414,6 @@ class TreeFilterItem extends React.Component {
 	}
 
 	deselectChildren(data = this.state.data) {
-		console.log('deselectchildrem');
 		let vm = this;
 		let newData = clone(data);
 		if (newData.children) {
@@ -471,14 +468,11 @@ class TreeFilterItem extends React.Component {
 	}
 
 	handleParentChange(e) {
-		console.log('parant change');
 		let active = e.target.checked;
 		if (active) {
-			console.log('select children');
 			this.selectChildren();
 		}
 		else {
-			console.log('deselect children');
 			this.deselectChildren();
 		}
 
