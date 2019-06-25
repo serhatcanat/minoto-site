@@ -17,7 +17,7 @@ import throttle from 'lodash/throttle';
 import history from 'controllers/history'
 import request from 'controllers/request'
 import { connect } from "react-redux";
-import { blockOverflow, isExact, storageSpace, apiPath } from "functions/helpers";
+import { blockOverflow, isExact, storageSpace } from "functions/helpers";
 import queryString from 'query-string';
 
 const mapStateToProps = state => {

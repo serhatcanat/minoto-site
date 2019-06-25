@@ -8,11 +8,12 @@ import Slider from 'components/partials/slider'
 import debounce from 'lodash/debounce'
 import request from 'controllers/request'
 import { Link } from 'react-router-dom'
+import { apiPath } from 'functions/helpers';
 
 // Assets
 import image_autocomplete_default from 'assets/images/defaults/autocomplete-thumb.jpg'
 
-export default class SearchBar extends React.Component{
+export default class SearchBar extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -41,14 +42,14 @@ export default class SearchBar extends React.Component{
 		this.slideInstances = []
 	}
 
-	componentDidMount(){
+	componentDidMount() {
 		this.input.current.addEventListener("keydown", this.keyInput);
 		this.input.current.addEventListener("blur", this.blur);
 		this.input.current.addEventListener("focus", this.focus);
 		this.input.current.addEventListener("click", this.focus);
 	}
 
-	componentWillUnmount(){
+	componentWillUnmount() {
 		this.input.current.removeEventListener("keydown", this.keyInput);
 		this.input.current.removeEventListener("blur", this.blur);
 		this.input.current.removeEventListener("focus", this.focus);
@@ -58,86 +59,86 @@ export default class SearchBar extends React.Component{
 		}*/
 	}
 
-	componentDidUpdate(prevProps, prevState){
-		if(prevState.inputVal !== this.state.inputVal){
+	componentDidUpdate(prevProps, prevState) {
+		if (prevState.inputVal !== this.state.inputVal) {
 			this.updateSearch();
 		}
 
-		if((prevState.data === false && this.state.data !== false) || (this.state.data !== false && (prevState.inputVal !== this.state.inputVal) && !this.state.active)){
+		if ((prevState.data === false && this.state.data !== false) || (this.state.data !== false && (prevState.inputVal !== this.state.inputVal) && !this.state.active)) {
 			this.show();
 		}
-		else if(this.state.data === false && prevState.data !== false){
+		else if (this.state.data === false && prevState.data !== false) {
 			this.hide();
 		}
 	}
 
 	show() {
-		if(!this.state.show){
+		if (!this.state.show) {
 			let vm = this;
-			vm.setState({cacheData: vm.state.data});
-			vm.animTimeout = setTimeout(function(){
+			vm.setState({ cacheData: vm.state.data });
+			vm.animTimeout = setTimeout(function () {
 				vm.setState({ show: true });
 			}, 30);
 		}
 	}
 
-	hide(){
-		if(this.state.show){
+	hide() {
+		if (this.state.show) {
 			let vm = this;
-			vm.setState({show: false});
-			vm.animTimeout = setTimeout(function(){
-				vm.setState({cacheData: false });
+			vm.setState({ show: false });
+			vm.animTimeout = setTimeout(function () {
+				vm.setState({ cacheData: false });
 			}, 500);
 		}
 	}
 
-	blur(){
+	blur() {
 		let vm = this;
-		if(vm.blurTimeout){
+		if (vm.blurTimeout) {
 			clearTimeout(vm.blurTimeout);
 			vm.blurTimeout = false;
 		}
-		vm.blurTimeout = setTimeout(function() {
+		vm.blurTimeout = setTimeout(function () {
 			//vm.hide();
 			vm.blurTimeout = false;
 		}, 60);
 	}
 
-	focus(){
-		if(this.blurTimeout){
+	focus() {
+		if (this.blurTimeout) {
 			clearTimeout(this.blurTimeout);
 			this.blurTimeout = false;
 		}
-		if(this.state.data !== false && this.state.inputVal !== '' && !this.state.active){
+		if (this.state.data !== false && this.state.inputVal !== '' && !this.state.active) {
 			this.show();
 		}
 	}
 
-	keyInput(e){
+	keyInput(e) {
 		let vm = this;
 		let data = vm.state.data;
 
-		if(data){
+		if (data) {
 			let fG = vm.state.focusedGroup;
 			let fR = vm.state.focusedResult;
 
-			switch(e.key){
+			switch (e.key) {
 				case "ArrowUp":
-					if(fR <= 0){
-						fG = (fG <= 0 ? -1 : fG-1);
+					if (fR <= 0) {
+						fG = (fG <= 0 ? -1 : fG - 1);
 						fR = (fG >= 0 ? data.groups[fG].results.length - 1 : -1);
 					}
-					else{
+					else {
 						fR--;
 
 						this.slideInstances[fG].slideTo(fR);
 					}
-					vm.setState({focusedGroup: fG, focusedResult: fR})
-				break;
+					vm.setState({ focusedGroup: fG, focusedResult: fR })
+					break;
 				case "ArrowDown":
 					let curGroup = data.groups[fG];
-					if(!curGroup || fR >= curGroup.results.length -1){
-						fG = (fG >= data.groups.length-1 ? data.groups.length : fG+1);
+					if (!curGroup || fR >= curGroup.results.length - 1) {
+						fG = (fG >= data.groups.length - 1 ? data.groups.length : fG + 1);
 						fR = 0;
 					}
 					else {
@@ -145,29 +146,31 @@ export default class SearchBar extends React.Component{
 
 						this.slideInstances[fG].slideTo(fR);
 					}
-					vm.setState({focusedGroup: fG, focusedResult: fR})
-				break;
+					vm.setState({ focusedGroup: fG, focusedResult: fR })
+					break;
 				case "Escape":
 					vm.hide();
-				break;
+					break;
 				default: break;
 			}
 		}
 	}
 
-	checkDimensions(){
+	checkDimensions() {
 		this.setState({ oversize: this.container.current.offsetHeight > this.props.oversizeLimit });
 	}
 
-	updateSearch(){
+	updateSearch() {
 		let vm = this;
 		let active = vm.state.inputVal.length;
 
-		if(active){
-			vm.setState({loading : true});
 
-			request.get('/dummy/data/search-autocomplete.json', false, function(payload, status){
-				if(payload){
+		if (active) {
+			vm.setState({ loading: true });
+
+			request.get(apiPath('search'), { search: vm.state.inputVal, }, function (payload, status) {
+
+				if (payload) {
 					vm.setState({ data: payload, loading: false });
 				}
 				else {
@@ -176,26 +179,26 @@ export default class SearchBar extends React.Component{
 			}, { excludeApiPath: true });
 		}
 		else {
-			vm.setState({ data: false, loading: false})
+			vm.setState({ data: false, loading: false })
 		}
 	}
 
-	inputChange(e){
-		this.setState({inputVal: e.target.value})
+	inputChange(e) {
+		this.setState({ inputVal: e.target.value })
 	}
 
-	formSubmit(e){
+	formSubmit(e) {
 		e.preventDefault();
 	}
 
-	render() {	
+	render() {
 		let vm = this;
 		let containerClasses = "searchbar " + vm.props.className;
 		let inputClasses = 'searchbar-input';
 
 		let data = vm.state.cacheData;
 
-		if(vm.state.show) { containerClasses += ' show'; }
+		if (vm.state.show) { containerClasses += ' show'; }
 
 		return (
 			<div className={containerClasses}>
@@ -220,32 +223,32 @@ export default class SearchBar extends React.Component{
 				</form>
 
 				{(data && (
-				<div className={"searchbar-results " + (vm.state.loading ? ' loading' : '')}>
-					{(data.groups && data.groups.length) && (
-						data.groups.map((group, g_nth) => (
-						<div className="results-group" key={g_nth}>
-							{group.title && <strong className="group-title">{group.title}</strong>}
-							<Slider className="group-wrap" scrollBar ref={(ref) => vm.slideInstances[g_nth] = ref}>
-								{group.results.map((result, r_nth) => (
-									<div className={"group-item" + ((g_nth === vm.state.focusedGroup && r_nth === vm.state.focusedResult) ? ' focused' : '')} key={'g_'+r_nth}>
-										<Link to={result.link} onClick={vm.hide}>
-											{group.hasimages && (
-												<Image className="item-image" src={(result.image ? result.image : image_autocomplete_default)} />
-											)}
-											{result.title}
-										</Link>
-									</div>
-								))}
-							</Slider>
-							{group.cta && (
-								<div className="group-cta">
-									<Link className="cta-link" onClick={vm.hide} to={group.cta.link}>{group.cta.title} <i className="icon-angle-right"></i></Link>
+					<div className={"searchbar-results " + (vm.state.loading ? ' loading' : '')}>
+						{(data.groups && data.groups.length) && (
+							data.groups.map((group, g_nth) => (
+								<div className="results-group" key={g_nth}>
+									{group.title && <strong className="group-title">{group.title}</strong>}
+									<Slider className="group-wrap" scrollBar ref={(ref) => vm.slideInstances[g_nth] = ref}>
+										{group.results.map((result, r_nth) => (
+											<div className={"group-item" + ((g_nth === vm.state.focusedGroup && r_nth === vm.state.focusedResult) ? ' focused' : '')} key={'g_' + r_nth}>
+												<Link to={result.link} onClick={vm.hide}>
+													{group.hasimages && (
+														<Image className="item-image" src={(result.image ? result.image : image_autocomplete_default)} />
+													)}
+													{result.title}
+												</Link>
+											</div>
+										))}
+									</Slider>
+									{group.cta && (
+										<div className="group-cta">
+											<Link className="cta-link" onClick={vm.hide} to={group.cta.link}>{group.cta.title} <i className="icon-angle-right"></i></Link>
+										</div>
+									)}
 								</div>
-							)}
-						</div>
-						))
-					)}
-				</div>
+							))
+						)}
+					</div>
 				))}
 			</div>
 		)
