@@ -85,7 +85,7 @@ export class FormInput extends React.Component {
 
 		let Input = false;
 		let inputProps = extend(
-			omit(vm.props, ['id', 'onChangeInForm', 'forceTouch', 'onChange', 'className', 'formInput', 'name', 'onFeedback']),
+			omit(vm.props, ['id', 'onChangeInForm', 'forceTouch', 'onChange', 'className', 'formInput', 'name']),
 			{
 				id: vm.id,
 				name: name,
@@ -660,7 +660,7 @@ class InputCheck extends React.Component {
 			onChange: vm.handleChange,
 			value: vm.state.value,
 			id: vm.props.id,
-			checked: vm.state.checked,
+			checked: (vm.state.checked ? true : false),
 		}
 
 		return (
