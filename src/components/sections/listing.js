@@ -87,7 +87,6 @@ class Listing extends React.Component {
 		}
 
 		if (!isExact(prevState.query, this.state.query)) {
-			console.log(this.state.query);
 			this.updateURL();
 			this.updateResults();
 		}
@@ -209,6 +208,7 @@ class Listing extends React.Component {
 
 		//let q = queryString.stringify(vm.state.query);
 		let requestURL = vm.props.source; //+'?'+q;
+		requestURL = '/dummy/data/listing.json';
 
 		request.get(requestURL, { ...vm.state.query, ...{ sayfa: opts.page } }, function (payload, status) {
 			if (payload) {
@@ -234,7 +234,7 @@ class Listing extends React.Component {
 					endFunction();
 				}
 			}
-		}, { excludeApiPath: vm.props.source === '/dummy/data/listing.json' || vm.props.source === '/dummy/data/detail-related.json' });
+		}, { excludeApiPath: requestURL === '/dummy/data/listing.json' || requestURL === '/dummy/data/detail-related.json' });
 	}
 
 	updateOrder(order) {

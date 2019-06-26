@@ -413,8 +413,9 @@ class TreeFilterItem extends React.Component {
 		return result;
 	}
 
-	deselectChildren(data = this.state.data) {
+	deselectChildren(inputData = false) {
 		let vm = this;
+		let data = (inputData ? inputData : vm.state.data);
 		let newData = clone(data);
 		if (newData.children) {
 			newData.children = newData.children.map(function (child, nth) {
@@ -429,7 +430,12 @@ class TreeFilterItem extends React.Component {
 			});
 		}
 
-		vm.setState({ data: newData });
+		if(inputData){
+			return newData;
+		}
+		else{
+			vm.setState({ data: newData });
+		}
 	}
 
 	selectChildren(inputData = false) {
@@ -448,6 +454,7 @@ class TreeFilterItem extends React.Component {
 				return newChild;
 			});
 		}
+		
 		if(inputData){
 			return newData;
 		}

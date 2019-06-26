@@ -154,24 +154,39 @@
 						"title" : "BMW",
 						"children": [
 							{
+								"title": "Tümü",
+								"type": "all",
+								"value": "bmw"
+							},
+							{
 								"title" : "3 Serisi",
 								"children" : [
+									{
+										"title": "Tümü",
+										"type": "all",
+										"value": "bmw-3"
+									},
 									{
 										"title": "3.20",
 										"children": [
 											{
+												"title": "Tümü",
+												"type": "all",
+												"value": "bmw-3-20"
+											},
+											{
 												"title": "Comfort Line",
-												"value": "320-comfort",
+												"value": "bmw-3-20-comfort",
 												"selected": false
 											},
 											{
 												"title": "M-Sport",
-												"value": "320-m-sport",
+												"value": "bmw-3-20-m-sport",
 												"selected": true
 											},
 											{
 												"title": "High Line",
-												"value": "320-high-line",
+												"value": "bmw-3-20-high-line",
 												"selected": false
 											}
 										]
@@ -180,18 +195,23 @@
 										"title": "3.25",
 										"children": [
 											{
+												"title": "Tümü",
+												"type": "all",
+												"value": "bmw-3-25"
+											},
+											{
 												"title": "Comfort Line",
-												"value": "325-comfort",
+												"value": "bmw-3-25-comfort",
 												"selected": false
 											},
 											{
 												"title": "M-Sport",
-												"value": "325-m-sport",
+												"value": "bmw-3-25-m-sport",
 												"selected": false
 											},
 											{
 												"title": "High Line",
-												"value": "325-high-line",
+												"value": "bmw-3-25-high-line",
 												"selected": false
 											}
 										]
@@ -202,21 +222,31 @@
 								"title" : "5 Serisi",
 								"children" : [
 									{
+										"title": "Tümü",
+										"type": "all",
+										"value": "bmw-5"
+									},
+									{
 										"title": "5.20",
 										"children": [
 											{
+												"title": "Tümü",
+												"type": "all",
+												"value": "bmw-5-20"
+											},
+											{
 												"title": "Comfort Line",
-												"value": "520-comfort",
+												"value": "bmw-5-20-comfort",
 												"selected": false
 											},
 											{
 												"title": "M-Sport",
-												"value": "520-m-sport",
-												"selected": false
+												"value": "bmw-5-20-m-sport",
+												"selected": true
 											},
 											{
 												"title": "High Line",
-												"value": "520-high-line",
+												"value": "bmw-5-20-high-line",
 												"selected": false
 											}
 										]
@@ -225,18 +255,23 @@
 										"title": "5.25",
 										"children": [
 											{
+												"title": "Tümü",
+												"type": "all",
+												"value": "bmw-5-25"
+											},
+											{
 												"title": "Comfort Line",
-												"value": "525-comfort",
+												"value": "bmw-5-25-comfort",
 												"selected": false
 											},
 											{
 												"title": "M-Sport",
-												"value": "525-m-sport",
+												"value": "bmw-5-25-m-sport",
 												"selected": false
 											},
 											{
 												"title": "High Line",
-												"value": "525-high-line",
+												"value": "bmw-5-25-high-line",
 												"selected": false
 											}
 										]
