@@ -24,7 +24,7 @@ import parse from 'html-react-parser';
 import { connect } from "react-redux";
 import request from 'controllers/request'
 import { setTitle } from 'controllers/head'
-//import { apiPath, storageSpace } from "functions/helpers";
+import { apiPath, storageSpace } from "functions/helpers";
 
 // Assets
 import image_avatar from 'assets/images/defaults/avatar.svg';
@@ -46,8 +46,11 @@ class Detail extends React.Component {
 
 	initialize() {
 		let vm = this;
-		//request.get(apiPath('car-posts/2/audi'), { id: vm.props.match.params.id }, function (payload, status) {
-		request.get('/dummy/data/detail.json', { id: vm.props.match.params.id }, function (payload, status) {
+		let postUrl = window.location.pathname.split('/')[3];
+
+
+		request.get(apiPath(`car-posts/${vm.props.match.params.id}/${postUrl}`), { id: vm.props.match.params.id }, function (payload, status) {
+			//request.get('/dummy/data/detail.json', { id: vm.props.match.params.id }, function (payload, status) {
 			if (payload) {
 				vm.setState({
 					productData: payload
@@ -124,7 +127,7 @@ class Detail extends React.Component {
 
 									<div className="top-controls">
 										{(product.activeViewers && product.activeViewers > 0) &&
-											<span className="controls-viewers">{product.activeViewers} kişi bakıyor</span>
+											<span className="controls-viewers" style={{ opacity: '0' }}>{product.activeViewers} kişi bakıyor</span>
 										}
 										<span className="controls-date">{product.date}</span>
 										<FavBtn className="controls-btn" faved={product.favorited} type="post" id={product.id}> Favorilere Ekle</FavBtn>
@@ -177,8 +180,8 @@ class Detail extends React.Component {
 							<section className="section detail-banners">
 								<div className="wrapper">
 									{product.ads.map((ad, nth) => (
-										<Link type='a' href={ad.url} title={ad.title} key={nth} className={"banners-item x-" + ad.size}>
-											<Image src={ad.image} />
+										<Link type='a' href={`/blog/detay/${ad.url}`} title={ad.title} key={nth} className={"banners-item x-" + ad.size}>
+											<Image src={storageSpace('articles', ad.image)} />
 										</Link>
 									))}
 								</div>
@@ -245,7 +248,7 @@ class DetailGallery extends React.Component {
 					<Slider className="mainslider-slider" ref={vm.mainSlider} loop opts={{ lazy: true }} onChange={vm.imageChange}>
 						{images.map((image, nth) => (
 							<div className="slider-imagewrap" key={nth}>
-								<div className="imagewrap-image swiper-lazy" data-background={image.medium}>
+								<div className="imagewrap-image swiper-lazy" data-background={storageSpace('car-posts/gallery', image.medium)}>
 								</div>
 								<i className="imagewrap-loader icon-spinner"></i>
 							</div>
@@ -264,7 +267,7 @@ class DetailGallery extends React.Component {
 						<Slider className="thumbs-carousel" slides={10} ref={vm.thumbSlider} opts={{ preventClicks: false }}>
 							{images.map((image, nth) => (
 								<button type="button" className={"carousel-imagebtn" + (vm.state.activeImage === nth ? ' active' : '')} key={nth} onClick={() => { vm.imageChange(nth); }}>
-									<Image className="carousel-image" key={nth} bg src={image.thumb} alt={product.title} />
+									<Image className="carousel-image" key={nth} bg src={storageSpace('car-posts/gallery', image.thumb)} alt={product.title} />
 								</button>
 							))}
 						</Slider>
@@ -316,25 +319,41 @@ class DetailInfo extends React.Component {
 
 				<div className="info-price">
 					<strong className="price-current">
-						{formatNumber(product.price)} TL
+						{product.price ? `${formatNumber(product.price)} TL` : 'SORUNUZ'}
+
 					</strong>
 					{product.listingPrice &&
 						<div className="price-listing">
-							<strong>Liste Fiyatı:</strong> <span>{formatNumber(product.listingPrice)}</span>
+							{
+								(product.listingPrice > product.price && product.price > 0) && <React.Fragment>
+									<strong>Liste Fiyatı:</strong> <span>{formatNumber(product.listingPrice)}</span>
+								</React.Fragment>
+							}
+
 						</div>
 					}
 				</div>
 
 				{product.costs &&
 					<div className="info-costs">
-						<button className="costs-sum" type="button" onClick={() => { vm.setState({ showCosts: !vm.state.showCosts }) }}><strong>Bu aracın yıllık kullanım maliyeti:</strong> 3590 TL</button>
+						<button className="costs-sum" type="button" onClick={() => { vm.setState({ showCosts: !vm.state.showCosts }) }}><strong>Bu aracın yıllık kullanım maliyeti:</strong> {formatNumber(product.costs.total)} TL</button>
 						<Collapse className="costs-wrap" open={vm.state.showCosts}>
 							<ul className="costs-list">
 								{product.costs.expenses.map((cost, nth) => (
-									<li className="list-cost" key={nth}>
-										<strong>{cost.title}</strong>
-										<span className="cost-num">{formatNumber(cost.cost)} TL</span>
-									</li>
+									<React.Fragment>
+										{
+											(cost.cost > 0) && (
+												<React.Fragment>
+													<li className="list-cost" key={nth}>
+														<strong>{cost.title}</strong>
+														<span className="cost-num">{formatNumber(cost.cost)} TL</span>
+													</li>
+
+												</React.Fragment>
+											)
+
+										}
+									</React.Fragment>
 								))}
 								<li className="list-cost total">
 									<strong>
@@ -552,7 +571,7 @@ class DetailTopInfo extends React.Component {
 					</ul>
 				}
 				<div className="topinfo-id">
-					<strong>İlan No:</strong> {product.id}
+					<strong>İlan No:</strong> {product.postNo}
 				</div>
 			</div>
 		)

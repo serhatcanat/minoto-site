@@ -102,6 +102,7 @@ export default class Dealer extends React.Component {
 	render() {
 		let vm = this;
 		let dealer = vm.state.dealerData;
+
 		return (
 			<main className="page dealer">
 				<Loader loading={dealer === false} strict={true} />
@@ -187,8 +188,8 @@ export default class Dealer extends React.Component {
 										className="dealer-listing"
 										urlBinding={false}
 										filters={false}
-										source="/dummy/data/listing.json"
-										query={vm.state.listingQuery}
+										source={`dealers/${vm.state.listingQuery.dealer}/car-posts`}
+										query={false}
 										showAds={false}
 										onDataChange={(newData) => {
 											vm.setState({ listingData: newData });

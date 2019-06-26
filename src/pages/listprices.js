@@ -173,9 +173,9 @@ export default class ListPrices extends React.Component {
 												<th>Alt Model</th>
 												<th>Versiyon</th>
 												<th>Donanım</th>
-												<th>Motor Hacmi</th>
+												{/*<th>Motor Hacmi</th>
 												<th>Vites Tipi</th>
-												<th>Yakıt Türü</th>
+												<th>Yakıt Türü</th>*/}
 												<th style={{ minWidth: '120px' }}>Fiyat</th>
 												<th>Kampanyalı Fiyat</th>
 											</tr>
@@ -198,9 +198,9 @@ export default class ListPrices extends React.Component {
 														<td>{item.type}</td>
 														<td>{item.equipment}</td>
 														<td>{item.equipmentMain}</td>
-														<td>{item.enginevolume}</td>
+														{/*<td>{item.enginevolume}</td>
 														<td>{item.transmission}</td>
-														<td>{item.fuel}</td>
+														<td>{item.fuel}</td>*/}
 														<td>{formatNumber(item.price)} TL </td>
 														<td>
 															{item.price2 ? formatNumber(item.price2) + ' TL' : '-'}

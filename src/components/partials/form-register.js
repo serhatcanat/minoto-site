@@ -84,15 +84,15 @@ export default class RegisterForm extends React.Component {
 			loading: true,
 		})
 
-		register(e.target, function(payload){
+		register(e.target, function (payload) {
 			vm.setState({
 				success: payload.success,
 				loading: false,
 				message: payload.message,
 			});
 
-			if(payload.success){
-				setTimeout(function() {
+			if (payload.success) {
+				setTimeout(function () {
 					closeModal();
 				}, 1000);
 			}

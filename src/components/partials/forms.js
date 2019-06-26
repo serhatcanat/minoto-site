@@ -230,9 +230,12 @@ class InputText extends React.Component {
 
 		vm.setState({ error: (validStatus !== false), errorMessage: validStatus });
 
-		if(vm.state.validation.compare && !isEqual(validStatus, currentValidation)){
-			setTimeout(function() {
-				vm.props.onFeedback('validateAll');
+		if (vm.state.validation.compare && !isEqual(validStatus, currentValidation)) {
+			setTimeout(function () {
+				if (vm.props.onFeedback) {
+					vm.props.onFeedback('validateAll');
+				}
+
 			}, 20);
 		}
 	}
@@ -832,17 +835,17 @@ export class InputForm extends React.Component {
 	}
 
 	elementFeedback(event) {
-		switch(event){
+		switch (event) {
 			case "validateAll":
 				this.validateChildren();
-			break;
+				break;
 			default: break;
 		}
 	}
 
-	validateChildren(){
-		this.elems.forEach(function(elem, nth){
-			if(elem !== null){
+	validateChildren() {
+		this.elems.forEach(function (elem, nth) {
+			if (elem !== null) {
 				elem.validate(undefined, true);
 			}
 		});

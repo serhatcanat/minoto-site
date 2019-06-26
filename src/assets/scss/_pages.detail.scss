@@ -269,7 +269,7 @@
 							background-size: contain;
 							background-repeat: no-repeat;
 							background-position: center;
-							opacity: 0;
+							opacity: 1;
 							transition: opacity $transition-hover ease;
 
 							@include media {

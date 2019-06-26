@@ -18,7 +18,7 @@ import Responsive from 'components/partials/responsive'
 import debounce from 'lodash/debounce'
 import extend from 'lodash/extend'
 import isEqual from 'lodash/isEqual'
-import { setTitle } from 'controllers/head'
+import { setTitle, setMeta } from 'controllers/head'
 import request from 'controllers/request'
 import { redirect } from 'controllers/navigator'
 import { openModal } from 'functions/modals'
@@ -107,7 +107,7 @@ export default class Brand extends React.Component {
 						<section className="section brand-detail">
 							<aside className="detail-info">
 								<div className="info-sum">
-									<FavBtn className="sum-favbtn" faved={brand.favorited} type="brand" id={brand.id}  />
+									<FavBtn className="sum-favbtn" faved={brand.favorited} type="brand" id={brand.id} />
 									<Image className="sum-logo" bg title={brand.title} src={storageSpace('brands', brand.logo)} />
 
 									<h1 className="sum-title">{brand.title}</h1>
@@ -161,7 +161,7 @@ export default class Brand extends React.Component {
 										className="brand-listing"
 										urlBinding={false}
 										filters={false}
-										source={`brands/${brand.slug}/car-posts`}
+										source={`brands/${brand.id}/car-posts`}
 										query={vm.state.listingQuery}
 										showAds={false}
 										onDataChange={(newData) => {

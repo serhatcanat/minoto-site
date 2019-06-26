@@ -8,10 +8,10 @@ import Listing from 'components/sections/listing.js'
 // Assets
 
 export default class Search extends React.Component {
-	render () {
+	render() {
 		return (
 			<main className="page search">
-				<Listing className="search-listing" />
+				<Listing className="search-listing" source={'car-posts'} query={false} />
 			</main>
 
 		)

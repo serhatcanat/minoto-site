@@ -181,6 +181,7 @@ export default class SearchBar extends React.Component {
 		else {
 			vm.setState({ data: false, loading: false })
 		}
+
 	}
 
 	inputChange(e) {
@@ -196,7 +197,7 @@ export default class SearchBar extends React.Component {
 		let containerClasses = "searchbar " + vm.props.className;
 		let inputClasses = 'searchbar-input';
 
-		let data = vm.state.cacheData;
+		let data = vm.state.data;
 
 		if (vm.state.show) { containerClasses += ' show'; }
 
@@ -257,5 +258,5 @@ export default class SearchBar extends React.Component {
 
 SearchBar.defaultProps = {
 	className: '',
-	placeholder: 'Volvo CX40 ara',
+	placeholder: 'Volvo XC40 ara',
 };

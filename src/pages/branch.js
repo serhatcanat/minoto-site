@@ -80,6 +80,7 @@ export default class Branch extends React.Component {
 	render() {
 		let vm = this;
 		let branch = vm.state.branchData;
+
 		return (
 			<main className="page branch">
 				<Loader loading={branch === false} strict={true} />
@@ -133,8 +134,8 @@ export default class Branch extends React.Component {
 										className="branch-listing"
 										urlBinding={false}
 										filters={false}
-										source="/dummy/data/listing.json"
-										query={vm.state.listingQuery}
+										source={`branches/${branch.id}/car-posts`}
+										query={false}
 										showAds={false}
 										onDataChange={(newData) => {
 											vm.setState({ listingData: newData });
