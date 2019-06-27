@@ -104,8 +104,8 @@ class ListingFilters extends React.Component {
 				vm.props.onUpdate(vm.query);
 			}
 		}
-		else if(!echo) {
-			setTimeout(function() {
+		else if (!echo) {
+			setTimeout(function () {
 				vm.serializeFilters(true);
 			}, 15);
 		}
@@ -430,10 +430,10 @@ class TreeFilterItem extends React.Component {
 			});
 		}
 
-		if(inputData){
+		if (inputData) {
 			return newData;
 		}
-		else{
+		else {
 			vm.setState({ data: newData });
 		}
 	}
@@ -454,11 +454,11 @@ class TreeFilterItem extends React.Component {
 				return newChild;
 			});
 		}
-		
-		if(inputData){
+
+		if (inputData) {
 			return newData;
 		}
-		else{
+		else {
 			vm.setState({ data: newData });
 		}
 	}
@@ -503,41 +503,18 @@ class TreeFilterItem extends React.Component {
 			<li className={"filter-item level-" + vm.props.level}>
 				{data &&
 					((data.value && !data.children) ?
-					<div className="inputwrap type-checkbox no-select">
-						<div className="item-wrap">
-							<div className="checkwrap">
-								<input
-									key={vm.id}
-									type="checkbox"
-									className="parent"
-									name={name + '[]'}
-									id={vm.id}
-									value={data.value}
-									checked={data.selected ? true : false}
-									onChange={(e) => vm.handleValueChange(e)} />
-								<label htmlFor={vm.id}>
-									<span></span>
-									<div className="item-text checkwrap-content">
-										<div className="text-title">
-											{data.title}
-										</div>
-									</div>
-								</label>
-							</div>
-						</div>
-					</div>
-					:
-					<div className={"item-subgroup" + (vm.state.expanded ? ' expanded' : '')}>
-						<div className="item-wrap">
-							<div className="inputwrap type-checkbox no-select">
+						<div className="inputwrap type-checkbox no-select">
+							<div className="item-wrap" style={{ display: data.title === '-' ? 'none' : '' }}>
 								<div className="checkwrap">
 									<input
 										key={vm.id}
 										type="checkbox"
-										className="child"
+										className="parent"
+										name={name + '[]'}
 										id={vm.id}
-										checked={vm.state.active}
-										onChange={vm.handleParentChange} />
+										value={data.value}
+										checked={data.selected ? true : false}
+										onChange={(e) => vm.handleValueChange(e)} />
 									<label htmlFor={vm.id}>
 										<span></span>
 										<div className="item-text checkwrap-content">
@@ -548,17 +525,41 @@ class TreeFilterItem extends React.Component {
 									</label>
 								</div>
 							</div>
-							<button className="item-expand" type="button" onClick={vm.toggleExpand}></button>
 						</div>
-						<ul className="item-submenu">
-							{data.children.map((opt, nth) => {
-								return (
-									<TreeFilterItem data={opt} name={name} idprefix={vm.id} key={nth} nth={nth} level={vm.props.level + 1} onChange={(e) => { this.handleChildrenChange(e, nth) }} />
-								)
-							})}
-						</ul>
-					</div>
-				)}
+						:
+						<div className={"item-subgroup" + (vm.state.expanded ? ' expanded' : '')}>
+							<div className={`item-wrap ${data.children[0].title !== '-' && 'expandable'}`}>
+								<div className="inputwrap type-checkbox no-select ">
+									<div className="checkwrap">
+										<input
+											key={vm.id}
+											type="checkbox"
+											className="child"
+											id={vm.id}
+											checked={vm.state.active}
+											onChange={vm.handleParentChange} />
+										<label htmlFor={vm.id}>
+											<span></span>
+											<div className="item-text checkwrap-content">
+												<div className="text-title">
+													{data.title}
+												</div>
+											</div>
+										</label>
+									</div>
+								</div>
+								{data.children[0].title !== '-' && <button className="item-expand" type="button" onClick={vm.toggleExpand}></button>}
+
+							</div>
+							<ul className="item-submenu">
+								{data.children.map((opt, nth) => {
+									return (
+										<TreeFilterItem data={opt} name={name} idprefix={vm.id} key={nth} nth={nth} level={vm.props.level + 1} onChange={(e) => { this.handleChildrenChange(e, nth) }} />
+									)
+								})}
+							</ul>
+						</div>
+					)}
 			</li>
 		)
 	}

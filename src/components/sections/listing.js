@@ -197,9 +197,9 @@ class Listing extends React.Component {
 
 		vm.setState({ loading: true });
 
-		//setTimeout(function () {
+		setTimeout(function () {
 			vm.makeRequest();
-		//}, 500); /// Dummy Delay
+		}, 500); /// Dummy Delay
 	}
 
 	makeRequest(opts = {}, endFunction = false) {
@@ -208,7 +208,7 @@ class Listing extends React.Component {
 
 		//let q = queryString.stringify(vm.state.query);
 		let requestURL = vm.props.source; //+'?'+q;
-		requestURL = '/dummy/data/listing.json';
+		//requestURL = '/dummy/data/listing.json';
 
 		request.get(requestURL, { ...vm.state.query, ...{ sayfa: opts.page } }, function (payload, status) {
 			if (payload) {

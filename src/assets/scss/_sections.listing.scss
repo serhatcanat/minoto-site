@@ -483,9 +483,10 @@
 							top: 0;
 
 							+ label {
-								padding: .2rem 0 .2rem 2.3rem;
+								padding: .2rem 0 .2rem 0.7rem;
 								display: block;
 								span {
+									opacity: 0;
 									top: 1rem;
 									width: 1.4rem;
 									height: 1.4rem;
@@ -579,9 +580,10 @@
 									top: 0;
 
 									+ label {
-										padding: .2rem 0 .2rem 2.3rem;
+										padding: .2rem 0 .2rem 0.7rem;
 										display: block;
 										span {
+											opacity: 0;
 											top: 1rem;
 											width: 1.4rem;
 											height: 1.4rem;
@@ -604,7 +606,7 @@
 								display: none;
 							}
 
-							> .item-wrap {
+							> .item-wrap.expandable {
 								&:after {
 									@include icon('angle-right');
 									position: absolute;

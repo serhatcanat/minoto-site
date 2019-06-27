@@ -3,6 +3,7 @@ import React from 'react'
 // Partials
 import { InputForm, FormInput } from 'components/partials/forms'
 import Btn from 'components/partials/btn'
+import Link from 'components/partials/link'
 
 // Deps
 import { openModal, closeModal } from 'functions/modals'
@@ -79,6 +80,7 @@ export default class RegisterForm extends React.Component {
 
 	submit(e) {
 		let vm = this;
+		alert('me')
 
 		vm.setState({
 			loading: true,
@@ -147,7 +149,7 @@ export default class RegisterForm extends React.Component {
 						type="checkbox"
 						validation={{ required: "Üye olmak için kullanıcı sözleşmesini kabul etmeniz gerekmektedir." }}
 						className="form-field">
-						"Üye Ol" butonuna tıklayarak Minoto’nun Kullanıcı Sözleşmesi’ni kabul etmiş sayılacaksınız.
+						"Üye Ol" butonuna tıklayarak Minoto’nun <Link className="text-minoto" href="privacy" target="_blank" rel="noopener noreferrer">Kullanıcı Sözleşmesi’ni</Link> kabul etmiş sayılacaksınız.
 					</FormInput>
 					<FormInput
 						name="agreement"

@@ -19,7 +19,7 @@ import FavBtn from 'components/partials/favbtn'
 // Deps
 import { ListingLink } from 'controllers/navigator'
 import { openModal } from "functions/modals";
-import { formatNumber, blockOverflow } from 'functions/helpers.js';
+import { formatNumber, blockOverflow, nl2br } from 'functions/helpers.js';
 import parse from 'html-react-parser';
 import { connect } from "react-redux";
 import request from 'controllers/request'
@@ -167,7 +167,7 @@ class Detail extends React.Component {
 								<div className="wrapper">
 									<div className="related-innerwrap">
 										<h2 className="related-title">Benzer araçlar</h2>
-										<DetailRelated mobile={vm.props.mobile} />
+										<DetailRelated postId={product.id} mobile={vm.props.mobile} />
 									</div>
 								</div>
 							</section>
@@ -340,7 +340,7 @@ class DetailInfo extends React.Component {
 						<Collapse className="costs-wrap" open={vm.state.showCosts}>
 							<ul className="costs-list">
 								{product.costs.expenses.map((cost, nth) => (
-									<React.Fragment>
+									<React.Fragment key={nth}>
 										{
 											(cost.cost > 0) && (
 												<React.Fragment>
@@ -388,8 +388,10 @@ class DetailInfo extends React.Component {
 					<div className="info-dealer">
 						<div className="dealer-head">
 							<Link href={product.dealer.url}>
-								{product.dealer.validated &&
+								{product.dealer.validated ?
 									<span className="dealer-badge"><i className="badge-bg icon-ribbon"></i><i className="badge-icon icon-check"></i></span>
+									:
+									false
 								}
 								<strong className="dealer-title">{product.dealer.title}</strong>
 							</Link>
@@ -476,7 +478,7 @@ class DetailExtras extends React.Component {
 								<div className={"tab-content" + (vm.state.expandableDesc ? ' expandable' : '') + (vm.state.expandDesc ? ' expanded' : '')}>
 									<div className="content-innerwrap" ref={vm.descWrap}>
 										<div className="tab-textarea wysiwyg">
-											{parse(product.description)}
+											{parse(nl2br(product.description))}
 										</div>
 									</div>
 								</div>
@@ -535,7 +537,7 @@ class DetailExtras extends React.Component {
 						<div label="Benzer Araçlar" index="similar">
 							<div className="tabs-tab">
 								<div className="tab-related">
-									<DetailRelated />
+									<DetailRelated postId={product.id} />
 								</div>
 							</div>
 						</div>
@@ -547,9 +549,15 @@ class DetailExtras extends React.Component {
 }
 
 class DetailRelated extends React.Component {
+	constructor(props) {
+		super(props)
+	}
 	render() {
 		return (
-			<Listing className="related-listing" urlBinding={false} filters={false} topSection={false} source="/dummy/data/detail-related.json" query="id=1234" size={5} showAds={false} />
+			<Listing className="related-listing" urlBinding={false} filters={false} topSection={false}
+				source={`car-posts/detail/${this.props.postId}/similar`}
+				//source="/dummy/data/detail-related.json"
+				query="id=1234" size={5} showAds={false} />
 		)
 	}
 }
@@ -562,11 +570,19 @@ class DetailTopInfo extends React.Component {
 				{product.highlights &&
 					<ul className="topinfo-highlights">
 						{product.highlights.map((highlight, nth) => (
-							<li key={nth} title={highlight.title}>{(highlight.image ?
-								<Image alt={highlight.title} src={highlight.image} />
-								:
-								<span>{highlight.label}</span>
-							)}</li>
+							<React.Fragment>
+								{
+									highlight.label && (
+										<li key={nth} title={highlight.title}>{(highlight.image ?
+											<Image alt={highlight.title} src={highlight.image} />
+											:
+											<span>{highlight.label}</span>
+										)}</li>
+									)
+								}
+							</React.Fragment>
+
+
 						))}
 					</ul>
 				}
