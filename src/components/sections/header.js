@@ -12,7 +12,7 @@ import Btn from 'components/partials/btn.js'
 import { openModal } from "functions/modals";
 import { blockOverflow } from "functions/helpers";
 import { connect } from "react-redux";
-
+import { storageSpace } from "functions/helpers";
 // Assets
 import image_icon_facebook from 'assets/images/icon/facebook.svg'
 import image_icon_instagram from 'assets/images/icon/instagram.svg'
@@ -94,7 +94,7 @@ class Header extends React.Component {
 							{user &&
 								<div className="nav-user">
 									<Link className="user-item avatar" href="account.profile" title={user.fullname}>
-										<Image bg src={user.avatar} />
+										<Image bg src={storageSpace('profile-photos', user.avatar)} />
 									</Link>
 
 									<Link className="user-item notifications" href="account.notifications" title="Bildirimlerim">
@@ -187,7 +187,7 @@ class Header extends React.Component {
 											</ul>
 
 											<ul className="menu-sublinks">
-												<li className="sublinks-item">
+												<li className="sublinks-item" style={{ display: 'none' }}>
 													<Link href="/">Araç Karşılaştır</Link>
 												</li>
 												<li className="sublinks-item">

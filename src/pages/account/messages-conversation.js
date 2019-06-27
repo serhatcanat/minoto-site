@@ -11,7 +11,7 @@ import { FormInput, InputForm } from 'components/partials/forms'
 // Deps
 import { connect } from "react-redux"
 import parse from 'html-react-parser'
-import { serializeArray } from 'functions/helpers'
+import { storageSpace } from 'functions/helpers'
 import { setTitle } from 'controllers/head'
 import request from 'controllers/request'
 import { redirect } from 'controllers/navigator'
@@ -44,10 +44,10 @@ class MessageDetail extends React.Component {
 		let vm = this;
 
 		request.get(
-			'/dummy/data/user-messages-conversation.json',
-			{ },
-			function(payload){
-				if(payload){
+			`messages/${vm.props.match.params.id}`,
+			{ email: vm.props.user.email },
+			function (payload) {
+				if (payload) {
 					vm.setState({
 						conversation: payload
 					})
@@ -63,25 +63,45 @@ class MessageDetail extends React.Component {
 
 	sendMessage(e) {
 		let vm = this;
-		let formData = serializeArray(e.target);
-		vm.setState({loading: true});
+
+		vm.setState({ loading: true });
+
+		let record = {
+			code: e.target.elements.code.value,
+			message: e.target.elements.message.value,
+			email: vm.props.user.email
+		};
+
+		request.post(`messages/send-message`, record, function (payload) {
+			setTimeout(function () {
+				if (payload && payload.status === '200') {
+					vm.setState({ loading: false, success: true, message: payload.message });
+					vm.composeForm.current.reset();
+					window.location.reload();
+				}
+				else {
+					vm.setState({ loading: false, error: true, message: payload.message });
+				}
+			}, 1000);
+		})
 
 		//burası aslında post olacak, netekim dummy json data'da 404 verdiği için get şimdilik
 		//request.post(
-		request.get(
+		/* request.get(
 			'/dummy/data/user-messages-conversation.json',
 			formData,
-			function(payload){
-				vm.setState({loading: false});
-				if(payload){
+			function (payload) {
+				vm.setState({ loading: false });
+				if (payload) {
 					vm.composeForm.current.reset();
 				}
 			}
-		);
+		); */
 	}
 
-	render () {
+	render() {
 		let conversation = this.state.conversation;
+
 		return (
 			<section className="section account-message-conversation loader-container">
 				<Loader loading={conversation === false} />
@@ -94,12 +114,12 @@ class MessageDetail extends React.Component {
 							</Link>
 							<Responsive>
 								<span className="head-advertid">İlan no: {conversation.advertID}</span>
-								<Link className="head-advertlink" href="detail" params={{id: conversation.advertID, slug: conversation.advertSlug}}>İlana Git</Link>
+								<Link className="head-advertlink" href="detail" params={{ id: conversation.advertID, slug: conversation.advertSlug }}>İlana Git</Link>
 							</Responsive>
 						</div>
 						{conversation.sender.dealer &&
-							<Link className="conversation-dealer" href="dealer" params={{id: conversation.sender.dealer.id}}>
-								<Image src={conversation.sender.dealer.avatar} className="dealer-avatar" />
+							<Link className="conversation-dealer" href="dealer" params={{ id: conversation.sender.dealer.id }}>
+								<Image src={storageSpace('dealers', conversation.sender.dealer.avatar)} className="dealer-avatar" />
 								<span className="dealer-title">{conversation.sender.dealer.title}</span>
 							</Link>
 						}
@@ -121,33 +141,33 @@ class MessageDetail extends React.Component {
 
 							{conversation.messages.length &&
 								<ul className="conversation-messages">
-								<li className="messages-message first">
-									<div className="message-content">
-										<div className="message-text">
-											{parse(conversation.messages[0].content.replace(/(?:\r\n|\r|\n)/g, '<br />'))}
-										</div>
-										<div className="message-datetime"><i className="icon-calendar"></i> {conversation.messages[0].datetime}</div>
-									</div>
-								</li>
-								{conversation.messages.length > 1 && conversation.messages.slice(1).map((message, nth) => (
-									<li key={nth} className="messages-message">
-										<div className="message-profile">
-											<Image
-												className="profile-image"
-												bg
-												src={(message.from === 'dealer' ? (conversation.sender.avatar ? conversation.sender.avatar : image_avatar) : (this.props.user.avatar ? this.props.user.avatar : image_avatar))}
-												alt={(message.from === 'dealer' ? conversation.sender.title : this.props.user.fullname)}
-												title={(message.from === 'dealer' ? conversation.sender.title : this.props.user.fullname)}
-											/>
-										</div>
+									<li className="messages-message first">
 										<div className="message-content">
 											<div className="message-text">
-												{parse(message.content.replace(/(?:\r\n|\r|\n)/g, '<br />'))}
+												{parse(conversation.messages[0].content.replace(/(?:\r\n|\r|\n)/g, '<br />'))}
 											</div>
-											<div className="message-datetime"><i className="icon-calendar"></i> {message.datetime}</div>
+											<div className="message-datetime"><i className="icon-calendar"></i> {conversation.messages[0].datetime}</div>
 										</div>
 									</li>
-								))}
+									{conversation.messages.length > 1 && conversation.messages.slice(1).map((message, nth) => (
+										<li key={nth} className="messages-message">
+											<div className="message-profile">
+												<Image
+													className="profile-image"
+													bg
+													src={(message.from === 'dealer' ? (conversation.sender.avatar ? storageSpace('profile-photos', conversation.sender.avatar) : image_avatar) : (this.props.user.avatar ? storageSpace('profile-photos', this.props.user.avatar) : image_avatar))}
+													alt={(message.from === 'dealer' ? conversation.sender.title : this.props.user.name)}
+													title={(message.from === 'dealer' ? conversation.sender.title : this.props.user.name)}
+												/>
+											</div>
+											<div className="message-content">
+												<div className="message-text">
+													{parse(message.content.replace(/(?:\r\n|\r|\n)/g, '<br />'))}
+												</div>
+												<div className="message-datetime"><i className="icon-calendar"></i> {message.datetime}</div>
+											</div>
+										</li>
+									))}
 								</ul>
 							}
 							{conversation.length === 0 &&
@@ -158,10 +178,11 @@ class MessageDetail extends React.Component {
 
 							<InputForm className="conversation-composeform" onSubmit={this.sendMessage} ref={this.composeForm}>
 								<Image className="composeform-avatar" bg alt={this.props.user.fullname} src={(this.props.user.avatar ? this.props.user.avatar : image_avatar)} />
+								<input type="hidden" name="code" value={conversation.code} />
 								<FormInput
 									type="textarea"
 									name="message"
-									validation={{required: "Mesaj alanını doldurmalısınız.", minLength: ["Mesajınız en az {length} karakter içermelidir.", 10]}}
+									validation={{ required: "Mesaj alanını doldurmalısınız.", minLength: ["Mesajınız en az {length} karakter içermelidir.", 10] }}
 									placeholder="Cevap yaz..." disabled={this.state.loading} />
 								<Btn type="submit" className="composeform-submit" primary uppercase low loading={this.state.loading} disabled={this.state.loading}>Gönder</Btn>
 							</InputForm>

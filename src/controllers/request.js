@@ -10,8 +10,8 @@ const defaultConfig = {
 };
 
 export default {
-	get: function(target, params = false, finalFunction = false, opts = {}){
-		if(params === false){ params = {}; }
+	get: function (target, params = false, finalFunction = false, opts = {}) {
+		if (params === false) { params = {}; }
 
 		let config = {};
 		extend(config, defaultConfig, opts);
@@ -19,61 +19,62 @@ export default {
 		let ajaxToken = axios.CancelToken;
 		let ajaxController = ajaxToken.source();
 
-		if(!config.excludeApiPath){
+		if (!config.excludeApiPath) {
 			target = apiPath(target);
 		}
 
-		axios.get(target, {params: params, cancelToken: ajaxController.token, headers: headData()})
-		.then(res => {
-			evaluateData(res, finalFunction);
-		}).catch(error => {
-			evaluateData({status: 500, error: error, data: {}}, finalFunction)
-		});
+
+		axios.get(target, { params: params, cancelToken: ajaxController.token, headers: headData() })
+			.then(res => {
+				evaluateData(res, finalFunction);
+			}).catch(error => {
+				evaluateData({ status: 500, error: error, data: {} }, finalFunction)
+			});
 
 		return ajaxController;
 	},
-	post: function(target, params = false, finalFunction = false, opts = {}){
-		if(params === false){ params = {}; }
+	post: function (target, params = false, finalFunction = false, opts = {}) {
+		if (params === false) { params = {}; }
 		let config = {};
 		extend(config, defaultConfig, opts);
 
-		if(!config.excludeApiPath){
+		if (!config.excludeApiPath) {
 			target = apiPath(target);
 		}
 
-		axios.post(target, params, {headers: headData()})
-		.then(res => {
-			evaluateData(res, finalFunction);
-		}).catch(error => {
-			evaluateData({status: 500, error: error, data: {}}, finalFunction)
-		});
+		axios.post(target, params, { headers: headData() })
+			.then(res => {
+				evaluateData(res, finalFunction);
+			}).catch(error => {
+				evaluateData({ status: 500, error: error, data: {} }, finalFunction)
+			});
 	}
 }
 
-function evaluateData(response, finalFunction = false){
-	switch(response.status){
+function evaluateData(response, finalFunction = false) {
+	switch (response.status) {
 		case 200:
-			if(finalFunction){
+			if (finalFunction) {
 				finalFunction(response.data.payload, response.status, response);
 			}
-		break;
+			break;
 		case 500:
-			pushMessage("HATA: İşlem gerçekleştirilemedi.", {type: "error"});
+			pushMessage("HATA: İşlem gerçekleştirilemedi.", { type: "error" });
 			console.log(response.error);
-			if(finalFunction){
+			if (finalFunction) {
 				finalFunction(false, response.status, response);
 			}
-		break;
+			break;
 		default:
-			if(finalFunction){
+			if (finalFunction) {
 				finalFunction(false, response.status, response);
 			}
-		break;
+			break;
 
 	}
 
-	if(response.data.messages){
-		for(let p = 0; p < response.data.messages.length; p++){
+	if (response.data.messages) {
+		for (let p = 0; p < response.data.messages.length; p++) {
 			pushMessage('', response.data.messages[p]);
 		}
 	}
@@ -81,6 +82,7 @@ function evaluateData(response, finalFunction = false){
 
 function headData() {
 	return {
-		token: store.getState().user.token
+		token: store.getState().user.token,
+		email: store.getState().user.user.email
 	}
 }

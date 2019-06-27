@@ -42,36 +42,36 @@ function setToken(data) {
 
 export function checkLoginStatus(endFunction = false) {
 
-	if(localStorage["appState"]){
+	if (localStorage["appState"]) {
 		let appState = JSON.parse(localStorage["appState"]);
-		if(appState.isLoggedIn){
+		if (appState.isLoggedIn) {
 			store.dispatch(setUserData(appState.user));
 			store.dispatch(setToken(appState.authToken));
 
-			request.get('users/'+appState.user.email, {}, function (payload) {
+			request.get('users/' + appState.user.email, {}, function (payload) {
 				if (payload && payload.success) {
 					updateUserData(payload);
 
-					if(endFunction){
+					if (endFunction) {
 						endFunction(true);
 					}
 				}
-				else{
+				else {
 					logout(true);
-					if(endFunction){
+					if (endFunction) {
 						endFunction(false);
 					}
 				}
 			});
 		}
 		else {
-			if(endFunction){
+			if (endFunction) {
 				endFunction(false);
 			}
 		}
 	}
 	else {
-		if(endFunction){
+		if (endFunction) {
 			endFunction(false);
 		}
 	}
@@ -80,17 +80,17 @@ export function checkLoginStatus(endFunction = false) {
 }
 
 export function login(form, finalFunction = false) {
-	request.post('user/login', serializeArray(form), function(payload){
-		if(payload && payload.success){
+	request.post('user/login', serializeArray(form), function (payload) {
+		if (payload && payload.success) {
 			updateUserData(payload);
 
-			if(finalFunction){
-				finalFunction(extend({}, payload, {message: "Giriş Başarılı"}));
+			if (finalFunction) {
+				finalFunction(extend({}, payload, { message: "Giriş Başarılı" }));
 			}
 		}
 		else {
 			logout(true);
-			if(finalFunction){
+			if (finalFunction) {
 				finalFunction(payload);
 			}
 		}
@@ -98,12 +98,12 @@ export function login(form, finalFunction = false) {
 }
 
 export function register(form, finalFunction = false) {
-	request.post('user/register', serializeArray(form), function(payload){
-		if(payload && payload.success){
+	request.post('user/register', serializeArray(form), function (payload) {
+		if (payload && payload.success) {
 			updateUserData(payload);
 
-			if(finalFunction){
-				finalFunction(extend({}, payload, {message: "Kayıt Başarılı"}));
+			if (finalFunction) {
+				finalFunction(extend({}, payload, { message: "Kayıt Başarılı" }));
 			}
 		}
 		else {
@@ -116,29 +116,21 @@ export function register(form, finalFunction = false) {
 }
 
 export function logout(force = false) {
-	localStorage["appState"] = JSON.stringify({isLoggedIn: false, user: false, authToken: false});
+	localStorage["appState"] = JSON.stringify({ isLoggedIn: false, user: false, authToken: false });
 
 	store.dispatch(setUserData(false));
 	store.dispatch(setToken(false));
 
-	if(force !== true){
+	if (force !== true) {
 		redirect('home');
 	}
 }
 
-function updateUserData(payload){
+function updateUserData(payload) {
 	let userData = extend({}, {
-		username: "",
 		avatar: "/dummy/images/profile-picture.jpg",
 		name: "Kullanıcı",
-		surname: "",
-		fullname: "",
 		email: "",
-		location: false,
-		phone: "",
-		gender: "",
-		birthyear: "",
-		profileCompletion: 0
 	}, payload.userData);
 
 	let appState = {

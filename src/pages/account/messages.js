@@ -9,10 +9,12 @@ import Responsive from 'components/partials/responsive'
 // Deps
 //import { connect } from "react-redux"
 import { openModal } from 'functions/modals'
-import axios from 'axios'
-
+import request from 'controllers/request'
+import { redirect } from 'controllers/navigator'
+import { storageSpace } from 'functions/helpers'
 // Assets
 import image_avatar from 'assets/images/defaults/avatar.svg';
+
 
 export default class Messages extends React.Component {
 
@@ -29,24 +31,32 @@ export default class Messages extends React.Component {
 	componentDidMount() {
 		let vm = this;
 
-		axios.get(
-			'/dummy/data/user-messages.json',
-			{ params: {} }
-		).then(res => {
-			if(res.data.status === 'ok'){
-				vm.setState({messages: res.data.messages})
+		request.get(
+			'messages',
+			null,
+			function (payload) {
+				if (payload) {
+					vm.setState({
+						messages: payload
+					})
+				}
+				else {
+					redirect("notfound");
+				}
 			}
-		});
+		);
+
+
 	}
 
-	deleteConversation(message){
+	deleteConversation(message) {
 		openModal('confirm', {
 			question: '<strong>' + message.title + '</strong> başlıklı mesajı ve tüm içeriğini silmek istediğinizden emin misiniz?',
 			onConfirm: () => { console.log('silindi..'); }
 		});
 	}
 
-	render () {
+	render() {
 		let messages = this.state.messages;
 		return (
 			<section className="section account-messages loader-container">
@@ -55,34 +65,34 @@ export default class Messages extends React.Component {
 					<div className="wrapper narrow">
 						{messages.length &&
 							<ul className="messages-list">
-							{messages.map((message, nth) => (
-								<li key={nth} className="list-item">
-									<Link className="item-link" href={"/hesabim/mesajlarim/mesaj/"+message.id}>
-										<Image src={message.sender.avatar ? message.sender.avatar : image_avatar} className="item-avatar" bg />
-										<div className="item-content">
-											<div className="item-senderinfo">
-												<p className="senderinfo-title">{message.sender.title}</p>
-												<Responsive type="only-mobile">
-													<p className="senderinfo-datetime">{message.time}</p>
-												</Responsive>
-												<p className="senderinfo-subtitle">{message.sender.subtitle}</p>
+								{messages.map((message, nth) => (
+									<li key={nth} className="list-item">
+										<Link className="item-link" href={"/hesabim/mesajlarim/mesaj/" + message.code}>
+											<Image src={message.sender.avatar ? storageSpace('profile-photos', message.sender.avatar) : image_avatar} className="item-avatar" bg />
+											<div className="item-content">
+												<div className="item-senderinfo">
+													<p className="senderinfo-title">{message.sender.title}</p>
+													<Responsive type="only-mobile">
+														<p className="senderinfo-datetime">{message.datetime}</p>
+													</Responsive>
+													<p className="senderinfo-subtitle">{message.sender.subtitle}</p>
+												</div>
+												<strong className="item-title">{message.title}</strong>
+												<div className="item-info">
+													<div className="info-field">
+														<strong>İlan No:</strong> {message.advertID}
+													</div>
+													<div className="info-field">
+														{message.datetime}
+													</div>
+													<div className="info-field">
+														<button type="button" onClick={(e) => { e.preventDefault(); this.deleteConversation(message); }}><i className="icon-trash"></i></button>
+													</div>
+												</div>
 											</div>
-											<strong className="item-title">{message.title}</strong>
-											<div className="item-info">
-												<div className="info-field">
-													<strong>İlan No:</strong> {message.advertID}
-												</div>
-												<div className="info-field">
-													{message.time}
-												</div>
-												<div className="info-field">
-													<button type="button" onClick={(e) => { e.preventDefault(); this.deleteConversation(message); }}><i className="icon-trash"></i></button>
-												</div>
-											</div>
-										</div>
-									</Link>
-								</li>
-							))}
+										</Link>
+									</li>
+								))}
 							</ul>
 						}
 						{messages.length === 0 &&

@@ -24,13 +24,13 @@ import parse from 'html-react-parser';
 import { connect } from "react-redux";
 import request from 'controllers/request'
 import { setTitle } from 'controllers/head'
-import { apiPath, storageSpace } from "functions/helpers";
+import { storageSpace } from "functions/helpers";
 
 // Assets
 import image_avatar from 'assets/images/defaults/avatar.svg';
 
 const mapStateToProps = state => {
-	return { mobile: state.generic.mobile };
+	return { mobile: state.generic.mobile, user: state.user.user, };
 };
 
 class Detail extends React.Component {
@@ -47,27 +47,36 @@ class Detail extends React.Component {
 	initialize() {
 		let vm = this;
 		let postUrl = window.location.pathname.split('/')[3];
+		if (vm.state.productData === false) {
+			request.get(`car-posts/${vm.props.match.params.id}/${postUrl}`, { id: vm.props.match.params.id, email: this.props.user.email }, function (payload, status) {
+				//request.get('/dummy/data/detail.json', { id: vm.props.match.params.id }, function (payload, status) {
+				if (payload) {
+					vm.setState({
+						productData: payload
+					})
 
-
-		request.get(apiPath(`car-posts/${vm.props.match.params.id}/${postUrl}`), { id: vm.props.match.params.id }, function (payload, status) {
-			//request.get('/dummy/data/detail.json', { id: vm.props.match.params.id }, function (payload, status) {
-			if (payload) {
-				vm.setState({
-					productData: payload
-				})
-
-				setTitle(payload.title);
-			}
-		}, { excludeApiPath: true });
+					setTitle(payload.title);
+				}
+			}, { excludeApiPath: false });
+		}
 	}
 
 	componentDidMount() {
 		this.initialize();
 	}
 
+	componentDidUpdate(prevProps) {
+		let user = this.props.user;
+		if (user !== prevProps.user) {
+			this.initialize()
+		}
+
+	}
+
 	render() {
 		let vm = this;
 		let product = vm.state.productData;
+
 		return (
 			<main className="page detail">
 				<Loader loading={product === false} strict={true} />
@@ -289,6 +298,7 @@ class DetailInfo extends React.Component {
 	render() {
 		let vm = this;
 		let product = vm.props.product;
+
 		return (
 			<div className="detail-info">
 				<h1 className="info-title">{product.title}</h1>
@@ -374,9 +384,10 @@ class DetailInfo extends React.Component {
 						<Btn className="controls-button" primary hollow uppercase note="Bu aracı rezerve edebilirsiniz" disabled={product.reserved}>
 							Rezerve Et
 						</Btn>
-						<Btn className="controls-button" onClick={() => openModal('bid', { advert: product })} primary uppercase note="Bu araç için teklif verebilirsiniz">
+						{product.bidThreadId ? <Btn className="controls-button" note="Bu araç için daha önce teklif verdiniz" primary uppercase tag="a" href={`/hesabim/mesajlarim/mesaj/${product.bidThreadId}`}>Tekliflerim</Btn> : <Btn className="controls-button" onClick={() => openModal('bid', { advert: product })} primary uppercase note="Bu araç için teklif verebilirsiniz">
 							Teklif Ver
-						</Btn>
+					</Btn>}
+
 					</div>
 
 					{(product.reserved && product.reservationEndDate) &&
@@ -413,7 +424,10 @@ class DetailInfo extends React.Component {
 						}
 						<div className="dealer-controls">
 							<Btn type="a" icon="phone" block uppercase href={"tel:+9" + product.dealer.phone.replace(' ', '')}>{product.dealer.phone}</Btn>
-							<Btn icon="envelope" text uppercase block onClick={() => openModal('message', { advert: product })}>Mesaj Gönder</Btn>
+							{
+								product.messageThreadId ? <Btn icon="envelope" text uppercase block tag="a" href={`/hesabim/mesajlarim/mesaj/${product.messageThreadId}`}>Mesajlara Git</Btn> : <Btn icon="envelope" text uppercase block onClick={() => openModal('message', { advert: product })}>Mesaj Gönder</Btn>
+							}
+
 						</div>
 					</div>
 				}
@@ -549,9 +563,6 @@ class DetailExtras extends React.Component {
 }
 
 class DetailRelated extends React.Component {
-	constructor(props) {
-		super(props)
-	}
 	render() {
 		return (
 			<Listing className="related-listing" urlBinding={false} filters={false} topSection={false}
@@ -570,7 +581,7 @@ class DetailTopInfo extends React.Component {
 				{product.highlights &&
 					<ul className="topinfo-highlights">
 						{product.highlights.map((highlight, nth) => (
-							<React.Fragment>
+							<React.Fragment key={nth}>
 								{
 									highlight.label && (
 										<li key={nth} title={highlight.title}>{(highlight.image ?

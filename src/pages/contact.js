@@ -4,7 +4,7 @@ import React from 'react'
 import GoogleMap from 'components/partials/google-map'
 import Link from 'components/partials/link'
 import Btn from 'components/partials/btn'
-import { serializeArray, apiPath } from 'functions/helpers'
+import { apiPath } from 'functions/helpers'
 import { InputForm, FormInput } from 'components/partials/forms'
 import axios from "axios";
 
@@ -40,14 +40,14 @@ export default class Contact extends React.Component {
 			body: e.target.elements.body.value,
 		};
 
-		console.log(record);
-		console.log(serializeArray(e.target));
+
+		//console.log(serializeArray(e.target));
 
 		axios.post(apiPath('mail/contact'), record).then(res => {
 			setTimeout(function () {
 				vm.setState({ loading: false, complete: true });
 
-				if(vm.form.current){
+				if (vm.form.current) {
 					vm.form.current.reset();
 				}
 

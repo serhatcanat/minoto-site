@@ -7,7 +7,6 @@ import Link from 'components/partials/link'
 
 // Deps
 import { connect } from "react-redux"
-import { serializeArray } from 'functions/helpers'
 import request from 'controllers/request'
 import { closeModal, openModal } from 'functions/modals'
 
@@ -22,7 +21,7 @@ class BidModalRaw extends React.Component {
 		super(props)
 		this.state = {
 			loading: false,
-			complete: false,
+			success: false,
 			error: false,
 			bid: false,
 		}
@@ -32,19 +31,28 @@ class BidModalRaw extends React.Component {
 
 	submit(e) {
 		let vm = this;
-		let payload = serializeArray(e.target)
-		vm.setState({ loading: true, bid: false, error: false })
 
-		console.log(serializeArray(e.target));
+		vm.setState({ loading: true, error: false })
 
-		request.post('messages/send-message', payload, function (response) {
-			if(response && response.success){
-				vm.setState({ loading: false, complete: true, bid: payload.bid });
-			}
-			else {
-				vm.setState({ loading: false, error: true });
-			}
-		}); 
+		let record = {
+			advertID: e.target.elements.advertID.value,
+			message: e.target.elements.message.value,
+			title: vm.props.advert.title,
+			email: vm.props.user.email,
+			offerPrice: e.target.elements.bid.value,
+			messageType: 'bid'
+		};
+
+		request.post(`messages/send-message`, record, function (payload) {
+			setTimeout(function () {
+				if (payload && payload.status === '200') {
+					vm.setState({ loading: false, success: true, message: payload.message, bid: e.target.elements.bid.value });
+				}
+				else {
+					vm.setState({ loading: false, error: true, message: payload.message });
+				}
+			}, 1000);
+		})
 	}
 
 	render() {
@@ -55,9 +63,9 @@ class BidModalRaw extends React.Component {
 				<div className="modal-innercontent">
 					<h1 className="bid-title"><strong>"{vm.props.advert.title}"</strong> başlıklı ilan için teklif ver</h1>
 					{vm.props.user ?
-						!vm.state.complete ?
+						!vm.state.success ?
 							<InputForm className="bid-form" onSubmit={vm.submit}>
-								<input type="hidden" name="advert-id" value={vm.props.advert.id} />
+								<input type="hidden" name="advertID" value={vm.props.advert.id} />
 								<FormInput
 									className="form-price"
 									placeholder="Fiyat Teklifiniz"
@@ -87,7 +95,7 @@ class BidModalRaw extends React.Component {
 									disabled={vm.state.loading}
 									type="submit">Teklif Ver</Btn>
 							</InputForm>
-						:
+							:
 							<div className="bid-complete">
 								<i className="complete-icon icon-check-round"></i>
 								<p className="complete-description">
@@ -95,10 +103,10 @@ class BidModalRaw extends React.Component {
 								</p>
 								<div className="complete-controls">
 									<button type="button" className="link" onClick={closeModal}>İlana Dön</button>
-									<Link className="link" href="account.reservations">Rezervasyonlarıma Git</Link>
+									<Link className="link" href="account.messages">Mesajlarıma Git</Link>
 								</div>
 							</div>
-						
+
 						:
 						<div className="bid-login">
 							<p>Teklif vermek için giriş yapmalısınız.</p>

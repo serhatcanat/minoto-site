@@ -7,7 +7,6 @@ import Link from 'components/partials/link'
 
 // Deps
 import { connect } from "react-redux"
-import { serializeArray } from 'functions/helpers'
 import request from 'controllers/request'
 import { closeModal, openModal } from 'functions/modals'
 
@@ -22,8 +21,9 @@ class MessageModalRaw extends React.Component {
 		super(props)
 		this.state = {
 			loading: false,
-			complete: false,
+			success: false,
 			error: false,
+			message: false
 		}
 
 		this.submit = this.submit.bind(this);
@@ -31,17 +31,27 @@ class MessageModalRaw extends React.Component {
 
 	submit(e) {
 		let vm = this;
-		let payload = serializeArray(e.target)
+
 		vm.setState({ loading: true, error: false })
 
-		request.post('messages/send-message', payload, function (response) {
-			if(response && response.success){
-				vm.setState({ loading: false, complete: true });
-			}
-			else {
-				vm.setState({ loading: false, error: true });
-			}
-		}); 
+		let record = {
+			advertID: e.target.elements.advertID.value,
+			message: e.target.elements.message.value,
+			title: vm.props.advert.title,
+			email: vm.props.user.email,
+			messageType: 'message'
+		};
+
+		request.post(`messages/send-message`, record, function (payload) {
+			setTimeout(function () {
+				if (payload && payload.status === '200') {
+					vm.setState({ loading: false, success: true, message: payload.message });
+				}
+				else {
+					vm.setState({ loading: false, error: true, message: payload.message });
+				}
+			}, 1000);
+		})
 	}
 
 	render() {
@@ -52,9 +62,9 @@ class MessageModalRaw extends React.Component {
 				<div className="modal-innercontent">
 					<h1 className="bid-title"><strong>"{vm.props.advert.title}"</strong> başlıklı ilan için mesaj gönder</h1>
 					{vm.props.user ?
-						!vm.state.complete ?
+						!vm.state.success ?
 							<InputForm className="bid-form" onSubmit={vm.submit}>
-								<input type="hidden" name="advert-id" value={vm.props.advert.id} />
+								<input type="hidden" name="advertID" value={vm.props.advert.id} />
 								<FormInput
 									className="form-message"
 									placeholder="Mesajınız"
@@ -75,7 +85,7 @@ class MessageModalRaw extends React.Component {
 									disabled={vm.state.loading}
 									type="submit">Mesaj Gönder</Btn>
 							</InputForm>
-						:
+							:
 							<div className="bid-complete">
 								<i className="complete-icon icon-check-round"></i>
 								<p className="complete-description">
@@ -86,7 +96,7 @@ class MessageModalRaw extends React.Component {
 									<Link className="link" href="account.messages">Mesajlarıma Git</Link>
 								</div>
 							</div>
-						
+
 						:
 						<div className="bid-login">
 							<p>Mesaj göndermek için giriş yapmalısınız.</p>

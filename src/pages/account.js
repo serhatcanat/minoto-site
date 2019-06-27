@@ -58,34 +58,34 @@ class Account extends React.Component {
 		this.checkLogin();
 	}
 
-	componentDidUpdate(prevProps){
-		if(prevProps.currentPage.fullKey !== this.props.currentPage.fullKey){
+	componentDidUpdate(prevProps) {
+		if (prevProps.currentPage.fullKey !== this.props.currentPage.fullKey) {
 			this.checkLogin();
 		}
-		else if(this.props.user !== false && this.state.loading && !isEqual(prevProps.user, this.props.user)){
-			this.setState({loading: false});
+		else if (this.props.user !== false && this.state.loading && !isEqual(prevProps.user, this.props.user)) {
+			this.setState({ loading: false });
 		}
 	}
 
 	checkLogin() {
 		let vm = this;
 
-		if(vm.props.currentPage.data.requiresLogin){
-			checkLoginStatus(function(status){
-				if(!status){
+		if (vm.props.currentPage.data.requiresLogin) {
+			checkLoginStatus(function (status) {
+				if (!status) {
 					redirect('account.login');
 				}
 				else {
-					vm.setState({loading: false});
+					vm.setState({ loading: false });
 				}
 			})
 		}
 		else {
-			vm.setState({loading: false});
+			vm.setState({ loading: false });
 		}
 	}
 
-	render () {
+	render() {
 		let vm = this;
 		return (
 			<main className="page account loader-container">
@@ -96,14 +96,14 @@ class Account extends React.Component {
 							<nav className="section account-nav">
 								<div className="nav-innerwrap">
 									<Link className="nav-item" navLink href="account.profile" />
-									<Link className="nav-item" navLink href="account.notifications" />
+									{/* <Link className="nav-item" navLink href="account.notifications" /> */}
 									<Link className="nav-item" navLink href="account.favorites" />
 									<Link className="nav-item" navLink href="account.messages" exact={false} />
-									<Link className="nav-item" navLink href="account.reservations" />
+									{/*<Link className="nav-item" navLink href="account.reservations" />*/}
 								</div>
 							</nav>
 						}
-						{renderRoutes({group: 'account', registry: pageRegistry, catchRedirect: 'account.profile'})}
+						{renderRoutes({ group: 'account', registry: pageRegistry, catchRedirect: 'account.profile' })}
 					</div>
 				}
 			</main>
