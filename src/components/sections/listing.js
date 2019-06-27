@@ -17,8 +17,9 @@ import throttle from 'lodash/throttle';
 import history from 'controllers/history'
 import request from 'controllers/request'
 import { connect } from "react-redux";
-import { blockOverflow, isExact, storageSpace } from "functions/helpers";
+import { isExact, storageSpace } from "functions/helpers";
 import queryString from 'query-string';
+import { setListingFiltersExpansion } from 'data/store.generic';
 
 const mapStateToProps = state => {
 	return { mobile: state.generic.mobile };
@@ -26,6 +27,12 @@ const mapStateToProps = state => {
 
 const mapScrollStateToProps = state => {
 	return { scrollPos: state.generic.scrollPos };
+}
+
+const mapDispatchToProps = dispatch => {
+	return {
+		expandFilters: () => dispatch(setListingFiltersExpansion(true))
+	}
 }
 
 class Listing extends React.Component {
@@ -39,7 +46,6 @@ class Listing extends React.Component {
 			query: (this.props.query ? this.props.query : ((history.location.search && history.location.search !== '') ? queryString.parse(history.location.search) : {})),
 			order: null,
 			initialLoad: true,
-			expandFilters: false,
 			extending: false,
 			page: 1,
 		}
@@ -91,14 +97,6 @@ class Listing extends React.Component {
 			this.updateResults();
 		}
 
-		if (prevState.expandFilters !== this.state.expandFilters) {
-			blockOverflow(this.state.expandFilters);
-		}
-
-		if (prevProps.mobile !== this.props.mobile) {
-			this.setState({ expandFilters: false })
-		}
-
 		if (!isExact(prevProps.query, this.props.query)) {
 			let newQuery = clone(this.props.query);
 
@@ -124,28 +122,6 @@ class Listing extends React.Component {
 			}
 		}, 30);
 	}
-
-	/*filtersToQuery(){
-		let newQuery = {};
-		if(this.formRef.current){
-			newQuery = serializeArray(this.formRef.current, '|', true);
-		}
-
-		if(this.props.query){
-			newQuery = extend(newQuery, this.props.query);
-		}
-
-		if(this.state.order !== null){
-			newQuery.siralama = this.state.order;
-		}
-		else if(newQuery.siralama){
-			delete newQuery.siralama;
-		}
-
-		if(!isEqual(this.state.query, newQuery)){
-			this.setState({query: newQuery});
-		}
-	}*/
 
 	updateURL() {
 		if (this.props.urlBinding) {
@@ -250,10 +226,6 @@ class Listing extends React.Component {
 		this.setState({ query: newQuery, order: order });
 	}
 
-	/*filtersUpdated(){
-		this.filtersToQuery();
-	}*/
-
 	extendResults() {
 		let vm = this;
 
@@ -297,9 +269,6 @@ class Listing extends React.Component {
 				{vm.props.filters &&
 					<ListingFilters
 						data={vm.state.listingData}
-						//onUpdate={vm.filtersUpdated}
-						expanded={vm.state.expandFilters}
-						onClose={() => { vm.setState({ expandFilters: false }) }}
 						onUpdate={(newQuery) => {
 							vm.setState({
 								query: newQuery
@@ -311,7 +280,7 @@ class Listing extends React.Component {
 					{vm.props.topSection &&
 						<aside className="content-top">
 							{vm.props.mobile &&
-								<button className="top-filterstrigger" type="button" onClick={() => { vm.setState({ expandFilters: !vm.state.expandFilters }) }}>
+								<button className="top-filterstrigger" type="button" onClick={vm.props.expandFilters}>
 									<i className="icon-filter"></i> Filtrele
 									{(vm.state.listingData.filters && vm.state.listingData.filters.length) &&
 										<span> ({vm.state.listingData.filters.length})</span>
@@ -353,7 +322,7 @@ Listing.defaultProps = {
 	query: false,
 };
 
-export default connect(mapStateToProps)(Listing);
+export default connect(mapStateToProps, mapDispatchToProps)(Listing);
 
 // Results
 class ListingResults extends React.Component {

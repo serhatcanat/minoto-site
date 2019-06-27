@@ -12,6 +12,7 @@ const initialState = {
   scrollPos: 0,
   mapsAPIkey: defaults.mapsAPIkey,
   windowWidth: window.innerWidth,
+  listingFiltersExpanded: false,
 };
 
 function globalReducer(state = initialState, action) {
@@ -50,6 +51,11 @@ function globalReducer(state = initialState, action) {
 			messages: []
 		});
 	}
+	else if (action.type === "SET_LISTING_FILTERS_EXPANSION") {
+		return Object.assign({}, state, {
+			listingFiltersExpanded: action.payload
+		});
+	}
 	return state;
 };
 export default globalReducer;
@@ -81,4 +87,8 @@ export function addMessage(payload) {
 
 export function clearMessages(payload) {
 	return { type: "CLEAR_MESSAGES", payload }
+};
+
+export function setListingFiltersExpansion(payload) {
+	return { type: "SET_LISTING_FILTERS_EXPANSION", payload }
 };

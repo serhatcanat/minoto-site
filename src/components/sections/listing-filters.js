@@ -12,11 +12,21 @@ import clone from 'lodash/clone';
 import extend from 'lodash/extend';
 import { serializeArray, isExact } from 'functions/helpers';
 import { connect } from "react-redux";
-//import { blockOverflow } from "functions/helpers";
+import { setListingFiltersExpansion } from 'data/store.generic';
+import { blockOverflow } from "functions/helpers";
 
 const mapStateToProps = state => {
-	return { mobile: state.generic.mobile };
+	return {
+		mobile: state.generic.mobile,
+		expanded: state.generic.listingFiltersExpanded,
+	};
 };
+
+const mapDispatchToProps = dispatch => {
+	return {
+		hideFilters: () => dispatch(setListingFiltersExpansion(false))
+	}
+}
 
 class ListingFilters extends React.Component {
 	constructor(props) {
@@ -28,7 +38,6 @@ class ListingFilters extends React.Component {
 			query: false,
 		}
 
-		this.closeSelf = this.closeSelf.bind(this);
 		this.serializeFilters = this.serializeFilters.bind(this);
 		this.query = false;
 
@@ -43,12 +52,15 @@ class ListingFilters extends React.Component {
 		let vm = this;
 
 		if (prevProps.mobile !== vm.props.mobile) {
-			vm.setState({ active: false, expanded: false })
+			vm.setState({ active: false, show: false });
+			vm.props.hideFilters();
+
 		}
 
 		if (prevProps.expanded !== vm.props.expanded) {
 			if (vm.props.expanded) {
 				vm.setState({ active: true });
+				blockOverflow(true);
 				setTimeout(function () {
 					vm.setState({ show: true })
 				}, 30);
@@ -56,6 +68,7 @@ class ListingFilters extends React.Component {
 			else {
 				vm.setState({ show: false });
 				setTimeout(function () {
+					blockOverflow(false);
 					vm.setState({ active: false })
 				}, 250);
 			}
@@ -71,12 +84,6 @@ class ListingFilters extends React.Component {
 
 		if(!isExact(prevState.query, vm.state.query)){
 		});*/
-	}
-
-	closeSelf() {
-		if (this.props.onClose) {
-			this.props.onClose();
-		}
 	}
 
 	serializeFilters(echo = false) {
@@ -133,7 +140,7 @@ class ListingFilters extends React.Component {
 						</div>
 						{this.props.mobile &&
 							<div className="filters-controls">
-								<Btn block uppercase className="controls-btn" onClick={this.closeSelf}>Ara</Btn>
+								<Btn block uppercase className="controls-btn" onClick={this.props.hideFilters}>Ara</Btn>
 							</div>
 						}
 					</div>
@@ -149,7 +156,7 @@ ListingFilters.defaultProps = {
 	order: null,
 }
 
-export default connect(mapStateToProps)(ListingFilters);
+export default connect(mapStateToProps, mapDispatchToProps)(ListingFilters);
 
 // Single Filter
 class ListingFilter extends React.Component {

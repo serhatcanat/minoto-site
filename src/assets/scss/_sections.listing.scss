@@ -429,6 +429,10 @@
 			margin-bottom: 1.9rem;
 			border-top: .1rem solid $color-ice;
 			border-bottom: .1rem solid $color-ice;
+
+			@include media {
+				border-top: none;
+			}
 		}
 
 			.header-title {
@@ -726,6 +730,7 @@
 
 					.inputs-inputwrap {
 						width: 7rem;
+						font-size: 1.5rem;
 						display: inline-block;
 						position: relative;
 
@@ -754,6 +759,8 @@
 			}
 
 			&.type-text {
+				font-size: 1.5rem;
+				
 				.inputs-submit {
 					position: absolute;
 					right: 1.9rem;

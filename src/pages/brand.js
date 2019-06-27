@@ -55,8 +55,8 @@ export default class Brand extends React.Component {
 
 	initialize() {
 		let vm = this;
-		let brand = window.location.pathname.split('/')[2];
-		request.get(`brands/${brand}`, { id: vm.props.match.params.id }, function (payload) {
+		//request.get('/dummy/data/brand.json', { id: vm.props.match.params.id }, function (payload) {
+		request.get(`brands/${vm.props.match.params.id}`, { }, function (payload) {
 			if (payload) {
 				vm.setState({
 					brandData: payload
@@ -67,7 +67,7 @@ export default class Brand extends React.Component {
 			else {
 				redirect("notfound");
 			}
-		});
+		}, {excludeApiPath: true});
 	}
 
 	changeSearch(e) {
@@ -144,11 +144,6 @@ export default class Brand extends React.Component {
 									className="info-filters"
 									data={vm.state.listingData}
 									onUpdate={vm.updateFilters}
-								/*
-								onClose={() => { vm.setState({ expandFilters: false})}}
-								
-								expanded={vm.state.expandFilters}
-								*/
 								/>
 							</aside>
 

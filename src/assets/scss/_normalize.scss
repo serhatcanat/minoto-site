@@ -14,7 +14,7 @@ ul {list-style-type:none;}
 i {font-style:normal;}
 select {box-sizing:border-box;max-width:100%;}
 address {font-style: normal;}
-input{border-radius:0;box-shadow:none;border:none}
+input{border-radius:0;box-shadow:none;border:none;font-size:inherit;}
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button{-webkit-appearance: none;margin: 0;}
 input[type=number]{-moz-appearance:textfield;}

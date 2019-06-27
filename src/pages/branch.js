@@ -117,11 +117,6 @@ export default class Branch extends React.Component {
 									className="info-filters"
 									data={vm.state.listingData}
 									onUpdate={vm.updateFilters}
-								/*
-								onClose={() => { vm.setState({ expandFilters: false})}}
-								
-								expanded={vm.state.expandFilters}
-								*/
 								/>
 
 							</aside>
