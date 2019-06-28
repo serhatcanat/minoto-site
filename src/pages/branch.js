@@ -106,11 +106,15 @@ export default class Branch extends React.Component {
 										<span>|</span>
 										{(branch.open ? 'Şu an açık' : 'Şu an kapalı')}
 									</span>
+									{
+										branch.phone && (
+											<div className="sum-controls">
+												<Btn tag="a" icon="phone" primary low wide href={'tel:+9' + branch.phone.replace(' ', '')}>{branch.phone}</Btn>
+											</div>
+										)
+									}
 
-									<div className="sum-controls">
-										<Btn tag="a" icon="phone" primary low uppercase href={'tel:+9' + branch.phone.replace(' ', '')}>{branch.phone}</Btn>
-										<Btn tag="link" icon="envelope" text low uppercase href={'/user/message/tobranch/' + branch.id}>Mesaj Gönder</Btn>
-									</div>
+
 								</div>
 
 								<ListingFilters

@@ -7,7 +7,7 @@ import Link from 'components/partials/link.js';
 
 // Deps
 import { formatNumber } from 'functions/helpers.js';
-import extend from 'lodash/extend'; 
+import extend from 'lodash/extend';
 
 // Assets
 import image_default from 'assets/images/defaults/contentbox-placeholder.jpg'
@@ -20,16 +20,16 @@ export default class ContentBox extends React.Component {
 		let bottomNote = false;
 		let badge = false;
 
-		if(vm.props.bottomNote){
-			let opts = extend({}, {type: 'success', text: ''}, (Object.prototype.toString.call(vm.props.bottomNote) === "[object String]" ? {text: vm.props.bottomNote} : vm.props.bottomNote));
+		if (vm.props.bottomNote) {
+			let opts = extend({}, { type: 'success', text: '' }, (Object.prototype.toString.call(vm.props.bottomNote) === "[object String]" ? { text: vm.props.bottomNote } : vm.props.bottomNote));
 
 			bottomNote = <span className={"additions-bottomnote " + opts.type}>{opts.text}</span>
 		}
 
-		if(vm.props.badge){
-			let opts = extend({}, {type: 'primary', text: ''}, (Object.prototype.toString.call(vm.props.badge) === "[object String]" ? {text: vm.props.badge} : vm.props.badge));
+		if (vm.props.badge) {
+			let opts = extend({}, { type: 'primary', text: '' }, (Object.prototype.toString.call(vm.props.badge) === "[object String]" ? { text: vm.props.badge } : vm.props.badge));
 
-			if(opts.note){
+			if (opts.note) {
 				badge = <PopInfo className={"contentbox-badge " + opts.type} content={opts.note} nowrap>{opts.text}</PopInfo>
 			}
 			else {
@@ -43,7 +43,7 @@ export default class ContentBox extends React.Component {
 			favControls = <button type="button" className="contentbox-favicon"><i className={'icon-'+(vm.props.faved ? 'heart' : 'heart-empty')}></i></button>
 		}
 		else */
-		if(vm.props.faved){
+		if (vm.props.faved) {
 			favControls = <span className="contentbox-favicon"><i className="icon-heart"></i></span>
 		}
 
@@ -51,7 +51,7 @@ export default class ContentBox extends React.Component {
 
 		let content = false;
 
-		switch(vm.props.type){
+		switch (vm.props.type) {
 			case 'plain':
 				content = (
 					<Wrap className="contentbox-innerwrap" href={this.props.url ? this.props.url : undefined} params={this.props.urlParams ? this.props.urlParams : undefined}>
@@ -76,19 +76,19 @@ export default class ContentBox extends React.Component {
 									{((vm.props.labels.length) ?
 										<div className="additions-labels">
 											{vm.props.labels.map((label, nth) => {
-											return (
-												<span key={nth}>{label}</span>
-											)
+												return (
+													<span key={nth}>{label}</span>
+												)
 											})}
 										</div>
-									: null )}
+										: null)}
 									{bottomNote}
 								</div>
-							: null )}
+								: null)}
 						</div>
 					</Wrap>
 				)
-			break;
+				break;
 			default:
 				content = (
 					<Wrap className="contentbox-innerwrap" href={this.props.url ? this.props.url : undefined} params={this.props.urlParams ? this.props.urlParams : undefined}>
@@ -105,7 +105,7 @@ export default class ContentBox extends React.Component {
 							{(vm.props.subtitle || vm.props.price) && (
 								<div className="contentbox-info">
 									<p className="info-subtitle">{vm.props.subtitle}</p>
-									{vm.props.price && <strong className="info-price">{formatNumber(vm.props.price)} TL</strong>}
+									{vm.props.price > 0 ? <strong className="info-price">{formatNumber(vm.props.price)} TL</strong> : <strong className="info-price">SORUNUZ</strong>}
 								</div>
 							)}
 							{((vm.props.labels.length || bottomNote || !vm.props.additionsOptional) ?
@@ -113,19 +113,19 @@ export default class ContentBox extends React.Component {
 									{((vm.props.labels.length) ?
 										<div className="additions-labels">
 											{vm.props.labels.map((label, nth) => {
-											return (
-												<span key={nth}>{label}</span>
-											)
+												return (
+													<span key={nth}>{label}</span>
+												)
 											})}
 										</div>
-									: null )}
+										: null)}
 									{bottomNote}
 								</div>
-							: null )}
+								: null)}
 						</div>
 					</Wrap>
 				);
-			break;
+				break;
 		}
 
 		return (
@@ -137,7 +137,7 @@ export default class ContentBox extends React.Component {
 }
 
 ContentBox.defaultProps = {
-	className : '',
+	className: '',
 	image: image_default,
 	badge: false,
 	labels: [],

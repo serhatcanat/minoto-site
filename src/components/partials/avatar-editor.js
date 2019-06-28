@@ -1,5 +1,6 @@
 import React from 'react';
 import AvatarEditor from 'react-avatar-editor'
+import Btn from 'components/partials/btn'
 import request from 'controllers/request'
 
 class MyAvatar extends React.Component {
@@ -12,9 +13,17 @@ class MyAvatar extends React.Component {
             loading: false,
             success: false,
             error: false,
-            message: false
+            message: false,
+            submitting: false,
+            scale: 1
 
         }
+    }
+
+
+    handleScale = e => {
+        const scale = parseFloat(e.target.value)
+        this.setState({ scale })
     }
 
     onClickSave = () => {
@@ -33,13 +42,16 @@ class MyAvatar extends React.Component {
                         let formData = new FormData();
                         formData.append('avatar', blob, 'avatarImage');
                         //vm.setState({ loading: true, error: false })
+                        vm.setState({
+                            submitting: true,
+                        });
                         request.post(`users/profile/avatar`, formData, function (payload, status) {
                             if (status === 200) {
-                                vm.setState({ loading: false, success: true, message: 'Profil fotoğrafı yüklendi' });
+                                vm.setState({ loading: false, success: true, submitting: false, message: 'Profil fotoğrafı yüklendi' });
                                 window.location.reload();
                             }
                             else {
-                                vm.setState({ loading: false, error: true, message: 'Bir hata oluştu' });
+                                vm.setState({ loading: false, error: true, submitting: false, message: 'Bir hata oluştu' });
                             }
 
                         }, { excludeApiPath: false });
@@ -71,20 +83,52 @@ class MyAvatar extends React.Component {
 
         return (
             <React.Fragment>
-                <input type="file" onChange={this.onSelectFile} value="" />
                 {
-                    image && (
-                        <AvatarEditor
-                            ref={this.setEditorRef}
-                            image={image}
-                            width={120}
-                            height={120}
-                            border={20}
-                            color={[255, 255, 255, 0.6]} // RGBA
-                        />
+                    !image && (
+                        <React.Fragment>
+                            <br />
+                            <label className="fileContainer">
+                                Yeni dosya yüklemek için tıklayın
+                            <input type="file" className="inputFile" onChange={this.onSelectFile} value="" />
+
+                            </label>
+                            <br />
+                        </React.Fragment>
+
+
                     )
                 }
-                <button onClick={this.onClickSave}>SAVE</button>
+
+                {
+                    image && (
+                        <React.Fragment>
+                            <AvatarEditor
+                                ref={this.setEditorRef}
+                                image={image}
+                                width={120}
+                                height={120}
+                                border={20}
+                                color={[255, 255, 255, 0.6]} // RGBA
+                                scale={parseFloat(this.state.scale)}
+                                style={{ width: '50% !important', height: '50% !important', display: 'block' }}
+                            />
+                            Zoom:
+                            <input
+                                name="scale"
+                                type="range"
+                                onChange={this.handleScale}
+                                min={this.state.allowZoomOut ? '0.1' : '1'}
+                                max="2"
+                                step="0.01"
+                                defaultValue="1"
+                                style={{ display: 'block' }}
+
+                            />
+
+                        </React.Fragment>
+                    )
+                }
+                <Btn className="form-submit" onClick={this.onClickSave} wide light text uppercase big status={vm.state.submitting && 'loading'} disabled={vm.state.submitting}>Güncelle</Btn>
             </React.Fragment>
 
 

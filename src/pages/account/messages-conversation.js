@@ -11,7 +11,7 @@ import { FormInput, InputForm } from 'components/partials/forms'
 // Deps
 import { connect } from "react-redux"
 import parse from 'html-react-parser'
-import { storageSpace } from 'functions/helpers'
+import { storageSpace, formatNumber } from 'functions/helpers'
 import { setTitle } from 'controllers/head'
 import request from 'controllers/request'
 import { redirect } from 'controllers/navigator'
@@ -126,7 +126,7 @@ class MessageDetail extends React.Component {
 
 						{conversation.sender &&
 							<div className="conversation-sender">
-								<Image className="sender-avatar" bg src={(conversation.sender.avatar ? conversation.sender.avatar : image_avatar)} />
+								<Image className="sender-avatar" bg src={(conversation.sender.avatar ? storageSpace('profile-photos', conversation.sender.avatar) : image_avatar)} />
 								<span className="sender-name">{conversation.sender.title}</span>
 								<Responsive type="only-mobile">
 									<span className="sender-advertid">İlan no: {conversation.advertID}</span>
@@ -136,7 +136,7 @@ class MessageDetail extends React.Component {
 
 						<div className="conversation-content">
 							{conversation.title &&
-								<h1 className="conversation-title">{conversation.title}</h1>
+								<h1 className="conversation-title">{conversation.title} <small> {conversation.offerPrice ? ` - ${formatNumber(conversation.offerPrice)} TL TEKLİF` : ''}</small></h1>
 							}
 
 							{conversation.messages.length &&
@@ -177,7 +177,7 @@ class MessageDetail extends React.Component {
 							}
 
 							<InputForm className="conversation-composeform" onSubmit={this.sendMessage} ref={this.composeForm}>
-								<Image className="composeform-avatar" bg alt={this.props.user.fullname} src={(this.props.user.avatar ? this.props.user.avatar : image_avatar)} />
+								<Image className="composeform-avatar" bg alt={this.props.user.fullname} src={(this.props.user.avatar ? storageSpace('profile-photos', this.props.user.avatar) : image_avatar)} />
 								<input type="hidden" name="code" value={conversation.code} />
 								<FormInput
 									type="textarea"

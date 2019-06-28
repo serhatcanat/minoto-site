@@ -119,9 +119,6 @@ class Profile extends React.Component {
 						<section className="section account-profile">
 							<div className="profile-wrap wrapper narrow">
 								<aside className="profile-sum">
-
-
-									<MyAvatar />
 									<Image className="sum-image" bg src={(user.avatar ? storageSpace('profile-photos', user.avatar) : image_avatar)} />
 									<div className="sum-content">
 										<div className="content-bio">
@@ -180,6 +177,10 @@ class Profile extends React.Component {
 										<FormInput name="educationStatus" type="select" className="form-inputwrap" disabled={vm.state.submitting} label="Eğitim Durumu" value={results.profile.educationState ? { value: results.profile.educationState.value, label: results.profile.educationState.label } : ''} options={results.educationStates} placeholder="Seçiniz" />
 										<FormInput name="birthDate" type="date" className="form-inputwrap" disabled={vm.state.submitting} label="Doğum Tarihi" value={results.profile.birthDate ? results.profile.birthDate : ''} placeholder="Seçiniz" />
 										<Btn className="form-submit" type="submit" wide light text uppercase big status={vm.state.submitting && 'loading'} disabled={vm.state.submitting}>Güncelle</Btn>
+									</div>
+									<div className="form-group">
+										<h2 className="form-title">Profil Fotoğrafı</h2>
+										<MyAvatar />
 									</div>
 
 									{/*<button className="form-delete" type="button" onClick={vm.deleteAccount}>Hesabımı sil</button>*/}

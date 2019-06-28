@@ -250,8 +250,8 @@ class Listing extends React.Component {
 		let options = [
 			{ value: 'price_desc', label: "Fiyata Göre (Önce Yüksek)" },
 			{ value: 'price_asc', label: "Fiyata Göre (Önce Düşük)" },
-			{ value: 'date_desc', label: "Tarihe Göre (Önce Yüksek)" },
-			{ value: 'date_asc', label: "Tarihe Göre (Önce Düşük)" }
+			{ value: 'date_desc', label: "Tarihe Göre (Önce Yeni)" },
+			{ value: 'date_asc', label: "Tarihe Göre (Önce Eski)" }
 		]
 
 		let orderVal = null;
