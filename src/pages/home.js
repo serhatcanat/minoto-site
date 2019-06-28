@@ -7,9 +7,10 @@ import Listing from 'components/sections/listing.js'
 import Image from 'components/partials/image.js'
 import SearchBar from 'components/partials/searchbar.js'
 import request from 'controllers/request'
-
+import { setTitle, setMeta, setHead } from 'controllers/head'
 //Deps
 import { storageSpace } from "functions/helpers";
+
 
 // Assets
 //import image_home_banner from 'assets/images/home-banner.jpg'
@@ -47,7 +48,7 @@ export default class Home extends React.Component {
 			<main className="page home">
 				{banner && (
 					<React.Fragment>
-
+						<h1 className="seoElement">Sıfır Araba Modelleri ve Fiyatları</h1>
 						<section className="section home-intro">
 							<div className="intro-content">
 								<h1 className={`intro-title ${banner.text_color === 'white' ? 'forceWhite' : ''}`} style={{ opacity: '1' }}>

@@ -381,7 +381,7 @@ class ListingResults extends React.Component {
 													image={storageSpace('brands', item.image)}
 													faved={item.favorited}
 													//favControls={'/dummy/data/fav/dealer/'+item.id}
-													url={`marka/${item.link}`}
+													url={`markalar/${item.link}`}
 												/>
 											</li>
 										)

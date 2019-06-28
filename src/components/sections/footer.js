@@ -80,7 +80,7 @@ class Footer extends React.Component {
 									<div className="list-group" key={nth}>
 										{group.map((brand, nt) => (
 											<div className="brands-item" key={nt}>
-												<Link href={`/marka/${brand.url}`}>
+												<Link href={`/markalar/${brand.url}`}>
 													{brand.title} {brand.count && <span className="item-count">({formatNumber(brand.count)})</span>}
 												</Link>
 											</div>

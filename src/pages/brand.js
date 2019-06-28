@@ -18,7 +18,7 @@ import Responsive from 'components/partials/responsive'
 import debounce from 'lodash/debounce'
 import extend from 'lodash/extend'
 import isEqual from 'lodash/isEqual'
-import { setTitle } from 'controllers/head'
+import { setTitle, setMeta } from 'controllers/head'
 import request from 'controllers/request'
 import { redirect } from 'controllers/navigator'
 import { openModal } from 'functions/modals'
@@ -44,6 +44,7 @@ export default class Brand extends React.Component {
 	}
 
 	componentDidMount() {
+
 		this.initialize();
 	}
 
@@ -62,7 +63,8 @@ export default class Brand extends React.Component {
 					brandData: payload
 				})
 
-				setTitle(payload.title + ' Modelleri');
+				setTitle(`${payload.title} Modelleri ve Sıfır ${payload.title} Araba Fiyatları - Minoto`);
+				setMeta({ description: `Sıfır Km ${payload.title} modelleri mi aradınız? Sıfır Km ${payload.title} araba modelleri ve fiyatları Minoto'da! Hemen tıkla, fırsatları kaçırma!` });
 			}
 			else {
 				redirect("notfound");
@@ -101,10 +103,12 @@ export default class Brand extends React.Component {
 		let brand = vm.state.brandData;
 		return (
 			<main className="page brand">
+
 				<Loader loading={brand === false} strict={true} />
 				<div className="wrapper">
 					{brand &&
 						<section className="section brand-detail">
+							<h1 className="seoElement">{brand.title} Modelleri</h1>
 							<aside className="detail-info">
 								<div className="info-sum">
 									<FavBtn className="sum-favbtn" faved={brand.favorited} type="brand" id={brand.id} />

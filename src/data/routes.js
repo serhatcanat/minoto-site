@@ -5,10 +5,10 @@ module.exports = {
 			component: "Home",
 			exact: true,
 			linkTitle: "Anasayfa",
-			title: "Anasayfa",
+			title: "Sıfır Araba Modelleri ve Fiyatları - 0 Km Araç Satın Almak İçin Minoto!",
 			meta: {
 				keywords: "Minoto, Sıfır Otomobil, Bayiler",
-				description: "Minoto: Sıfır Otomobilin Yeni Adresi"
+				description: "En yeni ve uygun sıfır araba modelleri, fiyatları ve kampanyaları Minoto'da! 0 km araç satın almak için hemen tıkla, fırsatları kaçırma!"
 			},
 			// Bu şekilde head kısmına custom meta da eklenebilir.
 			/*head: [
@@ -47,14 +47,18 @@ module.exports = {
 			component: "Brands",
 			exact: true,
 			linkTitle: "Markalar",
-			title: "Markalar",
+			title: "Araba Markaları ve Araç Listesi - Türkiye'nin Sıfır Km Oto Sitesi Minoto",
+			meta: {
+				keywords: "Minoto, Sıfır Otomobil, Bayiler",
+				description: "Araba markalarına ve araç listesine ulaşmak için hemen tıkla, fırsatları kaçırma! Türkiye'nin Sıfır Km Oto Sitesi Minoto!"
+			},
 		},
 		brand: {
-			path: "/marka/:id/:slug?",
+			path: "/markalar/:id/:slug?",
 			component: "Brand",
 			exact: true,
 			linkTitle: "Marka",
-			title: "Marka",
+			title: "Araba Markaları ve Araç Listesi - Türkiye'nin Sıfır Km Oto Sitesi Minoto",
 		},
 		dealers: {
 			path: "/bayiler",
