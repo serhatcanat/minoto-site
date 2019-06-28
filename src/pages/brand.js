@@ -56,7 +56,7 @@ export default class Brand extends React.Component {
 	initialize() {
 		let vm = this;
 		//request.get('/dummy/data/brand.json', { id: vm.props.match.params.id }, function (payload) {
-		request.get(`brands/${vm.props.match.params.id}`, { }, function (payload) {
+		request.get(`brands/${vm.props.match.params.id}`, {}, function (payload) {
 			if (payload) {
 				vm.setState({
 					brandData: payload
@@ -67,7 +67,7 @@ export default class Brand extends React.Component {
 			else {
 				redirect("notfound");
 			}
-		}, {excludeApiPath: true});
+		}, { excludeApiPath: false });
 	}
 
 	changeSearch(e) {

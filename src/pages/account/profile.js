@@ -13,7 +13,6 @@ import { openModal } from 'functions/modals'
 import { storageSpace } from "functions/helpers";
 import { logout } from "data/store.user"
 import request from 'controllers/request'
-import history from 'controllers/history'
 
 
 
@@ -61,11 +60,6 @@ class Profile extends React.Component {
 	componentDidMount() {
 		let vm = this;
 		vm.initialize();
-
-		vm.listenerAbort = history.listen(function (e) {
-
-			vm.initialize();
-		});
 	}
 
 
@@ -80,9 +74,9 @@ class Profile extends React.Component {
 
 	saveData(e) {
 		let vm = this;
+
+
 		// Form Data:
-
-
 		let record = {
 			email: vm.props.user.email,
 			name: e.target.elements.name.value,
