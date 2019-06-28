@@ -155,7 +155,7 @@ class MessageDetail extends React.Component {
 												<Image
 													className="profile-image"
 													bg
-													src={(message.from === 'dealer' ? (conversation.sender.avatar ? storageSpace('profile-photos', conversation.sender.avatar) : image_avatar) : (this.props.user.avatar ? storageSpace('profile-photos', this.props.user.avatar) : image_avatar))}
+													src={(message.from === 'dealer' ? (conversation.sender.avatar ? storageSpace('dealers', conversation.sender.dealer.avatar) : image_avatar) : (this.props.user.avatar ? storageSpace('profile-photos', this.props.user.avatar) : image_avatar))}
 													alt={(message.from === 'dealer' ? conversation.sender.title : this.props.user.name)}
 													title={(message.from === 'dealer' ? conversation.sender.title : this.props.user.name)}
 												/>
