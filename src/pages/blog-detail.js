@@ -7,10 +7,10 @@ import Link from 'components/partials/link'
 import ContentBox from 'components/partials/contentbox'
 import Responsive from 'components/partials/responsive'
 import Breadcrumbs from 'components/partials/breadcrumbs'
+import Slider from 'components/partials/slider.js'
 
 // Deps
 import request from 'controllers/request'
-import { openModal } from "functions/modals"
 import { redirect } from 'controllers/navigator'
 import parse from 'html-react-parser';
 import { storageSpace } from 'functions/helpers'
@@ -22,6 +22,14 @@ import image_icon_youtube from 'assets/images/icon/youtube.svg'
 import image_icon_twitter from 'assets/images/icon/twitter.svg'
 import image_icon_whatsapp from 'assets/images/icon/whatsapp.svg'
 import image_icon_link from 'assets/images/icon/link.svg'
+import image_loader from 'assets/images/loader2.gif'
+
+const dummyGallery = [
+	{"large": "http://lorempixel.com/1024/768"},
+	{"large": "http://lorempixel.com/1024/768"},
+	{"large": "http://lorempixel.com/1024/768"},
+	{"large": "http://lorempixel.com/1024/768"}
+]
 
 export default class BlogDetail extends React.Component {
 	constructor(props) {
@@ -30,6 +38,8 @@ export default class BlogDetail extends React.Component {
 		this.state = {
 			blogData: false,
 		}
+
+		this.gallerySlider = React.createRef();
 	}
 
 	componentDidMount() {
@@ -44,7 +54,6 @@ export default class BlogDetail extends React.Component {
 			else {
 				redirect('notfound');
 			}
-			console.log(payload)
 		});
 	}
 
@@ -82,6 +91,20 @@ export default class BlogDetail extends React.Component {
 								<div className="content-text wysiwyg">
 									<h1 className="text-title">{data.title}</h1>
 									{parse(data.content)}
+								</div>
+
+								<div className="content-gallery">
+									<button className="gallery-nav prev" onClick={() => { this.gallerySlider.current.prev(); }}><i className="icon-angle-left"></i></button>
+									<button className="gallery-nav next" onClick={() => { this.gallerySlider.current.next(); }}><i className="icon-angle-right"></i></button>
+									<Slider className="gallery-slider" ref={this.gallerySlider} loop opts={{ lazy: true }}>
+										{dummyGallery.map((image, nth) => (
+											<div className="slider-imagewrap" key={nth}>
+												<div className="imagewrap-image swiper-lazy" data-background={image.large}>
+												</div>
+												<Image className="imagewrap-loader" bg src={image_loader} alt="Yükleniyor..." />
+											</div>
+										))}
+									</Slider>
 								</div>
 							</div>
 						</div>

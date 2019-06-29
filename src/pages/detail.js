@@ -28,7 +28,7 @@ import { storageSpace } from "functions/helpers"
 
 // Assets
 import image_avatar from 'assets/images/defaults/avatar.svg';
-import loader from 'assets/images/loader2.gif'
+import image_loader from 'assets/images/loader2.gif'
 
 const ncapDescriptions = [
 	"1 yıldızlı güvenlik: Marjinal çarpışma koruması.",
@@ -315,15 +315,7 @@ class DetailGallery extends React.Component {
 							<div className="slider-imagewrap" key={nth}>
 								<div className="imagewrap-image swiper-lazy" data-background={storageSpace('car-posts/gallery', image.medium)}>
 								</div>
-								{/*<i className="imagewrap-loader icon-spinner"></i>*/}
-								<img src={loader} width="150" alt={product.title} style={{
-									marginLeft: "-75px",
-									marginTop: "-75px",
-									zIndex: "-1",
-									position: "absolute",
-									top: "50%",
-									left: "50%"
-								}} />
+								<Image className="imagewrap-loader" bg src={image_loader} alt="Yükleniyor..." />
 							</div>
 						))}
 					</Slider>
@@ -378,7 +370,7 @@ class DetailInfo extends React.Component {
 						))}
 					</ul>
 				}
-				{product.highlights &&
+				{(product.highlights && vm.props.mobile) &&
 					<ul className="info-highlights">
 						{product.highlights.map((highlight, nth) => (
 							<React.Fragment key={nth}>
@@ -478,11 +470,11 @@ class DetailInfo extends React.Component {
 
 				<div className="info-controls">
 					<div className="controls-buttons">
-						<Btn className="controls-button" primary hollow uppercase note="Bu aracı rezerve edebilirsiniz" disabled={true}>
+						<Btn className="controls-button" primary hollow uppercase note="Bu aracı çok yakında rezerve edebileceksiniz." disabled={true}>
 							Rezerve Et
 						</Btn>
 						{(vm.props.mobile && product.dealer.phone) && <a className="controls-phone" href={"tel:+9" + product.dealer.phone.replace(' ', '')}><i className="icon-phone-nude"></i></a>}
-						{product.bidThreadId ? <Btn className="controls-button" note="Bu araç için daha önce teklif verdiniz" primary uppercase tag="a" href={`/hesabim/mesajlarim/mesaj/${product.bidThreadId}`}>Tekliflerim</Btn> : <Btn className="controls-button" onClick={() => openModal('bid', { advert: product })} primary uppercase note="Bu araç için teklif verebilirsiniz">
+						{product.bidThreadId ? <Btn className="controls-button" note="Bu araç için daha önce teklif verdiniz." primary uppercase tag="a" href={`/hesabim/mesajlarim/mesaj/${product.bidThreadId}`}>Tekliflerim</Btn> : <Btn className="controls-button" onClick={() => openModal('bid', { advert: product })} primary uppercase note="Bu araç için teklif verebilirsiniz.">
 							Teklif Ver
 					</Btn>}
 
