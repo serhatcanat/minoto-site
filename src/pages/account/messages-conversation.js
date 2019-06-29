@@ -164,7 +164,7 @@ class MessageDetail extends React.Component {
 												<div className="message-text">
 													{parse(message.content.replace(/(?:\r\n|\r|\n)/g, '<br />'))}
 												</div>
-												<div className="message-datetime"><i className="icon-calendar"></i> {message.datetime}</div>
+												<div className="message-datetime"><i className="icon-calendar"></i> {message.datetime} - {message.name}</div>
 											</div>
 										</li>
 									))}

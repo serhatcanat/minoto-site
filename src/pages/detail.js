@@ -28,6 +28,7 @@ import { storageSpace } from "functions/helpers"
 
 // Assets
 import image_avatar from 'assets/images/defaults/avatar.svg';
+import loader from 'assets/images/loader2.gif'
 
 const ncapDescriptions = [
 	"1 yıldızlı güvenlik: Marjinal çarpışma koruması.",
@@ -88,20 +89,20 @@ class Detail extends React.Component {
 			this.initialize()
 		}
 
-		if(prevProps.match.params.id !== this.props.match.params.id){
+		if (prevProps.match.params.id !== this.props.match.params.id) {
 			this.setState({
 				productData: false,
 			});
 		}
 
-		if(prevState.productData !== false && this.state.productData === false){
+		if (prevState.productData !== false && this.state.productData === false) {
 			this.initialize();
 		}
 
 	}
 
-	setFullScreen(state){
-		if(this.mounted){
+	setFullScreen(state) {
+		if (this.mounted) {
 			this.setState({ galleryFullScreen: state });
 		}
 	}
@@ -292,7 +293,17 @@ class DetailGallery extends React.Component {
 							<div className="slider-imagewrap" key={nth}>
 								<div className="imagewrap-image swiper-lazy" data-background={storageSpace('car-posts/gallery', image.medium)}>
 								</div>
-								<i className="imagewrap-loader icon-spinner"></i>
+								{/*<i className="imagewrap-loader icon-spinner"></i>*/}
+								<img src={loader} width="150" style={{
+									marginLeft: "-75px",
+									marginTop: "-75px",
+									zIndex: "-1",
+
+
+									position: "absolute",
+									top: "50%",
+									left: "50%"
+								}} />
 							</div>
 						))}
 					</Slider>
@@ -357,7 +368,7 @@ class DetailInfo extends React.Component {
 							<i className={"icon-star" + (product.ncap >= 4 ? ' active' : '')}></i>
 							<i className={"icon-star" + (product.ncap >= 5 ? ' active' : '')}></i>
 						</div>
-						<PopInfo className="ncap-info" wide content={ncapDescriptions[product.ncap-1]}>
+						<PopInfo className="ncap-info" wide content={ncapDescriptions[product.ncap - 1]}>
 							<i className="icon-question"></i>
 						</PopInfo>
 					</div>
@@ -366,14 +377,18 @@ class DetailInfo extends React.Component {
 				<div className="info-price">
 					<strong className="price-current">
 						{product.price ? `${formatNumber(product.price)} TL` : 'SORUNUZ'}
-
 					</strong>
-					{product.listingPrice &&
+					{(product.listingPrice && product.price > 0) &&
 						<div className="price-listing">
 							{
-								(product.listingPrice > product.price && product.price > 0) && <React.Fragment>
-									<strong>Liste Fiyatı:</strong> <span>{formatNumber(product.listingPrice)}</span>
-								</React.Fragment>
+								(product.listingPrice > product.price) ?
+									<React.Fragment>
+										<strong>Liste Fiyatı:</strong> <span>{formatNumber(product.listingPrice)}</span>
+									</React.Fragment>
+									:
+									<React.Fragment>
+										<strong>Liste Fiyatı:</strong> <span style={{ textDecoration: 'none' }}>{formatNumber(product.price)}</span>
+									</React.Fragment>
 							}
 
 						</div>
@@ -427,7 +442,7 @@ class DetailInfo extends React.Component {
 						<Btn className="controls-button" primary hollow uppercase note="Bu aracı rezerve edebilirsiniz" disabled={product.reserved}>
 							Rezerve Et
 						</Btn>
-						{(vm.props.mobile && product.dealer.phone) && <button className="controls-phone" href={"tel:+9" + product.dealer.phone.replace(' ', '')}><i className="icon-phone-nude"></i></button> }
+						{(vm.props.mobile && product.dealer.phone) && <button className="controls-phone" href={"tel:+9" + product.dealer.phone.replace(' ', '')}><i className="icon-phone-nude"></i></button>}
 						{product.bidThreadId ? <Btn className="controls-button" note="Bu araç için daha önce teklif verdiniz" primary uppercase tag="a" href={`/hesabim/mesajlarim/mesaj/${product.bidThreadId}`}>Tekliflerim</Btn> : <Btn className="controls-button" onClick={() => openModal('bid', { advert: product })} primary uppercase note="Bu araç için teklif verebilirsiniz">
 							Teklif Ver
 					</Btn>}
