@@ -266,7 +266,7 @@ class DetailGallery extends React.Component {
 					<Slider className="mainslider-slider" ref={vm.mainSlider} loop opts={{ lazy: true }} onChange={vm.imageChange}>
 						{images.map((image, nth) => (
 							<div className="slider-imagewrap" key={nth}>
-								<div className="imagewrap-image swiper-lazy" data-background={storageSpace(nth === 0 ? 'car-posts' : 'car-posts/gallery', image.medium)}>
+								<div className="imagewrap-image swiper-lazy" data-background={storageSpace('car-posts/gallery', image.medium)}>
 								</div>
 								<i className="imagewrap-loader icon-spinner"></i>
 							</div>
@@ -285,7 +285,7 @@ class DetailGallery extends React.Component {
 						<Slider className="thumbs-carousel" slides={10} ref={vm.thumbSlider} opts={{ preventClicks: false }}>
 							{images.map((image, nth) => (
 								<button type="button" className={"carousel-imagebtn" + (vm.state.activeImage === nth ? ' active' : '')} key={nth} onClick={() => { vm.imageChange(nth); }}>
-									<Image className="carousel-image" key={nth} bg src={storageSpace(nth === 0 ? 'car-posts' : 'car-posts/gallery', image.thumb)} alt={product.title} />
+									<Image className="carousel-image" key={nth} bg src={storageSpace('car-posts/gallery', image.thumb)} alt={product.title} />
 								</button>
 							))}
 						</Slider>
