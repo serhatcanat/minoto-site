@@ -22,7 +22,6 @@ export default class SearchBar extends React.Component {
 			loading: false,
 			data: false,
 			cacheData: false,
-			active: false,
 			show: false,
 			focusedGroup: -1,
 			focusedResult: -1,

@@ -203,7 +203,6 @@ export function serializeArray(form, seperator = ',', ignoreEmpty = false) {
 	}
 
 	return serialized;
-
 };
 
 export function serialize(form, seperator = ',', ignoreEmpty = false) {
@@ -259,3 +258,7 @@ export function nl2br(str, is_xhtml) {
 	var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br />' : '<br>';
 	return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
 } 
+
+export function remToPx(num) {
+	return num * parseFloat(getComputedStyle(document.documentElement).fontSize);
+}

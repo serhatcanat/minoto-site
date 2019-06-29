@@ -34,7 +34,7 @@ export default class LinkItem extends React.Component {
 				if(target){
 
 					if(target.exact && this.props.navLink && !isDefined(props.exact)){ props.exact = true; }
-					content = (this.props.children ? this.props.children : (this.props.linkTitle ? target.linkTitle : target.title));
+					content = (this.props.children ? this.props.children : (target.linkTitle ? target.linkTitle : target.title));
 
 					if(target.path){
 						props.to = target.path
