@@ -12,18 +12,22 @@
 	border: .1rem solid $color-primary;
 	transition: background-color $transition-hover ease, color $transition-hover ease, border-color $transition-hover ease;
 
-	&:hover, &:active{
-		background-color: darken($color-primary, 10);
-		border-color: darken($color-primary, 10);
+	@include mediaMin {
+		&:hover, &:active {
+			background-color: darken($color-primary, 10);
+			border-color: darken($color-primary, 10);
+		}
 	}
 
 	&.hollow {
 		background-color: transparent;
 		color: $color-primary;
 
-		&:hover, &:active {
-			background-color: darken($color-primary, 10);
-			color: $color-text-negative;
+		@include mediaMin {
+			&:hover, &:active {
+				background-color: darken($color-primary, 10);
+				color: $color-text-negative;
+			}
 		}
 	}
 
@@ -33,18 +37,22 @@
 		color: $color-primary;
 		border-color: $color-white;
 
-		&:hover, &:active {
-			background-color: darken($color-white, 10);
-			border-color: darken($color-white, 10);
+		@include mediaMin {
+			&:hover, &:active {
+				background-color: darken($color-white, 10);
+				border-color: darken($color-white, 10);
+			}
 		}
 
 		&.hollow {
 			background-color: transparent;
 			color: $color-white;
 
-			&:hover, &:active {
-				background-color: darken($color-white, 10);
-				color: $color-primary;
+			@include mediaMin {
+				&:hover, &:active {
+					background-color: darken($color-white, 10);
+					color: $color-primary;
+				}
 			}
 		}
 	}
@@ -54,18 +62,22 @@
 		color: $color-text-negative;
 		border-color: $color-text;
 
-		&:hover, &:active {
-			background-color: darken($color-text, 10);
-			border-color: darken($color-text, 10);
+		@include mediaMin {
+			&:hover, &:active {
+				background-color: darken($color-text, 10);
+				border-color: darken($color-text, 10);
+			}
 		}
 
 		&.hollow {
 			background-color: transparent;
 			color: $color-text;
 
-			&:hover, &:active {
-				background-color: darken($color-text, 10);
-				color: $color-text-negative;
+			@include mediaMin {
+				&:hover, &:active {
+					background-color: darken($color-text, 10);
+					color: $color-text-negative;
+				}
 			}
 		}
 	}
@@ -75,19 +87,23 @@
 		color: $color-text;
 		border-color: $color-gray;
 
-		&:hover, &:active {
-			background-color: darken($color-gray, 10);
-			border-color: darken($color-gray, 10);
+		@include mediaMin {
+			&:hover, &:active {
+				background-color: darken($color-gray, 10);
+				border-color: darken($color-gray, 10);
+			}
 		}
 
 		&.hollow {
 			background-color: transparent;
 			color: $color-text;
 
-			&:hover, &:active {
-				background-color: $color-gray;
-				border-color: $color-gray;
-				color: $color-text;
+			@include mediaMin {
+				&:hover, &:active {
+					background-color: $color-gray;
+					border-color: $color-gray;
+					
+					}color: $color-text;
 			}
 		}
 	}
@@ -96,18 +112,22 @@
 		background-color: $color-facebook;
 		border-color: $color-facebook;
 
-		&:hover, &:active {
-			background-color: darken($color-facebook, 10);
-			border-color: darken($color-facebook, 10);
+		@include mediaMin {
+			&:hover, &:active {
+				background-color: darken($color-facebook, 10);
+				border-color: darken($color-facebook, 10);
+			}
 		}
 
 		&.hollow {
 			background-color: transparent;
 			color: $color-facebook;
 
-			&:hover, &:active {
-				background-color: darken($color-facebook, 10);
-				color: $color-text-negative;
+			@include mediaMin {
+				&:hover, &:active {
+					background-color: darken($color-facebook, 10);
+					color: $color-text-negative;
+				}
 			}
 		}
 	}
@@ -116,18 +136,22 @@
 		background-color: $color-google;
 		border-color: $color-google;
 
-		&:hover, &:active {
-			background-color: darken($color-google, 10);
-			border-color: darken($color-google, 10);
+		@include mediaMin {
+			&:hover, &:active {
+				background-color: darken($color-google, 10);
+				border-color: darken($color-google, 10);
+			}
 		}
 
 		&.hollow {
 			background-color: transparent;
 			color: $color-google;
 
-			&:hover, &:active {
-				background-color: darken($color-google, 10);
-				color: $color-text-negative;
+			@include mediaMin {
+				&:hover, &:active {
+					background-color: darken($color-google, 10);
+					color: $color-text-negative;
+				}
 			}
 		}
 	}

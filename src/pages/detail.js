@@ -456,7 +456,7 @@ class DetailInfo extends React.Component {
 
 				<div className="info-controls">
 					<div className="controls-buttons">
-						<Btn className="controls-button" primary hollow uppercase note="Bu aracı rezerve edebilirsiniz" disabled={product.reserved}>
+						<Btn className="controls-button" primary hollow uppercase note="Bu aracı rezerve edebilirsiniz" disabled={true}>
 							Rezerve Et
 						</Btn>
 						{(vm.props.mobile && product.dealer.phone) && <a className="controls-phone" href={"tel:+9" + product.dealer.phone.replace(' ', '')}><i className="icon-phone-nude"></i></a>}
