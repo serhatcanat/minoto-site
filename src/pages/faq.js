@@ -4,89 +4,67 @@ import React from 'react'
 import { CollapseGroup } from 'components/partials/collapse'
 
 export default class Faq extends React.Component {
-	render () {
+	render() {
 		return (
 			<main className="page content">
 				<section className="section contentpage">
-						<div className="contentpage-wrap wrapper narrow">
-							<div className="contentpage-content">
-								<h1 className="content-title">Sıkça Sorulan Sorular</h1>
-								<ul className="section contentpage-faq">
-									<li className="faq-item">
-										<CollapseGroup label="Minoto güvenli mi?">
-											<div className="wysiwyg">
-												<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-											</div>
-										</CollapseGroup>
-									</li>
-									<li className="faq-item">
-										<CollapseGroup label="Kasko nasıl hesaplanır?">
-											<div className="wysiwyg">
-												<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla faucibus lorem id dolor dignissim consequat. Nullam at lorem mi. Phasellus rutrum, nisi et rutrum mollis, magna turpis molestie magna, sit amet laoreet mauris tellus at nunc. Curabitur congue enim a interdum bibendum. Ut diam mi, lobortis at eleifend et, rhoncus eu elit. Sed condimentum semper tortor fermentum egestas. Curabitur accumsan id ante eget viverra.</p>
-												<p>Proin et ex ut lorem mollis pulvinar. Praesent nisi massa, facilisis ut tempus in, feugiat eu arcu. Nunc placerat magna at justo feugiat auctor scelerisque sed urna. Donec elementum orci eu dictum ullamcorper. Phasellus id interdum leo, ac vehicula lacus. Aliquam erat volutpat. Pellentesque vel lectus a mauris vestibulum vestibulum vel nec erat. Quisque at viverra sem. Integer sit amet ultrices diam, in viverra elit. Suspendisse ut ex dictum urna euismod euismod ac sit amet elit.</p>
-												<p>In vel ex rhoncus, condimentum orci a, euismod velit. Etiam consectetur gravida ligula, ut euismod risus auctor eu. Maecenas viverra turpis in nunc dictum, vel mattis tellus accumsan. Vestibulum porta laoreet metus sit amet blandit. Aenean congue lorem vitae tellus malesuada, vel euismod massa porta. Fusce iaculis diam sed sem dictum, in tincidunt ex feugiat. Aliquam nec porttitor eros. Donec non consequat arcu, et porta odio. Aliquam vitae eros sollicitudin, viverra tellus vitae, rutrum mi. Vestibulum eget mauris at sapien rhoncus dapibus.</p>
-												<p>Nam posuere, metus elementum laoreet eleifend, diam ex suscipit libero, sit amet dapibus nisi tortor sed leo. Donec aliquet ultricies dui. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam laoreet orci vitae placerat tristique. Suspendisse porta eros non arcu lobortis consectetur. Vivamus non quam iaculis, rutrum ex ac, euismod nunc. Etiam suscipit congue risus, sed pellentesque velit aliquam eget.</p>
-												<p>Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc dapibus gravida quam posuere facilisis. Vivamus lectus mi, semper at congue sed, pulvinar quis arcu. Morbi consequat dolor sem, ac aliquam sem euismod vitae. Cras erat mi, dictum a porttitor et, vulputate id enim. Praesent varius feugiat orci imperdiet ullamcorper. Suspendisse vitae enim ac ligula ornare dapibus vitae at leo.</p>
-											</div>
-										</CollapseGroup>
-									</li>
-									<li className="faq-item">
-										<CollapseGroup label="Minoto komisyon alıyor mu?">
-											<div className="wysiwyg">
-												<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-											</div>
-										</CollapseGroup>
-									</li>
-									<li className="faq-item">
-										<CollapseGroup label="Otomotivi nasıl temin edeceğim?">
-											<div className="wysiwyg">
-												<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla faucibus lorem id dolor dignissim consequat. Nullam at lorem mi. Phasellus rutrum, nisi et rutrum mollis, magna turpis molestie magna, sit amet laoreet mauris tellus at nunc. Curabitur congue enim a interdum bibendum. Ut diam mi, lobortis at eleifend et, rhoncus eu elit. Sed condimentum semper tortor fermentum egestas. Curabitur accumsan id ante eget viverra.</p>
-												<p>Proin et ex ut lorem mollis pulvinar. Praesent nisi massa, facilisis ut tempus in, feugiat eu arcu. Nunc placerat magna at justo feugiat auctor scelerisque sed urna. Donec elementum orci eu dictum ullamcorper. Phasellus id interdum leo, ac vehicula lacus. Aliquam erat volutpat. Pellentesque vel lectus a mauris vestibulum vestibulum vel nec erat. Quisque at viverra sem. Integer sit amet ultrices diam, in viverra elit. Suspendisse ut ex dictum urna euismod euismod ac sit amet elit.</p>
-												<p>In vel ex rhoncus, condimentum orci a, euismod velit. Etiam consectetur gravida ligula, ut euismod risus auctor eu. Maecenas viverra turpis in nunc dictum, vel mattis tellus accumsan. Vestibulum porta laoreet metus sit amet blandit. Aenean congue lorem vitae tellus malesuada, vel euismod massa porta. Fusce iaculis diam sed sem dictum, in tincidunt ex feugiat. Aliquam nec porttitor eros. Donec non consequat arcu, et porta odio. Aliquam vitae eros sollicitudin, viverra tellus vitae, rutrum mi. Vestibulum eget mauris at sapien rhoncus dapibus.</p>
-												<p>Nam posuere, metus elementum laoreet eleifend, diam ex suscipit libero, sit amet dapibus nisi tortor sed leo. Donec aliquet ultricies dui. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam laoreet orci vitae placerat tristique. Suspendisse porta eros non arcu lobortis consectetur. Vivamus non quam iaculis, rutrum ex ac, euismod nunc. Etiam suscipit congue risus, sed pellentesque velit aliquam eget.</p>
-												<p>Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc dapibus gravida quam posuere facilisis. Vivamus lectus mi, semper at congue sed, pulvinar quis arcu. Morbi consequat dolor sem, ac aliquam sem euismod vitae. Cras erat mi, dictum a porttitor et, vulputate id enim. Praesent varius feugiat orci imperdiet ullamcorper. Suspendisse vitae enim ac ligula ornare dapibus vitae at leo.</p>
-											</div>
-										</CollapseGroup>
-									</li>
-									<li className="faq-item">
-										<CollapseGroup label="Minoto güvenli mi?">
-											<div className="wysiwyg">
-												<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-											</div>
-										</CollapseGroup>
-									</li>
-									<li className="faq-item">
-										<CollapseGroup label="Kasko nasıl hesaplanır?">
-											<div className="wysiwyg">
-												<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla faucibus lorem id dolor dignissim consequat. Nullam at lorem mi. Phasellus rutrum, nisi et rutrum mollis, magna turpis molestie magna, sit amet laoreet mauris tellus at nunc. Curabitur congue enim a interdum bibendum. Ut diam mi, lobortis at eleifend et, rhoncus eu elit. Sed condimentum semper tortor fermentum egestas. Curabitur accumsan id ante eget viverra.</p>
-												<p>Proin et ex ut lorem mollis pulvinar. Praesent nisi massa, facilisis ut tempus in, feugiat eu arcu. Nunc placerat magna at justo feugiat auctor scelerisque sed urna. Donec elementum orci eu dictum ullamcorper. Phasellus id interdum leo, ac vehicula lacus. Aliquam erat volutpat. Pellentesque vel lectus a mauris vestibulum vestibulum vel nec erat. Quisque at viverra sem. Integer sit amet ultrices diam, in viverra elit. Suspendisse ut ex dictum urna euismod euismod ac sit amet elit.</p>
-												<p>In vel ex rhoncus, condimentum orci a, euismod velit. Etiam consectetur gravida ligula, ut euismod risus auctor eu. Maecenas viverra turpis in nunc dictum, vel mattis tellus accumsan. Vestibulum porta laoreet metus sit amet blandit. Aenean congue lorem vitae tellus malesuada, vel euismod massa porta. Fusce iaculis diam sed sem dictum, in tincidunt ex feugiat. Aliquam nec porttitor eros. Donec non consequat arcu, et porta odio. Aliquam vitae eros sollicitudin, viverra tellus vitae, rutrum mi. Vestibulum eget mauris at sapien rhoncus dapibus.</p>
-												<p>Nam posuere, metus elementum laoreet eleifend, diam ex suscipit libero, sit amet dapibus nisi tortor sed leo. Donec aliquet ultricies dui. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam laoreet orci vitae placerat tristique. Suspendisse porta eros non arcu lobortis consectetur. Vivamus non quam iaculis, rutrum ex ac, euismod nunc. Etiam suscipit congue risus, sed pellentesque velit aliquam eget.</p>
-												<p>Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc dapibus gravida quam posuere facilisis. Vivamus lectus mi, semper at congue sed, pulvinar quis arcu. Morbi consequat dolor sem, ac aliquam sem euismod vitae. Cras erat mi, dictum a porttitor et, vulputate id enim. Praesent varius feugiat orci imperdiet ullamcorper. Suspendisse vitae enim ac ligula ornare dapibus vitae at leo.</p>
-											</div>
-										</CollapseGroup>
-									</li>
-									<li className="faq-item">
-										<CollapseGroup label="Minoto komisyon alıyor mu?">
-											<div className="wysiwyg">
-												<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
-											</div>
-										</CollapseGroup>
-									</li>
-									<li className="faq-item">
-										<CollapseGroup label="Otomotivi nasıl temin edeceğim?">
-											<div className="wysiwyg">
-												<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla faucibus lorem id dolor dignissim consequat. Nullam at lorem mi. Phasellus rutrum, nisi et rutrum mollis, magna turpis molestie magna, sit amet laoreet mauris tellus at nunc. Curabitur congue enim a interdum bibendum. Ut diam mi, lobortis at eleifend et, rhoncus eu elit. Sed condimentum semper tortor fermentum egestas. Curabitur accumsan id ante eget viverra.</p>
-												<p>Proin et ex ut lorem mollis pulvinar. Praesent nisi massa, facilisis ut tempus in, feugiat eu arcu. Nunc placerat magna at justo feugiat auctor scelerisque sed urna. Donec elementum orci eu dictum ullamcorper. Phasellus id interdum leo, ac vehicula lacus. Aliquam erat volutpat. Pellentesque vel lectus a mauris vestibulum vestibulum vel nec erat. Quisque at viverra sem. Integer sit amet ultrices diam, in viverra elit. Suspendisse ut ex dictum urna euismod euismod ac sit amet elit.</p>
-												<p>In vel ex rhoncus, condimentum orci a, euismod velit. Etiam consectetur gravida ligula, ut euismod risus auctor eu. Maecenas viverra turpis in nunc dictum, vel mattis tellus accumsan. Vestibulum porta laoreet metus sit amet blandit. Aenean congue lorem vitae tellus malesuada, vel euismod massa porta. Fusce iaculis diam sed sem dictum, in tincidunt ex feugiat. Aliquam nec porttitor eros. Donec non consequat arcu, et porta odio. Aliquam vitae eros sollicitudin, viverra tellus vitae, rutrum mi. Vestibulum eget mauris at sapien rhoncus dapibus.</p>
-												<p>Nam posuere, metus elementum laoreet eleifend, diam ex suscipit libero, sit amet dapibus nisi tortor sed leo. Donec aliquet ultricies dui. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Aliquam laoreet orci vitae placerat tristique. Suspendisse porta eros non arcu lobortis consectetur. Vivamus non quam iaculis, rutrum ex ac, euismod nunc. Etiam suscipit congue risus, sed pellentesque velit aliquam eget.</p>
-												<p>Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc dapibus gravida quam posuere facilisis. Vivamus lectus mi, semper at congue sed, pulvinar quis arcu. Morbi consequat dolor sem, ac aliquam sem euismod vitae. Cras erat mi, dictum a porttitor et, vulputate id enim. Praesent varius feugiat orci imperdiet ullamcorper. Suspendisse vitae enim ac ligula ornare dapibus vitae at leo.</p>
-											</div>
-										</CollapseGroup>
-									</li>
-								</ul>
-							</div>
+					<div className="contentpage-wrap wrapper narrow">
+						<div className="contentpage-content">
+							<h1 className="content-title">Sıkça Sorulan Sorular</h1>
+							<ul className="section contentpage-faq">
+								<li className="faq-item">
+									<CollapseGroup label="Minoto'daki araçlar kimin?">
+										<div className="wysiwyg">
+											<p>Minoto'da sergilenen araçların tamamı yetkili satıcıların stoğunda bulunan araçlardır, mülkiyeti yetkili satıcılara aittir.</p>
+										</div>
+									</CollapseGroup>
+								</li>
+								<li className="faq-item">
+									<CollapseGroup label="Minoto'daki araçları kim satıyor?">
+										<div className="wysiwyg">
+											<p>Minoto'da sergilenen araçların tamamı yetkili satıcılar tarafından satılmaktadır. Minoto satış sürecine dahil olmamaktadır.</p>
+										</div>
+									</CollapseGroup>
+								</li>
+								<li className="faq-item">
+									<CollapseGroup label="Minoto komisyon alıyor mu?">
+										<div className="wysiwyg">
+											<p>Minoto, yapılan satışlardan ne kullanıcıdan ne de bayiden bir komisyon almaz. </p>
+										</div>
+									</CollapseGroup>
+								</li>
+								<li className="faq-item">
+									<CollapseGroup label="Minoto'nun farkı nedir?">
+										<div className="wysiwyg">
+											<p>Minoto'nun en büyük farkı, sadece Yetkili Satıcıların showroomlarında bulunan "0 km" araç stoğunu, gerçek showroom fiyatları ile dijital platforma taşımasıdır.
+											İş modeli olarak Türkiye haricinde Avrupa ve Amerika'da da sadece yetkili satıcıların "0 km" stoklarının bulunduğu başka bir platform yoktur.</p>
+										</div>
+									</CollapseGroup>
+								</li>
+								<li className="faq-item">
+									<CollapseGroup label="Minoto'da teklif verilir mi?">
+										<div className="wysiwyg">
+											<p>Minoto'dan istediğiniz araç için bayiye teklifte bulunabilirsiniz. Ancak bu teklifin iletilebilmesi için, bayinin minimum teklif tutarının üzerinde bir teklif vermeniz gerekir.</p>
+										</div>
+									</CollapseGroup>
+								</li>
+								<li className="faq-item">
+									<CollapseGroup label="Minoto'daki araçlar 2.el mi?">
+										<div className="wysiwyg">
+											<p>Minoto'da sergilenen araçların hepsi "0 km"dir ve hepsi yetkili satıcıların stoğundadır.</p>
+										</div>
+									</CollapseGroup>
+								</li>
+								<li className="faq-item">
+									<CollapseGroup label="Minoto'da aracımı sergileyebilir miyim?">
+										<div className="wysiwyg">
+											<p>Minoto'da sadece yetkili satıcılar araçlarını sergileyebilir, şahıslar, 2.el ticareti yapan galeriler, filo şirketleri ve benzeri kurumlar sergileme yapamaz. Eğer bir yetkili satıcı iseniz buradan Minoto'ya başvurabilirsiniz.</p>
+										</div>
+									</CollapseGroup>
+								</li>
+							</ul>
 						</div>
+					</div>
 				</section>
 			</main>
 
