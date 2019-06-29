@@ -91,7 +91,7 @@ class About extends React.Component {
 									<h4 className="member-name">Ferhat Albayrak</h4>
 
 									<div className="member-contact">
-										<Link type="a" title="Ferhat Albayrak LinkedIn Profili" href="http://www.linkedin.com" target="_blank" rel="nofollow">
+										<Link type="a" title="Ferhat Albayrak LinkedIn Profili" href="https://tr.linkedin.com/in/ferhatalbayrak" target="_blank" rel="nofollow">
 											<Image src={image_icon_linkedin} alt="LinkedIn" />
 										</Link>
 									</div>
@@ -105,9 +105,7 @@ class About extends React.Component {
 									<h4 className="member-name">Kaan Boyner</h4>
 
 									<div className="member-contact">
-										<Link type="a" title="Kaan Boyner LinkedIn Profili" href="http://www.linkedin.com" target="_blank" rel="nofollow">
-											<Image src={image_icon_linkedin} alt="LinkedIn" />
-										</Link>
+
 									</div>
 								</div>
 							</div>
