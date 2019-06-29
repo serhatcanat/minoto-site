@@ -178,7 +178,7 @@ class Footer extends React.Component {
 
 								<ul className="contact-social">
 									<li>
-										<a href="http://www.instagram.com/minotoco" target="_blank" rel="noopener noreferrer" title="Bizi Instagram'da Takip Edin">
+										<a href="http://www.instagram.com/minotocom" target="_blank" rel="noopener noreferrer" title="Bizi Instagram'da Takip Edin">
 											<Image src={image_icon_instagram} alt="Instagram" />
 										</a>
 									</li>

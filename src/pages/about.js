@@ -22,9 +22,9 @@ const mapStateToProps = state => {
 
 class About extends React.Component {
 
-	render () {
+	render() {
 		let GalleryContainer = (this.props.mobile ? Slider : 'div');
-		let galleryProps = (this.props.mobile ? {slides: 2} : {});
+		let galleryProps = (this.props.mobile ? { slides: 2 } : {});
 
 		return (
 			<main className="page about">
