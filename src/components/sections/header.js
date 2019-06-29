@@ -17,6 +17,7 @@ import { storageSpace } from "functions/helpers";
 import image_icon_facebook from 'assets/images/icon/facebook.svg'
 import image_icon_instagram from 'assets/images/icon/instagram.svg'
 import image_icon_youtube from 'assets/images/icon/youtube.svg'
+import image_icon_twitter from 'assets/images/icon/twitter.svg'
 import image_logo from 'assets/images/logo.svg'
 import image_logo_primary from 'assets/images/logo-primary.svg'
 
@@ -136,15 +137,18 @@ class Header extends React.Component {
 												</Responsive>
 
 												<div className="menu-social">
-													<Link href="http://www.instagram.com/minotocom" target="_blank" rel="noopener noreferrer" title="Bizi Instagram'da Takip Edin">
+													<a href="http://www.instagram.com/minotocom" target="_blank" rel="noopener noreferrer" title="Bizi Instagram'da Takip Edin">
 														<Image src={image_icon_instagram} alt="Instagram" />
-													</Link>
-													<Link href="http://www.youtube.com/minotocom" target="_blank" rel="noopener noreferrer" title="Bizi YouTube'da Takip Edin">
+													</a>
+													<a href="http://www.youtube.com/minotocom" target="_blank" rel="noopener noreferrer" title="Bizi YouTube'da Takip Edin">
 														<Image src={image_icon_youtube} alt="YouTube" />
-													</Link>
-													<Link href="http://www.facebook.com/minotocom" target="_blank" rel="noopener noreferrer" title="Bizi Facebook'da Takip Edin">
+													</a>
+													<a href="http://www.facebook.com/minotocom" target="_blank" rel="noopener noreferrer" title="Bizi Facebook'da Takip Edin">
 														<Image src={image_icon_facebook} alt="Facebook" />
-													</Link>
+													</a>
+													<a href="http://www.twitter.com/minotocom" target="_blank" rel="noopener noreferrer" title="Bizi Twitter'da Takip Edin">
+														<Image src={image_icon_twitter} alt="Twitter" />
+													</a>
 												</div>
 											</div>
 
@@ -203,7 +207,7 @@ class Header extends React.Component {
 													<Link href="faq" />
 												</li>
 												<li className="sublinks-item">
-													<Link href="dealerApplication">Nasıl Bayi Olurum?</Link>
+													<Link href="dealerApplication">Yetkili Bayi'yim, Nasıl Üye Olurum?</Link>
 												</li>
 											</ul>
 

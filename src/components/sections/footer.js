@@ -18,6 +18,7 @@ import image_icon_facebook from 'assets/images/icon/facebook.svg'
 import image_icon_instagram from 'assets/images/icon/instagram.svg'
 import image_icon_youtube from 'assets/images/icon/youtube.svg'
 import image_logo_white from 'assets/images/logo-white.svg'
+import image_icon_twitter from 'assets/images/icon/twitter.svg'
 
 const mapStateToProps = state => {
 	return { mobile: state.generic.mobile };
@@ -190,6 +191,11 @@ class Footer extends React.Component {
 									<li>
 										<a href="http://www.facebook.com/minotocom" target="_blank" rel="noopener noreferrer" title="Bizi Facebook'da Takip Edin">
 											<Image src={image_icon_facebook} alt="Facebook" />
+										</a>
+									</li>
+									<li>
+										<a href="https://twitter.com/minotocom" target="_blank" rel="noopener noreferrer" title="Bizi Facebook'da Takip Edin">
+											<Image src={image_icon_twitter} alt="Twitter" />
 										</a>
 									</li>
 								</ul>

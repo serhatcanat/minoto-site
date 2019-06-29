@@ -109,10 +109,6 @@ export default class Contact extends React.Component {
 								<span className="item-content">742942</span>
 							</li>
 							<li className="details-item">
-								<strong className="item-heading">Sorumlu Kişi</strong>
-								<span className="item-content">Kaan Boyner / Ferhat Albayrak</span>
-							</li>
-							<li className="details-item">
 								<strong className="item-heading">Telefon</strong>
 								<span className="item-content"><Link type="a" href="tel:+902122833995">0212 283 39 95</Link></span>
 							</li>

@@ -1,5 +1,6 @@
 import React from 'react'
 
+import Link from 'components/partials/link'
 // Partials
 import { CollapseGroup } from 'components/partials/collapse'
 
@@ -58,7 +59,7 @@ export default class Faq extends React.Component {
 								<li className="faq-item">
 									<CollapseGroup label="Minoto'da aracımı sergileyebilir miyim?">
 										<div className="wysiwyg">
-											<p>Minoto'da sadece yetkili satıcılar araçlarını sergileyebilir, şahıslar, 2.el ticareti yapan galeriler, filo şirketleri ve benzeri kurumlar sergileme yapamaz. Eğer bir yetkili satıcı iseniz buradan Minoto'ya başvurabilirsiniz.</p>
+											<p>Minoto'da sadece yetkili satıcılar araçlarını sergileyebilir, şahıslar, 2.el ticareti yapan galeriler, filo şirketleri ve benzeri kurumlar sergileme yapamaz. Eğer bir yetkili satıcı iseniz <Link href="dealerApplication" style={{ color: '#145aff', textDecoration: 'underline' }}>buradan</Link> Minoto'ya başvurabilirsiniz.</p>
 										</div>
 									</CollapseGroup>
 								</li>
