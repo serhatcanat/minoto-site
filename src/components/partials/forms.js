@@ -828,6 +828,12 @@ export class InputForm extends React.Component {
 		if (state.error && state.validation !== false) {
 			this.validElements = pull(this.validElements, state.name);
 			this.invalidElements = union(this.invalidElements, [state.name]);
+
+			if(this.props.onTouch){
+				if(this.validElements.length < this.validationCount && state.touched){
+					this.props.onTouch();
+				}
+			}
 		}
 		else if (state.validation !== false) {
 			this.invalidElements = pull(this.invalidElements, state.name);
@@ -860,6 +866,10 @@ export class InputForm extends React.Component {
 	handleSubmit(e = false) {
 		if (e) { e.preventDefault(); }
 		this.setState({ forceTouch: true })
+		if(this.props.onTouch){
+			this.props.onTouch();
+		}
+
 		if (this.validate()) {
 			this.setState({ sending: true });
 

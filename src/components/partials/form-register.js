@@ -19,6 +19,8 @@ export default class RegisterForm extends React.Component {
 			message: false,
 			complete: false,
 			success: null,
+			touched: false,
+			promoChecked: false,
 		}
 
 		//this._registerUser = this._registerUser.bind(this);
@@ -107,7 +109,7 @@ export default class RegisterForm extends React.Component {
 			<div className={"section loginform type-" + vm.props.type}>
 				<h2 className="loginform-title">Üye ol</h2>
 
-				<InputForm className="loginform-form" onSubmit={this.submit}>
+				<InputForm className="loginform-form" onSubmit={this.submit} onTouch={() => { vm.setState({ touched: true }) }}>
 					{vm.state.message &&
 						<div className={"loginform-message " + (vm.state.success ? 'success' : 'error')}>
 							<span>{vm.state.message}</span>
@@ -145,6 +147,7 @@ export default class RegisterForm extends React.Component {
 						className="form-field" />
 					<FormInput
 						name="agreement"
+						value="1"
 						disabled={vm.state.loading}
 						type="checkbox"
 						validation={{ required: "Üye olmak için kullanıcı sözleşmesini kabul etmeniz gerekmektedir." }}
@@ -152,12 +155,19 @@ export default class RegisterForm extends React.Component {
 						"Üye Ol" butonuna tıklayarak Minoto’nun <Link className="text-minoto" href="privacy" target="_blank" rel="noopener noreferrer">Kullanıcı Sözleşmesi’ni</Link> kabul etmiş sayılacaksınız.
 					</FormInput>
 					<FormInput
-						name="agreement"
+						name="promotions"
+						value="1"
 						disabled={vm.state.loading}
 						type="checkbox"
+						onChange={(e) => { vm.setState({promoChecked: e}) }}
 						className="form-field">
 						Size özel kampanya ve fırsatlarımızdan haberdar olabilirsiniz.
 					</FormInput>
+					{vm.state.touched && !vm.state.promoChecked &&
+						<div className="form-fakeerror inputwrap">
+							<div className="input-error">Size özel fiyat tekliflerinden yararlanmak istemez misiniz?</div>
+						</div>
+					}
 					<Btn
 						className="form-field"
 						type="submit"

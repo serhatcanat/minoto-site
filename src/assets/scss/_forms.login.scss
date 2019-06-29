@@ -25,6 +25,10 @@
 			}
 		}
 
+		.form-fakeerror {
+			margin-bottom: 2rem;
+		}
+
 	.loginform-nav {
 		@include font-medium;
 		color: $color-text-light;
