@@ -29,6 +29,14 @@ import { storageSpace } from "functions/helpers";
 // Assets
 import image_avatar from 'assets/images/defaults/avatar.svg';
 
+const ncapDescriptions = [
+	"1 yıldızlı güvenlik: Marjinal çarpışma koruması.",
+	"2 yıldızlı güvenlik: Nominal çarpışma koruması ancak çarpışmadan kaçınma teknolojisi yok.",
+	"3 yıldızlı güvenlik:  Yolcu koruma konusunda ortalama ile iyi arasında ancak çarpışmadan kaçınma teknolojisi yok.",
+	"4 yıldızlı güvenlik: Çarpışma korumasına yönelik toplam iyi performans; ilave çarpışmadan kaçınma teknolojisi mevcut olabilir.",
+	"5 yıldızlı güvenlik: Çarpışma korumasına yönelik toplam iyi performans. Sağlam çarpışmadan kaçınma ekipmanı ile donatılmış."
+]
+
 const mapStateToProps = state => {
 	return { mobile: state.generic.mobile, user: state.user.user, };
 };
@@ -39,9 +47,13 @@ class Detail extends React.Component {
 		this.state = {
 			productData: false,
 			loading: true,
+			galleryFullScreen: false,
 		}
 
 		this.initialize = this.initialize.bind(this);
+		this.setFullScreen = this.setFullScreen.bind(this);
+
+		this.mounted = false;
 	}
 
 	initialize() {
@@ -61,7 +73,13 @@ class Detail extends React.Component {
 	}
 
 	componentDidMount() {
+		this.mounted = true;
+
 		this.initialize();
+	}
+
+	componentWillUnmount() {
+		this.mounted = false;
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -82,12 +100,18 @@ class Detail extends React.Component {
 
 	}
 
+	setFullScreen(state){
+		if(this.mounted){
+			this.setState({ galleryFullScreen: state });
+		}
+	}
+
 	render() {
 		let vm = this;
 		let product = vm.state.productData;
 
 		return (
-			<main className="page detail">
+			<main className={"page detail" + (vm.state.galleryFullScreen ? ' gallery-fullscreen' : '')}>
 				<Loader loading={product === false} strict={true} />
 				{product !== false &&
 					<div>
@@ -165,7 +189,7 @@ class Detail extends React.Component {
 						<section className="section detail-content">
 							<div className="content-wrap wrapper">
 								<div className="content-left">
-									<DetailGallery product={product} mobile={vm.props.mobile} />
+									<DetailGallery product={product} mobile={vm.props.mobile} onFullScreenChange={vm.setFullScreen} fullScreen={vm.state.galleryFullScreen} />
 									{vm.props.mobile &&
 										<DetailInfo product={product} mobile={vm.props.mobile} />
 									}
@@ -237,13 +261,13 @@ class DetailGallery extends React.Component {
 			this.thumbSlider.current.instance.slideTo(nth);
 		}
 
-		if (prevState.fullScreen !== this.state.fullScreen) {
+		if (prevProps.fullScreen !== this.props.fullScreen) {
 			this.mainSlider.current.instance.update();
 			if (this.thumbSlider.current) {
 				this.thumbSlider.current.instance.update();
 			}
 
-			blockOverflow(this.state.fullScreen);
+			blockOverflow(this.props.fullScreen);
 		}
 	}
 
@@ -256,8 +280,8 @@ class DetailGallery extends React.Component {
 		let product = vm.props.product
 		let images = product.gallery;
 		return (
-			<div className={"content-gallery" + (vm.state.fullScreen ? ' fullscreen' : '')}>
-				<Btn className="gallery-close" low white uppercase icon="close" onClick={() => { vm.setState({ fullScreen: false }) }}>
+			<div className="content-gallery">
+				<Btn className="gallery-close" low white uppercase icon="close" onClick={() => { vm.props.onFullScreenChange(false) }}>
 					Kapat
 				</Btn>
 				<div className="gallery-mainslider">
@@ -273,7 +297,7 @@ class DetailGallery extends React.Component {
 						))}
 					</Slider>
 					{!vm.props.mobile &&
-						<Btn className="mainslider-fullscreen" low white uppercase icon="search" onClick={() => { vm.setState({ fullScreen: true }) }}>
+						<Btn className="mainslider-fullscreen" low white uppercase icon="search" onClick={() => { vm.props.onFullScreenChange(true) }}>
 							Büyük Fotoğraf
 						</Btn>
 					}
@@ -333,6 +357,9 @@ class DetailInfo extends React.Component {
 							<i className={"icon-star" + (product.ncap >= 4 ? ' active' : '')}></i>
 							<i className={"icon-star" + (product.ncap >= 5 ? ' active' : '')}></i>
 						</div>
+						<PopInfo className="ncap-info" wide content={ncapDescriptions[product.ncap-1]}>
+							<i className="icon-question"></i>
+						</PopInfo>
 					</div>
 				}
 

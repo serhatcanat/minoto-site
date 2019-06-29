@@ -1,4 +1,50 @@
 .page.detail{
+
+	&.gallery-fullscreen {
+
+		.section.detail-content{
+			.content-left {
+				z-index: 50;
+			}
+
+			.content-gallery {
+				position: fixed;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				z-index: 20;
+
+				.gallery-close {
+					display: block;
+				}
+
+				.gallery-mainslider{
+					padding-bottom: 0;
+					height: calc(100% - 15.3rem);
+
+					@include media {
+						height: 100%;
+					}
+
+					.mainslider-fullscreen {
+						display: none;
+					}
+
+					.imagewrap-image {
+						background-size: contain;
+					}
+
+				}
+
+				.gallery-thumbs {
+					//height: 12rem;
+					height: 15.3rem;
+				}
+			}
+		}
+	}
+
 	.section{
 		&.detail-top {
 			padding: 1.8rem 0;
@@ -143,6 +189,8 @@
 
 			.content-left {
 				width: calc(100% - 46rem);
+				position: relative;
+				z-index: 1;
 
 				@include media {
 					width: auto;
@@ -152,6 +200,8 @@
 			.content-right{
 				width: 46rem;
 				padding: 0 3rem;
+				position: relative;
+				z-index: 2;
 
 				@include media {
 					width: auto;
@@ -164,42 +214,6 @@
 				@include media {
 					width: calc(100% + 3rem);
 					margin: 0 -1.5rem;
-				}
-
-				&.fullscreen {
-					position: fixed;
-					top: 0;
-					left: 0;
-					right: 0;
-					bottom: 0;
-					z-index: 20;
-
-					.gallery-close {
-						display: block;
-					}
-
-					.gallery-mainslider{
-						padding-bottom: 0;
-						height: calc(100% - 15.3rem);
-
-						@include media {
-							height: 100%;
-						}
-
-						.mainslider-fullscreen {
-							display: none;
-						}
-
-						.imagewrap-image {
-							background-size: contain;
-						}
-
-					}
-
-					.gallery-thumbs {
-						//height: 12rem;
-						height: 15.3rem;
-					}
 				}
 			}
 
@@ -609,6 +623,8 @@
 
 				.info-ncap {
 					@include font-semibold;
+					position: relative;
+					z-index: 3;
 					border-top: .1rem solid $color-ice;
 					border-bottom: .1rem solid $color-ice;
 					font-size: 1.2rem;
@@ -640,6 +656,10 @@
 						i + i {
 							margin-left: .5rem;
 						}
+					}
+
+					.ncap-info {
+						margin-left: .6rem;
 					}
 
 				.info-price {

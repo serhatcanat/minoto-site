@@ -73,4 +73,10 @@
 			white-space: nowrap;
 		}
 	}
+
+	&.wide {
+		.popinfo-content {
+			min-width: 26rem;
+		}
+	}
 }

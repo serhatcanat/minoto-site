@@ -62,7 +62,7 @@ class PopInfo extends React.Component {
 
 	render() {
 		let vm = this;
-		let classes = 'popinfo-wrap ' + vm.props.className + (vm.props.nowrap ? ' nowrap' : '');
+		let classes = 'popinfo-wrap ' + vm.props.className + (vm.props.nowrap ? ' nowrap' : '') + (vm.props.wide ? ' wide' : '');
 		let Tag = vm.props.tag;
 		return (
 			<Tag className={classes} onMouseOver={vm.show} onMouseLeave={vm.hide}>
@@ -88,4 +88,5 @@ PopInfo.defaultProps = {
 	nowrap: false,
 	rtl: false,
 	tag: 'button',
+	wide: false,
 };
