@@ -6,9 +6,9 @@ import Slider from 'components/partials/slider'
 
 // Deps
 import debounce from 'lodash/debounce'
+import { blockOverflow } from "functions/helpers";
 import request from 'controllers/request'
 import { Link } from 'react-router-dom'
-import { apiPath } from 'functions/helpers';
 import { connect } from "react-redux";
 import { setSearchBarValue, setSearchBarOpen } from 'data/store.generic';
 
@@ -117,6 +117,9 @@ class SearchBar extends React.Component {
 				this.setState({ active: true, show: true });
 			}
 			else{
+				if(this.props.fullScreen && this.state.active){
+					blockOverflow(false);
+				}
 				this.setState({ active: false, show: false });
 			}
 		}
@@ -130,6 +133,7 @@ class SearchBar extends React.Component {
 		if (!this.state.show){
 			let vm = this;
 			vm.setState({ cacheData: vm.state.data, active: true });
+			if(vm.props.fullScreen){ blockOverflow(true); }
 
 			vm.animTimeout = setTimeout(function () {
 				vm.setState({ show: true });
@@ -148,9 +152,10 @@ class SearchBar extends React.Component {
 	}
 
 	hideSelf(){
-		if (this.state.show) {
-			let vm = this;
+		let vm = this;
+		if (vm.state.show) {
 			vm.setState({ show: false });
+			if(vm.props.fullScreen){ blockOverflow(false); }
 			vm.animTimeout = setTimeout(function () {
 				vm.setState({ cacheData: false, active: false });
 			}, 500);
@@ -233,7 +238,7 @@ class SearchBar extends React.Component {
 		if (active) {
 			vm.setState({ loading: true });
 
-			request.get(apiPath('search'), { search: vm.props.inputValue, }, function (payload, status) {
+			request.get('search', { search: vm.props.inputValue, }, function (payload, status) {
 
 				if (payload) {
 					vm.setState({ data: payload, loading: false });
@@ -241,7 +246,7 @@ class SearchBar extends React.Component {
 				else {
 					console.log('error');
 				}
-			}, { excludeApiPath: true });
+			});
 		}
 		else {
 			vm.setState({ data: false, loading: false })
@@ -296,11 +301,15 @@ class SearchBar extends React.Component {
 							placeholder={vm.props.placeholder}
 							onChange={vm.inputChange}>
 						</input>
-						<button
-							type="submit"
-							className="searchbar-submit btn primary">
-							<i className="icon-search"></i>Ara
-						</button>
+						{ vm.props.fullScreen ?
+							<button type="button" className="searchbar-close" onClick={this.hide}><i className="icon-close"></i></button>
+							:
+							<button
+								type="submit"
+								className="searchbar-submit btn primary">
+								<i className="icon-search"></i>Ara
+							</button>
+						}
 
 					</form>
 

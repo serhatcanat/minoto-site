@@ -69,6 +69,10 @@
 				}
 	}
 
+	.searchbar-form {
+		position: relative;
+	}
+
 	.searchbar-input {
 		width: 100%;
 		display: block;
@@ -105,6 +109,17 @@
 			font-size: 1.4rem;
 			margin-right: 1.1rem;
 		}
+	}
+
+	.searchbar-close {
+		position: absolute;
+		font-size: 1.4rem;
+		right: 0;
+		height: 6rem;
+		line-height: 6rem;
+		width: 5.4rem;
+		top: 50%;
+		transform: translate3d(0, -50%, 0);
 	}
 
 	.searchbar-results {
