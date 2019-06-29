@@ -26,6 +26,7 @@ const mapStateToProps = state => {
 		user: state.user.user,
 		//mobile: state.generic.mobile,
 	};
+
 };
 
 class Header extends React.Component {
@@ -38,6 +39,7 @@ class Header extends React.Component {
 		}
 
 		this.toggleMenu = this.toggleMenu.bind(this);
+		this.closeMenu = this.closeMenu.bind(this);
 		this.menuTimeout = false;
 	}
 
@@ -73,6 +75,10 @@ class Header extends React.Component {
 
 	toggleMenu() {
 		this.setState({ menuOpen: !this.state.menuOpen });
+	}
+
+	closeMenu() {
+		this.setState({ menuOpen: false })
 	}
 
 	render() {
@@ -227,6 +233,7 @@ class Header extends React.Component {
 										</div>
 									</Slider>
 								</div>
+								<button className="menu-overlay" onClick={vm.closeMenu}></button>
 							</div>
 						)}
 					</nav>
