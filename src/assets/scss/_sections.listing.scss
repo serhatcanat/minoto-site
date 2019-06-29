@@ -514,16 +514,14 @@
 							align-items: center;
 						}
 
-							.text-title {
+							
 
-							}
-
-								.title-count {
-									color: $color-text-light;
-									font-size: 1.2rem;
-									transition: color $transition-hover ease;
-									margin-left: .3rem;
-								}
+						.title-count {
+							color: $color-text-light;
+							font-size: 1.2rem;
+							transition: color $transition-hover ease;
+							margin-left: .3rem;
+						}
 
 						.item-logo {
 							height: 2rem;
@@ -797,4 +795,9 @@
 				}
 			}
 	}
+}
+
+.inputwrap.type-checkbox .checkwrap input + label:hover{
+	color: $color-blue;
+	text-decoration: underline;
 }
