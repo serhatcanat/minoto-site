@@ -25,7 +25,7 @@
 			right: -1.7rem;
 
 			.popinfo-bg {
-				&:before {
+				.bg-pop {
 					left: auto;
 					right: 2rem;
 				}
@@ -50,7 +50,7 @@
 		border-radius: $radius-general;
 
 
-		&:before{
+		.bg-pop{
 			@extend %pseudo;
 			position: absolute;
 			bottom: 100%;
