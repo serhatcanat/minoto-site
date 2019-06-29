@@ -9,20 +9,36 @@ import debounce from 'lodash/debounce'
 import request from 'controllers/request'
 import { Link } from 'react-router-dom'
 import { apiPath } from 'functions/helpers';
+import { connect } from "react-redux";
+import { setSearchBarValue, setSearchBarOpen } from 'data/store.generic';
 
 // Assets
 import image_autocomplete_default from 'assets/images/defaults/autocomplete-thumb.jpg'
 
-export default class SearchBar extends React.Component {
+const mapStateToProps = state => {
+	return {
+		mobile: state.generic.mobile,
+		inputValue: state.generic.searchBarValue,
+		open: state.generic.searchBarOpen,
+	};
+};
+
+const mapDispatchToProps = dispatch => {
+	return {
+		setValue: (value) => dispatch(setSearchBarValue(value)),
+		setOpen: (value) => dispatch(setSearchBarOpen(value)),
+	}
+}
+
+class SearchBar extends React.Component {
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			inputVal: '',
 			loading: false,
 			data: false,
 			cacheData: false,
-			show: false,
+			show: props.open,
 			focusedGroup: -1,
 			focusedResult: -1,
 		}
@@ -53,17 +69,14 @@ export default class SearchBar extends React.Component {
 		this.input.current.removeEventListener("blur", this.blur);
 		this.input.current.removeEventListener("focus", this.focus);
 		this.input.current.removeEventListener("click", this.focus);
-		/*if(this.timeout !== null){
-			clearTimeout(this.timeout);
-		}*/
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		if (prevState.inputVal !== this.state.inputVal) {
+		if (prevProps.inputValue !== this.props.inputValue) {
 			this.updateSearch();
 		}
 
-		if ((prevState.data === false && this.state.data !== false) || (this.state.data !== false && (prevState.inputVal !== this.state.inputVal) && !this.state.active)) {
+		if ((prevState.data === false && this.state.data !== false) || (this.state.data !== false && (prevProps.inputValue !== this.props.inputValue) && !this.state.active)) {
 			this.show();
 		}
 		else if (this.state.data === false && prevState.data !== false) {
@@ -72,7 +85,7 @@ export default class SearchBar extends React.Component {
 	}
 
 	show() {
-		if (!this.state.show) {
+		if (!this.state.show && ((this.props.mobile && this.props.fullScreen) || (!this.props.mobile && !this.props.fullScreen))){
 			let vm = this;
 			vm.setState({ cacheData: vm.state.data });
 			vm.animTimeout = setTimeout(function () {
@@ -108,7 +121,7 @@ export default class SearchBar extends React.Component {
 			clearTimeout(this.blurTimeout);
 			this.blurTimeout = false;
 		}
-		if (this.state.data !== false && this.state.inputVal !== '' && !this.state.active) {
+		if (this.state.data !== false && this.props.inputValue !== '' && !this.state.active) {
 			this.show();
 		}
 	}
@@ -161,13 +174,13 @@ export default class SearchBar extends React.Component {
 
 	updateSearch() {
 		let vm = this;
-		let active = vm.state.inputVal.length;
+		let active = vm.props.inputValue.length;
 
 
 		if (active) {
 			vm.setState({ loading: true });
 
-			request.get(apiPath('search'), { search: vm.state.inputVal, }, function (payload, status) {
+			request.get(apiPath('search'), { search: vm.props.inputValue, }, function (payload, status) {
 
 				if (payload) {
 					vm.setState({ data: payload, loading: false });
@@ -184,7 +197,8 @@ export default class SearchBar extends React.Component {
 	}
 
 	inputChange(e) {
-		this.setState({ inputVal: e.target.value })
+		//this.setState({ inputVal: e.target.value })
+		this.props.setValue(e.target.value);
 	}
 
 	formSubmit(e) {
@@ -210,7 +224,7 @@ export default class SearchBar extends React.Component {
 						type="text"
 						ref={vm.input}
 						className={inputClasses}
-						value={vm.state.inputVal}
+						value={vm.props.inputValue}
 						placeholder={vm.props.placeholder}
 						onChange={vm.inputChange}>
 					</input>
@@ -258,4 +272,7 @@ export default class SearchBar extends React.Component {
 SearchBar.defaultProps = {
 	className: '',
 	placeholder: 'Volvo XC40 ara',
+	fullScreen: false,
 };
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchBar);
