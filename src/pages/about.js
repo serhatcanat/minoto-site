@@ -79,7 +79,7 @@ class About extends React.Component {
 					<div className="team-wrap wrapper narrow">
 						<GalleryContainer className="team-container" {...galleryProps}>
 							<div className="team-member">
-								<Image className="member-image" src="/dummy/images/profile-picture.jpg" bg alt="Kaan Boyner" />
+								<Image className="member-image" src="/dummy/images/profile-picture.jpg" bg abs alt="Kaan Boyner" />
 								<div className="member-content">
 									<strong className="member-position">CEO</strong>
 									<h4 className="member-name">Kaan Boyner</h4>
@@ -93,7 +93,7 @@ class About extends React.Component {
 							</div>
 
 							<div className="team-member">
-								<Image className="member-image" src="/dummy/images/profile-picture.jpg" bg alt="Ferhat Albayrak" />
+								<Image className="member-image" src="/dummy/images/profile-picture.jpg" bg abs alt="Ferhat Albayrak" />
 								<div className="member-content">
 									<strong className="member-position">CEO</strong>
 									<h4 className="member-name">Ferhat Albayrak</h4>
@@ -107,7 +107,7 @@ class About extends React.Component {
 							</div>
 
 							<div className="team-member">
-								<Image className="member-image" src="/dummy/images/profile-picture.jpg" bg alt="Kaan Boyner" />
+								<Image className="member-image" src="/dummy/images/profile-picture.jpg" bg abs alt="Kaan Boyner" />
 								<div className="member-content">
 									<strong className="member-position">CEO</strong>
 									<h4 className="member-name">Kaan Boyner</h4>
@@ -121,7 +121,7 @@ class About extends React.Component {
 							</div>
 
 							<div className="team-member">
-								<Image className="member-image" src="/dummy/images/profile-picture.jpg" bg alt="Ferhat Albayrak" />
+								<Image className="member-image" src="/dummy/images/profile-picture.jpg" bg abs alt="Ferhat Albayrak" />
 								<div className="member-content">
 									<strong className="member-position">CEO</strong>
 									<h4 className="member-name">Ferhat Albayrak</h4>

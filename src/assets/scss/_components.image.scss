@@ -25,6 +25,16 @@
 		}
 	}
 
+	&.abs {
+		position: relative;
+
+		.imagewrap-image {
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+	}
+
 	.imagewrap-image {
 		width: 100%;
 		height: 100%;

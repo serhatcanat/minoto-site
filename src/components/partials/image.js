@@ -76,7 +76,7 @@ class ImageElem extends React.Component {
 
 		if (vm.state.src) {
 			let classes = 'image ' + vm.props.className + ((!vm.props.noLoad && vm.state.loading) ? ' image-loading' : '');
-			let props = omit(vm.props, ['src', 'className', 'webStyle', 'mobileStyle', 'contain', 'bg', 'alt', 'iconLoader']);
+			let props = omit(vm.props, ['src', 'className', 'webStyle', 'mobileStyle', 'contain', 'bg', 'abs', 'alt', 'iconLoader']);
 
 			let style = (vm.props.mobile ? extend({}, vm.props.style, vm.props.mobileStyle) : extend({}, vm.props.style, vm.props.webStyle));
 
@@ -89,6 +89,10 @@ class ImageElem extends React.Component {
 
 				if (vm.props.contain) {
 					classes += ' contain';
+				}
+
+				if (vm.props.abs) {
+					classes += ' abs';
 				}
 				let styles = {
 					//backgroundImage: 'url(' + vm.state.src + ')',

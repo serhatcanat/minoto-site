@@ -38,6 +38,7 @@ class SearchBar extends React.Component {
 			loading: false,
 			data: false,
 			cacheData: false,
+			active: props.open,
 			show: props.open,
 			focusedGroup: -1,
 			focusedResult: -1,
@@ -45,30 +46,48 @@ class SearchBar extends React.Component {
 
 		this.inputChange = this.inputChange.bind(this);
 		this.show = this.show.bind(this);
+		this.showSelf = this.showSelf.bind(this);
 		this.hide = this.hide.bind(this);
+		this.hideSelf = this.hideSelf.bind(this);
 		this.focus = this.focus.bind(this);
 		this.blur = this.blur.bind(this);
 		this.keyInput = this.keyInput.bind(this);
+		this.bindInputs = this.bindInputs.bind(this);
+		this.unbindInputs = this.unbindInputs.bind(this);
 		this.updateSearch = debounce(this.updateSearch.bind(this), 300);
 		this.input = React.createRef();
 		this.animTimeout = false;
 		this.blurTimeout = false;
 
-		this.slideInstances = []
+		this.slideInstances = [];
+
+		this.inputsBound = false;
 	}
 
 	componentDidMount() {
-		this.input.current.addEventListener("keydown", this.keyInput);
-		this.input.current.addEventListener("blur", this.blur);
-		this.input.current.addEventListener("focus", this.focus);
-		this.input.current.addEventListener("click", this.focus);
+		this.bindInputs();
 	}
 
 	componentWillUnmount() {
-		this.input.current.removeEventListener("keydown", this.keyInput);
-		this.input.current.removeEventListener("blur", this.blur);
-		this.input.current.removeEventListener("focus", this.focus);
-		this.input.current.removeEventListener("click", this.focus);
+		this.unbindInputs();
+	}
+
+	bindInputs() {
+		if(this.input.current){
+			this.input.current.addEventListener("keydown", this.keyInput);
+			this.input.current.addEventListener("blur", this.blur);
+			this.input.current.addEventListener("focus", this.focus);
+			this.input.current.addEventListener("click", this.focus);
+		}
+	}
+
+	unbindInputs() {
+		if(this.input.current){
+			this.input.current.removeEventListener("keydown", this.keyInput);
+			this.input.current.removeEventListener("blur", this.blur);
+			this.input.current.removeEventListener("focus", this.focus);
+			this.input.current.removeEventListener("click", this.focus);
+		}
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -82,24 +101,58 @@ class SearchBar extends React.Component {
 		else if (this.state.data === false && prevState.data !== false) {
 			this.hide();
 		}
+
+		if(prevProps.open !== this.props.open){
+			if(this.props.open && ((this.props.mobile && this.props.fullScreen) || (this.props.mobile && this.props.fullScreen))){
+				this.showSelf();
+			}
+			else {
+				this.hideSelf();
+			}
+		}
+
+		if(prevProps.mobile !== this.props.mobile){
+			if(this.props.open && ((this.props.mobile && this.props.fullScreen) || (this.props.mobile && this.props.fullScreen))){
+				this.bindInputs();
+				this.setState({ active: true, show: true });
+			}
+			else{
+				this.setState({ active: false, show: false });
+			}
+		}
 	}
 
 	show() {
-		if (!this.state.show && ((this.props.mobile && this.props.fullScreen) || (!this.props.mobile && !this.props.fullScreen))){
+		this.props.setOpen(true);
+	}
+
+	showSelf() {
+		if (!this.state.show){
 			let vm = this;
-			vm.setState({ cacheData: vm.state.data });
+			vm.setState({ cacheData: vm.state.data, active: true });
+
 			vm.animTimeout = setTimeout(function () {
 				vm.setState({ show: true });
+
+				if(vm.input.current){
+					setTimeout(function() {
+						vm.input.current.focus();
+					}, 10);
+				}
 			}, 30);
 		}
 	}
 
 	hide() {
+		this.props.setOpen(false);
+	}
+
+	hideSelf(){
 		if (this.state.show) {
 			let vm = this;
 			vm.setState({ show: false });
 			vm.animTimeout = setTimeout(function () {
-				vm.setState({ cacheData: false });
+				vm.setState({ cacheData: false, active: false });
 			}, 500);
 		}
 	}
@@ -207,65 +260,82 @@ class SearchBar extends React.Component {
 
 	render() {
 		let vm = this;
-		let containerClasses = "searchbar " + vm.props.className;
-		let inputClasses = 'searchbar-input';
 
-		let data = vm.state.data;
+		if(!(!vm.props.mobile && vm.props.fullScreen)){
+		
+			let containerClasses = "searchbar " + vm.props.className + (vm.props.fullScreen ? ' fullscreen' : ' regular');
+			let inputClasses = 'searchbar-input';
 
-		if (vm.state.show) { containerClasses += ' show'; }
+			let data = vm.state.data;
 
-		return (
-			<div className={containerClasses}>
-				{vm.state.loading && (
-					<i className="searchbar-loader icon-spinner"></i>
-				)}
-				<form className="searchbar-form" onSubmit={vm.formSubmit}>
-					<input
-						type="text"
-						ref={vm.input}
-						className={inputClasses}
-						value={vm.props.inputValue}
-						placeholder={vm.props.placeholder}
-						onChange={vm.inputChange}>
-					</input>
-					<button
-						type="submit"
-						className="searchbar-submit btn primary">
-						<i className="icon-search"></i>Ara
-					</button>
+			if (vm.state.active) { containerClasses += ' active'; }
+			if (vm.state.show) { containerClasses += ' show'; }
 
-				</form>
+			let GroupWrap = 'div';
+			let groupParams = {};
 
-				{(data && (
-					<div className={"searchbar-results " + (vm.state.loading ? ' loading' : '')}>
-						{(data.groups && data.groups.length) && (
-							data.groups.map((group, g_nth) => (
-								<div className="results-group" key={g_nth}>
-									{group.title && <strong className="group-title">{group.title}</strong>}
-									<Slider className="group-wrap" scrollBar ref={(ref) => vm.slideInstances[g_nth] = ref}>
-										{group.results.map((result, r_nth) => (
-											<div className={"group-item" + ((g_nth === vm.state.focusedGroup && r_nth === vm.state.focusedResult) ? ' focused' : '')} key={'g_' + r_nth}>
-												<Link to={result.link} onClick={vm.hide}>
-													{group.hasimages && (
-														<Image className="item-image" src={(result.image ? result.image : image_autocomplete_default)} />
-													)}
-													{result.title}
-												</Link>
+			if(!vm.props.fullScreen){
+				GroupWrap = Slider;
+				groupParams = {
+					scrollBar: true
+				}
+			}
+
+			return (
+				<div className={containerClasses}>
+					{vm.state.loading && (
+						<i className="searchbar-loader icon-spinner"></i>
+					)}
+					<form className="searchbar-form" onSubmit={vm.formSubmit}>
+						{ vm.props.fullScreen && <i className="searchbar-icon icon-search"></i> }
+						<input
+							type="text"
+							ref={vm.input}
+							className={inputClasses}
+							value={vm.props.inputValue}
+							placeholder={vm.props.placeholder}
+							onChange={vm.inputChange}>
+						</input>
+						<button
+							type="submit"
+							className="searchbar-submit btn primary">
+							<i className="icon-search"></i>Ara
+						</button>
+
+					</form>
+
+					{(data && (
+						<div className={"searchbar-results " + (vm.state.loading ? ' loading' : '')}>
+							{(data.groups && data.groups.length) && (
+								data.groups.map((group, g_nth) => (
+									<div className="results-group" key={g_nth}>
+										{group.title && <strong className="group-title">{group.title}</strong>}
+										<GroupWrap className="group-wrap" {...groupParams} ref={(ref) => vm.slideInstances[g_nth] = ref}>
+											{group.results.map((result, r_nth) => (
+												<div className={"group-item" + ((g_nth === vm.state.focusedGroup && r_nth === vm.state.focusedResult) ? ' focused' : '')} key={'g_' + r_nth}>
+													<Link to={result.link} onClick={vm.hide}>
+														{group.hasimages && (
+															<Image className="item-image" src={(result.image ? result.image : image_autocomplete_default)} />
+														)}
+														{result.title}
+													</Link>
+												</div>
+											))}
+										</GroupWrap>
+										{group.cta && (
+											<div className="group-cta">
+												<Link className="cta-link" onClick={vm.hide} to={group.cta.link}>{group.cta.title} <i className="icon-angle-right"></i></Link>
 											</div>
-										))}
-									</Slider>
-									{group.cta && (
-										<div className="group-cta">
-											<Link className="cta-link" onClick={vm.hide} to={group.cta.link}>{group.cta.title} <i className="icon-angle-right"></i></Link>
-										</div>
-									)}
-								</div>
-							))
-						)}
-					</div>
-				))}
-			</div>
-		)
+										)}
+									</div>
+								))
+							)}
+						</div>
+					))}
+				</div>
+			)
+		}
+		else { return false; }
 	}
 }
 
