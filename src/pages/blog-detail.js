@@ -25,10 +25,10 @@ import image_icon_link from 'assets/images/icon/link.svg'
 import image_loader from 'assets/images/loader2.gif'
 
 const dummyGallery = [
-	{"large": "http://lorempixel.com/1024/768"},
-	{"large": "http://lorempixel.com/1024/768"},
-	{"large": "http://lorempixel.com/1024/768"},
-	{"large": "http://lorempixel.com/1024/768"}
+	{ "large": "http://lorempixel.com/1024/768" },
+	{ "large": "http://lorempixel.com/1024/768" },
+	{ "large": "http://lorempixel.com/1024/768" },
+	{ "large": "http://lorempixel.com/1024/768" }
 ]
 
 export default class BlogDetail extends React.Component {
@@ -80,7 +80,7 @@ export default class BlogDetail extends React.Component {
 									{data.userTwitterUsername ? (<a style={{ color: '#1da1f2' }} href={`https://twitter.com/${data.userTwitterUsername}`} target="_blank" rel="noopener noreferrer"><i className="icon-twitter"></i> {data.user} </a>) : data.user}
 
 
-									{data.date && <span>@ {data.date}</span>}
+									{data.date && <span> @ {data.date}</span>}
 								</span>
 							</div>
 
@@ -138,7 +138,7 @@ export default class BlogDetail extends React.Component {
 }
 
 class Sharer extends React.Component {
-	constructor(props){
+	constructor(props) {
 		super(props);
 		this.copyURL = this.copyURL.bind(this);
 	}
