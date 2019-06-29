@@ -40,6 +40,7 @@ class SearchBar extends React.Component {
 			cacheData: false,
 			active: props.open,
 			show: props.open,
+			primary: ((props.mobile && props.fullScreen) || (!props.mobile && !props.fullScreen)),
 			focusedGroup: -1,
 			focusedResult: -1,
 		}
@@ -103,7 +104,7 @@ class SearchBar extends React.Component {
 		}
 
 		if(prevProps.open !== this.props.open){
-			if(this.props.open && ((this.props.mobile && this.props.fullScreen) || (this.props.mobile && this.props.fullScreen))){
+			if(this.props.open && this.state.primary){
 				this.showSelf();
 			}
 			else {
@@ -112,7 +113,11 @@ class SearchBar extends React.Component {
 		}
 
 		if(prevProps.mobile !== this.props.mobile){
-			if(this.props.open && ((this.props.mobile && this.props.fullScreen) || (this.props.mobile && this.props.fullScreen))){
+			this.setState({ primary: ((this.props.mobile && this.props.fullScreen) || (!this.props.mobile && !this.props.fullScreen)) });
+		}
+
+		if(prevState.primary !== this.state.primary){
+			if(this.props.open && this.state.primary){
 				this.bindInputs();
 				this.setState({ active: true, show: true });
 			}
@@ -266,7 +271,7 @@ class SearchBar extends React.Component {
 	render() {
 		let vm = this;
 
-		if(!(!vm.props.mobile && vm.props.fullScreen)){
+		if(!(!vm.state.primary && vm.props.fullScreen)){
 		
 			let containerClasses = "searchbar " + vm.props.className + (vm.props.fullScreen ? ' fullscreen' : ' regular');
 			let inputClasses = 'searchbar-input';
