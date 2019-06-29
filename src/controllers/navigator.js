@@ -21,7 +21,7 @@ import MessengerWrap from 'controllers/messenger'
 // Deps
 import { Route, matchPath, Switch, Redirect } from 'react-router-dom'
 import history from 'controllers/history'
-import { setTitle, setMeta, setHead } from 'controllers/head'
+import { setTitle, setMeta, setHead, setDescription } from 'controllers/head'
 import routes from 'data/routes'
 import store from "data/store";
 import { setPage } from "data/store.generic";
@@ -221,7 +221,6 @@ export function changePage(key = false, group = 'pages') {
 		key = route.key;
 		group = route.groupKey;
 	}
-	setTitle(route.title);
 
 	let pageData = {
 		key: key,
@@ -234,8 +233,20 @@ export function changePage(key = false, group = 'pages') {
 		store.dispatch(setPage(pageData));
 	}
 
+	setTitle(route.title);
+	if(route.description){
+		setDescription(route.description);
+	}
+
 	setMeta((route.meta ? route.meta : false), true);
 	setHead((route.head ? route.head : false), true);
+	setHead([{
+		key: "meta",
+		props: {
+			property: "og:url",
+			content: window.location.href,
+		}
+	}]);
 }
 
 export function renderRoutes(opts = {}) {

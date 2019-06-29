@@ -6,9 +6,9 @@ module.exports = {
 			exact: true,
 			linkTitle: "Anasayfa",
 			title: "Minoto - Türkiye'nin Sıfır Km Otomobil Sitesi | Sıfır Araba Modelleri",
+			descriptiopn: "En yeni ve uygun sıfır araba modelleri, fiyatları ve kampanyaları Minoto'da! 0 km araç satın almak için hemen tıkla, fırsatları kaçırma!",
 			meta: {
-				keywords: "Minoto, Sıfır Otomobil, Bayiler",
-				description: "En yeni ve uygun sıfır araba modelleri, fiyatları ve kampanyaları Minoto'da! 0 km araç satın almak için hemen tıkla, fırsatları kaçırma!"
+				keywords: "Minoto, Sıfır Otomobil, Bayiler"
 			},
 			// Bu şekilde head kısmına custom meta da eklenebilir.
 			/*head: [
@@ -48,9 +48,9 @@ module.exports = {
 			exact: true,
 			linkTitle: "Markalar",
 			title: "Araba Markaları ve Araç Listesi - Türkiye'nin Sıfır Km Oto Sitesi Minoto",
+			description: "Araba markalarına ve araç listesine ulaşmak için hemen tıkla, fırsatları kaçırma! Türkiye'nin Sıfır Km Oto Sitesi Minoto!",
 			meta: {
-				keywords: "Minoto, Sıfır Otomobil, Bayiler",
-				description: "Araba markalarına ve araç listesine ulaşmak için hemen tıkla, fırsatları kaçırma! Türkiye'nin Sıfır Km Oto Sitesi Minoto!"
+				keywords: "Minoto, Sıfır Otomobil, Bayiler"
 			},
 		},
 		brand: {

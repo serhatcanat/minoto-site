@@ -6,11 +6,41 @@ export function setTitle(title, postFix = undefined) {
 	const seperator = " | ";
 
 	if (title !== "") {
-		document.title = title + seperator + postFix;
+		title = title + seperator + postFix;
 	}
 	else {
-		document.title = postFix;
+		title = postFix
 	}
+
+	document.title = title;
+	setHead([{
+		key: "meta",
+		props: {
+			property: "og:title",
+			content: title,
+		}
+	}])
+}
+
+export function setDescription(description) {
+	let rawDescription = description.replace(/(\r\n|\n|\r)/gm, ' ');
+	
+	setHead([
+		{
+			key: "meta",
+			props: {
+				name: "description",
+				content: rawDescription,
+			}
+		},
+		{
+			key: "meta",
+			props: {
+				property: "og:description",
+				content: rawDescription,
+			}
+		}
+	])
 }
 
 export function setMeta(meta, clear = false) {
