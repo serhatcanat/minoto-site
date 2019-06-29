@@ -19,7 +19,7 @@ import FavBtn from 'components/partials/favbtn'
 // Deps
 import { ListingLink } from 'controllers/navigator'
 import { openModal } from "functions/modals";
-import { formatNumber, blockOverflow, nl2br } from 'functions/helpers.js';
+import { formatNumber, blockOverflow, nl2br, remToPx } from 'functions/helpers.js';
 import parse from 'html-react-parser';
 import { connect } from "react-redux";
 import request from 'controllers/request'
@@ -46,9 +46,8 @@ class Detail extends React.Component {
 
 	initialize() {
 		let vm = this;
-		let postUrl = window.location.pathname.split('/')[3];
 		if (vm.state.productData === false) {
-			request.get(`car-posts/${vm.props.match.params.id}/${postUrl}`, { id: vm.props.match.params.id, email: this.props.user.email }, function (payload, status) {
+			request.get(`car-posts/${vm.props.match.params.id}/${vm.props.match.params.slug}`, { id: vm.props.match.params.id, email: this.props.user.email }, function (payload, status) {
 				//request.get('/dummy/data/detail.json', { id: vm.props.match.params.id }, function (payload, status) {
 				if (payload) {
 					vm.setState({
@@ -65,10 +64,20 @@ class Detail extends React.Component {
 		this.initialize();
 	}
 
-	componentDidUpdate(prevProps) {
+	componentDidUpdate(prevProps, prevState) {
 		let user = this.props.user;
 		if (user !== prevProps.user) {
 			this.initialize()
+		}
+
+		if(prevProps.match.params.id !== this.props.match.params.id){
+			this.setState({
+				productData: false,
+			});
+		}
+
+		if(prevState.productData !== false && this.state.productData === false){
+			this.initialize();
 		}
 
 	}
@@ -458,6 +467,8 @@ class DetailExtras extends React.Component {
 		this.specsWrap = React.createRef();
 		this.galleryWrap = React.createRef();
 
+		this.checkSizes = this.checkSizes.bind(this);
+
 		this.sizeLimit = 39.6;
 	}
 
@@ -477,10 +488,10 @@ class DetailExtras extends React.Component {
 
 	checkSizes() {
 		if (this.descWrap.current) {
-			this.setState({ expandableDesc: (this.props.mobile ? false : (this.descWrap.current.offsetHeight > 39.6)) });
+			this.setState({ expandableDesc: (this.props.mobile ? false : (this.descWrap.current.offsetHeight > remToPx(this.sizeLimit))) });
 		}
 		if (this.specsWrap.current) {
-			this.setState({ expandableSpecs: (this.props.mobile ? false : (this.specsWrap.current.offsetHeight > 39.6)) });
+			this.setState({ expandableSpecs: (this.props.mobile ? false : (this.specsWrap.current.offsetHeight > remToPx(this.sizeLimit))) });
 		}
 	}
 

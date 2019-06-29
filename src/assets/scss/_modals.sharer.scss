@@ -5,11 +5,21 @@
 
 	.sharer-title {
 		font-size: 1.6rem;
+
+		@include media {
+			font-size: 2rem;
+		}
 	}
 
 	.sharer-media {
 		padding: 5.3rem 0 3rem;
 		text-align: center;
+
+		@include media {
+			display: flex;
+			justify-content: space-between;
+			padding-top: 2.6rem;
+		}
 	}
 
 		.media-link {
@@ -23,6 +33,11 @@
 			color: $color-text-negative;
 			transition: background-color $transition-hover ease;
 
+			@include media {
+				width: 5rem;
+				height: 5rem;
+			}
+
 			i {
 				position: absolute;
 				top: 50%;
@@ -32,6 +47,10 @@
 
 			+ .media-link {
 				margin-left: 4.8rem;
+
+				@include media {
+					margin-left: 0;
+				}
 			}
 
 			&.facebook {
@@ -66,17 +85,32 @@
 		align-items: center;
 		border-top: .1rem solid $color-gray;
 		padding: 1.9rem 0 0;
+
+		@include media {
+			display: block;
+		}
 	}
 
 		.info-link {
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
 			font-size: 1.8rem;
 			flex: 1;
+			display: block;
+			//width: calc(100% - 13.5rem);
 		}
 
 		.info-copy {
 			border-color: $color-gray;
 			width: 13.5rem;
 			margin-left: 2rem;
+
+			@include media {
+				width: 100%;
+				margin-left: 0;
+				margin-top: 2rem;
+			}
 
 			&:hover, &:active {
 				border-color: $color-primary;

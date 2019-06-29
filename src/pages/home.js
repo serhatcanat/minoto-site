@@ -7,7 +7,7 @@ import Listing from 'components/sections/listing.js'
 import Image from 'components/partials/image.js'
 import SearchBar from 'components/partials/searchbar.js'
 import request from 'controllers/request'
-import { setTitle, setMeta, setHead } from 'controllers/head'
+//import { setTitle, setMeta, setHead } from 'controllers/head'
 //Deps
 import { storageSpace } from "functions/helpers";
 

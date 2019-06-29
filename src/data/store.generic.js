@@ -13,6 +13,8 @@ const initialState = {
   mapsAPIkey: defaults.mapsAPIkey,
   windowWidth: window.innerWidth,
   listingFiltersExpanded: false,
+  searchBarOpen: false,
+  searchBarValue: "",
 };
 
 function globalReducer(state = initialState, action) {
@@ -56,6 +58,16 @@ function globalReducer(state = initialState, action) {
 			listingFiltersExpanded: action.payload
 		});
 	}
+	else if (action.type === "SET_SEARCHBAR_OPEN") {
+		return Object.assign({}, state, {
+			searchBarOpen: action.payload
+		});
+	}
+	else if (action.type === "SET_SEARCHBAR_VALUE") {
+		return Object.assign({}, state, {
+			searchBarValue: action.payload
+		});
+	}
 	return state;
 };
 export default globalReducer;
@@ -91,4 +103,12 @@ export function clearMessages(payload) {
 
 export function setListingFiltersExpansion(payload) {
 	return { type: "SET_LISTING_FILTERS_EXPANSION", payload }
+};
+
+export function setSearchBarOpen(payload) {
+	return { type: "SET_SEARCHBAR_OPEN", payload }
+};
+
+export function setSearchBarValue(payload) {
+	return { type: "SET_SEARCHBAR_VALUE", payload }
 };
