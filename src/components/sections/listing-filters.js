@@ -145,7 +145,7 @@ class ListingFilters extends React.Component {
 						}
 					</div>
 					{this.props.mobile &&
-						<div className="filters-overlay"></div>
+						<button type="button" className="filters-overlay" onClick={this.props.hideFilters}></button>
 					}
 				</aside>
 			)
