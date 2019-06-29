@@ -48,7 +48,7 @@
 			margin: 0 auto;
 			padding: 8.7rem 0 12rem;
 			font-size: 1.8rem;
-			line-height: 2.8rem;
+			line-height: 1.555555em;
 
 			@include media {
 				width: calc(100% - 5.6rem);
@@ -167,7 +167,7 @@
 			@include font-extralight;
 			width: calc(50% - 1.5rem);
 			font-size: 1.8rem;
-			line-height: 3.2rem;
+			line-height: 1.555555em;
 
 			@include media {
 				width: calc(100% - 18.8rem);
@@ -187,6 +187,7 @@
 
 			.content-text {
 				margin-top: 3rem;
+				line-height: inherit;
 				@include media {
 					@include font-extralight;
 					font-size: 1.4rem;
