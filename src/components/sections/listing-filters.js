@@ -144,6 +144,9 @@ class ListingFilters extends React.Component {
 							</div>
 						}
 					</div>
+					{this.props.mobile &&
+						<div className="filters-overlay"></div>
+					}
 				</aside>
 			)
 		}
