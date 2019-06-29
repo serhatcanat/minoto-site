@@ -66,7 +66,7 @@ class About extends React.Component {
 
 				<section className="section about-brands">
 					<div className="brands-wrap wrapper narrow">
-						<Image className="brands-image" src="/dummy/images/about-imgs.png" mobile="/dummy/images/about-imgs-mobile.png" />
+						<Image className="brands-image" src="/dummy/images/about-imgs2.png" mobile="/dummy/images/about-imgs-mobile2.png" />
 
 						<div className="brands-content">
 							<h3 className="content-title">10'larca otomobil markası ve yüzlerce bayi Minoto'da</h3>
@@ -85,7 +85,7 @@ class About extends React.Component {
 							{/*<div className="team-member" style={{ border: 'none' }}></div>*/}
 
 							<div className="team-member">
-								<Image className="member-image" src="/dummy/images/ferhat_albayrak.png" bg contain abs alt="Ferhat Albayrak" />
+								<Image className="member-image" style={{ border: "1px solid #f2f2f2" }} src="/dummy/images/ferhat_albayrak2.JPG" bg contain abs alt="Ferhat Albayrak" />
 								<div className="member-content">
 									<strong className="member-position">Founder & CEO</strong>
 									<h4 className="member-name">Ferhat Albayrak</h4>
