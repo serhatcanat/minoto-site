@@ -220,7 +220,8 @@
 
 		.team-container {
 			display: flex;
-			justify-content: space-between;
+			//justify-content: space-between;
+			justify-content: center;
 
 			@include media {
 				display: block;
@@ -235,8 +236,9 @@
 
 		.team-member {
 			width: 23rem;
-			border: .1rem solid $color-ice;
-			border-radius: $radius-big;
+			//border: .1rem solid $color-ice;
+			//border-radius: $radius-big;
+			margin: 0 4rem;
 
 			@include media {
 				width: 100%;
@@ -247,7 +249,8 @@
 				width: calc(100% + .2rem);
 				padding-bottom: 100%;
 				margin: -.1rem -.1rem 0;
-				border-radius: $radius-big;
+				//border-radius: $radius-big;
+				border-radius: 50%;
 			}
 
 			.member-content {

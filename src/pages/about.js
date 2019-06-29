@@ -82,16 +82,16 @@ class About extends React.Component {
 					<h3 className="team-title">Ekibimiz</h3>
 					<div className="team-wrap wrapper narrow">
 						<GalleryContainer className="team-container" {...galleryProps}>
-							<div className="team-member" style={{ border: 'none' }}></div>
+							{/*<div className="team-member" style={{ border: 'none' }}></div>*/}
 
 							<div className="team-member">
-								<Image className="member-image" src="/dummy/images/ferhat_albayrak.png" bg abs alt="Ferhat Albayrak" />
+								<Image className="member-image" src="/dummy/images/ferhat_albayrak.png" bg contain abs alt="Ferhat Albayrak" />
 								<div className="member-content">
 									<strong className="member-position">Founder & CEO</strong>
 									<h4 className="member-name">Ferhat Albayrak</h4>
 
 									<div className="member-contact">
-										<Link tag="a" title="Ferhat Albayrak LinkedIn Profili" href="http://www.linkedin.com" target="_blank" rel="nofollow">
+										<Link type="a" title="Ferhat Albayrak LinkedIn Profili" href="http://www.linkedin.com" target="_blank" rel="nofollow">
 											<Image src={image_icon_linkedin} alt="LinkedIn" />
 										</Link>
 									</div>
@@ -99,20 +99,20 @@ class About extends React.Component {
 							</div>
 
 							<div className="team-member">
-								<Image className="member-image" src="/dummy/images/kaan_boyner.png" bg abs alt="Kaan Boyner" />
+								<Image className="member-image" src="/dummy/images/kaan_boyner.png" bg contain abs alt="Kaan Boyner" />
 								<div className="member-content">
 									<strong className="member-position">Co-Founder</strong>
 									<h4 className="member-name">Kaan Boyner</h4>
 
 									<div className="member-contact">
-										<Link tag="a" title="Kaan Boyner LinkedIn Profili" href="http://www.linkedin.com" target="_blank" rel="nofollow">
+										<Link type="a" title="Kaan Boyner LinkedIn Profili" href="http://www.linkedin.com" target="_blank" rel="nofollow">
 											<Image src={image_icon_linkedin} alt="LinkedIn" />
 										</Link>
 									</div>
 								</div>
 							</div>
 
-							<div className="team-member" style={{ border: 'none' }}></div>
+							{/*<div className="team-member" style={{ border: 'none' }}></div>*/}
 						</GalleryContainer>
 					</div>
 				</section>
