@@ -637,6 +637,7 @@ class InputCheck extends React.Component {
 
 	validate(checked, touch) {
 		let vm = this;
+		if(checked === undefined){ checked = vm.state.checked; }
 		let validStatus = validation((checked ? '1' : ''), vm.props.validation);
 		vm.setState({ value: checked, checked: checked, error: (validStatus !== false), errorMessage: validStatus });
 		vm.props.onChange({
