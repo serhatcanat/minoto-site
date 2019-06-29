@@ -1,5 +1,8 @@
 import React from 'react';
 
+// Deps
+import { remToPx, pxToRem } from "functions/helpers"
+
 class PopInfo extends React.Component {
 
 	constructor(props) {
@@ -7,7 +10,8 @@ class PopInfo extends React.Component {
 		this.state = {
 			active: false,
 			show: false,
-			rtl: props.rtl,
+			//rtl: props.rtl,
+			compensation: false,
 		}
 
 		this.show = this.show.bind(this);
@@ -25,16 +29,28 @@ class PopInfo extends React.Component {
 				vm.setState({active: false, rtl: false});
 			}
 
-			vm.setState({active: true, rtl: false});
+			vm.setState({active: true, compensation: false});
 			vm.timeout = setTimeout(function() {
 				let rect = vm.contentWrap.current.getBoundingClientRect();
-				let rtl = (vm.props.rtl ? 
-					!(rect.x < 10)
+				let compensation = false;
+				const safeZone = remToPx(10);
+				/*let rtl = (vm.props.rtl ? 
+					!(rect.x < safeZone)
 					:
-					((rect.x + rect.width) > (window.innerWidth - 10))
-				);
+					((rect.x + rect.width) > (window.innerWidth - safeZone))
+				);*/
 
-				vm.setState({ rtl: rtl });
+				if(!vm.props.rtl){
+					let diff = (window.innerWidth - safeZone) - (rect.x + rect.width);
+					if(diff < 0){
+						compensation = diff;
+					}
+				}
+				else if(rect.x < safeZone) {
+					compensation = (rect.x < 0 ? (rect.x*-1) + safeZone : safeZone - rect.x);
+				}
+
+				vm.setState({ compensation: compensation });
 
 				vm.timeout = setTimeout(function() {
 					vm.setState({ show: true });
@@ -64,13 +80,23 @@ class PopInfo extends React.Component {
 		let vm = this;
 		let classes = 'popinfo-wrap ' + vm.props.className + (vm.props.nowrap ? ' nowrap' : '') + (vm.props.wide ? ' wide' : '');
 		let Tag = vm.props.tag;
+
+		let style = undefined;
+		let popStyle = undefined;
+
+		if(vm.state.compensation){
+			style = {marginLeft: pxToRem(vm.state.compensation)+"rem"}
+			popStyle = {marginLeft: pxToRem(vm.state.compensation)*-1+"rem"}
+		}
+
 		return (
 			<Tag className={classes} onMouseOver={vm.show} onMouseLeave={vm.hide}>
 				{vm.props.children}
 				{vm.state.active &&
-					<div className={"popinfo-content"+ (vm.state.show ? ' show' : '') + (vm.state.rtl ? ' rtl' : '')} ref={this.contentWrap}>
+					<div className={"popinfo-content"+ (vm.state.show ? ' show' : '') + (vm.props.rtl ? ' rtl' : '')} style={style} ref={this.contentWrap}>
 						<div className="popinfo-text">{vm.props.content}</div>
 						<div className="popinfo-bg">
+							<i className="bg-pop" style={popStyle}></i>
 						</div>
 					</div>
 				}

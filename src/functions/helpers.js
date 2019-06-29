@@ -262,3 +262,7 @@ export function nl2br(str, is_xhtml) {
 export function remToPx(num) {
 	return num * parseFloat(getComputedStyle(document.documentElement).fontSize);
 }
+
+export function pxToRem(num) {
+	return num / parseFloat(getComputedStyle(document.documentElement).fontSize);
+}

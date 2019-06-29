@@ -9,22 +9,22 @@ import Breadcrumbs from 'components/partials/breadcrumbs'
 import Loader from 'components/partials/loader'
 import Image from 'components/partials/image'
 import Btn from 'components/partials/btn'
-import PopInfo from 'components/partials/popinfo.js';
-import Collapse from 'components/partials/collapse.js';
-import Slider from 'components/partials/slider.js';
-import Tabs from 'components/partials/tabs.js';
-import Link from 'components/partials/link.js';
+import PopInfo from 'components/partials/popinfo.js'
+import Collapse from 'components/partials/collapse.js'
+import Slider from 'components/partials/slider.js'
+import Tabs from 'components/partials/tabs.js'
+import Link from 'components/partials/link.js'
 import FavBtn from 'components/partials/favbtn'
 
 // Deps
 import { ListingLink } from 'controllers/navigator'
-import { openModal } from "functions/modals";
-import { formatNumber, blockOverflow, nl2br, remToPx } from 'functions/helpers.js';
-import parse from 'html-react-parser';
-import { connect } from "react-redux";
+import { openModal } from "functions/modals"
+import { formatNumber, blockOverflow, nl2br, remToPx } from 'functions/helpers.js'
+import parse from 'html-react-parser'
+import { connect } from "react-redux"
 import request from 'controllers/request'
 import { setTitle } from 'controllers/head'
-import { storageSpace } from "functions/helpers";
+import { storageSpace } from "functions/helpers"
 
 // Assets
 import image_avatar from 'assets/images/defaults/avatar.svg';

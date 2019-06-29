@@ -318,6 +318,13 @@
 						transform: translate3d(-50%, 0, 0);
 						z-index: 2;
 						color: $color-text;
+						padding-top: .4rem;
+						padding-bottom: .4rem;
+						font-size: 1rem;
+
+						.btn-icon {
+							font-size: 1.2rem;
+						}
 					}
 
 				}
