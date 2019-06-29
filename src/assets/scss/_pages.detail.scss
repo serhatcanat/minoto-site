@@ -180,12 +180,11 @@
 
 					.gallery-mainslider{
 						padding-bottom: 0;
-						height: calc(100% - 12rem);
+						height: calc(100% - 15.3rem);
 
 						@include media {
 							height: 100%;
 						}
-					}
 
 						.mainslider-fullscreen {
 							display: none;
@@ -195,8 +194,11 @@
 							background-size: contain;
 						}
 
+					}
+
 					.gallery-thumbs {
-						height: 12rem;
+						//height: 12rem;
+						height: 15.3rem;
 					}
 				}
 			}
@@ -218,7 +220,6 @@
 					@include media {
 						padding-bottom: 60%;
 					}
-				}
 
 					.mainslider-nav {
 						position: absolute;
@@ -262,28 +263,28 @@
 							height: 100%;
 						}
 
-						.imagewrap-image {
-							position: relative;
-							width: 100%;
-							height: 100%;
-							background-size: contain;
-							background-repeat: no-repeat;
-							background-position: center;
-							opacity: 1;
-							transition: opacity $transition-hover ease;
-
-							@include media {
-								background-size: cover;
-							}
-
-
-							&.swiper-lazy-loaded {
+							.imagewrap-image {
+								position: relative;
+								width: 100%;
+								height: 100%;
+								background-size: contain;
+								background-repeat: no-repeat;
+								background-position: center;
 								opacity: 1;
-								+ .imagewrap-loader {
-									opacity: 0;
+								transition: opacity $transition-hover ease;
+
+								@include media {
+									background-size: cover;
+								}
+
+
+								&.swiper-lazy-loaded {
+									opacity: 1;
+									+ .imagewrap-loader {
+										opacity: 0;
+									}
 								}
 							}
-						}
 
 							.imagewrap-loader {
 								@include spin;
@@ -305,9 +306,12 @@
 						color: $color-text;
 					}
 
+				}
+
 				.gallery-thumbs {
 					position: relative;
-					height: 9.5rem;
+					//height: 9.5rem;
+					height: 11.4rem;
 					padding: 1rem 1.9rem;
 					background-color: $color-white;
 
