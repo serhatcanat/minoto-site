@@ -96,6 +96,9 @@
 
 	&.home-listing {
 		position: relative;
-		z-index: 1;
+
+		@include media {
+			z-index: 3;
+		}
 	}
 }

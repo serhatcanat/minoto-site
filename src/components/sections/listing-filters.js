@@ -36,9 +36,11 @@ class ListingFilters extends React.Component {
 			show: false,
 			data: false,
 			query: false,
+			activeFilters: 0,
 		}
 
 		this.serializeFilters = this.serializeFilters.bind(this);
+		this.clearFilters = this.clearFilters.bind(this);
 		this.query = false;
 
 		this.formRef = React.createRef();
@@ -77,17 +79,11 @@ class ListingFilters extends React.Component {
 		if (!isExact(prevProps.data, vm.props.data)) {
 			vm.serializeFilters();
 		}
-
-		/*if(!isExact(prevProps.query, vm.props.query)){
-			this.setState({query: vm.props.query});
-		}
-
-		if(!isExact(prevState.query, vm.state.query)){
-		});*/
 	}
 
 	serializeFilters(echo = false) {
 		let vm = this;
+		let filterCount = 0;
 		let newQuery = {};
 
 		if (vm.formRef.current) {
@@ -98,15 +94,19 @@ class ListingFilters extends React.Component {
 			newQuery = extend({}, newQuery, vm.props.query);
 		}
 
+		filterCount = Object.keys(newQuery).length;
+
 		if (vm.props.order !== null) {
 			newQuery.siralama = vm.state.order;
 		}
 		else if (newQuery.siralama) {
 			delete newQuery.siralama;
+			filterCount--;
 		}
 
 		if (!isExact(vm.query, newQuery)) {
 			vm.query = newQuery;
+			vm.setState({activeFilters: filterCount})
 			if (vm.props.onUpdate) {
 				vm.props.onUpdate(vm.query);
 			}
@@ -115,6 +115,19 @@ class ListingFilters extends React.Component {
 			setTimeout(function () {
 				vm.serializeFilters(true);
 			}, 15);
+		}
+	}
+
+	clearFilters() {
+		let query = {};
+		if (this.props.order !== null) {
+			query.siralama = this.state.order;
+		}
+
+		this.query = query;
+		this.props.hideFilters();
+		if (this.props.onUpdate) {
+			this.props.onUpdate(this.query);
 		}
 	}
 
@@ -128,6 +141,9 @@ class ListingFilters extends React.Component {
 							{data.filtersTitle &&
 								<div className="filters-header">
 									<h1 className="header-title">{data.filtersTitle}</h1>
+									{this.state.activeFilters > 0 &&
+										<button className="header-clear" onClick={this.clearFilters}>Filtreleri Temizle</button>
+									}
 								</div>
 							}
 							<form className="filters-form" ref={this.formRef}>

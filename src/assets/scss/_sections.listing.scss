@@ -439,6 +439,9 @@
 		}
 
 		.filters-header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
 			padding: 1.7rem 0 1.6rem;
 			margin-bottom: 1.9rem;
 			border-top: .1rem solid $color-ice;
@@ -453,6 +456,13 @@
 				@include font-regular;
 				font-size: 1.6rem;
 				line-height: 1.9rem;
+			}
+
+			.header-clear {
+				@include font-semibold;
+				font-size: 1.2rem;
+				text-decoration: underline;
+				color: rgba($color-text, .5);
 			}
 
 		.filters-filter {

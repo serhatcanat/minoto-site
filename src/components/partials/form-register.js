@@ -152,7 +152,7 @@ export default class RegisterForm extends React.Component {
 						type="checkbox"
 						validation={{ required: "Üye olmak için kullanıcı sözleşmesini kabul etmeniz gerekmektedir." }}
 						className="form-field">
-						"Üye Ol" butonuna tıklayarak Minoto’nun <Link className="text-minoto" href="privacy" target="_blank" rel="noopener noreferrer">Kullanıcı Sözleşmesi’ni</Link> kabul etmiş sayılacaksınız.
+						"Üye Ol" butonuna tıklayarak Minoto’nun <Link className="field-link text-minoto" href="privacy" target="_blank" rel="noopener noreferrer">Kullanıcı Sözleşmesi’ni</Link> kabul etmiş sayılacaksınız.
 					</FormInput>
 					<FormInput
 						name="promotions"
