@@ -294,12 +294,10 @@ class DetailGallery extends React.Component {
 								<div className="imagewrap-image swiper-lazy" data-background={storageSpace('car-posts/gallery', image.medium)}>
 								</div>
 								{/*<i className="imagewrap-loader icon-spinner"></i>*/}
-								<img src={loader} width="150" style={{
+								<img src={loader} width="150" alt={product.title} style={{
 									marginLeft: "-75px",
 									marginTop: "-75px",
 									zIndex: "-1",
-
-
 									position: "absolute",
 									top: "50%",
 									left: "50%"

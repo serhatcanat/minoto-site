@@ -12,6 +12,7 @@ class PopInfo extends React.Component {
 			show: false,
 			//rtl: props.rtl,
 			compensation: false,
+			upsideDown: props.upsideDown,
 		}
 
 		this.show = this.show.bind(this);
@@ -26,14 +27,15 @@ class PopInfo extends React.Component {
 		if(!this.state.show){
 			if(vm.timeout){
 				clearTimeout(vm.timeout);
-				vm.setState({active: false, rtl: false});
+				vm.setState({active: false, rtl: false, upsideDown: vm.props.upsideDown});
 			}
 
 			vm.setState({active: true, compensation: false});
 			vm.timeout = setTimeout(function() {
 				let rect = vm.contentWrap.current.getBoundingClientRect();
 				let compensation = false;
-				const safeZone = remToPx(10);
+				let upsideDown = vm.props.upsideDown;
+				const safeZone = remToPx(1);
 				/*let rtl = (vm.props.rtl ? 
 					!(rect.x < safeZone)
 					:
@@ -41,16 +43,31 @@ class PopInfo extends React.Component {
 				);*/
 
 				if(!vm.props.rtl){
+					//console.log(rect);
+					//debugger;
 					let diff = (window.innerWidth - safeZone) - (rect.x + rect.width);
 					if(diff < 0){
 						compensation = diff;
 					}
+
+					console.log(compensation);
 				}
 				else if(rect.x < safeZone) {
 					compensation = (rect.x < 0 ? (rect.x*-1) + safeZone : safeZone - rect.x);
 				}
 
-				vm.setState({ compensation: compensation });
+				if(!vm.props.upsideDown){
+					if((rect.y + rect.height) > window.innerHeight - safeZone){
+						upsideDown = true;
+					}
+				}
+				else {
+					if(rect.y < safeZone){
+						upsideDown = false;
+					}
+				}
+
+				vm.setState({ compensation: compensation, upsideDown: upsideDown });
 
 				vm.timeout = setTimeout(function() {
 					vm.setState({ show: true });
@@ -70,7 +87,7 @@ class PopInfo extends React.Component {
 		vm.timeout = setTimeout(function() {
 			vm.setState({show: false});
 			vm.timeout = setTimeout(function() {
-				vm.setState({ active: false, rtl: false });
+				vm.setState({ active: false, rtl: false, upsideDown: vm.props.upsideDown });
 				vm.timeout = false;
 			}, 220);
 		}, 60);
@@ -93,7 +110,7 @@ class PopInfo extends React.Component {
 			<Tag className={classes} onMouseOver={vm.show} onMouseLeave={vm.hide}>
 				{vm.props.children}
 				{vm.state.active &&
-					<div className={"popinfo-content"+ (vm.state.show ? ' show' : '') + (vm.props.rtl ? ' rtl' : '')} style={style} ref={this.contentWrap}>
+					<div className={"popinfo-content"+ (vm.state.show ? ' show' : '') + (vm.props.rtl ? ' rtl' : '') + (vm.state.upsideDown ? ' upside-down' : '')} style={style} ref={this.contentWrap}>
 						<div className="popinfo-text">{vm.props.content}</div>
 						<div className="popinfo-bg">
 							<i className="bg-pop" style={popStyle}></i>

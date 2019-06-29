@@ -12,7 +12,7 @@
 		color: $color-text-negative;
 		font-size: 1.2rem;
 		line-height: 1.6em;
-		padding: 2.1rem 1.3rem 1.4rem;
+		padding: 2.1rem 1.3rem 1.2rem;
 		text-transform: none;
 		text-align: left;
 		cursor: default;
@@ -28,6 +28,25 @@
 				.bg-pop {
 					left: auto;
 					right: 2rem;
+				}
+			}
+		}
+
+		&.upside-down {
+			top: auto;
+			bottom: calc(100%);
+			padding-top: 1.2rem;
+			padding-bottom: 2.1rem;
+
+			.popinfo-bg {
+				top: 0;
+				bottom: 1rem;
+
+				.bg-pop {
+					top: 100%;
+					bottom: auto;
+					margin-top: -.5rem;
+					margin-bottom: 0;
 				}
 			}
 		}

@@ -849,6 +849,19 @@
 
 						@include media {
 							width: calc(50% - 2.5rem);
+							position: static;
+							padding-left: 2rem;
+							padding-right: 2rem;
+
+							.btn-info {
+								position: relative;
+								right: auto;
+								margin-left: .6rem;
+								z-index: 10;
+								display: inline-block;
+								vertical-align: bottom;
+								margin-bottom: -.4rem;
+							}
 						}
 
 						&:first-child {
