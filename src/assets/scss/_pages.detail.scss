@@ -72,7 +72,6 @@
 						margin-left: 3.8rem;
 					}
 				}
-			}
 
 				.controls-viewers {
 					background-color: $color-success;
@@ -107,6 +106,7 @@
 						transform: none;
 					}
 				}
+			}
 		}
 
 		&.detail-topinfo {
@@ -174,6 +174,29 @@
 					color: $color-text-light;
 				}
 			}
+
+			.topinfo-controls {
+				white-space: nowrap;
+			}
+
+				.controls-btn {
+					display: inline-block;
+					font-size: 2rem;
+					vertical-align: middle;
+					color: $color-text-light;
+
+					&.faved {
+						color: $color-primary;
+					}
+
+					+ .controls-btn {
+						margin-left: 1.3rem;
+					}
+
+					.fav-button-icon {
+						vertical-align: top;
+					}
+				}
 		}
 
 		&.detail-content {
@@ -625,6 +648,43 @@
 					i {
 						font-size: 1.3rem;
 						margin-right: .6rem;
+					}
+				}
+
+				.info-highlights {
+					li {
+						display: inline-block;
+						display: inline-block;
+						vertical-align: middle;
+
+
+						> * {
+							display: block;
+						}
+
+						+ li {
+							margin-left: .7rem;
+						}
+					}
+
+					span {
+						display: block;
+						border: .1rem solid $color-ice;
+						font-size: 1.2rem;
+						text-transform: uppercase;
+						border-radius: $radius-general;
+						color: $color-text-light;
+						line-height: 2rem;
+						padding: 0 .5rem;
+						background-color: $color-white;
+
+						@include media {
+							color: $color-text;
+						}
+					}
+
+					img {
+						height: 1.8rem;
 					}
 				}
 

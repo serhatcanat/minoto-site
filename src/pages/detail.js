@@ -358,6 +358,25 @@ class DetailInfo extends React.Component {
 						))}
 					</ul>
 				}
+				{product.highlights &&
+					<ul className="info-highlights">
+						{product.highlights.map((highlight, nth) => (
+							<React.Fragment key={nth}>
+								{
+									highlight.label && (
+										<li key={nth} title={highlight.title}>{(highlight.image ?
+											<Image alt={highlight.title} src={highlight.image} />
+											:
+											<span>{highlight.label}</span>
+										)}</li>
+									)
+								}
+							</React.Fragment>
+
+
+						))}
+					</ul>
+				}
 				{product.ncap &&
 					<div className="info-ncap">
 						<strong title="Euro NCAP Puanı">NCAP</strong>
@@ -442,7 +461,11 @@ class DetailInfo extends React.Component {
 						<Btn className="controls-button" primary hollow uppercase note="Bu aracı rezerve edebilirsiniz" disabled={product.reserved}>
 							Rezerve Et
 						</Btn>
+<<<<<<< HEAD
 						{(vm.props.mobile && product.dealer.phone) && <button className="controls-phone" href={"tel:+9" + product.dealer.phone.replace(' ', '')}><i className="icon-phone-nude"></i></button>}
+=======
+						{(vm.props.mobile && product.dealer.phone) && <a className="controls-phone" href={"tel:+9" + product.dealer.phone.replace(' ', '')}><i className="icon-phone-nude"></i></a> }
+>>>>>>> fc54163c3b465458f3531e4af8a3886adb3cac74
 						{product.bidThreadId ? <Btn className="controls-button" note="Bu araç için daha önce teklif verdiniz" primary uppercase tag="a" href={`/hesabim/mesajlarim/mesaj/${product.bidThreadId}`}>Tekliflerim</Btn> : <Btn className="controls-button" onClick={() => openModal('bid', { advert: product })} primary uppercase note="Bu araç için teklif verebilirsiniz">
 							Teklif Ver
 					</Btn>}
@@ -639,7 +662,7 @@ class DetailTopInfo extends React.Component {
 		let product = this.props.product;
 		return (
 			<div className="section detail-topinfo">
-				{product.highlights &&
+				{(product.highlights && !this.props.mobile) &&
 					<ul className="topinfo-highlights">
 						{product.highlights.map((highlight, nth) => (
 							<React.Fragment key={nth}>
@@ -661,6 +684,12 @@ class DetailTopInfo extends React.Component {
 				<div className="topinfo-id">
 					<strong>İlan No:</strong> {product.postNo}
 				</div>
+				{this.props.mobile && 
+					<div className="topinfo-controls">
+						<button className="controls-btn" onClick={() => openModal('share')}><i className="icon-share"></i></button>
+						<FavBtn className="controls-btn" faved={product.favorited} type="post" id={product.id}></FavBtn>
+					</div>
+				}
 			</div>
 		)
 	}
