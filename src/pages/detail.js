@@ -105,6 +105,15 @@ class Detail extends React.Component {
 							}
 						}]);
 					};
+					if(payload.image){
+						setHead([{
+							key: "meta",
+							props: {
+								property: "og:description",
+								content: payload.description,
+							}
+						}]);
+					};
 				}
 			}, { excludeApiPath: false });
 		}
@@ -498,7 +507,7 @@ class DetailInfo extends React.Component {
 				{product.dealer &&
 					<div className="info-dealer">
 						<div className="dealer-head">
-							<Link href={product.dealer.url}>
+							<Link href="branch" params={{id: product.dealer.id, slug: product.dealer.url}}>
 								{product.dealer.validated ?
 									<span className="dealer-badge"><i className="badge-bg icon-ribbon"></i><i className="badge-icon icon-check"></i></span>
 									:
@@ -523,7 +532,7 @@ class DetailInfo extends React.Component {
 							</div>
 						}
 						<div className="dealer-controls">
-							<Btn type="a" icon="phone" block uppercase href={"tel:+9" + product.dealer.phone.replace(' ', '')}>{product.dealer.phone}</Btn>
+							<Btn tag="a" icon="phone" block uppercase href={"tel:+9" + product.dealer.phone.replace(' ', '')}>{product.dealer.phone}</Btn>
 							{
 								product.messageThreadId ? <Btn icon="envelope" text uppercase block tag="a" href={`/hesabim/mesajlarim/mesaj/${product.messageThreadId}`}>Mesajlara Git</Btn> : <Btn icon="envelope" text uppercase block onClick={() => openModal('message', { advert: product })}>Mesaj Gönder</Btn>
 							}
