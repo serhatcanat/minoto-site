@@ -5,7 +5,7 @@ module.exports = {
 			component: "Home",
 			exact: true,
 			linkTitle: "Anasayfa",
-			title: "Sıfır Araba Modelleri ve Fiyatları - 0 Km Araç Satın Almak İçin Minoto!",
+			title: "Minoto - Türkiye'nin Sıfır Km Otomobil Sitesi | Sıfır Araba Modelleri",
 			meta: {
 				keywords: "Minoto, Sıfır Otomobil, Bayiler",
 				description: "En yeni ve uygun sıfır araba modelleri, fiyatları ve kampanyaları Minoto'da! 0 km araç satın almak için hemen tıkla, fırsatları kaçırma!"
