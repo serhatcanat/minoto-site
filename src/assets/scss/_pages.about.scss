@@ -151,7 +151,7 @@
 			align-items: center;
 
 			@include media {
-				padding: 0 1.5rem;
+				padding: 0 .5rem;
 			}
 		}
 
@@ -242,6 +242,7 @@
 
 			@include media {
 				width: 100%;
+				margin: 0;
 			}
 		}
 
