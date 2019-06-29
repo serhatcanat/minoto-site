@@ -200,11 +200,13 @@ class Footer extends React.Component {
 							<FooterSubscription />
 						}
 
-						<div className="footer-col" style={{ opacity: '0' }}>
+						<div className="footer-col">
 							<div className="footer-app">
-								<h3 className="app-title">Mobil uygulamamızı indirdiniz mi?</h3>
-								<Btn tag="a" className="app-link" white {...(vm.props.mobile ? { low: true } : {})} href="http://www.google.com" target="_blank" rel="noopener noreferrer" icon="appstore">Apple Store</Btn>
-								<Btn tag="a" className="app-link" white {...(vm.props.mobile ? { low: true } : {})} href="http://www.google.com" target="_blank" rel="noopener noreferrer" icon="playstore">Google Play</Btn>
+								{/*
+									<h3 className="app-title">Mobil uygulamamızı indirdiniz mi?</h3>
+									<Btn tag="a" className="app-link" white {...(vm.props.mobile ? { low: true } : {})} href="http://www.google.com" target="_blank" rel="noopener noreferrer" icon="appstore">Apple Store</Btn>
+									<Btn tag="a" className="app-link" white {...(vm.props.mobile ? { low: true } : {})} href="http://www.google.com" target="_blank" rel="noopener noreferrer" icon="playstore">Google Play</Btn>
+								*/}
 							</div>
 
 							{!vm.props.mobile &&

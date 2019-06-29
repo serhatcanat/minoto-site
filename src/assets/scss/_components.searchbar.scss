@@ -59,14 +59,26 @@
 			overflow-y: scroll;
 		}
 
-			.results-group {}
+			.results-group {
+			}
+
+				.group-wrap {
+					max-height: none;
+				}
 
 				.group-item {
 					a{
-						padding: 0 2rem 0 5.8rem;
-						line-height: 3.8rem;
+						padding: .9rem 2rem .9rem 5.8rem;
+						height: auto;
+						line-height: 2rem;
 					}
 				}
+
+					.item-image {
+						width: 3rem;
+						height: 3rem;
+						margin-right: .9rem;
+					}
 	}
 
 	.searchbar-form {

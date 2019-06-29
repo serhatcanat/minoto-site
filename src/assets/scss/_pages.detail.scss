@@ -785,7 +785,11 @@
 					.controls-button {
 						width: calc(50% - 1rem);
 						position: relative;
-						margin-bottom: .7rem;
+						vertical-align: middle;
+
+						@include media {
+							width: calc(50% - 2.5rem);
+						}
 
 						&:first-child {
 							z-index: 2;
@@ -806,6 +810,23 @@
 						}
 					}
 
+					.controls-phone {
+						display: inline-block;
+						vertical-align: middle;
+						position: relative;
+						z-index: 3;
+						width: 7rem;
+						height: 7rem;
+						line-height: 6.6rem;
+						text-align: center;
+						margin-left: -1rem;
+						margin-right: -1rem;
+						background-color: $color-primary;
+						color: $color-white;
+						border-radius: 50%;
+						border: .4rem solid $color-white;
+					}
+
 					.controls-note {
 						color: $color-primary;
 						font-size: 1.2rem;
@@ -814,7 +835,7 @@
 				.info-dealer {
 					background-color: $color-gray-light;
 					border-radius: $radius-general;
-					margin-top: 3rem;
+					margin-top: 3.7rem;
 
 					@include media {
 						margin-top: 1.5rem;

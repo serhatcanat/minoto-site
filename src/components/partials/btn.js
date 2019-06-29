@@ -22,6 +22,8 @@ export default class Btn extends React.Component {
 			status: (props.loading ? 'loading' : props.status),
 		}
 
+		this.clicked = this.clicked.bind(this);
+
 		this.loadingTimeout = false;
 	}
 
@@ -64,6 +66,14 @@ export default class Btn extends React.Component {
 		}
 	}
 
+	clicked(e) {
+		if(!e.nativeEvent.target.classList.contains('popinfo-wrap')){
+			if(this.props.onClick){
+				this.props.onClick(e);
+			}
+		}
+	}
+
 	render() {
 		let vm = this;
 		let Elem = false;
@@ -78,11 +88,13 @@ export default class Btn extends React.Component {
 		}
 		let props = omit(vm.props, [
 			// Data
-			'tag', 'icon', 'leftIcon', 'rightIcon', 'note', 'status',
+			'tag', 'icon', 'leftIcon', 'rightIcon', 'note', 'status', 'onClick',
 			// Colors
 			'hollow', 'primary', 'white', 'dark', 'text', 
 			// Forms & Styling
 			'light', 'block', 'uppercase', 'low', 'small', 'wide', 'big', 'smallIcon', 'loading']);
+
+		props.onClick = vm.clicked;
 
 		let leftIcon = (vm.props.leftIcon ? vm.props.leftIcon : (vm.props.icon ? vm.props.icon : false));
 		let rightIcon = (vm.props.rightIcon ? vm.props.rightIcon : false);

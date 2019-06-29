@@ -427,6 +427,7 @@ class DetailInfo extends React.Component {
 						<Btn className="controls-button" primary hollow uppercase note="Bu aracı rezerve edebilirsiniz" disabled={product.reserved}>
 							Rezerve Et
 						</Btn>
+						{(vm.props.mobile && product.dealer.phone) && <button className="controls-phone" href={"tel:+9" + product.dealer.phone.replace(' ', '')}><i className="icon-phone-nude"></i></button> }
 						{product.bidThreadId ? <Btn className="controls-button" note="Bu araç için daha önce teklif verdiniz" primary uppercase tag="a" href={`/hesabim/mesajlarim/mesaj/${product.bidThreadId}`}>Tekliflerim</Btn> : <Btn className="controls-button" onClick={() => openModal('bid', { advert: product })} primary uppercase note="Bu araç için teklif verebilirsiniz">
 							Teklif Ver
 					</Btn>}
