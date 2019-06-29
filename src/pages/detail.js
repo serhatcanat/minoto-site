@@ -57,22 +57,6 @@ class Detail extends React.Component {
 		this.mounted = false;
 	}
 
-	initialize() {
-		let vm = this;
-		if (vm.state.productData === false) {
-			request.get(`car-posts/${vm.props.match.params.id}/${vm.props.match.params.slug}`, { id: vm.props.match.params.id, email: this.props.user.email }, function (payload, status) {
-				//request.get('/dummy/data/detail.json', { id: vm.props.match.params.id }, function (payload, status) {
-				if (payload) {
-					vm.setState({
-						productData: payload
-					})
-
-					setTitle(payload.title);
-				}
-			}, { excludeApiPath: false });
-		}
-	}
-
 	componentDidMount() {
 		this.mounted = true;
 
@@ -98,7 +82,22 @@ class Detail extends React.Component {
 		if (prevState.productData !== false && this.state.productData === false) {
 			this.initialize();
 		}
+	}
 
+	initialize() {
+		let vm = this;
+		if (vm.state.productData === false) {
+			request.get(`car-posts/${vm.props.match.params.id}/${vm.props.match.params.slug}`, { id: vm.props.match.params.id, email: this.props.user.email }, function (payload, status) {
+				//request.get('/dummy/data/detail.json', { id: vm.props.match.params.id }, function (payload, status) {
+				if (payload) {
+					vm.setState({
+						productData: payload
+					})
+
+					setTitle(payload.title);
+				}
+			}, { excludeApiPath: false });
+		}
 	}
 
 	setFullScreen(state) {
@@ -250,6 +249,15 @@ class DetailGallery extends React.Component {
 		this.mainSlider = React.createRef();
 		this.thumbSlider = React.createRef();
 		this.imageChange = this.imageChange.bind(this);
+		this.keyPress = this.keyPress.bind(this);
+	}
+
+	componentDidMount() {
+		document.addEventListener('keydown', this.keyPress);
+	}
+
+	componentWillUnmount() {
+		document.removeEventListener('keydown', this.keyPress);
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -274,6 +282,20 @@ class DetailGallery extends React.Component {
 
 	imageChange(nth) {
 		this.setState({ activeImage: nth });
+	}
+
+	keyPress(e) {
+		if(this.mainSlider.current){
+			switch(e.key){
+				case "ArrowLeft":
+					 this.mainSlider.current.prev();
+				break;
+				case "ArrowRight":
+					 this.mainSlider.current.next();
+				break;
+				default: break;
+			}
+		}
 	}
 
 	render() {
