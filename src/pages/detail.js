@@ -15,6 +15,7 @@ import Slider from 'components/partials/slider.js'
 import Tabs from 'components/partials/tabs.js'
 import Link from 'components/partials/link.js'
 import FavBtn from 'components/partials/favbtn'
+import ContentBox from 'components/partials/contentbox'
 
 // Deps
 import { ListingLink } from 'controllers/navigator'
@@ -232,7 +233,7 @@ class Detail extends React.Component {
 
 						<SubscriptionBar className="detail-subscription" heading={"Daha fazla " + product.brand.title + " modelleri için sizi bilgilendirelim!"} />
 
-						{product.ads &&
+						{/*product.ads &&
 							<section className="section detail-banners">
 								<div className="wrapper">
 									{product.ads.map((ad, nth) => (
@@ -240,6 +241,27 @@ class Detail extends React.Component {
 											<Image src={storageSpace('articles', ad.image)} />
 										</Link>
 									))}
+								</div>
+							</section>
+						*/}
+						{product.ads &&
+							<section className="section detail-blogposts">
+								<div className="wrapper">
+									<ul className="blogposts-list">
+									{product.ads.map((ad, nth) => (
+										<li className="blogposts-item" key={nth}>
+											<ContentBox
+												type="blogpost"
+												//pretitle={ad.date}
+												title={ad.title}
+												image={storageSpace('articles', ad.image)}
+												url="blogDetail"
+												additionsOptional
+												urlParams={{ slug: ad.url }}
+											/>
+										</li>
+									))}
+									</ul>
 								</div>
 							</section>
 						}

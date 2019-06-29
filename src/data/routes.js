@@ -87,6 +87,15 @@ module.exports = {
 			exact: true,
 			linkTitle: "İlan Detay",
 			title: "İlan Detay",
+			head: [
+				{
+					key: "meta",
+					props: {
+						property: "og:type",
+						content: "product"
+					}
+				}
+			],
 		},
 		listprices: {
 			path: "/liste-fiyatlari/:brand?/:year?",

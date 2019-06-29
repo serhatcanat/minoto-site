@@ -240,13 +240,22 @@ export function changePage(key = false, group = 'pages') {
 
 	setMeta((route.meta ? route.meta : false), true);
 	setHead((route.head ? route.head : false), true);
-	setHead([{
-		key: "meta",
-		props: {
-			property: "og:url",
-			content: window.location.href,
+	setHead([
+		{
+			key: "link",
+			props: {
+				rel: "canonical",
+				href: window.location.href,
+			}
+		},
+		{
+			key: "meta",
+			props: {
+				property: "og:url",
+				content: window.location.href,
+			}
 		}
-	}]);
+	]);
 }
 
 export function renderRoutes(opts = {}) {

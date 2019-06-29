@@ -1087,5 +1087,24 @@
 				}
 			}
 		}
+
+		&.detail-blogposts {
+			padding: 7rem 0 10.2rem;
+			max-width: 160rem;
+			margin: 0 auto;
+			text-align: center;
+
+			.blogposts-list {
+				display: flex;
+				flex-flow: row wrap;
+				margin: 0 -1.5rem;
+				width: calc(100% + 3rem);
+			}
+
+			.blogposts-item {
+				width: 25%;
+				padding: 1.5rem;
+			}
+		}
 	}
 }
