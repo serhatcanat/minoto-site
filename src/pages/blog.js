@@ -31,11 +31,12 @@ export default class Blog extends React.Component {
 		this.initialize = this.initialize.bind(this);
 		this.makeSearch = this.makeSearch.bind(this);
 		this.listenerAbort = false;
-
+		this.mounted = false;
 	}
 
 	componentDidMount() {
 		let vm = this;
+		vm.mounted = true;
 		vm.initialize();
 
 		vm.listenerAbort = history.listen(function (e) {
@@ -45,6 +46,7 @@ export default class Blog extends React.Component {
 	}
 
 	componentWillUnmount() {
+		this.mounted = false;
 		if (this.listenerAbort) {
 			this.listenerAbort();
 		}
@@ -52,49 +54,49 @@ export default class Blog extends React.Component {
 
 	initialize() {
 		let vm = this;
+		if(vm.mounted){
+			let category = window.location.pathname.split('/')[2];
 
-		let category = window.location.pathname.split('/')[2];
 
+			vm.setState({ results: false });
 
-		vm.setState({ results: false });
+			let payload = {}
+			let endpoint = "articles";
 
-		let payload = {}
-		let endpoint = "articles";
+			if (category) {
+				if (category === 'arama') {
+					let searchParam = window.location.pathname.split('/')[3];
+					payload.search = vm.props.match.params.search;
+					endpoint = `articles/search?search=${searchParam}`
+				}
+				else if (category === 'son-eklenenler') {
+					endpoint = `articles/recently?record=1`
 
-		if (category) {
-			if (category === 'arama') {
-				let searchParam = window.location.pathname.split('/')[3];
-				payload.search = vm.props.match.params.search;
-				endpoint = `articles/search?search=${searchParam}`
+				}
+				else {
+					payload.category = category;
+					endpoint = `${category}/articles`
+				}
 			}
-			else if (category === 'son-eklenenler') {
-				endpoint = `articles/recently?record=1`
 
-			}
-			else {
-				payload.category = category;
-				endpoint = `${category}/articles`
-			}
+
+			request.get(endpoint, payload, function (payload, status) {
+				if (vm.mounted && payload) {
+					vm.setState({
+						results: payload,
+						loading: false,
+					});
+				}
+			});
+
+			request.get('articles/tags', payload, function (payload, status) {
+				if (vm.mounted && payload) {
+					vm.setState({
+						categories: payload,
+					});
+				}
+			});
 		}
-
-
-		request.get(endpoint, payload, function (payload, status) {
-			if (payload) {
-				vm.setState({
-					results: payload,
-					loading: false,
-				});
-			}
-		});
-
-		request.get('articles/tags', payload, function (payload, status) {
-			if (payload) {
-				vm.setState({
-					categories: payload,
-				});
-			}
-		});
-
 	}
 
 	makeSearch(e) {

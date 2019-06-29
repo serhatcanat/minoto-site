@@ -10,6 +10,7 @@ import Breadcrumbs from 'components/partials/breadcrumbs'
 
 // Deps
 import request from 'controllers/request'
+import { openModal } from "functions/modals"
 import { redirect } from 'controllers/navigator'
 import parse from 'html-react-parser';
 import { storageSpace } from 'functions/helpers'
@@ -27,7 +28,7 @@ export default class BlogDetail extends React.Component {
 		super(props)
 
 		this.state = {
-			blogData: false
+			blogData: false,
 		}
 	}
 
@@ -70,7 +71,7 @@ export default class BlogDetail extends React.Component {
 									{data.userTwitterUsername ? (<a style={{ color: '#1da1f2' }} href={`https://twitter.com/${data.userTwitterUsername}`} target="_blank" rel="noopener noreferrer"><i className="icon-twitter"></i> {data.user} </a>) : data.user}
 
 
-									@ {data.date}
+									{data.date && <span>@ {data.date}</span>}
 								</span>
 							</div>
 
@@ -114,6 +115,21 @@ export default class BlogDetail extends React.Component {
 }
 
 class Sharer extends React.Component {
+	constructor(props){
+		super(props);
+		this.copyURL = this.copyURL.bind(this);
+	}
+
+	copyURL() {
+		const el = document.createElement('textarea');
+		el.style.opacity = "0"
+		el.value = window.location.href;
+		document.body.appendChild(el);
+		el.select();
+		document.execCommand('copy');
+		document.body.removeChild(el);
+		console.log('copied');
+	}
 	render() {
 		return (
 			<div className="detail-sharer">
@@ -125,16 +141,20 @@ class Sharer extends React.Component {
 							<Image src={image_icon_facebook} alt="Facebook" />
 						</Link>
 					</li>
-					<li className="opts-item">
-						<Link type="a" className="sharer-link twitter" href={"http://www.instagram.com/"} target="_blank">
-							<Image src={image_icon_instagram} alt="Instagram" />
-						</Link>
-					</li>
-					<li className="opts-item">
-						<Link type="a" className="sharer-link twitter" href={"http://www.youtube.com/"} target="_blank">
-							<Image src={image_icon_youtube} alt="YouTube" />
-						</Link>
-					</li>
+					{false &&
+						<React.Fragment>
+							<li className="opts-item">
+								<Link type="a" className="sharer-link instagram" href={"http://www.instagram.com/"} target="_blank">
+									<Image src={image_icon_instagram} alt="Instagram" />
+								</Link>
+							</li>
+							<li className="opts-item">
+								<Link type="a" className="sharer-link youtube" href={"http://www.youtube.com/"} target="_blank">
+									<Image src={image_icon_youtube} alt="YouTube" />
+								</Link>
+							</li>
+						</React.Fragment>
+					}
 					<li className="opts-item">
 						<Link type="a" className="sharer-link twitter" href={"http://twitter.com/share?text=" + this.props.title + "&url=" + window.location.href + "&hashtags=minoto,sifirarac"} target="_blank">
 							<Image src={image_icon_twitter} alt="Twitter" />
@@ -146,9 +166,9 @@ class Sharer extends React.Component {
 						</Link>
 					</li>
 					<li className="opts-item">
-						<Link type="a" className="sharer-link twitter" href={"http://www.google.com/"} target="_blank">
+						<button type="button" className="sharer-link twitter" onClick={() => this.copyURL()} >
 							<Image src={image_icon_link} alt="Link Kopyala" />
-						</Link>
+						</button>
 					</li>
 					<li className="opts-item">
 						<Link type="a" className="sharer-link whatsapp" href={"whatsapp://send?text=" + window.location.href} data-action="share/whatsapp/share" target="_blank">
