@@ -37,7 +37,7 @@ class About extends React.Component {
 					<div className="wrapper narrow">
 						<Image className="intro-image" src="/dummy/images/minoto.jpg" />
 
-						<div className="intro-text wysiwyg">
+						<div className="intro-text wysiwyg" style={{ paddingBottom: '0' }}>
 							<strong>Minoto</strong>, Türkiye Otomotiv Sektörü’nün dijitalleşmesine katkıda bulunacak ve sektörü yeni çağa taşıyacak bir online platformdur.
 						<br /><br />
 							İçerisinde <strong>sadece Yetkili Bayi’lerin</strong> olduğu ve <strong>sadece “0 km” araçların</strong> gerçek fotoğrafları ve fiyatları ile sergilendiği bir ilan sitesi, pazar yeri ve ötesidir.
