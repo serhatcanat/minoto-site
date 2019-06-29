@@ -76,7 +76,7 @@ export default class Favorites extends React.Component {
 									switch (section) {
 										case 'bayiler':
 											contents.push(
-												<li key={nth} className="results-item">
+												<li key={nth} className="list-item">
 													<ContentBox
 														type="plain"
 														className={((item.status === 2 || item.status === 3) ? 'inactive' : '')}
@@ -96,7 +96,7 @@ export default class Favorites extends React.Component {
 											break;
 										case 'markalar':
 											contents.push(
-												<li key={nth} className="results-item">
+												<li key={nth} className="list-item">
 													<ContentBox
 														type="plain"
 														className={((item.status === 2 || item.status === 3) ? 'inactive' : '')}
