@@ -3,7 +3,7 @@ import React from 'react'
 // Partials
 import Image from 'components/partials/image'
 import Link from 'components/partials/link'
-import Btn from 'components/partials/btn'
+//import Btn from 'components/partials/btn'
 import Responsive from 'components/partials/responsive'
 
 // Functions
