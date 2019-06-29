@@ -51,8 +51,18 @@ export function setHead(meta, clear = false) {
 			let customObj = document.createElement(customData.key);
 			if (customData.content) { customObj.innerHTML = customData.content }
 			let customProps = Object.keys(customData.props);
+
 			for (let p = 0; p < customProps.length; p++) {
-				customObj.setAttribute(customProps[p], customData.props[customProps[p]]);
+				let propKey = customProps[p];
+				let propVal = customData.props[propKey]
+				if(propKey === "property" || propKey === "name"){
+					let oldTag = head.querySelector(customData.key+'['+propKey+'="'+propVal+'"]');
+					if(oldTag){
+						head.removeChild(oldTag)
+					}
+				}
+
+				customObj.setAttribute(propKey, propVal);
 			}
 			customObj.setAttribute('data-custom-meta', 'true');
 			head.appendChild(customObj);

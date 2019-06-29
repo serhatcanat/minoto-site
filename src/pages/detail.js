@@ -23,7 +23,7 @@ import { formatNumber, blockOverflow, nl2br, remToPx } from 'functions/helpers.j
 import parse from 'html-react-parser'
 import { connect } from "react-redux"
 import request from 'controllers/request'
-import { setTitle, setMeta } from 'controllers/head'
+import { setTitle, setHead } from 'controllers/head'
 import { storageSpace } from "functions/helpers"
 
 // Assets
@@ -95,11 +95,15 @@ class Detail extends React.Component {
 					})
 
 					setTitle(payload.title);
-					
+
 					if(payload.image){
-						setMeta({
-							"og:image": storageSpace('car-posts', payload.image),
-						})
+						setHead([{
+							key: "meta",
+							props: {
+								property: "og:image",
+								content: storageSpace('car-posts', payload.image),
+							}
+						}]);
 					};
 				}
 			}, { excludeApiPath: false });
