@@ -203,7 +203,7 @@ class Header extends React.Component {
 													<Link href="faq" />
 												</li>
 												<li className="sublinks-item">
-													<Link href="/">Nasıl Bayi Olurum?</Link>
+													<Link href="dealerApplication">Nasıl Bayi Olurum?</Link>
 												</li>
 											</ul>
 
