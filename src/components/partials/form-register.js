@@ -80,13 +80,13 @@ export default class RegisterForm extends React.Component {
 
 	submit(e) {
 		let vm = this;
-		alert('me')
 
 		vm.setState({
 			loading: true,
 		})
 
 		register(e.target, function (payload) {
+			console.log(payload);
 			vm.setState({
 				success: payload.success,
 				loading: false,

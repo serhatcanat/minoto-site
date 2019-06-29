@@ -254,7 +254,7 @@ class InputText extends React.Component {
 			...omit(vm.props, ['onChange', 'placeholder', 'value', 'popLabel', 'validation', 'touched', 'className', 'hideError', 'icon', 'info', 'infoProps', 'hideAsterisk', 'onFeedback']),
 			onChange: vm.handleChange,
 			onBlur: vm.handleBlur,
-			value: vm.state.value,
+			value: vm.state.value ? vm.state.value : "",
 			placeholder: (vm.props.placeholder ? vm.props.placeholder + (vm.state.validation !== false && !vm.props.hideAsterisk ? ' *' : '') : undefined),
 		};
 

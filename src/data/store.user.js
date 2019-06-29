@@ -107,10 +107,10 @@ export function register(form, finalFunction = false) {
 			}
 		}
 		else {
-			/*logout(true);
+			logout(true);
 			if(finalFunction){
 				finalFunction(payload);
-			}*/
+			}
 		}
 	})
 }
