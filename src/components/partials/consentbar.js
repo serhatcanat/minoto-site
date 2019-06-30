@@ -18,7 +18,7 @@ export default class ConsentBar extends React.Component {
 				disableStyles={true}
 				expires={150}
 			>
-				Hizmetlerimizden en iyi şekilde faydalanabilmeniz <strong>minoto.com</strong>'da çerez teknolojisini kullanıyoruz. <strong>minoto.com</strong>'u kullanarak <Link href="gdprPolicy">çerez politikamızı</Link> kabul etmiş olursunuz.
+				Hizmetlerimizden en iyi şekilde faydalanabilmeniz için <strong>minoto.com</strong>'da çerez teknolojisini kullanıyoruz. <strong>minoto.com</strong>'u kullanarak <Link href="gdprPolicy" style={{ textDecoration: 'underline' }}>çerez politikamızı</Link> kabul etmiş olursunuz.
 			</CookieConsent>
 		)
 	}

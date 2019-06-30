@@ -17,7 +17,7 @@ import { storageSpace } from "functions/helpers";
 import image_icon_facebook from 'assets/images/icon/facebook.svg'
 import image_icon_instagram from 'assets/images/icon/instagram.svg'
 import image_icon_youtube from 'assets/images/icon/youtube.svg'
-import image_icon_twitter from 'assets/images/icon/twitter.svg'
+import image_icon_twitter from 'assets/images/icon/twitter2.svg'
 import image_logo from 'assets/images/logo.svg'
 import image_logo_primary from 'assets/images/logo-primary.svg'
 import image_avatar from 'assets/images/defaults/avatar.svg'
@@ -62,8 +62,8 @@ class Header extends React.Component {
 					vm.setState({ menuShow: true });
 					blockOverflow(true);
 
-					if(vm.menuScroller.current){
-						setTimeout(function() {
+					if (vm.menuScroller.current) {
+						setTimeout(function () {
 							console.log('upd');
 							vm.menuScroller.current.instance.update();
 						}, 250);
