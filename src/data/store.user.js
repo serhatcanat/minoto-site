@@ -100,7 +100,7 @@ export function login(form, finalFunction = false) {
 export function register(form, finalFunction = false) {
 	request.post('user/register', serializeArray(form), function (payload) {
 		if (payload && payload.success) {
-			updateUserData(payload);
+			//updateUserData(payload);
 
 			if (finalFunction) {
 				finalFunction(extend({}, payload, { message: "Kayıt Başarılı" }));
