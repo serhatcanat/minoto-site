@@ -277,11 +277,11 @@
 						font-size: 1.4rem;
 						transform: translate3d(20%, 0, 0);
 						transition: transform $transition-anim-fast ease, opacity $transition-anim-fast ease 100ms;
-						padding: 10.1rem 8.1rem 5rem 6.3rem;
+						padding: 10.1rem 8.1rem 7rem 6.3rem;
 
 						@include media {
 							transform: translate3d(-6%, 0, 0);
-							padding: 2.1rem 3rem 1.2rem;
+							padding: 2.1rem 3rem 3.2rem;
 						}
 					}
 
