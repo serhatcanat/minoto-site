@@ -27,59 +27,6 @@ export default class RegisterForm extends React.Component {
 		this.submit = this.submit.bind(this);
 	}
 
-	/*
-	_registerUser = (e) => {
-
-		let record = {
-			name: e.target.elements.name.value,
-			email: e.target.elements.email.value,
-			password: e.target.elements.password.value,
-			password_repeat: e.target.elements.password_repeat.value
-		};
-
-
-		axios
-			.post(apiPath('user/register'), record)
-			.then(response => {
-				console.log(response);
-				return response;
-			})
-			.then(json => {
-				if (json.data.payload.success) {
-					alert(`Registration Successful!`);
-					const { name, id, email, auth_token } = json.data.payload;
-					let userData = {
-						name,
-						id,
-						email,
-						auth_token,
-						timestamp: new Date().toString()
-					};
-					let appState = {
-						isLoggedIn: true,
-						user: userData
-					};
-					// save app state with user date in local storage
-					localStorage["appState"] = JSON.stringify(appState);
-					this.setState({
-						isLoggedIn: appState.isLoggedIn,
-						user: appState.user
-					});
-					// redirect home
-					//this.props.history.push("/");
-				} else {
-					alert(`Registration Failed!`);
-
-				}
-			})
-			.catch(error => {
-				alert("An Error Occured!" + error);
-				console.log(`${record} ${error}`);
-
-			});
-	};
-	*/
-
 	submit(e) {
 		let vm = this;
 
