@@ -5,7 +5,7 @@ import Image from 'components/partials/image'
 import Link from 'components/partials/link'
 //import Btn from 'components/partials/btn'
 import Responsive from 'components/partials/responsive'
-
+import Btn from 'components/partials/btn.js'
 // Functions
 import { formatNumber } from 'functions/helpers'
 
@@ -108,9 +108,9 @@ class Footer extends React.Component {
 									<li>
 										<Link className="footer-link" href="dealers">Bayiler</Link>
 									</li>
-									<li>
+									{/*<li>
 										<Link className="footer-link" href="sitemap">Site Haritası</Link>
-									</li>
+									</li>*/}
 								</ul>
 								<ul className="nav-col">
 									<li>
@@ -125,9 +125,9 @@ class Footer extends React.Component {
 									<li>
 										<Link className="footer-link" href="blog">Blog</Link>
 									</li>
-									<li>
+									{/*<li>
 										<Link className="footer-link" href="sitemap">Site Haritası</Link>
-									</li>
+									</li>*/}
 								</ul>
 							</Responsive>
 							<Responsive>
@@ -207,17 +207,20 @@ class Footer extends React.Component {
 						}
 
 						<div className="footer-col">
-							<div className="footer-app">
-								{/*
-									<h3 className="app-title">Mobil uygulamamızı indirdiniz mi?</h3>
-									<Btn tag="a" className="app-link" white {...(vm.props.mobile ? { low: true } : {})} href="http://www.google.com" target="_blank" rel="noopener noreferrer" icon="appstore">Apple Store</Btn>
-									<Btn tag="a" className="app-link" white {...(vm.props.mobile ? { low: true } : {})} href="http://www.google.com" target="_blank" rel="noopener noreferrer" icon="playstore">Google Play</Btn>
-								*/}
+							{!vm.props.mobile &&
+								<React.Fragment>
+									<h3 className="app-title" >E-BÜLTENİMİZE ÜYE OLUN</h3>
+									<FooterSubscription />
+								</React.Fragment>
+
+							}
+							<div className="footer-app" style={{ opacity: '0' }}>
+								<h3 className="app-title">Mobil uygulamamızı indirdiniz mi?</h3>
+								<Btn tag="a" className="app-link" white {...(vm.props.mobile ? { low: true } : {})} href="http://www.google.com" target="_blank" rel="noopener noreferrer" icon="appstore">Apple Store</Btn>
+								<Btn tag="a" className="app-link" white {...(vm.props.mobile ? { low: true } : {})} href="http://www.google.com" target="_blank" rel="noopener noreferrer" icon="playstore">Google Play</Btn>
 							</div>
 
-							{!vm.props.mobile &&
-								<FooterSubscription />
-							}
+
 						</div>
 					</div>
 					<div className="footer-copyright footer-wrap wrapper narrow">
@@ -239,7 +242,7 @@ export default connect(mapStateToProps)(Footer);
 class FooterSubscription extends React.Component {
 	render() {
 		return (
-			<form className="footer-subscription">
+			<form className="footer-subscription" style={{ marginTop: '1.4rem' }}>
 				<input type="text" className="subscription-input" placeholder="E-postanızı yazın, bizden haberler verelim." />
 			</form>
 		)
