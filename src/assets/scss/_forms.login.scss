@@ -51,7 +51,9 @@
 		}
 
 		.nav-btn {
+			display: inline-block;
 			color: $color-primary;
+			margin: 0 1rem;
 
 			i {
 				margin-right: .4rem;

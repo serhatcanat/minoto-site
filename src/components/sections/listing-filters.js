@@ -43,6 +43,7 @@ class ListingFilters extends React.Component {
 		this.serializeFilters = this.serializeFilters.bind(this);
 		this.clearFilters = this.clearFilters.bind(this);
 		this.query = false;
+		this.requestBounces = 0;
 
 		this.formRef = React.createRef();
 	}
@@ -77,7 +78,7 @@ class ListingFilters extends React.Component {
 			}
 		}
 
-		if (!isExact(prevProps.data, vm.props.data)) {
+		if (!isEqual(prevProps.data, vm.props.data)) {
 			vm.serializeFilters();
 		}
 	}
@@ -105,17 +106,26 @@ class ListingFilters extends React.Component {
 			filterCount--;
 		}
 
-		if (!isExact(vm.query, newQuery)) {
+		if (!isEqual(vm.query, newQuery)) {
 			vm.query = newQuery;
-			vm.setState({activeFilters: filterCount})
+			vm.setState({activeFilters: filterCount});
 			if (vm.props.onUpdate) {
-				vm.props.onUpdate(vm.query);
+				if(this.requestBounces < 3){
+					vm.props.onUpdate(vm.query);
+				}
+				else {
+					console.log('Warning: Request Bounce Limit!')
+					this.requestBounces = 0;
+				}
 			}
 		}
 		else if (!echo) {
 			setTimeout(function () {
 				vm.serializeFilters(true);
 			}, 15);
+		}
+		else {
+			this.requestBounces = 0;
 		}
 	}
 
@@ -421,8 +431,8 @@ class TreeFilterItem extends React.Component {
 
 	componentDidUpdate(prevProps, prevState) {
 		let vm = this;
-		if (isExact(prevState.data, vm.state.data)) {
-			if (!isExact(vm.state.data, vm.props.data)) {
+		if (isEqual(prevState.data, vm.state.data)) {
+			if (!isEqual(vm.state.data, vm.props.data)) {
 				let active = vm.calculateActive(vm.props.data);
 				vm.setState({
 					data: vm.props.data,
