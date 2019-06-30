@@ -128,15 +128,17 @@ export default class LoginForm extends React.Component {
 				</InputForm>
 				<div className="loginform-nav">
 					<button type="button" className="nav-btn" onClick={() => { vm.goToRecovery() }}>Şifremi unuttum</button>
-					<button type="button" className="nav-btn" onClick={() => { vm.goToRegister() }}>Üye ol</button>
+					{/*<button type="button" className="nav-btn" onClick={() => { vm.goToRegister() }}>Üye ol</button>*/}
 				</div>
 
 				<div className="loginform-others">
 					<div className="others-seperator"><span>veya</span></div>
 
-					<Btn className="others-opt" hollow block light uppercase>Üye Ol</Btn>
-					<Btn className="others-opt facebook" icon="facebook" block>Facebook ile Giriş Yapın</Btn>
-					<Btn className="others-opt google" icon="google" block>Google ile Giriş Yapın</Btn>
+					<Btn className="others-opt" hollow block light uppercase onClick={() => { vm.goToRegister() }}>Üye Ol</Btn>
+					{/*
+						<Btn className="others-opt facebook" icon="facebook" block>Facebook ile Giriş Yapın</Btn>
+						<Btn className="others-opt google" icon="google" block>Google ile Giriş Yapın</Btn>
+					*/}
 				</div>
 			</div>
 		)
