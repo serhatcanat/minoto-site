@@ -170,13 +170,13 @@ class Header extends React.Component {
 												<li className="menu-item">
 													<Link href="dealers">
 														<span>Bayiler</span>
-														<span className="item-count">192</span>
+														<span className="item-count"></span>
 													</Link>
 												</li>
 												<li className="menu-item">
 													<Link href="brands">
 														<span>Markalar</span>
-														<span className="item-count">82</span>
+														<span className="item-count"></span>
 													</Link>
 												</li>
 												<li className="menu-item">

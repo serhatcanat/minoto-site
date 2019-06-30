@@ -36,72 +36,74 @@ export default class Faq extends React.Component {
 
 	componentDidMount() {
 		let vm = this;
-		request.get('/dummy/data/cities.json', {}, function(payload){
-			if(payload){
+		request.get('cities/lookup', {}, function (payload) {
+			if (payload) {
 				vm.setState({
 					cities: payload
 				});
 			}
-		}, { excludeApiPath: true });
+		}, { excludeApiPath: false });
 
-		request.get('/dummy/data/footer-brands.json', {}, function(payload){
-			if(payload){
+		request.get('brands/lookup/all', {}, function (payload) {
+			if (payload) {
 				vm.setState({
 					brands: payload
 				});
 			}
-		}, { excludeApiPath: true });
+		}, { excludeApiPath: false });
 	}
 
 	componentDidUpdate(prevProps, prevState) {
 		let vm = this;
-		if(!isEqual(prevState.brands, vm.state.brands) || !isEqual(prevState.selectedBrands, vm.state.selectedBrands)){
-			vm.setState({availableBrands: vm.state.brands.reduce(function(filtered, brand){
-				if (!vm.state.selectedBrands.filter(sBrand => (sBrand.value === brand.id)).length){
-					filtered.push({
-						value: brand.id, 
-						label: brand.title,
-					});
+		if (!isEqual(prevState.brands, vm.state.brands) || !isEqual(prevState.selectedBrands, vm.state.selectedBrands)) {
+			vm.setState({
+				availableBrands: vm.state.brands.reduce(function (filtered, brand) {
+					if (!vm.state.selectedBrands.filter(sBrand => (sBrand.value === brand.id)).length) {
+						filtered.push({
+							value: brand.id,
+							label: brand.title,
+						});
 
-				}
-				return filtered;
-			}, [])});
+					}
+					return filtered;
+				}, [])
+			});
 		}
 	}
 
 	saveData(e) {
 		let vm = this;
 		// Form Data:
-		if(vm.state.selectedBrands.length){
+		if (vm.state.selectedBrands.length) {
 			console.log(serializeArray(e.target));
 			this.setState({
 				submitting: true,
 			});
 
-			setTimeout(function() {
-				vm.setState({submitting: false, selectedBrands: [], touched: false});
+			setTimeout(function () {
+				vm.setState({ submitting: false, selectedBrands: [], touched: false });
 				vm.form.current.reset();
 			}, 1000);
 		}
 	}
 
-	changeCity(city){
+	changeCity(city) {
 		let vm = this;
 
-		vm.setState({districts: false});
-		if(city){
-			request.get('/dummy/data/districts.json', {id: city}, function(payload){
-				if(payload){
+		vm.setState({ districts: false });
+		if (city) {
+			request.get(`districts/lookup/${city}`, { id: city }, function (payload) {
+				if (payload) {
 					vm.setState({
 						districts: payload
 					});
 				}
-			}, { excludeApiPath: true });
+			}, { excludeApiPath: false });
 		}
 	}
 
-	addBrand(selected){
-		if(selected){
+	addBrand(selected) {
+		if (selected) {
 
 			this.setState({
 				selectedBrands: this.state.selectedBrands.concat(this.state.availableBrands.filter(brand => (brand.value === selected)))
@@ -109,181 +111,181 @@ export default class Faq extends React.Component {
 		}
 	}
 
-	removeBrand(id){
+	removeBrand(id) {
 		this.setState({
 			selectedBrands: this.state.selectedBrands.filter(brand => (brand.value !== id))
 		});
 	}
 
-	render () {
+	render() {
 		return (
 			<main className="page content">
 				<section className="section contentpage">
-						<div className="contentpage-wrap wrapper narrow">
-							<div className="contentpage-content">
-								<h1 className="content-title">Bayi Başvuru Formu</h1>
-								<p className="content-subtitle">Minoto'da araçlarınızın listelenmesini istiyorsanız lütfen formu <br />doldurun.</p>
-								<InputForm className="section contentpage-form grid-container" ref={this.form} onSubmit={this.saveData}>
-									<div className="grid-row">
-										<div className="grid-col x6 m-x12">
-											<FormInput
-												type="text"
-												name="name"
-												placeholder="Bayi Adı"
-												validation={"Bir isim girmelisiniz."}
-												popLabel />
-										</div>
-										<div className="grid-col x6 m-x12">
-											<FormInput
-												type="text"
-												name="manager"
-												placeholder="Yetkili Kişi"
-												validation={"Bir isim girmelisiniz."}
-												popLabel />
+					<div className="contentpage-wrap wrapper narrow">
+						<div className="contentpage-content">
+							<h1 className="content-title">Bayi Başvuru Formu</h1>
+							<p className="content-subtitle">Minoto'da araçlarınızın listelenmesini istiyorsanız lütfen formu <br />doldurun.</p>
+							<InputForm className="section contentpage-form grid-container" ref={this.form} onSubmit={this.saveData}>
+								<div className="grid-row">
+									<div className="grid-col x6 m-x12">
+										<FormInput
+											type="text"
+											name="name"
+											placeholder="Bayi Adı"
+											validation={"Bir isim girmelisiniz."}
+											popLabel />
+									</div>
+									<div className="grid-col x6 m-x12">
+										<FormInput
+											type="text"
+											name="manager"
+											placeholder="Yetkili Kişi"
+											validation={"Bir isim girmelisiniz."}
+											popLabel />
+									</div>
+								</div>
+								<div className="grid-row">
+									<div className="grid-col x6 m-x12">
+										<FormInput
+											type="text"
+											name="taxoffice"
+											placeholder="Vergi Dairesi"
+											validation={"Vergi dairenizi girmelisiniz."}
+											popLabel />
+									</div>
+									<div className="grid-col x6 m-x12">
+										<FormInput
+											type="number"
+											name="taxnumber"
+											placeholder="Vergi Numarası"
+											mask="00000000000"
+											validation={"Vergi numaranızı girmelisiniz."}
+											popLabel />
+									</div>
+								</div>
+								<div className="grid-row">
+									<div className="grid-col x6 m-x12">
+										<FormInput
+											name="phone_land"
+											disabled={this.state.submitting}
+											placeholder="Telefon Numarası"
+											mask="(199) 999 99 99"
+											validation={{
+												required: "Telefon numaranızı girmelisiniz.",
+												minLength: ["Geçerli bir telefon numarası girmelisiniz.", 15]
+											}}
+											popLabel />
+									</div>
+									<div className="grid-col x6 m-x12">
+										<FormInput
+											name="phone"
+											disabled={this.state.submitting}
+											placeholder="Cep Telefonu"
+											mask="(199) 999 99 99"
+											validation={{
+												required: "Cep telefonunuzu girmelisiniz.",
+												minLength: ["Geçerli bir telefon numarası girmelisiniz.", 15]
+											}}
+											popLabel />
+									</div>
+								</div>
+								<div className="grid-row">
+									<div className="grid-col x12">
+										<FormInput
+											type="textarea"
+											name="address"
+											placeholder="Adres"
+											validation={"Bir adres girmelisiniz."}
+											popLabel />
+									</div>
+								</div>
+								<div className="grid-row">
+									<div className="grid-col x6 m-x12">
+										<FormInput
+											className="high city"
+											type="select"
+											name="city"
+											placeholder="İl"
+											options={(this.state.cities ? this.state.cities : undefined)}
+											disabled={!this.state.cities}
+											onChange={this.changeCity}
+											value={null}
+											validation={"İl seçmelisiniz."}
+											popLabel />
+									</div>
+									<div className="grid-col x6 m-x12">
+										<FormInput
+											className="high district"
+											type="select"
+											name="district"
+											placeholder="İlçe"
+											options={(this.state.districts ? this.state.districts : undefined)}
+											disabled={!this.state.districts}
+											value={null}
+											validation={"İlçe seçmelisiniz."}
+											popLabel />
+									</div>
+								</div>
+								<div className="grid-row">
+									<div className={"grid-col x6 m-x12 inputwrap" + ((!this.state.selectedBrands.length && this.state.touched) ? ' error' : '')}>
+										<FormInput
+											className="high brands"
+											type="select"
+											name="brand-selector"
+											placeholder="Marka ya da markalar seçiniz."
+											options={(this.state.brands ? this.state.brands : undefined)}
+											disabled={!this.state.availableBrands}
+											value={false}
+											onChange={this.addBrand}
+											popLabel />
+										{(!this.state.selectedBrands.length && this.state.touched) &&
+											<div className="input-error">Marka seçiniz.</div>
+										}
+									</div>
+								</div>
+								<div className="grid-row">
+									<div className="grid-col x12 form-opts">
+										<div className="opts-inner">
+											{this.state.selectedBrands.map((brand, nth) => (
+												<span className="opts-item" key={nth}>
+													<input type="hidden" name="brands[]" value={brand.value} />
+													{brand.label}
+													<button type="button" onClick={() => { this.removeBrand(brand.value) }}><i className="icon-close"></i></button>
+												</span>
+											))}
 										</div>
 									</div>
-									<div className="grid-row">
-										<div className="grid-col x6 m-x12">
-											<FormInput
-												type="text"
-												name="taxoffice"
-												placeholder="Vergi Dairesi"
-												validation={"Vergi dairenizi girmelisiniz."}
-												popLabel />
-										</div>
-										<div className="grid-col x6 m-x12">
-											<FormInput
-												type="number"
-												name="taxnumber"
-												placeholder="Vergi Numarası"
-												mask="00000000000"
-												validation={"Vergi numaranızı girmelisiniz."}
-												popLabel />
-										</div>
-									</div>
-									<div className="grid-row">
-										<div className="grid-col x6 m-x12">
-											<FormInput
-												name="phone_land"
-												disabled={this.state.submitting}
-												placeholder="Telefon Numarası"
-												mask="(199) 999 99 99"
-												validation={{
-													required: "Telefon numaranızı girmelisiniz.",
-													minLength: ["Geçerli bir telefon numarası girmelisiniz.", 15]
-												}}
-												popLabel />
-										</div>
-										<div className="grid-col x6 m-x12">
-											<FormInput
-												name="phone"
-												disabled={this.state.submitting}
-												placeholder="Cep Telefonu"
-												mask="(199) 999 99 99"
-												validation={{
-													required: "Cep telefonunuzu girmelisiniz.",
-													minLength: ["Geçerli bir telefon numarası girmelisiniz.", 15]
-												}}
-												popLabel />
-										</div>
-									</div>
-									<div className="grid-row">
-										<div className="grid-col x12">
-											<FormInput
-												type="textarea"
-												name="address"
-												placeholder="Adres"
-												validation={"Bir adres girmelisiniz."}
-												popLabel />
-										</div>
-									</div>
-									<div className="grid-row">
-										<div className="grid-col x6 m-x12">
-											<FormInput
-												className="high city"
-												type="select"
-												name="city"
-												placeholder="İl"
-												options={(this.state.cities ? this.state.cities : undefined)}
-												disabled={!this.state.cities}
-												onChange={this.changeCity}
-												value={null}
-												validation={"İl seçmelisiniz."}
-												popLabel />
-										</div>
-										<div className="grid-col x6 m-x12">
-											<FormInput
-												className="high district"
-												type="select"
-												name="district"
-												placeholder="İlçe"
-												options={(this.state.districts ? this.state.districts : undefined)}
-												disabled={!this.state.districts}
-												value={null}
-												validation={"İlçe seçmelisiniz."}
-												popLabel />
-										</div>
-									</div>
-									<div className="grid-row">
-										<div className={"grid-col x6 m-x12 inputwrap" + ((!this.state.selectedBrands.length && this.state.touched) ? ' error' : '')}>
-											<FormInput
-												className="high brands"
-												type="select"
-												name="brand-selector"
-												placeholder="Marka ya da markalar seçiniz."
-												options={(this.state.availableBrands ? this.state.availableBrands : undefined)}
-												disabled={!this.state.availableBrands}
-												value={false}
-												onChange={this.addBrand}
-												popLabel />
-											{(!this.state.selectedBrands.length && this.state.touched) &&
-												<div className="input-error">Marka seçiniz.</div>
-											}
-										</div>
-									</div>
-									<div className="grid-row">
-										<div className="grid-col x12 form-opts">
-											<div className="opts-inner">
-												{this.state.selectedBrands.map((brand, nth) => (
-													<span className="opts-item" key={nth}>
-														<input type="hidden" name="brands[]" value={brand.value} />
-														{brand.label}
-														<button type="button" onClick={() => {this.removeBrand(brand.value)}}><i className="icon-close"></i></button>
-													</span>
-												))}
-											</div>
-										</div>
-									</div>
-									<div className="grid-row">
-										<div className="grid-col x12">
-											<FormInput
-												type="checkbox"
-												className="form-agreement"
-												name="agreement"
-												value={this.state.agreementSelected}
-												validation={"Kullanıcı sözleşmesini kabul etmelisiniz."}
-												onChange={this.agreementChanged}>
-													"Formu Gönder" butonuna tıklayarak Minoto'nun <button type="button" className="check-link" onClick={() => { openModal('text', {content: agreement, title: "Ön Bilgilendirme Koşulları"})}}>Kullanıcı Sözleşmesi</button>'ni kabul etmiş sayılacaksınız.
+								</div>
+								<div className="grid-row">
+									<div className="grid-col x12">
+										<FormInput
+											type="checkbox"
+											className="form-agreement"
+											name="agreement"
+											value={this.state.agreementSelected}
+											validation={"Kullanıcı sözleşmesini kabul etmelisiniz."}
+											onChange={this.agreementChanged}>
+											"Formu Gönder" butonuna tıklayarak Minoto'nun <button type="button" className="check-link" onClick={() => { openModal('text', { content: agreement, title: "Ön Bilgilendirme Koşulları" }) }}>Kullanıcı Sözleşmesi</button>'ni kabul etmiş sayılacaksınız.
 												</FormInput>
-										</div>
 									</div>
-									<div className="grid-row">
-										<div className="grid-col x12 center">
-											<Btn
-												type="submit"
-												uppercase
-												block
-												disabled={this.state.submitting}
-												status={this.state.submitting && 'loading'}
-												onClick={() => {this.setState({touched: true})}}
-												className="form-submitbtn">
-												Formu Gönder
+								</div>
+								<div className="grid-row">
+									<div className="grid-col x12 center">
+										<Btn
+											type="submit"
+											uppercase
+											block
+											disabled={this.state.submitting}
+											status={this.state.submitting && 'loading'}
+											onClick={() => { this.setState({ touched: true }) }}
+											className="form-submitbtn">
+											Formu Gönder
 											</Btn>
-										</div>
 									</div>
-								</InputForm>
-							</div>
+								</div>
+							</InputForm>
 						</div>
+					</div>
 				</section>
 			</main>
 
