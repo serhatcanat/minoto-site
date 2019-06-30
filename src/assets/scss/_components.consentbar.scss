@@ -1,0 +1,29 @@
+.consentbar {
+	position: fixed;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	z-index: 999;
+	background-color: $color-white;
+	box-shadow: $shadow-general;
+	padding: 1.2rem 2rem;
+	text-align: center;
+
+	@include media {
+		padding: 2.8rem 2rem;
+		display: block;
+	}
+
+	.consentbar-textwrap {
+		margin-right: 3rem;
+		font-size: 1.2rem;
+		line-height: 1.4em;
+
+		@include media {
+			margin: 0 0 1.2rem;
+		}
+	}
+}

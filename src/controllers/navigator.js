@@ -5,7 +5,8 @@ import Header from 'components/sections/header'
 import Footer from 'components/sections/footer'
 
 // Partials
-import SearchBar from 'components/partials/searchbar.js'
+import SearchBar from 'components/partials/searchbar'
+import ConsentBar from 'components/partials/consentbar'
 
 // Modals
 import LoginModal from 'components/modals/login'
@@ -120,6 +121,7 @@ export default class Navigator extends React.Component {
 					<BidModal />
 					<MessageModal />
 				</ModalsWrap>
+				<ConsentBar />
 			</div>
 		)
 	}
@@ -149,15 +151,10 @@ export function redirect(opts, params = false, getParams = false) {
 
 	let getString = "";
 	if(getParams) {
-		/*for (let k = 0; k < Object.keys(params).length; k++) {
-			let key = Object.keys(params)[k];
-			route = route.replace(':' + key + '?', params[key]).replace(':' + key, params[key]);
-		}*/
-
 		for (let p = 0; p < Object.keys(getParams).length; p++) {
 			let key = Object.keys(getParams)[p];
 
-			if (getString != "") {
+			if (getString !== "") {
 				getString += "&";
 			}
 			getString += key + "=" + encodeURIComponent(getParams[key]);
