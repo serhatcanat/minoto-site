@@ -1089,7 +1089,7 @@
 		}
 
 		&.detail-blogposts {
-			padding: 7rem 0 10.2rem;
+			padding: 5.5rem 0 8.7rem;
 			max-width: 160rem;
 			margin: 0 auto;
 			text-align: center;
@@ -1104,6 +1104,10 @@
 			.blogposts-item {
 				width: 25%;
 				padding: 1.5rem;
+
+				@include media {
+					width: 50%;
+				}
 			}
 		}
 	}
