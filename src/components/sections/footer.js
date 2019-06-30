@@ -116,7 +116,7 @@ class Footer extends React.Component {
 								</ul>
 								<ul className="nav-col">
 									<li>
-										<a className="footer-link" href="/">Markalar</a>
+										<Link className="footer-link" href="brands">Markalar</Link>
 									</li>
 									<li>
 										<Link className="footer-link" href="dealers">Bayiler</Link>

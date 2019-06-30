@@ -72,8 +72,8 @@ class BidModalRaw extends React.Component {
 									popLabel
 									validation={{
 										required: "Bir fiyat teklifi girmelisiniz.",
-										minNum: ["Fiyat teklifi, liste fiyatının %7'sinden düşük olamaz.", (vm.props.advert.price * 0.93)],
-										maxNum: ["Fiyat teklifi, liste fiyatının %7'sinden yüksek olamaz.", (vm.props.advert.price * 1.07)],
+										minNum: ["Fiyat teklifiniz minimum teklif tutarının altındadır.", (vm.props.advert.price * 0.93)],
+										maxNum: ["Teklifiniz araç fiyatının üzerindedir.", (vm.props.advert.price * 1.07)],
 									}}
 									name="bid"
 									mask="1++++++++++++++"
