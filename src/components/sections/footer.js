@@ -20,7 +20,7 @@ import image_icon_facebook from 'assets/images/icon/facebook.svg'
 import image_icon_instagram from 'assets/images/icon/instagram.svg'
 import image_icon_youtube from 'assets/images/icon/youtube.svg'
 import image_logo_white from 'assets/images/logo-white.svg'
-import image_icon_twitter from 'assets/images/icon/twitter.svg'
+import image_icon_twitter from 'assets/images/icon/twitter2.svg'
 
 const mapStateToProps = state => {
 	return { mobile: state.generic.mobile };
@@ -259,11 +259,11 @@ class FooterSubscription extends React.Component {
 		let vm = this;
 		vm.setState({ submitting: true });
 
-		setTimeout(function() {
-			request.get('/dummy/data/contactform.json', serializeArray(e.target), function(payload){
-				if(payload.success){
-					vm.setState({complete: true, submitting: false});
-					if (vm.form.current){
+		setTimeout(function () {
+			request.get('/dummy/data/contactform.json', serializeArray(e.target), function (payload) {
+				if (payload.success) {
+					vm.setState({ complete: true, submitting: false });
+					if (vm.form.current) {
 						vm.form.current.reset();
 					}
 				}
@@ -276,21 +276,21 @@ class FooterSubscription extends React.Component {
 		return (
 			<InputForm className="footer-subscription" onSubmit={vm.submit} ref={vm.form}>
 				<FormInput
-					 className="subscription-input"
-					 disabled={vm.state.submitting}
-					 placeholder="E-postanızı yazın, bizden haberler verelim."
-					 validation={{
-					 	required: "E-posta adresinizi girmelisiniz.",
+					className="subscription-input"
+					disabled={vm.state.submitting}
+					placeholder="E-postanızı yazın, bizden haberler verelim."
+					validation={{
+						required: "E-posta adresinizi girmelisiniz.",
 						email: true
 					}}
 					hideAsterisk
 					type="text" />
 				<div className="subscription-submitwrap">
-					{vm.state.complete ? 
-						<button type="button" onClick={() => { vm.setState({ complete: false })}} className="submitwrap-complete"><i className="icon-check"></i></button>
+					{vm.state.complete ?
+						<button type="button" onClick={() => { vm.setState({ complete: false }) }} className="submitwrap-complete"><i className="icon-check"></i></button>
 						:
 						<React.Fragment>
-							{vm.state.submitting ? 
+							{vm.state.submitting ?
 								<i className="submitwrap-loader icon-spinner"></i>
 								:
 								<button type="submit" className="submitwrap-submit"><i className="icon-angle-right"></i></button>
