@@ -186,7 +186,7 @@ class Footer extends React.Component {
 										</a>
 									</li>
 									<li>
-										<a href="http://www.youtube.com/minotocom" target="_blank" rel="noopener noreferrer" title="Bizi YouTube'da Takip Edin">
+										<a href="https://www.youtube.com/channel/UCz_v-QZCXSX8RRowWV8GrHA" target="_blank" rel="noopener noreferrer" title="Bizi YouTube'da Takip Edin">
 											<Image src={image_icon_youtube} alt="YouTube" />
 										</a>
 									</li>

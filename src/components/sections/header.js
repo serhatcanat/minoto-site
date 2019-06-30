@@ -150,7 +150,7 @@ class Header extends React.Component {
 													<a href="http://www.instagram.com/minotocom" target="_blank" rel="noopener noreferrer" title="Bizi Instagram'da Takip Edin">
 														<Image src={image_icon_instagram} alt="Instagram" />
 													</a>
-													<a href="http://www.youtube.com/minotocom" target="_blank" rel="noopener noreferrer" title="Bizi YouTube'da Takip Edin">
+													<a href="https://www.youtube.com/channel/UCz_v-QZCXSX8RRowWV8GrHA" target="_blank" rel="noopener noreferrer" title="Bizi YouTube'da Takip Edin">
 														<Image src={image_icon_youtube} alt="YouTube" />
 													</a>
 													<a href="http://www.facebook.com/minotocom" target="_blank" rel="noopener noreferrer" title="Bizi Facebook'da Takip Edin">
@@ -221,7 +221,7 @@ class Header extends React.Component {
 												</li>
 											</ul>
 
-											<ul className="menu-thumblinks">
+											<ul className="menu-thumblinks" style={{ display: 'none' }}>
 												<li className="thumblinks-item">
 													<Link href="/">
 														<Image className="thumblinks-image" src="/dummy/images/sidemenu-thumb.jpg" />
