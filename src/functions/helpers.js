@@ -117,10 +117,10 @@ export function scrollTo(inputOpts, endFunction = false) {
 
 export function formatNumber(num, opts = {}) {
 	let options = extend({}, {
-		showDecimals: false,
+		showDecimals: true,
 		decimals: 2
 	}, opts)
-	let plainNum = Math.trunc(num.toString().replace(/[.,]/g, ''));
+	let plainNum = Math.trunc(num);
 	let result = plainNum.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
 
 	if (options.showDecimals) {
