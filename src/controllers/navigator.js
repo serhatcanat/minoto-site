@@ -265,7 +265,7 @@ export function changePage(key = false, group = 'pages') {
 				if(hashTarget){
 					hashTarget.scrollIntoView();
 				}
-			}, 1000);
+			}, 500);
 		}
 	}
 

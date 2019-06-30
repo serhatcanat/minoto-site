@@ -59,7 +59,7 @@ export default class LinkItem extends React.Component {
 		}
 
 		if(this.props.hash){
-			props.to = props.to + "#" + props.hash;
+			props.to = props.to + "#" + this.props.hash;
 		}
 		
 		return <Elem {...props}>{content}</Elem>
