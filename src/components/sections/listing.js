@@ -47,6 +47,7 @@ class Listing extends React.Component {
 			order: null,
 			initialLoad: true,
 			extending: false,
+			activeFilters: 0,
 			page: 1,
 		}
 
@@ -95,6 +96,10 @@ class Listing extends React.Component {
 		if (!isExact(prevState.query, this.state.query)) {
 			this.updateURL();
 			this.updateResults();
+
+			let activeFilters = Object.keys(this.state.query).length;
+			if(this.state.query.siralama){ activeFilters--; }
+			this.setState({activeFilters: activeFilters})
 		}
 
 		if (!isExact(prevProps.query, this.props.query)) {
@@ -282,8 +287,8 @@ class Listing extends React.Component {
 							{vm.props.mobile &&
 								<button className="top-filterstrigger" type="button" onClick={vm.props.expandFilters}>
 									<i className="icon-filter"></i> Filtrele
-									{(vm.state.listingData.filters && vm.state.listingData.filters.length) &&
-										<span> ({vm.state.listingData.filters.length})</span>
+									{(vm.state.listingData.filters && vm.state.activeFilters > 0) &&
+										<span> ({vm.state.activeFilters})</span>
 									}
 								</button>
 							}
