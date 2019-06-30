@@ -253,6 +253,7 @@ class Listing extends React.Component {
 		let vm = this;
 
 		let options = [
+			{ value: 'random', label: "Varsayılan Sıralama" },
 			{ value: 'price_desc', label: "Fiyata Göre (Önce Yüksek)" },
 			{ value: 'price_asc', label: "Fiyata Göre (Önce Düşük)" },
 			{ value: 'date_desc', label: "Tarihe Göre (Önce Yeni)" },
@@ -273,6 +274,7 @@ class Listing extends React.Component {
 				<Loader loading={vm.state.loading || !vm.state.results} strict={!vm.state.initialLoad} />
 				{vm.props.filters &&
 					<ListingFilters
+						order={vm.state.order}
 						data={vm.state.listingData}
 						onUpdate={(newQuery) => {
 							vm.setState({

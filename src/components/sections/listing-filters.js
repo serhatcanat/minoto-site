@@ -11,7 +11,7 @@ import debounce from 'lodash/debounce';
 import isEqual from 'lodash/isEqual';
 import clone from 'lodash/clone';
 import extend from 'lodash/extend';
-import { serializeArray, isExact } from 'functions/helpers';
+import { serializeArray } from 'functions/helpers';
 import { connect } from "react-redux";
 import { setListingFiltersExpansion } from 'data/store.generic';
 import { blockOverflow } from "functions/helpers";
@@ -99,7 +99,7 @@ class ListingFilters extends React.Component {
 		filterCount = Object.keys(newQuery).length;
 
 		if (vm.props.order !== null) {
-			newQuery.siralama = vm.state.order;
+			newQuery.siralama = vm.props.order;
 		}
 		else if (newQuery.siralama) {
 			delete newQuery.siralama;
@@ -111,6 +111,7 @@ class ListingFilters extends React.Component {
 			vm.setState({activeFilters: filterCount});
 			if (vm.props.onUpdate) {
 				if(this.requestBounces < 3){
+					this.requestBounces++;
 					vm.props.onUpdate(vm.query);
 				}
 				else {
@@ -132,7 +133,7 @@ class ListingFilters extends React.Component {
 	clearFilters() {
 		let query = {};
 		if (this.props.order !== null) {
-			query.siralama = this.state.order;
+			query.siralama = this.props.order;
 		}
 
 		this.query = query;
