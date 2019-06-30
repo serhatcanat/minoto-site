@@ -6,6 +6,7 @@ import Slider from 'components/partials/slider'
 
 // Deps
 import debounce from 'lodash/debounce'
+import { redirect } from 'controllers/navigator'
 import { blockOverflow, isExact } from "functions/helpers";
 import request from 'controllers/request'
 import { Link } from 'react-router-dom'
@@ -51,6 +52,7 @@ class SearchBar extends React.Component {
 		this.hide = this.hide.bind(this);
 		this.hideSelf = this.hideSelf.bind(this);
 		this.focus = this.focus.bind(this);
+		this.formSubmit = this.formSubmit.bind(this);
 		this.blur = this.blur.bind(this);
 		this.keyInput = this.keyInput.bind(this);
 		this.bindInputs = this.bindInputs.bind(this);
@@ -268,6 +270,7 @@ class SearchBar extends React.Component {
 
 	formSubmit(e) {
 		e.preventDefault();
+		redirect('search', false, {ara: this.props.inputValue});
 	}
 
 	render() {
@@ -312,7 +315,7 @@ class SearchBar extends React.Component {
 							<button type="button" className="searchbar-close" onClick={this.hide}><i className="icon-close"></i></button>
 							:
 							<button
-								type="submit"
+								type="button"
 								className="searchbar-submit btn primary">
 								<i className="icon-search"></i>Ara
 							</button>

@@ -108,7 +108,7 @@ export default class ContentBox extends React.Component {
 										<p className="info-subtitle">{vm.props.subtitle}</p>
 									</div>
 									<br />
-									{vm.props.price > 0 ? <div className="info-price"><PriceTag price={vm.props.price} /></div> : <div className="info-price">SORUNUZ</div>}
+									{vm.props.price > 0 ? <span className="info-price"><PriceTag price={vm.props.price} /></span> : <span className="info-price">SORUNUZ</span>}
 								</React.Fragment>
 							)}
 							{((vm.props.labels.length || bottomNote || !vm.props.additionsOptional) ?

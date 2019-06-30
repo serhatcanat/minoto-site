@@ -155,6 +155,7 @@
 			}
 
 			.info-price {
+				@include font-semibold;
 				font-size: 1.8rem;
 				color: $color-primary;
 				text-align: right;

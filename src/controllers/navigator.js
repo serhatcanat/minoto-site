@@ -131,7 +131,7 @@ export function ListingLink(params) {
 	});
 }
 
-export function redirect(opts, params = false) {
+export function redirect(opts, params = false, getParams = false) {
 	const defaultOpts = {
 		type: 'push'
 	}
@@ -147,8 +147,26 @@ export function redirect(opts, params = false) {
 		}
 	}
 
+	let getString = "";
+	if(getParams) {
+		/*for (let k = 0; k < Object.keys(params).length; k++) {
+			let key = Object.keys(params)[k];
+			route = route.replace(':' + key + '?', params[key]).replace(':' + key, params[key]);
+		}*/
+
+		for (let p = 0; p < Object.keys(getParams).length; p++) {
+			let key = Object.keys(getParams)[p];
+
+			if (getString != "") {
+				getString += "&";
+			}
+			getString += key + "=" + encodeURIComponent(getParams[key]);
+		}
+	}
+
 	if (route) {
 		route = route.split('/:')[0];
+		if(getString !== ""){ route = route+"?"+getString }
 		switch (opts.type) {
 			case "replace":
 				history.replace(route);

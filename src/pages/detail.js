@@ -20,6 +20,7 @@ import PriceTag from 'components/partials/price-tag'
 
 // Deps
 //import { ListingLink } from 'controllers/navigator'
+import { redirect } from 'controllers/navigator'
 import { openModal } from "functions/modals"
 import { blockOverflow, nl2br, remToPx } from 'functions/helpers.js'
 import parse from 'html-react-parser'
@@ -111,6 +112,9 @@ class Detail extends React.Component {
 							}
 						}]);
 					};
+				}
+				else {
+					redirect('notfound');
 				}
 			}, { excludeApiPath: false });
 		}
