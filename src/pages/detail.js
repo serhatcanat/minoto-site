@@ -462,7 +462,7 @@ class DetailInfo extends React.Component {
 					</strong>
 					{(product.listingPrice && product.price > 0) &&
 						<div className={"price-listing" + ((product.listingPrice > product.price) ? ' higher' : '')}>
-							<strong>Liste Fiyatı:</strong> <span><PriceTag price={product.listingPrice} /></span>
+							<strong>Liste Fiyatı:</strong> <span><PriceTag stroke={product.listingPrice > product.price ? true : false} price={product.listingPrice > product.price ? product.listingPrice : product.price} /></span>
 						</div>
 					}
 				</div>
@@ -515,9 +515,13 @@ class DetailInfo extends React.Component {
 							Rezerve Et
 						</Btn>
 						{(vm.props.mobile && product.dealer.phone) && <a className="controls-phone" href={"tel:+9" + product.dealer.phone.replace(' ', '')}><i className="icon-phone-nude"></i></a>}
-						{product.bidThreadId ? <Btn className="controls-button" note="Bu araç için daha önce teklif verdiniz." primary uppercase tag="a" href={`/hesabim/mesajlarim/mesaj/${product.bidThreadId}`}>Tekliflerim</Btn> : <Btn className="controls-button" onClick={() => openModal('bid', { advert: product })} primary uppercase note="Bu araç için teklif verebilirsiniz.">
-							Teklif Ver
-					</Btn>}
+						{product.bidThreadId
+							?
+							<Btn className="controls-button" note="Bu araç için daha önce teklif verdiniz." primary uppercase tag="a" href={`/hesabim/mesajlarim/mesaj/${product.bidThreadId}`}>Tekliflerim</Btn>
+							:
+							<Btn disabled={product.status === 3 ? true : false} className="controls-button" onClick={() => openModal('bid', { advert: product })} primary={product.status === 3 ? false : true} hollow={product.status === 3 ? true : false} uppercase note={product.status === 3 ? 'Bu araç satıldı.' : 'Bu araç için teklif verebilirsiniz.'}>
+								{product.status === 3 ? 'SATILDI' : 'Teklif Ver'}
+							</Btn>}
 
 					</div>
 
@@ -526,7 +530,8 @@ class DetailInfo extends React.Component {
 					}
 				</div>
 
-				{product.dealer &&
+				{
+					product.dealer &&
 					<div className="info-dealer">
 						<div className="dealer-head">
 							<Link href="branch" params={{ id: product.dealer.id, slug: product.dealer.url }}>
@@ -562,7 +567,7 @@ class DetailInfo extends React.Component {
 						</div>
 					</div>
 				}
-			</div>
+			</div >
 		)
 	}
 }
