@@ -43,6 +43,8 @@ class Header extends React.Component {
 		this.toggleMenu = this.toggleMenu.bind(this);
 		this.closeMenu = this.closeMenu.bind(this);
 		this.menuTimeout = false;
+
+		this.menuScroller = React.createRef();
 	}
 
 	componentWillUnmount() {
@@ -59,6 +61,13 @@ class Header extends React.Component {
 				vm.menuTimeout = setTimeout(function () {
 					vm.setState({ menuShow: true });
 					blockOverflow(true);
+
+					if(vm.menuScroller.current){
+						setTimeout(function() {
+							console.log('upd');
+							vm.menuScroller.current.instance.update();
+						}, 120);
+					}
 				}, 20);
 			}
 			else {
@@ -130,7 +139,7 @@ class Header extends React.Component {
 						{vm.state.menuActive && (
 							<div className={"nav-menu" + (vm.state.menuShow ? ' show' : '')}>
 								<div className="menu-outerwrap">
-									<Slider className="menu-content" scrollBar>
+									<Slider className="menu-content" scrollBar ref={this.menuScroller}>
 										<div className="content-innerwrap">
 											<div className="menu-header">
 												<Responsive type="only-web">
@@ -227,14 +236,16 @@ class Header extends React.Component {
 												</li>
 											</ul>
 
-											<div className="menu-applinks" style={{ opacity: '0' }}>
-												<Btn tag="link" className="applinks-link btn block white" href="http://www.google.com" target="_blank" rel="noopener noreferrer" icon="appstore">
-													Apple Store
-												</Btn>
-												<Btn className="applinks-link btn block white" href="http://www.google.com" target="_blank" rel="noopener noreferrer" icon="playstore">
-													Google Play
-												</Btn>
-											</div>
+											{false &&
+												<div className="menu-applinks" style={{ opacity: '0' }}>
+													<Btn tag="link" className="applinks-link btn block white" href="http://www.google.com" target="_blank" rel="noopener noreferrer" icon="appstore">
+														Apple Store
+													</Btn>
+													<Btn className="applinks-link btn block white" href="http://www.google.com" target="_blank" rel="noopener noreferrer" icon="playstore">
+														Google Play
+													</Btn>
+												</div>
+											}
 										</div>
 									</Slider>
 								</div>
