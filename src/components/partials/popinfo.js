@@ -49,8 +49,6 @@ class PopInfo extends React.Component {
 					if(diff < 0){
 						compensation = diff;
 					}
-
-					console.log(compensation);
 				}
 				else if(rect.x < safeZone) {
 					compensation = (rect.x < 0 ? (rect.x*-1) + safeZone : safeZone - rect.x);

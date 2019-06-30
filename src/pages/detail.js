@@ -132,7 +132,7 @@ class Detail extends React.Component {
 					<div>
 						<section className="section detail-top">
 							{!vm.props.mobile &&
-								<div className="top-wrap wrapper">
+								<div className="top-wrap wrapper" lang="en">
 									<Breadcrumbs className="top-breadcrumbs" data={[
 										{
 											"href": "/",
