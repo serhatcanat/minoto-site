@@ -76,7 +76,7 @@ class SearchBar extends React.Component {
 	}
 
 	bindInputs() {
-		if(this.input.current){
+		if (this.input.current) {
 			this.input.current.addEventListener("keydown", this.keyInput);
 			this.input.current.addEventListener("blur", this.blur);
 			this.input.current.addEventListener("focus", this.focus);
@@ -85,7 +85,7 @@ class SearchBar extends React.Component {
 	}
 
 	unbindInputs() {
-		if(this.input.current){
+		if (this.input.current) {
 			this.input.current.removeEventListener("keydown", this.keyInput);
 			this.input.current.removeEventListener("blur", this.blur);
 			this.input.current.removeEventListener("focus", this.focus);
@@ -105,28 +105,28 @@ class SearchBar extends React.Component {
 			this.hide();
 		}
 
-		if(prevProps.open !== this.props.open || (this.props.open && this.state.data && this.state.data.groups && !(isExact(prevState.data, this.state.data) && !this.state.active))){
-			if(this.props.open && this.state.primary && !(this.state.data.groups.length <= 1 && this.state.data.groups[0].results.length === 0)){
-				if(!this.state.active){
+		if (prevProps.open !== this.props.open || (this.props.open && this.state.data && this.state.data.groups && !(isExact(prevState.data, this.state.data) && !this.state.active))) {
+			if (this.props.open && this.state.primary && !(this.state.data.groups.length <= 1 && this.state.data.groups[0].results.length === 0)) {
+				if (!this.state.active) {
 					this.showSelf();
 				}
 			}
-			else if(this.state.active) {
+			else if (this.state.active) {
 				this.hideSelf();
 			}
 		}
 
-		if(prevProps.mobile !== this.props.mobile){
+		if (prevProps.mobile !== this.props.mobile) {
 			this.setState({ primary: ((this.props.mobile && this.props.fullScreen) || (!this.props.mobile && !this.props.fullScreen)) });
 		}
 
-		if(prevState.primary !== this.state.primary){
-			if(this.props.open && this.state.primary){
+		if (prevState.primary !== this.state.primary) {
+			if (this.props.open && this.state.primary) {
 				this.bindInputs();
 				this.setState({ active: true, show: true });
 			}
-			else{
-				if(this.props.fullScreen && this.state.active){
+			else {
+				if (this.props.fullScreen && this.state.active) {
 					blockOverflow(false);
 				}
 				this.setState({ active: false, show: false });
@@ -139,16 +139,16 @@ class SearchBar extends React.Component {
 	}
 
 	showSelf() {
-		if (!this.state.show){
+		if (!this.state.show) {
 			let vm = this;
 			vm.setState({ cacheData: vm.state.data, active: true });
-			if(vm.props.fullScreen){ blockOverflow(true); }
+			if (vm.props.fullScreen) { blockOverflow(true); }
 
 			vm.animTimeout = setTimeout(function () {
 				vm.setState({ show: true });
 
-				if(vm.input.current){
-					setTimeout(function() {
+				if (vm.input.current) {
+					setTimeout(function () {
 						vm.input.current.focus();
 					}, 10);
 				}
@@ -160,11 +160,11 @@ class SearchBar extends React.Component {
 		this.props.setOpen(false);
 	}
 
-	hideSelf(){
+	hideSelf() {
 		let vm = this;
 		if (vm.state.show) {
 			vm.setState({ show: false });
-			if(vm.props.fullScreen){ blockOverflow(false); }
+			if (vm.props.fullScreen) { blockOverflow(false); }
 			vm.animTimeout = setTimeout(function () {
 				vm.setState({ cacheData: false, active: false });
 			}, 500);
@@ -270,14 +270,14 @@ class SearchBar extends React.Component {
 
 	formSubmit(e) {
 		e.preventDefault();
-		redirect('search', false, {ara: this.props.inputValue});
+		redirect('search', false, { ara: this.props.inputValue });
 	}
 
 	render() {
 		let vm = this;
 
-		if(!(!vm.state.primary && vm.props.fullScreen)){
-		
+		if (!(!vm.state.primary && vm.props.fullScreen)) {
+
 			let containerClasses = "searchbar " + vm.props.className + (vm.props.fullScreen ? ' fullscreen' : ' regular');
 			let inputClasses = 'searchbar-input';
 
@@ -289,7 +289,7 @@ class SearchBar extends React.Component {
 			let GroupWrap = 'div';
 			let groupParams = {};
 
-			if(!vm.props.fullScreen){
+			if (!vm.props.fullScreen) {
 				GroupWrap = Slider;
 				groupParams = {
 					scrollBar: true
@@ -302,7 +302,7 @@ class SearchBar extends React.Component {
 						<i className="searchbar-loader icon-spinner"></i>
 					)}
 					<form className="searchbar-form" onSubmit={vm.formSubmit}>
-						{ vm.props.fullScreen && <i className="searchbar-icon icon-search"></i> }
+						{vm.props.fullScreen && <i className="searchbar-icon icon-search"></i>}
 						<input
 							type="text"
 							ref={vm.input}
@@ -311,7 +311,7 @@ class SearchBar extends React.Component {
 							placeholder={vm.props.placeholder}
 							onChange={vm.inputChange}>
 						</input>
-						{ vm.props.fullScreen ?
+						{vm.props.fullScreen ?
 							<button type="button" className="searchbar-close" onClick={this.hide}><i className="icon-close"></i></button>
 							:
 							<button
@@ -360,7 +360,7 @@ class SearchBar extends React.Component {
 
 SearchBar.defaultProps = {
 	className: '',
-	placeholder: 'Volvo XC40 ara',
+	placeholder: 'BMW 520i ara',
 	fullScreen: false,
 };
 

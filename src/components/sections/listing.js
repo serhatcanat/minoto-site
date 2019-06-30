@@ -98,8 +98,8 @@ class Listing extends React.Component {
 			this.updateResults();
 
 			let activeFilters = Object.keys(this.state.query).length;
-			if(this.state.query.siralama){ activeFilters--; }
-			this.setState({activeFilters: activeFilters})
+			if (this.state.query.siralama) { activeFilters--; }
+			this.setState({ activeFilters: activeFilters })
 		}
 
 		if (!isExact(prevProps.query, this.props.query)) {
