@@ -184,7 +184,7 @@ export default class Dealer extends React.Component {
 										urlBinding={false}
 										filters={false}
 										source={`dealers/${vm.state.listingQuery.dealer}/car-posts`}
-										query={false}
+										query={vm.state.listingQuery}
 										showAds={false}
 										onDataChange={(newData) => {
 											vm.setState({ listingData: newData });

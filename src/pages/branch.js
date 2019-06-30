@@ -134,7 +134,7 @@ export default class Branch extends React.Component {
 										urlBinding={false}
 										filters={false}
 										source={`branches/${branch.id}/car-posts`}
-										query={false}
+										query={vm.state.listingQuery}
 										showAds={false}
 										onDataChange={(newData) => {
 											vm.setState({ listingData: newData });
