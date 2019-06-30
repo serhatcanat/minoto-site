@@ -131,7 +131,7 @@
 		}
 
 		.contentbox-info {
-			display: flex;
+			//display: flex;
 			margin-top: .8rem;
 
 			@include media {
@@ -156,10 +156,12 @@
 
 			.info-price {
 				@include font-semibold;
+				display: inline-block;
 				font-size: 1.8rem;
 				color: $color-primary;
 				text-align: right;
 				white-space: nowrap;
+				margin-top: 1rem;
 				flex-grow: 2;
 
 				@include media {
@@ -178,7 +180,7 @@
 
 			@include media {
 				display: block;
-				margin-top: .5rem;
+				margin-top: 1rem;
 			}
 		}
 
