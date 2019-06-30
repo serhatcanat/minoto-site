@@ -208,7 +208,9 @@ class ListingFilter extends React.Component {
 				vm.timeout = setTimeout(function () {
 					vm.setState({ show: true });
 					console.log(vm.scrollElem.current);
-					vm.scrollElem.current.instance.update();
+					setTimeout(function() {
+						vm.scrollElem.current.instance.update();
+					}, 120);
 				}, 30);
 			}
 			else {
@@ -224,7 +226,7 @@ class ListingFilter extends React.Component {
 		let vm = this;
 		setTimeout(function() {
 			vm.scrollElem.current.instance.update();
-		}, 30);
+		}, 120);
 	}
 
 	toggle() {
