@@ -4,6 +4,7 @@ import React from 'react';
 import Image from 'components/partials/image.js';
 import SVG from 'react-inlinesvg';
 import Btn from 'components/partials/btn.js';
+import Slider from 'components/partials/slider'
 
 // Deps
 import debounce from 'lodash/debounce';
@@ -188,6 +189,9 @@ class ListingFilter extends React.Component {
 		}
 
 		this.toggle = this.toggle.bind(this);
+		this.filterExpandChange = this.filterExpandChange.bind(this);
+
+		this.scrollElem = React.createRef();
 		this.timeout = false;
 	}
 
@@ -203,6 +207,8 @@ class ListingFilter extends React.Component {
 				vm.setState({ active: true });
 				vm.timeout = setTimeout(function () {
 					vm.setState({ show: true });
+					console.log(vm.scrollElem.current);
+					vm.scrollElem.current.instance.update();
 				}, 30);
 			}
 			else {
@@ -212,6 +218,13 @@ class ListingFilter extends React.Component {
 				}, 210);
 			}
 		}
+	}
+
+	filterExpandChange(){
+		let vm = this;
+		setTimeout(function() {
+			vm.scrollElem.current.instance.update();
+		}, 30);
 	}
 
 	toggle() {
@@ -230,7 +243,7 @@ class ListingFilter extends React.Component {
 				filterContent = <FilterTypeList data={filterData} onUpdate={vm.props.onUpdate} />;
 				break;
 			case "tree":
-				filterContent = <FilterTypeTree data={filterData} onUpdate={vm.props.onUpdate} />;
+				filterContent = <FilterTypeTree data={filterData} onUpdate={vm.props.onUpdate} onExpand={this.filterExpandChange} />;
 				break;
 			case "icons":
 				filterContent = <FilterTypeIcons data={filterData} onUpdate={vm.props.onUpdate} />;
@@ -252,7 +265,9 @@ class ListingFilter extends React.Component {
 					}
 
 					<div className="filter-content">
-						{filterContent}
+						<Slider className="filter-slidewrap" scrollBar ref={vm.scrollElem}>
+							{filterContent}
+						</Slider>
 					</div>
 				</div>
 			)
@@ -371,7 +386,7 @@ class FilterTypeTree extends React.Component {
 				{opts.map((opt, nth) => {
 					let idprefix = 'filter_input_' + data.name;
 					return (
-						<TreeFilterItem data={opt} name={data.name} idprefix={idprefix} nth={nth} key={nth} level={1} onChange={(e) => { this.handleChange(e, nth) }} />
+						<TreeFilterItem data={opt} name={data.name} idprefix={idprefix} nth={nth} key={nth} level={1} onChange={(e) => { this.handleChange(e, nth) }} onExpand={this.props.onExpand} />
 					)
 				})}
 			</ul>
@@ -491,6 +506,7 @@ class TreeFilterItem extends React.Component {
 
 	toggleExpand() {
 		this.setState({ expanded: !this.state.expanded });
+		this.props.onExpand();
 	}
 
 	handleValueChange(e) {
@@ -580,7 +596,7 @@ class TreeFilterItem extends React.Component {
 							<ul className="item-submenu">
 								{data.children.map((opt, nth) => {
 									return (
-										<TreeFilterItem data={opt} name={name} idprefix={vm.id} key={nth} nth={nth} level={vm.props.level + 1} onChange={(e) => { this.handleChildrenChange(e, nth) }} />
+										<TreeFilterItem data={opt} name={name} idprefix={vm.id} key={nth} nth={nth} level={vm.props.level + 1} onChange={(e) => { this.handleChildrenChange(e, nth) }} onExpand={this.props.onExpand} />
 									)
 								})}
 							</ul>

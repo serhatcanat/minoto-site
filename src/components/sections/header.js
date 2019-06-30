@@ -20,6 +20,7 @@ import image_icon_youtube from 'assets/images/icon/youtube.svg'
 import image_icon_twitter from 'assets/images/icon/twitter.svg'
 import image_logo from 'assets/images/logo.svg'
 import image_logo_primary from 'assets/images/logo-primary.svg'
+import image_avatar from 'assets/images/defaults/avatar.svg'
 
 const mapStateToProps = state => {
 	return {
@@ -101,12 +102,12 @@ class Header extends React.Component {
 							{user &&
 								<div className="nav-user">
 									<Link className="user-item avatar" href="account.profile" title={user.fullname}>
-										<Image bg src={storageSpace('profile-photos', user.avatar)} />
+										<Image bg src={(user.avatar ? storageSpace('profile-photos', user.avatar) : image_avatar)} />
 									</Link>
 
-									<Link className="user-item notifications" href="account.notifications" title="Bildirimlerim">
+									{/*<Link className="user-item notifications" href="account.notifications" title="Bildirimlerim">
 										<i className="icon-notification"></i>
-									</Link>
+									</Link>*/}
 								</div>
 							}
 							{!user &&
@@ -247,7 +248,6 @@ class Header extends React.Component {
 						<SearchBar className="header-search" />
 					</Responsive>
 				}
-				<SearchBar className="search-mobile" fullScreen={true} />
 			</header>
 		)
 	}

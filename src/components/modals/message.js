@@ -93,7 +93,7 @@ class MessageModalRaw extends React.Component {
 								</p>
 								<div className="complete-controls">
 									<button type="button" className="link" onClick={closeModal}>İlana Dön</button>
-									<Link className="link" href="account.messages">Mesajlarıma Git</Link>
+									<Link className="link" href="account.messages" onClick={closeModal}>Mesajlarıma Git</Link>
 								</div>
 							</div>
 

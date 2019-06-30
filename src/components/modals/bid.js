@@ -76,8 +76,9 @@ class BidModalRaw extends React.Component {
 										maxNum: ["Fiyat teklifi, liste fiyatının %7'sinden yüksek olamaz.", (vm.props.advert.price * 1.07)],
 									}}
 									name="bid"
-									mask="10000000000"
+									mask="1++++++++++++++"
 									disabled={vm.state.loading}
+									formatNumber
 									type="number" />
 								<FormInput
 									className="form-message"

@@ -466,11 +466,6 @@
 			}
 
 		.filters-filter {
-
-			.content-scrollwrap {
-				max-height: 30rem;
-			}
-
 			&.expandable {
 				.filter-content {
 					display: none;
@@ -816,6 +811,15 @@
 					font-size: .9rem;
 					color: $color-text;
 					opacity: .3;
+				}
+			}
+
+			.filter-content{
+				.filter-slidewrap {
+					width: calc(100% + 1.2rem);
+					margin-right: -1.2rem;
+					padding-right: 1.2rem;
+					max-height: 30rem;
 				}
 			}
 	}

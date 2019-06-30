@@ -8,7 +8,7 @@ import union from 'lodash/union';
 import isEqual from 'lodash/isEqual';
 import extend from 'lodash/extend';
 import omit from 'lodash/omit';
-import { uid } from 'functions/helpers';
+import { uid, formatNumber } from 'functions/helpers';
 import { validation } from 'controllers/validation';
 import InputMask from 'react-input-mask';
 //import DayPickerInput from 'react-day-picker/DayPickerInput';
@@ -178,6 +178,8 @@ class InputText extends React.Component {
 		});
 
 		this.validate();
+
+		window.format = formatNumber;
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -215,7 +217,19 @@ class InputText extends React.Component {
 
 	handleChange(e) {
 		e.persist();
-		this.setState({ value: e.target.value });
+		const oldVal = this.state.value.replace(/[.,]/g, '');
+		let newVal = e.target.value;
+		const cleanNewVal = newVal.replace(/[.,]/g, '');
+		if(this.props.formatNumber){
+			newVal = formatNumber(newVal);
+		}
+		this.setState({ value: newVal });
+
+		if((this.props.mask || this.props.formatNumber) && oldVal === cleanNewVal.substring(0, cleanNewVal.length - 1)){
+			setTimeout(function() {
+				e.target.selectionStart = e.target.selectionEnd = e.target.value.length;
+			}, 20);
+		}
 	}
 
 	handleBlur(e) {
@@ -251,7 +265,7 @@ class InputText extends React.Component {
 		let labelText = false;
 
 		let props = {
-			...omit(vm.props, ['onChange', 'placeholder', 'value', 'popLabel', 'validation', 'touched', 'className', 'hideError', 'icon', 'info', 'infoProps', 'hideAsterisk', 'onFeedback']),
+			...omit(vm.props, ['onChange', 'placeholder', 'value', 'popLabel', 'validation', 'touched', 'className', 'hideError', 'icon', 'info', 'infoProps', 'hideAsterisk', 'onFeedback', 'formatNumber']),
 			onChange: vm.handleChange,
 			onBlur: vm.handleBlur,
 			value: vm.state.value ? vm.state.value : "",
@@ -285,6 +299,7 @@ class InputText extends React.Component {
 				formatChars: {
 					'1': '[1-9]',
 					'0': '[0-9]',
+					'+': '[0-9.,]',
 					'9': '[0-9]',
 					'a': '[A-Za-z]',
 					'*': '[A-Za-z0-9]',
