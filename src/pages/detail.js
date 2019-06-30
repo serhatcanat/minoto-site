@@ -29,7 +29,7 @@ import { storageSpace } from "functions/helpers"
 
 // Assets
 import image_avatar from 'assets/images/defaults/avatar.svg';
-import image_loader from 'assets/images/loader2.gif'
+import image_loader from 'assets/images/minoto-loading.gif'
 
 const ncapDescriptions = [
 	"1 yıldızlı güvenlik: Marjinal çarpışma koruması.",
@@ -360,7 +360,7 @@ class DetailGallery extends React.Component {
 							<div className="slider-imagewrap" key={nth}>
 								<div className="imagewrap-image swiper-lazy" data-background={storageSpace('car-posts/gallery', image.medium)}>
 								</div>
-								<Image className="imagewrap-loader" bg src={image_loader} alt="Yükleniyor..." />
+								<Image className="imagewrap-loader" width="100" bg src={image_loader} alt="Yükleniyor..." />
 							</div>
 						))}
 					</Slider>
