@@ -1,8 +1,9 @@
 .page.detail{
 
 	&.gallery-fullscreen {
-
 		.section.detail-content{
+			z-index: 50;
+			
 			.content-left {
 				z-index: 50;
 			}
@@ -200,6 +201,8 @@
 		}
 
 		&.detail-content {
+			position: relative;
+			z-index: 2;
 
 			.content-wrap {
 				display: flex;
@@ -1093,10 +1096,13 @@
 			max-width: 160rem;
 			margin: 0 auto;
 			text-align: center;
+			position: relative;
+			z-index: 1;
 
 			.blogposts-list {
 				display: flex;
 				flex-flow: row wrap;
+				justify-content: center;
 				margin: 0 -1.5rem;
 				width: calc(100% + 3rem);
 			}
