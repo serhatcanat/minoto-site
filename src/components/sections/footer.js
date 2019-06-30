@@ -6,11 +6,13 @@ import Link from 'components/partials/link'
 //import Btn from 'components/partials/btn'
 import Responsive from 'components/partials/responsive'
 import Btn from 'components/partials/btn.js'
+import { InputForm, FormInput } from 'components/partials/forms'
 // Functions
 import { formatNumber } from 'functions/helpers'
 
 // Deps
 import { connect } from "react-redux";
+import { serializeArray } from "functions/helpers";
 import request from 'controllers/request'
 
 // Assets
@@ -214,12 +216,13 @@ class Footer extends React.Component {
 								</React.Fragment>
 
 							}
-							<div className="footer-app" style={{ opacity: '0' }}>
-								<h3 className="app-title">Mobil uygulamamızı indirdiniz mi?</h3>
-								<Btn tag="a" className="app-link" white {...(vm.props.mobile ? { low: true } : {})} href="http://www.google.com" target="_blank" rel="noopener noreferrer" icon="appstore">Apple Store</Btn>
-								<Btn tag="a" className="app-link" white {...(vm.props.mobile ? { low: true } : {})} href="http://www.google.com" target="_blank" rel="noopener noreferrer" icon="playstore">Google Play</Btn>
-							</div>
-
+							{false &&
+								<div className="footer-app" style={{ opacity: '0' }}>
+									<h3 className="app-title">Mobil uygulamamızı indirdiniz mi?</h3>
+									<Btn tag="a" className="app-link" white {...(vm.props.mobile ? { low: true } : {})} href="http://www.google.com" target="_blank" rel="noopener noreferrer" icon="appstore">Apple Store</Btn>
+									<Btn tag="a" className="app-link" white {...(vm.props.mobile ? { low: true } : {})} href="http://www.google.com" target="_blank" rel="noopener noreferrer" icon="playstore">Google Play</Btn>
+								</div>
+							}
 
 						</div>
 					</div>
@@ -240,11 +243,62 @@ class Footer extends React.Component {
 export default connect(mapStateToProps)(Footer);
 
 class FooterSubscription extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			submitting: false,
+			complete: false,
+		}
+
+		this.submit = this.submit.bind(this);
+
+		this.form = React.createRef();
+	}
+
+	submit(e) {
+		let vm = this;
+		vm.setState({ submitting: true });
+
+		setTimeout(function() {
+			request.get('/dummy/data/contactform.json', serializeArray(e.target), function(payload){
+				if(payload.success){
+					vm.setState({complete: true, submitting: false});
+					if (vm.form.current){
+						vm.form.current.reset();
+					}
+				}
+			}, { excludeApiPath: true });
+		}, 1000);
+	}
+
 	render() {
+		let vm = this;
 		return (
-			<form className="footer-subscription" style={{ marginTop: '1.4rem' }}>
-				<input type="text" className="subscription-input" placeholder="E-postanızı yazın, bizden haberler verelim." />
-			</form>
+			<InputForm className="footer-subscription" onSubmit={vm.submit} ref={vm.form}>
+				<FormInput
+					 className="subscription-input"
+					 disabled={vm.state.submitting}
+					 placeholder="E-postanızı yazın, bizden haberler verelim."
+					 validation={{
+					 	required: "E-posta adresinizi girmelisiniz.",
+						email: true
+					}}
+					hideAsterisk
+					type="text" />
+				<div className="subscription-submitwrap">
+					{vm.state.complete ? 
+						<button type="button" onClick={() => { vm.setState({ complete: false })}} className="submitwrap-complete"><i className="icon-check"></i></button>
+						:
+						<React.Fragment>
+							{vm.state.submitting ? 
+								<i className="submitwrap-loader icon-spinner"></i>
+								:
+								<button type="submit" className="submitwrap-submit"><i className="icon-angle-right"></i></button>
+							}
+						</React.Fragment>
+					}
+				</div>
+			</InputForm>
 		)
 	}
 }

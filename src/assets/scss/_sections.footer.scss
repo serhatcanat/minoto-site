@@ -130,34 +130,80 @@
 				}
 
 			.footer-subscription {
-				margin-top: 2.1rem;
+				margin-top: 1.2rem;
+				position: relative;
+				width: 30rem;
 
 				@include media {
+					width: auto;
 					margin-top: 4rem;
 					margin-bottom: 4.4rem;
 				}
 			}
 
 				.subscription-input {
-					background: transparent;
-					border: .1rem solid rgba($color-white, .2);
-					color: $color-text-negative;
-					border-radius: $radius-general;
-					display: block;
-					font-size: 1.1rem;
-					padding: 1.9rem 1.7rem;
-					line-height: 1.3rem;
-					width: 100%;
+					> input {
+						background: transparent;
+						border: .1rem solid rgba($color-white, .2);
+						color: $color-text-negative;
+						border-radius: $radius-general;
+						display: block;
+						font-size: 1.1rem;
+						padding: 1.9rem 1.7rem;
+						line-height: 1.3rem;
+						width: 100%;
 
-					@include media {
-						padding: 1.3rem 1rem;
-						line-height: 1.2rem;
-					}
+						@include media {
+							padding: 1.3rem 1rem;
+							line-height: 1.2rem;
+						}
 
-					@include placeholder() {
-						color: $color-text-negative-light;
+						@include placeholder() {
+							color: $color-text-negative-light;
+						}
 					}
 				}
+
+				.subscription-submitwrap {
+					position: absolute;
+					min-width: 3rem;
+					min-height: 3rem;
+					right: 1rem;
+					top: 2.6rem;
+					transform: translate3d(0, -50%, 0);
+
+					@include media {
+						right: 0.6rem;
+						top: 2rem;
+					}
+				}
+
+					.submitwrap-submit {
+						width: 3rem;
+						height: 4rem;
+						font-size: 1.1rem;
+					}
+
+					.submitwrap-loader {
+						@include spin;
+						position: absolute;
+						top: 50%;
+						left: 50%;
+						display: inline-block;
+						width: 1.8rem;
+						height: 1.8rem;
+						font-size: 1.8rem;
+					}
+
+					.submitwrap-complete {
+						position: absolute;
+						top: 50%;
+						left: 50%;
+						transform: translate3d(-50%, -50%, 0);
+						width: 1.8rem;
+						height: 1.8rem;
+						font-size: 1.8rem;
+					}
 
 		.footer-copyright {
 			margin-top: 8rem;

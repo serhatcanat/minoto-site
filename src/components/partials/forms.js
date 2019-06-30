@@ -217,19 +217,21 @@ class InputText extends React.Component {
 
 	handleChange(e) {
 		e.persist();
-		const oldVal = this.state.value.replace(/[.,]/g, '');
-		let newVal = e.target.value.replace(/[.,]/g, '');
-		const cleanNewVal = newVal;
+		let newVal = e.target.value;
+		
 		if(this.props.formatNumber){
-			newVal = formatNumber(newVal, {showDecimals: false});
+			const oldVal = this.state.value.replace(/[.,]/g, '');
+			const cleanNewVal = newVal.replace(/[.,]/g, '');
+			newVal = formatNumber(newVal.replace(/[.,]/g, ''), {showDecimals: false});
+
+			if((this.props.mask || this.props.formatNumber) && oldVal === cleanNewVal.substring(0, cleanNewVal.length - 1)){
+				setTimeout(function() {
+					e.target.selectionStart = e.target.selectionEnd = e.target.value.length;
+				}, 25);
+			}
 		}
 		this.setState({ value: newVal });
 
-		if((this.props.mask || this.props.formatNumber) && oldVal === cleanNewVal.substring(0, cleanNewVal.length - 1)){
-			setTimeout(function() {
-				e.target.selectionStart = e.target.selectionEnd = e.target.value.length;
-			}, 20);
-		}
 	}
 
 	handleBlur(e) {

@@ -1,10 +1,10 @@
 {
 	"payload": {
-		
+		"success": true
 	},
 	"messages": [
 		{
-			"message": "Mesajınız iletildi, ilginizden ötürü teşekkür ederiz."
+			"message": "Bülten aboneliğiniz geçekleştirildi, teşekkür ederiz."
 		}
 	]
 }
