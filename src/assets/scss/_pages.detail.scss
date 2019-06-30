@@ -890,11 +890,20 @@
 
 						&:disabled {
 							opacity: 1;
-							border-color: $color-gray-light;
-							color: $color-text-light;
 
-							&:hover, &:active {
-								background-color: transparent;
+							&.reservate {
+								border-color: $color-gray-light;
+								color: $color-text-light;
+
+								&:hover, &:active {
+									background-color: transparent;
+								}
+							}
+
+							&.bid{
+								background-color: rgba($color-red-light, .5);
+								border: none;
+								//color: $color-white;
 							}
 						}
 					}
