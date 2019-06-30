@@ -34,7 +34,7 @@ class Profile extends React.Component {
 		this.state = {
 			loading: false,
 			submitting: false,
-			results: false
+			userData: false
 		}
 
 		this.saveData = this.saveData.bind(this);
@@ -49,7 +49,7 @@ class Profile extends React.Component {
 		request.get(`users/profile/${vm.props.user.email}`, null, function (payload, status) {
 			if (payload) {
 				vm.setState({
-					results: payload,
+					userData: payload,
 					loading: false,
 				});
 			}
@@ -110,12 +110,12 @@ class Profile extends React.Component {
 	render() {
 		let vm = this;
 		let user = vm.props.user;
-		let results = vm.state.results
+		let userData = vm.state.userData
 
 		return (
 			<React.Fragment>
 				{
-					results && (
+					userData && (
 						<section className="section account-profile">
 							<div className="profile-wrap wrapper narrow">
 								<aside className="profile-sum">
@@ -128,13 +128,15 @@ class Profile extends React.Component {
 											}
 										</div>
 
-										<div className="content-completion">
-											<div className="completion-bar">
-												<div className="bar-progress" style={{ width: results.profile.profileCompletion + '%' }}></div>
-											</div>
+										{userData.profile.profileCompletion &&
+											<div className="content-completion">
+												<div className="completion-bar">
+													<div className="bar-progress" style={{ width: userData.profile.profileCompletion + '%' }}></div>
+												</div>
 
-											<div className="completion-status">Profiliniz <span>%{results.profile.profileCompletion}</span> dolu</div>
-										</div>
+												<div className="completion-status">Profiliniz <span>%{userData.profile.profileCompletion}</span> dolu</div>
+											</div>
+										}
 
 										<button className="content-logout" onClick={logout}>Çıkış Yap</button>
 									</div>
@@ -164,18 +166,18 @@ class Profile extends React.Component {
 												minLength: ["Geçerli bir telefon numarası girmelisiniz.", 15]
 											}}
 											className="form-inputwrap"
-											value={results.profile.phone} />
+											value={userData.profile.phone} />
 										{/*<FormInput name="password" type="password" className="form-inputwrap" disabled={vm.state.submitting} label="Şifre" />*/}
 										<Btn className="form-submit" type="submit" wide light text uppercase big status={vm.state.submitting && 'loading'} disabled={vm.state.submitting}>Güncelle</Btn>
 									</div>
 									<div className="form-group">
 										<h2 className="form-title">Kişisel Bilgiler</h2>
-										<FormInput name="gender" type="select" className="form-inputwrap" disabled={vm.state.submitting} label="Cinsiyet" value={results.profile.gender ? { value: results.profile.gender.value, label: results.profile.gender.label } : ''} options={results.genders} placeholder="Seçiniz" />
-										<FormInput name="workStatus" type="select" className="form-inputwrap" disabled={vm.state.submitting} label="Çalışma Durumu" value={results.profile.workState ? { value: results.profile.workState.value, label: results.profile.workState.label } : ''} options={results.workStates} placeholder="Seçiniz" />
-										<FormInput name="maritalStatus" type="select" className="form-inputwrap" disabled={vm.state.submitting} label="Medeni Hali" value={results.profile.maritalState ? { value: results.profile.maritalState.value, label: results.profile.maritalState.label } : ''} options={results.maritalStates} placeholder="Seçiniz" />
-										<FormInput name="city" type="select" className="form-inputwrap" disabled={vm.state.submitting} label="Yaşadığı Şehir" value={results.profile.city ? { value: results.profile.city.value, label: results.profile.city.label } : ''} options={results.cities} placeholder="Seçiniz" />
-										<FormInput name="educationStatus" type="select" className="form-inputwrap" disabled={vm.state.submitting} label="Eğitim Durumu" value={results.profile.educationState ? { value: results.profile.educationState.value, label: results.profile.educationState.label } : ''} options={results.educationStates} placeholder="Seçiniz" />
-										<FormInput name="birthDate" type="date" className="form-inputwrap" disabled={vm.state.submitting} label="Doğum Tarihi" value={results.profile.birthDate ? results.profile.birthDate : ''} placeholder="Seçiniz" />
+										<FormInput name="gender" type="select" className="form-inputwrap" disabled={vm.state.submitting} label="Cinsiyet" value={userData.profile.gender ? { value: userData.profile.gender.value, label: userData.profile.gender.label } : ''} options={userData.genders} placeholder="Seçiniz" />
+										<FormInput name="workStatus" type="select" className="form-inputwrap" disabled={vm.state.submitting} label="Çalışma Durumu" value={userData.profile.workState ? { value: userData.profile.workState.value, label: userData.profile.workState.label } : ''} options={userData.workStates} placeholder="Seçiniz" />
+										<FormInput name="maritalStatus" type="select" className="form-inputwrap" disabled={vm.state.submitting} label="Medeni Hali" value={userData.profile.maritalState ? { value: userData.profile.maritalState.value, label: userData.profile.maritalState.label } : ''} options={userData.maritalStates} placeholder="Seçiniz" />
+										<FormInput name="city" type="select" className="form-inputwrap" disabled={vm.state.submitting} label="Yaşadığı Şehir" value={userData.profile.city ? { value: userData.profile.city.value, label: userData.profile.city.label } : ''} options={userData.cities} placeholder="Seçiniz" />
+										<FormInput name="educationStatus" type="select" className="form-inputwrap" disabled={vm.state.submitting} label="Eğitim Durumu" value={userData.profile.educationState ? { value: userData.profile.educationState.value, label: userData.profile.educationState.label } : ''} options={userData.educationStates} placeholder="Seçiniz" />
+										<FormInput name="birthDate" type="date" className="form-inputwrap" disabled={vm.state.submitting} label="Doğum Tarihi" value={userData.profile.birthDate ? userData.profile.birthDate : ''} placeholder="Seçiniz" />
 										<Btn className="form-submit" type="submit" wide light text uppercase big status={vm.state.submitting && 'loading'} disabled={vm.state.submitting}>Güncelle</Btn>
 									</div>
 									<div className="form-group">

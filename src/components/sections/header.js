@@ -20,6 +20,7 @@ import image_icon_youtube from 'assets/images/icon/youtube.svg'
 import image_icon_twitter from 'assets/images/icon/twitter.svg'
 import image_logo from 'assets/images/logo.svg'
 import image_logo_primary from 'assets/images/logo-primary.svg'
+import image_user_avatar_default from 'assets/images/defaults/avatar.svg'
 
 const mapStateToProps = state => {
 	return {
@@ -101,7 +102,7 @@ class Header extends React.Component {
 							{user &&
 								<div className="nav-user">
 									<Link className="user-item avatar" href="account.profile" title={user.fullname}>
-										<Image bg src={storageSpace('profile-photos', user.avatar)} />
+										<Image bg src={(user.avatar ? storageSpace('profile-photos', user.avatar) : image_user_avatar_default)} />
 									</Link>
 
 									<Link className="user-item notifications" href="account.notifications" title="Bildirimlerim">
