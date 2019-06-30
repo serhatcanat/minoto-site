@@ -218,7 +218,6 @@ class ListingFilter extends React.Component {
 				vm.setState({ active: true });
 				vm.timeout = setTimeout(function () {
 					vm.setState({ show: true });
-					console.log(vm.scrollElem.current);
 					setTimeout(function() {
 						vm.scrollElem.current.instance.update();
 					}, 120);

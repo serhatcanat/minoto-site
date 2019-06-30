@@ -18,6 +18,12 @@ const converter = {
 	markalar: 'brand',
 }
 
+const categoryNames = {
+	araclar: 'Araçlar',
+	bayiler: 'Bayiler',
+	markalar: 'Markalar',
+};
+
 export default class Favorites extends React.Component {
 
 	constructor(props) {
@@ -137,9 +143,7 @@ export default class Favorites extends React.Component {
 							: false
 						}
 						{favorites.length === 0 ?
-							<div className="favorites-error">
-								Hiç favoriniz bulunmuyor.
-							</div>
+							<div className="favorites-error"><div className="error-message">{categoryNames[section]} kategorisinde hiç favoriniz bulunmuyor.</div></div>
 							: false
 						}
 					</div>

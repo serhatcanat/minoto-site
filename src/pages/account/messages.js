@@ -63,7 +63,7 @@ export default class Messages extends React.Component {
 				<Loader loading={messages === false} />
 				{messages &&
 					<div className="wrapper narrow">
-						{messages.length &&
+						{messages.length ?
 							<ul className="messages-list">
 								{messages.map((message, nth) => (
 									<li key={nth} className="list-item">
@@ -94,11 +94,8 @@ export default class Messages extends React.Component {
 									</li>
 								))}
 							</ul>
-						}
-						{messages.length === 0 &&
-							<div className="messages-error">
-								Hiç mesajınız bulunmuyor.
-							</div>
+						:
+							<div className="messages-error"><div className="error-message">Hiç mesajınız bulunmuyor.</div></div>
 						}
 					</div>
 				}
