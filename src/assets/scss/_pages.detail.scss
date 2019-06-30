@@ -768,8 +768,10 @@
 							color: $color-text-light;
 						}
 
-						span {
-							text-decoration: line-through;
+						&.higher {
+							span {
+								text-decoration: line-through;
+							}
 						}
 					}
 

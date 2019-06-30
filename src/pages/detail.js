@@ -16,11 +16,12 @@ import Tabs from 'components/partials/tabs.js'
 import Link from 'components/partials/link.js'
 import FavBtn from 'components/partials/favbtn'
 import ContentBox from 'components/partials/contentbox'
+import PriceTag from 'components/partials/price-tag'
 
 // Deps
-import { ListingLink } from 'controllers/navigator'
+//import { ListingLink } from 'controllers/navigator'
 import { openModal } from "functions/modals"
-import { formatNumber, blockOverflow, nl2br, remToPx } from 'functions/helpers.js'
+import { blockOverflow, nl2br, remToPx } from 'functions/helpers.js'
 import parse from 'html-react-parser'
 import { connect } from "react-redux"
 import request from 'controllers/request'
@@ -452,28 +453,18 @@ class DetailInfo extends React.Component {
 
 				<div className="info-price">
 					<strong className="price-current">
-						{product.price ? `${formatNumber(product.price)} TL` : 'SORUNUZ'}
+						{product.price ? <PriceTag price={product.price} /> : 'SORUNUZ'}
 					</strong>
 					{(product.listingPrice && product.price > 0) &&
-						<div className="price-listing">
-							{
-								(product.listingPrice > product.price) ?
-									<React.Fragment>
-										<strong>Liste Fiyatı:</strong> <span>{formatNumber(product.listingPrice)}</span>
-									</React.Fragment>
-									:
-									<React.Fragment>
-										<strong>Liste Fiyatı:</strong> <span style={{ textDecoration: 'none' }}>{formatNumber(product.price)}</span>
-									</React.Fragment>
-							}
-
+						<div className={"price-listing" + ((product.listingPrice > product.price) ? ' higher' : '')}>
+							<strong>Liste Fiyatı:</strong> <span><PriceTag price={product.listingPrice} /></span>
 						</div>
 					}
 				</div>
 
 				{product.costs &&
 					<div className="info-costs">
-						<button className="costs-sum" type="button" onClick={() => { vm.setState({ showCosts: !vm.state.showCosts }) }}><strong>Bu aracın yıllık kullanım maliyeti:</strong> {formatNumber(product.costs.total)} TL</button>
+						<button className="costs-sum" type="button" onClick={() => { vm.setState({ showCosts: !vm.state.showCosts }) }}><strong>Bu aracın yıllık kullanım maliyeti:</strong> <PriceTag price={product.costs.total} /></button>
 						<Collapse className="costs-wrap" open={vm.state.showCosts}>
 							<ul className="costs-list">
 								{product.costs.expenses.map((cost, nth) => (
@@ -490,7 +481,7 @@ class DetailInfo extends React.Component {
 																</PopInfo>
 															}
 														</strong>
-														<span className="cost-num">{formatNumber(cost.cost)} TL</span>
+														<span className="cost-num"><PriceTag price={cost.cost} /></span>
 													</li>
 
 												</React.Fragment>
@@ -506,7 +497,7 @@ class DetailInfo extends React.Component {
 									<i className="icon-question"></i>
 										</PopInfo>*/}
 									</strong>
-									<span className="cost-num">{formatNumber(product.costs.total)} TL</span>
+									<span className="cost-num"><PriceTag price={product.costs.total} /></span>
 								</li>
 							</ul>
 						</Collapse>

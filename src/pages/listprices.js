@@ -8,9 +8,10 @@ import Breadcrumbs from 'components/partials/breadcrumbs'
 import Image from 'components/partials/image'
 import Loader from 'components/partials/loader'
 import Select from 'components/partials/select'
+import PriceTag from 'components/partials/price-tag'
 
 // Deps
-import { formatNumber, storageSpace } from 'functions/helpers'
+import { storageSpace } from 'functions/helpers'
 import request from 'controllers/request'
 import { generatePath } from 'react-router'
 
@@ -201,9 +202,9 @@ export default class ListPrices extends React.Component {
 														{/*<td>{item.enginevolume}</td>
 														<td>{item.transmission}</td>
 														<td>{item.fuel}</td>*/}
-														<td>{formatNumber(item.price)} TL </td>
+														<td><PriceTag price={item.price} /></td>
 														<td>
-															{item.price2 ? formatNumber(item.price2) + ' TL' : '-'}
+															{(item.price2 && item.price2 > 0) ? <PriceTag price={item.price2} /> : '-'}
 														</td>
 													</tr>
 												))}

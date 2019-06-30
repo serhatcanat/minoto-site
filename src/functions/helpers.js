@@ -117,7 +117,7 @@ export function scrollTo(inputOpts, endFunction = false) {
 
 export function formatNumber(num, opts = {}) {
 	let options = extend({}, {
-		showDecimals: true,
+		showDecimals: false,
 		decimals: 2
 	}, opts)
 	let plainNum = Math.trunc(num);

@@ -7,11 +7,12 @@ import Image from 'components/partials/image'
 import Btn from 'components/partials/btn'
 import Responsive from 'components/partials/responsive'
 import { FormInput, InputForm } from 'components/partials/forms'
+import PriceTag from 'components/partials/price-tag'
 
 // Deps
 import { connect } from "react-redux"
 import parse from 'html-react-parser'
-import { storageSpace, formatNumber } from 'functions/helpers'
+import { storageSpace } from 'functions/helpers'
 import { setTitle } from 'controllers/head'
 import request from 'controllers/request'
 import { redirect } from 'controllers/navigator'
@@ -136,7 +137,7 @@ class MessageDetail extends React.Component {
 
 						<div className="conversation-content">
 							{conversation.title &&
-								<h1 className="conversation-title">{conversation.title} <small> {conversation.offerPrice ? ` - ${formatNumber(conversation.offerPrice)} TL TEKLİF` : ''}</small></h1>
+								<h1 className="conversation-title">{conversation.title} <small> {conversation.offerPrice && <React.Fragment> - <PriceTag price={conversation.offerPrice} /> TEKLİF</React.Fragment>}</small></h1>
 							}
 
 							{conversation.messages.length &&

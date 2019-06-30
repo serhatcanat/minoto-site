@@ -1,19 +1,24 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 // Partials
-import PopInfo from 'components/partials/popinfo.js';
-import Link from 'components/partials/link.js';
 
 // Deps
-import omit from 'lodash/omit'
-import clone from 'lodash/clone'
+import { formatNumber } from 'functions/helpers'
 
 // Assets
 
 export default class PriceTag extends React.Component {
 
 	render() {
-		<div className="price-tag"
+		let priceData = formatNumber(this.props.price, {showDecimals: true}).split(',');
+		return (
+			<span className={"pricetag " + this.props.className}>
+				<span className="pricetag-base">{priceData[0]}</span>{priceData[1] && <React.Fragment><span className="pricetag-decimal">,{priceData[1]}</span></React.Fragment>} <span className="pricetag-currency">TL</span>
+			</span>
+		)
 	}
+}
+
+PriceTag.defaultProps = {
+	className: "",
 }

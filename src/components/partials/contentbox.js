@@ -4,9 +4,9 @@ import React from 'react';
 import PopInfo from 'components/partials/popinfo.js';
 import Image from 'components/partials/image.js';
 import Link from 'components/partials/link.js';
+import PriceTag from 'components/partials/price-tag'
 
 // Deps
-import { formatNumber } from 'functions/helpers.js';
 import extend from 'lodash/extend';
 
 // Assets
@@ -108,7 +108,7 @@ export default class ContentBox extends React.Component {
 										<p className="info-subtitle">{vm.props.subtitle}</p>
 									</div>
 									<br />
-									{vm.props.price > 0 ? <strong className="info-price">{formatNumber(vm.props.price)} TL</strong> : <strong className="info-price">SORUNUZ</strong>}
+									{vm.props.price > 0 ? <div className="info-price"><PriceTag price={vm.props.price} /></div> : <div className="info-price">SORUNUZ</div>}
 								</React.Fragment>
 							)}
 							{((vm.props.labels.length || bottomNote || !vm.props.additionsOptional) ?
