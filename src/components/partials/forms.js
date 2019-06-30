@@ -218,10 +218,10 @@ class InputText extends React.Component {
 	handleChange(e) {
 		e.persist();
 		const oldVal = this.state.value.replace(/[.,]/g, '');
-		let newVal = e.target.value;
-		const cleanNewVal = newVal.replace(/[.,]/g, '');
+		let newVal = e.target.value.replace(/[.,]/g, '');
+		const cleanNewVal = newVal;
 		if(this.props.formatNumber){
-			newVal = formatNumber(newVal);
+			newVal = formatNumber(newVal, {showDecimals: false});
 		}
 		this.setState({ value: newVal });
 

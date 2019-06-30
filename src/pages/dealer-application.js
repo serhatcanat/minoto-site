@@ -47,7 +47,7 @@ export default class Faq extends React.Component {
 		request.get('brands/lookup/all', {}, function (payload) {
 			if (payload) {
 				vm.setState({
-					brands: payload
+					brands: payload,
 				});
 			}
 		}, { excludeApiPath: false });
@@ -58,12 +58,8 @@ export default class Faq extends React.Component {
 		if (!isEqual(prevState.brands, vm.state.brands) || !isEqual(prevState.selectedBrands, vm.state.selectedBrands)) {
 			vm.setState({
 				availableBrands: vm.state.brands.reduce(function (filtered, brand) {
-					if (!vm.state.selectedBrands.filter(sBrand => (sBrand.value === brand.id)).length) {
-						filtered.push({
-							value: brand.id,
-							label: brand.title,
-						});
-
+					if (!vm.state.selectedBrands.filter(sBrand => (sBrand.value === brand.value)).length) {
+						filtered.push(brand);
 					}
 					return filtered;
 				}, [])
@@ -104,9 +100,11 @@ export default class Faq extends React.Component {
 
 	addBrand(selected) {
 		if (selected) {
-
+			console.log(selected);
+			let newSelected = this.state.selectedBrands.concat(this.state.availableBrands.filter(brand => { console.log(brand); return brand.value === selected; }));
+			console.log(newSelected);
 			this.setState({
-				selectedBrands: this.state.selectedBrands.concat(this.state.availableBrands.filter(brand => (brand.value === selected)))
+				selectedBrands: newSelected
 			});
 		}
 	}
@@ -233,7 +231,7 @@ export default class Faq extends React.Component {
 											type="select"
 											name="brand-selector"
 											placeholder="Marka ya da markalar seçiniz."
-											options={(this.state.brands ? this.state.brands : undefined)}
+											options={(this.state.availableBrands ? this.state.availableBrands : undefined)}
 											disabled={!this.state.availableBrands}
 											value={false}
 											onChange={this.addBrand}
