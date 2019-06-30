@@ -37,6 +37,7 @@ import Search from 'pages/search'
 import SearchBrand from 'pages/search-brand'
 import SearchModel from 'pages/search-model'
 import SearchModelSub from 'pages/search-model-sub'
+import SearchVersion from 'pages/search-version'
 import Sitemap from 'pages/sitemap'
 import Brands from 'pages/brands'
 import Brand from 'pages/brand'
@@ -64,6 +65,7 @@ const pageRegistry = {
 	SearchBrand: SearchBrand,
 	SearchModel: SearchModel,
 	SearchModelSub: SearchModelSub,
+	SearchVersion: SearchVersion,
 	Sitemap: Sitemap,
 	Brands: Brands,
 	Brand: Brand,
@@ -150,7 +152,7 @@ export function redirect(opts, params = false, getParams = false) {
 	}
 
 	let getString = "";
-	if(getParams) {
+	if (getParams) {
 		for (let p = 0; p < Object.keys(getParams).length; p++) {
 			let key = Object.keys(getParams)[p];
 
@@ -163,7 +165,7 @@ export function redirect(opts, params = false, getParams = false) {
 
 	if (route) {
 		route = route.split('/:')[0];
-		if(getString !== ""){ route = route+"?"+getString }
+		if (getString !== "") { route = route + "?" + getString }
 		switch (opts.type) {
 			case "replace":
 				history.replace(route);

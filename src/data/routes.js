@@ -56,6 +56,13 @@ module.exports = {
 			linkTitle: "Arama",
 			title: "Arama",
 		},
+		searchVersion: {
+			path: "/arama/:brand/:model/:modelsub/:version",
+			component: "SearchVersion",
+			exact: true,
+			linkTitle: "Arama",
+			title: "Arama",
+		},
 		sitemap: {
 			path: "/sitemap",
 			component: "Sitemap",
