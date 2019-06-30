@@ -263,10 +263,9 @@ export function changePage(key = false, group = 'pages') {
 			setTimeout(function() {
 				let hashTarget = document.querySelector(window.location.hash)
 				if(hashTarget){
-					console.log('ja');
 					hashTarget.scrollIntoView();
 				}
-			}, 250);
+			}, 500);
 		}
 	}
 

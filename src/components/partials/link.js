@@ -9,7 +9,7 @@ import { getRoute } from 'controllers/navigator'
 export default class LinkItem extends React.Component {
 	render() {
 		let to = this.props.href;
-		let props = omit(this.props, ['href', 'type', 'navLink', 'params', 'routeGroup', 'activeClassName']);
+		let props = omit(this.props, ['href', 'type', 'navLink', 'params', 'routeGroup', 'activeClassName', 'hash']);
 		let params = this.props.params;
 		let content = this.props.children;
 		let type = this.props.type;
@@ -57,6 +57,10 @@ export default class LinkItem extends React.Component {
 
 			break;
 		}
+
+		if(this.props.hash){
+			props.to = props.to + "#" + this.props.hash;
+		}
 		
 		return <Elem {...props}>{content}</Elem>
 	}
@@ -65,6 +69,7 @@ export default class LinkItem extends React.Component {
 LinkItem.defaultProps = {
 	navLink: false,
 	params: false,
+	hash: false,
 	type: 'link',
 	routeGroup: 'pages',
 	activeClassName: 'active',
