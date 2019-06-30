@@ -44,13 +44,17 @@ export default class Brand extends React.Component {
 	}
 
 	componentDidMount() {
-
 		this.initialize();
 	}
 
 	componentDidUpdate(prevProps, prevState) {
 		if (!isEqual(prevState.brandData, this.state.brandData) || prevState.searchText !== this.state.searchText) {
 			this.updateSearch();
+		}
+
+		if(prevProps.match.params.id !== this.props.match.params.id){
+			this.initialize();
+			window.scroll(0, 0);
 		}
 	}
 

@@ -77,6 +77,7 @@ class Detail extends React.Component {
 		}
 
 		if (prevProps.match.params.id !== this.props.match.params.id) {
+			window.scroll(0, 0);
 			this.setState({
 				productData: false,
 			});
