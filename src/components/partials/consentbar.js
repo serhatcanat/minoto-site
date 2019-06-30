@@ -1,4 +1,8 @@
 import React from 'react';
+
+//Partials
+import Link from "components/partials/link";
+
 //Deps
 import CookieConsent from "react-cookie-consent";
 
@@ -14,7 +18,7 @@ export default class ConsentBar extends React.Component {
 				disableStyles={true}
 				expires={150}
 			>
-				Hizmetlerimizden en iyi şekilde faydalanabilmeniz <strong>minoto.com</strong>'da çerez teknolojisini kullanıyoruz. <strong>minoto.com</strong>'u kullanarak çerezlere izin vermiş olursunuz.
+				Hizmetlerimizden en iyi şekilde faydalanabilmeniz <strong>minoto.com</strong>'da çerez teknolojisini kullanıyoruz. <strong>minoto.com</strong>'u kullanarak <Link href="gdprPolicy">çerez politikamızı</Link> kabul etmiş olursunuz.
 			</CookieConsent>
 		)
 	}

@@ -258,6 +258,16 @@ export function changePage(key = false, group = 'pages') {
 	if (store.getState().generic.currentPage.key !== key) {
 		window.scroll(0, 0);
 		store.dispatch(setPage(pageData));
+
+		if(window.location.hash){
+			setTimeout(function() {
+				let hashTarget = document.querySelector(window.location.hash)
+				if(hashTarget){
+					console.log('ja');
+					hashTarget.scrollIntoView();
+				}
+			}, 250);
+		}
 	}
 
 	setTitle(route.title);
