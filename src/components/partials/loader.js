@@ -1,5 +1,5 @@
 import React from 'react';
-import loader from 'assets/images/loader2.gif'
+import loader from 'assets/images/minoto-loading.gif'
 
 export default class Loader extends React.Component {
 	constructor(props) {
@@ -65,7 +65,7 @@ export default class Loader extends React.Component {
 			<div className={"loader" + this.props.className + (this.props.strict ? ' strict' : '') + (this.state.show ? ' show' : '') + (this.state.oversize ? ' oversize' : '')} ref={this.container}>
 				<div className="loader-spinnerwrap">
 					{/* <i className="icon-spinner"></i> */}
-					<img src={loader} alt="" width="150" style={{
+					<img src={loader} alt="" width="50" style={{
 						margin: "0 auto",
 						marginTop: "5%"
 					}} />
