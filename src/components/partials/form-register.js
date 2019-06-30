@@ -35,7 +35,6 @@ export default class RegisterForm extends React.Component {
 		});
 
 		register(e.target, function (payload) {
-			console.log(payload);
 			vm.setState({
 				success: payload.success,
 				loading: false,

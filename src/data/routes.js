@@ -282,6 +282,14 @@ module.exports = {
 			linkTitle: "Şifremi Unuttum",
 			title: "Şifre Hatırlatma",
 			requiresLogin: false,
+		},
+		confirmEmail: {
+			path: "/hesabim/e-postami-onayla/:email/:token",
+			component: "ConfirmEmail",
+			exact: true,
+			linkTitle: "E-Postamı Onayla",
+			title: "E-Postamı Onayla",
+			requiresLogin: false,
 		}
 	},
 	reservation: {

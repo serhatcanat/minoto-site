@@ -4,6 +4,7 @@ import React from 'react'
 import Login from 'pages/account/login'
 import Register from 'pages/account/register'
 import Recovery from 'pages/account/recovery'
+import ConfirmEmail from 'pages/account/confirm-email'
 import Profile from 'pages/account/profile'
 import Notifications from 'pages/account/notifications'
 import Favorites from 'pages/account/favorites'
@@ -28,6 +29,7 @@ const pageRegistry = {
 	Login: Login,
 	Register: Register,
 	Recovery: Recovery,
+	ConfirmEmail: ConfirmEmail,
 	Profile: Profile,
 	Notifications: Notifications,
 	Favorites: Favorites,

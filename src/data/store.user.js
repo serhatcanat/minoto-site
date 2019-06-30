@@ -126,7 +126,7 @@ export function logout(force = false) {
 	}
 }
 
-function updateUserData(payload) {
+export function updateUserData(payload) {
 	let userData = extend({}, {
 		avatar: "/dummy/images/profile-picture.jpg",
 		name: "Kullanıcı",
