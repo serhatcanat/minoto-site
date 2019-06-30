@@ -4,6 +4,9 @@ import React from 'react'
 import Header from 'components/sections/header'
 import Footer from 'components/sections/footer'
 
+// Partials
+import SearchBar from 'components/partials/searchbar.js'
+
 // Modals
 import LoginModal from 'components/modals/login'
 import RegisterModal from 'components/modals/register'
@@ -98,6 +101,7 @@ export default class Navigator extends React.Component {
 			<div className="site-content">
 				<ResponsiveWatcher />
 				<MessengerWrap />
+				<SearchBar className="search-mobile" fullScreen={true} />
 				<Header />
 				{routeData}
 				<Footer />

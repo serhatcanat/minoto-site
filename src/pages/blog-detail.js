@@ -24,12 +24,12 @@ import image_icon_whatsapp from 'assets/images/icon/whatsapp.svg'
 import image_icon_link from 'assets/images/icon/link.svg'
 import image_loader from 'assets/images/loader2.gif'
 
-const dummyGallery = [
+/*const dummyGallery = [
 	{ "large": "http://lorempixel.com/1024/768" },
 	{ "large": "http://lorempixel.com/1024/768" },
 	{ "large": "http://lorempixel.com/1024/768" },
 	{ "large": "http://lorempixel.com/1024/768" }
-]
+]*/
 
 export default class BlogDetail extends React.Component {
 	constructor(props) {

@@ -85,17 +85,19 @@ const validateRaw = {
 		}
 		return error;
 	},
-	"minNum": function (msg = "Bu alan {length} değerinden küçük olmamalıdır.", value, length) {
+	"minNum": function (msg = "Bu alan {amount} değerinden küçük olmamalıdır.", value, amount, allowFormat = true) {
 		let error;
-		if (parseFloat(value) < length) {
-			error = msg.replace('{length}', length);;
+		if(allowFormat){ value = value.toString().replace(/[.,]/g, ''); }
+		if (parseFloat(value) < amount) {
+			error = msg.replace('{amount}', amount);;
 		}
 		return error;
 	},
-	"maxNum": function (msg = "Bu alan {length} değerinden büyük olmamalıdır.", value, length) {
+	"maxNum": function (msg = "Bu alan {amount} değerinden büyük olmamalıdır.", value, amount, allowFormat = true) {
 		let error;
-		if (parseFloat(value) > length) {
-			error = msg.replace('{length}', length);;
+		if(allowFormat){ value = value.toString().replace(/[.,]/g, ''); }
+		if (parseFloat(value) > amount) {
+			error = msg.replace('{amount}', amount);;
 		}
 		return error;
 	},

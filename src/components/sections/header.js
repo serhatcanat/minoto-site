@@ -247,7 +247,6 @@ class Header extends React.Component {
 						<SearchBar className="header-search" />
 					</Responsive>
 				}
-				<SearchBar className="search-mobile" fullScreen={true} />
 			</header>
 		)
 	}

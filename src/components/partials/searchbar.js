@@ -6,7 +6,7 @@ import Slider from 'components/partials/slider'
 
 // Deps
 import debounce from 'lodash/debounce'
-import { blockOverflow } from "functions/helpers";
+import { blockOverflow, isExact } from "functions/helpers";
 import request from 'controllers/request'
 import { Link } from 'react-router-dom'
 import { connect } from "react-redux";
@@ -103,11 +103,13 @@ class SearchBar extends React.Component {
 			this.hide();
 		}
 
-		if(prevProps.open !== this.props.open){
-			if(this.props.open && this.state.primary){
-				this.showSelf();
+		if(prevProps.open !== this.props.open || (this.props.open && this.state.data && this.state.data.groups && !(isExact(prevState.data, this.state.data) && !this.state.active))){
+			if(this.props.open && this.state.primary && !(this.state.data.groups.length <= 1 && this.state.data.groups[0].results.length === 0)){
+				if(!this.state.active){
+					this.showSelf();
+				}
 			}
-			else {
+			else if(this.state.active) {
 				this.hideSelf();
 			}
 		}
