@@ -35,6 +35,27 @@ module.exports = {
 			linkTitle: "Arama",
 			title: "Arama",
 		},
+		searchBrand: {
+			path: "/arama/:brand",
+			component: "SearchBrand",
+			exact: true,
+			linkTitle: "Arama",
+			title: "Arama",
+		},
+		searchModel: {
+			path: "/arama/:brand/:model",
+			component: "SearchModel",
+			exact: true,
+			linkTitle: "Arama",
+			title: "Arama",
+		},
+		searchModelSub: {
+			path: "/arama/:brand/:model/:modelsub",
+			component: "SearchModelSub",
+			exact: true,
+			linkTitle: "Arama",
+			title: "Arama",
+		},
 		sitemap: {
 			path: "/sitemap",
 			component: "Sitemap",

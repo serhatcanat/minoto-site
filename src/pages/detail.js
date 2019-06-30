@@ -97,11 +97,11 @@ class Detail extends React.Component {
 
 					setTitle(payload.title);
 
-					if(payload.description){
+					if (payload.description) {
 						setDescription(payload.description);
 					};
 
-					if(payload.image){
+					if (payload.image) {
 						setHead([{
 							key: "meta",
 							props: {
@@ -135,17 +135,26 @@ class Detail extends React.Component {
 								<div className="top-wrap wrapper">
 									<Breadcrumbs className="top-breadcrumbs" data={[
 										{
-											"href": ListingLink([{ 'key': 'tip', 'val': 'otomobil' }]),
-											"title": "Otomobil"
+											"href": "/",
+											"title": "Anasayfa"
 										},
 										{
-											"href": ListingLink([
-												{ 'key': 'tip', 'val': 'otomobil' },
-												{ 'key': 'marka', 'val': 'audi' },
-											]),
-											"title": "Audi"
+											"href": `/arama/${product.breadCrumbs[0].value}`,
+											"title": product.breadCrumbs[0].title
 										},
 										{
+											"href": `/arama/${product.breadCrumbs[0].value}/${product.breadCrumbs[1].value}`,
+											"title": product.breadCrumbs[1].title
+										},
+										{
+											"href": `/arama/${product.breadCrumbs[0].value}/${product.breadCrumbs[1].value}/${product.breadCrumbs[2].value}`,
+											"title": product.breadCrumbs[2].title
+										},
+										{
+											"href": null,
+											"title": product.title
+										},
+										/* {
 											"href": ListingLink([
 												{ 'key': 'tip', 'val': 'otomobil' },
 												{ 'key': 'marka', 'val': 'audi' },
@@ -179,7 +188,7 @@ class Detail extends React.Component {
 												{ 'key': 'kasa', 'val': 'a3-sportsback' },
 											]),
 											"title": "Ambiente"
-										}
+										} */
 									]} />
 
 									<div className="top-controls">
@@ -237,7 +246,7 @@ class Detail extends React.Component {
 							<section className="section detail-banners">
 								<div className="wrapper">
 									{product.ads.map((ad, nth) => (
-										<Link type='a' href={`/blog/detay/${ad.url}`} title={ad.title} key={nth} className={"banners-item x-" + ad.size}>
+										<Link type='a' href={`/ blog / detay / ${ ad.url }`} title={ad.title} key={nth} className={"banners-item x-" + ad.size}>
 											<Image src={storageSpace('articles', ad.image)} />
 										</Link>
 									))}
@@ -248,19 +257,19 @@ class Detail extends React.Component {
 							<section className="section detail-blogposts">
 								<div className="wrapper">
 									<ul className="blogposts-list">
-									{product.ads.map((ad, nth) => (
-										<li className="blogposts-item" key={nth}>
-											<ContentBox
-												type="blogpost"
-												//pretitle={ad.date}
-												title={ad.title}
-												image={storageSpace('articles', ad.image)}
-												url="blogDetail"
-												additionsOptional
-												urlParams={{ slug: ad.url }}
-											/>
-										</li>
-									))}
+										{product.ads.map((ad, nth) => (
+											<li className="blogposts-item" key={nth}>
+												<ContentBox
+													type="blogpost"
+													//pretitle={ad.date}
+													title={ad.title}
+													image={storageSpace('articles', ad.image)}
+													url="blogDetail"
+													additionsOptional
+													urlParams={{ slug: ad.url }}
+												/>
+											</li>
+										))}
 									</ul>
 								</div>
 							</section>
@@ -321,14 +330,14 @@ class DetailGallery extends React.Component {
 	}
 
 	keyPress(e) {
-		if(this.mainSlider.current){
-			switch(e.key){
+		if (this.mainSlider.current) {
+			switch (e.key) {
 				case "ArrowLeft":
-					 this.mainSlider.current.prev();
-				break;
+					this.mainSlider.current.prev();
+					break;
 				case "ArrowRight":
-					 this.mainSlider.current.next();
-				break;
+					this.mainSlider.current.next();
+					break;
 				default: break;
 			}
 		}
@@ -524,7 +533,7 @@ class DetailInfo extends React.Component {
 				{product.dealer &&
 					<div className="info-dealer">
 						<div className="dealer-head">
-							<Link href="branch" params={{id: product.dealer.id, slug: product.dealer.url}}>
+							<Link href="branch" params={{ id: product.dealer.id, slug: product.dealer.url }}>
 								{product.dealer.validated ?
 									<span className="dealer-badge"><i className="badge-bg icon-ribbon"></i><i className="badge-icon icon-check"></i></span>
 									:
@@ -728,7 +737,7 @@ class DetailTopInfo extends React.Component {
 				<div className="topinfo-id">
 					<strong>İlan No:</strong> {product.postNo}
 				</div>
-				{this.props.mobile && 
+				{this.props.mobile &&
 					<div className="topinfo-controls">
 						<button className="controls-btn" onClick={() => openModal('share')}><i className="icon-share"></i></button>
 						<FavBtn className="controls-btn" faved={product.favorited} type="post" id={product.id}></FavBtn>

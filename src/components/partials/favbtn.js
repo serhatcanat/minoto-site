@@ -27,13 +27,13 @@ export default class FavBtn extends React.Component {
 
 		let user = store.getState().user.user;
 
-		if(user){
-			vm.setState({submitting: true})
+		if (user) {
+			vm.setState({ submitting: true })
 
-			request.post('favorites', {type: vm.props.type, id: vm.props.id, email: user.email, faved: !vm.state.faved}, function(payload){
+			request.post('favorites', { type: vm.props.type, id: vm.props.id, email: user.email, faved: !vm.state.faved }, function (payload) {
 				let faved = vm.state.faved;
 
-				if(payload && payload.success){
+				if (payload && payload.success) {
 					faved = payload.faved;
 				}
 
@@ -44,23 +44,23 @@ export default class FavBtn extends React.Component {
 			});
 		}
 		else {
-			 openModal('login');
+			openModal('login');
 		}
 	}
 
 	render() {
-		let classes = 'fav-button ' + this.props.className; 
-		if(this.props.disabled){
+		let classes = 'fav-button ' + this.props.className;
+		if (this.props.disabled) {
 			classes += ' disabled';
 		}
-		if(this.state.faved){
+		if (this.state.faved) {
 			classes += ' faved';
 		}
 
 		return (
 			<div className={classes}>
 				<button className="fav-button-btn" onClick={this.toggle} disabled={!(this.props.type && this.props.id) || this.state.submitting}>
-					<span className="fav-button-icon">
+					<span className="fav-button-icon" >
 						{this.state.faved ?
 							<i className="icon-heart"></i> :
 							<i className="icon-heart-empty"></i>
@@ -68,13 +68,13 @@ export default class FavBtn extends React.Component {
 					</span>
 					{this.props.children}
 				</button>
-			</div>
+			</div >
 		)
 	}
 }
 
 FavBtn.defaultProps = {
-	className : '',
+	className: '',
 	faved: false,
 	disabled: false,
 	type: false,

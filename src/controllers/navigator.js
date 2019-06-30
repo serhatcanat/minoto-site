@@ -30,6 +30,9 @@ import extend from "lodash/extend";
 // Pages
 import Home from 'pages/home'
 import Search from 'pages/search'
+import SearchBrand from 'pages/search-brand'
+import SearchModel from 'pages/search-model'
+import SearchModelSub from 'pages/search-model-sub'
 import Sitemap from 'pages/sitemap'
 import Brands from 'pages/brands'
 import Brand from 'pages/brand'
@@ -54,6 +57,9 @@ import NotFound from 'pages/notfound'
 const pageRegistry = {
 	Home: Home,
 	Search: Search,
+	SearchBrand: SearchBrand,
+	SearchModel: SearchModel,
+	SearchModelSub: SearchModelSub,
 	Sitemap: Sitemap,
 	Brands: Brands,
 	Brand: Brand,
@@ -234,7 +240,7 @@ export function changePage(key = false, group = 'pages') {
 	}
 
 	setTitle(route.title);
-	if(route.description){
+	if (route.description) {
 		setDescription(route.description);
 	}
 
