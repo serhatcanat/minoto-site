@@ -199,7 +199,7 @@ class Listing extends React.Component {
 				vm.setState({
 					listingData: payload,
 					results: payload.results,
-					order: payload.order ? payload.order : null,
+					//order: payload.order ? payload.order : null,
 					loading: false,
 					total: (payload.totalResults ? payload.totalResults : 0),
 					page: payload.page ? payload.page : 1,

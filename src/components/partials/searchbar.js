@@ -32,6 +32,7 @@ const mapDispatchToProps = dispatch => {
 }
 
 class SearchBar extends React.Component {
+	_isMounted = false;
 	constructor(props) {
 		super(props);
 
@@ -44,6 +45,7 @@ class SearchBar extends React.Component {
 			primary: ((props.mobile && props.fullScreen) || (!props.mobile && !props.fullScreen)),
 			focusedGroup: -1,
 			focusedResult: -1,
+			oversize: false
 		}
 
 		this.inputChange = this.inputChange.bind(this);
@@ -68,10 +70,12 @@ class SearchBar extends React.Component {
 	}
 
 	componentDidMount() {
+		this._isMounted = true;
 		this.bindInputs();
 	}
 
 	componentWillUnmount() {
+		this._isMounted = false;
 		this.unbindInputs();
 	}
 
@@ -243,23 +247,25 @@ class SearchBar extends React.Component {
 		let vm = this;
 		let active = vm.props.inputValue.length;
 
+		if (this._isMounted) {
+			if (active) {
+				vm.setState({ loading: true });
 
-		if (active) {
-			vm.setState({ loading: true });
+				request.get('search', { search: vm.props.inputValue, }, function (payload, status) {
 
-			request.get('search', { search: vm.props.inputValue, }, function (payload, status) {
-
-				if (payload) {
-					vm.setState({ data: payload, loading: false });
-				}
-				else {
-					console.log('error');
-				}
-			});
+					if (payload) {
+						vm.setState({ data: payload, loading: false });
+					}
+					else {
+						console.log('error');
+					}
+				});
+			}
+			else {
+				vm.setState({ data: false, loading: false })
+			}
 		}
-		else {
-			vm.setState({ data: false, loading: false })
-		}
+
 
 	}
 
