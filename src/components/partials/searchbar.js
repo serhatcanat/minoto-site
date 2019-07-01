@@ -98,6 +98,9 @@ class SearchBar extends React.Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
+		if (!this._isMounted) {
+			this.hide();
+		}
 		if (prevProps.inputValue !== this.props.inputValue && this.state.primary) {
 			this.updateSearch();
 		}
@@ -276,6 +279,7 @@ class SearchBar extends React.Component {
 
 	formSubmit(e) {
 		e.preventDefault();
+		this.hide();
 		redirect('search', false, { ara: this.props.inputValue });
 	}
 

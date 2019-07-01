@@ -462,12 +462,12 @@ class DetailInfo extends React.Component {
 					</strong>
 					{(product.listingPrice && product.price > 0) &&
 						<div className={"price-listing" + ((product.listingPrice > product.price) ? ' higher' : '')}>
-							<strong>Liste Fiyatı:</strong> <span><PriceTag stroke={product.listingPrice > product.price ? true : false} price={product.listingPrice > product.price ? product.listingPrice : product.price} /></span>
+							<strong>Liste Fiyatı:</strong> <span style={{ textDecoration: parseInt(product.listingPrice, 10) > parseInt(product.price, 10) ? 'line-through' : 'none' }}><PriceTag stroke={parseInt(product.listingPrice, 10) > parseInt(product.price, 10) ? true : false} price={parseInt(product.listingPrice, 10) > parseInt(product.price, 10) ? product.listingPrice : product.price} /></span>
 						</div>
 					}
 				</div>
 
-				{product.costs &&
+				{product.costs.expenses.length &&
 					<div className="info-costs">
 						<button className="costs-sum" type="button" onClick={() => { vm.setState({ showCosts: !vm.state.showCosts }) }}><strong>Bu aracın yıllık kullanım maliyeti:</strong> <PriceTag price={product.costs.total} /></button>
 						<Collapse className="costs-wrap" open={vm.state.showCosts}>
