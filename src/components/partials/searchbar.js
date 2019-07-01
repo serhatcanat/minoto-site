@@ -370,7 +370,7 @@ class SearchBar extends React.Component {
 
 SearchBar.defaultProps = {
 	className: '',
-	placeholder: 'BMW 520i ara',
+	placeholder: 'BMW 520i Sedan Ara',
 	fullScreen: false,
 };
 
