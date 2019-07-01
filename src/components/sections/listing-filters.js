@@ -86,7 +86,7 @@ class ListingFilters extends React.Component {
 	serializeFilters(echo = false) {
 		let vm = this;
 
-		setTimeout(function() {
+		setTimeout(function () {
 			let filterCount = 0;
 			let newQuery = {};
 
@@ -112,7 +112,7 @@ class ListingFilters extends React.Component {
 				vm.query = newQuery;
 				vm.setState({ activeFilters: filterCount });
 				if (vm.props.onUpdate) {
-					if (this.requestBounces < 3) {
+					if (this.requestBounces < 2) {
 						this.requestBounces++;
 						//console.log(vm.query);
 						vm.props.onUpdate(vm.query);

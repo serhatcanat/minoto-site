@@ -17,7 +17,7 @@ import throttle from 'lodash/throttle';
 import history from 'controllers/history'
 import request from 'controllers/request'
 import { connect } from "react-redux";
-import { isExact, storageSpace } from "functions/helpers";
+import { storageSpace } from "functions/helpers";
 import queryString from 'query-string';
 import { setListingFiltersExpansion } from 'data/store.generic';
 
@@ -282,7 +282,7 @@ class Listing extends React.Component {
 						onUpdate={(newQuery) => {
 							/*console.log('onupd:');
 							console.log(newQuery);*/
-							if(vm.state.query.ara){
+							if (vm.state.query.ara) {
 								newQuery.ara = vm.state.query.ara
 							};
 							console.log(newQuery);
