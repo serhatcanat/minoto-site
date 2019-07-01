@@ -85,10 +85,10 @@ class ListingFilters extends React.Component {
 
 	serializeFilters(echo = false) {
 		let vm = this;
-		let filterCount = 0;
-		let newQuery = {};
 
 		setTimeout(function() {
+			let filterCount = 0;
+			let newQuery = {};
 
 			if (vm.formRef.current) {
 				newQuery = serializeArray(vm.formRef.current, '|', true);
@@ -137,6 +137,7 @@ class ListingFilters extends React.Component {
 
 	clearFilters() {
 		let query = {};
+		this.setState({ activeFilters: 0 })
 		if (this.props.order !== null) {
 			query.siralama = this.props.order;
 		}

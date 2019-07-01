@@ -74,7 +74,6 @@ class Listing extends React.Component {
 
 	componentDidMount() {
 		let vm = this;
-
 		vm.updateResults();
 
 		if (vm.props.urlBinding) {
@@ -237,6 +236,8 @@ class Listing extends React.Component {
 			newQuery['siralama'] = order;
 		}
 
+		console.log(newQuery);
+
 		this.setState({ query: newQuery, order: order });
 	}
 
@@ -281,6 +282,10 @@ class Listing extends React.Component {
 						onUpdate={(newQuery) => {
 							/*console.log('onupd:');
 							console.log(newQuery);*/
+							if(vm.state.query.ara){
+								newQuery.ara = vm.state.query.ara
+							};
+							console.log(newQuery);
 							vm.setState({
 								query: newQuery
 							})
