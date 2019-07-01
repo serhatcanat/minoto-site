@@ -45,6 +45,7 @@ class Listing extends React.Component {
 			results: false,
 			query: (this.props.query ? this.props.query : ((history.location.search && history.location.search !== '') ? queryString.parse(history.location.search) : {})),
 			order: null,
+			tempQuery: null,
 			initialLoad: true,
 			extending: false,
 			activeFilters: 0,
@@ -55,6 +56,7 @@ class Listing extends React.Component {
 		this.updateOrder = this.updateOrder.bind(this);
 		this.extendResults = this.extendResults.bind(this);
 		this.makeRequest = this.makeRequest.bind(this);
+		this.updateQuery = this.updateQuery.bind(this);
 		//this.filtersUpdated = this.filtersUpdated.bind(this);
 		//this.formRef = (props.filtersForm ? props.filtersForm : React.createRef());
 
@@ -249,6 +251,16 @@ class Listing extends React.Component {
 		}
 	}
 
+	updateQuery(newQuery) {
+		let vm = this;
+
+		vm.setState(prevState => (
+			{
+				query: newQuery,
+				tempQuery: prevState.query
+			}))
+	}
+
 	render() {
 		let vm = this;
 
@@ -275,11 +287,7 @@ class Listing extends React.Component {
 					<ListingFilters
 						order={vm.state.order}
 						data={vm.state.listingData}
-						onUpdate={(newQuery) => {
-							vm.setState({
-								query: newQuery
-							})
-						}}
+						onUpdate={(newQuery) => this.updateQuery(newQuery)}
 					/>
 				}
 				<div className={"listing-content type-" + vm.state.listingData.type}>
