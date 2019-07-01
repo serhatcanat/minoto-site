@@ -70,7 +70,7 @@ export default class RegisterForm extends React.Component {
 							<button type="button" className="nav-btn" onClick={closeModal}>Kapat</button>
 						</div>
 					</React.Fragment>
-				:
+					:
 					<React.Fragment>
 						<h2 className="loginform-title">Üye ol</h2>
 						<InputForm className="loginform-form" onSubmit={this.submit} onTouch={() => { vm.setState({ touched: true }) }}>
@@ -99,7 +99,7 @@ export default class RegisterForm extends React.Component {
 								disabled={vm.state.loading}
 								type="password"
 								label="Şifre"
-								validation={{ required: "Şifrenizi girmelisiniz.", minLength: ["Şifreniz en az {length} karakter içermelidir.", 6], "compare": ["Girdiğiniz şifreler uyumlu değil.", "#register-password-repeat"] }}
+								//validation={{ required: "Şifrenizi girmelisiniz.", minLength: ["Şifreniz en az {length} karakter içermelidir.", 6], "compare": ["Girdiğiniz şifreler uyumlu değil.", "#register-password-repeat"] }}
 								className="form-field" />
 							<FormInput
 								name="password_repeat"
@@ -107,7 +107,7 @@ export default class RegisterForm extends React.Component {
 								disabled={vm.state.loading}
 								type="password"
 								label="Şifre Tekrar"
-								validation={{ required: "Şifrenizi girmelisiniz.", minLength: ["Şifreniz en az {length} karakter içermelidir.", 6], "compare": ["Girdiğiniz şifreler uyumlu değil.", "#register-password"] }}
+								//validation={{ required: "Şifrenizi girmelisiniz.", minLength: ["Şifreniz en az {length} karakter içermelidir.", 6], "compare": ["Girdiğiniz şifreler uyumlu değil.", "#register-password"] }}
 								className="form-field" />
 							<FormInput
 								name="agreement"
@@ -123,7 +123,7 @@ export default class RegisterForm extends React.Component {
 								value="1"
 								disabled={vm.state.loading}
 								type="checkbox"
-								onChange={(e) => { vm.setState({promoChecked: e}) }}
+								onChange={(e) => { vm.setState({ promoChecked: e }) }}
 								className="form-field">
 								Size özel kampanya ve fırsatlarımızdan haberdar olabilirsiniz.
 							</FormInput>

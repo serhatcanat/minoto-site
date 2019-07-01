@@ -56,6 +56,7 @@ import Contact from 'pages/contact'
 import Blog from 'pages/blog'
 import BlogDetail from 'pages/blog-detail'
 import DealerApplication from 'pages/dealer-application'
+import DealerApplicationStatus from 'pages/dealer-application-status'
 
 import NotFound from 'pages/notfound'
 
@@ -84,6 +85,7 @@ const pageRegistry = {
 	Blog: Blog,
 	BlogDetail: BlogDetail,
 	DealerApplication: DealerApplication,
+	DealerApplicationStatus: DealerApplicationStatus,
 
 	NotFound: NotFound,
 }
@@ -259,10 +261,10 @@ export function changePage(key = false, group = 'pages') {
 		window.scroll(0, 0);
 		store.dispatch(setPage(pageData));
 
-		if(window.location.hash){
-			setTimeout(function() {
+		if (window.location.hash) {
+			setTimeout(function () {
 				let hashTarget = document.querySelector(window.location.hash)
-				if(hashTarget){
+				if (hashTarget) {
 					hashTarget.scrollIntoView();
 				}
 			}, 500);

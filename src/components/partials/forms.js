@@ -218,14 +218,14 @@ class InputText extends React.Component {
 	handleChange(e) {
 		e.persist();
 		let newVal = e.target.value;
-		
-		if(this.props.formatNumber){
+
+		if (this.props.formatNumber) {
 			const oldVal = this.state.value.replace(/[.,]/g, '');
 			const cleanNewVal = newVal.replace(/[.,]/g, '');
-			newVal = formatNumber(newVal.replace(/[.,]/g, ''), {showDecimals: false});
+			newVal = formatNumber(newVal.replace(/[.,]/g, ''), { showDecimals: false });
 
-			if((this.props.mask || this.props.formatNumber) && oldVal === cleanNewVal.substring(0, cleanNewVal.length - 1)){
-				setTimeout(function() {
+			if ((this.props.mask || this.props.formatNumber) && oldVal === cleanNewVal.substring(0, cleanNewVal.length - 1)) {
+				setTimeout(function () {
 					e.target.selectionStart = e.target.selectionEnd = e.target.value.length;
 				}, 25);
 			}
@@ -574,12 +574,13 @@ class InputSelect extends React.Component {
 	}
 
 	validate(option, touch = false) {
+
 		let vm = this;
 
 		let validStatus = validation((option ? option.value : ""), vm.props.validation);
 
 		vm.props.onChange({
-			value: (option ? option.value : null),
+			value: (option ? option.value : (vm.state.value ? vm.state.value.value : null)),
 			name: this.props.name,
 			error: (validStatus !== false),
 			touched: touch,
@@ -654,7 +655,7 @@ class InputCheck extends React.Component {
 
 	validate(checked, touch) {
 		let vm = this;
-		if(checked === undefined){ checked = vm.state.checked; }
+		if (checked === undefined) { checked = vm.state.checked; }
 		let validStatus = validation((checked ? '1' : ''), vm.props.validation);
 		vm.setState({ value: checked, checked: checked, error: (validStatus !== false), errorMessage: validStatus });
 		vm.props.onChange({
@@ -846,8 +847,8 @@ export class InputForm extends React.Component {
 			this.validElements = pull(this.validElements, state.name);
 			this.invalidElements = union(this.invalidElements, [state.name]);
 
-			if(this.props.onTouch){
-				if(this.validElements.length < this.validationCount && state.touched){
+			if (this.props.onTouch) {
+				if (this.validElements.length < this.validationCount && state.touched) {
 					this.props.onTouch();
 				}
 			}
@@ -883,7 +884,7 @@ export class InputForm extends React.Component {
 	handleSubmit(e = false) {
 		if (e) { e.preventDefault(); }
 		this.setState({ forceTouch: true })
-		if(this.props.onTouch){
+		if (this.props.onTouch) {
 			this.props.onTouch();
 		}
 

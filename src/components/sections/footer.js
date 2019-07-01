@@ -262,17 +262,14 @@ class FooterSubscription extends React.Component {
 			email: e.target.elements.email.value
 		};
 
-		setTimeout(function () {
-			request.post('mail/newsletter', record, function (payload) {
-				console.log(payload)
-				if (payload.success) {
-					vm.setState({ complete: true, submitting: false });
-					if (vm.form.current) {
-						vm.form.current.reset();
-					}
+		request.post('mail/newsletter', record, function (payload) {
+			if (payload.success) {
+				vm.setState({ complete: true, submitting: false });
+				if (vm.form.current) {
+					vm.form.current.reset();
 				}
-			}, { excludeApiPath: false });
-		}, 1000);
+			}
+		}, { excludeApiPath: false });
 	}
 
 	render() {
@@ -303,6 +300,14 @@ class FooterSubscription extends React.Component {
 						</React.Fragment>
 					}
 				</div>
+				{
+					vm.state.complete && (
+						<React.Fragment>
+							<br />
+							Minoto'ya duyduğunuz ilgi için teşekkür ederiz.
+						</React.Fragment>
+					)
+				}
 			</InputForm>
 		)
 	}

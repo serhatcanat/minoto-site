@@ -202,6 +202,13 @@ module.exports = {
 			linkTitle: "Bayi Başvuru Formu",
 			title: "Bayi Başvuru Formu",
 		},
+		dealerApplicationStatus: {
+			path: "/bayi-basvuru-durumu/:applicationNo",
+			component: "DealerApplicationStatus",
+			exact: true,
+			linkTitle: "Bayi Başvuru Durumu",
+			title: "Bayi Başvuru Durumu",
+		},
 		notfound: {
 			path: false,
 			component: "NotFound",
