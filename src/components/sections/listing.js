@@ -104,7 +104,7 @@ class Listing extends React.Component {
 		if (!isEqual(prevState.query, this.state.query)) {
 			this.updateURL();
 			this.updateResults();
-			console.log(this.state.query);
+			//console.log(this.state.query);
 
 			let activeFilters = Object.keys(this.state.query).length;
 			if (this.state.query.siralama) { activeFilters--; }
@@ -279,7 +279,8 @@ class Listing extends React.Component {
 						order={vm.state.order}
 						data={vm.state.listingData}
 						onUpdate={(newQuery) => {
-								console.log('onupd');
+								/*console.log('onupd:');
+								console.log(newQuery);*/
 							vm.setState({
 								query: newQuery
 							})

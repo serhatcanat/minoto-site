@@ -88,47 +88,51 @@ class ListingFilters extends React.Component {
 		let filterCount = 0;
 		let newQuery = {};
 
-		if (vm.formRef.current) {
-			newQuery = serializeArray(vm.formRef.current, '|', true);
-		}
+		setTimeout(function() {
 
-		if (vm.props.query) {
-			newQuery = extend({}, newQuery, vm.props.query);
-		}
+			if (vm.formRef.current) {
+				newQuery = serializeArray(vm.formRef.current, '|', true);
+			}
 
-		filterCount = Object.keys(newQuery).length;
+			if (vm.props.query) {
+				newQuery = extend({}, newQuery, vm.props.query);
+			}
 
-		if (vm.props.order !== null) {
-			newQuery.siralama = vm.props.order;
-		}
-		else if (newQuery.siralama) {
-			delete newQuery.siralama;
-			filterCount--;
-		}
+			filterCount = Object.keys(newQuery).length;
 
-		if (!isEqual(vm.query, newQuery)) {
-			vm.query = newQuery;
-			vm.setState({ activeFilters: filterCount });
-			if (vm.props.onUpdate) {
-				if (this.requestBounces < 3) {
-					this.requestBounces++;
-					console.log(vm.query);
-					vm.props.onUpdate(vm.query);
-				}
-				else {
-					console.log('Warning: Request Bounce Limit!')
-					this.requestBounces = 0;
+			if (vm.props.order !== null) {
+				newQuery.siralama = vm.props.order;
+			}
+			else if (newQuery.siralama) {
+				delete newQuery.siralama;
+				filterCount--;
+			}
+
+			if (!isEqual(vm.query, newQuery)) {
+				vm.query = newQuery;
+				vm.setState({ activeFilters: filterCount });
+				if (vm.props.onUpdate) {
+					if (this.requestBounces < 3) {
+						this.requestBounces++;
+						//console.log(vm.query);
+						vm.props.onUpdate(vm.query);
+					}
+					else {
+						console.log('Warning: Request Bounce Limit!')
+						this.requestBounces = 0;
+					}
 				}
 			}
-		}
-		else if (!echo) {
-			setTimeout(function () {
-				vm.serializeFilters(true);
-			}, 15);
-		}
-		else {
-			this.requestBounces = 0;
-		}
+			else if (!echo) {
+				setTimeout(function () {
+					vm.serializeFilters(true);
+				}, 15);
+			}
+			else {
+				this.requestBounces = 0;
+			}
+
+		}, 20);
 	}
 
 	clearFilters() {
