@@ -22,18 +22,23 @@ export default class ConfirmForm extends React.Component {
 
 	componentDidMount() {
 		let vm = this;
-		request.get('users/control-token/'+vm.props.email+'/'+vm.props.token, {}, function(payload){
-			if(payload && payload.success){
+
+		request.get('users/control-token/registration/' + vm.props.email + '/' + vm.props.token, {}, function (payload) {
+			if (payload && payload.success) {
+
 				vm.setState({
 					loading: false,
 					complete: true,
 				});
 
-				if(payload.userData){
-					updateUserData(payload);
+				if (payload.userData) {
+					setTimeout(function () {
+						updateUserData(payload);
+					}, 3000); /// Dummy Delay
+
 				}
 			}
-			else{
+			else {
 				vm.setState({
 					loading: false,
 					error: true,
@@ -44,7 +49,9 @@ export default class ConfirmForm extends React.Component {
 
 	render() {
 		let vm = this;
-		if(vm.state.complete){
+
+
+		if (vm.state.complete) {
 			return (
 				<div className="section loginform type-self">
 					<h2 className="loginform-title">E-Posta Adresiniz Onaylandı</h2>

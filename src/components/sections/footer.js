@@ -12,7 +12,6 @@ import { formatNumber } from 'functions/helpers'
 
 // Deps
 import { connect } from "react-redux";
-import { serializeArray } from "functions/helpers";
 import request from 'controllers/request'
 
 // Assets
@@ -259,15 +258,20 @@ class FooterSubscription extends React.Component {
 		let vm = this;
 		vm.setState({ submitting: true });
 
+		let record = {
+			email: e.target.elements.email.value
+		};
+
 		setTimeout(function () {
-			request.get('/dummy/data/contactform.json', serializeArray(e.target), function (payload) {
+			request.post('mail/newsletter', record, function (payload) {
+				console.log(payload)
 				if (payload.success) {
 					vm.setState({ complete: true, submitting: false });
 					if (vm.form.current) {
 						vm.form.current.reset();
 					}
 				}
-			}, { excludeApiPath: true });
+			}, { excludeApiPath: false });
 		}, 1000);
 	}
 
@@ -283,6 +287,7 @@ class FooterSubscription extends React.Component {
 						required: "E-posta adresinizi girmelisiniz.",
 						email: true
 					}}
+					name="email"
 					hideAsterisk
 					type="text" />
 				<div className="subscription-submitwrap">
