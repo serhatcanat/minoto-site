@@ -108,9 +108,9 @@ class ListingFilters extends React.Component {
 
 		if (!isEqual(vm.query, newQuery)) {
 			vm.query = newQuery;
-			vm.setState({activeFilters: filterCount});
+			vm.setState({ activeFilters: filterCount });
 			if (vm.props.onUpdate) {
-				if(this.requestBounces < 3){
+				if (this.requestBounces < 3) {
 					this.requestBounces++;
 					vm.props.onUpdate(vm.query);
 				}
@@ -218,7 +218,7 @@ class ListingFilter extends React.Component {
 				vm.setState({ active: true });
 				vm.timeout = setTimeout(function () {
 					vm.setState({ show: true });
-					setTimeout(function() {
+					setTimeout(function () {
 						vm.scrollElem.current.instance.update();
 					}, 120);
 				}, 30);
@@ -232,9 +232,9 @@ class ListingFilter extends React.Component {
 		}
 	}
 
-	filterExpandChange(){
+	filterExpandChange() {
 		let vm = this;
-		setTimeout(function() {
+		setTimeout(function () {
 			vm.scrollElem.current.instance.update();
 		}, 120);
 	}

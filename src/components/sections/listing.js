@@ -268,7 +268,6 @@ class Listing extends React.Component {
 				}
 			}
 		}
-
 		return (
 			<section className={"section listing loader-container " + vm.props.className + (vm.props.filters ? ' has-filters' : '') + ' size-' + vm.props.size}>
 				<Loader loading={vm.state.loading || !vm.state.results} strict={!vm.state.initialLoad} />
