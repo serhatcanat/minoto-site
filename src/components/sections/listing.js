@@ -208,7 +208,7 @@ class Listing extends React.Component {
 				vm.setState({
 					listingData: payload,
 					results: payload.results,
-					order: payload.order ? payload.order : orderOptions[0].value,
+					//order: payload.order ? payload.order : orderOptions[0].value,
 					loading: false,
 					total: (payload.totalResults ? payload.totalResults : 0),
 					page: payload.page ? payload.page : 1,
@@ -261,7 +261,7 @@ class Listing extends React.Component {
 	render() {
 		let vm = this;
 
-		
+
 
 		let orderVal = null;
 		if (vm.state.order && vm.state.order !== null) {
@@ -279,8 +279,8 @@ class Listing extends React.Component {
 						order={vm.state.order}
 						data={vm.state.listingData}
 						onUpdate={(newQuery) => {
-								/*console.log('onupd:');
-								console.log(newQuery);*/
+							/*console.log('onupd:');
+							console.log(newQuery);*/
 							vm.setState({
 								query: newQuery
 							})
