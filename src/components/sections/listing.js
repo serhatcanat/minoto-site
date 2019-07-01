@@ -35,6 +35,14 @@ const mapDispatchToProps = dispatch => {
 	}
 }
 
+const orderOptions = [
+	{ value: 'random', label: "Varsayılan Sıralama" },
+	{ value: 'price_desc', label: "Fiyata Göre (Önce Yüksek)" },
+	{ value: 'price_asc', label: "Fiyata Göre (Önce Düşük)" },
+	{ value: 'date_desc', label: "Tarihe Göre (Önce Yeni)" },
+	{ value: 'date_asc', label: "Tarihe Göre (Önce Eski)" }
+]
+
 class Listing extends React.Component {
 	constructor(props) {
 		super(props)
@@ -86,23 +94,24 @@ class Listing extends React.Component {
 			this.filtersToQuery();
 		}*/
 
-		if (!isExact(prevState.listingData, this.state.listingData)) {
+		if (!isEqual(prevState.listingData, this.state.listingData)) {
 			//this.filtersToQuery();
 			if (this.props.onDataChange) {
 				this.props.onDataChange(this.state.listingData);
 			}
 		}
 
-		if (!isExact(prevState.query, this.state.query)) {
+		if (!isEqual(prevState.query, this.state.query)) {
 			this.updateURL();
 			this.updateResults();
+			console.log(this.state.query);
 
 			let activeFilters = Object.keys(this.state.query).length;
 			if (this.state.query.siralama) { activeFilters--; }
 			this.setState({ activeFilters: activeFilters })
 		}
 
-		if (!isExact(prevProps.query, this.props.query)) {
+		if (!isEqual(prevProps.query, this.props.query)) {
 			let newQuery = clone(this.props.query);
 
 			if (this.state.order !== null) {
@@ -199,7 +208,7 @@ class Listing extends React.Component {
 				vm.setState({
 					listingData: payload,
 					results: payload.results,
-					//order: payload.order ? payload.order : null,
+					order: payload.order ? payload.order : orderOptions[0].value,
 					loading: false,
 					total: (payload.totalResults ? payload.totalResults : 0),
 					page: payload.page ? payload.page : 1,
@@ -252,19 +261,13 @@ class Listing extends React.Component {
 	render() {
 		let vm = this;
 
-		let options = [
-			{ value: 'random', label: "Varsayılan Sıralama" },
-			{ value: 'price_desc', label: "Fiyata Göre (Önce Yüksek)" },
-			{ value: 'price_asc', label: "Fiyata Göre (Önce Düşük)" },
-			{ value: 'date_desc', label: "Tarihe Göre (Önce Yeni)" },
-			{ value: 'date_asc', label: "Tarihe Göre (Önce Eski)" }
-		]
+		
 
 		let orderVal = null;
 		if (vm.state.order && vm.state.order !== null) {
-			for (let k = 0; k < options.length; k++) {
-				if (options[k].value === vm.state.order) {
-					orderVal = options[k];
+			for (let k = 0; k < orderOptions.length; k++) {
+				if (orderOptions[k].value === vm.state.order) {
+					orderVal = orderOptions[k];
 				}
 			}
 		}
@@ -276,6 +279,7 @@ class Listing extends React.Component {
 						order={vm.state.order}
 						data={vm.state.listingData}
 						onUpdate={(newQuery) => {
+								console.log('onupd');
 							vm.setState({
 								query: newQuery
 							})
@@ -303,7 +307,7 @@ class Listing extends React.Component {
 								isSearchable={false}
 								value={orderVal}
 								onChange={vm.updateOrder}
-								options={options}
+								options={orderOptions}
 								className="top-order" />
 						</aside>
 					}

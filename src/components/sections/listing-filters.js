@@ -112,6 +112,7 @@ class ListingFilters extends React.Component {
 			if (vm.props.onUpdate) {
 				if (this.requestBounces < 3) {
 					this.requestBounces++;
+					console.log(vm.query);
 					vm.props.onUpdate(vm.query);
 				}
 				else {
