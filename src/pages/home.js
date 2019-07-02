@@ -76,7 +76,7 @@ export default class Home extends React.Component {
 								mobile={storageSpace('homepage-slides', banner.mobile_image)} />
 						</section>
 						<Listing className="home-listing"
-							source={'car-posts'}
+							source={'car-posts/home'}
 							query={false}
 						/>
 					</React.Fragment>
