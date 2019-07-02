@@ -1,0 +1,23 @@
+.modal-container.modal-youtube{
+	.map-container {
+		z-index: 1;
+	}
+
+	.modal-content {
+		width: 120rem;
+	}
+
+	.youtube-wrap {
+		width: 100%;
+		position: relative;
+		padding-bottom: 56%;
+	}
+
+	.youtube-video {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+	}
+}

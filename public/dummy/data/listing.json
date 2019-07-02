@@ -472,7 +472,8 @@
 				"type": "banner",
 				"title": "Kenan Doğulu\"nun minoto\"ya özel seçtikleri",
 				"image": "/dummy/images/listing-banner-large.jpg",
-				"url": "http://google.com/",
+				"action": "youtube",
+				"url": "https://www.youtube.com/watch?v=blu0u0y4-0A",
 				"size": 2
 			}
 		]

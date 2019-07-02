@@ -8,7 +8,7 @@ import parse from 'html-react-parser'
 
 // Assets
 
-export default class OptionsModal extends React.Component {
+export default class TextModal extends React.Component {
 	optionClick(opt) {
 		if(opt.onClick){
 			opt.onClick();
@@ -37,7 +37,7 @@ export default class OptionsModal extends React.Component {
 	}
 }
 
-OptionsModal.defaultProps = {
+TextModal.defaultProps = {
 	className: "",
 	containerClass: "modal-text",
 	name: "text",

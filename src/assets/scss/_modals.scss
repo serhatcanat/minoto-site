@@ -71,6 +71,9 @@
 		border-radius: 50%;
 		font-size: .8rem;
 		transition: color $transition-hover ease, background-color $transition-hover ease;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 
 		@include media {
 			font-size: 1.5rem;

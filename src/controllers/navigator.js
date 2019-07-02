@@ -16,6 +16,7 @@ import ConsentModal from 'components/modals/consent'
 import MapModal from 'components/modals/map'
 import BidModal from 'components/modals/bid'
 import MessageModal from 'components/modals/message'
+import YoutubeModal from 'components/modals/youtube'
 
 // Controllers
 import ResponsiveWatcher from 'controllers/responsive-watcher'
@@ -124,6 +125,7 @@ export default class Navigator extends React.Component {
 					<MapModal />
 					<BidModal />
 					<MessageModal />
+					<YoutubeModal />
 				</ModalsWrap>
 				<ConsentBar />
 			</div>

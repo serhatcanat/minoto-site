@@ -5,6 +5,7 @@ import ContentBox from 'components/partials/contentbox'
 import Image from 'components/partials/image';
 import Loader from 'components/partials/loader';
 import { FormInput } from 'components/partials/forms';
+import Link from 'components/partials/link'
 
 // Sections
 import ListingFilters from 'components/sections/listing-filters';
@@ -20,6 +21,7 @@ import { connect } from "react-redux";
 import { storageSpace } from "functions/helpers";
 import queryString from 'query-string';
 import { setListingFiltersExpansion } from 'data/store.generic';
+import { openModal } from 'functions/modals'
 
 const mapStateToProps = state => {
 	return { mobile: state.generic.mobile };
@@ -356,10 +358,29 @@ class ListingResults extends React.Component {
 						let contents = [];
 						switch (item.type) {
 							case 'banner':
-								let Item = (item.url ? 'a' : 'div');
+								let Item = 'div';
+								let props = {};
+								
+								if(item.url){
+									switch(item.action){
+										case "youtube":
+											Item = 'button';
+											props.onClick = openModal('youtube', { url: item.url });
+										break;
+										case "externalLink":
+											Item = 'a';
+											props.herf = item.url;
+										break;
+										default:
+											Item = Link;
+											props.href = item.url;
+										break;
+									}
+								}
+
 								contents.push(
 									<li key={nth} className={"results-item banner x" + item.size}>
-										<Item className="item-banner"><Image className="banner-image" src={item.image} alt={item.title} bg={!vm.props.mobile} /></Item>
+										<Item className="item-banner" {...props}><Image className="banner-image" src={item.image} alt={item.title} bg={!vm.props.mobile} /></Item>
 									</li>
 								);
 								break;

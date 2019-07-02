@@ -8,7 +8,7 @@ import Btn from 'components/partials/btn'
 
 // Deps
 import { openModal } from 'functions/modals'
-import request from 'controllers/request'
+//import request from 'controllers/request'
 
 // Assets
 
@@ -21,17 +21,18 @@ export default class Home extends React.Component {
 	}
 
 	componentDidMount(){
-		let vm = this;
+		//let vm = this;
 
-		request.get('/dummy/data/detail.json', { id: 1}, function(payload, status){
+		/*request.get('/dummy/data/detail.json', { id: 1}, function(payload, status){
 			if(payload){
 				vm.setState({
 					dummyProduct: payload
 				});
 
-				//openModal('bid', { advert: payload });
+				openModal('youtube', { url: payload });
 			}
-		}, { excludeApiPath: true });
+		}, { excludeApiPath: true });*/
+		openModal('youtube', { url: 'https://www.youtube.com/watch?v=blu0u0y4-0A' });
 	}
 
 	render() {
