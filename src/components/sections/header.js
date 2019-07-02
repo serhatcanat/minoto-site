@@ -221,19 +221,20 @@ class Header extends React.Component {
 												</li>
 											</ul>
 
-											<ul className="menu-thumblinks" style={{ display: 'none' }}>
-												<li className="thumblinks-item">
-													<Link href="/">
-														<Image className="thumblinks-image" src="/dummy/images/sidemenu-thumb.jpg" />
-														Volvo XC 40 İncelemesi
-													</Link>
+											<ul className="menu-thumblinks">
+												<li className="thumblinks-item full">
+													<button onClick={() => { openModal('youtube', {url: 'https://www.youtube.com/watch?v=7DFVGjO4a7g'}); vm.closeMenu(); }}>
+														<Image className="thumblinks-image" src="/assets/images/kia-incelemesi.jpg" />
+													</button>
 												</li>
-												<li className="thumblinks-item">
-													<Link href="/">
-														<Image className="thumblinks-image" src="/dummy/images/sidemenu-thumb.jpg" />
-														VW T-Cross İlk İnceleme
-													</Link>
-												</li>
+												{false &&
+													<li className="thumblinks-item">
+														<Link href="/">
+															<Image className="thumblinks-image" src="/dummy/images/sidemenu-thumb.jpg" />
+															VW T-Cross İlk İnceleme
+														</Link>
+													</li>
+												}
 											</ul>
 
 											{false &&

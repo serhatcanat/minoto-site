@@ -409,6 +409,10 @@
 						display: inline-block;
 						width: 21rem;
 
+						&.full {
+							width: 100%;
+						}
+
 						@include media {
 							line-height: 1.8rem;
 						}

@@ -7,6 +7,19 @@
 		width: 120rem;
 	}
 
+	.modal-innercontent {
+		@include media {
+			padding: 1.5rem;
+		}
+	}
+
+	.modal-closebtn {
+		@include media {
+			top: .4rem;
+			right: .4rem;
+		}
+	}
+
 	.youtube-wrap {
 		width: 100%;
 		position: relative;

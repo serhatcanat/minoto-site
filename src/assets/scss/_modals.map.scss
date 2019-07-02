@@ -1,4 +1,17 @@
 .modal-container.modal-map{
+	.modal-innercontent {
+		@include media {
+			padding: 1.5rem;
+		}
+	}
+
+	.modal-closebtn {
+		@include media {
+			top: .4rem;
+			right: .4rem;
+		}
+	}
+	
 	.map-container {
 		position: relative;
 		z-index: 1;
