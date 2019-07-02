@@ -365,7 +365,7 @@ class ListingResults extends React.Component {
 									switch(item.action){
 										case "youtube":
 											Item = 'button';
-											props.onClick = openModal('youtube', { url: item.url });
+											props.onClick = () => { openModal('youtube', { url: item.url }) }
 										break;
 										case "externalLink":
 											Item = 'a';
