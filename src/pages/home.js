@@ -64,7 +64,7 @@ export default class Home extends React.Component {
 											</React.Fragment>
 										) : banner.title}
 
-									<strong className="subtitle">{banner.label}</strong>
+									<strong className="subtitle">DENEME {banner.label}</strong>
 								</h1>
 								<SearchBar className="intro-search" />
 							</div>
