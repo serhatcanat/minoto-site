@@ -326,6 +326,7 @@ class SearchBar extends React.Component {
 							:
 							<button
 								type="button"
+								onClick={vm.formSubmit}
 								className="searchbar-submit btn primary">
 								<i className="icon-search"></i>Ara
 							</button>
