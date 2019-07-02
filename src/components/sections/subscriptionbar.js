@@ -72,8 +72,6 @@ export default class SubscriptionBar extends React.Component {
 								</React.Fragment>
 							)
 					}
-
-
 				</InputForm>
 			</section>
 		)
