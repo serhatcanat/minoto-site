@@ -36,7 +36,7 @@ import image_loader from 'assets/images/minoto-loading.gif'
 const ncapDescriptions = [
 	"1 yıldızlı güvenlik: Marjinal çarpışma koruması.",
 	"2 yıldızlı güvenlik: Nominal çarpışma koruması ancak çarpışmadan kaçınma teknolojisi yok.",
-	"3 yıldızlı güvenlik:  Yolcu koruma konusunda ortalama ile iyi arasında ancak çarpışmadan kaçınma teknolojisi yok.",
+	"3 yıldızlı güvenlik: Yolcu koruma konusunda ortalama ile iyi arasında ancak çarpışmadan kaçınma teknolojisi yok.",
 	"4 yıldızlı güvenlik: Çarpışma korumasına yönelik toplam iyi performans; ilave çarpışmadan kaçınma teknolojisi mevcut olabilir.",
 	"5 yıldızlı güvenlik: Çarpışma korumasına yönelik toplam iyi performans. Sağlam çarpışmadan kaçınma ekipmanı ile donatılmış."
 ]
@@ -567,7 +567,7 @@ class DetailInfo extends React.Component {
 						</div>
 					</div>
 				}
-			</div >
+			</div>
 		)
 	}
 }
