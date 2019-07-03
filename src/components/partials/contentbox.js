@@ -101,7 +101,7 @@ export default class ContentBox extends React.Component {
 							{(vm.props.pretitle) && (
 								<p className="contentbox-pretitle">{vm.props.pretitle}</p>
 							)}
-							<strong className="contentbox-title">{vm.props.title}</strong>
+							<strong className={`contentbox-title ${vm.props.wrap && 'wrap'}`}>{vm.props.title}</strong>
 							{(vm.props.subtitle || vm.props.price) && (
 								<React.Fragment>
 									<div className="contentbox-info">

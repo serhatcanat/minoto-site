@@ -219,11 +219,13 @@ class BranchInfo extends React.Component {
 				</button>
 
 				<Collapse className="branch-details" open={this.state.open}>
-					<span className={"branch-workinghours " + (branch.open ? 'open' : 'closed')}>
-						{branch.workingHours}
-						<span>|</span>
-						{(branch.open ? 'Açık' : 'Kapalı')}
-					</span>
+					{branch.workingHours && (
+						<span className={"branch-workinghours " + (branch.open ? 'open' : 'closed')}>
+							{branch.workingHours}
+							<span>|</span>
+							{(branch.open ? 'Açık' : 'Kapalı')}
+						</span>
+					)}
 
 					{branch.location &&
 						<button type="button" className="details-showonmap" onClick={() => openModal('map', { markers: [{ lat: branch.location.lat, lng: branch.location.lng }] })}>Haritada gör</button>

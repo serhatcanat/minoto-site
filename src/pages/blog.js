@@ -25,7 +25,7 @@ export default class Blog extends React.Component {
 		this.state = {
 			loading: true,
 			categories: false,
-			results: false,
+			results: false
 		}
 
 		this.initialize = this.initialize.bind(this);
@@ -38,6 +38,7 @@ export default class Blog extends React.Component {
 		let vm = this;
 		vm.mounted = true;
 		vm.initialize();
+
 
 		vm.listenerAbort = history.listen(function (e) {
 
@@ -54,42 +55,41 @@ export default class Blog extends React.Component {
 
 	initialize() {
 		let vm = this;
-		if(vm.mounted){
+		if (vm.mounted) {
 			let category = window.location.pathname.split('/')[2];
-
 
 			vm.setState({ results: false });
 
-			let payload = {}
+			let params = {}
 			let endpoint = "articles";
 
 			if (category) {
 				if (category === 'arama') {
 					let searchParam = window.location.pathname.split('/')[3];
-					payload.search = vm.props.match.params.search;
+					params.search = vm.props.match.params.search;
 					endpoint = `articles/search?search=${searchParam}`
 				}
 				else if (category === 'son-eklenenler') {
-					endpoint = `articles/recently?record=1`
+					endpoint = `articles/recently?record=6`
 
 				}
 				else {
-					payload.category = category;
+					params.category = category;
 					endpoint = `${category}/articles`
 				}
 			}
 
-
-			request.get(endpoint, payload, function (payload, status) {
+			request.get(endpoint, null, function (payload, status) {
 				if (vm.mounted && payload) {
 					vm.setState({
 						results: payload,
 						loading: false,
 					});
+
 				}
 			});
 
-			request.get('articles/tags', payload, function (payload, status) {
+			request.get('articles/tags', params, function (payload, status) {
 				if (vm.mounted && payload) {
 					vm.setState({
 						categories: payload,
@@ -107,6 +107,7 @@ export default class Blog extends React.Component {
 	render() {
 		let categories = this.state.categories;
 		let results = this.state.results;
+
 
 		return (
 			<main className="page blog loader-container">
@@ -163,7 +164,7 @@ export default class Blog extends React.Component {
 					<section className="section blog-results loader-container">
 						<Loader loading={!results} strict />
 						<div className="wrapper narrow">
-							{results.length &&
+							{results &&
 								<ul className="results-list">
 									{results.map((result, nth) => (
 										<li className="results-item" key={nth}>
@@ -175,13 +176,14 @@ export default class Blog extends React.Component {
 												url="blogDetail"
 												additionsOptional
 												urlParams={{ slug: result.slug }}
+												wrap={result.title.length > 50 ? true : false}
 											/>
 										</li>
 									))}
 								</ul>
 							}
 							{results && results.length === 0 &&
-								<h2 className="results-error">Aradığınız özelliklerde bir blog yazısı bulunamadı.</h2>
+								<h2 className="results-error">Sonuç bulunamadı.</h2>
 							}
 						</div>
 					</section>

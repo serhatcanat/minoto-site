@@ -295,11 +295,33 @@
 			font-size: 2.4rem;
 			line-height: 3.2rem;
 			white-space: normal;
+			height: 6.4rem;
 
 			@include media {
 				font-size: 1.4rem;
 				line-height: 1.5rem;
+				height: 3.2rem;
+				&.wrap{
+					&:after{
+						content: '...';
+						text-align: right;
+						position: absolute;
+						right: 1rem;
+						bottom: 1rem;
+						width: 3rem;
+						background: -moz-linear-gradient(left,  rgba(255,255,255,0) 0%, rgba(255,255,255,1) 70%, rgba(255,255,255,1) 99%);
+						background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(255,255,255,0)), color-stop(70%,rgba(255,255,255,1)), color-stop(99%,rgba(255,255,255,1)));
+						background: -webkit-linear-gradient(left,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 70%,rgba(255,255,255,1) 99%);
+						background: -o-linear-gradient(left,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 70%,rgba(255,255,255,1) 99%);
+						background: -ms-linear-gradient(left,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 70%,rgba(255,255,255,1) 99%);
+						background: linear-gradient(to right,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 58%,rgba(255,255,255,1) 99%);
+						filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fff', endColorstr='#fff',GradientType=1 );
+							
+					}
+				}
+				
 			}
+			
 		}
 
 		.contentbox-pretitle {

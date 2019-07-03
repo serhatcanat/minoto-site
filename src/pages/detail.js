@@ -515,11 +515,11 @@ class DetailInfo extends React.Component {
 							Rezerve Et
 						</Btn>
 						{(vm.props.mobile && product.dealer.phone) && <a className="controls-phone" href={"tel:+9" + product.dealer.phone.replace(' ', '')}><i className="icon-phone-nude"></i></a>}
-						{product.bidThreadId
+						{(product.bidThreadId)
 							?
 							<Btn className="controls-button bid" note="Bu araç için daha önce teklif verdiniz." primary uppercase tag="a" href={`/hesabim/mesajlarim/mesaj/${product.bidThreadId}`}>Tekliflerim</Btn>
 							:
-							<Btn disabled={product.status === 3 ? true : false} className="controls-button bid" onClick={() => openModal('bid', { advert: product })} primary uppercase note={product.status === 3 ? 'Bu araç "satıldı".' : 'Bu araç için teklif verebilirsiniz.'}>
+							<Btn disabled={(product.status === 3 || product.price === null) ? true : false} className="controls-button bid" onClick={() => openModal('bid', { advert: product })} primary uppercase note={product.status === 3 ? 'Bu araç "satıldı".' : (product.price === null ? 'Fiyat için bayi ile iletişime geçebilirsiniz' : 'Bu araç için teklif verebilirsiniz.')}>
 								{product.status === 3 ? 'SATILDI' : 'Teklif Ver'}
 							</Btn>}
 

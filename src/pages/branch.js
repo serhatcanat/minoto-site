@@ -101,11 +101,15 @@ export default class Branch extends React.Component {
 											<button type="button" className="address-showonmap" onClick={() => openModal('map', { markers: [{ lat: branch.location.lat, lng: branch.location.lng }] })}>Haritada gör</button>
 										}
 									</div>
-									<span className={"sum-workinghours " + (branch.open ? 'open' : 'closed')}>
-										{branch.workingHours}
-										<span>|</span>
-										{(branch.open ? 'Şu an açık' : 'Şu an kapalı')}
-									</span>
+									{
+										branch.workingHours && (
+											<span className={"sum-workinghours " + (branch.open ? 'open' : 'closed')}>
+												{branch.workingHours}
+												<span>|</span>
+												{(branch.open ? 'Şu an açık' : 'Şu an kapalı')}
+											</span>
+										)
+									}
 									{
 										branch.phone && (
 											<div className="sum-controls">

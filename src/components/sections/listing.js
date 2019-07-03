@@ -203,6 +203,9 @@ class Listing extends React.Component {
 
 		request.get(requestURL, { ...vm.state.query, ...{ sayfa: opts.page } }, function (payload, status) {
 			if (payload) {
+				if (payload.redirect) {
+					setTimeout(function () { window.location.href = payload.link; }, 30)
+				}
 				if (opts.page > 1) {
 					payload.results = vm.state.results.concat(payload.results);
 				}
@@ -237,8 +240,6 @@ class Listing extends React.Component {
 		else if (order !== null) {
 			newQuery['siralama'] = order;
 		}
-
-		console.log(newQuery);
 
 		this.setState({ query: newQuery, order: order });
 	}
@@ -320,7 +321,7 @@ class Listing extends React.Component {
 						</aside>
 					}
 					<ListingResults loading={vm.state.loading} data={vm.state.listingData} mobile={vm.props.mobile} />
-					{(vm.state.results.length < vm.state.total) &&
+					{(vm.state.results && vm.state.results.length < vm.state.total) &&
 						<InfiniteScroller loading={vm.state.extending} onExtend={vm.extendResults} />
 					}
 				</div>
@@ -360,21 +361,21 @@ class ListingResults extends React.Component {
 							case 'banner':
 								let Item = 'div';
 								let props = {};
-								
-								if(item.url){
-									switch(item.action){
+
+								if (item.url) {
+									switch (item.action) {
 										case "youtube":
 											Item = 'button';
 											props.onClick = () => { openModal('youtube', { url: item.url }) }
-										break;
+											break;
 										case "externalLink":
 											Item = 'a';
 											props.herf = item.url;
-										break;
+											break;
 										default:
 											Item = Link;
 											props.href = item.url;
-										break;
+											break;
 									}
 								}
 

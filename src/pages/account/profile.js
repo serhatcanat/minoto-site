@@ -161,10 +161,7 @@ class Profile extends React.Component {
 											disabled={vm.state.submitting}
 											label="Cep telefonu"
 											mask="(199) 999 99 99"
-											validation={{
-												required: "Telefon numaranızı girmelisiniz.",
-												minLength: ["Geçerli bir telefon numarası girmelisiniz.", 15]
-											}}
+
 											className="form-inputwrap"
 											value={userData.profile.phone} />
 										{/*<FormInput name="password" type="password" className="form-inputwrap" disabled={vm.state.submitting} label="Şifre" />*/}
