@@ -224,8 +224,14 @@ class Listing extends React.Component {
 					}, 40);
 				}
 
+				if (Object.keys(vm.state.query).length > 0 && vm.props.id) {
+					document.getElementById("listing-results").scrollIntoView()
+				}
+
+
 				if (endFunction) {
 					endFunction();
+
 				}
 			}
 		}, { excludeApiPath: requestURL === '/dummy/data/listing.json' || requestURL === '/dummy/data/detail-related.json' });
@@ -276,19 +282,16 @@ class Listing extends React.Component {
 			}
 		}
 		return (
-			<section className={"section listing loader-container " + vm.props.className + (vm.props.filters ? ' has-filters' : '') + ' size-' + vm.props.size}>
+			<section id={vm.props.id} className={"section listing loader-container " + vm.props.className + (vm.props.filters ? ' has-filters' : '') + ' size-' + vm.props.size}>
 				<Loader loading={vm.state.loading || !vm.state.results} strict={!vm.state.initialLoad} />
 				{vm.props.filters &&
 					<ListingFilters
 						order={vm.state.order}
 						data={vm.state.listingData}
 						onUpdate={(newQuery) => {
-							/*console.log('onupd:');
-							console.log(newQuery);*/
 							if (vm.state.query.ara) {
 								newQuery.ara = vm.state.query.ara
 							};
-							console.log(newQuery);
 							vm.setState({
 								query: newQuery
 							})
