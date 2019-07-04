@@ -280,6 +280,7 @@ class SearchBar extends React.Component {
 	formSubmit(e) {
 		e.preventDefault();
 		this.hide();
+		this.props.setOpen(false)
 		redirect('search', false, { ara: this.props.inputValue });
 	}
 
