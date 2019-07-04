@@ -559,7 +559,13 @@ class DetailInfo extends React.Component {
 							</div>
 						}
 						<div className="dealer-controls">
-							<Btn tag="a" icon="phone" block uppercase href={"tel:+9" + product.dealer.phone.replace(' ', '')}>{product.dealer.phone}</Btn>
+							{
+								product.dealer.phone && (
+									<Btn tag="a" icon="phone" block uppercase href={"tel:+9" + product.dealer.phone.replace(' ', '')}>{product.dealer.phone}</Btn>
+								)
+
+							}
+
 							{
 								product.messageThreadId ? <Btn icon="envelope" text uppercase block tag="a" href={`/hesabim/mesajlarim/mesaj/${product.messageThreadId}`}>Mesajlara Git</Btn> : <Btn icon="envelope" text uppercase block onClick={() => openModal('message', { advert: product })}>Mesaj Gönder</Btn>
 							}

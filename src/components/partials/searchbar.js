@@ -258,6 +258,9 @@ class SearchBar extends React.Component {
 
 					if (payload) {
 						vm.setState({ data: payload, loading: false });
+						setTimeout(function () {
+							vm.props.setOpen(false)
+						}, 100);
 					}
 					else {
 						console.log('error');
