@@ -36,7 +36,7 @@ class MessageModalRaw extends React.Component {
 		let record = {
 			advertID: e.target.elements.advertID.value,
 			message: e.target.elements.message.value,
-			dealer: vm.props.dealer ? vm.props.dealer : null,
+			dealer: vm.props.dealer ? vm.props.dealer.title : null,
 			title: vm.props.advert.title,
 			email: vm.props.user.email,
 			messageType: 'message'
