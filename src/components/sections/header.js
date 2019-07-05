@@ -223,7 +223,7 @@ class Header extends React.Component {
 
 											<ul className="menu-thumblinks">
 												<li className="thumblinks-item full">
-													<button onClick={() => { openModal('youtube', {url: 'https://www.youtube.com/watch?v=7DFVGjO4a7g'}); vm.closeMenu(); }}>
+													<button onClick={() => { openModal('youtube', { url: 'https://www.youtube.com/watch?v=7DFVGjO4a7g' }); vm.closeMenu(); }}>
 														<Image className="thumblinks-image" src="/assets/images/kia-incelemesi.jpg" />
 													</button>
 												</li>

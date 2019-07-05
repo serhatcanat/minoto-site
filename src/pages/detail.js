@@ -467,7 +467,7 @@ class DetailInfo extends React.Component {
 					}
 				</div>
 
-				{product.costs.expenses.length &&
+				{(product.price > 0 && product.costs.expenses.length) &&
 					<div className="info-costs">
 						<button className="costs-sum" type="button" onClick={() => { vm.setState({ showCosts: !vm.state.showCosts }) }}><strong>Bu aracın yıllık kullanım maliyeti:</strong> <PriceTag price={product.costs.total} /></button>
 						<Collapse className="costs-wrap" open={vm.state.showCosts}>
