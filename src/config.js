@@ -1,7 +1,20 @@
-//const domain = (window.location.hostname === 'localhost' ? 'http://localhost:8000' : 'https://api.minoto.com');
+let domain = window.location.hostname
 
-const domain = 'https://api.minoto.com';
+let endpoint = ''
 
-export const apiBase = `${domain}/v1/shared/`
+switch (domain) {
+    case 'localhost':
+        endpoint = 'http://localhost:8000'
+        break;
+    case 'minoto.thinkerfox.com':
+        endpoint = 'http://minoto-api.thinkerfox.com'
+        break;
+    default:
+        endpoint = 'https://api.minoto.com'
+        break;
+}
+
+export const apiBase = `${endpoint}/v1/shared/`
+
 export const storagePath = 'https://minoto-test.ams3.digitaloceanspaces.com/'
 export const basePath = 'https://minoto.com'

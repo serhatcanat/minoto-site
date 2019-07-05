@@ -143,30 +143,34 @@ export default class Dealer extends React.Component {
 								<button type="submit" className="search-submit"><i className="icon-search"></i></button>
 							</InputForm>
 							*/}
+								{
+									dealer.dealerType === 'dealer' && (
+										<div className="info-branches">
+											<div className="branches-head">
 
-								<div className="info-branches">
-									<div className="branches-head">
+												<strong className="head-title">Şubeler / Lokasyonlar</strong>
+											</div>
 
-										<strong className="head-title">Şubeler / Lokasyonlar</strong>
-									</div>
-
-									<ul className="branches-list">
-										{dealer.branches.reduce((filtered, branch, nth) => {
-											if (nth < branchExpandLimit || vm.state.expandBranches) {
-												filtered.push(<BranchInfo data={branch} key={nth} />)
+											<ul className="branches-list">
+												{dealer.branches.reduce((filtered, branch, nth) => {
+													if (nth < branchExpandLimit || vm.state.expandBranches) {
+														filtered.push(<BranchInfo data={branch} key={nth} />)
+													}
+													return filtered;
+												}, [])}
+											</ul>
+											{dealer.branches.length > branchExpandLimit &&
+												<button className="branches-extend" onClick={() => { vm.setState({ expandBranches: !vm.state.expandBranches }) }}>
+													{!vm.state.expandBranches ?
+														<span>+ Daha fazla göster</span> :
+														<span>- Küçült</span>
+													}
+												</button>
 											}
-											return filtered;
-										}, [])}
-									</ul>
-									{dealer.branches.length > branchExpandLimit &&
-										<button className="branches-extend" onClick={() => { vm.setState({ expandBranches: !vm.state.expandBranches }) }}>
-											{!vm.state.expandBranches ?
-												<span>+ Daha fazla göster</span> :
-												<span>- Küçült</span>
-											}
-										</button>
-									}
-								</div>
+										</div>
+									)
+								}
+
 
 								<ListingFilters
 									className="info-filters"

@@ -353,6 +353,7 @@ class DetailGallery extends React.Component {
 		let vm = this;
 		let product = vm.props.product
 		let images = product.gallery;
+
 		return (
 			<div className="content-gallery">
 				<Btn className="gallery-close" low white uppercase icon="close" onClick={() => { vm.props.onFullScreenChange(false) }}>
@@ -399,12 +400,15 @@ class DetailInfo extends React.Component {
 		super(props)
 		this.state = {
 			showCosts: false,
+			showDealers: false,
+			selectedBranch: false
 		}
 	}
 
 	render() {
 		let vm = this;
-		let product = vm.props.product;
+		let product = vm.props.product
+		let selectedBranch = vm.state.selectedBranch
 
 		return (
 			<div className="detail-info">
@@ -514,7 +518,18 @@ class DetailInfo extends React.Component {
 						<Btn className="controls-button reservate" primary hollow uppercase note="Bu aracı çok yakında rezerve edebileceksiniz." disabled={true}>
 							Rezerve Et
 						</Btn>
-						{(vm.props.mobile && product.dealer.phone) && <a className="controls-phone" href={"tel:+9" + product.dealer.phone.replace(' ', '')}><i className="icon-phone-nude"></i></a>}
+						{
+							(vm.props.mobile && product.dealer.phone) ?
+								<a className="controls-phone" href={"tel:+9" + product.dealer.phone.replace(' ', '')}><i className="icon-phone-nude"></i></a>
+								: (
+									<React.Fragment>
+										{
+											(vm.props.mobile && product.dealerPhone) && <a className="controls-phone" href={"tel:+9" + product.dealerPhone.replace(' ', '')}><i className="icon-phone-nude"></i></a>
+										}
+									</React.Fragment>
+								)
+
+						}
 						{(product.bidThreadId)
 							?
 							<Btn className="controls-button bid" note="Bu araç için daha önce teklif verdiniz." primary uppercase tag="a" href={`/hesabim/mesajlarim/mesaj/${product.bidThreadId}`}>Tekliflerim</Btn>
@@ -531,47 +546,134 @@ class DetailInfo extends React.Component {
 				</div>
 
 				{
-					product.dealer &&
-					<div className="info-dealer">
-						<div className="dealer-head">
-							<Link href="branch" params={{ id: product.dealer.id, slug: product.dealer.url }}>
-								{product.dealer.validated ?
-									<span className="dealer-badge"><i className="badge-bg icon-ribbon"></i><i className="badge-icon icon-check"></i></span>
-									:
-									false
+					!product.dealer.list ?
+						(
+							<React.Fragment>
+								{
+									product.dealer &&
+									<div className="info-dealer">
+										<div className="dealer-head">
+											<Link href="branch" params={{ id: product.dealer.id, slug: product.dealer.url }}>
+												{product.dealer.validated ?
+													<span className="dealer-badge"><i className="badge-bg icon-ribbon"></i><i className="badge-icon icon-check"></i></span>
+													:
+													false
+												}
+												<strong className="dealer-title">{product.dealer.title}</strong>
+											</Link>
+											<p className="dealer-info">
+												<span className="info-location">{product.dealer.location}</span>
+												<span className={"info-workinghours " + (product.dealer.open ? 'open' : 'closed')}>
+													{product.dealer.workingHours}
+													<span>|</span>
+													{(product.dealer.open ? 'Şu an açık' : 'Şu an kapalı')}
+												</span>
+											</p>
+										</div>
+										{product.dealer.rep &&
+											<div className="dealer-rep">
+												<Image src={product.dealer.rep.image ? product.dealer.rep.image : image_avatar} className="rep-image" />
+												<strong className="rep-title">{product.dealer.rep.name}</strong>
+												<span className="rep-role">{product.dealer.rep.role}</span>
+											</div>
+										}
+										<div className="dealer-controls">
+											{
+												product.dealer.phone && (
+													<Btn tag="a" icon="phone" block uppercase href={"tel:+9" + product.dealer.phone.replace(' ', '')}>{product.dealer.phone}</Btn>
+												)
+
+											}
+
+
+											{
+												product.messageThreadId ? <Btn icon="envelope" text uppercase block tag="a" href={`/hesabim/mesajlarim/mesaj/${product.messageThreadId}`}>Mesajlara Git</Btn> : <Btn icon="envelope" text uppercase block onClick={() => openModal('message', { advert: product })}>Mesaj Gönder</Btn>
+											}
+
+										</div>
+									</div>
 								}
-								<strong className="dealer-title">{product.dealer.title}</strong>
-							</Link>
-							<p className="dealer-info">
-								<span className="info-location">{product.dealer.location}</span>
-								<span className={"info-workinghours " + (product.dealer.open ? 'open' : 'closed')}>
-									{product.dealer.workingHours}
-									<span>|</span>
-									{(product.dealer.open ? 'Şu an açık' : 'Şu an kapalı')}
-								</span>
-							</p>
-						</div>
-						{product.dealer.rep &&
-							<div className="dealer-rep">
-								<Image src={product.dealer.rep.image ? product.dealer.rep.image : image_avatar} className="rep-image" />
-								<strong className="rep-title">{product.dealer.rep.name}</strong>
-								<span className="rep-role">{product.dealer.rep.role}</span>
-							</div>
-						}
-						<div className="dealer-controls">
-							{
-								product.dealer.phone && (
-									<Btn tag="a" icon="phone" block uppercase href={"tel:+9" + product.dealer.phone.replace(' ', '')}>{product.dealer.phone}</Btn>
-								)
+							</React.Fragment>
+						) : (
+							<React.Fragment>
+								{
+									product.dealer.list && (
+										<div className="info-costs" style={{ marginTop: '1rem' }}>
+											<button className="costs-sum" type="button" onClick={() => { vm.setState({ showDealers: !vm.state.showDealers }) }}><strong>Bu aracı satın alabileceğiniz yetkili bayiler ({product.dealer.list.length}):</strong> </button>
+											<Collapse className="costs-wrap" open={vm.state.showDealers}>
+												<ul className="costs-list">
+													{product.dealer.list.map((dealerLoc, nth) => (
+														<React.Fragment key={nth}>
+															{
+																(dealerLoc) && (
+																	<React.Fragment>
+																		<li className="list-cost" key={nth} style={{ paddingTop: nth === 0 ? '' : '0' }}>
+																			<div className="info-costs" style={{ width: '100%', padding: '0' }}>
+																				<button onClick={() => { vm.setState({ selectedBranch: dealerLoc, showDealers: !vm.state.showDealers }) }}>{dealerLoc.title}</button>
+																			</div>
+																		</li>
 
-							}
+																	</React.Fragment>
+																)
 
-							{
-								product.messageThreadId ? <Btn icon="envelope" text uppercase block tag="a" href={`/hesabim/mesajlarim/mesaj/${product.messageThreadId}`}>Mesajlara Git</Btn> : <Btn icon="envelope" text uppercase block onClick={() => openModal('message', { advert: product })}>Mesaj Gönder</Btn>
-							}
+															}
+														</React.Fragment>
+													))}
+												</ul>
+											</Collapse>
+											<React.Fragment>
+												{
+													selectedBranch && (
+														<div className="info-dealer">
+															<div className="dealer-head">
+																<Link href="branch" params={{ id: selectedBranch.id, slug: selectedBranch.url }}>
+																	{selectedBranch.validated ?
+																		<span className="dealer-badge"><i className="badge-bg icon-ribbon"></i><i className="badge-icon icon-check"></i></span>
+																		:
+																		false
+																	}
+																	<strong className="dealer-title">{selectedBranch.title}</strong>
+																</Link>
+																<p className="dealer-info">
+																	<span className="info-location">{selectedBranch.location}</span>
+																	<span className={"info-workinghours " + (selectedBranch.open ? 'open' : 'closed')}>
+																		{selectedBranch.workingHours}
+																		<span>|</span>
+																		{(selectedBranch.open ? 'Şu an açık' : 'Şu an kapalı')}
+																	</span>
+																</p>
+															</div>
+															{selectedBranch.rep &&
+																<div className="dealer-rep">
+																	<Image src={selectedBranch.rep.image ? selectedBranch.rep.image : image_avatar} className="rep-image" />
+																	<strong className="rep-title">{selectedBranch.rep.name}</strong>
+																	<span className="rep-role">{selectedBranch.rep.role}</span>
+																</div>
+															}
+															<div className="dealer-controls">
+																{
+																	selectedBranch.phone && (
+																		<Btn tag="a" icon="phone" block uppercase href={"tel:+9" + selectedBranch.phone.replace(' ', '')}>{selectedBranch.phone}</Btn>
+																	)
 
-						</div>
-					</div>
+																}
+
+																{
+																	product.messageThreadId ? <Btn icon="envelope" text uppercase block tag="a" href={`/hesabim/mesajlarim/mesaj/${product.messageThreadId}`}>Mesajlara Git</Btn> : <Btn icon="envelope" text uppercase block onClick={() => openModal('message', { advert: product })}>Mesaj Gönder</Btn>
+																}
+
+															</div>
+														</div>
+													)
+												}
+											</React.Fragment>
+										</div>
+
+									)
+
+								}
+							</React.Fragment>
+						)
 				}
 			</div>
 		)

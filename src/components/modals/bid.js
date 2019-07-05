@@ -39,7 +39,7 @@ class BidModalRaw extends React.Component {
 			message: e.target.elements.message.value,
 			title: vm.props.advert.title,
 			email: vm.props.user.email,
-			offerPrice: e.target.elements.bid.value,
+			offerPrice: parseInt(e.target.elements.bid.value.replace('.', '')),
 			messageType: 'bid'
 		};
 
