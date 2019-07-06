@@ -115,7 +115,9 @@ export default class Navigator extends React.Component {
 				<MessengerWrap />
 				<SearchBar className="search-mobile" fullScreen={true} />
 				<Header />
-				{routeData}
+				<div className="router-wrap">
+					{routeData}
+				</div>
 				<Footer />
 				<ModalsWrap>
 					<LoginModal />

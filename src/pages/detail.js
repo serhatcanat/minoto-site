@@ -598,17 +598,17 @@ class DetailInfo extends React.Component {
 							<React.Fragment>
 								{
 									product.dealer.list && (
-										<div className="info-costs" style={{ marginTop: '1rem' }}>
-											<button className="costs-sum" type="button" onClick={() => { vm.setState({ showDealers: !vm.state.showDealers }) }}><strong>Bu aracı satın alabileceğiniz yetkili bayiler ({product.dealer.list.length}):</strong> </button>
-											<Collapse className="costs-wrap" open={vm.state.showDealers}>
-												<ul className="costs-list">
+										<div className="info-dealers" style={{ marginTop: '1rem' }}>
+											<button className="dealers-sum" type="button" onClick={() => { vm.setState({ showDealers: !vm.state.showDealers }) }}><strong>Bu aracı satın alabileceğiniz yetkili bayiler ({product.dealer.list.length}):</strong> </button>
+											<Collapse className="dealers-wrap" open={vm.state.showDealers}>
+												<ul className="dealers-list">
 													{product.dealer.list.map((dealerLoc, nth) => (
 														<React.Fragment key={nth}>
 															{
 																(dealerLoc) && (
 																	<React.Fragment>
 																		<li className="list-cost" key={nth} style={{ paddingTop: nth === 0 ? '' : '0' }}>
-																			<div className="info-costs" style={{ width: '100%', padding: '0' }}>
+																			<div className="info-dealers" style={{ width: '100%', padding: '0' }}>
 																				<button onClick={() => { vm.setState({ selectedBranch: dealerLoc, showDealers: !vm.state.showDealers }) }}>{dealerLoc.title}</button>
 																			</div>
 																		</li>

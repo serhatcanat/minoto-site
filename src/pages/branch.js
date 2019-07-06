@@ -27,13 +27,9 @@ export default class Branch extends React.Component {
 		this.state = {
 			branchData: false,
 			loading: true,
-			searchText: '',
-			listingQuery: false,
-			listingData: false,
 		}
 
 		this.initialize = this.initialize.bind(this);
-		this.changeSearch = this.changeSearch.bind(this);
 		//this.listingDataChanged = this.listingDataChanged.bind(this);
 		this.updateFilters = this.updateFilters.bind(this);
 
@@ -60,10 +56,6 @@ export default class Branch extends React.Component {
 				redirect("notfound");
 			}
 		});
-	}
-
-	changeSearch(e) {
-		this.setState({ searchText: e });
 	}
 
 	updateFilters(newQuery) {
@@ -138,11 +130,8 @@ export default class Branch extends React.Component {
 										urlBinding={false}
 										filters={false}
 										source={`branches/${branch.id}/car-posts`}
-										query={vm.state.listingQuery}
+										defaultOrder="date_desc"
 										showAds={false}
-										onDataChange={(newData) => {
-											vm.setState({ listingData: newData });
-										}}
 									/>
 								}
 							</div>

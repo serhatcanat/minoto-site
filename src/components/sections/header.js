@@ -64,7 +64,6 @@ class Header extends React.Component {
 
 					if (vm.menuScroller.current) {
 						setTimeout(function () {
-							console.log('upd');
 							vm.menuScroller.current.instance.update();
 						}, 250);
 					}

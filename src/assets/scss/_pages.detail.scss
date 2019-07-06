@@ -780,12 +780,11 @@
 					padding: 1.4rem 0;
 					font-size: 1.4rem;
 					line-height: 1.6rem;
-					z-index: 2;
+					z-index: 3;
 
 					@include media {
 						padding: 0;
 					}
-				}
 
 					.costs-sum {
 						position: relative;
@@ -838,10 +837,11 @@
 							.cost-num {
 								width: 7rem;
 							}
+				}
 
 				.info-controls {
 					position: relative;
-					z-index: 1;	
+					z-index: 2;	
 
 					@include media {
 						position: fixed;
@@ -853,7 +853,6 @@
 						z-index: 20;
 						border-top: .1rem solid $color-ice;
 					}
-				}
 
 					.controls-buttons {
 					}
@@ -930,6 +929,71 @@
 						color: $color-primary;
 						font-size: 1.2rem;
 					}
+				}
+
+				.info-dealers {
+					position: relative;
+					padding: 1.4rem 0;
+					font-size: 1.4rem;
+					line-height: 1.6rem;
+					z-index: 1;
+
+					@include media {
+						padding: 0;
+					}
+
+					.dealers-sum {
+						position: relative;
+						background-color: $color-gray-light;
+						display: block;
+						width: 100%;
+						border-radius: $radius-general;
+						padding: 1.2rem 1.5rem;
+						text-align: left;
+
+						&:after{
+							position: absolute;
+							right: 1.5rem;
+							opacity: .5;
+							font-size: .7rem;
+							color: $color-text;
+							@include icon('caret-down');
+							top: 50%;
+							transform: translate3d(0, -50%, 0);
+						}
+
+						strong {
+							color: $color-text-light;
+						}
+					}
+
+					.dealers-wrap {
+						margin-top: .2rem;
+					}
+
+					.dealers-list {
+						border-radius: $radius-general;
+						background-color: $color-ice;
+					}
+
+						.list-cost {
+							padding: 1.2rem 1.5rem;
+							display: flex;
+							justify-content: space-between;
+						}
+
+							.cost-info {
+								margin-left: 1rem;
+								> i {
+									opacity: .5;
+									font-size: 1.2rem;
+								}
+							}
+
+							.cost-num {
+								width: 7rem;
+							}
+				}
 			
 				.info-dealer {
 					background-color: $color-gray-light;

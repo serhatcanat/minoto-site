@@ -78,7 +78,7 @@ export default class Home extends React.Component {
 						<Listing className="home-listing"
 							source={'car-posts/home'}
 							query={false}
-							id="listing-results"
+							scrollOnFilterChange
 						/>
 					</React.Fragment>
 				)}

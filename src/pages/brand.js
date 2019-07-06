@@ -148,11 +148,7 @@ export default class Brand extends React.Component {
 								</div>
 
 
-								<ListingFilters
-									className="info-filters"
-									data={vm.state.listingData}
-									onUpdate={vm.updateFilters}
-								/>
+								<ListingFilters className="info-filters" />
 							</aside>
 
 							<div className="detail-right">
@@ -164,12 +160,9 @@ export default class Brand extends React.Component {
 										className="brand-listing"
 										urlBinding={false}
 										filters={false}
+										topSection={false}
 										source={`brands/${brand.id}/car-posts`}
-										query={vm.state.listingQuery}
 										showAds={false}
-										onDataChange={(newData) => {
-											vm.setState({ listingData: newData });
-										}}
 									/>
 								}
 							</div>

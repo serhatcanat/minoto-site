@@ -266,3 +266,14 @@ export function remToPx(num) {
 export function pxToRem(num) {
 	return num / parseFloat(getComputedStyle(document.documentElement).fontSize);
 }
+
+Math.linearTween = function (t, b, c, d) {
+	return c * t / d + b;
+};
+
+Math.easeInOutQuad = function (t, b, c, d) {
+	t /= d / 2;
+	if (t < 1) return c / 2 * t * t + b;
+	t--;
+	return -c / 2 * (t * (t - 2) - 1) + b;
+};

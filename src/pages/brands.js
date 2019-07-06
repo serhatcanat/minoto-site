@@ -17,6 +17,7 @@ export default class Brands extends React.Component {
 					<Listing
 						className="section brands-listing"
 						showAds={false}
+						topSection={false}
 						source={'brands'} />
 				</div>
 			</main>

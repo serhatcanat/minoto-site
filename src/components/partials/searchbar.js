@@ -40,12 +40,13 @@ class SearchBar extends React.Component {
 			loading: false,
 			data: false,
 			cacheData: false,
+			submitted: false,
 			active: props.open,
 			show: props.open,
 			primary: ((props.mobile && props.fullScreen) || (!props.mobile && !props.fullScreen)),
 			focusedGroup: -1,
 			focusedResult: -1,
-			oversize: false
+			oversize: false,
 		}
 
 		this.inputChange = this.inputChange.bind(this);
@@ -229,8 +230,9 @@ class SearchBar extends React.Component {
 					}
 					else {
 						fR++;
-
-						this.slideInstances[fG].slideTo(fR);
+						if(this.slideInstances[fG].slideTo){
+							this.slideInstances[fG].slideTo(fR);
+						}
 					}
 					vm.setState({ focusedGroup: fG, focusedResult: fR })
 					break;
@@ -250,20 +252,24 @@ class SearchBar extends React.Component {
 		let vm = this;
 		let active = vm.props.inputValue.length;
 
-		if (this._isMounted) {
-			if (active) {
+		if (vm._isMounted) {
+			if (active && !vm.state.submitted) {
 				vm.setState({ loading: true });
 
 				request.get('search', { search: vm.props.inputValue, }, function (payload, status) {
-
-					if (payload) {
-						vm.setState({ data: payload, loading: false });
-						setTimeout(function () {
-							vm.props.setOpen(false)
-						}, 100);
+					if(vm.state.submitted){
+						if (payload) {
+							vm.setState({ data: payload, loading: false });
+							setTimeout(function () {
+								vm.props.setOpen(true)
+							}, 100);
+						}
+						else {
+							console.log('error');
+						}
 					}
 					else {
-						console.log('error');
+						vm.setState({ data: false, loading: false });
 					}
 				});
 			}
@@ -282,8 +288,9 @@ class SearchBar extends React.Component {
 
 	formSubmit(e) {
 		e.preventDefault();
+		this.setState({submitted: true})
 		this.hide();
-		this.props.setOpen(false)
+		this.props.setOpen(false);
 		redirect('search', false, { ara: this.props.inputValue });
 	}
 

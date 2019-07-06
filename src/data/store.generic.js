@@ -12,7 +12,6 @@ const initialState = {
   scrollPos: 0,
   mapsAPIkey: defaults.mapsAPIkey,
   windowWidth: window.innerWidth,
-  listingFiltersExpanded: false,
   searchBarOpen: false,
   searchBarValue: "",
 };
@@ -51,11 +50,6 @@ function globalReducer(state = initialState, action) {
 	else if (action.type === "CLEAR_MESSAGES") {
 		return Object.assign({}, state, {
 			messages: []
-		});
-	}
-	else if (action.type === "SET_LISTING_FILTERS_EXPANSION") {
-		return Object.assign({}, state, {
-			listingFiltersExpanded: action.payload
 		});
 	}
 	else if (action.type === "SET_SEARCHBAR_OPEN") {
@@ -99,10 +93,6 @@ export function addMessage(payload) {
 
 export function clearMessages(payload) {
 	return { type: "CLEAR_MESSAGES", payload }
-};
-
-export function setListingFiltersExpansion(payload) {
-	return { type: "SET_LISTING_FILTERS_EXPANSION", payload }
 };
 
 export function setSearchBarOpen(payload) {

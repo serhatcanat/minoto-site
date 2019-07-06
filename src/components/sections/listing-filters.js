@@ -10,22 +10,24 @@ import Slider from 'components/partials/slider'
 import debounce from 'lodash/debounce';
 import isEqual from 'lodash/isEqual';
 import clone from 'lodash/clone';
-import extend from 'lodash/extend';
 import { serializeArray } from 'functions/helpers';
 import { connect } from "react-redux";
-import { setListingFiltersExpansion } from 'data/store.generic';
+import { setFiltersExpansion, setFilterQuery } from 'data/store.listing';
 import { blockOverflow } from "functions/helpers";
 
 const mapStateToProps = state => {
 	return {
 		mobile: state.generic.mobile,
-		expanded: state.generic.listingFiltersExpanded,
+		expanded: state.listing.filtersExpanded,
+		listingData: state.listing.listingData,
+		filterQuery: state.listing.filterQuery,
 	};
 };
 
 const mapDispatchToProps = dispatch => {
 	return {
-		hideFilters: () => dispatch(setListingFiltersExpansion(false))
+		hideFilters: () => dispatch(setFiltersExpansion(false)),
+		setQuery: (query) => dispatch(setFilterQuery(query)),
 	}
 }
 
@@ -36,20 +38,19 @@ class ListingFilters extends React.Component {
 			active: false,
 			show: false,
 			data: false,
-			query: false,
-			activeFilters: 0,
+			synchronized: true,
 		}
 
 		this.serializeFilters = this.serializeFilters.bind(this);
+		this.filterUpdated = debounce(this.filterUpdated.bind(this), 30);
+		this.filtersSubmitted = this.filtersSubmitted.bind(this);
 		this.clearFilters = this.clearFilters.bind(this);
-		this.query = false;
-		this.requestBounces = 0;
 
 		this.formRef = React.createRef();
 	}
 
 	componentDidMount() {
-		this.serializeFilters();
+		//this.serializeFilters();
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -78,15 +79,24 @@ class ListingFilters extends React.Component {
 			}
 		}
 
-		if (!isEqual(prevProps.data, vm.props.data)) {
-			vm.serializeFilters();
+		if (!isEqual(prevProps.listingData, vm.props.listingData) && !isEqual(prevProps.listingData.filters, vm.props.listingData.filters)) {
+			this.setState({ data: vm.props.listingData.fitlers })
+		}
+
+		if(!isEqual(prevState.data, vm.state.data)){
+			vm.serializeFilters();;
 		}
 	}
 
 	serializeFilters(echo = false) {
 		let vm = this;
 
-		setTimeout(function () {
+		setTimeout(function() {
+			vm.props.setQuery(serializeArray(vm.formRef.current, '|', true));
+			vm.setState({ synchronized: true })
+		}, 50);
+
+		/*setTimeout(function () {
 			let filterCount = 0;
 			let newQuery = {};
 
@@ -98,8 +108,6 @@ class ListingFilters extends React.Component {
 				newQuery = extend({}, newQuery, vm.props.query);
 			}
 
-			filterCount = Object.keys(newQuery).length;
-
 			if (vm.props.order !== null) {
 				newQuery.siralama = vm.props.order;
 			}
@@ -110,16 +118,15 @@ class ListingFilters extends React.Component {
 
 			if (!isEqual(vm.query, newQuery)) {
 				vm.query = newQuery;
-				vm.setState({ activeFilters: filterCount });
 				if (vm.props.onUpdate) {
-					if (this.requestBounces < 2) {
-						this.requestBounces++;
+					if (vm.requestBounces < 2) {
+						vm.requestBounces++;
 						//console.log(vm.query);
-						vm.props.onUpdate(vm.query);
+						//vm.props.onUpdate(vm.query);
 					}
 					else {
 						console.log('Warning: Request Bounce Limit!')
-						this.requestBounces = 0;
+						vm.requestBounces = 0;
 					}
 				}
 			}
@@ -129,52 +136,60 @@ class ListingFilters extends React.Component {
 				}, 15);
 			}
 			else {
-				this.requestBounces = 0;
+				vm.requestBounces = 0;
 			}
+		}, 20);*/
+	}
 
-		}, 20);
+	filterUpdated() {
+		if(!this.props.mobile){
+			this.serializeFilters();
+		}
+		else {
+			this.setState({ synchronized: false });
+		}
+	}
+
+	filtersSubmitted() {
+		if(this.props.mobile){
+			this.serializeFilters();
+		}
+
+		this.props.hideFilters();
 	}
 
 	clearFilters() {
-		let query = {};
-		this.setState({ activeFilters: 0 })
-		if (this.props.order !== null) {
-			query.siralama = this.props.order;
-		}
-
-		this.query = query;
 		this.props.hideFilters();
-		if (this.props.onUpdate) {
-			this.props.onUpdate(this.query);
-		}
+		this.formRef.current.reset();
+		this.props.setQuery({});
 	}
 
 	render() {
-		let data = this.props.data;
+		let data = this.props.listingData;
 		if (data) {
 			return (
 				<aside className={"section listing-filters " + this.props.className + (this.state.active ? ' active' : '') + (this.state.show ? ' show' : '')}>
 					<div className="filters-content">
 						<div className="filters-innerwrap">
-							{data.filtersTitle &&
-								<div className="filters-header">
+							<div className="filters-header">
+								{data.filtersTitle &&
 									<h1 className="header-title">{data.filtersTitle}</h1>
-									{this.state.activeFilters > 0 &&
-										<button className="header-clear" onClick={this.clearFilters}>Filtreleri Temizle</button>
-									}
-								</div>
-							}
+								}
+								{Object.keys(this.props.filterQuery).length > 0 &&
+									<button className="header-clear" onClick={this.clearFilters}>Filtreleri Temizle</button>
+								}
+							</div>
 							<form className="filters-form" ref={this.formRef}>
 								{(data && data.filters ?
 									data.filters.map((filter, nth) => (
-										<ListingFilter data={filter} key={nth} onUpdate={this.serializeFilters} />
+										<ListingFilter data={filter} key={nth} onUpdate={this.filterUpdated} />
 									)) : false)}
 							</form>
 
 						</div>
 						{this.props.mobile &&
 							<div className="filters-controls">
-								<Btn block uppercase className="controls-btn" onClick={this.props.hideFilters}>Ara</Btn>
+								<Btn block uppercase className="controls-btn" onClick={this.filtersSubmitted}>{this.state.synchronized ? 'Kapat' : 'Filtreleri Güncelle'}</Btn>
 							</div>
 						}
 					</div>
@@ -236,6 +251,15 @@ class ListingFilter extends React.Component {
 				}, 210);
 			}
 		}
+	}
+
+	shouldComponentUpdate(nextProps, nextState) {
+		return (
+			(!isEqual(this.props.data, nextProps.data)) ||
+			(this.state.expanded !== nextState.expanded) ||
+			(this.state.active !== nextState.active) ||
+			(this.state.show !== nextState.show)
+		);
 	}
 
 	filterExpandChange() {
@@ -744,6 +768,7 @@ class FilterTypeText extends React.Component {
 		}
 
 		this.handleChange = this.handleChange.bind(this);
+		this.handleKeyPress = this.handleKeyPress.bind(this);
 		this.update = this.update.bind(this);
 	}
 
@@ -761,6 +786,11 @@ class FilterTypeText extends React.Component {
 		this.setState({ value: e.target.value });
 	}
 
+	handleKeyPress(e) {
+		console.log(e);
+		//this.setState({ value: e.target.value });
+	}
+
 	update() {
 		this.props.onUpdate();
 	}
@@ -771,7 +801,7 @@ class FilterTypeText extends React.Component {
 		return (
 			<div className="filter-inputs">
 				<div className="inputwrap type-text">
-					<input className="inputs-input" name={data.name} type="text" value={this.state.value} placeholder={data.title} onChange={(e) => vm.handleChange(e)} />
+					<input className="inputs-input" name={data.name} type="text" value={this.state.value} placeholder={data.title} onKeyPress={vm.handleKeyPress} onChange={vm.handleChange} />
 					<button className="inputs-submit" type="button" onClick={this.update}><i className="icon-search"></i></button>
 				</div>
 

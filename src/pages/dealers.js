@@ -19,6 +19,7 @@ export default class Dealers extends React.Component {
 					<Listing
 						className="dealers-listing"
 						showAds={false}
+						topSection={false}
 						// source="/dummy/data/listing-dealers.json"
 						source={'dealers'}
 					/>

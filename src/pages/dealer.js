@@ -172,11 +172,7 @@ export default class Dealer extends React.Component {
 								}
 
 
-								<ListingFilters
-									className="info-filters"
-									data={vm.state.listingData}
-									onUpdate={vm.updateFilters}
-								/>
+								<ListingFilters />
 							</section>
 							<div className="detail-right">
 								<Responsive type="only-web">
@@ -187,12 +183,9 @@ export default class Dealer extends React.Component {
 										className="dealer-listing"
 										urlBinding={false}
 										filters={false}
+										defaultOrder="date_desc"
 										source={`dealers/${vm.state.listingQuery.dealer}/car-posts`}
-										query={vm.state.listingQuery}
 										showAds={false}
-										onDataChange={(newData) => {
-											vm.setState({ listingData: newData });
-										}}
 									/>
 								}
 							</div>

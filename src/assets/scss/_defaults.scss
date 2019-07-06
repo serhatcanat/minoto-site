@@ -84,6 +84,14 @@ body{
 	}
 }
 
+.router-wrap {
+	min-height: calc(100vh - 7rem);
+
+	@include media {
+		min-height: calc(100vh - 5rem);
+	}
+}
+
 .text-minoto{
 	color: $color-blue;
 }
@@ -92,8 +100,4 @@ body{
 	opacity: 0;
 	width: 0;
 	height:0;
-}
-
-html{
-	scroll-behavior: smooth;
 }
