@@ -150,8 +150,9 @@ class ListingFilters extends React.Component {
 		}
 	}
 
-	filtersSubmitted() {
-		if(this.props.mobile){
+	filtersSubmitted(e) {
+		e.preventDefault();
+		if(this.props.mobile || e.target.tagName === "FORM"){
 			this.serializeFilters();
 		}
 
@@ -179,7 +180,7 @@ class ListingFilters extends React.Component {
 									<button className="header-clear" onClick={this.clearFilters}>Filtreleri Temizle</button>
 								}
 							</div>
-							<form className="filters-form" ref={this.formRef}>
+							<form className="filters-form" ref={this.formRef} onSubmit={this.filtersSubmitted}>
 								{(data && data.filters ?
 									data.filters.map((filter, nth) => (
 										<ListingFilter data={filter} key={nth} onUpdate={this.filterUpdated} />
@@ -768,7 +769,6 @@ class FilterTypeText extends React.Component {
 		}
 
 		this.handleChange = this.handleChange.bind(this);
-		this.handleKeyPress = this.handleKeyPress.bind(this);
 		this.update = this.update.bind(this);
 	}
 
@@ -786,11 +786,6 @@ class FilterTypeText extends React.Component {
 		this.setState({ value: e.target.value });
 	}
 
-	handleKeyPress(e) {
-		console.log(e);
-		//this.setState({ value: e.target.value });
-	}
-
 	update() {
 		this.props.onUpdate();
 	}
@@ -799,9 +794,9 @@ class FilterTypeText extends React.Component {
 		let vm = this;
 		let data = vm.props.data;
 		return (
-			<div className="filter-inputs">
+			<div className={"filter-inputs" + (vm.state.value !== vm.props.data.value ? ' touched' : '')}>
 				<div className="inputwrap type-text">
-					<input className="inputs-input" name={data.name} type="text" value={this.state.value} placeholder={data.title} onKeyPress={vm.handleKeyPress} onChange={vm.handleChange} />
+					<input className="inputs-input" name={data.name} type="text" value={this.state.value} placeholder={data.title} onChange={vm.handleChange} />
 					<button className="inputs-submit" type="button" onClick={this.update}><i className="icon-search"></i></button>
 				</div>
 

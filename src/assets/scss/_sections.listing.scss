@@ -448,7 +448,7 @@
 			align-items: center;
 			padding: 1.7rem 0 1.6rem;
 			margin-bottom: 1.9rem;
-			border-top: .1rem solid $color-ice;
+			//border-top: .1rem solid $color-ice;
 			border-bottom: .1rem solid $color-ice;
 
 			@include media {
@@ -781,15 +781,23 @@
 
 			&.type-text {
 				font-size: 1.5rem;
-				
-				.inputs-submit {
-					position: absolute;
-					right: 1.9rem;
-					top: 50%;
-					color: rgba($color-text, .3);
-					font-size: 1.4rem;
-					transform: translate3d(0, -50%, 0);
+
+				.filter-inputs {
+					&.touched {
+						.inputs-input {
+							border-color: $color-primary;
+						}
+					}
 				}
+				
+					.inputs-submit {
+						position: absolute;
+						right: 1.9rem;
+						top: 50%;
+						color: rgba($color-text, .3);
+						font-size: 1.4rem;
+						transform: translate3d(0, -50%, 0);
+					}
 			}
 		}
 
