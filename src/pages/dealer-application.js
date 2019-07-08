@@ -87,6 +87,7 @@ export default class Faq extends React.Component {
 				brand_list: vm.state.selectedBrands,
 				city_id: vm.state.selectedCity,
 				district_id: vm.state.selectedDistrict,
+				note: e.target.elements.note.value,
 				tax_no: e.target.elements.taxnumber.value,
 				tax_office: e.target.elements.taxoffice.value
 			};
@@ -275,6 +276,16 @@ export default class Faq extends React.Component {
 										{(!this.state.selectedDistrict && this.state.touched) &&
 											<div className="input-error">İlçe seçiniz.</div>
 										}
+									</div>
+								</div>
+								<div className="grid-row">
+									<div className="grid-col x12">
+										<FormInput
+											type="textarea"
+											name="note"
+											placeholder="Notunuz"
+											required={false}
+											popLabel />
 									</div>
 								</div>
 								<div className="grid-row">

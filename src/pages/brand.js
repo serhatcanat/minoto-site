@@ -52,7 +52,7 @@ export default class Brand extends React.Component {
 			this.updateSearch();
 		}
 
-		if(prevProps.match.params.id !== this.props.match.params.id){
+		if (prevProps.match.params.id !== this.props.match.params.id) {
 			this.initialize();
 			window.scroll(0, 0);
 		}
@@ -203,7 +203,7 @@ class BranchInfo extends React.Component {
 					}
 
 					<div className="details-controls">
-						{branch.phone && 
+						{branch.phone &&
 							<Btn tag="a" icon="phone" primary low uppercase href={'tel:+9' + branch.phone.replace(' ', '')}>{branch.phone}</Btn>
 						}
 						{/*<Btn tag="link" icon="envelope" text low uppercase href={'/user/message/tobrand/' + branch.id}>Detaylı Gör</Btn>*/}

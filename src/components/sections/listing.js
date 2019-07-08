@@ -108,23 +108,23 @@ class Listing extends React.Component {
 	componentDidUpdate(prevProps, prevState) {
 		let vm = this;
 
-		if(vm.props.topSection){
-			if(prevState.order !== vm.state.order){
+		if (vm.props.topSection) {
+			if (prevState.order !== vm.state.order) {
 				vm.props.setListingQuery(extend({}, vm.props.listingQuery, { siralama: vm.state.order }));
 			}
 		}
 
-		if(prevState.page !== vm.state.page){
+		if (prevState.page !== vm.state.page) {
 			vm.props.setListingQuery(extend({}, vm.props.listingQuery, { sayfa: vm.state.page }));
 		}
 
-		if(!isEqual(prevProps.listingQuery, this.props.listingQuery)){
-			this.setState({order: (this.props.listingQuery.siralama ? this.props.listingQuery.siralama : vm.props.defaultOrder)});
+		if (!isEqual(prevProps.listingQuery, this.props.listingQuery)) {
+			this.setState({ order: (this.props.listingQuery.siralama ? this.props.listingQuery.siralama : vm.props.defaultOrder) });
 			vm.updateResults();
 		}
 
-		if(!isEqual(prevProps.filterQuery, this.props.filterQuery)){
-			vm.updateResults();		
+		if (!isEqual(prevProps.filterQuery, this.props.filterQuery)) {
+			vm.updateResults();
 		}
 	}
 
@@ -146,7 +146,7 @@ class Listing extends React.Component {
 				vm.props.setListingQuery(listingQuery);
 				vm.props.setFilterQuery(filterQuery);
 			}
-			else if(!vm.initialized){
+			else if (!vm.initialized) {
 				vm.updateResults();
 			}
 		}, 30);
@@ -169,7 +169,7 @@ class Listing extends React.Component {
 	}
 
 	removeFilter(name = false) {
-		if(name !== false){
+		if (name !== false) {
 			let newQuery = omit(this.props.filterQuery, [name]);
 			this.props.setFilterQuery(newQuery);
 		}
@@ -295,7 +295,7 @@ class Listing extends React.Component {
 									placeholder="Sırala"
 									isSearchable={false}
 									value={orderVal}
-									onChange={(order) => { vm.setState({ order: order}); }}
+									onChange={(order) => { vm.setState({ order: order }); }}
 									options={orderOptions}
 									className="top-order" />
 							}
@@ -335,114 +335,128 @@ class ListingResults extends React.Component {
 		let results = data.results;
 		if (results && results.length) {
 			return (
-				<ul className="content-results">
-					{results.map((item, nth) => {
-						itemsAt += (item.size ? item.size : 1);
-						let contents = [];
-						switch (item.type) {
-							case 'banner':
-								let Item = 'div';
-								let props = {};
+				<React.Fragment>
+					{
+						data.similar && (
+							<React.Fragment>
+								{
+									loading === false && (<div className="results-error"><div className="error-message">Aradığınız kriterlere uygun bir araç bulamadık. </div></div>)
+								}
 
-								if (item.url) {
-									switch (item.action) {
-										case "youtube":
-											Item = 'button';
-											props.onClick = () => { openModal('youtube', { url: item.url }) }
+							</React.Fragment>
+						)
+					}
+
+					<ul className="content-results">
+
+						{results.map((item, nth) => {
+							itemsAt += (item.size ? item.size : 1);
+							let contents = [];
+							switch (item.type) {
+								case 'banner':
+									let Item = 'div';
+									let props = {};
+
+									if (item.url) {
+										switch (item.action) {
+											case "youtube":
+												Item = 'button';
+												props.onClick = () => { openModal('youtube', { url: item.url }) }
+												break;
+											case "externalLink":
+												Item = 'a';
+												props.herf = item.url;
+												break;
+											default:
+												Item = Link;
+												props.href = item.url;
+												break;
+										}
+									}
+
+									contents.push(
+										<li key={nth} className={"results-item banner x" + item.size}>
+											<Item className="item-banner" {...props}><Image className="banner-image" src={item.image} alt={item.title} bg={!vm.props.mobile} /></Item>
+										</li>
+									);
+									break;
+								default:
+									switch (data.type) {
+										case "dealer":
+											contents.push(
+												<li key={nth} className="results-item">
+													<ContentBox
+														type="plain"
+														className={((item.status === 2 || item.status === 3) ? 'inactive' : '')}
+														title={item.title}
+														subtitle={item.dealer}
+														additionTitle={item.count + ' ARAÇ'}
+														image={storageSpace('dealers', item.image)}
+														labels={item.labels}
+														faved={item.favorited}
+														//favControls={'/dummy/data/fav/dealer/'+item.id}
+														badge={(item.status !== 1 ? false : (item.status === 2 ? { text: 'Rezerve', note: '02.02.2019 Tarihine Kadar Opsiyonludur' } : { text: 'Satıldı', type: 'error' }))}
+														bottomNote={(item.currentViewers > 0 ? item.currentViewers + ' kişi Bakıyor' : false)}
+														url={`bayi/${item.id}/${item.link}`}
+													/>
+												</li>
+											)
 											break;
-										case "externalLink":
-											Item = 'a';
-											props.herf = item.url;
+										case "brand":
+											contents.push(
+												<li key={nth} className="results-item">
+													<ContentBox
+														type="plain"
+														className={((item.status === 2 || item.status === 3) ? 'inactive' : '')}
+														title={item.title}
+														labels={item.labels}
+														additionTitle={item.count + ' ARAÇ'}
+														image={storageSpace('brands', item.image)}
+														faved={item.favorited}
+														//favControls={'/dummy/data/fav/dealer/'+item.id}
+														url={`markalar/${item.link}`}
+													/>
+												</li>
+											)
 											break;
-										default:
-											Item = Link;
-											props.href = item.url;
+										default: //listing
+											contents.push(
+												<li key={nth} className="results-item">
+													<ContentBox
+														className={((item.status === 2 || item.status === 3) ? 'inactive' : '')}
+														title={item.title}
+														subtitle={item.dealer}
+														image={storageSpace('car-posts', item.image)}
+														price={item.price}
+														labels={item.labels}
+														faved={item.favorited}
+														badge={(item.status === 1 ? false : (item.status === 2 ? { text: 'Rezerve', note: '02.02.2019 Tarihine Kadar Opsiyonludur' } : { text: 'Satıldı', type: 'error' }))}
+														bottomNote={(item.currentViewers > 0 ? item.currentViewers + ' kişi Bakıyor' : false)}
+														url="detail"
+														urlParams={{ id: item.id, slug: item.slug }}
+													/>
+												</li>
+											);
 											break;
 									}
-								}
+									break;
+							}
 
-								contents.push(
-									<li key={nth} className={"results-item banner x" + item.size}>
-										<Item className="item-banner" {...props}><Image className="banner-image" src={item.image} alt={item.title} bg={!vm.props.mobile} /></Item>
-									</li>
-								);
-								break;
-							default:
-								switch (data.type) {
-									case "dealer":
-										contents.push(
-											<li key={nth} className="results-item">
-												<ContentBox
-													type="plain"
-													className={((item.status === 2 || item.status === 3) ? 'inactive' : '')}
-													title={item.title}
-													subtitle={item.dealer}
-													additionTitle={item.count + ' ARAÇ'}
-													image={storageSpace('dealers', item.image)}
-													labels={item.labels}
-													faved={item.favorited}
-													//favControls={'/dummy/data/fav/dealer/'+item.id}
-													badge={(item.status !== 1 ? false : (item.status === 2 ? { text: 'Rezerve', note: '02.02.2019 Tarihine Kadar Opsiyonludur' } : { text: 'Satıldı', type: 'error' }))}
-													bottomNote={(item.currentViewers > 0 ? item.currentViewers + ' kişi Bakıyor' : false)}
-													url={`bayi/${item.id}/${item.link}`}
-												/>
-											</li>
-										)
-										break;
-									case "brand":
-										contents.push(
-											<li key={nth} className="results-item">
-												<ContentBox
-													type="plain"
-													className={((item.status === 2 || item.status === 3) ? 'inactive' : '')}
-													title={item.title}
-													labels={item.labels}
-													additionTitle={item.count + ' ARAÇ'}
-													image={storageSpace('brands', item.image)}
-													faved={item.favorited}
-													//favControls={'/dummy/data/fav/dealer/'+item.id}
-													url={`markalar/${item.link}`}
-												/>
-											</li>
-										)
-										break;
-									default: //listing
-										contents.push(
-											<li key={nth} className="results-item">
-												<ContentBox
-													className={((item.status === 2 || item.status === 3) ? 'inactive' : '')}
-													title={item.title}
-													subtitle={item.dealer}
-													image={storageSpace('car-posts', item.image)}
-													price={item.price}
-													labels={item.labels}
-													faved={item.favorited}
-													badge={(item.status === 1 ? false : (item.status === 2 ? { text: 'Rezerve', note: '02.02.2019 Tarihine Kadar Opsiyonludur' } : { text: 'Satıldı', type: 'error' }))}
-													bottomNote={(item.currentViewers > 0 ? item.currentViewers + ' kişi Bakıyor' : false)}
-													url="detail"
-													urlParams={{ id: item.id, slug: item.slug }}
-												/>
-											</li>
-										);
-										break;
-								}
-								break;
-						}
+							if (itemsAt === 8 && vm.props.showAds) {
+								contents.push(<Ad key={nth} />);
+							}
 
-						if (itemsAt === 8 && vm.props.showAds) {
-							contents.push(<Ad key={nth} />);
-						}
-
-						return contents;
-					})}
-				</ul>
+							return contents;
+						})}
+					</ul>
+				</React.Fragment>
 			)
 		}
 		else {
 			return (
 				<React.Fragment>
 					{
-						loading === false && (<div className="results-error"><div className="error-message">Aradığınız Kriterlere Uygun Bir Sonuç Bulunamadı.</div></div>)
+						loading === false && (<div className="results-error"><div className="error-message">Aradığınız kriterlere uygun bir araç bulamadık. </div></div>)
 					}
 
 				</React.Fragment>

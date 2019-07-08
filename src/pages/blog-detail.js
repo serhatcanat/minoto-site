@@ -22,7 +22,7 @@ import image_icon_youtube from 'assets/images/icon/youtube.svg'
 import image_icon_twitter from 'assets/images/icon/twitter.svg'
 import image_icon_whatsapp from 'assets/images/icon/whatsapp.svg'
 import image_icon_link from 'assets/images/icon/link.svg'
-import image_loader from 'assets/images/loader2.gif'
+import image_loader from 'assets/images/minoto-loading.gif'
 
 /*const dummyGallery = [
 	{ "large": "http://lorempixel.com/1024/768" },
@@ -70,7 +70,12 @@ export default class BlogDetail extends React.Component {
 						<Responsive type="only-web">
 							<Breadcrumbs className="detail-breadcrumbs" standalone>
 								<Link href="blog">Blog</Link>
-								<Link href="blog" params={{ action: data.tags[0].tagSlug }}>{data.tags[0].tag}</Link>
+								{
+									data.tags.length && (
+										<Link href="blog" params={{ action: data.tags[0].tagSlug }}>{data.tags[0].tag}</Link>
+									)
+								}
+
 							</Breadcrumbs>
 						</Responsive>
 

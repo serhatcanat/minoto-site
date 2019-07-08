@@ -208,7 +208,6 @@ class SearchBar extends React.Component {
 		if (data) {
 			let fG = vm.state.focusedGroup;
 			let fR = vm.state.focusedResult;
-
 			switch (e.key) {
 				case "ArrowUp":
 					if (fR <= 0) {
@@ -230,7 +229,7 @@ class SearchBar extends React.Component {
 					}
 					else {
 						fR++;
-						if(this.slideInstances[fG].slideTo){
+						if (this.slideInstances[fG].slideTo) {
 							this.slideInstances[fG].slideTo(fR);
 						}
 					}
@@ -257,9 +256,11 @@ class SearchBar extends React.Component {
 				vm.setState({ loading: true });
 
 				request.get('search', { search: vm.props.inputValue, }, function (payload, status) {
-					if(vm.state.submitted){
+					if (!vm.state.submitted) {
 						if (payload) {
 							vm.setState({ data: payload, loading: false });
+
+
 							setTimeout(function () {
 								vm.props.setOpen(true)
 							}, 100);
@@ -288,7 +289,7 @@ class SearchBar extends React.Component {
 
 	formSubmit(e) {
 		e.preventDefault();
-		this.setState({submitted: true})
+		this.setState({ submitted: true })
 		this.hide();
 		this.props.setOpen(false);
 		redirect('search', false, { ara: this.props.inputValue });

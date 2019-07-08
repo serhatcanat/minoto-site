@@ -84,6 +84,9 @@ class BidModalRaw extends React.Component {
 									className="form-message"
 									placeholder="Mesajınız"
 									name="message"
+									validation={{
+										required: "Bir mesaj girmelisiniz."
+									}}
 									popLabel
 									disabled={vm.state.loading}
 									type="textarea" />
