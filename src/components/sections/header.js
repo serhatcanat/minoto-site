@@ -18,6 +18,7 @@ import image_icon_facebook from 'assets/images/icon/facebook.svg'
 import image_icon_instagram from 'assets/images/icon/instagram.svg'
 import image_icon_youtube from 'assets/images/icon/youtube.svg'
 import image_icon_twitter from 'assets/images/icon/twitter2.svg'
+import image_icon_linkedin from 'assets/images/icon/linkedin.svg'
 import image_logo from 'assets/images/logo.svg'
 import image_logo_primary from 'assets/images/logo-primary.svg'
 import image_avatar from 'assets/images/defaults/avatar.svg'
@@ -157,6 +158,9 @@ class Header extends React.Component {
 													</a>
 													<a href="http://www.twitter.com/minotocom" target="_blank" rel="noopener noreferrer" title="Bizi Twitter'da Takip Edin">
 														<Image src={image_icon_twitter} alt="Twitter" />
+													</a>
+													<a href="https://www.linkedin.com/company/minoto" target="_blank" rel="noopener noreferrer" title="Bizi LinkedIn'de Takip Edin">
+														<Image src={image_icon_linkedin} alt="LinkedIn" />
 													</a>
 												</div>
 											</div>
