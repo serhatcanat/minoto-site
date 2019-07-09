@@ -3,11 +3,14 @@ import React from 'react'
 // Partials
 import { InputForm, FormInput } from 'components/partials/forms'
 import Btn from 'components/partials/btn'
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
+import GoogleLogin from 'react-google-login';
+import defaults from "data/config"
 //import axios from "axios";
 // Deps
 import { openModal, closeModal } from 'functions/modals'
 import { redirect } from 'controllers/navigator'
-import { login } from "data/store.user"
+import { login, socialLogin } from "data/store.user"
 
 export default class LoginForm extends React.Component {
 	constructor(props) {
@@ -22,6 +25,8 @@ export default class LoginForm extends React.Component {
 
 		//this._loginUser = this._loginUser.bind(this);
 		this.submit = this.submit.bind(this);
+		this.responseFacebook = this.responseFacebook.bind(this);
+		this.responseGoogle = this.responseGoogle.bind(this);
 	}
 
 	/*
@@ -71,6 +76,7 @@ export default class LoginForm extends React.Component {
 	};
 	*/
 
+
 	submit(e) {
 		let vm = this;
 
@@ -78,15 +84,61 @@ export default class LoginForm extends React.Component {
 			loading: true,
 		})
 
-		login(e.target, function(payload){
+		login(e.target, function (payload) {
 			vm.setState({
 				success: payload.success,
 				loading: false,
 				message: payload.message,
 			});
 
-			if(payload.success){
-				setTimeout(function() {
+			if (payload.success) {
+				setTimeout(function () {
+					closeModal();
+				}, 1000);
+			}
+		});
+	}
+
+	responseFacebook(response) {
+		console.log(response)
+		let vm = this;
+
+		vm.setState({
+			loading: true,
+		})
+
+		socialLogin(response, 'facebook', function (payload) {
+			vm.setState({
+				success: payload.success,
+				loading: false,
+				message: payload.message,
+			});
+
+			if (payload.success) {
+				setTimeout(function () {
+					closeModal();
+				}, 1000);
+			}
+		});
+	}
+
+	responseGoogle(response) {
+		console.log(response)
+		let vm = this;
+
+		vm.setState({
+			loading: true,
+		})
+
+		socialLogin(response, 'google', function (payload) {
+			vm.setState({
+				success: payload.success,
+				loading: false,
+				message: payload.message,
+			});
+
+			if (payload.success) {
+				setTimeout(function () {
 					closeModal();
 				}, 1000);
 			}
@@ -95,6 +147,7 @@ export default class LoginForm extends React.Component {
 
 	render() {
 		let vm = this;
+
 		return (
 			<div className={"section loginform type-" + vm.props.type}>
 				<h2 className="loginform-title">Giriş yap</h2>
@@ -135,10 +188,23 @@ export default class LoginForm extends React.Component {
 					<div className="others-seperator"><span>veya</span></div>
 
 					<Btn className="others-opt" hollow block light uppercase onClick={() => { vm.goToRegister() }}>Üye Ol</Btn>
-					{/*
-						<Btn className="others-opt facebook" icon="facebook" block>Facebook ile Giriş Yapın</Btn>
-						<Btn className="others-opt google" icon="google" block>Google ile Giriş Yapın</Btn>
-					*/}
+					<FacebookLogin
+						appId={defaults.fClient}
+						fields="name,email,picture"
+						callback={this.responseFacebook}
+						render={renderProps => (
+							<Btn onClick={renderProps.onClick} className="others-opt facebook" icon="facebook" block>Facebook ile Giriş Yapın</Btn>
+						)}
+					/>
+					<GoogleLogin
+						clientId={defaults.gClient}
+						buttonText="LOGIN WITH GOOGLE"
+						onSuccess={this.responseGoogle}
+						onFailure={this.responseGoogle}
+						render={renderProps => (
+							<Btn className="others-opt google" onClick={renderProps.onClick} icon="google" block>Google ile Giriş Yapın</Btn>
+						)}
+					/>
 				</div>
 			</div>
 		)

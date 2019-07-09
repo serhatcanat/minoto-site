@@ -97,6 +97,24 @@ export function login(form, finalFunction = false) {
 	})
 }
 
+export function socialLogin(form, type, finalFunction = false) {
+	request.post(`user/social-login/${type}`, form, function (payload) {
+		if (payload && payload.success) {
+			updateUserData(payload);
+
+			if (finalFunction) {
+				finalFunction(extend({}, payload, { message: "Giriş Başarılı" }));
+			}
+		}
+		else {
+			logout(true);
+			if (finalFunction) {
+				finalFunction(payload);
+			}
+		}
+	})
+}
+
 export function register(form, finalFunction = false) {
 	request.post('user/register', serializeArray(form), function (payload) {
 		if (payload && payload.success) {
@@ -108,7 +126,7 @@ export function register(form, finalFunction = false) {
 		}
 		else {
 			logout(true);
-			if(finalFunction){
+			if (finalFunction) {
 				finalFunction(payload);
 			}
 		}
