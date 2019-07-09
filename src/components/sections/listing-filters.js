@@ -83,7 +83,7 @@ class ListingFilters extends React.Component {
 			this.setState({ data: vm.props.listingData.fitlers })
 		}
 
-		if(!isEqual(prevState.data, vm.state.data)){
+		if (!isEqual(prevState.data, vm.state.data)) {
 			vm.serializeFilters();;
 		}
 	}
@@ -91,7 +91,7 @@ class ListingFilters extends React.Component {
 	serializeFilters(echo = false) {
 		let vm = this;
 
-		setTimeout(function() {
+		setTimeout(function () {
 			vm.props.setQuery(serializeArray(vm.formRef.current, '|', true));
 			vm.setState({ synchronized: true })
 		}, 50);
@@ -142,7 +142,7 @@ class ListingFilters extends React.Component {
 	}
 
 	filterUpdated() {
-		if(!this.props.mobile){
+		if (!this.props.mobile) {
 			this.serializeFilters();
 		}
 		else {
@@ -152,7 +152,7 @@ class ListingFilters extends React.Component {
 
 	filtersSubmitted(e) {
 		e.preventDefault();
-		if(this.props.mobile || e.target.tagName === "FORM"){
+		if (this.props.mobile || e.target.tagName === "FORM") {
 			this.serializeFilters();
 		}
 
@@ -745,14 +745,14 @@ class FilterTypeRange extends React.Component {
 
 	render() {
 		let vm = this;
-		let data = vm.props.data;
+		//let data = vm.props.data;
 		let opts = vm.state.opts;
 
 		return (
 			<div className="filter-inputs">
 				{opts.map((opt, nth) => (
 					<div className="inputs-inputwrap" key={nth}>
-						<input className="inputs-input" name={data.name} type={data.type} value={(opt.value ? opt.value : '')} placeholder={opt.text} onChange={(e) => vm.handleChange(e, nth)} />
+						<input className="inputs-input" name={`${opt.name}`} type="number" value={(opt.value ? opt.value : '')} placeholder={opt.text} onChange={(e) => vm.handleChange(e, nth)} />
 					</div>
 				))}
 
