@@ -464,9 +464,10 @@ class DetailInfo extends React.Component {
 					<strong className="price-current">
 						{product.price ? <PriceTag price={product.price} /> : 'SORUNUZ'}
 					</strong>
-					{(product.listingPrice && product.price > 0) &&
+					{(product.listingPrice && product.price > 0 && (product.listingPrice > product.price)) &&
 						<div className={"price-listing" + ((product.listingPrice > product.price) ? ' higher' : '')}>
-							<strong>Liste Fiyatı:</strong> <span style={{ textDecoration: parseInt(product.listingPrice, 10) > parseInt(product.price, 10) ? 'line-through' : 'none' }}><PriceTag stroke={parseInt(product.listingPrice, 10) > parseInt(product.price, 10) ? true : false} price={parseInt(product.listingPrice, 10) > parseInt(product.price, 10) ? product.listingPrice : product.price} /></span>
+							<strong>Liste Fiyatı:</strong> <span style={{ textDecoration: parseInt(product.listingPrice, 10) > parseInt(product.price, 10) ? 'line-through' : 'none' }}>
+								<PriceTag stroke={parseInt(product.listingPrice, 10) > parseInt(product.price, 10) ? true : false} price={parseInt(product.listingPrice, 10) > parseInt(product.price, 10) ? product.listingPrice : product.price} /></span>
 						</div>
 					}
 				</div>
