@@ -292,7 +292,12 @@ class SearchBar extends React.Component {
 		this.setState({ submitted: true })
 		this.hide();
 		this.props.setOpen(false);
-		redirect('search', false, { ara: this.props.inputValue });
+		if (this.props.inputValue.length) {
+			redirect('search', false, { ara: this.props.inputValue });
+		} else {
+			redirect('searchModel', { brand: 'nissan', 'model': 'qashqai' }, false);
+		}
+
 	}
 
 	render() {
