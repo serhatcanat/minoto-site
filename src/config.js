@@ -8,7 +8,7 @@ if(!endpoint){
 	        endpoint = 'http://localhost:8000'
 	        break;
 	    case 'minoto.thinkerfox.com':
-	        endpoint = 'http://minoto-api.thinkerfox.com'
+	        endpoint = 'https://minoto-api.thinkerfox.com'
 	        break;
 	    default:
 	        endpoint = 'https://api.minoto.com'
