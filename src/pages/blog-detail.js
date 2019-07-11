@@ -14,6 +14,7 @@ import request from 'controllers/request'
 import { redirect } from 'controllers/navigator'
 import parse from 'html-react-parser';
 import { storageSpace } from 'functions/helpers'
+import { setTitle, setDescription, setHead } from 'controllers/head'
 
 // Assets
 import image_icon_facebook from 'assets/images/icon/facebook.svg'
@@ -50,6 +51,20 @@ export default class BlogDetail extends React.Component {
 				vm.setState({
 					blogData: payload
 				});
+				setTitle(payload.title);
+
+				if (payload.content) {
+					setDescription(`${parse(payload.content.replace(/<[^>]*>/g, '')).substring(0, 120)}...`);
+				};
+				if (payload.image) {
+					setHead([{
+						key: "meta",
+						props: {
+							property: "og:image",
+							content: storageSpace('articles', payload.image),
+						}
+					}]);
+				};
 			}
 			else {
 				redirect('notfound');
@@ -71,9 +86,9 @@ export default class BlogDetail extends React.Component {
 							<Breadcrumbs className="detail-breadcrumbs" standalone>
 								<Link href="blog">Blog</Link>
 								{
-									data.tags.length && (
+									data.tags.length ? (
 										<Link href="blog" params={{ action: data.tags[0].tagSlug }}>{data.tags[0].tag}</Link>
-									)
+									) : ''
 								}
 
 							</Breadcrumbs>
@@ -95,6 +110,7 @@ export default class BlogDetail extends React.Component {
 							<div className="detail-content">
 								<div className="content-text wysiwyg">
 									<h1 className="text-title">{data.title}</h1>
+									<div id="text"></div>
 									{parse(data.content)}
 								</div>
 
