@@ -127,7 +127,7 @@ export default class Branch extends React.Component {
 								{vm.state.listingQuery &&
 									<Listing
 										className="branch-listing"
-										urlBinding={false}
+										//urlBinding={false}
 										filters={false}
 										source={`branches/${branch.id}/car-posts`}
 										showAds={false}

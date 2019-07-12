@@ -158,7 +158,7 @@ export default class Brand extends React.Component {
 								{vm.state.listingQuery &&
 									<Listing
 										className="brand-listing"
-										urlBinding={false}
+										//urlBinding={false}
 										filters={false}
 										topSection={false}
 										source={`brands/${brand.id}/car-posts`}

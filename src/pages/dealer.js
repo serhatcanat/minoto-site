@@ -181,7 +181,7 @@ export default class Dealer extends React.Component {
 								{vm.state.listingQuery &&
 									<Listing
 										className="dealer-listing"
-										urlBinding={false}
+										//urlBinding={false}
 										filters={false}
 										source={`dealers/${vm.state.listingQuery.dealer}/car-posts`}
 										showAds={false}
