@@ -183,7 +183,6 @@ export default class Dealer extends React.Component {
 										className="dealer-listing"
 										urlBinding={false}
 										filters={false}
-										defaultOrder="date_desc"
 										source={`dealers/${vm.state.listingQuery.dealer}/car-posts`}
 										showAds={false}
 									/>

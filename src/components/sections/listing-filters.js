@@ -710,9 +710,11 @@ class FilterTypeRange extends React.Component {
 		super(props)
 		this.state = {
 			opts: clone(props.data.opts),
+			synced: true,
 		}
 
-		this.lateUpdate = debounce(this.lateUpdate.bind(this), 500);
+		//this.update = debounce(this.update.bind(this), 500);
+		this.update = this.update.bind(this);
 	}
 
 	componentDidUpdate(prevProps) {
@@ -726,12 +728,13 @@ class FilterTypeRange extends React.Component {
 		if (newOpts[nth].value !== e.target.value) {
 			newOpts[nth].value = e.target.value;
 
-			this.setState({ opts: newOpts });
-			this.lateUpdate();
+			this.setState({ opts: newOpts, synced: false });
+			//this.update();
 		}
 	}
 
-	lateUpdate() {
+	update() {
+		this.setState({ synced: true });
 		this.props.onUpdate();
 	}
 
@@ -744,10 +747,23 @@ class FilterTypeRange extends React.Component {
 			<div className="filter-inputs">
 				{opts.map((opt, nth) => (
 					<div className="inputs-inputwrap" key={nth}>
-						<input className="inputs-input" name={`${opt.name}`} type="number" value={(opt.value ? opt.value : '')} placeholder={opt.text} onChange={(e) => vm.handleChange(e, nth)} />
+						<input
+							name={`${opt.name}`}
+							type="number"
+							value={(opt.value ? opt.value : '')}
+							placeholder={opt.text}
+							onChange={(e) => vm.handleChange(e, nth)}
+							className="inputs-input" />
 					</div>
 				))}
 
+				<button
+					type="button"
+					disabled={vm.state.synced}
+					onClick={vm.update}
+					className="inputs-submit btn">
+					Ara
+				</button>
 			</div>
 		)
 	}

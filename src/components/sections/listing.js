@@ -319,7 +319,7 @@ Listing.defaultProps = {
 	source: '/dummy/data/listing.json',
 	showAds: true,
 	size: 4,
-	defaultOrder: "random",
+	defaultOrder: "date_desc",
 	scrollOnFilterChange: false,
 };
 

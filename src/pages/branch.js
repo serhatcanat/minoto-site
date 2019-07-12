@@ -130,7 +130,6 @@ export default class Branch extends React.Component {
 										urlBinding={false}
 										filters={false}
 										source={`branches/${branch.id}/car-posts`}
-										defaultOrder="date_desc"
 										showAds={false}
 									/>
 								}

@@ -77,6 +77,7 @@ export default class Home extends React.Component {
 						</section>
 						<Listing className="home-listing"
 							source={'car-posts/home'}
+							defaultOrder="random"
 							query={false}
 							scrollOnFilterChange
 						/>
