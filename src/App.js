@@ -7,7 +7,10 @@ import Navigator from './controllers/navigator'
 // Deps
 import { Router } from 'react-router-dom'
 import { checkLoginStatus } from "data/store.user"
-//import { openModal } from 'functions/modals'
+import "@babel/polyfill";
+
+//require('es6-object-assign/auto');
+//require('es6-promise').polyfill();
 
 class App extends Component {
 	componentDidMount(){

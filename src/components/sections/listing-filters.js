@@ -41,12 +41,14 @@ class ListingFilters extends React.Component {
 			show: false,
 			data: false,
 			synchronized: true,
+			autoSubmit: true,
 		}
 
 		this.serializeFilters = this.serializeFilters.bind(this);
 		this.filterUpdated = debounce(this.filterUpdated.bind(this), 30);
 		this.filtersSubmitted = this.filtersSubmitted.bind(this);
 		this.clearFilters = this.clearFilters.bind(this);
+		this.handleModeChange = this.handleModeChange.bind(this);
 
 		this.formRef = React.createRef();
 	}
@@ -90,61 +92,17 @@ class ListingFilters extends React.Component {
 		}
 	}
 
-	serializeFilters(echo = false) {
+	serializeFilters() {
 		let vm = this;
 
 		setTimeout(function () {
 			vm.props.setQuery(serializeArray(vm.formRef.current, config.filterSeperator, true));
 			vm.setState({ synchronized: true })
 		}, 50);
-
-		/*setTimeout(function () {
-			let filterCount = 0;
-			let newQuery = {};
-
-			if (vm.formRef.current) {
-				newQuery = serializeArray(vm.formRef.current, '|', true);
-			}
-
-			if (vm.props.query) {
-				newQuery = extend({}, newQuery, vm.props.query);
-			}
-
-			if (vm.props.order !== null) {
-				newQuery.siralama = vm.props.order;
-			}
-			else if (newQuery.siralama) {
-				delete newQuery.siralama;
-				filterCount--;
-			}
-
-			if (!isEqual(vm.query, newQuery)) {
-				vm.query = newQuery;
-				if (vm.props.onUpdate) {
-					if (vm.requestBounces < 2) {
-						vm.requestBounces++;
-						//console.log(vm.query);
-						//vm.props.onUpdate(vm.query);
-					}
-					else {
-						console.log('Warning: Request Bounce Limit!')
-						vm.requestBounces = 0;
-					}
-				}
-			}
-			else if (!echo) {
-				setTimeout(function () {
-					vm.serializeFilters(true);
-				}, 15);
-			}
-			else {
-				vm.requestBounces = 0;
-			}
-		}, 20);*/
 	}
 
 	filterUpdated() {
-		if (!this.props.mobile) {
+		if (!this.props.mobile && this.state.autoSubmit) {
 			this.serializeFilters();
 		}
 		else {
@@ -161,6 +119,14 @@ class ListingFilters extends React.Component {
 		this.props.hideFilters();
 	}
 
+	handleModeChange(e){
+		this.setState({autoSubmit: e.target.checked});
+
+		if(e.target.checked && !this.state.synchronized){
+			this.serializeFilters();
+		}
+	}
+
 	clearFilters() {
 		this.props.hideFilters();
 		this.formRef.current.reset();
@@ -168,36 +134,61 @@ class ListingFilters extends React.Component {
 	}
 
 	render() {
-		let data = this.props.listingData;
+		let vm = this;
+		let data = vm.props.listingData;
 		if (data) {
 			return (
-				<aside className={"section listing-filters " + this.props.className + (this.state.active ? ' active' : '') + (this.state.show ? ' show' : '')}>
+				<aside className={"section listing-filters " + vm.props.className + (vm.state.active ? ' active' : '') + (vm.state.show ? ' show' : '')}>
 					<div className="filters-content">
 						<div className="filters-innerwrap">
 							<div className="filters-header">
 								{data.filtersTitle &&
 									<h1 className="header-title">{data.filtersTitle}</h1>
 								}
-								{Object.keys(this.props.filterQuery).length > 0 &&
-									<button className="header-clear" onClick={this.clearFilters}>Filtreleri Temizle</button>
+								{Object.keys(vm.props.filterQuery).length > 0 &&
+									<button className="header-clear" onClick={vm.clearFilters}>Filtreleri Temizle</button>
 								}
 							</div>
-							<form className="filters-form" ref={this.formRef} onSubmit={this.filtersSubmitted}>
+							<form className="filters-form" ref={vm.formRef} onSubmit={vm.filtersSubmitted}>
 								{(data && data.filters ?
 									data.filters.map((filter, nth) => (
-										<ListingFilter data={filter} key={nth} onUpdate={this.filterUpdated} />
+										<ListingFilter data={filter} key={nth} onUpdate={vm.filterUpdated} />
 									)) : false)}
 							</form>
 
 						</div>
-						{this.props.mobile &&
-							<div className="filters-controls">
-								<Btn block uppercase className="controls-btn" onClick={this.filtersSubmitted}>{this.state.synchronized ? 'Kapat' : 'Filtreleri Güncelle'}</Btn>
-							</div>
-						}
+						<div className="filters-controls">
+							{!vm.props.mobile && 
+								<div className="controls-filteronthego inputwrap type-checkbox">
+									<div className="checkwrap">
+										<input
+											type="checkbox"
+											name="autoSubmit"
+											id="filters-autosubmit"
+											value="1"
+											checked={vm.state.autoSubmit ? true : false}
+											onChange={vm.handleModeChange} />
+										<label htmlFor="filters-autosubmit">
+											<span></span>
+											<div className="item-text checkwrap-content">
+												<div className="text-title">
+													Seçtikçe sonuç göster
+												</div>
+											</div>
+										</label>
+									</div>
+								</div>
+							}
+							{vm.props.mobile &&
+								<Btn block uppercase className="controls-btn" onClick={vm.filtersSubmitted}>{vm.state.synchronized ? 'Kapat' : 'Filtreleri Güncelle'}</Btn>
+							}
+							{(!vm.props.mobile && !vm.state.autoSubmit) &&
+								<Btn block uppercase className="controls-btn" onClick={vm.serializeFilters} disabled={vm.state.synchronized}>Ara</Btn>
+							}
+						</div>
 					</div>
-					{this.props.mobile &&
-						<button type="button" className="filters-overlay" onClick={this.props.hideFilters}></button>
+					{vm.props.mobile &&
+						<button type="button" className="filters-overlay" onClick={vm.props.hideFilters}></button>
 					}
 				</aside>
 			)
@@ -543,7 +534,9 @@ class TreeFilterItem extends React.Component {
 
 	toggleExpand() {
 		this.setState({ expanded: !this.state.expanded });
-		this.props.onExpand();
+		if(this.props.onExpand){
+			this.props.onExpand();
+		}
 	}
 
 	handleValueChange(e) {

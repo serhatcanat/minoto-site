@@ -450,13 +450,28 @@
 		}
 
 		.filters-controls {
-			position: absolute;
-			bottom: 0;
-			left: 0;
-			width: 100%;
 			background-color: $color-white;
-			padding: 2.1rem 2.5rem;
+			padding: 2.1rem 2.5rem 4rem;
+
+			/*position: fixed;
+			bottom: 0;
+			width: 28rem;
+			box-shadow: $shadow-general;*/
+
+			@include media {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				width: 100%;
+				padding-bottom: 2.1rem;
+			}
 		}
+
+			.controls-filteronthego {
+				+ .controls-btn {
+					margin-top: 2rem;
+				}
+			}
 
 		.filters-header {
 			display: flex;
