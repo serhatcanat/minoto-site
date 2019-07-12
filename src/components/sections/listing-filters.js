@@ -4,7 +4,7 @@ import React from 'react';
 import Image from 'components/partials/image.js';
 import SVG from 'react-inlinesvg';
 import Btn from 'components/partials/btn.js';
-import Slider from 'components/partials/slider'
+import ScrollWrap from 'components/partials/scrollwrap'
 
 // Deps
 import debounce from 'lodash/debounce';
@@ -222,7 +222,6 @@ class ListingFilter extends React.Component {
 		}
 
 		this.toggle = this.toggle.bind(this);
-		this.filterExpandChange = this.filterExpandChange.bind(this);
 
 		this.scrollElem = React.createRef();
 		this.timeout = false;
@@ -240,9 +239,9 @@ class ListingFilter extends React.Component {
 				vm.setState({ active: true });
 				vm.timeout = setTimeout(function () {
 					vm.setState({ show: true });
-					setTimeout(function () {
+					/*setTimeout(function () {
 						vm.scrollElem.current.instance.update();
-					}, 120);
+					}, 120);*/
 				}, 30);
 			}
 			else {
@@ -263,13 +262,6 @@ class ListingFilter extends React.Component {
 		);
 	}
 
-	filterExpandChange() {
-		let vm = this;
-		setTimeout(function () {
-			vm.scrollElem.current.instance.update();
-		}, 120);
-	}
-
 	toggle() {
 		this.setState({ expanded: !this.state.expanded })
 	}
@@ -286,7 +278,7 @@ class ListingFilter extends React.Component {
 				filterContent = <FilterTypeList data={filterData} onUpdate={vm.props.onUpdate} />;
 				break;
 			case "tree":
-				filterContent = <FilterTypeTree data={filterData} onUpdate={vm.props.onUpdate} onExpand={this.filterExpandChange} />;
+				filterContent = <FilterTypeTree data={filterData} onUpdate={vm.props.onUpdate} />;
 				break;
 			case "icons":
 				filterContent = <FilterTypeIcons data={filterData} onUpdate={vm.props.onUpdate} />;
@@ -308,9 +300,9 @@ class ListingFilter extends React.Component {
 					}
 
 					<div className="filter-content">
-						<Slider className="filter-slidewrap" scrollBar ref={vm.scrollElem}>
+						<ScrollWrap className="filter-slidewrap" ref={vm.scrollElem}>
 							{filterContent}
-						</Slider>
+						</ScrollWrap>
 					</div>
 				</div>
 			)

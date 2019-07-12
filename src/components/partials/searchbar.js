@@ -2,7 +2,7 @@ import React from 'react'
 
 // Partials
 import Image from 'components/partials/image'
-import Slider from 'components/partials/slider'
+import ScrollWrap from 'components/partials/scrollwrap'
 
 // Deps
 import debounce from 'lodash/debounce'
@@ -208,6 +208,7 @@ class SearchBar extends React.Component {
 		if (data) {
 			let fG = vm.state.focusedGroup;
 			let fR = vm.state.focusedResult;
+
 			switch (e.key) {
 				case "ArrowUp":
 					if (fR <= 0) {
@@ -217,7 +218,7 @@ class SearchBar extends React.Component {
 					else {
 						fR--;
 
-						this.slideInstances[fG].slideTo(fR);
+						this.scrollToChild(fG, fR, 'up');
 					}
 					vm.setState({ focusedGroup: fG, focusedResult: fR })
 					break;
@@ -229,9 +230,8 @@ class SearchBar extends React.Component {
 					}
 					else {
 						fR++;
-						if (this.slideInstances[fG].slideTo) {
-							this.slideInstances[fG].slideTo(fR);
-						}
+
+						this.scrollToChild(fG, fR, 'down');
 					}
 					vm.setState({ focusedGroup: fG, focusedResult: fR })
 					break;
@@ -240,6 +240,28 @@ class SearchBar extends React.Component {
 					break;
 				default: break;
 			}
+		}
+	}
+
+	scrollToChild(group, result, direction){
+		if(this.slideInstances[group]){
+			let scrollTop = this.slideInstances[group].scrollTop;
+			let scrollBottom = scrollTop + this.slideInstances[group].clientHeight;
+
+			let groupElem = this.slideInstances[group].contentElement;
+			let resultElem = groupElem.childNodes[result];
+
+			let groupBox = groupElem.getBoundingClientRect();
+			let resultBox = resultElem.getBoundingClientRect();
+			let dist = resultBox.top - groupBox.top;
+
+			if(direction === "up" && dist < scrollTop){
+				this.slideInstances[group].scrollTo(0, dist);
+			}
+			else if(direction === "down" && dist + resultBox.height > scrollBottom){
+				this.slideInstances[group].scrollTo(0, dist - this.slideInstances[group].clientHeight + resultBox.height);	
+			}
+
 		}
 	}
 
@@ -314,14 +336,12 @@ class SearchBar extends React.Component {
 			if (vm.state.show) { containerClasses += ' show'; }
 
 			let GroupWrap = 'div';
-			let groupParams = {};
 
 			if (!vm.props.fullScreen) {
-				GroupWrap = Slider;
-				groupParams = {
-					scrollBar: true
-				}
+				GroupWrap = ScrollWrap;
 			}
+
+			window.ins = {};
 
 			return (
 				<div className={containerClasses}>
@@ -357,7 +377,7 @@ class SearchBar extends React.Component {
 								data.groups.map((group, g_nth) => (
 									<div className="results-group" key={g_nth}>
 										{group.title && <strong className="group-title">{group.title}</strong>}
-										<GroupWrap className="group-wrap" {...groupParams} ref={(ref) => vm.slideInstances[g_nth] = ref}>
+										<GroupWrap className="group-wrap" instance={(GroupWrap === 'div' ? undefined : (ref) => { vm.slideInstances[g_nth] = ref; })}>
 											{group.results.map((result, r_nth) => (
 												<div className={"group-item" + ((g_nth === vm.state.focusedGroup && r_nth === vm.state.focusedResult) ? ' focused' : '')} key={'g_' + r_nth}>
 													<Link to={result.link} onClick={vm.hide}>

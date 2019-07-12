@@ -3,7 +3,7 @@ import React from 'react'
 // Partials
 import Image from 'components/partials/image'
 import Link from 'components/partials/link'
-import Slider from 'components/partials/slider'
+import ScrollWrap from 'components/partials/scrollwrap'
 import SearchBar from 'components/partials/searchbar.js'
 import Responsive from 'components/partials/responsive.js'
 import Btn from 'components/partials/btn.js'
@@ -44,8 +44,6 @@ class Header extends React.Component {
 		this.toggleMenu = this.toggleMenu.bind(this);
 		this.closeMenu = this.closeMenu.bind(this);
 		this.menuTimeout = false;
-
-		this.menuScroller = React.createRef();
 	}
 
 	componentWillUnmount() {
@@ -62,12 +60,6 @@ class Header extends React.Component {
 				vm.menuTimeout = setTimeout(function () {
 					vm.setState({ menuShow: true });
 					blockOverflow(true);
-
-					if (vm.menuScroller.current) {
-						setTimeout(function () {
-							vm.menuScroller.current.instance.update();
-						}, 250);
-					}
 				}, 20);
 			}
 			else {
@@ -139,7 +131,7 @@ class Header extends React.Component {
 						{vm.state.menuActive && (
 							<div className={"nav-menu" + (vm.state.menuShow ? ' show' : '')}>
 								<div className="menu-outerwrap">
-									<Slider className="menu-content" scrollBar ref={this.menuScroller}>
+									<ScrollWrap className="menu-content">
 										<div className="content-innerwrap">
 											<div className="menu-header">
 												<Responsive type="only-web">
@@ -251,7 +243,7 @@ class Header extends React.Component {
 												</div>
 											}
 										</div>
-									</Slider>
+									</ScrollWrap>
 								</div>
 								<button className="menu-overlay" onClick={vm.closeMenu}></button>
 							</div>
