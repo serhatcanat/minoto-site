@@ -1,5 +1,7 @@
 import React from 'react';
 
+import config from 'data/config'
+
 // Partials
 import ContentBox from 'components/partials/contentbox'
 import Image from 'components/partials/image';
@@ -15,7 +17,8 @@ import debounce from 'lodash/debounce';
 import pick from 'lodash/pick';
 import omit from 'lodash/omit';
 import isEqual from 'lodash/isEqual';
-//import clone from 'lodash/clone';
+import clone from 'lodash/clone';
+import pull from 'lodash/pull';
 import extend from 'lodash/extend';
 import throttle from 'lodash/throttle';
 import history from 'controllers/history'
@@ -168,9 +171,24 @@ class Listing extends React.Component {
 		}
 	}
 
-	removeFilter(name = false) {
-		if (name !== false) {
-			let newQuery = omit(this.props.filterQuery, [name]);
+	removeFilter(keys = false, value = false) {
+		let newQuery = clone(this.props.filterQuery);
+
+		if (keys !== false && value !== false) {
+			let newItem = pull(newQuery[keys[0]].split(config.filterSeperator), value.toString()).join(config.filterSeperator);
+
+			if(newItem.length){
+				newQuery[keys[0]] = newItem;
+			}
+			else {
+				newQuery = omit(newQuery, [keys[0]]);
+			}
+
+			this.props.setFilterQuery(newQuery);
+		}
+		else if (keys !== false) {
+			newQuery = omit(newQuery, keys);
+			console.log(newQuery);
 			this.props.setFilterQuery(newQuery);
 		}
 	}
@@ -517,44 +535,58 @@ class ActiveFilters extends React.Component {
 		let filters = [];
 
 		if (this.props.data && this.props.data.filters) {
-			filters = this.props.data.filters.map((group, nth) => {
-				let text = false;
+			filters = this.props.data.filters.reduce((activeFilters, group, nth) => {
+				let values = false;
 				let data = false;
+				let groupName = [group.name];
+
 				switch (group.display) {
 					case "range":
-						data = group.opts.filter((filter) => {
-							return filter.value !== "";
-						}).map((filter) => {
-							return (filter.prefix !== "" ? filter.prefix + " " : '') + filter.value + (filter.postfix ? " " + filter.postfix : '');
-						});
-						if (data.length) { text = data.join(' - '); }
+						groupName = [];
+						data = group.opts.reduce((filteredOpts, filter) => {
+							if(filter.value !== "" && filter.value !== null){
+								groupName.push(filter.name);
+								filteredOpts.push((filter.prefix !== "" ? filter.prefix + " " : '') + filter.value + (filter.postfix ? " " + filter.postfix : ''));
+							}
+							return filteredOpts;
+						}, []);
+						if (data.length) { values = [{value: false, title: data.join(' - ')}]; }
 						break;
 					case "text":
-						text = (group.value ? group.value : false);
+						values = (group.value ? [{value: false, title: group.value}] : false);
 						break;
 					default: // list, icons
-						data = group.opts.filter((filter) => {
-							return (filter.selected);
-						}).map((filter) => {
-							return filter.title;
-						});
 
-						if (data.length) { text = data.join(', '); }
+						data = group.opts.reduce((selectedOpts, filter) => {
+							if(filter.selected){ selectedOpts.push({ value: filter.value, title: filter.title}); }
+
+							return selectedOpts;
+						}, []);
+
+						if (data.length) { /*values = data.join(', ');*/ values = data; }
 						break;
 				}
 
-				return text ? { name: group.name, title: group.title, label: text } : false;
-			}).filter((filter) => { return filter !== false; });
+				if(values){ activeFilters.push({ name: groupName, title: group.title, values: values }); }
+				return activeFilters;
+			}, []);
 		}
 
 		if (filters.length) {
 			return (
 				<div className="top-activefilters">
-					{filters.map((filter, nth) => (
-						<span className="activefilters-item" key={nth} title={filter.title}>
-							{filter.label}
-							<button type="button" onClick={() => { this.props.onFilterRemove(filter.name); }} className="item-remove"><i className="icon-close"></i></button>
-						</span>
+					{filters.map((filter, fnth) => (
+						<React.Fragment key={fnth}>
+							{filter.values.map((opt, nth) => (
+								<span className="activefilters-item" key={nth} title={filter.title+': '+opt.title}>
+									<span className="item-title">{filter.title}:</span>
+									<span className="item-value">
+										{opt.title}
+									</span>
+									<button type="button" onClick={() => { this.props.onFilterRemove(filter.name, opt.value); }} className="item-remove"><i className="icon-close"></i></button>
+								</span>
+							))}
+						</React.Fragment>
 					))}
 				</div>
 			)

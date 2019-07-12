@@ -1,19 +1,21 @@
-import React from 'react';
+import React from 'react'
+
+import config from 'data/config'
 
 // Partials
-import Image from 'components/partials/image.js';
-import SVG from 'react-inlinesvg';
-import Btn from 'components/partials/btn.js';
+import Image from 'components/partials/image.js'
+import SVG from 'react-inlinesvg'
+import Btn from 'components/partials/btn.js'
 import ScrollWrap from 'components/partials/scrollwrap'
 
 // Deps
-import debounce from 'lodash/debounce';
-import isEqual from 'lodash/isEqual';
-import clone from 'lodash/clone';
-import { serializeArray } from 'functions/helpers';
-import { connect } from "react-redux";
-import { setFiltersExpansion, setFilterQuery } from 'data/store.listing';
-import { blockOverflow } from "functions/helpers";
+import debounce from 'lodash/debounce'
+import isEqual from 'lodash/isEqual'
+import clone from 'lodash/clone'
+import { serializeArray } from 'functions/helpers'
+import { connect } from "react-redux"
+import { setFiltersExpansion, setFilterQuery } from 'data/store.listing'
+import { blockOverflow } from "functions/helpers"
 
 const mapStateToProps = state => {
 	return {
@@ -92,7 +94,7 @@ class ListingFilters extends React.Component {
 		let vm = this;
 
 		setTimeout(function () {
-			vm.props.setQuery(serializeArray(vm.formRef.current, '|', true));
+			vm.props.setQuery(serializeArray(vm.formRef.current, config.filterSeperator, true));
 			vm.setState({ synchronized: true })
 		}, 50);
 
