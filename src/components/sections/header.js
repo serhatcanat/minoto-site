@@ -150,7 +150,7 @@ class Header extends React.Component {
 													<a href="http://www.instagram.com/minotocom" target="_blank" rel="noopener noreferrer" title="Bizi Instagram'da Takip Edin">
 														<Image src={image_icon_instagram} alt="Instagram" />
 													</a>
-													<a href="https://www.youtube.com/channel/UCz_v-QZCXSX8RRowWV8GrHA" target="_blank" rel="noopener noreferrer" title="Bizi YouTube'da Takip Edin">
+													<a href="https://www.youtube.com/minotocom" target="_blank" rel="noopener noreferrer" title="Bizi YouTube'da Takip Edin">
 														<Image src={image_icon_youtube} alt="YouTube" />
 													</a>
 													<a href="http://www.facebook.com/minotocom" target="_blank" rel="noopener noreferrer" title="Bizi Facebook'da Takip Edin">
