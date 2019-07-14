@@ -119,10 +119,10 @@ class ListingFilters extends React.Component {
 		this.props.hideFilters();
 	}
 
-	handleModeChange(e){
-		this.setState({autoSubmit: e.target.checked});
+	handleModeChange(e) {
+		this.setState({ autoSubmit: e.target.checked });
 
-		if(e.target.checked && !this.state.synchronized){
+		if (e.target.checked && !this.state.synchronized) {
 			this.serializeFilters();
 		}
 	}
@@ -158,7 +158,7 @@ class ListingFilters extends React.Component {
 
 						</div>
 						<div className="filters-controls">
-							{!vm.props.mobile && 
+							{!vm.props.mobile &&
 								<div className="controls-filteronthego inputwrap type-checkbox">
 									<div className="checkwrap">
 										<input
@@ -168,14 +168,14 @@ class ListingFilters extends React.Component {
 											value="1"
 											checked={vm.state.autoSubmit ? true : false}
 											onChange={vm.handleModeChange} />
-										<label htmlFor="filters-autosubmit">
+										{/* <label htmlFor="filters-autosubmit">
 											<span></span>
 											<div className="item-text checkwrap-content">
 												<div className="text-title">
 													Seçtikçe sonuç göster
 												</div>
 											</div>
-										</label>
+										</label> */}
 									</div>
 								</div>
 							}
@@ -534,7 +534,7 @@ class TreeFilterItem extends React.Component {
 
 	toggleExpand() {
 		this.setState({ expanded: !this.state.expanded });
-		if(this.props.onExpand){
+		if (this.props.onExpand) {
 			this.props.onExpand();
 		}
 	}
