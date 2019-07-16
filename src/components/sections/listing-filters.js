@@ -799,7 +799,7 @@ class FilterTypeText extends React.Component {
 		return (
 			<div className={"filter-inputs" + (vm.state.value !== vm.props.data.value ? ' touched' : '')}>
 				<div className="inputwrap type-text">
-					<input className="inputs-input" name={data.name} type="text" value={this.state.value} placeholder={data.title} onChange={vm.handleChange} />
+					<input className="inputs-input" name={data.name} type="text" value={this.state.value ? this.state.value : ''} placeholder={data.title} onChange={vm.handleChange} />
 					<button className="inputs-submit" type="button" onClick={this.update}><i className="icon-search"></i></button>
 				</div>
 

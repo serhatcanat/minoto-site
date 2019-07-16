@@ -69,6 +69,7 @@ class Listing extends React.Component {
 			order: props.defaultOrder,
 			extending: false,
 			page: 1,
+			keyword: false
 		}
 
 		this.removeFilter = this.removeFilter.bind(this);
@@ -89,6 +90,7 @@ class Listing extends React.Component {
 
 	componentDidMount() {
 		let vm = this;
+
 
 		if (vm.props.urlBinding) {
 			vm.listenerAbort = history.listen(function (e) {
@@ -121,6 +123,7 @@ class Listing extends React.Component {
 			vm.props.setListingQuery(extend({}, vm.props.listingQuery, { sayfa: vm.state.page }));
 		}
 
+
 		if (!isEqual(prevProps.listingQuery, this.props.listingQuery)) {
 			this.setState({ order: (this.props.listingQuery.siralama ? this.props.listingQuery.siralama : vm.props.defaultOrder) });
 			vm.updateResults();
@@ -132,6 +135,7 @@ class Listing extends React.Component {
 	}
 
 	getQuery() {
+		this.props.setListingQuery(extend({}, this.props.listingQuery, { siralama: this.state.order }));
 		let newQuery = extend({}, this.props.listingQuery, this.props.filterQuery);
 		return newQuery;
 	}
@@ -139,11 +143,13 @@ class Listing extends React.Component {
 	urlChanged() {
 		let vm = this;
 		if (vm.urlTimeout) { clearTimeout(vm.urlTimeout); vm.urlTimeout = false; }
+
 		vm.urlTimeout = setTimeout(function () {
 			let query = queryString.parse((history.location.search && history.location.search !== '') ? history.location.search.replace('?', '') : '');
 
 			if (!isEqual(query, vm.getQuery())) {
 				let listingQuery = vm.props.topSection ? pick(query, ['siralama', 'sayfa']) : {};
+
 				let filterQuery = omit(query, ['siralama', 'sayfa']);
 
 				vm.props.setListingQuery(listingQuery);
@@ -177,7 +183,7 @@ class Listing extends React.Component {
 		if (keys !== false && value !== false) {
 			let newItem = pull(newQuery[keys[0]].split(config.filterSeperator), value.toString()).join(config.filterSeperator);
 
-			if(newItem.length){
+			if (newItem.length) {
 				newQuery[keys[0]] = newItem;
 			}
 			else {
@@ -216,11 +222,11 @@ class Listing extends React.Component {
 				}
 
 				vm.props.setListingData(payload);
-
 				vm.setState({
 					loading: false,
 					page: payload.page ? payload.page : 1,
-					order: payload.order
+					order: payload.order ? payload.order : 'date_desc',
+					keyword: payload.keyword ? payload.keyword : null
 				});
 
 				/*vm.setState({
@@ -339,6 +345,7 @@ Listing.defaultProps = {
 	size: 4,
 	defaultOrder: "date_desc",
 	scrollOnFilterChange: false,
+	keyword: false
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Listing);
@@ -544,21 +551,21 @@ class ActiveFilters extends React.Component {
 					case "range":
 						groupName = [];
 						data = group.opts.reduce((filteredOpts, filter) => {
-							if(filter.value !== "" && filter.value !== null){
+							if (filter.value !== "" && filter.value !== null) {
 								groupName.push(filter.name);
 								filteredOpts.push((filter.prefix !== "" ? filter.prefix + " " : '') + filter.value + (filter.postfix ? " " + filter.postfix : ''));
 							}
 							return filteredOpts;
 						}, []);
-						if (data.length) { values = [{value: false, title: data.join(' - ')}]; }
+						if (data.length) { values = [{ value: false, title: data.join(' - ') }]; }
 						break;
 					case "text":
-						values = (group.value ? [{value: false, title: group.value}] : false);
+						values = (group.value ? [{ value: false, title: group.value }] : false);
 						break;
 					default: // list, icons
 
 						data = group.opts.reduce((selectedOpts, filter) => {
-							if(filter.selected){ selectedOpts.push({ value: filter.value, title: filter.title}); }
+							if (filter.selected) { selectedOpts.push({ value: filter.value, title: filter.title }); }
 
 							return selectedOpts;
 						}, []);
@@ -567,7 +574,7 @@ class ActiveFilters extends React.Component {
 						break;
 				}
 
-				if(values){ activeFilters.push({ name: groupName, title: group.title, values: values }); }
+				if (values) { activeFilters.push({ name: groupName, title: group.title, values: values }); }
 				return activeFilters;
 			}, []);
 		}
@@ -578,7 +585,7 @@ class ActiveFilters extends React.Component {
 					{filters.map((filter, fnth) => (
 						<React.Fragment key={fnth}>
 							{filter.values.map((opt, nth) => (
-								<span className="activefilters-item" key={nth} title={filter.title+': '+opt.title}>
+								<span className="activefilters-item" key={nth} title={filter.title + ': ' + opt.title}>
 									<span className="item-title">{filter.title}:</span>
 									<span className="item-value">
 										{opt.title}

@@ -120,7 +120,7 @@ export default class BlogDetail extends React.Component {
 									<Slider className="gallery-slider" ref={this.gallerySlider} loop opts={{ lazy: true }}>
 										{data.gallery.map((image, nth) => (
 											<div className="slider-imagewrap" key={nth}>
-												<div className="imagewrap-image swiper-lazy" data-background={storageSpace('articles', image.large)}>
+												<div className="imagewrap-image swiper-lazy" data-background={storageSpace('articles/gallery', image.large)}>
 												</div>
 												<Image className="imagewrap-loader" bg src={image_loader} alt="Yükleniyor..." />
 											</div>

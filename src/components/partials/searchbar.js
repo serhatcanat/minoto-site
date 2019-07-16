@@ -166,6 +166,7 @@ class SearchBar extends React.Component {
 
 	hide() {
 		this.props.setOpen(false);
+
 	}
 
 	hideSelf() {
@@ -243,8 +244,8 @@ class SearchBar extends React.Component {
 		}
 	}
 
-	scrollToChild(group, result, direction){
-		if(this.slideInstances[group]){
+	scrollToChild(group, result, direction) {
+		if (this.slideInstances[group]) {
 			let scrollTop = this.slideInstances[group].scrollTop;
 			let scrollBottom = scrollTop + this.slideInstances[group].clientHeight;
 
@@ -255,11 +256,11 @@ class SearchBar extends React.Component {
 			let resultBox = resultElem.getBoundingClientRect();
 			let dist = resultBox.top - groupBox.top;
 
-			if(direction === "up" && dist < scrollTop){
+			if (direction === "up" && dist < scrollTop) {
 				this.slideInstances[group].scrollTo(0, dist);
 			}
-			else if(direction === "down" && dist + resultBox.height > scrollBottom){
-				this.slideInstances[group].scrollTo(0, dist - this.slideInstances[group].clientHeight + resultBox.height);	
+			else if (direction === "down" && dist + resultBox.height > scrollBottom) {
+				this.slideInstances[group].scrollTo(0, dist - this.slideInstances[group].clientHeight + resultBox.height);
 			}
 
 		}
@@ -314,6 +315,7 @@ class SearchBar extends React.Component {
 		this.setState({ submitted: true })
 		this.hide();
 		this.props.setOpen(false);
+
 		if (this.props.inputValue.length) {
 			redirect('search', false, { ara: this.props.inputValue });
 		} else {
