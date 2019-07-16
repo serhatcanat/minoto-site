@@ -371,7 +371,7 @@ class DetailGallery extends React.Component {
 							</div>
 						))}
 					</Slider>
-					{!vm.props.mobile &&
+					{//!vm.props.mobile &&
 						<Btn className="mainslider-fullscreen" low white uppercase icon="search" onClick={() => { vm.props.onFullScreenChange(true) }}>
 							Büyük Fotoğraf
 						</Btn>

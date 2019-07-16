@@ -184,7 +184,7 @@ class Listing extends React.Component {
 				else {
 					if(query === ''){
 						if(history.location.search !== ''){
-							window.dynamicHistory.push('');
+							window.dynamicHistory.push('?');
 						}
 					}
 					else {
