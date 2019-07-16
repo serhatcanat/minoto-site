@@ -96,8 +96,10 @@ class ListingFilters extends React.Component {
 		let vm = this;
 
 		setTimeout(function () {
-			vm.props.setQuery(serializeArray(vm.formRef.current, config.filterSeperator, true));
-			vm.setState({ synchronized: true })
+			if(vm.formRef.current){
+				vm.props.setQuery(serializeArray(vm.formRef.current, config.filterSeperator, true));
+				vm.setState({ synchronized: true })
+			}
 		}, 50);
 	}
 

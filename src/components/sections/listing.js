@@ -69,7 +69,7 @@ class Listing extends React.Component {
 			order: props.defaultOrder,
 			extending: false,
 			page: 1,
-			keyword: false
+			keyword: false,
 		}
 
 		this.removeFilter = this.removeFilter.bind(this);
@@ -90,7 +90,6 @@ class Listing extends React.Component {
 
 	componentDidMount() {
 		let vm = this;
-
 
 		if (vm.props.urlBinding) {
 			vm.listenerAbort = history.listen(function (e) {
@@ -135,7 +134,8 @@ class Listing extends React.Component {
 	}
 
 	getQuery() {
-		this.props.setListingQuery(extend({}, this.props.listingQuery, { siralama: this.state.order }));
+		let querySelf = extend({}, this.props.listingQuery, { siralama: this.state.order });
+		this.props.setListingQuery(querySelf);
 		let newQuery = extend({}, this.props.listingQuery, this.props.filterQuery);
 		return newQuery;
 	}
@@ -150,6 +150,8 @@ class Listing extends React.Component {
 			if (!isEqual(query, vm.getQuery())) {
 				let listingQuery = vm.props.topSection ? pick(query, ['siralama', 'sayfa']) : {};
 
+				if(!listingQuery.siralama){ listingQuery.siralama = vm.props.defaultOrder }
+
 				let filterQuery = omit(query, ['siralama', 'sayfa']);
 
 				vm.props.setListingQuery(listingQuery);
@@ -163,15 +165,31 @@ class Listing extends React.Component {
 
 	updateURL() {
 		if (this.props.urlBinding) {
-			let query = queryString.stringify(this.getQuery());
-			if (history.location.search !== '?' + query) {
-				if (this.state.initialLoad) {
+			//let defaultQuery = 'siralama=' + this.props.defaultOrder;
+			let rawQuery = this.getQuery();
+			let initialQuery = queryString.stringify(rawQuery);
+
+			if(rawQuery.siralama === this.props.defaultOrder){
+				rawQuery = omit(rawQuery, ['siralama']);
+			}
+
+			let query = queryString.stringify(rawQuery);
+
+			if (history.location.search !== '?' + query && history.location.search !== query && history.location.search !== '?' + initialQuery && history.location.search !== initialQuery) {
+				if (!this.initialized) {
 					if (query !== '') {
 						window.dynamicHistory.replace('?' + query);
 					}
 				}
 				else {
-					window.dynamicHistory.push('?' + query);
+					if(query === ''){
+						if(history.location.search !== ''){
+							window.dynamicHistory.push('');
+						}
+					}
+					else {
+						window.dynamicHistory.push('?' + query);
+					}
 				}
 			}
 		}
@@ -194,7 +212,6 @@ class Listing extends React.Component {
 		}
 		else if (keys !== false) {
 			newQuery = omit(newQuery, keys);
-			console.log(newQuery);
 			this.props.setFilterQuery(newQuery);
 		}
 	}

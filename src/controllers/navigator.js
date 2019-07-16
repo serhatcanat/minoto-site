@@ -30,6 +30,7 @@ import { setTitle, setMeta, setHead, setDescription } from 'controllers/head'
 import routes from 'data/routes'
 import store from "data/store";
 import { setPage } from "data/store.generic";
+import { resetListingData } from "data/store.listing";
 import extend from "lodash/extend";
 
 // Pages
@@ -262,6 +263,7 @@ export function changePage(key = false, group = 'pages') {
 		data: route
 	}
 	if (store.getState().generic.currentPage.key !== key) {
+		resetListingData();
 		window.scroll(0, 0);
 		store.dispatch(setPage(pageData));
 

@@ -77,6 +77,9 @@ class SearchBar extends React.Component {
 
 	componentWillUnmount() {
 		this._isMounted = false;
+		if(this.animTimeout !== false){
+			clearTimeout(this.animTimeout);
+		}
 		this.unbindInputs();
 	}
 
@@ -114,7 +117,7 @@ class SearchBar extends React.Component {
 		}
 
 		if (prevProps.open !== this.props.open || (this.props.open && this.state.data && this.state.data.groups && !(isExact(prevState.data, this.state.data) && !this.state.active))) {
-			if (this.props.open && this.state.primary && !(this.state.data.groups.length <= 1 && this.state.data.groups[0].results.length === 0)) {
+			if (this.props.open && this.state.primary && this.state.data && this.state.data.groups && !(this.state.data.groups.length <= 1 && this.state.data.groups[0].results.length === 0)) {
 				if (!this.state.active) {
 					this.showSelf();
 				}
@@ -143,11 +146,13 @@ class SearchBar extends React.Component {
 	}
 
 	show() {
-		this.props.setOpen(true);
+		if(this._isMounted){
+			this.props.setOpen(true);
+		}
 	}
 
 	showSelf() {
-		if (!this.state.show) {
+		if (this._isMounted && !this.state.show) {
 			let vm = this;
 			vm.setState({ cacheData: vm.state.data, active: true });
 			if (vm.props.fullScreen) { blockOverflow(true); }
@@ -157,7 +162,9 @@ class SearchBar extends React.Component {
 
 				if (vm.input.current) {
 					setTimeout(function () {
-						vm.input.current.focus();
+						if(vm._isMounted){
+							vm.input.current.focus();
+						}
 					}, 10);
 				}
 			}, 30);
@@ -165,13 +172,15 @@ class SearchBar extends React.Component {
 	}
 
 	hide() {
-		this.props.setOpen(false);
+		if(this._isMounted){
+			this.props.setOpen(false);
+		}
 
 	}
 
 	hideSelf() {
 		let vm = this;
-		if (vm.state.show) {
+		if (vm._isMounted && vm.state.show) {
 			vm.setState({ show: false });
 			if (vm.props.fullScreen) { blockOverflow(false); }
 			vm.animTimeout = setTimeout(function () {
@@ -186,10 +195,10 @@ class SearchBar extends React.Component {
 			clearTimeout(vm.blurTimeout);
 			vm.blurTimeout = false;
 		}
-		vm.blurTimeout = setTimeout(function () {
-			//vm.hide();
+		/*vm.blurTimeout = setTimeout(function () {
+			vm.hide();
 			vm.blurTimeout = false;
-		}, 60);
+		}, 60);*/
 	}
 
 	focus() {
@@ -279,21 +288,25 @@ class SearchBar extends React.Component {
 				vm.setState({ loading: true });
 
 				request.get('search', { search: vm.props.inputValue, }, function (payload, status) {
-					if (!vm.state.submitted) {
-						if (payload) {
-							vm.setState({ data: payload, loading: false });
+					if(vm._isMounted){
+						if (!vm.state.submitted) {
+							if (payload) {
+								vm.setState({ data: payload, loading: false });
 
 
-							setTimeout(function () {
-								vm.props.setOpen(true)
-							}, 100);
+								setTimeout(function () {
+									if(vm._isMounted){
+										vm.props.setOpen(true)
+									}
+								}, 100);
+							}
+							else {
+								console.log('error');
+							}
 						}
 						else {
-							console.log('error');
+							vm.setState({ data: false, loading: false });
 						}
-					}
-					else {
-						vm.setState({ data: false, loading: false });
 					}
 				});
 			}

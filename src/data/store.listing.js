@@ -1,3 +1,5 @@
+import store from "data/store"
+
 const initialState = {
   filtersExpanded: false,
   filterData: false,
@@ -55,4 +57,13 @@ export function setListingData(payload) {
 
 export function setListingQuery(payload) {
 	return { type: "SET_LISTING_QUERY", payload }
+};
+
+// Controller Functions
+
+export function resetListingData() {
+	store.dispatch(setListingData(false));
+	store.dispatch(setFilterData(false));
+	store.dispatch(setListingQuery({}));
+	store.dispatch(setFilterQuery({}));
 };
