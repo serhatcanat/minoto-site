@@ -950,6 +950,7 @@ export class InputForm extends React.Component {
 		let vm = this;
 		let Container = vm.props.tag;
 		vm.validationCount = 0;
+		vm.elems = [];
 
 		return (
 			<Container className={'form ' + vm.props.className} onSubmit={vm.handleSubmit} noValidate autoComplete={vm.props.autoComplete || ''} ref={this.form}>

@@ -50,7 +50,22 @@ class ImageElem extends React.Component {
 
 	updateSrc() {
 		let vm = this;
-		vm.setState({ src: vm.props.src })
+		let change = true;
+
+		if (String.prototype.endsWith) {
+			if(vm.props.src){
+				if(vm.props.src.endsWith("/null")){
+					change = false;
+				}
+			}
+			else {
+				change = false;
+			}
+		}
+		
+		if(change){
+			vm.setState({ src: vm.props.src });
+		}
 	}
 
 	watchLoad() {
@@ -74,7 +89,7 @@ class ImageElem extends React.Component {
 		let vm = this;
 		let ImageElem = false;
 
-		if (vm.state.src) {
+		if (vm.state.src || vm.props.bg) {
 			let classes = 'image ' + vm.props.className + ((!vm.props.noLoad && vm.state.loading) ? ' image-loading' : '');
 			let props = omit(vm.props, ['src', 'className', 'webStyle', 'mobileStyle', 'contain', 'bg', 'abs', 'alt', 'iconLoader']);
 

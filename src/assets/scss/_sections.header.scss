@@ -207,7 +207,6 @@
 				color: $color-text-negative;
 
 				&.show {
-
 					.menu-overlay {
 						opacity: 1;
 						transition: opacity $transition-anim-fast ease;
@@ -242,9 +241,9 @@
 
 					@include media {
 						width: 72.26%;
-						left: 0;
+						/*left: 0;
 						right: auto;
-						transform: translate3d(-100%, 0, 0);
+						transform: translate3d(-100%, 0, 0);*/
 					}
 				}
 
@@ -292,7 +291,7 @@
 					justify-content: space-between;
 
 					@include media {
-						justify-content: flex-end;
+						justify-content: flex-start;
 					}
 				}
 
@@ -313,6 +312,10 @@
 
 							+ a {
 								margin-left: 1rem;
+							}
+
+							@include media {
+								width: 2.6rem;
 							}
 						}
 					}

@@ -19,6 +19,15 @@
 		}
 	}
 
+	@include media {
+		transition: background-color $transition-superfast ease, color $transition-superfast ease, border-color $transition-superfast ease;
+	}
+
+	&:active {
+		background-color: darken($color-primary, 20);
+		border-color: darken($color-primary, 20);
+	}
+
 	&.hollow {
 		background-color: transparent;
 		color: $color-primary;
@@ -28,6 +37,11 @@
 				background-color: darken($color-primary, 10);
 				color: $color-text-negative;
 			}
+		}
+
+		&:active {
+			background-color: darken($color-primary, 20);
+			color: $color-text-negative;
 		}
 	}
 
@@ -44,6 +58,11 @@
 			}
 		}
 
+		&:active {
+			background-color: darken($color-white, 20);
+			border-color: darken($color-white, 20);
+		}
+
 		&.hollow {
 			background-color: transparent;
 			color: $color-white;
@@ -53,6 +72,11 @@
 					background-color: darken($color-white, 10);
 					color: $color-primary;
 				}
+			}
+
+			&:active {
+				background-color: darken($color-white, 20);
+				color: $color-primary;
 			}
 		}
 	}
@@ -69,6 +93,11 @@
 			}
 		}
 
+		&:active {
+			background-color: darken($color-text, 20);
+			border-color: darken($color-text, 20);
+		}
+
 		&.hollow {
 			background-color: transparent;
 			color: $color-text;
@@ -78,6 +107,11 @@
 					background-color: darken($color-text, 10);
 					color: $color-text-negative;
 				}
+			}
+
+			&:active {
+				background-color: darken($color-text, 20);
+				color: $color-text-negative;
 			}
 		}
 	}
@@ -94,6 +128,11 @@
 			}
 		}
 
+		&:active {
+			background-color: darken($color-gray, 20);
+			border-color: darken($color-gray, 20);
+		}
+
 		&.hollow {
 			background-color: transparent;
 			color: $color-text;
@@ -102,8 +141,12 @@
 				&:hover, &:active {
 					background-color: $color-gray;
 					border-color: $color-gray;
-					
-					}color: $color-text;
+				}
+			}
+
+			&:active {
+				background-color: darken($color-gray, 20);
+				border-color: darken($color-gray, 20);
 			}
 		}
 	}
@@ -119,6 +162,11 @@
 			}
 		}
 
+		&:active {
+			background-color: darken($color-facebook, 20);
+			border-color: darken($color-facebook, 20);
+		}
+
 		&.hollow {
 			background-color: transparent;
 			color: $color-facebook;
@@ -128,6 +176,11 @@
 					background-color: darken($color-facebook, 10);
 					color: $color-text-negative;
 				}
+			}
+
+			&:active {
+				background-color: darken($color-facebook, 20);
+				color: $color-text-negative;
 			}
 		}
 	}
@@ -143,6 +196,11 @@
 			}
 		}
 
+		&:active {
+			background-color: darken($color-google, 20);
+			border-color: darken($color-google, 20);
+		}
+
 		&.hollow {
 			background-color: transparent;
 			color: $color-google;
@@ -152,6 +210,11 @@
 					background-color: darken($color-google, 10);
 					color: $color-text-negative;
 				}
+			}
+
+			&:active {
+				background-color: darken($color-google, 20);
+				color: $color-text-negative;
 			}
 		}
 	}

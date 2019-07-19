@@ -99,7 +99,7 @@ export default class RegisterForm extends React.Component {
 								disabled={vm.state.loading}
 								type="password"
 								label="Şifre"
-								//validation={{ required: "Şifrenizi girmelisiniz.", minLength: ["Şifreniz en az {length} karakter içermelidir.", 6], "compare": ["Girdiğiniz şifreler uyumlu değil.", "#register-password-repeat"] }}
+								validation={{ required: "Şifrenizi girmelisiniz.", minLength: ["Şifreniz en az {length} karakter içermelidir.", 6], "compare": ["Girdiğiniz şifreler uyumlu değil.", "#register-password-repeat"] }}
 								className="form-field" />
 							<FormInput
 								name="password_repeat"
@@ -107,7 +107,7 @@ export default class RegisterForm extends React.Component {
 								disabled={vm.state.loading}
 								type="password"
 								label="Şifre Tekrar"
-								//validation={{ required: "Şifrenizi girmelisiniz.", minLength: ["Şifreniz en az {length} karakter içermelidir.", 6], "compare": ["Girdiğiniz şifreler uyumlu değil.", "#register-password"] }}
+								validation={{ required: "Şifrenizi girmelisiniz.", minLength: ["Şifreniz en az {length} karakter içermelidir.", 6], "compare": ["Girdiğiniz şifreler uyumlu değil.", "#register-password"] }}
 								className="form-field" />
 							<FormInput
 								name="agreement"

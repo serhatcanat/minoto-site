@@ -294,7 +294,6 @@ class DetailGallery extends React.Component {
 		super(props)
 		this.state = {
 			activeImage: 0,
-			fullScreen: false,
 		}
 
 		this.mainSlider = React.createRef();
@@ -356,22 +355,24 @@ class DetailGallery extends React.Component {
 
 		return (
 			<div className="content-gallery">
-				<Btn className="gallery-close" low white uppercase icon="close" onClick={() => { vm.props.onFullScreenChange(false) }}>
-					Kapat
-				</Btn>
+				{this.props.fullScreen &&
+					<Btn className="gallery-close" low white uppercase icon="close" onClick={() => { vm.props.onFullScreenChange(false) }}>
+						Kapat
+					</Btn>
+				}
 				<div className="gallery-mainslider">
 					<button className="mainslider-nav prev" onClick={() => { vm.mainSlider.current.prev(); }}><i className="icon-angle-left"></i></button>
 					<button className="mainslider-nav next" onClick={() => { vm.mainSlider.current.next(); }}><i className="icon-angle-right"></i></button>
 					<Slider className="mainslider-slider" ref={vm.mainSlider} loop opts={{ lazy: true }} onChange={vm.imageChange}>
 						{images.map((image, nth) => (
 							<div className="slider-imagewrap" key={nth}>
-								<div className="imagewrap-image swiper-lazy" data-background={storageSpace('car-posts/gallery', image.medium)}>
+								<div className="imagewrap-image swiper-lazy" data-background={storageSpace('car-posts/gallery', image.medium)} onClick={() => { if(!vm.props.fullScreen && vm.props.mobile) { vm.props.onFullScreenChange(true); } }}>
 								</div>
-								<Image className="imagewrap-loader" width="100" bg src={image_loader} alt="Yükleniyor..." onClick={() => { vm.props.onFullScreenChange(true) }} />
+								<Image className="imagewrap-loader" width="100" bg src={image_loader} alt="Yükleniyor..." />
 							</div>
 						))}
 					</Slider>
-					{!vm.props.mobile &&
+					{(!vm.props.mobile && !vm.props.fullScreen) &&
 						<Btn className="mainslider-fullscreen" low white uppercase icon="search" onClick={() => { vm.props.onFullScreenChange(true) }}>
 							Büyük Fotoğraf
 						</Btn>
@@ -554,22 +555,25 @@ class DetailInfo extends React.Component {
 									product.dealer &&
 									<div className="info-dealer">
 										<div className="dealer-head">
-											<Link href="branch" params={{ id: product.dealer.id, slug: product.dealer.url }}>
-												{product.dealer.validated ?
-													<span className="dealer-badge"><i className="badge-bg icon-ribbon"></i><i className="badge-icon icon-check"></i></span>
-													:
-													false
-												}
-												<strong className="dealer-title">{product.dealer.title}</strong>
-											</Link>
-											<p className="dealer-info">
-												<span className="info-location">{product.dealer.location}</span>
-												<span className={"info-workinghours " + (product.dealer.open ? 'open' : 'closed')}>
-													{product.dealer.workingHours}
-													<span>|</span>
-													{(product.dealer.open ? 'Şu an açık' : 'Şu an kapalı')}
-												</span>
-											</p>
+											<Image className="dealer-image" bg src={product.dealer.image} />
+											<div className="head-content">
+												<Link href="branch" params={{ id: product.dealer.id, slug: product.dealer.url }}>
+													{product.dealer.validated ?
+														<span className="dealer-badge"><i className="badge-bg icon-ribbon"></i><i className="badge-icon icon-check"></i></span>
+														:
+														false
+													}
+													<strong className="dealer-title">{product.dealer.title}</strong>
+												</Link>
+												<p className="dealer-info">
+													<span className="info-location">{product.dealer.location}</span>
+													<span className={"info-workinghours " + (product.dealer.open ? 'open' : 'closed')}>
+														{product.dealer.workingHours}
+														<span>|</span>
+														{(product.dealer.open ? 'Şu an açık' : 'Şu an kapalı')}
+													</span>
+												</p>
+											</div>
 										</div>
 										{product.dealer.rep &&
 											<div className="dealer-rep">
@@ -627,22 +631,25 @@ class DetailInfo extends React.Component {
 													selectedBranch && (
 														<div className="info-dealer">
 															<div className="dealer-head">
-																<Link href="branch" params={{ id: selectedBranch.id, slug: selectedBranch.url }}>
-																	{selectedBranch.validated ?
-																		<span className="dealer-badge"><i className="badge-bg icon-ribbon"></i><i className="badge-icon icon-check"></i></span>
-																		:
-																		false
-																	}
-																	<strong className="dealer-title">{selectedBranch.title}</strong>
-																</Link>
-																<p className="dealer-info">
-																	<span className="info-location">{selectedBranch.location}</span>
-																	<span className={"info-workinghours " + (selectedBranch.open ? 'open' : 'closed')}>
-																		{selectedBranch.workingHours}
-																		<span>|</span>
-																		{(selectedBranch.open ? 'Şu an açık' : 'Şu an kapalı')}
-																	</span>
-																</p>
+																<Image className="dealer-image" bg src={product.dealer.image} />
+																<div className="head-content">
+																	<Link href="branch" params={{ id: selectedBranch.id, slug: selectedBranch.url }}>
+																		{selectedBranch.validated ?
+																			<span className="dealer-badge"><i className="badge-bg icon-ribbon"></i><i className="badge-icon icon-check"></i></span>
+																			:
+																			false
+																		}
+																		<strong className="dealer-title">{selectedBranch.title}</strong>
+																	</Link>
+																	<p className="dealer-info">
+																		<span className="info-location">{selectedBranch.location}</span>
+																		<span className={"info-workinghours " + (selectedBranch.open ? 'open' : 'closed')}>
+																			{selectedBranch.workingHours}
+																			<span>|</span>
+																			{(selectedBranch.open ? 'Şu an açık' : 'Şu an kapalı')}
+																		</span>
+																	</p>
+																</div>
 															</div>
 															{selectedBranch.rep &&
 																<div className="dealer-rep">
