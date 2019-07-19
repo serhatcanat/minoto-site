@@ -84,6 +84,12 @@ body{
 	}
 }
 
+@include mediaVertical(750) {
+	html{
+		@include calcFontSize(375, true);
+	}
+}
+
 .router-wrap {
 	min-height: calc(100vh - 7rem);
 

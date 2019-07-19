@@ -29,6 +29,14 @@
 	}
 }
 
+@mixin mediaVertical($height : 960){
+	$wpx: ($height * 1px);
+
+	@media screen and (orientation: landscape) and (max-height: $wpx) {
+		@content;
+	}
+}
+
 @mixin mediaMin($width : 960){
 	$wpx: ($width * 1px);
 
@@ -37,8 +45,9 @@
 	}
 }
 
-@mixin calcFontSize($screenWidth){
-	font-size: (1000/$screenWidth) * 1vw;
+@mixin calcFontSize($screenWidth, $horizontal: false){
+	$unit: if($horizontal, 1vh, 1vw);
+	font-size: (1000/$screenWidth) * $unit;
 }
 
 @mixin spin($speed: 3s){
