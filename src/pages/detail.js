@@ -367,11 +367,11 @@ class DetailGallery extends React.Component {
 							<div className="slider-imagewrap" key={nth}>
 								<div className="imagewrap-image swiper-lazy" data-background={storageSpace('car-posts/gallery', image.medium)}>
 								</div>
-								<Image className="imagewrap-loader" width="100" bg src={image_loader} alt="Yükleniyor..." />
+								<Image className="imagewrap-loader" width="100" bg src={image_loader} alt="Yükleniyor..." onClick={() => { vm.props.onFullScreenChange(true) }} />
 							</div>
 						))}
 					</Slider>
-					{//!vm.props.mobile &&
+					{!vm.props.mobile &&
 						<Btn className="mainslider-fullscreen" low white uppercase icon="search" onClick={() => { vm.props.onFullScreenChange(true) }}>
 							Büyük Fotoğraf
 						</Btn>

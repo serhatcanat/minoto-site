@@ -150,7 +150,7 @@ class Listing extends React.Component {
 			if (!isEqual(query, vm.getQuery())) {
 				let listingQuery = vm.props.topSection ? pick(query, ['siralama', 'sayfa']) : {};
 
-				if(!listingQuery.siralama){ listingQuery.siralama = vm.props.defaultOrder }
+				if (!listingQuery.siralama) { listingQuery.siralama = vm.props.defaultOrder }
 
 				let filterQuery = omit(query, ['siralama', 'sayfa']);
 
@@ -169,7 +169,7 @@ class Listing extends React.Component {
 			let rawQuery = this.getQuery();
 			let initialQuery = queryString.stringify(rawQuery);
 
-			if(rawQuery.siralama === this.props.defaultOrder){
+			if (rawQuery.siralama === this.props.defaultOrder) {
 				rawQuery = omit(rawQuery, ['siralama']);
 			}
 
@@ -182,8 +182,8 @@ class Listing extends React.Component {
 					}
 				}
 				else {
-					if(query === ''){
-						if(history.location.search !== ''){
+					if (query === '') {
+						if (history.location.search !== '') {
 							window.dynamicHistory.push('?');
 						}
 					}
@@ -418,7 +418,7 @@ class ListingResults extends React.Component {
 
 									contents.push(
 										<li key={nth} className={"results-item banner x" + item.size}>
-											<Item className="item-banner" {...props}><Image className="banner-image" src={item.image} alt={item.title} bg={!vm.props.mobile} /></Item>
+											<Item className="item-banner" {...props}><Image className="banner-image" src={storageSpace('promo-videos', item.image)} alt={item.title} bg={!vm.props.mobile} /></Item>
 										</li>
 									);
 									break;

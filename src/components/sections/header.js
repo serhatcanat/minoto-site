@@ -9,6 +9,8 @@ import Responsive from 'components/partials/responsive.js'
 import Btn from 'components/partials/btn.js'
 
 // Deps
+import request from 'controllers/request'
+import history from 'controllers/history'
 import { openModal } from "functions/modals";
 import { blockOverflow } from "functions/helpers";
 import { connect } from "react-redux";
@@ -39,6 +41,7 @@ class Header extends React.Component {
 			menuOpen: false,
 			menuActive: false,
 			menuShow: false,
+			videoData: false
 		}
 
 		this.toggleMenu = this.toggleMenu.bind(this);
@@ -48,6 +51,18 @@ class Header extends React.Component {
 
 	componentWillUnmount() {
 		if (this.menuTimeout) { clearTimeout(this.menuTimeout); this.menuTimeout = false; }
+	}
+
+	componentDidMount() {
+		let vm = this;
+		vm.mounted = true;
+		vm.initialize();
+
+
+		vm.listenerAbort = history.listen(function (e) {
+
+			vm.initialize();
+		});
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -76,6 +91,22 @@ class Header extends React.Component {
 		}
 	}
 
+	initialize() {
+		let vm = this;
+		if (vm.mounted) {
+
+			vm.setState({ results: false });
+
+			request.get('promo-videos', null, function (payload) {
+				if (vm.mounted && payload) {
+					vm.setState({
+						videoData: payload,
+					});
+				}
+			});
+		}
+	}
+
 	toggleMenu() {
 		this.setState({ menuOpen: !this.state.menuOpen });
 	}
@@ -87,6 +118,7 @@ class Header extends React.Component {
 	render() {
 		let vm = this;
 		let user = vm.props.user;
+		let videoData = vm.state.videoData;
 		return (
 			<header className={"section header" + (vm.state.menuActive ? ' menu-active' : '')}>
 				<div className="header-wrap wrapper">
@@ -215,22 +247,25 @@ class Header extends React.Component {
 													<Link href="dealerApplication">Yetkili Bayi'yim, Nasıl Üye Olurum?</Link>
 												</li>
 											</ul>
-
-											<ul className="menu-thumblinks">
-												<li className="thumblinks-item full">
-													<button onClick={() => { openModal('youtube', { url: 'https://www.youtube.com/watch?v=XtodnzODmjg' }); vm.closeMenu(); }}>
-														<Image className="thumblinks-image" src="/assets/images/kia-incelemesi3.jpg" />
-													</button>
-												</li>
-												{false &&
-													<li className="thumblinks-item">
-														<Link href="/">
-															<Image className="thumblinks-image" src="/dummy/images/sidemenu-thumb.jpg" />
-															VW T-Cross İlk İnceleme
+											{videoData && (
+												<ul className="menu-thumblinks">
+													{videoData.map((video, nth) => (
+														<li className={`thumblinks-item ${videoData.length === 1 ? 'full' : ''}`} key={nth}>
+															<Link href="/" onClick={() => { openModal('youtube', { url: video.url }); vm.closeMenu(); }}>
+																<Image className="thumblinks-image" src={storageSpace('promo-videos', video.image)} />
+															</Link>
+														</li>
+													))}
+													{false &&
+														<li className="thumblinks-item">
+															<Link href="/">
+																<Image className="thumblinks-image" src="/dummy/images/sidemenu-thumb.jpg" />
+																VW T-Cross İlk İnceleme
 														</Link>
-													</li>
-												}
-											</ul>
+														</li>
+													}
+												</ul>
+											)}
 
 											{false &&
 												<div className="menu-applinks" style={{ opacity: '0' }}>
