@@ -100,7 +100,7 @@ export default class LoginForm extends React.Component {
 	}
 
 	responseFacebook(response) {
-		console.log(response)
+		//console.log(response)
 		let vm = this;
 
 		vm.setState({
@@ -109,12 +109,12 @@ export default class LoginForm extends React.Component {
 
 		socialLogin(response, 'facebook', function (payload) {
 			vm.setState({
-				success: payload.success,
+				success: payload ? payload.success : false,
 				loading: false,
-				message: payload.message,
+				message: payload ? payload.message : 'Bir hata ile karşılaşıldı, lütfen tekrar deneyin.',
 			});
 
-			if (payload.success) {
+			if (payload && payload.success) {
 				setTimeout(function () {
 					closeModal();
 				}, 1000);
@@ -123,7 +123,7 @@ export default class LoginForm extends React.Component {
 	}
 
 	responseGoogle(response) {
-		console.log(response)
+		//console.log(response)
 		let vm = this;
 
 		vm.setState({
@@ -132,12 +132,12 @@ export default class LoginForm extends React.Component {
 
 		socialLogin(response, 'google', function (payload) {
 			vm.setState({
-				success: payload.success,
+				success: payload ? payload.success : false,
 				loading: false,
-				message: payload.message,
+				message: payload ? payload.message : 'Bir hata ile karşılaşıldı, lütfen tekrar deneyin.',
 			});
 
-			if (payload.success) {
+			if (payload && payload.success) {
 				setTimeout(function () {
 					closeModal();
 				}, 1000);

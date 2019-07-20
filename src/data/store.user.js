@@ -7,6 +7,7 @@ import { redirect } from 'controllers/navigator'
 const initialState = {
 	token: false,
 	user: false,
+	unreadMessageCount: 0,
 };
 
 function userReducer(state = initialState, action) {
@@ -18,6 +19,11 @@ function userReducer(state = initialState, action) {
 	else if (action.type === "SET_TOKEN") {
 		return Object.assign({}, state, {
 			token: action.payload
+		});
+	}
+	else if (action.type === "SET_UNREAD_MESSAGE_COUNT") {
+		return Object.assign({}, state, {
+			unreadMessageCount: action.payload
 		});
 	}
 	return state;
@@ -40,8 +46,15 @@ function setToken(data) {
 	};
 }
 
-export function checkLoginStatus(endFunction = false) {
+function setUnreadMessageCount(data) {
+	return {
+		type: 'SET_UNREAD_MESSAGE_COUNT',
+		payload: data
+	};
+}
 
+// Functions
+export function checkLoginStatus(endFunction = false) {
 	if (localStorage["appState"]) {
 		let appState = JSON.parse(localStorage["appState"]);
 		if (appState.isLoggedIn) {
@@ -160,4 +173,10 @@ export function updateUserData(payload) {
 	localStorage["appState"] = JSON.stringify(appState);
 	store.dispatch(setUserData(userData));
 	store.dispatch(setToken(userData.auth_token));
+}
+
+export function getUnreadMessageCount(getData) {
+	request.get('messages/check-messages', null, function (payload, status, data) {
+		store.dispatch(setUnreadMessageCount(payload ? payload.length : 0));
+	});
 }

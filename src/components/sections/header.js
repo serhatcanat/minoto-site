@@ -15,6 +15,8 @@ import { openModal } from "functions/modals";
 import { blockOverflow } from "functions/helpers";
 import { connect } from "react-redux";
 import { storageSpace } from "functions/helpers";
+import { getUnreadMessageCount } from "data/store.user";
+
 // Assets
 import image_icon_facebook from 'assets/images/icon/facebook.svg'
 import image_icon_instagram from 'assets/images/icon/instagram.svg'
@@ -29,6 +31,7 @@ const mapStateToProps = state => {
 	return {
 		currentPage: state.generic.currentPage,
 		user: state.user.user,
+		unreadMessageCount: state.user.unreadMessageCount,
 		//mobile: state.generic.mobile,
 	};
 
@@ -60,7 +63,6 @@ class Header extends React.Component {
 
 
 		vm.listenerAbort = history.listen(function (e) {
-
 			vm.initialize();
 		});
 	}
@@ -84,6 +86,10 @@ class Header extends React.Component {
 					blockOverflow(false);
 				}, 600);
 			}
+		}
+
+		if(prevProps.user === false && this.props.user !== false){
+			getUnreadMessageCount();
 		}
 
 		if (prevProps.currentPage.key !== vm.props.currentPage.key && vm.state.menuOpen) {
@@ -135,7 +141,10 @@ class Header extends React.Component {
 							{user &&
 								<div className="nav-user">
 									<Link className="user-item avatar" href="account.profile" title={user.fullname}>
-										<Image bg src={(user.avatar ? storageSpace('profile-photos', user.avatar) : image_avatar)} />
+										<Image className="item-image" bg src={(user.avatar ? storageSpace('profile-photos', user.avatar) : image_avatar)} />
+										{vm.props.unreadMessageCount > 0 &&
+											<span className="item-unread">{vm.props.unreadMessageCount > 9 ? '9+' : vm.props.unreadMessageCount}</span>
+										}
 									</Link>
 
 									{/*<Link className="user-item notifications" href="account.notifications" title="Bildirimlerim">

@@ -16,6 +16,7 @@ import { storageSpace } from 'functions/helpers'
 import { setTitle } from 'controllers/head'
 import request from 'controllers/request'
 import { redirect } from 'controllers/navigator'
+import { getUnreadMessageCount } from "data/store.user";
 
 // Assets
 import image_avatar from 'assets/images/defaults/avatar.svg';
@@ -49,6 +50,9 @@ class MessageDetail extends React.Component {
 			{ email: vm.props.user.email },
 			function (payload) {
 				if (payload) {
+
+					getUnreadMessageCount();
+					
 					vm.setState({
 						conversation: payload
 					})

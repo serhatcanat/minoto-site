@@ -12,6 +12,8 @@ import { openModal } from 'functions/modals'
 import request from 'controllers/request'
 import { redirect } from 'controllers/navigator'
 import { storageSpace } from 'functions/helpers'
+import { getUnreadMessageCount } from "data/store.user";
+
 // Assets
 import image_avatar from 'assets/images/defaults/avatar.svg';
 
@@ -46,7 +48,7 @@ export default class Messages extends React.Component {
 			}
 		);
 
-
+		getUnreadMessageCount();
 	}
 
 	deleteConversation(message) {
