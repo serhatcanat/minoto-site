@@ -1,0 +1,92 @@
+.section {
+	&.comparison {
+		padding-bottom: 6rem;
+
+		.comparison-title {
+			@include font-semibold;
+			text-transform: uppercase;
+			font-size: 1.8rem;
+			margin-top: 2.4rem;
+			margin-bottom: -5.2rem;
+		}
+
+		.comparison-tablewrap {
+			padding-top: 5.2rem;
+		}
+
+		.comparison-table {
+			width: 100%;
+			border-collapse: collapse;
+			border-spacing: 0;
+
+			tr {
+				&:nth-child(odd){
+					.table-datafield{
+						background-color: rgba($color-gray-light, .7);
+					}
+				}
+				&:nth-child(even){
+					.table-datafield{
+						background-color: rgba($color-ice, .7);
+					}
+				}
+			}
+
+			td, th {
+				padding: 1rem 2rem;
+				line-height: 2rem;
+				font-size: 1.4rem;
+				border: .1rem solid $color-ice;
+			}
+
+			th {
+				@include font-medium;
+				text-align: left;
+				color: $color-text-light;
+				width: 25%;
+
+				&.empty {
+					border: none;
+				}
+			}
+
+			td {
+				width: 25%;
+
+				&.picker {
+					background: none;
+					padding: 3.2rem 2.3rem;
+				}
+			}
+		}
+
+			.table-carpicker {
+				.carpicker-imagewrap {
+					position: relative;
+					padding-bottom: 75%;
+				}
+
+				.carpicker-image {
+					position: absolute;
+					width: 100%;
+					height: 100%;
+					top: 0;
+					left: 0;
+				}
+
+				.carpicker-selector {
+					margin-top: 1rem;
+				}
+			}
+
+			.table-datafield {
+				border-top: none;
+				border-bottom: none;
+				
+				&.unavailable {
+					text-align: center;
+					color: $color-gray;
+				}
+			}
+	}
+}

@@ -132,6 +132,13 @@ module.exports = {
 			linkTitle: "Araç Liste Fiyatları",
 			title: "Araç Liste Fiyatları",
 		},
+		comparison: {
+			path: "/arac-karsilastir/:car1?/:model1?/:car2?/:model2?",
+			component: "Comparison",
+			exact: true,
+			linkTitle: "Araç Karşılaştırma",
+			title: "Araç Karşılaştırma",
+		},
 		about: {
 			path: "/minoto-nedir",
 			component: "About",

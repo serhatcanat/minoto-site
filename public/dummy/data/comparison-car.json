@@ -1,0 +1,121 @@
+{
+	"payload": {
+		"image": "aston-martine-rapide-s-coupe-luxury-pack_post_1562248398.jpg",
+		"brand": 2,
+		"brandOptions": [
+			{
+				"title": "Aston Martin",
+				"id": 6
+			},
+			{
+				"title": "Audi",
+				"id": 2
+			},
+			{
+				"title": "Dacia",
+				"id": 10
+			},
+			{
+				"title": "Fiat",
+				"id": 42
+			},
+			{
+				"title": "Lotus",
+				"id": 3
+			},
+			{
+				"title": "Nissan",
+				"id": 11
+			},
+			{
+				"title": "Renault",
+				"id": 21
+			},
+			{
+				"title": "Seat",
+				"id": 9
+			},
+			{
+				"title": "Skoda",
+				"id": 9
+			},
+			{
+				"title": "Volvo",
+				"id": 13
+			}
+		],
+		"model": 2,
+		"modelOptions": [
+			{
+				"title": "A3",
+				"id": 6
+			},
+			{
+				"title": "A4",
+				"id": 2
+			},
+			{
+				"title": "A1",
+				"id": 10
+			},
+			{
+				"title": "A5",
+				"id": 42
+			},
+			{
+				"title": "A6",
+				"id": 3
+			},
+			{
+				"title": "A7",
+				"id": 11
+			}
+		],
+		"type": 2,
+		"typeOptions": [
+			{
+				"title": "Cabrio",
+				"id": 6
+			},
+			{
+				"title": "Sedan",
+				"id": 2
+			},
+			{
+				"title": "Hatchback",
+				"id": 10
+			},
+			{
+				"title": "Coupe",
+				"id": 42
+			}
+		],
+		"package": 2,
+		"packageOptions": [
+			{
+				"title": "1.6 TFSI",
+				"id": 6
+			},
+			{
+				"title": "1.4 TFSI",
+				"id": 2
+			},
+			{
+				"title": "1.4 TDI",
+				"id": 10
+			},
+			{
+				"title": "2.0 TDI",
+				"id": 42
+			}
+		],		
+		"specs": {
+			"title": "Audi A3 Cabrio 1.4 TFSI",
+			"price": "354.000 TL",
+			"type": "Sedan / 4 Kapı",
+			"engine": "Benzinli / 3 Silindir",
+			"power": "116 hp",
+			"ncap": false
+		}
+	}
+}

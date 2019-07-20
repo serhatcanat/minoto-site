@@ -1,0 +1,20 @@
+{
+	"payload": [
+		{
+			"title": "Cabrio",
+			"id": 6
+		},
+		{
+			"title": "Sedan",
+			"id": 2
+		},
+		{
+			"title": "Hatchback",
+			"id": 10
+		},
+		{
+			"title": "Coupe",
+			"id": 42
+		}
+	]
+}

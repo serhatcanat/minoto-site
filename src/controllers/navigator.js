@@ -48,6 +48,7 @@ import Dealer from 'pages/dealer'
 import Branch from 'pages/branch'
 import Detail from 'pages/detail'
 import ListPrices from 'pages/listprices'
+import Comparison from 'pages/comparison'
 import About from 'pages/about'
 import Account from 'pages/account'
 import Reservation from 'pages/reservation'
@@ -77,6 +78,7 @@ const pageRegistry = {
 	Branch: Branch,
 	Detail: Detail,
 	ListPrices: ListPrices,
+	Comparison: Comparison,
 	About: About,
 	Account: Account,
 	Reservation: Reservation,
