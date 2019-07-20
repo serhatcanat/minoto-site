@@ -27,6 +27,8 @@ export default class LoginForm extends React.Component {
 		this.submit = this.submit.bind(this);
 		this.responseFacebook = this.responseFacebook.bind(this);
 		this.responseGoogle = this.responseGoogle.bind(this);
+
+		this._isMounted = false;
 	}
 
 	/*
@@ -76,6 +78,13 @@ export default class LoginForm extends React.Component {
 	};
 	*/
 
+	componentDidMount() {
+		this._isMounted = true;
+	}
+
+	componentWillUnmount() {
+		this._isMounted = false;
+	}
 
 	submit(e) {
 		let vm = this;
@@ -85,16 +94,20 @@ export default class LoginForm extends React.Component {
 		})
 
 		login(e.target, function (payload) {
-			vm.setState({
-				success: payload.success,
-				loading: false,
-				message: payload.message,
-			});
+			if(vm._isMounted){
+				vm.setState({
+					success: payload.success,
+					loading: false,
+					message: payload.message,
+				});
 
-			if (payload.success) {
-				setTimeout(function () {
-					closeModal();
-				}, 1000);
+				if (payload.success) {
+					setTimeout(function () {
+						if(vm._isMounted){
+							closeModal();
+						}
+					}, 1000);
+				}
 			}
 		});
 	}
@@ -108,16 +121,20 @@ export default class LoginForm extends React.Component {
 		})
 
 		socialLogin(response, 'facebook', function (payload) {
-			vm.setState({
-				success: payload ? payload.success : false,
-				loading: false,
-				message: payload ? payload.message : 'Bir hata ile karşılaşıldı, lütfen tekrar deneyin.',
-			});
+			if(vm._isMounted){
+				vm.setState({
+					success: payload ? payload.success : false,
+					loading: false,
+					message: payload ? payload.message : 'Bir hata ile karşılaşıldı, lütfen tekrar deneyin.',
+				});
 
-			if (payload && payload.success) {
-				setTimeout(function () {
-					closeModal();
-				}, 1000);
+				if (payload && payload.success) {
+					setTimeout(function () {
+						if(vm._isMounted){
+							closeModal();
+						}
+					}, 1000);
+				}
 			}
 		});
 	}
@@ -131,16 +148,20 @@ export default class LoginForm extends React.Component {
 		})
 
 		socialLogin(response, 'google', function (payload) {
-			vm.setState({
-				success: payload ? payload.success : false,
-				loading: false,
-				message: payload ? payload.message : 'Bir hata ile karşılaşıldı, lütfen tekrar deneyin.',
-			});
+			if(vm._isMounted){
+				vm.setState({
+					success: payload ? payload.success : false,
+					loading: false,
+					message: payload ? payload.message : 'Bir hata ile karşılaşıldı, lütfen tekrar deneyin.',
+				});
 
-			if (payload && payload.success) {
-				setTimeout(function () {
-					closeModal();
-				}, 1000);
+				if (payload && payload.success) {
+					setTimeout(function () {
+						if(vm._isMounted){
+							closeModal();
+						}
+					}, 1000);
+				}
 			}
 		});
 	}

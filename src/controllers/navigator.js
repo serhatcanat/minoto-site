@@ -181,6 +181,7 @@ export function redirect(opts, params = false, getParams = false) {
 				history.push(route);
 				break;
 		}
+		changePage();
 		return true;
 	}
 	else {
@@ -331,5 +332,5 @@ export function renderRoutes(opts = {}) {
 		routeData.push(<Redirect to={to} key="redir" />)
 	}
 
-	return <Switch>{routeData}</Switch>
+	return <Switch>{routeData}</Switch>;
 }

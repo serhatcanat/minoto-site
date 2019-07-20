@@ -17,7 +17,12 @@ const mapStateToProps = state => {
 class Login extends React.Component {
 
 	componentDidMount() {
+		this._isMounted = true;
 		this.checkUser();
+	}
+
+	componentWillUnmount() {
+		this._isMounted = false;
 	}
 
 	componentDidUpdate(prevProps){
@@ -27,8 +32,13 @@ class Login extends React.Component {
 	}
 
 	checkUser(){
-		if(this.props.user !== false){
-			redirect('account.profile');
+		let vm = this;
+		if(vm.props.user !== false){
+			setTimeout(function() {
+				if(vm._isMounted){
+					redirect('account.profile');
+				}
+			}, 100);
 		}
 	}
 

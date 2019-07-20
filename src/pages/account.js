@@ -76,6 +76,7 @@ class Account extends React.Component {
 			checkLoginStatus(function (status) {
 				if (!status) {
 					redirect('account.login');
+					vm.setState({ loading: false });
 				}
 				else {
 					vm.setState({ loading: false });
@@ -107,6 +108,9 @@ class Account extends React.Component {
 						}
 						{renderRoutes({ group: 'account', registry: pageRegistry, catchRedirect: 'account.profile' })}
 					</div>
+				}
+				{!(!vm.state.loading && !(!vm.props.user && vm.props.currentPage.data.requiresLogin)) &&
+					<span>no</span>
 				}
 			</main>
 		)
