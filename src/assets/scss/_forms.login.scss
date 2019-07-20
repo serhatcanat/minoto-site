@@ -48,12 +48,19 @@
 		&.center {
 			justify-content: center;
 			margin-top: 3rem;
+
+			.nav-btn {
+				margin: 0 1rem;
+			}
 		}
 
 		.nav-btn {
 			display: inline-block;
 			color: $color-primary;
-			margin: 0 1rem;
+
+			+ .nav-btn {
+				margin-left: 1rem;
+			}
 
 			i {
 				margin-right: .4rem;

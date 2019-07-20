@@ -3,7 +3,7 @@ import React from 'react'
 // Partials
 import { InputForm, FormInput } from 'components/partials/forms'
 import Btn from 'components/partials/btn'
-import FacebookLogin from 'react-facebook-login' //'react-facebook-login/dist/facebook-login-render-props'
+import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 import GoogleLogin from 'react-google-login';
 import defaults from "data/config"
 //import axios from "axios";
