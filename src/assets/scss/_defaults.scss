@@ -84,7 +84,7 @@ body{
 	}
 }
 
-@include mediaVertical(750) {
+@include mediaLandscape(750, 750) {
 	html{
 		@include calcFontSize(375, true);
 	}

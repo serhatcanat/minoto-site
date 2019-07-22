@@ -29,10 +29,11 @@
 	}
 }
 
-@mixin mediaVertical($height : 960){
-	$wpx: ($height * 1px);
+@mixin mediaLandscape($width : 960, $height : 960){
+	$wpx: ($width * 1px);
+	$wpy: ($height * 1px);
 
-	@media screen and (orientation: landscape) and (max-height: $wpx) {
+	@media screen and (orientation: landscape) and (max-height: $wpy) and (max-width: $wpx){
 		@content;
 	}
 }
