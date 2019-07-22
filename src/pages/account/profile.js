@@ -10,7 +10,7 @@ import MyAvatar from 'components/partials/avatar-editor'
 import { connect } from "react-redux"
 import { openModal } from 'functions/modals'
 import { storageSpace, serializeArray } from "functions/helpers";
-import { logout } from "data/store.user"
+import { logout, updateUserToken } from "data/store.user"
 import request from 'controllers/request'
 
 
@@ -238,10 +238,10 @@ class Profile extends React.Component {
 											</Btn>
 										</div>
 									</InputForm>
-									{false &&
-										<PasswordForm />
-									}
 
+									{/*
+									<PasswordForm />
+									*/}
 
 									<InputForm className="form-section">
 										<div className="form-group">
@@ -293,6 +293,8 @@ class PasswordForm extends React.Component {
 
 				if (payload.success && vm.form.current) {
 					vm.form.current.reset();
+
+					updateUserToken(payload.auth_token);
 				}
 			}
 			else {

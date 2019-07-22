@@ -175,6 +175,25 @@ export function updateUserData(payload) {
 	store.dispatch(setToken(userData.auth_token));
 }
 
+export function updateUserToken(token) {
+	if (localStorage["appState"]) {
+		let appState = JSON.parse(localStorage["appState"]);
+
+		if(appState.isLoggedIn){
+			appState.authToken = token;
+
+			store.dispatch(setToken(token));
+			localStorage["appState"] = JSON.stringify(appState);
+
+			checkLoginStatus(function(data){
+				if(!data){
+					logout(true);
+				}
+			});
+		}
+	}
+}
+
 export function getUnreadMessageCount(getData) {
 	request.get('messages/check-messages', null, function (payload, status, data) {
 		store.dispatch(setUnreadMessageCount(payload ? payload.length : 0));
