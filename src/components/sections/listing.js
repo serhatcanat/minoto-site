@@ -1,16 +1,17 @@
-import React from 'react';
+import React from 'react'
 
 import config from 'data/config'
 
 // Partials
 import ContentBox from 'components/partials/contentbox'
-import Image from 'components/partials/image';
-import Loader from 'components/partials/loader';
-import { FormInput } from 'components/partials/forms';
-import Link from 'components/partials/link'
+import Image from 'components/partials/image'
+import Loader from 'components/partials/loader'
+import { FormInput } from 'components/partials/forms'
+//import Link from 'components/partials/link'
+import ListingBanner from 'components/partials/listing-banner'
 
 // Sections
-import ListingFilters from 'components/sections/listing-filters';
+import ListingFilters from 'components/sections/listing-filters'
 
 // Deps
 import debounce from 'lodash/debounce';
@@ -27,7 +28,7 @@ import { connect } from "react-redux";
 import { storageSpace } from "functions/helpers";
 import queryString from 'query-string';
 import { setFiltersExpansion, setListingQuery, setFilterQuery, setListingData } from 'data/store.listing';
-import { openModal } from 'functions/modals'
+//import { openModal } from 'functions/modals'
 
 const mapStateToProps = state => {
 	return {
@@ -396,31 +397,11 @@ class ListingResults extends React.Component {
 							let contents = [];
 							switch (item.type) {
 								case 'banner':
-									let Item = 'div';
-									let props = {};
+									let contentItem = <ListingBanner key={nth} mobile={vm.props.mobile} data={item} />
 
-									if (item.url) {
-										switch (item.action) {
-											case "youtube":
-												Item = 'button';
-												props.onClick = () => { openModal('youtube', { url: item.url }) }
-												break;
-											case "externalLink":
-												Item = 'a';
-												props.herf = item.url;
-												break;
-											default:
-												Item = Link;
-												props.href = item.url;
-												break;
-										}
+									if(contentItem){
+										contents.push(contentItem);
 									}
-
-									contents.push(
-										<li key={nth} className={"results-item banner x" + item.size}>
-											<Item className="item-banner" {...props}><Image className="banner-image" src={storageSpace('promo-videos', item.image)} alt={item.title} bg={!vm.props.mobile} /></Item>
-										</li>
-									);
 									break;
 								default:
 									switch (data.type) {

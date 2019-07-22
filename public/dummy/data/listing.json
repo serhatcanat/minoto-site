@@ -365,6 +365,11 @@
 				]
 			},
 			{
+				"type": "banner",
+				"component": "hr",
+				"size": 1
+			},
+			{
 				"id": 145,
 				"slug": "bmw-118i-joy-plus",
 				"type": "advert",
@@ -405,7 +410,8 @@
 				"type": "banner",
 				"title": "Minoto 2018’in otomobillerini seçti",
 				"image": "/dummy/images/listing-banner-small.jpg",
-				"url": "http://google.com/",
+				"url": "http://google.com.tr/",
+				"action": "externalLink",
 				"size": 1
 			},
 			{
@@ -421,6 +427,11 @@
 				"labels": []
 			},
 			{
+				"type": "banner",
+				"component": "instagram",
+				"size": 1
+			},
+			{
 				"id": 145,
 				"slug": "bmw-118i-joy-plus",
 				"type": "advert",
@@ -431,6 +442,11 @@
 				"price": 1800000,
 				"currentViewers": 0,
 				"labels": []
+			},
+			{
+				"type": "banner",
+				"component": "youtube",
+				"size": 1
 			},
 			{
 				"id": 145,

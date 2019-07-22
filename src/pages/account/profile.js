@@ -239,9 +239,9 @@ class Profile extends React.Component {
 										</div>
 									</InputForm>
 
-									{/*
-									<PasswordForm />
-									*/}
+									{false &&
+										<PasswordForm />
+									}
 
 									<InputForm className="form-section">
 										<div className="form-group">

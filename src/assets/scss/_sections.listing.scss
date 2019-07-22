@@ -322,6 +322,107 @@
 							height: 100%;
 						}
 
+						.banner-instagram {
+							position: relative;
+							display: block;
+							width: 100%;
+
+							.instagram-text {
+								@include font-light;
+								position: absolute;
+								left: 2.5rem;
+								top: 2.5rem;
+								z-index: 2;
+								color: $color-white;
+								line-height: 1.3em;
+								font-size: 2.4rem;
+							}
+						}
+
+						.banner-youtube {
+							width: 100%;
+							padding: 2.5rem;
+							background-color: $color-text;
+							color: $color-white;
+
+							.youtube-text {
+								@include font-light;
+								font-size: 1.6rem;
+
+								> * + * {
+									margin-top: 1rem;
+								}
+							}
+
+								.text-heading {
+									@include font-light;
+									position: relative;
+									padding-left: 1.4rem;
+									font-size: 2.4rem;
+									line-height: 1.3em;
+
+									strong {
+										@include font-semibold;
+									}
+
+									&:before {
+										@extend %pseudo;
+										position: absolute;
+										left: 0;
+										top: .6rem;
+										bottom: .6rem;
+										width: .5rem;
+										background-color: $color-red;
+									}
+								}
+
+								.text-subheading {
+									color: rgba($color-white, .7);
+								}
+
+							.youtube-image {
+								display: block;
+								width: 100%;
+								margin-top: 3.4rem;
+							}
+						}
+
+						.banner-hr {
+							background-color: $color-text;
+							color: $color-white;
+							text-align: center;
+							width: 100%;
+							display: flex;
+							align-items: center;
+							justify-content: center;
+							padding: 2.5rem;
+
+							.hr-content {
+								@include font-light;
+								line-height: 1.3em;
+							}
+
+								.content-title {
+									font-size: 2.4rem;
+								}
+
+								.content-description {
+									font-size: 1.6rem;
+									margin-top: 2rem;
+									color: rgba($color-white, .7);
+
+									strong {
+										color: $color-white;
+									}
+								}
+
+								.content-cta {
+									margin-top: 6rem;
+									min-width: 16rem;
+									max-width: 100%;
+								}
+						}
+
 				.results-ad {
 					text-align: center;
 					display: block;

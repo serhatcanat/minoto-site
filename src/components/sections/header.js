@@ -11,11 +11,12 @@ import Btn from 'components/partials/btn.js'
 // Deps
 import request from 'controllers/request'
 import history from 'controllers/history'
-import { openModal } from "functions/modals";
-import { blockOverflow } from "functions/helpers";
-import { connect } from "react-redux";
-import { storageSpace } from "functions/helpers";
-import { getUnreadMessageCount } from "data/store.user";
+import { openModal } from "functions/modals"
+import { blockOverflow } from "functions/helpers"
+import { connect } from "react-redux"
+import { storageSpace } from "functions/helpers"
+import { getUnreadMessageCount } from "data/store.user"
+import config from 'data/config'
 
 // Assets
 import image_icon_facebook from 'assets/images/icon/facebook.svg'
@@ -180,19 +181,19 @@ class Header extends React.Component {
 												</Responsive>
 
 												<div className="menu-social">
-													<a href="http://www.instagram.com/minotocom" target="_blank" rel="noopener noreferrer" title="Bizi Instagram'da Takip Edin">
+													<a href={config.social.instagramURL} target="_blank" rel="noopener noreferrer" title="Bizi Instagram'da Takip Edin">
 														<Image src={image_icon_instagram} alt="Instagram" />
 													</a>
-													<a href="https://www.youtube.com/minotocom" target="_blank" rel="noopener noreferrer" title="Bizi YouTube'da Takip Edin">
+													<a href={config.social.youtubeURL} target="_blank" rel="noopener noreferrer" title="Bizi YouTube'da Takip Edin">
 														<Image src={image_icon_youtube} alt="YouTube" />
 													</a>
-													<a href="http://www.facebook.com/minotocom" target="_blank" rel="noopener noreferrer" title="Bizi Facebook'da Takip Edin">
+													<a href={config.social.facebookURL} target="_blank" rel="noopener noreferrer" title="Bizi Facebook'da Takip Edin">
 														<Image src={image_icon_facebook} alt="Facebook" />
 													</a>
-													<a href="http://www.twitter.com/minotocom" target="_blank" rel="noopener noreferrer" title="Bizi Twitter'da Takip Edin">
+													<a href={config.social.twitterURL} target="_blank" rel="noopener noreferrer" title="Bizi Twitter'da Takip Edin">
 														<Image src={image_icon_twitter} alt="Twitter" />
 													</a>
-													<a href="https://www.linkedin.com/company/minoto" target="_blank" rel="noopener noreferrer" title="Bizi LinkedIn'de Takip Edin">
+													<a href={config.social.linkedInURL} target="_blank" rel="noopener noreferrer" title="Bizi LinkedIn'de Takip Edin">
 														<Image src={image_icon_linkedin} alt="LinkedIn" />
 													</a>
 												</div>
