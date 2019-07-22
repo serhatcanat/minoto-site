@@ -238,8 +238,10 @@ class Profile extends React.Component {
 											</Btn>
 										</div>
 									</InputForm>
+									{false &&
+										<PasswordForm />
+									}
 
-									<PasswordForm />
 
 									<InputForm className="form-section">
 										<div className="form-group">
@@ -285,11 +287,11 @@ class PasswordForm extends React.Component {
 			let message = false;
 			let error = false;
 
-			if(payload){
+			if (payload) {
 				error = !payload.success;
 				message = payload.message;
 
-				if(payload.success && vm.form.current){
+				if (payload.success && vm.form.current) {
 					vm.form.current.reset();
 				}
 			}
@@ -308,7 +310,7 @@ class PasswordForm extends React.Component {
 			<InputForm className="form-section" onSubmit={vm.saveData} ref={vm.form}>
 				<div className="form-group">
 					<h2 className="form-title">Şifre Değişikliği</h2>
-					{vm.state.message && 
+					{vm.state.message &&
 						<div className={'form-message ' + (vm.state.error ? 'error' : 'success')}>
 							<span>{vm.state.message}</span>
 						</div>
