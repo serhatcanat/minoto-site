@@ -240,8 +240,7 @@ class Profile extends React.Component {
 									</InputForm>
 
 									{false &&
-										<PasswordForm />
-									}
+										<PasswordForm />}
 
 									<InputForm className="form-section">
 										<div className="form-group">

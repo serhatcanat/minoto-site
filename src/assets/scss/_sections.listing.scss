@@ -337,6 +337,14 @@
 								line-height: 1.3em;
 								font-size: 2.4rem;
 							}
+							.imagewrap .imagewrap-image{
+								@include media {
+									width: 60vw;
+									height: 25.6rem;
+								}
+								
+							}
+							
 						}
 
 						.banner-youtube {
@@ -400,27 +408,51 @@
 							.hr-content {
 								@include font-light;
 								line-height: 1.3em;
-							}
-
-								.content-title {
-									font-size: 2.4rem;
-								}
-
-								.content-description {
-									font-size: 1.6rem;
-									margin-top: 2rem;
-									color: rgba($color-white, .7);
-
-									strong {
-										color: $color-white;
+								overflow: hidden;
+								z-index: 0;
+								
+								.inner-triangle{
+									border-left: 25rem solid transparent;
+									border-right: 29rem solid #092C7F;
+									border-top: 18rem solid transparent;
+									height: 0;
+									width: 0;
+									position: absolute;
+									bottom: 1.5rem;
+									right: 1.5rem;
+									z-index: 2;
+									@include media {
+										display: none;
 									}
 								}
+								
+							}
 
-								.content-cta {
-									margin-top: 6rem;
-									min-width: 16rem;
-									max-width: 100%;
+							.content-title {
+								font-size: 2.4rem;
+								z-index: 555;
+							}
+
+							.content-description {
+								font-size: 1.6rem;
+								margin-top: 2rem;
+								color: rgba($color-white, .7);
+
+								strong {
+									color: $color-white;
 								}
+								z-index: 555;
+							}
+
+							.content-cta {
+								margin-top: 6rem;
+								min-width: 16rem;
+								max-width: 100%;
+								z-index: 555;
+								@include media {
+									min-width: 10rem;
+								}
+							}
 						}
 
 				.results-ad {

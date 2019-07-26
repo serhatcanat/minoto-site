@@ -399,7 +399,7 @@ class ListingResults extends React.Component {
 								case 'banner':
 									let contentItem = <ListingBanner key={nth} mobile={vm.props.mobile} data={item} />
 
-									if(contentItem){
+									if (contentItem) {
 										contents.push(contentItem);
 									}
 									break;
