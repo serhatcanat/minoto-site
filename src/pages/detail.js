@@ -366,7 +366,7 @@ class DetailGallery extends React.Component {
 					<Slider className="mainslider-slider" ref={vm.mainSlider} loop opts={{ lazy: true }} onChange={vm.imageChange}>
 						{images.map((image, nth) => (
 							<div className="slider-imagewrap" key={nth}>
-								<div className="imagewrap-image swiper-lazy" data-background={storageSpace('car-posts/gallery', image.medium)} onClick={() => { if(!vm.props.fullScreen && vm.props.mobile) { vm.props.onFullScreenChange(true); } }}>
+								<div className="imagewrap-image swiper-lazy" data-background={storageSpace('car-posts/gallery', image.medium)} onClick={() => { if (!vm.props.fullScreen && vm.props.mobile) { vm.props.onFullScreenChange(true); } }}>
 								</div>
 								<Image className="imagewrap-loader" width="100" bg src={image_loader} alt="Yükleniyor..." />
 							</div>
@@ -567,11 +567,14 @@ class DetailInfo extends React.Component {
 												</Link>
 												<p className="dealer-info">
 													<span className="info-location">{product.dealer.location}</span>
-													<span className={"info-workinghours " + (product.dealer.open ? 'open' : 'closed')}>
-														{product.dealer.workingHours}
-														<span>|</span>
-														{(product.dealer.open ? 'Şu an açık' : 'Şu an kapalı')}
-													</span>
+													{product.dealer.workingHours && (
+														<span className={"info-workinghours " + (product.dealer.open ? 'open' : 'closed')}>
+															{product.dealer.workingHours}
+															<span>|</span>
+															{(product.dealer.open ? 'Şu an açık' : 'Şu an kapalı')}
+														</span>
+													)}
+
 												</p>
 											</div>
 										</div>
