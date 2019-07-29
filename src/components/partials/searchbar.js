@@ -77,7 +77,7 @@ class SearchBar extends React.Component {
 
 	componentWillUnmount() {
 		this._isMounted = false;
-		if(this.animTimeout !== false){
+		if (this.animTimeout !== false) {
 			clearTimeout(this.animTimeout);
 		}
 		this.unbindInputs();
@@ -146,7 +146,7 @@ class SearchBar extends React.Component {
 	}
 
 	show() {
-		if(this._isMounted){
+		if (this._isMounted) {
 			this.props.setOpen(true);
 		}
 	}
@@ -162,7 +162,7 @@ class SearchBar extends React.Component {
 
 				if (vm.input.current) {
 					setTimeout(function () {
-						if(vm._isMounted){
+						if (vm._isMounted) {
 							vm.input.current.focus();
 						}
 					}, 10);
@@ -172,7 +172,7 @@ class SearchBar extends React.Component {
 	}
 
 	hide() {
-		if(this._isMounted){
+		if (this._isMounted) {
 			this.props.setOpen(false);
 		}
 
@@ -288,14 +288,14 @@ class SearchBar extends React.Component {
 				vm.setState({ loading: true });
 
 				request.get('search', { search: vm.props.inputValue, }, function (payload, status) {
-					if(vm._isMounted){
+					if (vm._isMounted) {
 						if (!vm.state.submitted) {
 							if (payload) {
 								vm.setState({ data: payload, loading: false });
 
 
 								setTimeout(function () {
-									if(vm._isMounted){
+									if (vm._isMounted) {
 										vm.props.setOpen(true)
 									}
 								}, 100);
@@ -332,7 +332,7 @@ class SearchBar extends React.Component {
 		if (this.props.inputValue.length) {
 			redirect('search', false, { ara: this.props.inputValue });
 		} else {
-			redirect('searchBrand', { brand: 'nissan' }, { model: '5613|5621|5623|5629' });
+			redirect('searchBrand', { brand: 'renault' }, { model: '7569|4912|7562|7555|7563|4904' });
 		}
 
 	}
@@ -423,7 +423,7 @@ class SearchBar extends React.Component {
 
 SearchBar.defaultProps = {
 	className: '',
-	placeholder: 'Nissan Qashqai Ara',
+	placeholder: 'Renault Clio Ara',
 	fullScreen: false,
 };
 
