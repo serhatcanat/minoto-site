@@ -5,4 +5,29 @@
 		<changefreq>monthly</changefreq>
 		<priority>0.8</priority>
 	</sitemap>
+	<sitemap>
+		<loc>https://minoto.com/sitemap/brands.xml</loc>
+		<changefreq>monthly</changefreq>
+		<priority>0.8</priority>
+	</sitemap>
+	<sitemap>
+		<loc>https://minoto.com/sitemap/dealers.xml</loc>
+		<changefreq>monthly</changefreq>
+		<priority>0.8</priority>
+	</sitemap>
+	<sitemap>
+		<loc>https://minoto.com/sitemap/carposts.xml</loc>
+		<changefreq>monthly</changefreq>
+		<priority>0.8</priority>
+	</sitemap>
+	<sitemap>
+		<loc>https://minoto.com/sitemap/blog-categories.xml</loc>
+		<changefreq>monthly</changefreq>
+		<priority>0.8</priority>
+	</sitemap>
+	<sitemap>
+		<loc>https://minoto.com/sitemap/blog-posts.xml</loc>
+		<changefreq>monthly</changefreq>
+		<priority>0.8</priority>
+	</sitemap>
 </sitemapindex>
