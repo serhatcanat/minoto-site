@@ -70,9 +70,12 @@
 				@include media {
 					width: 100%;
 					margin-top: 6rem;
-					display: flex;
+					display: static;
 					justify-content: space-between;
 					align-items: center;
+					.contact-text{
+						margin-bottom: 2rem;
+					}
 				}
 			}
 

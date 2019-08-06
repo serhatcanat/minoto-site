@@ -197,7 +197,7 @@ class Footer extends React.Component {
 										</a>
 									</li>
 									<li>
-										<a href={config.social.twitterURL} target="_blank" rel="noopener noreferrer" title="Bizi Facebook'da Takip Edin">
+										<a href={config.social.twitterURL} target="_blank" rel="noopener noreferrer" title="Bizi Twitter'da Takip Edin">
 											<Image src={image_icon_twitter} alt="Twitter" />
 										</a>
 									</li>
