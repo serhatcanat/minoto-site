@@ -42,7 +42,7 @@ class About extends React.Component {
 						<br /><br />
 							İçerisinde <strong>sadece Yetkili Bayi’lerin</strong> olduğu ve <strong>sadece “0 km” araçların</strong> gerçek fotoğrafları ve fiyatları ile sergilendiği bir ilan sitesi, pazar yeri ve ötesidir.
 						<br /><br />
-							<strong>“Minimum efor, maksimum oto!”</strong> anlayışıyla yola çıkarak Türkiye’de bir ilke imza atan, bayiler tarafından satışa sunulan sıfır kilometre otomobillerin güncel fotoğraf ve bilgilerini, tüketicilerle buluşturan dijital pazar yeri <strong>Minoto</strong>’ya üye olan bayiler, stoklarındaki araçları platforma yükleyerek, otomobil ve hafif ticari araç satın almayı planlayan ülkenin her yerindeki kişilere ulaşabilecekler. <strong>Minoto</strong> sayesinde müşteriler; üye bayilerin sisteme girdiği dijital stoklarından satan almak için aradıkları araçların rengini, döşemesini, motor / şanzıman kombinasyonunu, donanımlarını olduğu gibi görebilme imkanı elde edecek.
+							<strong>“Minimum efor, maksimum oto!”</strong> anlayışıyla yola çıkarak Türkiye’de bir ilke imza atan, bayiler tarafından satışa sunulan sıfır kilometre otomobillerin güncel fotoğraf ve bilgilerini, tüketicilerle buluşturan dijital pazar yeri <strong>Minoto</strong>’ya üye olan bayiler, stoklarındaki araçları platforma yükleyerek, otomobil ve hafif ticari araç satın almayı planlayan ülkenin her yerindeki kişilere ulaşabilecekler. <strong>Minoto</strong> sayesinde müşteriler; üye bayilerin sisteme girdiği dijital stoklarından satın almak için aradıkları araçların rengini, döşemesini, motor / şanzıman kombinasyonunu, donanımlarını olduğu gibi görebilme imkanı elde edecek.
 						</div>
 					</div>
 				</section>
