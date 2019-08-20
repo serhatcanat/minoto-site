@@ -22,6 +22,7 @@ import YoutubeModal from 'components/modals/youtube'
 import ResponsiveWatcher from 'controllers/responsive-watcher'
 import ModalsWrap from 'controllers/modals-wrap'
 import MessengerWrap from 'controllers/messenger'
+import GAController from 'controllers/ga'
 
 // Deps
 import { Route, matchPath, Switch, Redirect } from 'react-router-dom'
@@ -115,6 +116,7 @@ export default class Navigator extends React.Component {
 		return (
 			<div className="site-content">
 				<ResponsiveWatcher />
+				<GAController />
 				<MessengerWrap />
 				<SearchBar className="search-mobile" fullScreen={true} />
 				<Header />

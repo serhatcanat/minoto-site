@@ -1,19 +1,19 @@
 import defaults from "data/config"
 
 const initialState = {
-  loading: false,
-  currentPage: {
-  	key: "",
-  	data: {}
-  },
-  messages: [],
-  mobile: (window.innerWidth <= defaults.mobileBreakPoint),
-  mobileBreakPoint: defaults.mobileBreakPoint,
-  scrollPos: 0,
-  mapsAPIkey: defaults.mapsAPIkey,
-  windowWidth: window.innerWidth,
-  searchBarOpen: false,
-  searchBarValue: "",
+	loading: false,
+	currentPage: {
+		key: "",
+		data: {}
+	},
+	messages: [],
+	mobile: (window.innerWidth <= defaults.mobileBreakPoint),
+	mobileBreakPoint: defaults.mobileBreakPoint,
+	scrollPos: 0,
+	mapsAPIkey: defaults.mapsAPIkey,
+	windowWidth: window.innerWidth,
+	searchBarOpen: false,
+	searchBarValue: "",
 };
 
 function globalReducer(state = initialState, action) {
