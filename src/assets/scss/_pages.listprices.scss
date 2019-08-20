@@ -124,11 +124,7 @@
 					@extend %pseudo;
 					height: 3rem;
 				}
-				//border-top: 3rem solid $color-white;
-				tr:first-child {
-					td {
-					}
-				}
+				
 
 				td {
 					border-right: .1rem solid rgba($color-ice, .7);

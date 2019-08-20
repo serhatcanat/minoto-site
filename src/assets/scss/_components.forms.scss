@@ -144,9 +144,7 @@
 		}
 	}
 
-	/// Types
-	&.type-text {
-	}
+
 
 	&.type-file {
 		input + label {
@@ -265,9 +263,6 @@
 						color: $color-primary;
 					}
 
-					.checkwrap-content {
-
-					}
 				}
 			}
 		}
@@ -293,9 +288,7 @@
 			}
 		}
 
-		.input-editorwrap {
 
-		}
 
 			.editorwrap-previewwrap {
 				position: relative;

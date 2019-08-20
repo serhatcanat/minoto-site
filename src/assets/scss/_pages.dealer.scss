@@ -184,8 +184,6 @@
 						//border-top: .1rem solid $color-ice;
 						border-bottom: .1rem solid $color-ice;
 
-						&:last-child {
-						}
 						
 						&.open {
 
@@ -305,9 +303,9 @@
 					margin-top: 1.5rem;
 				}
 
-			.info-filters {
-				//margin-top: 4rem;
-			}
+			/* .info-filters {
+				margin-top: 4rem;
+			} */
 
 		.detail-right {
 			width: calc(100% - 28rem);

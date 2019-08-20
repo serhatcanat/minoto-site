@@ -335,9 +335,7 @@
 				border-bottom: .1rem solid $color-ice;
 			}
 
-			.group-items {
-
-			}
+		
 
 				.items-notification {
 					@include font-regular;
@@ -472,8 +470,7 @@
 			}
 		}
 
-		.messages-list{}
-
+	
 			.list-item {
 				+ .list-item {
 					margin-top: 2.2rem;
@@ -736,8 +733,7 @@
 			}
 		}
 
-		.conversation-messages {
-		}
+	
 
 			.messages-message {
 				padding: 3.2rem 0 2.9rem;
@@ -855,9 +851,7 @@
 	}
 
 	&.account-reservations {
-		.reservations-list {
-
-		}
+	
 
 			.list-reservation {
 				+ .list-reservation { margin-top: 1.5rem; }
