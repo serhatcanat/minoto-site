@@ -555,7 +555,7 @@ class DetailInfo extends React.Component {
 									product.dealer &&
 									<div className="info-dealer">
 										<div className="dealer-head">
-											<Image className="dealer-image" bg src="https://minoto.ams3.digitaloceanspaces.com/dealers/emre-oto_logo_1560166632.jpg" />
+											<Image className="dealer-image" bg src={storageSpace('dealers', product.dealer.logo)} />
 											<div className="head-content">
 												<Link href="branch" params={{ id: product.dealer.id, slug: product.dealer.url }}>
 
