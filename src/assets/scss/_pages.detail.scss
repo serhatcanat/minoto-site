@@ -1033,10 +1033,10 @@
 							flex: 1;
 						}
 
-					/*.dealer-badge {
+					.dealer-badge {
 						position: absolute;
-						top: 2.8rem;
-						left: 2.1rem;
+						top: 0.2rem;
+						left: 0;
 						width: 2.2rem;
 						height: 2.2rem;
 						font-size: 2.2rem;
@@ -1052,7 +1052,7 @@
 							top: 53%;
 							left: 50%;
 							transform: translate3d(-50%, -50%, 0);
-						}*/
+						}
 
 					.dealer-image {
 						width: 5rem;
@@ -1073,6 +1073,8 @@
 						text-transform: uppercase;
 						display: block;
 						padding-top: .2rem;
+						position: relative;
+						padding-left: 2.6rem;
 					}
 
 					.dealer-info {

@@ -555,15 +555,14 @@ class DetailInfo extends React.Component {
 									product.dealer &&
 									<div className="info-dealer">
 										<div className="dealer-head">
-											<Image className="dealer-image" bg src={product.dealer.image} />
+											<Image className="dealer-image" bg src="https://minoto.ams3.digitaloceanspaces.com/dealers/emre-oto_logo_1560166632.jpg" />
 											<div className="head-content">
 												<Link href="branch" params={{ id: product.dealer.id, slug: product.dealer.url }}>
-													{product.dealer.validated ?
+
+													<strong className="dealer-title">
 														<span className="dealer-badge"><i className="badge-bg icon-ribbon"></i><i className="badge-icon icon-check"></i></span>
-														:
-														false
-													}
-													<strong className="dealer-title">{product.dealer.title}</strong>
+														{product.dealer.title}
+													</strong>
 												</Link>
 												<p className="dealer-info">
 													<span className="info-location">{product.dealer.location}</span>
