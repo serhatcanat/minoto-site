@@ -113,20 +113,24 @@ export default class BlogDetail extends React.Component {
 									<div id="text"></div>
 									{parse(data.content)}
 								</div>
+								{
+									data.gallery.length ? (
+										<div className="content-gallery">
+											<button className="gallery-nav prev" onClick={() => { this.gallerySlider.current.prev(); }}><i className="icon-angle-left"></i></button>
+											<button className="gallery-nav next" onClick={() => { this.gallerySlider.current.next(); }}><i className="icon-angle-right"></i></button>
+											<Slider className="gallery-slider" ref={this.gallerySlider} loop opts={{ lazy: true }}>
+												{data.gallery.map((image, nth) => (
+													<div className="slider-imagewrap" key={nth}>
+														<div className="imagewrap-image swiper-lazy" data-background={storageSpace('articles/gallery', image.large)}>
+														</div>
+														<Image className="imagewrap-loader" bg src={image_loader} alt="Yükleniyor..." />
+													</div>
+												))}
+											</Slider>
+										</div>
+									) : ""
+								}
 
-								<div className="content-gallery">
-									<button className="gallery-nav prev" onClick={() => { this.gallerySlider.current.prev(); }}><i className="icon-angle-left"></i></button>
-									<button className="gallery-nav next" onClick={() => { this.gallerySlider.current.next(); }}><i className="icon-angle-right"></i></button>
-									<Slider className="gallery-slider" ref={this.gallerySlider} loop opts={{ lazy: true }}>
-										{data.gallery.map((image, nth) => (
-											<div className="slider-imagewrap" key={nth}>
-												<div className="imagewrap-image swiper-lazy" data-background={storageSpace('articles/gallery', image.large)}>
-												</div>
-												<Image className="imagewrap-loader" bg src={image_loader} alt="Yükleniyor..." />
-											</div>
-										))}
-									</Slider>
-								</div>
 							</div>
 						</div>
 						{(data.relevant && data.relevant.length) &&

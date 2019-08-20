@@ -76,10 +76,11 @@
 
 	img {
 		&:not([style*="float"]){
-			width: calc(100% + 10rem);
+			width: calc(100% + 10rem) !important;
 			margin: 0 -5rem;
 			max-width: none;
 			display: block;
+			height: auto !important;
 		}
 
 		&[style*="float:left"], &[style*="float: left"] {
