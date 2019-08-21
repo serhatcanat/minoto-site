@@ -28,6 +28,8 @@ import { connect } from "react-redux"
 import request from 'controllers/request'
 import { setTitle, setDescription, setHead } from 'controllers/head'
 import { storageSpace } from "functions/helpers"
+import { setProductData } from 'data/store.ga'
+import { GA } from 'controllers/ga'
 
 // Assets
 import image_avatar from 'assets/images/defaults/avatar.svg';
@@ -44,6 +46,12 @@ const ncapDescriptions = [
 const mapStateToProps = state => {
 	return { mobile: state.generic.mobile, user: state.user.user, };
 };
+
+const mapDispatchToProps = dispatch => {
+	return {
+		setGaProductData: (data) => dispatch(setProductData(data)),
+	}
+}
 
 class Detail extends React.Component {
 	constructor(props) {
@@ -72,7 +80,7 @@ class Detail extends React.Component {
 
 	componentDidUpdate(prevProps, prevState) {
 		let user = this.props.user;
-		if (user !== prevProps.user) {
+		if (prevProps.user === false && user !== false) {
 			this.initialize()
 		}
 
@@ -96,7 +104,10 @@ class Detail extends React.Component {
 				if (payload) {
 					vm.setState({
 						productData: payload
-					})
+					});
+
+					vm.props.setGaProductData(payload);
+					GA.send('productView', payload);
 
 					setTitle(payload.title);
 
@@ -287,7 +298,7 @@ class Detail extends React.Component {
 	}
 }
 
-export default connect(mapStateToProps)(Detail);
+export default connect(mapStateToProps, mapDispatchToProps)(Detail);
 
 class DetailGallery extends React.Component {
 	constructor(props) {

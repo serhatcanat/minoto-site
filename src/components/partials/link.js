@@ -30,7 +30,6 @@ export default class LinkItem extends React.Component {
 			break;
 			default: // link
 				let target = getRoute(this.props.href, this.props.routeGroup);
-				
 				if(target){
 
 					if(target.exact && this.props.navLink && !isDefined(props.exact)){ props.exact = true; }

@@ -32,6 +32,8 @@ import routes from 'data/routes'
 import store from "data/store";
 import { setPage } from "data/store.generic";
 import { resetListingData } from "data/store.listing";
+import { resetData } from "data/store.ga";
+import { GA } from 'controllers/ga'
 import extend from "lodash/extend";
 
 // Pages
@@ -271,6 +273,10 @@ export function changePage(key = false, group = 'pages') {
 		resetListingData();
 		window.scroll(0, 0);
 		store.dispatch(setPage(pageData));
+		resetData();
+		if(route.autoGA !== false){
+			GA.send('pageChange');
+		}
 
 		if (window.location.hash) {
 			setTimeout(function () {

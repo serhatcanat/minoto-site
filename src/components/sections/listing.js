@@ -28,6 +28,7 @@ import { connect } from "react-redux";
 import { storageSpace } from "functions/helpers";
 import queryString from 'query-string';
 import { setFiltersExpansion, setListingQuery, setFilterQuery, setListingData } from 'data/store.listing';
+import { GA } from 'controllers/ga'
 //import { openModal } from 'functions/modals'
 
 const mapStateToProps = state => {
@@ -457,6 +458,7 @@ class ListingResults extends React.Component {
 														bottomNote={(item.currentViewers > 0 ? item.currentViewers + ' kişi Bakıyor' : false)}
 														url="detail"
 														urlParams={{ id: item.id, slug: item.slug }}
+														onClick={()=>{ GA.send('productClick', item); }}
 													/>
 												</li>
 											);

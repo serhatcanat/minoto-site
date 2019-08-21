@@ -5,10 +5,20 @@ import { serializeArray } from 'functions/helpers'
 import { redirect } from 'controllers/navigator'
 
 const initialState = {
-	token: false,
-	user: false,
+	user: getUserState()[0],
+	token: getUserState()[1],
 	unreadMessageCount: 0,
 };
+
+function getUserState() {
+	let appState = JSON.parse(localStorage["appState"]);
+	if(appState.isLoggedIn && appState.user && appState.authToken) {
+		return [appState.user, appState.authToken];
+	}
+	else {
+		return [false, false]
+	}
+}
 
 function userReducer(state = initialState, action) {
 	if (action.type === "SET_USER_DATA") {
@@ -58,8 +68,8 @@ export function checkLoginStatus(endFunction = false) {
 	if (localStorage["appState"]) {
 		let appState = JSON.parse(localStorage["appState"]);
 		if (appState.isLoggedIn) {
-			store.dispatch(setUserData(appState.user));
-			store.dispatch(setToken(appState.authToken));
+			/*store.dispatch(setUserData(appState.user));
+			store.dispatch(setToken(appState.authToken));*/
 
 			request.get('users/' + appState.user.email, {}, function (payload) {
 				if (payload && payload.success) {

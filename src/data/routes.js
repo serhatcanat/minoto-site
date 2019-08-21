@@ -138,6 +138,7 @@ module.exports = {
 				}
 			],
 			GATitle: "İlan",
+			autoGA: false,
 		},
 		listprices: {
 			path: "/liste-fiyatlari/:brand?/:year?",

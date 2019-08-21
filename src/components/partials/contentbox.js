@@ -54,7 +54,7 @@ export default class ContentBox extends React.Component {
 		switch (vm.props.type) {
 			case 'plain':
 				content = (
-					<Wrap className="contentbox-innerwrap" href={this.props.url ? this.props.url : undefined} params={this.props.urlParams ? this.props.urlParams : undefined}>
+					<Wrap className="contentbox-innerwrap" href={this.props.url ? this.props.url : undefined} params={this.props.urlParams ? this.props.urlParams : undefined} onClick={this.props.url ? this.props.onClick : undefined}>
 						<div className="contentbox-imagewrap">
 							{badge}
 							{favControls}
@@ -91,7 +91,7 @@ export default class ContentBox extends React.Component {
 				break;
 			default:
 				content = (
-					<Wrap className="contentbox-innerwrap" href={this.props.url ? this.props.url : undefined} params={this.props.urlParams ? this.props.urlParams : undefined}>
+					<Wrap className="contentbox-innerwrap" href={this.props.url ? this.props.url : undefined} params={this.props.urlParams ? this.props.urlParams : undefined} onClick={this.props.url ? this.props.onClick : undefined}>
 						<div className="contentbox-imagewrap">
 							{badge}
 							{favControls}
