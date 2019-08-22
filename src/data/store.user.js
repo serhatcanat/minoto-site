@@ -11,7 +11,13 @@ const initialState = {
 };
 
 function getUserState() {
-	let appState = JSON.parse(localStorage["appState"]);
+	let appState = [];
+	try {
+		appState = JSON.parse(localStorage["appState"]);
+	} catch(e) {
+		localStorage["appState"] = JSON.stringify({});
+	}
+
 	if(appState.isLoggedIn && appState.user && appState.authToken) {
 		return [appState.user, appState.authToken];
 	}

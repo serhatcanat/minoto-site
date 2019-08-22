@@ -48,7 +48,7 @@ export const GA = {
 	},
 	sendData: function(data) {
 		let gaData = merge(GA.getDefaultData(), data);
-		console.log('GA - Data:\n', gaData);
+		console.log('GA - Data:\n', JSON.stringify(gaData));
 		window.dataLayer.push(gaData);
 	},
 	getDefaultData() {
