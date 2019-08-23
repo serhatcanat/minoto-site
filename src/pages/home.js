@@ -13,8 +13,8 @@ import { storageSpace } from "functions/helpers";
 
 
 // Assets
-//import image_home_banner from 'assets/images/home-banner.jpg'
-//import image_home_banner_mobile from 'assets/images/home-banner-mobile.jpg'
+import image_home_banner from 'assets/images/home-banner-test.jpg'
+import image_home_banner_mobile from 'assets/images/home-banner-test-mobile.jpg'
 
 
 
@@ -71,7 +71,8 @@ export default class Home extends React.Component {
 							<Image
 								className="intro-bg"
 								bg
-								//src={image_home_banner} 
+								//src={image_home_banner}
+								//mobile={image_home_banner_mobile}
 								src={storageSpace('homepage-slides', banner.main_image)}
 								mobile={storageSpace('homepage-slides', banner.mobile_image)} />
 						</section>
