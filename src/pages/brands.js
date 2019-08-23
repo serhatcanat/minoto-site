@@ -18,7 +18,8 @@ export default class Brands extends React.Component {
 						className="section brands-listing"
 						showAds={false}
 						topSection={false}
-						source={'brands'} />
+						source={'brands'}
+						key="search-brands" />
 				</div>
 			</main>
 

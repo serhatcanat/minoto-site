@@ -223,15 +223,17 @@ export function getRouteFromUrl(url = false, getObject = false, includeCatch = f
 		Object.keys(group).forEach((key, index) => {
 			let route = routes[groupKey][key];
 			if (route.path) {
-				let match = matchPath(url, route.path);
-				if (match && match.isExact) {
-					if (getObject) {
-						returnRoute = route;
-						returnRoute.key = key;
-						returnRoute.groupKey = groupKey;
-					}
-					else {
-						returnRoute = [key, groupKey];
+				if(!returnRoute){
+					let match = matchPath(url, route.path);
+					if (match && match.isExact) {
+						if (getObject) {
+							returnRoute = route;
+							returnRoute.key = key;
+							returnRoute.groupKey = groupKey;
+						}
+						else {
+							returnRoute = [key, groupKey];
+						}
 					}
 				}
 			}
@@ -266,6 +268,7 @@ export function changePage(key = false, group = 'pages') {
 	let route = (key ? routes[group][key] : getRouteFromUrl(false, true, true));
 
 	if(route) {
+		console.log(key, route);
 		if (route.key) {
 			key = route.key;
 			group = route.groupKey;

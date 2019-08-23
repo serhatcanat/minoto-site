@@ -163,6 +163,7 @@ export default class Brand extends React.Component {
 										topSection={false}
 										source={`brands/${brand.id}/car-posts`}
 										showAds={false}
+										key="search-brand"
 									/>
 								}
 							</div>

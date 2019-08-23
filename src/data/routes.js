@@ -219,7 +219,7 @@ module.exports = {
 		searchBrand: {
 			path: "/:brand/:model?/:modelsub?/:version?",
 			component: "SearchBrand",
-			exact: true,
+			exact: false,
 			linkTitle: "Arama",
 			title: "Arama",
 		},

@@ -146,6 +146,7 @@ class Listing extends React.Component {
 
 	urlChanged() {
 		let vm = this;
+		
 		if (vm.urlTimeout) { clearTimeout(vm.urlTimeout); vm.urlTimeout = false; }
 
 		vm.urlTimeout = setTimeout(function () {
