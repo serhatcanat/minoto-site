@@ -273,8 +273,11 @@ class ListingFilter extends React.Component {
 			case "list":
 				filterContent = <FilterTypeList data={filterData} onUpdate={vm.props.onUpdate} />;
 				break;
+			case "brands":
+				filterContent = <FilterTypeBrands data={filterData} onUpdate={vm.props.onUpdate} />;
+				break;
 			case "tree":
-				filterContent = <FilterTypeTree data={filterData} onUpdate={vm.props.onUpdate} />;
+				filterContent = <FilterTypeBrands data={filterData} onUpdate={vm.props.onUpdate} />;
 				break;
 			case "icons":
 				filterContent = <FilterTypeIcons data={filterData} onUpdate={vm.props.onUpdate} />;
@@ -377,7 +380,7 @@ class FilterTypeList extends React.Component {
 	}
 }
 
-class FilterTypeTree extends React.Component {
+class FilterTypeBrands extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -400,7 +403,7 @@ class FilterTypeTree extends React.Component {
 				{opts.map((opt, nth) => {
 					let idprefix = 'filter_input_' + data.name;
 					return (
-						<TreeFilterItem data={opt} name={data.name} idprefix={idprefix} nth={nth} key={nth} level={1} onExpand={this.props.onExpand} urlRoot="/arama" />
+						<BrandsFilterItem data={opt} name={data.name} idprefix={idprefix} nth={nth} key={nth} level={1} onExpand={this.props.onExpand} urlRoot="" />
 					)
 				})}
 			</ul>
@@ -408,13 +411,13 @@ class FilterTypeTree extends React.Component {
 	}
 }
 
-const treeItemStateProps = state => {
+const brandItemStateProps = state => {
 	return {
 		filterQuery: state.listing.filterQuery,
 	};
 };
 
-class TreeFilterItemRaw extends React.Component {
+class BrandsFilterItemRaw extends React.Component {
 	constructor(props) {
 		super(props)
 
@@ -491,7 +494,7 @@ class TreeFilterItemRaw extends React.Component {
 							<ul className="item-submenu">
 								{data.children.map((opt, nth) => {
 									return (
-										<TreeFilterItem data={opt} name={name} idprefix={vm.id} key={nth} nth={nth} level={vm.props.level + 1} onExpand={this.props.onExpand} urlRoot={urlRoot} />
+										<BrandsFilterItem data={opt} name={name} idprefix={vm.id} key={nth} nth={nth} level={vm.props.level + 1} onExpand={this.props.onExpand} urlRoot={urlRoot} />
 									)
 								})}
 							</ul>
@@ -502,7 +505,7 @@ class TreeFilterItemRaw extends React.Component {
 	}
 }
 
-const TreeFilterItem = connect(treeItemStateProps)(TreeFilterItemRaw);
+const BrandsFilterItem = connect(brandItemStateProps)(BrandsFilterItemRaw);
 
 // class FilterTypeTree extends React.Component {
 // 	constructor(props) {

@@ -123,6 +123,9 @@ class Listing extends React.Component {
 			vm.props.setListingQuery(extend({}, vm.props.listingQuery, { sayfa: vm.state.page }));
 		}
 
+		if (prevProps.source !== vm.props.source) {
+			vm.updateResults();
+		}
 
 		if (!isEqual(prevProps.listingQuery, this.props.listingQuery)) {
 			this.setState({ order: (this.props.listingQuery.siralama ? this.props.listingQuery.siralama : vm.props.defaultOrder) });

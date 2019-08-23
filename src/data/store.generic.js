@@ -14,6 +14,7 @@ const initialState = {
   windowWidth: window.innerWidth,
   searchBarOpen: false,
   searchBarValue: "",
+  pageNotFound: false, 
 };
 
 function globalReducer(state = initialState, action) {
@@ -62,6 +63,11 @@ function globalReducer(state = initialState, action) {
 			searchBarValue: action.payload
 		});
 	}
+	else if (action.type === "SET_PAGE_NOT_FOUND") {
+		return Object.assign({}, state, {
+			pageNotFound: action.payload
+		});
+	}
 	return state;
 };
 export default globalReducer;
@@ -101,4 +107,8 @@ export function setSearchBarOpen(payload) {
 
 export function setSearchBarValue(payload) {
 	return { type: "SET_SEARCHBAR_VALUE", payload }
+};
+
+export function setPageNotFound(payload) {
+	return { type: "SET_PAGE_NOT_FOUND", payload }
 };

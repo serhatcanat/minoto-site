@@ -145,15 +145,15 @@ class Detail extends React.Component {
 											"title": "Anasayfa"
 										},
 										{
-											"href": `/arama/${product.breadCrumbs[0].value}`,
+											"href": `/${product.breadCrumbs[0].value}`,
 											"title": product.breadCrumbs[0].title
 										},
 										{
-											"href": `/arama/${product.breadCrumbs[0].value}/${product.breadCrumbs[1].value}`,
+											"href": `/${product.breadCrumbs[0].value}/${product.breadCrumbs[1].value}`,
 											"title": product.breadCrumbs[1].title
 										},
 										{
-											"href": `/arama/${product.breadCrumbs[0].value}/${product.breadCrumbs[1].value}/${product.breadCrumbs[2].value}`,
+											"href": `/${product.breadCrumbs[0].value}/${product.breadCrumbs[1].value}/${product.breadCrumbs[2].value}`,
 											"title": product.breadCrumbs[2].title
 										},
 										{

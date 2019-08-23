@@ -4,6 +4,7 @@ import { pushMessage } from 'controllers/messenger'
 import extend from 'lodash/extend'
 import { apiPath } from 'functions/helpers'
 import store from "data/store"
+import { set404 } from 'controllers/navigator'
 
 const defaultConfig = {
 	excludeApiPath: false,
@@ -76,6 +77,12 @@ function evaluateData(response, finalFunction = false) {
 	if (response.data.messages) {
 		for (let p = 0; p < response.data.messages.length; p++) {
 			pushMessage('', response.data.messages[p]);
+		}
+	}
+
+	if (response.data.actions) {
+		if(response.data.includes('404')) {
+			set404();
 		}
 	}
 }
