@@ -244,7 +244,7 @@ export function isExact(object1, object2) {
 }
 
 export function storageSpace(folder, file) {
-	if (file === '') {
+	if (file === '' || file === null) {
 		return false;
 	}
 	if (storagePath === 'https://res.cloudinary.com/minoto/image/upload/') {

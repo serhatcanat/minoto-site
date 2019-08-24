@@ -172,7 +172,7 @@ export default class Blog extends React.Component {
 												type="blogpost"
 												pretitle={result.date}
 												title={result.title}
-												image={storageSpace('articles', result.image)}
+												image={storageSpace('c_scale,q_auto:good,w_400/articles', result.image)}
 												url="blogDetail"
 												additionsOptional
 												urlParams={{ slug: result.slug }}

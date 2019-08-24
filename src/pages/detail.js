@@ -269,7 +269,7 @@ class Detail extends React.Component {
 													type="blogpost"
 													//pretitle={ad.date}
 													title={ad.title}
-													image={storageSpace('articles', ad.image)}
+													image={storageSpace('c_scale,q_auto:good,w_500/articles', ad.image)}
 													url="blogDetail"
 													additionsOptional
 													urlParams={{ slug: ad.url }}
@@ -366,7 +366,7 @@ class DetailGallery extends React.Component {
 					<Slider className="mainslider-slider" ref={vm.mainSlider} loop opts={{ lazy: true }} onChange={vm.imageChange}>
 						{images.map((image, nth) => (
 							<div className="slider-imagewrap" key={nth}>
-								<div className="imagewrap-image swiper-lazy" data-background={storageSpace('car-posts/gallery', image.medium)} onClick={() => { if (!vm.props.fullScreen && vm.props.mobile) { vm.props.onFullScreenChange(true); } }}>
+								<div className="imagewrap-image swiper-lazy" data-background={storageSpace('c_scale,q_auto:good,w_1200/car-posts/gallery', image.medium)} onClick={() => { if (!vm.props.fullScreen && vm.props.mobile) { vm.props.onFullScreenChange(true); } }}>
 								</div>
 								<Image className="imagewrap-loader" width="100" bg src={image_loader} alt="Yükleniyor..." />
 							</div>
@@ -385,7 +385,7 @@ class DetailGallery extends React.Component {
 						<Slider className="thumbs-carousel" slides={10} ref={vm.thumbSlider} opts={{ preventClicks: false }}>
 							{images.map((image, nth) => (
 								<button type="button" className={"carousel-imagebtn" + (vm.state.activeImage === nth ? ' active' : '')} key={nth} onClick={() => { vm.imageChange(nth); }}>
-									<Image className="carousel-image" key={nth} bg src={storageSpace('car-posts/gallery', image.thumb)} alt={product.title} />
+									<Image className="carousel-image" key={nth} bg src={storageSpace('c_scale,q_auto:eco,w_130/car-posts/gallery', image.thumb)} alt={product.title} />
 								</button>
 							))}
 						</Slider>
