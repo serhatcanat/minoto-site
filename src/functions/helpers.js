@@ -248,7 +248,7 @@ export function storageSpace(folder, file) {
 		return false;
 	}
 	if (storagePath === 'https://res.cloudinary.com/minoto/image/upload/') {
-		return `${storagePath}${folder}/${file}.jpg`;
+		return `${storagePath}${folder}/${file}${file.substring(file.length - 4)}`;
 	}
 	return `${storagePath}${folder}/${file}`;
 }
