@@ -1,15 +1,15 @@
 import defaults from "data/config";
 
-export function setTitle(title, postFix = undefined) {
-	if (postFix === undefined) { postFix = defaults.titlePostFix; }
+export function setTitle(title, postTitle = undefined) {
+	if (postTitle === undefined || postTitle === true) { postTitle = defaults.postTitle; }
 	// const seperator = " | ";
-	const seperator = " | ";
+	const seperator = " - ";
 
 	if (title !== "") {
-		title = title + seperator + postFix;
+		title = title + (postTitle !== false ? (seperator + postTitle) : '');
 	}
 	else {
-		title = postFix
+		title = postTitle
 	}
 
 	document.title = title;

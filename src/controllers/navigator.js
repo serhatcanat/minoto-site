@@ -280,13 +280,16 @@ export function changePage(key = false, group = 'pages') {
 		}
 	}
 
-	setTitle(route.title);
+
+	setMeta((route.meta ? route.meta : false), true);
+	setHead((route.head ? route.head : false), true);
+
+	setTitle(route.title, route.postTitle);
+	
 	if (route.description) {
 		setDescription(route.description);
 	}
 
-	setMeta((route.meta ? route.meta : false), true);
-	setHead((route.head ? route.head : false), true);
 	setHead([
 		{
 			key: "link",

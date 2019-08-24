@@ -5,7 +5,8 @@ module.exports = {
 			component: "Home",
 			exact: true,
 			linkTitle: "Anasayfa",
-			title: "Minoto - Türkiye'nin Sıfır Km Otomobil Sitesi | Sıfır Araba Modelleri",
+			title: "Sıfır Araba Modelleri ve Fiyatları - 0 Km Araç Satın Almak İçin Minoto!",
+			postTitle: false,
 			descriptiopn: "En yeni ve uygun sıfır araba modelleri, fiyatları ve kampanyaları Minoto'da! 0 km araç satın almak için hemen tıkla, fırsatları kaçırma!",
 			meta: {
 				keywords: "Minoto, Sıfır Otomobil, Bayiler"
@@ -77,6 +78,7 @@ module.exports = {
 			linkTitle: "Markalar",
 			title: "Araba Markaları ve Araç Listesi - Türkiye'nin Sıfır Km Oto Sitesi Minoto",
 			description: "Araba markalarına ve araç listesine ulaşmak için hemen tıkla, fırsatları kaçırma! Türkiye'nin Sıfır Km Oto Sitesi Minoto!",
+			postTitle: false,
 			meta: {
 				keywords: "Minoto, Sıfır Otomobil, Bayiler"
 			},
@@ -87,6 +89,8 @@ module.exports = {
 			exact: true,
 			linkTitle: "Marka",
 			title: "Araba Markaları ve Araç Listesi - Türkiye'nin Sıfır Km Oto Sitesi Minoto",
+			description: "Sıfır Km araba mı aradınız? Sıfır Km araba modelleri ve fiyatları Minoto'da! Hemen tıkla, fırsatları kaçırma!",
+			postTitle: false,
 		},
 		dealers: {
 			path: "/bayiler",
@@ -126,11 +130,22 @@ module.exports = {
 			],
 		},
 		listprices: {
-			path: "/liste-fiyatlari/:brand?/:year?",
+			path: "/araba-fiyat-listesi/:brand?/:year?",
 			component: "ListPrices",
 			exact: true,
 			linkTitle: "Araç Liste Fiyatları",
-			title: "Araç Liste Fiyatları",
+			title: "Araba Fiyat Listesi ve Özellikleri - Türkiye'nin Sıfır Km Oto Sitesi Minoto",
+			description: "Sıfır Km araba fiyat listesi mi aradınız? Sıfır Km araba fiyat listesi ve özellikleri Minoto'da! Hemen tıkla, fırsatları kaçırma!",
+			postTitle: false,
+		},
+		listpricesDetail: {
+			path: "/:brand(.*-fiyat-listesi)/:year?",
+			component: "ListPrices",
+			exact: true,
+			linkTitle: "Araç Eki Liste Fiyatları",
+			title: "Araba Fiyat Listesi ve Özellikleri - Türkiye'nin Sıfır Km Oto Sitesi Minoto",
+			description: "Sıfır Km araba fiyat listesi mi aradınız? Sıfır Km araba fiyat listesi ve özellikleri Minoto'da! Hemen tıkla, fırsatları kaçırma!",
+			postTitle: false,
 		},
 		comparison: {
 			path: "/arac-karsilastir/:car1?/:model1?/:car2?/:model2?",

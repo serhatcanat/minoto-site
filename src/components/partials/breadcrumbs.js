@@ -2,6 +2,9 @@ import React from 'react'
 
 // Deps
 
+// Partials
+import Link from 'components/partials/link'
+
 
 export default class Breadcrumbs extends React.Component {
 	render() {
@@ -11,13 +14,11 @@ export default class Breadcrumbs extends React.Component {
 
 		let content = <ul className="breadcrumbs-list">
 			{vm.props.data && vm.props.data.map(function(crumb, nth){
-				let href = crumb.href;
-				let title = crumb.title
 				return (
 					<li key={nth} className="breadcrumbs-item">
-						<a href={href}>
-							{title}
-						</a>
+						<Link href={crumb.href} params={crumb.params}>
+							{crumb.title}
+						</Link>
 					</li>
 				)
 			})}

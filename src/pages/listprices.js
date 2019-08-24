@@ -48,11 +48,10 @@ export default class ListPrices extends React.Component {
 				'price-lists',
 				{
 					yil: vm.props.match.params.year ? vm.props.match.params.year : '2019',
-					marka: vm.props.match.params.brand ? vm.props.match.params.brand : 'audi'
+					marka: vm.props.match.params.brand ? vm.props.match.params.brand.substring(0, vm.props.match.params.brand.indexOf("-fiyat-listesi")) : 'audi'
 				},
 				function (payload) {
 					vm.ajaxController = false;
-					console.log(payload)
 					if (payload) {
 						let yearFilters = payload.filters.year.map(function (filter, nth) {
 							let filterData = {
@@ -97,7 +96,8 @@ export default class ListPrices extends React.Component {
 	componentDidUpdate(prevProps, prevState) {
 		if (prevState.selectedYear && prevState.selectedBrand) {
 			if (prevState.selectedYear.value !== this.state.selectedYear.value || prevState.selectedBrand.value !== this.state.selectedBrand.value) {
-				const path = generatePath(this.props.match.path, { brand: this.state.selectedBrand.value, year: this.state.selectedYear.value });
+				const path = generatePath(this.props.match.path, { brand: this.state.selectedBrand.value + "-fiyat-listesi", year: this.state.selectedYear.value });
+				console.log(path);
 				this.props.history.replace(path);
 
 				this.initialize();
@@ -125,21 +125,23 @@ export default class ListPrices extends React.Component {
 				<Breadcrumbs className="listprices-crumbs" standalone data={[
 					{
 						"href": "listprices",
-						"title": "Araç Liste Fiyatları"
+						"title": "Araba Fiyat Listesi"
 					},
 					{
 						"href": "listprices",
-						"title": "2019"
+						"title": (vm.state.selectedBrand ? vm.state.selectedBrand.label : 'Tüm Modeller'),
+						"params": (vm.state.selectedBrand ? {brand: vm.state.selectedYear.value} : undefined),
 					},
 					{
 						"href": "listprices",
-						"title": "Hepsi"
+						"title": (vm.state.selectedYear ? vm.state.selectedYear.label : 'Tüm Yıllar'),
+						"params": (vm.state.selectedYear ? {year: vm.state.selectedYear.value, brand: (vm.state.selectedBrand ? vm.state.selectedBrand.value : (vm.state.brandFilters ? vm.state.brandFilters[0].value : undefined))} : undefined),
 					}
 				]} />
 				<section className="section listprices">
 					<div className="wrapper narrow">
 						<div className="listprices-head">
-							<h1 className="head-title">Araç Liste fiyatları.</h1>
+							<h1 className="head-title">Araba Fiyat Listesi</h1>
 							<div className="head-filters">
 								{vm.state.yearFilters &&
 									<div className="inputwrap dark filters-item">
