@@ -366,7 +366,7 @@ class DetailGallery extends React.Component {
 					<Slider className="mainslider-slider" ref={vm.mainSlider} loop opts={{ lazy: true }} onChange={vm.imageChange}>
 						{images.map((image, nth) => (
 							<div className="slider-imagewrap" key={nth}>
-								<div className="imagewrap-image swiper-lazy" data-background={storageSpace('c_scale,q_auto:good,w_1200/car-posts/gallery', image.medium)} onClick={() => { if (!vm.props.fullScreen && vm.props.mobile) { vm.props.onFullScreenChange(true); } }}>
+								<div className="imagewrap-image swiper-lazy" data-background={storageSpace('c_scale,q_40,w_1100/car-posts/gallery', image.medium)} onClick={() => { if (!vm.props.fullScreen && vm.props.mobile) { vm.props.onFullScreenChange(true); } }}>
 								</div>
 								<Image className="imagewrap-loader" width="100" bg src={image_loader} alt="Yükleniyor..." />
 							</div>
