@@ -7,7 +7,7 @@ var routes = require('../src/data/routes');
 
 // npm run sitemap
 // CONFIG
-const sitemapDir = './build/sitemap';
+const sitemapDir = './live/sitemap';
 const siteURL = 'https://api.minoto.com/v1/shared/sitemap';
 //const siteURL = 'http://localhost:8000/v1/shared/sitemap';
 
