@@ -5,6 +5,7 @@ import { Link, NavLink } from 'react-router-dom'
 import omit from 'lodash/omit'
 import { isDefined } from 'functions/helpers'
 import { getRoute } from 'controllers/navigator'
+import { generatePath } from 'react-router'
 
 export default class LinkItem extends React.Component {
 	render() {
@@ -39,10 +40,16 @@ export default class LinkItem extends React.Component {
 					if(target.path){
 						props.to = target.path
 						if(params){
-							for(let k = 0; k < Object.keys(params).length; k++){
+							/*for(let k = 0; k < Object.keys(params).length; k++){
 								let key = Object.keys(params)[k];
 								props.to = props.to.replace(':'+key+'?', params[key]).replace(':'+key, params[key]);
+							}*/
+
+							try {
+								let newTo = generatePath(props.to, params);
+								props.to = newTo;
 							}
+							catch {}
 						}
 					}
 					else{

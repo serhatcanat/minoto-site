@@ -139,7 +139,7 @@ module.exports = {
 			postTitle: false,
 		},
 		listpricesDetail: {
-			path: "/:brand(.*-fiyat-listesi)/:year?",
+			path: "/:data(.*-fiyat-listesi)/:year?",
 			component: "ListPrices",
 			exact: true,
 			linkTitle: "Araç Eki Liste Fiyatları",
