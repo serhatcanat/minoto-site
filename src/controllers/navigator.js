@@ -29,9 +29,10 @@ import history from 'controllers/history'
 import { setTitle, setMeta, setHead, setDescription } from 'controllers/head'
 import routes from 'data/routes'
 import store from "data/store";
-import { setPage } from "data/store.generic";
+import { setPage, setPageNotFound } from "data/store.generic";
 import { resetListingData } from "data/store.listing";
 import extend from "lodash/extend";
+import { connect } from "react-redux";
 
 // Pages
 import Home from 'pages/home'
@@ -94,7 +95,13 @@ const pageRegistry = {
 	NotFound: NotFound,
 }
 
-export default class Navigator extends React.Component {
+const mapStateToProps = state => {
+	return {
+		pageNotFound: state.generic.pageNotFound,
+	};
+};
+
+class Navigator extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -105,13 +112,14 @@ export default class Navigator extends React.Component {
 		window.dynamicHistory = history;
 
 		history.listen(function (e) {
+			store.dispatch(setPageNotFound(false));
 			let route = getRouteFromUrl(e.pathname, false, true);
 			changePage(route[0], route[1]);
 		});
 	}
 
 	render() {
-		let routeData = renderRoutes();
+		let routeData = this.props.pageNotFound ? <NotFound /> : renderRoutes();
 		return (
 			<div className="site-content">
 				<ResponsiveWatcher />
@@ -137,6 +145,8 @@ export default class Navigator extends React.Component {
 		)
 	}
 }
+
+export default connect(mapStateToProps)(Navigator);
 
 export function ListingLink(params) {
 	return '/arama/?' + params.map(function (param, nth) {
@@ -213,15 +223,17 @@ export function getRouteFromUrl(url = false, getObject = false, includeCatch = f
 		Object.keys(group).forEach((key, index) => {
 			let route = routes[groupKey][key];
 			if (route.path) {
-				let match = matchPath(url, route.path);
-				if (match && match.isExact) {
-					if (getObject) {
-						returnRoute = route;
-						returnRoute.key = key;
-						returnRoute.groupKey = groupKey;
-					}
-					else {
-						returnRoute = [key, groupKey];
+				if(!returnRoute){
+					let match = matchPath(url, route.path);
+					if (match && match.isExact) {
+						if (getObject) {
+							returnRoute = route;
+							returnRoute.key = key;
+							returnRoute.groupKey = groupKey;
+						}
+						else {
+							returnRoute = [key, groupKey];
+						}
 					}
 				}
 			}
@@ -254,58 +266,69 @@ export function changeURLParam(value, param, route = false, noMismatch = false) 
 
 export function changePage(key = false, group = 'pages') {
 	let route = (key ? routes[group][key] : getRouteFromUrl(false, true, true));
-	if (route.key) {
-		key = route.key;
-		group = route.groupKey;
-	}
 
-	let pageData = {
-		key: key,
-		group: group,
-		fullKey: group + "." + key,
-		data: route
-	}
-	if (store.getState().generic.currentPage.key !== key) {
-		resetListingData();
-		window.scroll(0, 0);
-		store.dispatch(setPage(pageData));
+	if(route) {
+		if (route.key) {
+			key = route.key;
+			group = route.groupKey;
 
-		if (window.location.hash) {
-			setTimeout(function () {
-				let hashTarget = document.querySelector(window.location.hash)
-				if (hashTarget) {
-					hashTarget.scrollIntoView();
+		}
+
+		if(key === 'notfound') {
+			store.dispatch(setPageNotFound(true));
+		}
+
+		let pageData = {
+			key: key,
+			group: group,
+			fullKey: group + "." + key,
+			data: route
+		}
+
+		if (store.getState().generic.currentPage.key !== key) {
+			resetListingData();
+			window.scroll(0, 0);
+			store.dispatch(setPage(pageData));
+
+			if (window.location.hash) {
+				setTimeout(function () {
+					let hashTarget = document.querySelector(window.location.hash)
+					if (hashTarget) {
+						hashTarget.scrollIntoView();
+					}
+				}, 500);
+			}
+		}
+		
+		setMeta((route.meta ? route.meta : false), true);
+		setHead((route.head ? route.head : false), true);
+
+		setTitle(route.title, route.postTitle);
+		
+		if (route.description) {
+			setDescription(route.description);
+		}
+
+		setHead([
+			{
+				key: "link",
+				props: {
+					rel: "canonical",
+					href: window.location.href,
 				}
-			}, 500);
-		}
-	}
-
-
-	setMeta((route.meta ? route.meta : false), true);
-	setHead((route.head ? route.head : false), true);
-
-	setTitle(route.title, route.postTitle);
-	
-	if (route.description) {
-		setDescription(route.description);
-	}
-
-	setHead([
-		{
-			key: "link",
-			props: {
-				rel: "canonical",
-				href: window.location.href,
+			},
+			{
+				key: "meta",
+				props: {
+					property: "og:url",
+					content: window.location.href,
+				}
 			}
-		},
-		{
-			key: "meta",
-			props: {
-				property: "og:url",
-				content: window.location.href,
-			}
-		}
-	]);
+		]);
+	}
+	else {
+		console.log('Change page error. Route not found: ' + key)
+	}
 }
 
 export function renderRoutes(opts = {}) {
@@ -338,4 +361,8 @@ export function renderRoutes(opts = {}) {
 	}
 
 	return <Switch>{routeData}</Switch>;
+}
+
+export function set404() {
+	changePage('notfound');
 }

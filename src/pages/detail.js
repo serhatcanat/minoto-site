@@ -20,7 +20,7 @@ import PriceTag from 'components/partials/price-tag'
 
 // Deps
 //import { ListingLink } from 'controllers/navigator'
-import { redirect } from 'controllers/navigator'
+import { set404 } from 'controllers/navigator'
 import { openModal } from "functions/modals"
 import { blockOverflow, nl2br, remToPx } from 'functions/helpers.js'
 import parse from 'html-react-parser'
@@ -115,7 +115,7 @@ class Detail extends React.Component {
 					};
 				}
 				else {
-					redirect('notfound');
+					set404();
 				}
 			}, { excludeApiPath: false });
 		}
@@ -145,15 +145,15 @@ class Detail extends React.Component {
 											"title": "Anasayfa"
 										},
 										{
-											"href": `/arama/${product.breadCrumbs[0].value}`,
+											"href": `/${product.breadCrumbs[0].value}`,
 											"title": product.breadCrumbs[0].title
 										},
 										{
-											"href": `/arama/${product.breadCrumbs[0].value}/${product.breadCrumbs[1].value}`,
+											"href": `/${product.breadCrumbs[0].value}/${product.breadCrumbs[1].value}`,
 											"title": product.breadCrumbs[1].title
 										},
 										{
-											"href": `/arama/${product.breadCrumbs[0].value}/${product.breadCrumbs[1].value}/${product.breadCrumbs[2].value}`,
+											"href": `/${product.breadCrumbs[0].value}/${product.breadCrumbs[1].value}/${product.breadCrumbs[2].value}`,
 											"title": product.breadCrumbs[2].title
 										},
 										{

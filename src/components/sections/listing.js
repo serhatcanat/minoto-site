@@ -123,6 +123,9 @@ class Listing extends React.Component {
 			vm.props.setListingQuery(extend({}, vm.props.listingQuery, { sayfa: vm.state.page }));
 		}
 
+		if (prevProps.source !== vm.props.source) {
+			vm.updateResults();
+		}
 
 		if (!isEqual(prevProps.listingQuery, this.props.listingQuery)) {
 			this.setState({ order: (this.props.listingQuery.siralama ? this.props.listingQuery.siralama : vm.props.defaultOrder) });
@@ -143,6 +146,7 @@ class Listing extends React.Component {
 
 	urlChanged() {
 		let vm = this;
+		
 		if (vm.urlTimeout) { clearTimeout(vm.urlTimeout); vm.urlTimeout = false; }
 
 		vm.urlTimeout = setTimeout(function () {

@@ -36,7 +36,7 @@ module.exports = {
 			linkTitle: "Arama",
 			title: "Arama",
 		},
-		searchBrand: {
+		/*searchBrand: {
 			path: "/arama/:brand",
 			component: "SearchBrand",
 			exact: true,
@@ -63,7 +63,7 @@ module.exports = {
 			exact: true,
 			linkTitle: "Arama",
 			title: "Arama",
-		},
+		},*/
 		sitemap: {
 			path: "/sitemap",
 			component: "Sitemap",
@@ -130,7 +130,7 @@ module.exports = {
 			],
 		},
 		listprices: {
-			path: "/araba-fiyat-listesi/:brand?/:year?",
+			path: "/araba-fiyat-listesi",
 			component: "ListPrices",
 			exact: true,
 			linkTitle: "Araç Liste Fiyatları",
@@ -139,7 +139,7 @@ module.exports = {
 			postTitle: false,
 		},
 		listpricesDetail: {
-			path: "/:data(.*-fiyat-listesi)/:year?",
+			path: "/:data(.*-fiyat-listesi)",
 			component: "ListPrices",
 			exact: true,
 			linkTitle: "Araç Eki Liste Fiyatları",
@@ -230,6 +230,13 @@ module.exports = {
 			exact: true,
 			linkTitle: "Bayi Başvuru Durumu",
 			title: "Bayi Başvuru Durumu",
+		},
+		searchBrand: {
+			path: "/:brand/:model?/:modelsub?/:version?",
+			component: "SearchBrand",
+			exact: false,
+			linkTitle: "Arama",
+			title: "Arama",
 		},
 		notfound: {
 			path: false,

@@ -14,7 +14,8 @@ import PriceTag from 'components/partials/price-tag'
 import { storageSpace } from 'functions/helpers'
 import request from 'controllers/request'
 import { generatePath } from 'react-router'
-import { redirect } from 'controllers/navigator'
+import { setTitle, setDescription } from 'controllers/head'
+import { getRoute/*, set404*/} from 'controllers/navigator'
 
 // Assets
 
@@ -41,11 +42,15 @@ export default class ListPrices extends React.Component {
 		let vm = this;
 		vm.setState({ brands: false });
 
-		let data = vm.props.match.params.data.substring(0, vm.props.match.params.data.indexOf('-fiyat-listesi')).split('-');
+		let brand = 'audi';
+		let year = '2019';
+		let dataParam = vm.props.match.params.data;
 
-		let brand = data[data.length-1] ? data[data.length-1] : 'audi';
-
-		let year = (data.length > 1) ? data[0] : '0000';
+		if(dataParam){
+			let data = dataParam.substring(0, dataParam.indexOf('-fiyat-listesi')).split('-');
+			brand = data[data.length-1] ? data[data.length-1] : brand;
+			year = (data.length > 1) ? data[0] : 'tum_yillar';
+		}
 
 		if (vm.ajaxController !== false) {
 			vm.ajaxController.cancel('Canceled duplicate request.');
@@ -60,7 +65,7 @@ export default class ListPrices extends React.Component {
 				},
 				function (payload) {
 					vm.ajaxController = false;
-					if (payload && payload.brands && payload.brands.length){
+					//if (payload && payload.brands && payload.brands.length){
 							let yearFilters = payload.filters.year.map(function (filter, nth) {
 								let filterData = {
 									value: filter.value,
@@ -89,11 +94,12 @@ export default class ListPrices extends React.Component {
 								yearFilters: yearFilters,
 								brandFilters: brandFilters
 							});
-					}
-					else {
-						console.log('ee?');
-						redirect('notfound');
-					}
+
+							setTitle(((dataParam && vm.state.selectedYear) ? vm.state.selectedYear.label + ' ' : '')+((dataParam && vm.state.selectedBrand) ? vm.state.selectedBrand.label + ' ' : '')+' Fiyat Listesi ve Özellikleri - Türkiye\'nin Sıfır Km Oto Sitesi Minoto');
+					//}
+					//else {
+					//	set404();
+					//}
 				}
 			);
 		}, 20);
@@ -107,7 +113,8 @@ export default class ListPrices extends React.Component {
 		if (prevState.selectedYear && prevState.selectedBrand) {
 			if (prevState.selectedYear.value !== this.state.selectedYear.value || prevState.selectedBrand.value !== this.state.selectedBrand.value) {
 
-				const path = generatePath(this.props.match.path, { data: this.state.selectedYear.value + '-' + this.state.selectedBrand.value + "-fiyat-listesi" });
+				const path = generatePath(getRoute('listpricesDetail').path, { data: (this.state.selectedYear.value === 'tum_yillar' ? '' : this.state.selectedYear.value + '-') + this.state.selectedBrand.value + "-fiyat-listesi" });
+
 				this.props.history.replace(path);
 			}
 		}
@@ -145,12 +152,20 @@ export default class ListPrices extends React.Component {
 							{
 								"href": "listpricesDetail",
 								"title": (vm.state.selectedBrand ? vm.state.selectedBrand.label : 'Tüm Modeller'),
-								"params": (vm.state.selectedBrand ? {brand: vm.state.selectedBrand.value + "-fiyat-listesi"} : undefined),
+								"params": (vm.state.selectedBrand ? {
+									data: vm.state.selectedBrand.value + "-fiyat-listesi"
+								} : undefined),
 							},
 							{
 								"href": "listpricesDetail",
 								"title": (vm.state.selectedYear ? vm.state.selectedYear.label : 'Tüm Yıllar'),
-								"params": (vm.state.selectedYear ? {year: vm.state.selectedYear.value, brand: (vm.state.selectedBrand ? vm.state.selectedBrand.value + "-fiyat-listesi" : (vm.state.brandFilters ? vm.state.brandFilters[0].value + "-fiyat-listesi" : undefined))} : undefined),
+								"params": {
+									data: (vm.state.selectedYear ? vm.state.selectedYear.value + '-' : '') +
+									(vm.state.selectedBrand ? vm.state.selectedBrand.value : 
+										(vm.state.brandFilters ? vm.state.brandFilters[0].value : 'araba')) +
+									'-fiyat-listesi'
+								}
+								///(vm.state.selectedYear ? {year: vm.state.selectedYear.value, brand: (vm.state.selectedBrand ? vm.state.selectedBrand.value + "-fiyat-listesi" : (vm.state.brandFilters ? vm.state.brandFilters[0].value + "-fiyat-listesi" : undefined))} : undefined),
 							}
 						]} />
 						<section className="section listprices">
@@ -236,7 +251,6 @@ export default class ListPrices extends React.Component {
 					</React.Fragment>
 				}
 			</main>
-
 		)
 	}
 }
