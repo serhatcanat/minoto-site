@@ -141,7 +141,7 @@ class Detail extends React.Component {
 								<div className="top-wrap wrapper" lang="en">
 									<Breadcrumbs className="top-breadcrumbs" data={[
 										{
-											"href": "/",
+											"href": "home",
 											"title": "Anasayfa"
 										},
 										{
@@ -157,7 +157,6 @@ class Detail extends React.Component {
 											"title": product.breadCrumbs[2].title
 										},
 										{
-											"href": null,
 											"title": product.title
 										},
 										/* {

@@ -29,7 +29,7 @@ export default class SearchVersion extends React.Component {
 			}
 		}
 
-		console.log(route);
+		//console.log(route);
 
 		return (
 			<main className="page search">

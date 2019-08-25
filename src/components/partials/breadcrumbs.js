@@ -16,9 +16,13 @@ export default class Breadcrumbs extends React.Component {
 			{vm.props.data && vm.props.data.map(function(crumb, nth){
 				return (
 					<li key={nth} className="breadcrumbs-item">
-						<Link href={crumb.href} params={crumb.params}>
-							{crumb.title}
-						</Link>
+						{crumb.href ?
+							<Link href={crumb.href} params={crumb.params}>
+								{crumb.title}
+							</Link>
+							:
+							<span>{crumb.title}</span>
+						}
 					</li>
 				)
 			})}

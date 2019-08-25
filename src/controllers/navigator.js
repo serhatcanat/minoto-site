@@ -203,10 +203,12 @@ export function redirect(opts, params = false, getParams = false) {
 
 export function getRoute(key = false, group = 'pages') {
 	let routeGroup = group;
+	if(key){
 	let keyParts = key.split('.');
-	if (keyParts.length === 2) {
-		routeGroup = keyParts[0];
-		key = keyParts[1];
+		if (keyParts.length === 2) {
+			routeGroup = keyParts[0];
+			key = keyParts[1];
+		}
 	}
 
 	let target = routes[routeGroup][key];

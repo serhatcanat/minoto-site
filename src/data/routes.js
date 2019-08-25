@@ -92,19 +92,22 @@ module.exports = {
 			description: "Sıfır Km araba mı aradınız? Sıfır Km araba modelleri ve fiyatları Minoto'da! Hemen tıkla, fırsatları kaçırma!",
 			postTitle: false,
 		},
+		dealer: {
+			path: "/bayiler/:slug/:id",
+			component: "Dealer",
+			exact: true,
+			linkTitle: "Bayi",
+			title: "Araba Markaları ve Araç Listesi - Türkiye'nin Sıfır Km Oto Sitesi Minoto",
+			description: "Sıfır Km araba mı aradınız? Sıfır Km araba modelleri ve fiyatları Minoto'da! Hemen tıkla, fırsatları kaçırma!",
+			postTitle: false,
+		},
 		dealers: {
 			path: "/bayiler",
 			component: "Dealers",
 			exact: true,
 			linkTitle: "Bayiler",
-			title: "Bayiler",
-		},
-		dealer: {
-			path: "/bayi/:id/:slug?",
-			component: "Dealer",
-			exact: true,
-			linkTitle: "Bayi",
-			title: "Bayi",
+			title: "Yetkili Araba Bayileri, Araç Satıcıları ve Servisleri",
+			description: "Yetkili araba bayileri, araç satıcıları ve servisleri Minoto'da! Hemen tıkla, fırsatları kaçırma!"
 		},
 		branch: {
 			path: "/sube/:id/:slug?",

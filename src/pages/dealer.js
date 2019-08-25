@@ -18,7 +18,7 @@ import { storageSpace } from 'functions/helpers'
 import extend from 'lodash/extend'
 import debounce from 'lodash/debounce'
 import isEqual from 'lodash/isEqual'
-import { setTitle } from 'controllers/head'
+import { setTitle, setDescription } from 'controllers/head'
 import request from 'controllers/request'
 import { redirect } from 'controllers/navigator'
 import { openModal } from 'functions/modals'
@@ -64,7 +64,8 @@ export default class Dealer extends React.Component {
 					listingQuery: { dealer: payload.id },
 				})
 
-				setTitle(payload.title);
+				setTitle(payload.title + ' Araba Bayisi, Araç Satıcısı ve Servisi');
+				setDescription(`${payload.title} araba bayisi, araç satıcısı ve servisini mi aradınız? ${payload.title} Minoto'da! Hemen tıkla, fırsatları kaçırma!`);
 			}
 			else {
 				redirect("notfound");

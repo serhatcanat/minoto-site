@@ -63,7 +63,7 @@ export default class LinkItem extends React.Component {
 					props.to = this.props.href;
 				}
 
-				props.to = props.to.split('/:')[0];
+				props.to = props.to ? props.to.split('/:')[0] : props.to;
 
 			break;
 		}
