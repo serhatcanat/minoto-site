@@ -95,7 +95,14 @@ export default class ListPrices extends React.Component {
 								brandFilters: brandFilters
 							});
 
-							setTitle(((dataParam && vm.state.selectedYear) ? vm.state.selectedYear.label + ' ' : '')+((dataParam && vm.state.selectedBrand) ? vm.state.selectedBrand.label + ' ' : '')+' Fiyat Listesi ve Özellikleri - Türkiye\'nin Sıfır Km Oto Sitesi Minoto');
+							setTitle(((dataParam && vm.state.selectedYear && vm.state.selectedYear.value !== 'tum_yillar') ? vm.state.selectedYear.label + ' ' : '')+((dataParam && vm.state.selectedBrand) ? vm.state.selectedBrand.label : 'Araba')+' Fiyat Listesi ve Özellikleri - Türkiye\'nin Sıfır Km Oto Sitesi Minoto');
+
+							if(dataParam) {
+								setDescription(((vm.state.selectedYear && vm.state.selectedYear.value !== 'tum_yillar') ? vm.state.selectedYear.label + ' ' : '') + (vm.state.selectedBrand ? vm.state.selectedBrand.label : '') + ' fiyat listesi mi aradınız? Sıfır Km  [Yıl] [Marka] araba fiyat listesi ve özellikleri Minoto\'da! Hemen tıkla, fırsatları kaçırma!');
+							}
+							else {
+								setDescription('Sıfır Km araba fiyat listesi mi aradınız? Sıfır Km araba fiyat listesi ve özellikleri Minoto\'da! Hemen tıkla, fırsatları kaçırma!');
+							}
 					//}
 					//else {
 					//	set404();
@@ -171,7 +178,7 @@ export default class ListPrices extends React.Component {
 						<section className="section listprices">
 							<div className="wrapper narrow">
 								<div className="listprices-head">
-									<h1 className="head-title">Araba Fiyat Listesi</h1>
+									<h1 className="head-title">{((vm.props.match.params.data && vm.state.selectedYear && vm.state.selectedYear.value !== 'tum_yillar') ? vm.state.selectedYear.label + ' ' : '')}{((vm.props.match.params.data && vm.state.selectedBrand && vm.state.selectedBrand.value !== 'tum_markalar') ? vm.state.selectedBrand.label : 'Araba')} Fiyat Listesi</h1>
 									<div className="head-filters">
 										{vm.state.yearFilters &&
 											<div className="inputwrap dark filters-item">
