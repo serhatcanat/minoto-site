@@ -11,9 +11,9 @@ const sitemapDir = './live/sitemap';
 const siteURL = 'https://api.minoto.com/v1/shared/sitemap';
 //const siteURL = 'http://localhost:8000/v1/shared/sitemap';
 
-if (!fs.existsSync(sitemapDir)) {
+/* if (!fs.existsSync(sitemapDir)) {
 	fs.mkdirSync(sitemapDir);
-}
+} */
 
 
 /// PAGES
