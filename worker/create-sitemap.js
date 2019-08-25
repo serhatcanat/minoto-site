@@ -8,12 +8,12 @@ var routes = require('../src/data/routes');
 // npm run sitemap
 // CONFIG
 const sitemapDir = './live/sitemap';
-//const siteURL = 'http://localhost:3000';
-const siteURL = 'https://minoto.com';
+const siteURL = 'https://api.minoto.com/v1/shared/sitemap';
+//const siteURL = 'http://localhost:8000/v1/shared/sitemap';
 
-if (!fs.existsSync(sitemapDir)) {
+/* if (!fs.existsSync(sitemapDir)) {
 	fs.mkdirSync(sitemapDir);
-}
+} */
 
 
 /// PAGES
@@ -66,7 +66,7 @@ sitemap.toXML(function (err, xml) {
 /// END PAGES
 
 /// CAR POSTS
-axios.get(siteURL + '/dummy/data/sitemap-carposts.json').then(function (response) {
+axios.get(siteURL + '/car-posts').then(function (response) {
 	var carPostUrls = response.data.payload.results.map(function (result) {
 		return {
 			url: result,
@@ -98,7 +98,7 @@ axios.get(siteURL + '/dummy/data/sitemap-carposts.json').then(function (response
 /// END CAR POSTS
 
 /// BRANDS
-axios.get(siteURL + '/dummy/data/sitemap-brands.json').then(function (response) {
+axios.get(siteURL + '/brands').then(function (response) {
 	var brandsUrls = response.data.payload.results.map(function (result) {
 		return {
 			url: result,
@@ -130,7 +130,7 @@ axios.get(siteURL + '/dummy/data/sitemap-brands.json').then(function (response) 
 /// END BRANDS
 
 /// DEALERS
-axios.get(siteURL + '/dummy/data/sitemap-dealers.json').then(function (response) {
+axios.get(siteURL + '/dealers').then(function (response) {
 	var dealersUrls = response.data.payload.results.map(function (result) {
 		return {
 			url: result,
@@ -162,7 +162,7 @@ axios.get(siteURL + '/dummy/data/sitemap-dealers.json').then(function (response)
 /// END DEALERS
 
 /// BLOG CATEGORIES
-axios.get(siteURL + '/dummy/data/sitemap-blog-categories.json').then(function (response) {
+axios.get(siteURL + '/blog-categories').then(function (response) {
 	var blogCategoriesUrls = response.data.payload.results.map(function (result) {
 		return {
 			url: result,
@@ -194,7 +194,7 @@ axios.get(siteURL + '/dummy/data/sitemap-blog-categories.json').then(function (r
 /// END BLOG CATEGORIES
 
 /// BLOG POSTS
-axios.get(siteURL + '/dummy/data/sitemap-blog-posts.json').then(function (response) {
+axios.get(siteURL + '/blog-posts').then(function (response) {
 	var blogPostsUrls = response.data.payload.results.map(function (result) {
 		return {
 			url: result,

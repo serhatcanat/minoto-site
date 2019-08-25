@@ -13,8 +13,8 @@ import { storageSpace } from "functions/helpers";
 
 
 // Assets
-import image_home_banner from 'assets/images/home-banner-test.jpg'
-import image_home_banner_mobile from 'assets/images/home-banner-test-mobile.jpg'
+//import image_home_banner from 'assets/images/home-banner-test.jpg'
+//import image_home_banner_mobile from 'assets/images/home-banner-test-mobile.jpg'
 
 
 

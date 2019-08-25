@@ -20,5 +20,6 @@ if (!endpoint) {
 
 export const apiBase = `${endpoint}/v1/shared/`
 
-export const storagePath = 'https://minoto.ams3.digitaloceanspaces.com/'
+//export const storagePath = 'https://minoto.ams3.digitaloceanspaces.com/'
+export const storagePath = 'https://res.cloudinary.com/minoto/image/upload/'
 export const basePath = 'https://minoto.com'
