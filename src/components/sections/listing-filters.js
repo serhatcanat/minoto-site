@@ -97,7 +97,7 @@ class ListingFilters extends React.Component {
 		let vm = this;
 
 		setTimeout(function () {
-			if(vm.formRef.current){
+			if (vm.formRef.current) {
 				vm.props.setQuery(serializeArray(vm.formRef.current, config.filterSeperator, true));
 				vm.setState({ synchronized: true })
 			}
@@ -480,7 +480,7 @@ class BrandsFilterItemRaw extends React.Component {
 						</div>
 						:
 						<div className={"item-subgroup" + (vm.state.expanded ? ' expanded' : '')}>
-							<div className={`item-wrap ${data.children[0].title !== '-' && 'expandable'}`}>
+							<div className={`item-wrap expandable}`}>
 								<div className="inputwrap type-checkbox no-select ">
 									<div className="text-title">
 										<Link href={urlRoot} query={vm.props.filterQuery}>
@@ -488,15 +488,11 @@ class BrandsFilterItemRaw extends React.Component {
 										</Link>
 									</div>
 								</div>
-								{data.children[0].title !== '-' && <button className="item-expand" type="button" onClick={vm.toggleExpand}></button>}
+								{<button className="item-expand" type="button" onClick={vm.toggleExpand}></button>}
 
 							</div>
 							<ul className="item-submenu">
-								{data.children.map((opt, nth) => {
-									return (
-										<BrandsFilterItem data={opt} name={name} idprefix={vm.id} key={nth} nth={nth} level={vm.props.level + 1} onExpand={this.props.onExpand} urlRoot={urlRoot} />
-									)
-								})}
+
 							</ul>
 						</div>
 					)}

@@ -77,7 +77,7 @@ export default class Home extends React.Component {
 								mobile={storageSpace('homepage-slides', banner.mobile_image)} />
 						</section>
 						<Listing className="home-listing"
-							source={'car-posts/home'}
+							source={'car-data/brands'}
 							defaultOrder="random"
 							query={false}
 							scrollOnFilterChange
