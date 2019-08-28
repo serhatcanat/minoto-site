@@ -235,7 +235,7 @@ module.exports = {
 			title: "Bayi Başvuru Durumu",
 		},
 		searchBrand: {
-			path: "/:brand/:model?/:modelsub?/:version?",
+			path: "/:brand/:model?/:optdata1?/:optdata2?/:optdata3?",
 			component: "SearchBrand",
 			exact: false,
 			linkTitle: "Arama",

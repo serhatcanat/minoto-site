@@ -13,8 +13,9 @@ import Listing from 'components/sections/listing.js'
 const matchParams = [
 	'brand',
 	'model',
-	'modelsub',
-	'version'
+	'optdata1',
+	'optdata2',
+	'optdata3'
 ]
 
 export default class SearchVersion extends React.Component {
@@ -36,6 +37,7 @@ export default class SearchVersion extends React.Component {
 				<Listing
 					className="search-listing"
 					source={`car-posts/filter${route}`}
+					// -- bu gülşahın yarın oluşturacağı url source={`car-data/filters${route}`}
 					query={false}
 					key="search-brand-deep" />
 			</main>
