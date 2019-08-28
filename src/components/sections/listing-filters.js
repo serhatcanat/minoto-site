@@ -473,27 +473,28 @@ class BrandsFilterItemRaw extends React.Component {
 
 		//console.log(vm.props.filterQuery);
 
-		console.log(data);
-
 		let urlRoot = vm.props.urlRoot + (data.url ? ("/" + data.url) : '');
+
+		let itemContent = <div className={"item-wrap" + (data.selected ? ' active' : '')}>
+			{data.selected ? 
+				<span>
+					{data.title}
+					{data.count && <span className="item-count">({data.count})</span>}
+				</span>
+			:
+				<Link href={urlRoot} query={vm.props.filterQuery}>
+					{data.title}
+					{data.count && <span className="item-count">({data.count})</span>}
+				</Link>
+			}
+		</div>;
 
 		return (
 			<li className={"filter-item level-" + vm.props.level}>
 				{data &&
 					((data.children && data.children !== null && data.children.length) ?
 						<div className="item-subgroup">
-							<div className="item-wrap">
-								<div className="inputwrap type-checkbox no-select ">
-									<div className="text-title">
-										<Link href={urlRoot} query={vm.props.filterQuery}>
-											{data.title}
-											{data.count && <span className="item-count">({data.count})</span>}
-										</Link>
-									</div>
-								</div>
-								{/*<button className="item-expand" type="button" onClick={vm.toggleExpand}></button>*/}
-
-							</div>
+							{itemContent}
 							<ul className="item-submenu">
 								{data.children.map((opt, nth) => {
 									return (
@@ -512,14 +513,7 @@ class BrandsFilterItemRaw extends React.Component {
 						</div>
 						:
 						<div className="inputwrap type-checkbox no-select">
-							<div className="item-wrap" style={{ display: data.title === '-' ? 'none' : '' }}>
-								<div className="text-title">
-									<Link href={urlRoot} query={vm.props.filterQuery}>
-										{data.title}
-										{data.count && <span className="item-count">({data.count})</span>}
-									</Link>
-								</div>
-							</div>
+							{itemContent}
 						</div>						
 					)
 				}
