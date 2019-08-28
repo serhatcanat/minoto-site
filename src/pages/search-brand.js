@@ -36,8 +36,9 @@ export default class SearchVersion extends React.Component {
 			<main className="page search">
 				<Listing
 					className="search-listing"
-					source={`car-posts/filter${route}`}
+					// -- bu eski source={`car-posts/filter${route}`}
 					// -- bu gülşahın yarın oluşturacağı url source={`car-data/filters${route}`}
+					source={`filters${route}`}
 					query={false}
 					key="search-brand-deep" />
 			</main>

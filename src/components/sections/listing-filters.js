@@ -403,7 +403,7 @@ class FilterTypeBrands extends React.Component {
 				{opts.map((opt, nth) => {
 					let idprefix = 'filter_input_' + data.name;
 					return (
-						<BrandsFilterItem data={opt} name={data.name} idprefix={idprefix} nth={nth} key={nth} level={1} onExpand={this.props.onExpand} urlRoot="" />
+						<BrandsFilterItem data={opt} name={data.name} idprefix={idprefix} nth={nth} key={nth} level={1} onExpand={this.props.onExpand} urlRoot={""} />
 					)
 				})}
 			</ul>
@@ -464,6 +464,8 @@ class BrandsFilterItemRaw extends React.Component {
 		//console.log(vm.props.filterQuery);
 
 		let urlRoot = vm.props.urlRoot + (data.url ? ("/" + data.url) : '');
+
+		console.log(data);
 
 		return (
 			<li className={"filter-item level-" + vm.props.level}>

@@ -1,0 +1,32 @@
+{
+	"payload": {
+		"title": "Marka Seçiniz",
+		"key": "marka",
+		"opts": [
+			{
+				"label": "A3",
+				"value": 6
+			},
+			{
+				"label": "A4",
+				"value": 2
+			},
+			{
+				"label": "A1",
+				"value": 10
+			},
+			{
+				"label": "A5",
+				"value": 42
+			},
+			{
+				"label": "A6",
+				"value": 3
+			},
+			{
+				"label": "A7",
+				"value": 11
+			}
+		]
+	}
+}
