@@ -277,7 +277,7 @@ class ListingFilter extends React.Component {
 				filterContent = <FilterTypeBrands data={filterData} onUpdate={vm.props.onUpdate} />;
 				break;
 			case "tree":
-				filterContent = <FilterTypeBrands data={filterData} onUpdate={vm.props.onUpdate} />;
+				filterContent = <FilterTypeTree data={filterData} onUpdate={vm.props.onUpdate} />;
 				break;
 			case "icons":
 				filterContent = <FilterTypeIcons data={filterData} onUpdate={vm.props.onUpdate} />;
@@ -399,14 +399,23 @@ class FilterTypeBrands extends React.Component {
 		let data = vm.props.data;
 		let opts = vm.state.opts;
 		return (
-			<ul className="filter-list">
-				{opts.map((opt, nth) => {
-					let idprefix = 'filter_input_' + data.name;
-					return (
-						<BrandsFilterItem data={opt} name={data.name} idprefix={idprefix} nth={nth} key={nth} level={1} onExpand={this.props.onExpand} urlRoot={""} />
-					)
-				})}
-			</ul>
+			<React.Fragment>
+				{data.root !== true &&
+					<div className="item-wrap filter-back">
+						<Link className="" href="home">
+							<i className="back-icon icon-angle-left"></i> Tüm Markalar
+						</Link>
+					</div>
+				}
+				<ul className="filter-list">
+					{opts.map((opt, nth) => {
+						let idprefix = 'filter_input_' + data.name;
+						return (
+							<BrandsFilterItem data={opt} name={data.name} idprefix={idprefix} nth={nth} key={nth} level={1} onExpand={this.props.onExpand} urlRoot={""} />
+						)
+					})}
+				</ul>
+			</React.Fragment>
 		)
 	}
 }
@@ -423,6 +432,7 @@ class BrandsFilterItemRaw extends React.Component {
 
 		this.state = {
 			data: props.data,
+			expanded: true,
 		}
 
 		//this.handleChange = this.handleChange.bind(this);
@@ -443,10 +453,10 @@ class BrandsFilterItemRaw extends React.Component {
 	}
 
 	toggleExpand() {
-		this.setState({ expanded: !this.state.expanded });
+		/*this.setState({ expanded: !this.state.expanded });
 		if (this.props.onExpand) {
 			this.props.onExpand();
-		}
+		}*/
 	}
 
 	handleValueChange(e) {
@@ -463,41 +473,56 @@ class BrandsFilterItemRaw extends React.Component {
 
 		//console.log(vm.props.filterQuery);
 
-		let urlRoot = vm.props.urlRoot + (data.url ? ("/" + data.url) : '');
-
 		console.log(data);
+
+		let urlRoot = vm.props.urlRoot + (data.url ? ("/" + data.url) : '');
 
 		return (
 			<li className={"filter-item level-" + vm.props.level}>
 				{data &&
-					((data.value && !data.children) ?
+					((data.children && data.children !== null && data.children.length) ?
+						<div className="item-subgroup">
+							<div className="item-wrap">
+								<div className="inputwrap type-checkbox no-select ">
+									<div className="text-title">
+										<Link href={urlRoot} query={vm.props.filterQuery}>
+											{data.title}
+											{data.count && <span className="item-count">({data.count})</span>}
+										</Link>
+									</div>
+								</div>
+								{/*<button className="item-expand" type="button" onClick={vm.toggleExpand}></button>*/}
+
+							</div>
+							<ul className="item-submenu">
+								{data.children.map((opt, nth) => {
+									return (
+										<BrandsFilterItem
+											data={opt}
+											name={name}
+											idprefix={vm.id}
+											key={nth}
+											nth={nth}
+											urlRoot={urlRoot}
+											/*onExpand={this.props.onExpand}*/
+											level={vm.props.level + 1} />
+									)
+								})}
+							</ul>
+						</div>
+						:
 						<div className="inputwrap type-checkbox no-select">
 							<div className="item-wrap" style={{ display: data.title === '-' ? 'none' : '' }}>
 								<div className="text-title">
 									<Link href={urlRoot} query={vm.props.filterQuery}>
 										{data.title}
+										{data.count && <span className="item-count">({data.count})</span>}
 									</Link>
 								</div>
 							</div>
-						</div>
-						:
-						<div className={"item-subgroup" + (vm.state.expanded ? ' expanded' : '')}>
-							<div className={`item-wrap expandable}`}>
-								<div className="inputwrap type-checkbox no-select ">
-									<div className="text-title">
-										<Link href={urlRoot} query={vm.props.filterQuery}>
-											{data.title}
-										</Link>
-									</div>
-								</div>
-								{<button className="item-expand" type="button" onClick={vm.toggleExpand}></button>}
-
-							</div>
-							<ul className="item-submenu">
-
-							</ul>
-						</div>
-					)}
+						</div>						
+					)
+				}
 			</li>
 		)
 	}
@@ -505,268 +530,268 @@ class BrandsFilterItemRaw extends React.Component {
 
 const BrandsFilterItem = connect(brandItemStateProps)(BrandsFilterItemRaw);
 
-// class FilterTypeTree extends React.Component {
-// 	constructor(props) {
-// 		super(props)
-// 		this.state = {
-// 			opts: props.data.opts,
-// 		}
+class FilterTypeTree extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			opts: props.data.opts,
+		}
 
-// 		this.handleChange = this.handleChange.bind(this);
-// 	}
+		this.handleChange = this.handleChange.bind(this);
+	}
 
-// 	componentDidUpdate(prevProps) {
-// 		if (!isEqual(prevProps.data, this.props.data)) {
-// 			this.setState({ opts: this.props.data.opts });
-// 		}
-// 	}
+	componentDidUpdate(prevProps) {
+		if (!isEqual(prevProps.data, this.props.data)) {
+			this.setState({ opts: this.props.data.opts });
+		}
+	}
 
-// 	handleChange(newChild, nth) {
-// 		/*let newOpts = this.state.opts;
-// 		newOpts[nth].selected = e.target.checked;
+	handleChange(newChild, nth) {
+		/*let newOpts = this.state.opts;
+		newOpts[nth].selected = e.target.checked;
 
-// 		this.setState({opts: newOpts});
+		this.setState({opts: newOpts});
 
-// 		this.props.onUpdate();*/
+		this.props.onUpdate();*/
 
-// 		let newOpts = clone(this.state.opts);
-// 		newOpts[nth] = newChild;
-// 		this.setState({ opts: newOpts });
+		let newOpts = clone(this.state.opts);
+		newOpts[nth] = newChild;
+		this.setState({ opts: newOpts });
 
-// 		this.props.onUpdate();
-// 	}
+		this.props.onUpdate();
+	}
 
-// 	render() {
-// 		let vm = this;
-// 		let data = vm.props.data;
-// 		let opts = vm.state.opts;
-// 		return (
-// 			<ul className="filter-list">
-// 				{opts.map((opt, nth) => {
-// 					let idprefix = 'filter_input_' + data.name;
-// 					return (
-// 						<TreeFilterItem data={opt} name={data.name} idprefix={idprefix} nth={nth} key={nth} level={1} onChange={(e) => { this.handleChange(e, nth) }} onExpand={this.props.onExpand} />
-// 					)
-// 				})}
-// 			</ul>
-// 		)
-// 	}
-// }
+	render() {
+		let vm = this;
+		let data = vm.props.data;
+		let opts = vm.state.opts;
+		return (
+			<ul className="filter-list">
+				{opts.map((opt, nth) => {
+					let idprefix = 'filter_input_' + data.name;
+					return (
+						<TreeFilterItem data={opt} name={data.name} idprefix={idprefix} nth={nth} key={nth} level={1} onChange={(e) => { this.handleChange(e, nth) }} onExpand={this.props.onExpand} />
+					)
+				})}
+			</ul>
+		)
+	}
+}
 
-// class TreeFilterItem extends React.Component {
-// 	constructor(props) {
-// 		super(props)
-// 		let active = this.calculateActive(props.data);
+class TreeFilterItem extends React.Component {
+	constructor(props) {
+		super(props)
+		let active = this.calculateActive(props.data);
 
-// 		this.state = {
-// 			data: props.data,
-// 			expanded: active,
-// 			active: active,
-// 		}
+		this.state = {
+			data: props.data,
+			expanded: active,
+			active: active,
+		}
 
-// 		//this.handleChange = this.handleChange.bind(this);
-// 		this.toggleExpand = this.toggleExpand.bind(this);
-// 		this.calculateActive = this.calculateActive.bind(this);
-// 		this.handleValueChange = this.handleValueChange.bind(this);
-// 		this.handleParentChange = this.handleParentChange.bind(this);
-// 		this.deselectChildren = this.deselectChildren.bind(this);
-// 		this.selectChildren = this.selectChildren.bind(this);
-// 		this.handleChildrenChange = this.handleChildrenChange.bind(this);
+		//this.handleChange = this.handleChange.bind(this);
+		this.toggleExpand = this.toggleExpand.bind(this);
+		this.calculateActive = this.calculateActive.bind(this);
+		this.handleValueChange = this.handleValueChange.bind(this);
+		this.handleParentChange = this.handleParentChange.bind(this);
+		this.deselectChildren = this.deselectChildren.bind(this);
+		this.selectChildren = this.selectChildren.bind(this);
+		this.handleChildrenChange = this.handleChildrenChange.bind(this);
 
-// 		this.id = props.idprefix + '_' + props.nth;
-// 	}
+		this.id = props.idprefix + '_' + props.nth;
+	}
 
-// 	componentDidUpdate(prevProps, prevState) {
-// 		let vm = this;
-// 		if (isEqual(prevState.data, vm.state.data)) {
-// 			if (!isEqual(vm.state.data, vm.props.data)) {
-// 				let active = vm.calculateActive(vm.props.data);
-// 				vm.setState({
-// 					data: vm.props.data,
-// 					active: active,
-// 				});
-// 			}
-// 		}
-// 		else {
-// 			vm.props.onChange(vm.state.data);
-// 		}
-// 	}
+	componentDidUpdate(prevProps, prevState) {
+		let vm = this;
+		if (isEqual(prevState.data, vm.state.data)) {
+			if (!isEqual(vm.state.data, vm.props.data)) {
+				let active = vm.calculateActive(vm.props.data);
+				vm.setState({
+					data: vm.props.data,
+					active: active,
+				});
+			}
+		}
+		else {
+			vm.props.onChange(vm.state.data);
+		}
+	}
 
-// 	calculateActive(data = this.state.data) {
-// 		let result = false;
+	calculateActive(data = this.state.data) {
+		let result = false;
 
-// 		if (data.children && data.children.length) {
-// 			for (let k = 0; k < data.children.length; k++) {
-// 				if (data.children[k]) {
-// 					if (data.children[k].value) {
-// 						if (data.children[k].selected) {
-// 							result = true;
-// 						}
-// 					}
-// 					else if (result === false) {
-// 						result = this.calculateActive(data.children[k]);
-// 					}
-// 				}
-// 			}
-// 		}
+		if (data.children && data.children.length) {
+			for (let k = 0; k < data.children.length; k++) {
+				if (data.children[k]) {
+					if (data.children[k].value) {
+						if (data.children[k].selected) {
+							result = true;
+						}
+					}
+					else if (result === false) {
+						result = this.calculateActive(data.children[k]);
+					}
+				}
+			}
+		}
 
-// 		return result;
-// 	}
+		return result;
+	}
 
-// 	deselectChildren(inputData = false) {
-// 		let vm = this;
-// 		let data = (inputData ? inputData : vm.state.data);
-// 		let newData = clone(data);
-// 		if (newData.children) {
-// 			newData.children = newData.children.map(function (child, nth) {
-// 				let newChild = clone(child);
-// 				if (newChild.children) {
-// 					newChild = vm.deselectChildren(newChild);
-// 				}
-// 				else {
-// 					newChild.selected = false;
-// 				}
-// 				return newChild;
-// 			});
-// 		}
+	deselectChildren(inputData = false) {
+		let vm = this;
+		let data = (inputData ? inputData : vm.state.data);
+		let newData = clone(data);
+		if (newData.children) {
+			newData.children = newData.children.map(function (child, nth) {
+				let newChild = clone(child);
+				if (newChild.children) {
+					newChild = vm.deselectChildren(newChild);
+				}
+				else {
+					newChild.selected = false;
+				}
+				return newChild;
+			});
+		}
 
-// 		if (inputData) {
-// 			return newData;
-// 		}
-// 		else {
-// 			vm.setState({ data: newData });
-// 		}
-// 	}
+		if (inputData) {
+			return newData;
+		}
+		else {
+			vm.setState({ data: newData });
+		}
+	}
 
-// 	selectChildren(inputData = false) {
-// 		let vm = this;
-// 		let data = (inputData ? inputData : vm.state.data);
-// 		let newData = clone(data);
-// 		if (newData.children) {
-// 			newData.children = newData.children.map(function (child, nth) {
-// 				let newChild = clone(child);
-// 				if (newChild.children) {
-// 					newChild = vm.selectChildren(newChild);
-// 				}
-// 				else {
-// 					newChild.selected = true;
-// 				}
-// 				return newChild;
-// 			});
-// 		}
+	selectChildren(inputData = false) {
+		let vm = this;
+		let data = (inputData ? inputData : vm.state.data);
+		let newData = clone(data);
+		if (newData.children) {
+			newData.children = newData.children.map(function (child, nth) {
+				let newChild = clone(child);
+				if (newChild.children) {
+					newChild = vm.selectChildren(newChild);
+				}
+				else {
+					newChild.selected = true;
+				}
+				return newChild;
+			});
+		}
 
-// 		if (inputData) {
-// 			return newData;
-// 		}
-// 		else {
-// 			vm.setState({ data: newData });
-// 		}
-// 	}
+		if (inputData) {
+			return newData;
+		}
+		else {
+			vm.setState({ data: newData });
+		}
+	}
 
-// 	toggleExpand() {
-// 		this.setState({ expanded: !this.state.expanded });
-// 		if (this.props.onExpand) {
-// 			this.props.onExpand();
-// 		}
-// 	}
+	toggleExpand() {
+		this.setState({ expanded: !this.state.expanded });
+		if (this.props.onExpand) {
+			this.props.onExpand();
+		}
+	}
 
-// 	handleValueChange(e) {
-// 		let newData = clone(this.state.data);
-// 		newData.selected = e.target.checked;
-// 		this.setState({ data: newData })
-// 		this.props.onChange(newData, this.props.nth);
-// 	}
+	handleValueChange(e) {
+		let newData = clone(this.state.data);
+		newData.selected = e.target.checked;
+		this.setState({ data: newData })
+		this.props.onChange(newData, this.props.nth);
+	}
 
-// 	handleParentChange(e) {
-// 		let active = e.target.checked;
-// 		if (active) {
-// 			this.selectChildren();
-// 		}
-// 		else {
-// 			this.deselectChildren();
-// 		}
+	handleParentChange(e) {
+		let active = e.target.checked;
+		if (active) {
+			this.selectChildren();
+		}
+		else {
+			this.deselectChildren();
+		}
 
-// 		this.setState({ active: active });
-// 	}
+		this.setState({ active: active });
+	}
 
-// 	handleChildrenChange(newChild, nth) {
-// 		let newData = clone(this.state.data);
-// 		newData.children[nth] = newChild;
-// 		let active = this.calculateActive(newData);
-// 		this.setState({ data: newData, active: active });
-// 		this.props.onChange(newData, nth);
-// 	}
+	handleChildrenChange(newChild, nth) {
+		let newData = clone(this.state.data);
+		newData.children[nth] = newChild;
+		let active = this.calculateActive(newData);
+		this.setState({ data: newData, active: active });
+		this.props.onChange(newData, nth);
+	}
 
-// 	render() {
-// 		let vm = this;
-// 		let data = vm.state.data;
-// 		let name = vm.props.name;
+	render() {
+		let vm = this;
+		let data = vm.state.data;
+		let name = vm.props.name;
 
-// 		return (
-// 			<li className={"filter-item level-" + vm.props.level}>
-// 				{data &&
-// 					((data.value && !data.children) ?
-// 						<div className="inputwrap type-checkbox no-select">
-// 							<div className="item-wrap" style={{ display: data.title === '-' ? 'none' : '' }}>
-// 								<div className="checkwrap">
-// 									<input
-// 										key={vm.id}
-// 										type="checkbox"
-// 										className="parent"
-// 										name={name + '[]'}
-// 										id={vm.id}
-// 										value={data.value}
-// 										checked={data.selected ? true : false}
-// 										onChange={(e) => vm.handleValueChange(e)} />
-// 									<label htmlFor={vm.id}>
-// 										<span></span>
-// 										<div className="item-text checkwrap-content">
-// 											<div className="text-title">
-// 												{data.title}
-// 											</div>
-// 										</div>
-// 									</label>
-// 								</div>
-// 							</div>
-// 						</div>
-// 						:
-// 						<div className={"item-subgroup" + (vm.state.expanded ? ' expanded' : '')}>
-// 							<div className={`item-wrap ${data.children[0].title !== '-' && 'expandable'}`}>
-// 								<div className="inputwrap type-checkbox no-select ">
-// 									<div className="checkwrap">
-// 										<input
-// 											key={vm.id}
-// 											type="checkbox"
-// 											className="child"
-// 											id={vm.id}
-// 											checked={vm.state.active}
-// 											onChange={vm.handleParentChange} />
-// 										<label htmlFor={vm.id}>
-// 											<span></span>
-// 											<div className="item-text checkwrap-content">
-// 												<div className="text-title">
-// 													{data.title}
-// 												</div>
-// 											</div>
-// 										</label>
-// 									</div>
-// 								</div>
-// 								{data.children[0].title !== '-' && <button className="item-expand" type="button" onClick={vm.toggleExpand}></button>}
+		return (
+			<li className={"filter-item level-" + vm.props.level}>
+				{data &&
+					((data.value && !data.children) ?
+						<div className="inputwrap type-checkbox no-select">
+							<div className="item-wrap" style={{ display: data.title === '-' ? 'none' : '' }}>
+								<div className="checkwrap">
+									<input
+										key={vm.id}
+										type="checkbox"
+										className="parent"
+										name={name + '[]'}
+										id={vm.id}
+										value={data.value}
+										checked={data.selected ? true : false}
+										onChange={(e) => vm.handleValueChange(e)} />
+									<label htmlFor={vm.id}>
+										<span></span>
+										<div className="item-text checkwrap-content">
+											<div className="text-title">
+												{data.title}
+											</div>
+										</div>
+									</label>
+								</div>
+							</div>
+						</div>
+						:
+						<div className={"item-subgroup" + (vm.state.expanded ? ' expanded' : '')}>
+							<div className={`item-wrap ${data.children[0].title !== '-' && 'expandable'}`}>
+								<div className="inputwrap type-checkbox no-select ">
+									<div className="checkwrap">
+										<input
+											key={vm.id}
+											type="checkbox"
+											className="child"
+											id={vm.id}
+											checked={vm.state.active}
+											onChange={vm.handleParentChange} />
+										<label htmlFor={vm.id}>
+											<span></span>
+											<div className="item-text checkwrap-content">
+												<div className="text-title">
+													{data.title}
+												</div>
+											</div>
+										</label>
+									</div>
+								</div>
+								{data.children[0].title !== '-' && <button className="item-expand" type="button" onClick={vm.toggleExpand}></button>}
 
-// 							</div>
-// 							<ul className="item-submenu">
-// 								{data.children.map((opt, nth) => {
-// 									return (
-// 										<TreeFilterItem data={opt} name={name} idprefix={vm.id} key={nth} nth={nth} level={vm.props.level + 1} onChange={(e) => { this.handleChildrenChange(e, nth) }} onExpand={this.props.onExpand} />
-// 									)
-// 								})}
-// 							</ul>
-// 						</div>
-// 					)}
-// 			</li>
-// 		)
-// 	}
-// }
+							</div>
+							<ul className="item-submenu">
+								{data.children.map((opt, nth) => {
+									return (
+										<TreeFilterItem data={opt} name={name} idprefix={vm.id} key={nth} nth={nth} level={vm.props.level + 1} onChange={(e) => { this.handleChildrenChange(e, nth) }} onExpand={this.props.onExpand} />
+									)
+								})}
+							</ul>
+						</div>
+					)}
+			</li>
+		)
+	}
+}
 
 class FilterTypeIcons extends React.Component {
 	constructor(props) {

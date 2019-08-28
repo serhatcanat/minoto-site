@@ -121,15 +121,8 @@ class CarPicker extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			brand: null,
-			model: null,
-			type: null,
-			package: null,
 			taxonomyList: [props.brands],
 			taxonomySelection: [],
-			models: [],
-			types: [],
-			packages: [],
 		}
 
 		this.props.onCarChange(false, this.props.nth);

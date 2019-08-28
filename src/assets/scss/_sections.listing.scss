@@ -842,6 +842,118 @@
 						}
 			}
 
+			&.type-brands {
+				.filter-back {
+					position: relative;
+					background-color: $color-gray-light;
+					/*padding: 0 1rem;
+					min-height: 4.2rem;*/
+				}
+
+					.back-icon {
+						position: absolute;
+						left: .7rem;
+						top: 50%;
+						font-size: .8em;
+						color: $color-text-light;
+						transform: translate3d(0, -50%, 0);
+					}
+
+				.filter-list {
+					background-color: $color-gray-light;
+				}
+
+					.filter-item {
+						&.level-2 {
+							.item-wrap {
+								padding-left: 3rem;
+							}
+						}
+
+						&.level-3 {
+							.item-wrap {
+								padding-left: 4rem;
+							}
+						}
+
+						&.level-4 {
+							.item-wrap {
+								padding-left: 5rem;
+							}
+						}
+
+						&.level-5 {
+							.item-wrap {
+								padding-left: 6rem;
+							}
+						}
+
+						&.level-6 {
+							.item-wrap {
+								padding-left: 7rem;
+							}
+						}
+					}
+
+						.item-wrap {
+							padding: 0 0 0 2rem;
+							min-height: 4.2rem;
+							position: relative;
+							display: flex;
+							flex-flow: row wrap;
+							align-items: center;
+							width: 100%;
+							text-align: left;
+							border-top: .1rem solid $color-gray;
+
+						/* 	&.expandable {
+								
+							} */
+
+							.inputwrap {
+								display: inline-block;
+								max-width: calc(100% - 3rem);
+							}
+
+							.checkwrap {
+								input{
+									top: 0;
+
+									+ label {
+										padding: .2rem 0 .2rem 0.7rem;
+										display: block;
+										span {
+											opacity: 0;
+											top: 1rem;
+											width: 1.4rem;
+											height: 1.4rem;
+										}
+									}
+								}
+							}
+
+							.item-expand {
+								flex: 1;
+								margin-left: .5rem;
+								height: 4.1rem;
+								position: relative;
+								z-index: 2;
+							}
+
+							.item-count {
+								font-size: .8em;
+								margin-left: .5rem;
+								color: $color-text-light;
+							}
+						}
+
+						.item-subgroup {
+							.item-submenu {
+								display: block;
+							}
+						}
+			}
+
 			&.type-icons {
 				.filter-list {
 					display: flex;
