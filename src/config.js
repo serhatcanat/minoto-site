@@ -9,8 +9,8 @@ if (!endpoint) {
 			//endpoint = 'https://minoto-api.thinkerfox.com'
 			break;
 		case 'minoto.thinkerfox.com':
-			//endpoint = 'https://minoto-api.thinkerfox.com'
-			endpoint = 'https://api.minoto.com'
+			endpoint = 'https://minoto-api.thinkerfox.com'
+			//endpoint = 'https://api.minoto.com'
 			break;
 		default:
 			endpoint = 'https://api.minoto.com'

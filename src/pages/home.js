@@ -13,10 +13,10 @@ import { storageSpace } from "functions/helpers";
 
 
 // Assets
-import image_home_banner from 'assets/images/home-banner-volvo.jpg'
-import image_home_banner_mobile from 'assets/images/home-banner-volvo-mobile.jpg'
-import image_home_banner2 from 'assets/images/home-banner-volvo2.jpg'
-import image_home_banner_mobile2 from 'assets/images/home-banner-volvo2-mobile.jpg'
+//import image_home_banner from 'assets/images/home-banner-volvo.jpg'
+//import image_home_banner_mobile from 'assets/images/home-banner-volvo-mobile.jpg'
+//import image_home_banner2 from 'assets/images/home-banner-volvo2.jpg'
+//import image_home_banner_mobile2 from 'assets/images/home-banner-volvo2-mobile.jpg'
 
 
 
@@ -73,10 +73,10 @@ export default class Home extends React.Component {
 							<Image
 								className="intro-bg"
 								bg
-								src={this.props.location.hash.substr(1) === 'volvo' ? image_home_banner : image_home_banner2}
-								mobile={this.props.location.hash.substr(1) === 'volvo' ? image_home_banner_mobile : image_home_banner_mobile2}
-							//src={storageSpace('homepage-slides', banner.main_image)}
-							//mobile={storageSpace('homepage-slides', banner.mobile_image)} 
+								//src={this.props.location.hash.substr(1) === 'volvo' ? image_home_banner : image_home_banner2}
+								//mobile={this.props.location.hash.substr(1) === 'volvo' ? image_home_banner_mobile : image_home_banner_mobile2}
+								src={storageSpace('homepage-slides', banner.main_image)}
+								mobile={storageSpace('homepage-slides', banner.mobile_image)}
 							/>
 						</section>
 						<Listing className="home-listing"

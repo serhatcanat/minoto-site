@@ -146,7 +146,7 @@ class Listing extends React.Component {
 
 	urlChanged() {
 		let vm = this;
-		
+
 		if (vm.urlTimeout) { clearTimeout(vm.urlTimeout); vm.urlTimeout = false; }
 
 		vm.urlTimeout = setTimeout(function () {
@@ -543,6 +543,7 @@ class ActiveFilters extends React.Component {
 	render() {
 		let filters = [];
 
+
 		if (this.props.data && this.props.data.filters) {
 			filters = this.props.data.filters.reduce((activeFilters, group, nth) => {
 				let values = false;
@@ -565,7 +566,6 @@ class ActiveFilters extends React.Component {
 						values = (group.value ? [{ value: false, title: group.value }] : false);
 						break;
 					default: // list, icons
-
 						data = group.opts.reduce((selectedOpts, filter) => {
 							if (filter.selected) { selectedOpts.push({ value: filter.value, title: filter.title }); }
 
