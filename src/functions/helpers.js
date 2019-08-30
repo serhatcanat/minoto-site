@@ -222,12 +222,12 @@ export function blockOverflow(block = true) {
 		let scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
 		document.documentElement.style.marginRight = scrollBarWidth + 'px'
 		document.body.classList.add('block-overflow');
-		disableBodyScroll(document.querySelector('.section.listing-filters.active.show'));
+		disableBodyScroll(document.querySelector('.section.listing-filters'));
 	}
 	else {
 		document.documentElement.style.marginRight = ''
 		document.body.classList.remove('block-overflow');
-		enableBodyScroll(document.querySelector('.section.listing-filters.active.show'));
+		enableBodyScroll(document.querySelector('.section.listing-filters'));
 	}
 }
 
