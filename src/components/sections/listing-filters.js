@@ -96,7 +96,7 @@ class ListingFilters extends React.Component {
 		let vm = this;
 
 		setTimeout(function () {
-			if(vm.formRef.current){
+			if (vm.formRef.current) {
 				vm.props.setQuery(serializeArray(vm.formRef.current, config.filterSeperator, true));
 				vm.setState({ synchronized: true })
 			}
@@ -138,6 +138,7 @@ class ListingFilters extends React.Component {
 	render() {
 		let vm = this;
 		let data = vm.props.listingData;
+
 		if (data) {
 			return (
 				<aside className={"section listing-filters " + vm.props.className + (vm.state.active ? ' active' : '') + (vm.state.show ? ' show' : '')}>
@@ -154,7 +155,7 @@ class ListingFilters extends React.Component {
 							<form className="filters-form" ref={vm.formRef} onSubmit={vm.filtersSubmitted}>
 								{(data && data.filters ?
 									data.filters.map((filter, nth) => (
-										<ListingFilter data={filter} key={nth} onUpdate={vm.filterUpdated} />
+										<ListingFilter mobile={vm.props.mobile} data={filter} key={nth} onUpdate={vm.filterUpdated} />
 									)) : false)}
 							</form>
 
@@ -270,19 +271,19 @@ class ListingFilter extends React.Component {
 
 		switch (filterData.display) {
 			case "list":
-				filterContent = <FilterTypeList data={filterData} onUpdate={vm.props.onUpdate} />;
+				filterContent = <FilterTypeList data={filterData} onUpdate={vm.props.onUpdate} mobile={vm.props.mobile} />;
 				break;
 			case "tree":
-				filterContent = <FilterTypeTree data={filterData} onUpdate={vm.props.onUpdate} />;
+				filterContent = <FilterTypeTree data={filterData} onUpdate={vm.props.onUpdate} mobile={vm.props.mobile} />;
 				break;
 			case "icons":
-				filterContent = <FilterTypeIcons data={filterData} onUpdate={vm.props.onUpdate} />;
+				filterContent = <FilterTypeIcons data={filterData} onUpdate={vm.props.onUpdate} mobile={vm.props.mobile} />;
 				break;
 			case "range":
-				filterContent = <FilterTypeRange data={filterData} onUpdate={vm.props.onUpdate} />;
+				filterContent = <FilterTypeRange data={filterData} onUpdate={vm.props.onUpdate} mobile={vm.props.mobile} />;
 				break;
 			case "text":
-				filterContent = <FilterTypeText data={filterData} onUpdate={vm.props.onUpdate} />;
+				filterContent = <FilterTypeText data={filterData} onUpdate={vm.props.onUpdate} mobile={vm.props.mobile} />;
 				break;
 			default: break;
 		}
@@ -726,7 +727,7 @@ class FilterTypeRange extends React.Component {
 			newOpts[nth].value = e.target.value;
 
 			this.setState({ opts: newOpts, synced: false });
-			//this.update();
+			this.update();
 		}
 	}
 
@@ -753,14 +754,18 @@ class FilterTypeRange extends React.Component {
 							className="inputs-input" />
 					</div>
 				))}
+				{
+					!vm.props.mobile && (
+						<button
+							type="button"
+							disabled={vm.state.synced}
+							onClick={vm.update}
+							className="inputs-submit btn">
+							Ara
+						</button>
+					)
+				}
 
-				<button
-					type="button"
-					disabled={vm.state.synced}
-					onClick={vm.update}
-					className="inputs-submit btn">
-					Ara
-				</button>
 			</div>
 		)
 	}
