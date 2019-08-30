@@ -1,5 +1,6 @@
 import extend from "lodash/extend"
 import { storagePath, apiBase } from "../config"
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 
 export function scrollTo(inputOpts, endFunction = false) {
 	let defaultOpts = {
@@ -216,21 +217,17 @@ export function serialize(form, seperator = ',', ignoreEmpty = false) {
 	return serialized.join('&');
 }
 
-function freezeVp(e) {
-	e.preventDefault();
-};
-
 export function blockOverflow(block = true) {
 	if (block) {
 		let scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
 		document.documentElement.style.marginRight = scrollBarWidth + 'px'
 		document.body.classList.add('block-overflow');
-		document.body.addEventListener("touchmove", freezeVp, false);
+		disableBodyScroll(document.body);
 	}
 	else {
 		document.documentElement.style.marginRight = ''
 		document.body.classList.remove('block-overflow');
-		document.body.removeEventListener("touchmove", freezeVp, false);
+		enableBodyScroll(document.body);
 	}
 }
 
