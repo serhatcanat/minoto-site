@@ -91,7 +91,7 @@ class Detail extends React.Component {
 	initialize() {
 		let vm = this;
 		if (vm.state.productData === false) {
-			request.get(`car-posts/${vm.props.match.params.id}/${vm.props.match.params.slug}`, { id: vm.props.match.params.id, email: this.props.user.email }, function (payload, status) {
+			request.get(`car-post/${vm.props.match.params.slug.substring(vm.props.match.params.slug.lastIndexOf('m'))}`, { email: this.props.user.email }, function (payload, status) {
 				//request.get('/dummy/data/detail.json', { id: vm.props.match.params.id }, function (payload, status) {
 				if (payload) {
 					vm.setState({

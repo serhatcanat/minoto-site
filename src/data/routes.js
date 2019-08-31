@@ -117,7 +117,7 @@ module.exports = {
 			title: "Şube",
 		},
 		detail: {
-			path: "/ilan/:id/:slug?",
+			path: "/:slug-:dealer-:post",
 			component: "Detail",
 			exact: true,
 			linkTitle: "İlan Detay",

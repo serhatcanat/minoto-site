@@ -25,7 +25,7 @@ import throttle from 'lodash/throttle';
 import history from 'controllers/history'
 import request from 'controllers/request'
 import { connect } from "react-redux";
-import { storageSpace } from "functions/helpers";
+import { storageSpace, seoFriendlyUrl } from "functions/helpers";
 import queryString from 'query-string';
 import { setFiltersExpansion, setListingQuery, setFilterQuery, setListingData } from 'data/store.listing';
 //import { openModal } from 'functions/modals'
@@ -460,7 +460,7 @@ class ListingResults extends React.Component {
 														badge={(item.status === 1 ? false : (item.status === 2 ? { text: 'Rezerve', note: '02.02.2019 Tarihine Kadar Opsiyonludur' } : { text: 'Satıldı', type: 'error' }))}
 														bottomNote={(item.currentViewers > 0 ? item.currentViewers + ' kişi Bakıyor' : false)}
 														url="detail"
-														urlParams={{ id: item.id, slug: item.slug }}
+														urlParams={{ dealer: seoFriendlyUrl(item.dealer), slug: item.slug.substring(0, item.slug.lastIndexOf('-m')), post: item.slug.substring(item.slug.lastIndexOf('m')) }}
 													/>
 												</li>
 											);
