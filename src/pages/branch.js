@@ -13,7 +13,7 @@ import Responsive from 'components/partials/responsive'
 
 // Deps
 import extend from 'lodash/extend'
-import { setTitle } from 'controllers/head'
+import { setTitle, setDescription } from 'controllers/head'
 import request from 'controllers/request'
 import { redirect } from 'controllers/navigator'
 import { openModal } from 'functions/modals'
@@ -43,14 +43,15 @@ export default class Branch extends React.Component {
 
 	initialize() {
 		let vm = this;
-		request.get(`branches/${vm.props.match.params.id}`, { id: vm.props.match.params.id }, function (payload) {
+		request.get(`branches/${vm.props.match.params.slug}`, { id: vm.props.match.params.slug }, function (payload) {
 			if (payload) {
 				vm.setState({
 					branchData: payload,
-					listingQuery: { branch: payload.id }
+					listingQuery: { branch: vm.props.match.params.slug }
 				})
 
-				setTitle(payload.title);
+				setTitle(payload.title + ' Araba Bayisi, Araç Satıcısı ve Servisi');
+				setDescription(`${payload.title} araba bayisi, araç satıcısı ve servisini mi aradınız? ${payload.title} Minoto'da! Hemen tıkla, fırsatları kaçırma!`);
 			}
 			else {
 				redirect("notfound");
@@ -61,7 +62,7 @@ export default class Branch extends React.Component {
 	updateFilters(newQuery) {
 		//let newQuery = clone(this.props.query);
 		newQuery = extend({}, newQuery, {
-			branch: this.state.branchData.id,
+			branch: this.props.match.params.slug,
 		});
 
 		this.setState({
@@ -129,7 +130,7 @@ export default class Branch extends React.Component {
 										className="branch-listing"
 										//urlBinding={false}
 										filters={false}
-										source={`branches/${branch.id}/car-posts`}
+										source={`branches/${this.props.match.params.slug}/car-posts`}
 										showAds={false}
 									/>
 								}

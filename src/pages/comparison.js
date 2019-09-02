@@ -34,21 +34,21 @@ export default class Comparison extends React.Component {
 					brands: payload,
 				});
 			}
-		}, {excludeApiPath: true});
+		}, { excludeApiPath: true });
 	}
 
 	componentDidMount() {
 		this.initialize();
 	}
 
-	changeCar(car, nth){
+	changeCar(car, nth) {
 		let newCars = clone(this.state.cars);
 		newCars[nth] = car;
 		this.setState({ cars: newCars });
 	}
 
 	render() {
-		
+
 		return (
 			<main className="page comparison">
 				<section className="section comparison">
@@ -64,7 +64,7 @@ export default class Comparison extends React.Component {
 											<td className="picker" key={nth}>
 												<CarPicker
 													brands={this.state.brands}
-													onCarChange={(car) => {this.changeCar(car, nth)}}
+													onCarChange={(car) => { this.changeCar(car, nth) }}
 													car={car}
 													nth={nth} />
 											</td>
@@ -136,7 +136,7 @@ class CarPicker extends React.Component {
 		this.ajaxController = false;
 	}
 
-	componentDidUpdate(prevProps){
+	componentDidUpdate(prevProps) {
 		// Buraya Dışardan Model Şeyleri Gelcek
 		/*if(!isEqual(prevProps.car, this.props.car)){
 			console.log('DEĞİŞ');
@@ -173,7 +173,7 @@ class CarPicker extends React.Component {
 			});
 		}*/
 
-		if(!isEqual(prevProps.brands, this.props.brands)){
+		if (!isEqual(prevProps.brands, this.props.brands)) {
 			this.setState({
 				taxonomyList: [this.props.brands]
 			})
@@ -295,26 +295,26 @@ class CarPicker extends React.Component {
 	taxChange(e, nth) {
 		let vm = this;
 
-		let selections = slice(vm.state.taxonomySelection, 0, nth+1);
-		let taxes = slice(vm.state.taxonomyList, 0, nth+1);
+		let selections = slice(vm.state.taxonomySelection, 0, nth + 1);
+		let taxes = slice(vm.state.taxonomyList, 0, nth + 1);
 		selections[nth] = e;
 
 		vm.setState({ taxonomyList: taxes, taxonomySelection: selections });
 
 		let query = selections.map((tax) => (tax.value)).join('/');
 
-		request.get('/dummy/data/comparison-taxonomy.json', {query: query}, function (payload) {
+		request.get('/dummy/data/comparison-taxonomy.json', { query: query }, function (payload) {
 			if (payload) {
 				taxes.push(payload);
 
-				vm.setState({ taxonomyList: taxes})
+				vm.setState({ taxonomyList: taxes })
 			}
-		}, {excludeApiPath: true});
+		}, { excludeApiPath: true });
 	}
 
 	render() {
 		let car = this.props.car;
-		let brands = this.props.brands;
+		// let brands = this.props.brands;
 
 		return (
 			<div className="table-carpicker">
@@ -381,14 +381,14 @@ class TaxonomySelector extends React.Component {
 		let selected = this.props.selection[nth];
 		let placeholder = false;
 
-		if(tax){} else{ tax = this.props.taxonomies[this.props.taxonomies.length-1]; placeholder = true; }
+		if (tax) { } else { tax = this.props.taxonomies[this.props.taxonomies.length - 1]; placeholder = true; }
 
-		if(tax && (!placeholder || (placeholder && !car))){
+		if (tax && (!placeholder || (placeholder && !car))) {
 			return (
 				<Select
 					className="carpicker-selector"
 					value={selected ? selected : null}
-					onChange={(e) => {this.props.onChange(e, nth) }}
+					onChange={(e) => { this.props.onChange(e, nth) }}
 					options={tax.opts}
 					placeholder={(placeholder ? 'Önce ' : '') + tax.title}
 					isDisabled={placeholder}

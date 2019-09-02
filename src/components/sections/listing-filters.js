@@ -139,6 +139,7 @@ class ListingFilters extends React.Component {
 	render() {
 		let vm = this;
 		let data = vm.props.listingData;
+
 		if (data) {
 			return (
 				<aside className={"section listing-filters " + vm.props.className + (vm.state.active ? ' active' : '') + (vm.state.show ? ' show' : '')}>
@@ -476,12 +477,12 @@ class BrandsFilterItemRaw extends React.Component {
 		let urlRoot = vm.props.urlRoot + (data.url ? ("/" + data.url) : '');
 
 		let itemContent = <div className={"item-wrap" + (data.selected ? ' active' : '')}>
-			{data.selected ? 
+			{data.selected ?
 				<span>
 					{data.title}
 					{data.count && <span className="item-count">({data.count})</span>}
 				</span>
-			:
+				:
 				<Link href={urlRoot} query={vm.props.filterQuery}>
 					{data.title}
 					{data.count && <span className="item-count">({data.count})</span>}
@@ -514,7 +515,7 @@ class BrandsFilterItemRaw extends React.Component {
 						:
 						<div className="inputwrap type-checkbox no-select">
 							{itemContent}
-						</div>						
+						</div>
 					)
 				}
 			</li>

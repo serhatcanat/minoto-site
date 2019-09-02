@@ -151,13 +151,12 @@ class Listing extends React.Component {
 
 		vm.urlTimeout = setTimeout(function () {
 			let query = queryString.parse((history.location.search && history.location.search !== '') ? history.location.search.replace('?', '') : '');
-
-			if (!isEqual(query, vm.getQuery())) {
-				let listingQuery = vm.props.topSection ? pick(query, ['siralama', 'sayfa']) : {};
+			if (Object.keys(query).length && !isEqual(query, vm.getQuery())) {
+				let listingQuery = vm.props.topSection ? pick(query, ['siralama', 'sayfa', 'ara']) : {};
 
 				if (!listingQuery.siralama) { listingQuery.siralama = vm.props.defaultOrder }
 
-				let filterQuery = omit(query, ['siralama', 'sayfa']);
+				let filterQuery = omit(query, ['siralama', 'sayfa', 'ara']);
 
 				vm.props.setListingQuery(listingQuery);
 				vm.props.setFilterQuery(filterQuery);
@@ -223,6 +222,7 @@ class Listing extends React.Component {
 
 	updateResults() {
 		let vm = this;
+
 		vm.setState({ loading: true });
 		vm.makeRequest();
 	}
@@ -236,6 +236,7 @@ class Listing extends React.Component {
 
 		request.get(requestURL, vm.getQuery(), function (payload, status) {
 			if (vm.mounted && payload) {
+
 				if (payload.redirect) {
 					setTimeout(function () { window.location.href = payload.link; }, 30)
 				}
@@ -314,45 +315,49 @@ class Listing extends React.Component {
 			}
 		}
 
-		return (
-			<section ref={vm.containerRef} className={"section listing loader-container " + vm.props.className + (vm.props.filters ? ' has-filters' : '') + ' size-' + vm.props.size}>
-				<Loader loading={vm.state.loading || !vm.props.listingData} strict={true} />
-				{vm.props.filters &&
-					<ListingFilters />
-				}
-				<div className={"listing-content type-" + vm.props.listingData.type}>
-					{(vm.props.topSection || vm.props.mobile) &&
-						<aside className="content-top">
-							{vm.props.mobile &&
-								<button className="top-filterstrigger" type="button" onClick={vm.props.expandFilters}>
-									<i className="icon-filter"></i> Filtrele
-									{(vm.props.listingData.filters && activeFilters > 0) &&
-										<span> ({activeFilters})</span>
-									}
-								</button>
-							}
-							{!vm.props.mobile && vm.props.topSection &&
-								<ActiveFilters data={vm.props.listingData} onFilterRemove={vm.removeFilter} />
-							}
 
-							{vm.props.topSection &&
-								<FormInput
-									type="select"
-									placeholder="Sırala"
-									isSearchable={false}
-									value={orderVal}
-									onChange={(order) => { vm.setState({ order: order }); }}
-									options={orderOptions}
-									className="top-order" />
-							}
-						</aside>
+		return (
+			<React.Fragment>
+				<section className="section listing-title"><h1>{vm.props.title}</h1></section>
+				<section ref={vm.containerRef} className={"section listing loader-container " + vm.props.className + (vm.props.filters ? ' has-filters' : '') + ' size-' + vm.props.size}>
+					<Loader loading={vm.state.loading || !vm.props.listingData} strict={true} />
+					{vm.props.filters &&
+						<ListingFilters />
 					}
-					<ListingResults loading={vm.state.loading} data={vm.props.listingData} mobile={vm.props.mobile} />
-					{(vm.state.results && vm.state.results.length < vm.props.listingData.totalResults) &&
-						<InfiniteScroller loading={vm.state.extending} onExtend={vm.extendResults} />
-					}
-				</div>
-			</section>
+					<div className={"listing-content type-" + vm.props.listingData.type}>
+						{(vm.props.topSection || vm.props.mobile) &&
+							<aside className="content-top">
+								{vm.props.mobile &&
+									<button className="top-filterstrigger" type="button" onClick={vm.props.expandFilters}>
+										<i className="icon-filter"></i> Filtrele
+									{(vm.props.listingData.filters && activeFilters > 0) &&
+											<span> ({activeFilters})</span>
+										}
+									</button>
+								}
+								{!vm.props.mobile && vm.props.topSection &&
+									<ActiveFilters data={vm.props.listingData} onFilterRemove={vm.removeFilter} />
+								}
+
+								{vm.props.topSection &&
+									<FormInput
+										type="select"
+										placeholder="Sırala"
+										isSearchable={false}
+										value={orderVal}
+										onChange={(order) => { vm.setState({ order: order }); }}
+										options={orderOptions}
+										className="top-order" />
+								}
+							</aside>
+						}
+						<ListingResults loading={vm.state.loading} data={vm.props.listingData} mobile={vm.props.mobile} />
+						{(vm.state.results && vm.state.results.length < vm.props.listingData.totalResults) &&
+							<InfiniteScroller loading={vm.state.extending} onExtend={vm.extendResults} />
+						}
+					</div>
+				</section>
+			</React.Fragment>
 		);
 	}
 }
@@ -424,7 +429,7 @@ class ListingResults extends React.Component {
 														//favControls={'/dummy/data/fav/dealer/'+item.id}
 														badge={(item.status !== 1 ? false : (item.status === 2 ? { text: 'Rezerve', note: '02.02.2019 Tarihine Kadar Opsiyonludur' } : { text: 'Satıldı', type: 'error' }))}
 														bottomNote={(item.currentViewers > 0 ? item.currentViewers + ' kişi Bakıyor' : false)}
-														url={`bayiler/${item.link}/${item.id}`}
+														url={`bayiler/${item.link}`}
 													/>
 												</li>
 											)

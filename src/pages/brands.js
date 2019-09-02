@@ -19,7 +19,8 @@ export default class Brands extends React.Component {
 						showAds={false}
 						topSection={false}
 						source={'brands'}
-						key="search-brands" />
+						key="search-brands"
+						title="Araba Markaları" />
 				</div>
 			</main>
 

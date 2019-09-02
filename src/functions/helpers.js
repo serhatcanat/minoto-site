@@ -293,12 +293,15 @@ export function seoFriendlyUrl(string) {
 	let english = ["i", "g", "u", "s", "o", "c", "i", "g", "u", "s", "o", "c"];
 	string = findAndReplace(string, turkish, english);
 	string = findAndReplace(string, ['[\', \']'], ['', '']);
-	string = findAndReplace(string, ['/\[.*\]/U'], [''], '');
+	//string = findAndReplace(string, ['/\[.*\]/U'], [''], '');
 	string = findAndReplace(string, ['/&(amp;)?#?[a-z0-9]+;/i'], ['-']);
 	string = findAndReplace(string, ['/&([a-z])(acute|uml|circ|grave|ring|cedil|slash|tilde|caron|lig|quot|rsquo);/i'], ['\\1']);
 	string = findAndReplace(string, ["acute", "uml", "circ", "grave", "ring", "cedil", "slash", "tilde", "caron", "quot", "rsquo"], ["", "", "", "", "", "", "", "", "", "", "", ""]);
 	string = findAndReplace(string, ['/[^a-z0-9]/i', '/[-]+/'], ['-', '-']);
-	string = string.replace(/\s/g, "");
+	string = string.replace(/\s/g, "-");
+	string = string.replace("---", "-");
+	string = string.replace("---", "-");
+
 	return string.trimRight('-').toLowerCase();
 
 }

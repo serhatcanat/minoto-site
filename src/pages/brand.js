@@ -112,7 +112,6 @@ export default class Brand extends React.Component {
 				<div className="wrapper">
 					{brand &&
 						<section className="section brand-detail">
-							<h1 className="seoElement">{brand.title} Modelleri</h1>
 							<aside className="detail-info">
 								<div className="info-sum">
 									<FavBtn className="sum-favbtn" faved={brand.favorited} type="brand" id={brand.id} />
@@ -164,6 +163,7 @@ export default class Brand extends React.Component {
 										source={`brands/${brand.id}/car-posts`}
 										showAds={false}
 										key="search-brand"
+										title={`${brand.title} Modelleri`}
 									/>
 								}
 							</div>

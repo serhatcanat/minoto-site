@@ -89,7 +89,7 @@ class Header extends React.Component {
 			}
 		}
 
-		if(prevProps.user === false && this.props.user !== false){
+		if (prevProps.user === false && this.props.user !== false) {
 			getUnreadMessageCount();
 		}
 
@@ -247,9 +247,11 @@ class Header extends React.Component {
 												<li className="sublinks-item" style={{ display: 'none' }}>
 													<Link href="/">Araç Karşılaştır</Link>
 												</li>
-												<li className="sublinks-item">
+												{
+													/* <li className="sublinks-item">
 													<Link href="listprices">Araç Liste Fiyatları</Link>
-												</li>
+												</li> */
+												}
 												<li className="sublinks-item">
 													<Link href="faq" />
 												</li>

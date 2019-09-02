@@ -57,11 +57,11 @@ export default class Dealer extends React.Component {
 
 	initialize() {
 		let vm = this;
-		request.get(`dealers/${vm.props.match.params.id}`, { id: vm.props.match.params.id }, function (payload) {
+		request.get(`dealers/${vm.props.match.params.slug}`, { id: vm.props.match.params.slug }, function (payload) {
 			if (payload) {
 				vm.setState({
 					dealerData: payload,
-					listingQuery: { dealer: payload.id },
+					listingQuery: { dealer: vm.props.match.params.slug },
 				})
 
 				setTitle(payload.title + ' Araba Bayisi, Araç Satıcısı ve Servisi');
@@ -79,7 +79,7 @@ export default class Dealer extends React.Component {
 
 	updateSearch() {
 		if (this.state.dealerData) {
-			let query = { dealer: this.state.dealerData.id };
+			let query = { dealer: this.props.match.params.slug };
 
 			if (this.state.searchText !== '') {
 				query.search = this.state.searchText;
@@ -92,7 +92,7 @@ export default class Dealer extends React.Component {
 	updateFilters(newQuery) {
 		//let newQuery = clone(this.props.query);
 		newQuery = extend({}, newQuery, {
-			dealer: this.state.dealerData.id,
+			dealer: this.props.match.params.slug,
 		});
 
 		this.setState({
@@ -155,7 +155,7 @@ export default class Dealer extends React.Component {
 											<ul className="branches-list">
 												{dealer.branches.reduce((filtered, branch, nth) => {
 													if (nth < branchExpandLimit || vm.state.expandBranches) {
-														filtered.push(<BranchInfo data={branch} key={nth} />)
+														filtered.push(<BranchInfo data={branch} key={nth} dealer={vm.props.match.params.slug} />)
 													}
 													return filtered;
 												}, [])}
@@ -233,7 +233,7 @@ class BranchInfo extends React.Component {
 							<Btn tag="a" icon="phone" primary low uppercase href={'tel:+9' + branch.phone.replace(' ', '')}>{branch.phone}</Btn>
 						}
 						{/*<Btn tag="link" icon="envelope" text low uppercase href={'/user/message/todealer/'+branch.id}>Mesaj Gönder</Btn>*/}
-						<Btn tag="a" href={`/sube/${branch.id}/${branch.slug}`} icon="eye" text low uppercase>Detaylı Gör</Btn>
+						<Btn tag="a" href={`/bayiler/${this.props.dealer}/${branch.slug}`} icon="eye" text low uppercase>Detaylı Gör</Btn>
 					</div>
 				</Collapse>
 			</li>

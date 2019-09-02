@@ -93,7 +93,7 @@ module.exports = {
 			postTitle: false,
 		},
 		dealer: {
-			path: "/bayiler/:slug/:id",
+			path: "/bayiler/:slug",
 			component: "Dealer",
 			exact: true,
 			linkTitle: "Bayi",
@@ -110,7 +110,7 @@ module.exports = {
 			description: "Yetkili araba bayileri, araç satıcıları ve servisleri Minoto'da! Hemen tıkla, fırsatları kaçırma!"
 		},
 		branch: {
-			path: "/sube/:id/:slug?",
+			path: "/bayiler/:dealer/:slug",
 			component: "Branch",
 			exact: true,
 			linkTitle: "Şube",
@@ -207,7 +207,7 @@ module.exports = {
 			title: "İletişim",
 		},
 		blogDetail: {
-			path: "/blog/detay/:slug",
+			path: "/blog/:slug",
 			component: "BlogDetail",
 			exact: true,
 			linkTitle: "Minoto Blog",

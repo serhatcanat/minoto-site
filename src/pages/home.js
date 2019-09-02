@@ -84,6 +84,7 @@ export default class Home extends React.Component {
 							defaultOrder="random"
 							query={false}
 							scrollOnFilterChange
+							title="Sıfır Araba Modelleri ve Fiyatları"
 						/>
 					</React.Fragment>
 				)}

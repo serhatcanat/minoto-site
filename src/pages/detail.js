@@ -76,7 +76,7 @@ class Detail extends React.Component {
 			this.initialize()
 		}
 
-		if (prevProps.match.params.id !== this.props.match.params.id) {
+		if (prevProps.match.params.post !== this.props.match.params.post) {
 			window.scroll(0, 0);
 			this.setState({
 				productData: false,
@@ -91,18 +91,16 @@ class Detail extends React.Component {
 	initialize() {
 		let vm = this;
 		if (vm.state.productData === false) {
-			request.get(`car-post/${vm.props.match.params.slug.substring(vm.props.match.params.slug.lastIndexOf('m'))}`, { email: this.props.user.email }, function (payload, status) {
+			request.get(`car-post/${vm.props.match.params.post.substring(vm.props.match.params.post.lastIndexOf('m'))}`, { email: this.props.user.email }, function (payload, status) {
 				//request.get('/dummy/data/detail.json', { id: vm.props.match.params.id }, function (payload, status) {
 				if (payload) {
 					vm.setState({
 						productData: payload
 					})
 
-					setTitle(payload.title);
+					setTitle(`${payload.title} - ${payload.dealer.title}`);
 
-					if (payload.description) {
-						setDescription(payload.description);
-					};
+					setDescription(`Sıfır Km ${payload.title} araba fiyatları ve araç özellikleri Minoto'da! ${payload.dealer.title} şubesinden ${payload.title} satın almak için hemen tıkla, fırsatları kaçırma!`);
 
 					if (payload.image) {
 						setHead([{
@@ -157,7 +155,12 @@ class Detail extends React.Component {
 											"title": product.breadCrumbs[2].title
 										},
 										{
-											"title": product.title
+											"href": `/${product.breadCrumbs[0].value}/${product.breadCrumbs[1].value}/${product.breadCrumbs[2].value}/${product.breadCrumbs[3].value}`,
+											"title": product.breadCrumbs[3].title
+										},
+										{
+											"href": `/${product.breadCrumbs[0].value}/${product.breadCrumbs[1].value}/${product.breadCrumbs[2].value}/${product.breadCrumbs[3].value}/${product.breadCrumbs.length > 4 ? product.breadCrumbs[4].value : ''} `,
+											"title": product.breadCrumbs.length > 4 ? product.breadCrumbs[4].title : ''
 										},
 										/* {
 											"href": ListingLink([
@@ -238,7 +241,11 @@ class Detail extends React.Component {
 								<div className="wrapper">
 									<div className="related-innerwrap">
 										<h2 className="related-title">Benzer araçlar</h2>
-										<DetailRelated postId={product.id} mobile={vm.props.mobile} />
+										{
+											product && (
+												<DetailRelated postId={product.id} mobile={vm.props.mobile} />
+											)
+										}
 									</div>
 								</div>
 							</section>
@@ -365,7 +372,7 @@ class DetailGallery extends React.Component {
 					<Slider className="mainslider-slider" ref={vm.mainSlider} loop opts={{ lazy: true }} onChange={vm.imageChange}>
 						{images.map((image, nth) => (
 							<div className="slider-imagewrap" key={nth}>
-								<div className="imagewrap-image swiper-lazy" data-background={storageSpace('c_scale,q_40,w_1100/car-posts/gallery', image.medium)} onClick={() => { if (!vm.props.fullScreen && vm.props.mobile) { vm.props.onFullScreenChange(true); } }}>
+								<div className="imagewrap-image swiper-lazy" data-background={storageSpace('c_scale,q_60,w_1100/car-posts/gallery', image.medium)} onClick={() => { if (!vm.props.fullScreen && vm.props.mobile) { vm.props.onFullScreenChange(true); } }}>
 								</div>
 								<Image className="imagewrap-loader" width="100" bg src={image_loader} alt="Yükleniyor..." />
 							</div>
@@ -412,7 +419,7 @@ class DetailInfo extends React.Component {
 
 		return (
 			<div className="detail-info">
-				<h1 className="info-title">{product.title}</h1>
+				<h2 className="info-title">{product.title}</h2>
 				{(product.mainFeatures && product.mainFeatures.length) &&
 					<ul className="info-mainfeatures">
 						{product.mainFeatures.map((feature, nth) => (
@@ -806,7 +813,9 @@ class DetailExtras extends React.Component {
 						<div label="Benzer Araçlar" index="similar">
 							<div className="tabs-tab">
 								<div className="tab-related">
-									<DetailRelated postId={product.id} />
+									{
+										product && <DetailRelated postId={product.id} />
+									}
 								</div>
 							</div>
 						</div>
@@ -823,7 +832,7 @@ class DetailRelated extends React.Component {
 			<Listing className="related-listing" urlBinding={false} filters={false} topSection={false}
 				source={`car-posts/detail/${this.props.postId}/similar`}
 				//source="/dummy/data/detail-related.json"
-				query="id=1234" size={5} showAds={false} />
+				query={this.props.postId} size={5} showAds={false} />
 		)
 	}
 }
