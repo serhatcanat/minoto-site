@@ -3,6 +3,7 @@ import React from 'react'
 //Deps
 import store from 'data/store'
 import merge from 'lodash/merge'
+import { getCookie } from 'functions/helpers'
 //import { connect } from "react-redux"
 //import { resetData } from 'data/store.ga'
 
@@ -31,6 +32,12 @@ export default class GAWatcher extends React.Component {
 		document.getElementsByTagName('BODY')[0].addEventListener('copy', (event) => {
 			GA.send('clipboard', document.getSelection().toString())
 		});
+
+		/*window.ga(function(tracker) {
+			console.log(tracker);
+			let clientId = tracker.get('clientId');
+			console.log(clientId);
+		});*/
 	}
 
 	render() {
@@ -48,7 +55,7 @@ export const GA = {
 	},
 	sendData: function(data) {
 		let gaData = merge(GA.getDefaultData(), data);
-		console.log('GA - Data:\n', JSON.stringify(gaData));
+		console.log('GA - Data:\n', gaData);
 		window.dataLayer.push(gaData);
 	},
 	getDefaultData() {
@@ -65,7 +72,7 @@ export const GA = {
 				userLevel: {
 				},
 				hitLevel: {
-					cd_pageType: (state.generic.currentPage.data.GATitle ? state.generic.currentPage.data.GATitle : state.generic.currentPage.data.title)
+					cd_pageType: GA.getCurrentPage()
 				}
 			}
 		};
@@ -77,44 +84,103 @@ export const GA = {
 			}
 		}
 		else {
-			data.customDefinitions.userLevel.cd_userLogin = false;
+			data.customDefinitions.userLevel = {
+				cd_userLogin: false,
+				cd_visitorID: getCookie('_gid')
+			}
 		}
 
 		if(state.ga.productData) {
-			data.products = GA.getProductData(state.ga.productData);
+			let productData = GA.getProductData()
+			//data.products = [productData.product];
+			data.customDefinitions.hitLevel = merge(data.customDefinitions.hitLevel, productData.cd);
+			//data.customDefinitions.
+		}
+
+		if(state.ga.dealerData) {
+			let dealerData = GA.getDealerData()
+			data.customDefinitions.hitLevel = merge(data.customDefinitions.hitLevel, dealerData.cd);
+			//data.customDefinitions.
 		}
 
 		return data;
 	},
-	getProductData(product) {
+	getProductData(product = false) {
 		let state = store.getState();
+		if(product === false) { product = state.ga.productData; }
 
-		let fuel = 'BİLİNMEYEN';
-		let body = 'BİLİNMEYEN';
-		let capacity = 'BİLİNMEYEN';
+		if(product){
 
-		if(product.technicalSpecs){
-			product.technicalSpecs.forEach((group) => {
-				group.specs.forEach((spec) => {
-					if(spec.label.trim() === 'Yakıt'){
-						fuel = spec.content.trim();
-					}
-					if(spec.label.trim() === 'Kasa Tipi / Kapı Sayısı'){
-						body = spec.content.split('/')[0].trim();
-					}
+			let fuel = 'BİLİNMEYEN';
+			let body = 'BİLİNMEYEN';
+			let capacity = 'BİLİNMEYEN';
+
+			if(product.technicalSpecs){
+				product.technicalSpecs.forEach((group) => {
+					group.specs.forEach((spec) => {
+						if(spec.label.trim() === 'Yakıt'){
+							fuel = spec.content.trim();
+						}
+						if(spec.label.trim() === 'Kasa Tipi / Kapı Sayısı'){
+							body = spec.content.split('/')[0].trim();
+						}
+					});
 				});
-			});
-		}
+			}
 
-		return {	
-			'name': product.title,
-			'id': product.id,
-			'price': product.price,
-			'brand': (product.brand ? product.brand.title : ''),
-			'category': (product.breadCrumbs ? product.breadCrumbs[0].title+'/'+product.breadCrumbs[1].title+'/'+capacity+'/'+body+'/'+fuel : ''),
-			'variant': (product.breadCrumbs ? product.breadCrumbs[1].title : ''),
-			'list': (state.generic.currentPage ? (state.generic.currentPage.data.GATitle ? state.generic.currentPage.data.GATitle : state.generic.currentPage.data.title) : '')
+			return {	
+				product: {
+					'name': product.title,
+					'id': product.id,
+					'price': product.price,
+					'brand': (product.brand ? product.brand.title : ''),
+					'category': (product.breadCrumbs ? product.breadCrumbs[0].title+'/'+product.breadCrumbs[1].title+'/'+capacity+'/'+body+'/'+fuel : ''),
+					'variant': (product.breadCrumbs ? product.breadCrumbs[1].title : ''),
+					'list': GA.getCurrentPage()
+				},
+				cd: {
+					cd_carCity: '',
+					cd_carColor: '',
+					cd_district: '',
+					cd_productionYear: '',
+					cd_engineCapacity: capacity,
+					cd_tractionType: '',
+					cd_transmissionType: '',
+					cd_fuelType: fuel,
+					cd_vehicleBody: body,
+					cd_productionPlace: '',
+				}
+			}
 		}
+		else {
+			return false;
+		}
+	},
+	getDealerData(dealer = false) {
+		let state = store.getState();
+		if(dealer === false) { dealer = state.ga.dealerData; }
+
+		if(dealer){
+			return {
+				dealer: {
+					name: dealer.title,
+					id: dealer.id,
+				},
+				cd: {
+					cd_dealerID: dealer.id,
+					cd_dealerName: dealer.title,
+					cd_district: '',
+					cd_carCity: '',
+				}
+			}
+		}
+		else {
+			return false;
+		}
+	},
+	getCurrentPage() {
+		let state = store.getState();
+		return (state.generic.currentPage ? (state.generic.currentPage.data.GATitle ? state.generic.currentPage.data.GATitle : state.generic.currentPage.data.title) : '');
 	},
 	actions: {
 		clipboard: function(text) {
@@ -124,23 +190,37 @@ export const GA = {
 				eventAction: text,
 			})
 		},
-		bid: function(value) {
+		bid: function(data) {
+			let productData = GA.getProductData();
+			let dealerData = GA.getDealerData();
 			GA.sendData({
+				event: 'eec.Event',
+				eventCategory: 'Enhanced Ecommerce',
+				eventAction:'Conversion - Ürün Sayfası - Teklif Ver',
+				eventLabel: productData.product.id,
 				customMetrics: {
 					hitLevel: {
-						cm_offer: value,
+						cm_offer: data.value,
 					}
+				},
+				purchase: {
+					actionField:  {
+						id: dealerData.dealer.id,
+						affiliation: dealerData.dealer.name,
+						revenue: data.value,
+					},
+					products: productData.product
 				}
 			})
 		},
-		pageChange: function() {
+		/*pageChange: function() {
 			//console.log('GA - Page Change: ', (store.getState().generic.currentPage.data.GATitle ? store.getState().generic.currentPage.data.GATitle : store.getState().generic.currentPage.data.title));
 			GA.sendData({
 				eventCategory: 'Change Page',
 				eventAction: '',
 			});
-		},
-		productClick: function(product) {
+		},*/
+		productClick: function(data) {
 			GA.sendData({
 				event: 'eec.Event',
 				eventCategory: 'Enhanced Ecommerce',
@@ -150,9 +230,9 @@ export const GA = {
 				ecommerce: {
 					click: {
 						actionField : {
-							list: '<listValue>'
+							list: GA.getCurrentPage()
 						},
-						product: GA.getProductData(product)
+						product: GA.getProductData(data.product).product
 					}
 				}
 			});
@@ -167,9 +247,9 @@ export const GA = {
 				ecommerce: {
 					click: {
 						actionField : {
-							list: '<listValue>'
+							list: GA.getCurrentPage()
 						},
-						product: GA.getProductData(product)
+						product: GA.getProductData(product).product
 					}
 				}
 			});

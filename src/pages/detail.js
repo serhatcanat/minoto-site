@@ -28,7 +28,7 @@ import { connect } from "react-redux"
 import request from 'controllers/request'
 import { setTitle, setDescription, setHead } from 'controllers/head'
 import { storageSpace } from "functions/helpers"
-import { setProductData } from 'data/store.ga'
+import { setProductData, setDealerData } from 'data/store.ga'
 import { GA } from 'controllers/ga'
 
 // Assets
@@ -50,6 +50,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
 	return {
 		setGaProductData: (data) => dispatch(setProductData(data)),
+		setGaDealerData: (data) => dispatch(setDealerData(data)),
 	}
 }
 
@@ -107,6 +108,7 @@ class Detail extends React.Component {
 					});
 
 					vm.props.setGaProductData(payload);
+					vm.props.setGaDealerData(payload.dealer);
 					GA.send('productView', payload);
 
 					setTitle(payload.title);

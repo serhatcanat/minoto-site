@@ -48,7 +48,9 @@ class BidModalRaw extends React.Component {
 			setTimeout(function () {
 				if (payload && payload.status === '200') {
 					vm.setState({ loading: false, success: true, message: payload.message, bid: e.target.elements.bid.value });
-					GA.send('bid', e.target.elements.bid.value);
+					GA.send('bid', {
+						value: e.target.elements.bid.value,
+					});
 				}
 				else {
 					vm.setState({ loading: false, error: true, message: payload.message });

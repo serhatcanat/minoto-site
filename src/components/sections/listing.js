@@ -458,7 +458,12 @@ class ListingResults extends React.Component {
 														bottomNote={(item.currentViewers > 0 ? item.currentViewers + ' kişi Bakıyor' : false)}
 														url="detail"
 														urlParams={{ id: item.id, slug: item.slug }}
-														onClick={()=>{ GA.send('productClick', item); }}
+														onClick={()=>{
+															GA.send('productClick', {
+																product: item,
+																totalResults: results.length
+															});
+														}}
 													/>
 												</li>
 											);
