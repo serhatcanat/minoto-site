@@ -1,5 +1,6 @@
 import extend from "lodash/extend"
 import { storagePath, apiBase } from "../config"
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 
 export function scrollTo(inputOpts, endFunction = false) {
 	let defaultOpts = {
@@ -221,10 +222,12 @@ export function blockOverflow(block = true) {
 		let scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
 		document.documentElement.style.marginRight = scrollBarWidth + 'px'
 		document.body.classList.add('block-overflow');
+		disableBodyScroll(document.querySelector('.filters-content *'));
 	}
 	else {
 		document.documentElement.style.marginRight = ''
 		document.body.classList.remove('block-overflow');
+		enableBodyScroll(document.querySelector('.filters-content *'));
 	}
 }
 
@@ -244,8 +247,11 @@ export function isExact(object1, object2) {
 }
 
 export function storageSpace(folder, file) {
-	if (file === '') {
+	if (file === '' || file === null) {
 		return false;
+	}
+	if (storagePath === 'https://res.cloudinary.com/minoto/image/upload/') {
+		return `${storagePath}${folder}/${file}${file.substring(file.length - 4)}`;
 	}
 	return `${storagePath}${folder}/${file}`;
 }
@@ -257,7 +263,7 @@ export function apiPath(endpoint) {
 export function nl2br(str, is_xhtml) {
 	var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br />' : '<br>';
 	return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
-} 
+}
 
 export function remToPx(num) {
 	return num * parseFloat(getComputedStyle(document.documentElement).fontSize);

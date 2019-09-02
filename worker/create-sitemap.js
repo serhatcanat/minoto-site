@@ -5,36 +5,38 @@ const axios = require('axios');
 
 var routes = require('../src/data/routes');
 
+// npm run sitemap
 // CONFIG
-const sitemapDir = './build/sitemap';
-const siteURL = 'http://localhost:3000';
+const sitemapDir = './live/sitemap';
+const siteURL = 'https://api.minoto.com/v1/shared/sitemap';
+//const siteURL = 'http://localhost:8000/v1/shared/sitemap';
 
-if (!fs.existsSync(sitemapDir)){
+/* if (!fs.existsSync(sitemapDir)) {
 	fs.mkdirSync(sitemapDir);
-}
+} */
 
 
 /// PAGES
 var pageUrls = [];
-Object.keys(routes).forEach(function(groupKey){
+Object.keys(routes).forEach(function (groupKey) {
 	var group = routes[groupKey];
 
-	Object.keys(group).forEach(function(routeKey){
+	Object.keys(group).forEach(function (routeKey) {
 		var add = false;
 		var route = group[routeKey];
 
-		if(route.path){
+		if (route.path) {
 			var keys = [];
 			var reg = pathToRegexp(route.path, keys);
 
-			if(route.excludeFromSitemap !== true) {
-				add = keys.reduce(function(state, key){
+			if (route.excludeFromSitemap !== true) {
+				add = keys.reduce(function (state, key) {
 					return !state ? false : key.optional;
 				}, true);
 			}
 		}
 
-		if(add){
+		if (add) {
 			pageUrls.push({
 				url: route.path.split(':')[0],
 				changefreq: 'monthly',
@@ -51,19 +53,21 @@ var sitemap = sm.createSitemap({
 	//[{ url: '/page-2/', changefreq: 'monthly', priority: 0.7 }]
 });
 
-sitemap.toXML(function(err, xml) { if (!err) {
-	fs.writeFile(sitemapDir + "/pages.xml", xml.toString(), function(err) {
-		if(err) {
-			return console.log(err);
-		}
-		console.log("Pages XML Saved!");
-	}); 
-} });
+sitemap.toXML(function (err, xml) {
+	if (!err) {
+		fs.writeFile(sitemapDir + "/pages.xml", xml.toString(), function (err) {
+			if (err) {
+				return console.log(err);
+			}
+			console.log("Pages XML Saved!");
+		});
+	}
+});
 /// END PAGES
 
 /// CAR POSTS
-axios.get(siteURL + '/dummy/data/sitemap-carposts.json').then(function (response) {
-	var carPostUrls = response.data.payload.results.map(function(result){
+axios.get(siteURL + '/car-posts').then(function (response) {
+	var carPostUrls = response.data.payload.results.map(function (result) {
 		return {
 			url: result,
 			changeFreq: 'daily',
@@ -77,14 +81,16 @@ axios.get(siteURL + '/dummy/data/sitemap-carposts.json').then(function (response
 		urls: carPostUrls,
 	});
 
-	carPostsSitemap.toXML(function(err, xml) { if (!err) {
-		fs.writeFile(sitemapDir + "/carposts.xml", xml.toString(), function(err) {
-			if(err) {
-				return console.log(err);
-			}
-			console.log("Car Posts XML Saved!");
-		}); 
-	} });
+	carPostsSitemap.toXML(function (err, xml) {
+		if (!err) {
+			fs.writeFile(sitemapDir + "/carposts.xml", xml.toString(), function (err) {
+				if (err) {
+					return console.log(err);
+				}
+				console.log("Car Posts XML Saved!");
+			});
+		}
+	});
 }).catch(function (error) {
 	console.log('Error fetching car posts data for sitemap!')
 	console.log(error);
@@ -92,8 +98,8 @@ axios.get(siteURL + '/dummy/data/sitemap-carposts.json').then(function (response
 /// END CAR POSTS
 
 /// BRANDS
-axios.get(siteURL + '/dummy/data/sitemap-brands.json').then(function (response) {
-	var brandsUrls = response.data.payload.results.map(function(result){
+axios.get(siteURL + '/brands').then(function (response) {
+	var brandsUrls = response.data.payload.results.map(function (result) {
 		return {
 			url: result,
 			changeFreq: 'daily',
@@ -107,14 +113,16 @@ axios.get(siteURL + '/dummy/data/sitemap-brands.json').then(function (response) 
 		urls: brandsUrls,
 	});
 
-	carPostsSitemap.toXML(function(err, xml) { if (!err) {
-		fs.writeFile(sitemapDir + "/brands.xml", xml.toString(), function(err) {
-			if(err) {
-				return console.log(err);
-			}
-			console.log("Brands XML Saved!");
-		}); 
-	} });
+	carPostsSitemap.toXML(function (err, xml) {
+		if (!err) {
+			fs.writeFile(sitemapDir + "/brands.xml", xml.toString(), function (err) {
+				if (err) {
+					return console.log(err);
+				}
+				console.log("Brands XML Saved!");
+			});
+		}
+	});
 }).catch(function (error) {
 	console.log('Error fetching brands data for sitemap!')
 	console.log(error);
@@ -122,8 +130,8 @@ axios.get(siteURL + '/dummy/data/sitemap-brands.json').then(function (response) 
 /// END BRANDS
 
 /// DEALERS
-axios.get(siteURL + '/dummy/data/sitemap-dealers.json').then(function (response) {
-	var dealersUrls = response.data.payload.results.map(function(result){
+axios.get(siteURL + '/dealers').then(function (response) {
+	var dealersUrls = response.data.payload.results.map(function (result) {
 		return {
 			url: result,
 			changeFreq: 'daily',
@@ -137,14 +145,16 @@ axios.get(siteURL + '/dummy/data/sitemap-dealers.json').then(function (response)
 		urls: dealersUrls,
 	});
 
-	carPostsSitemap.toXML(function(err, xml) { if (!err) {
-		fs.writeFile(sitemapDir + "/dealers.xml", xml.toString(), function(err) {
-			if(err) {
-				return console.log(err);
-			}
-			console.log("Dealers XML Saved!");
-		}); 
-	} });
+	carPostsSitemap.toXML(function (err, xml) {
+		if (!err) {
+			fs.writeFile(sitemapDir + "/dealers.xml", xml.toString(), function (err) {
+				if (err) {
+					return console.log(err);
+				}
+				console.log("Dealers XML Saved!");
+			});
+		}
+	});
 }).catch(function (error) {
 	console.log('Error fetching dealers data for sitemap!')
 	console.log(error);
@@ -152,8 +162,8 @@ axios.get(siteURL + '/dummy/data/sitemap-dealers.json').then(function (response)
 /// END DEALERS
 
 /// BLOG CATEGORIES
-axios.get(siteURL + '/dummy/data/sitemap-blog-categories.json').then(function (response) {
-	var blogCategoriesUrls = response.data.payload.results.map(function(result){
+axios.get(siteURL + '/blog-categories').then(function (response) {
+	var blogCategoriesUrls = response.data.payload.results.map(function (result) {
 		return {
 			url: result,
 			changeFreq: 'weekly',
@@ -167,14 +177,16 @@ axios.get(siteURL + '/dummy/data/sitemap-blog-categories.json').then(function (r
 		urls: blogCategoriesUrls,
 	});
 
-	carPostsSitemap.toXML(function(err, xml) { if (!err) {
-		fs.writeFile(sitemapDir + "/blog-categories.xml", xml.toString(), function(err) {
-			if(err) {
-				return console.log(err);
-			}
-			console.log("Blog categories XML Saved!");
-		}); 
-	} });
+	carPostsSitemap.toXML(function (err, xml) {
+		if (!err) {
+			fs.writeFile(sitemapDir + "/blog-categories.xml", xml.toString(), function (err) {
+				if (err) {
+					return console.log(err);
+				}
+				console.log("Blog categories XML Saved!");
+			});
+		}
+	});
 }).catch(function (error) {
 	console.log('Error fetching blog category data for sitemap!')
 	console.log(error);
@@ -182,8 +194,8 @@ axios.get(siteURL + '/dummy/data/sitemap-blog-categories.json').then(function (r
 /// END BLOG CATEGORIES
 
 /// BLOG POSTS
-axios.get(siteURL + '/dummy/data/sitemap-blog-posts.json').then(function (response) {
-	var blogPostsUrls = response.data.payload.results.map(function(result){
+axios.get(siteURL + '/blog-posts').then(function (response) {
+	var blogPostsUrls = response.data.payload.results.map(function (result) {
 		return {
 			url: result,
 			changeFreq: 'daily',
@@ -197,14 +209,16 @@ axios.get(siteURL + '/dummy/data/sitemap-blog-posts.json').then(function (respon
 		urls: blogPostsUrls,
 	});
 
-	carPostsSitemap.toXML(function(err, xml) { if (!err) {
-		fs.writeFile(sitemapDir + "/blog-posts.xml", xml.toString(), function(err) {
-			if(err) {
-				return console.log(err);
-			}
-			console.log("Blog posts XML Saved!");
-		}); 
-	} });
+	carPostsSitemap.toXML(function (err, xml) {
+		if (!err) {
+			fs.writeFile(sitemapDir + "/blog-posts.xml", xml.toString(), function (err) {
+				if (err) {
+					return console.log(err);
+				}
+				console.log("Blog posts XML Saved!");
+			});
+		}
+	});
 }).catch(function (error) {
 	console.log('Error fetching blog posts data for sitemap!')
 	console.log(error);

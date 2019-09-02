@@ -71,10 +71,21 @@ class HrBanner extends React.Component {
 	}
 }
 
+class IframeBanner extends React.Component {
+	render() {
+		return (
+			<div className="banner-iframe">
+				<iframe title="Minoto" src="https://www.youtube.com/embed?max-results=1&controls=0&showinfo=0&rel=0&listType=user_uploads&list=minotocom" frameBorder="0" allowFullScreen></iframe>
+			</div >
+		)
+	}
+}
+
 const componentRegistry = {
 	"instagram": InstagramBanner,
 	"youtube": YoutubeBanner,
 	"hr": HrBanner,
+	"iframe": IframeBanner,
 }
 
 export default class ListingBanner extends React.Component {
