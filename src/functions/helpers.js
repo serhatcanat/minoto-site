@@ -1,6 +1,6 @@
 import extend from "lodash/extend"
 import { storagePath, apiBase } from "../config"
-import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
+import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 
 export function scrollTo(inputOpts, endFunction = false) {
 	let defaultOpts = {
@@ -217,20 +217,28 @@ export function serialize(form, seperator = ',', ignoreEmpty = false) {
 	return serialized.join('&');
 }
 
-export function blockOverflow(block = true) {
+export function blockOverflow(block = true, hamburger = false) {
 	if (block) {
 		let scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
 		document.documentElement.style.marginRight = scrollBarWidth + 'px'
 		document.body.classList.add('block-overflow');
-		disableBodyScroll(document.querySelector('.filters-content *'));
-		disableBodyScroll(document.querySelector('.menu-outerwrap *'));
+		if (hamburger) {
+			disableBodyScroll(document.querySelector('.menu-outerwrap *'));
+		} else {
+			disableBodyScroll(document.querySelector('.filters-content *'));
+		}
+
 
 	}
 	else {
 		document.documentElement.style.marginRight = ''
 		document.body.classList.remove('block-overflow');
-		enableBodyScroll(document.querySelector('.filters-content *'));
-		enableBodyScroll(document.querySelector('.menu-outerwrap *'));
+		if (hamburger) {
+			enableBodyScroll(document.querySelector('.menu-outerwrap *'));
+		} else {
+			enableBodyScroll(document.querySelector('.filters-content *'));
+		}
+		clearAllBodyScrollLocks();
 	}
 }
 
