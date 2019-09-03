@@ -105,6 +105,7 @@ export default class Brand extends React.Component {
 	render() {
 		let vm = this;
 		let brand = vm.state.brandData;
+
 		return (
 			<main className="page brand">
 
@@ -160,7 +161,7 @@ export default class Brand extends React.Component {
 										//urlBinding={false}
 										filters={false}
 										topSection={false}
-										source={`brands/${brand.id}/car-posts`}
+										source={`filters/${this.props.match.params.id}`}
 										showAds={false}
 										key="search-brand"
 										title={`${brand.title} Modelleri`}
