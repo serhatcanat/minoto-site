@@ -318,7 +318,7 @@ class Listing extends React.Component {
 
 		return (
 			<React.Fragment>
-				<section className="section listing-title"><h1>{vm.props.title}</h1></section>
+				{/*<section className="section listing-title"><h1>{vm.props.title}</h1></section> */}
 				<section ref={vm.containerRef} className={"section listing loader-container " + vm.props.className + (vm.props.filters ? ' has-filters' : '') + ' size-' + vm.props.size}>
 					<Loader loading={vm.state.loading || !vm.props.listingData} strict={true} />
 					{vm.props.filters &&
