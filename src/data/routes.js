@@ -116,7 +116,7 @@ module.exports = {
 			exact: true,
 			linkTitle: "Bayiler",
 			title: "Yetkili Araba Bayileri, Araç Satıcıları ve Servisleri",
-			description: "Yetkili araba bayileri, araç satıcıları ve servisleri Minoto'da! Hemen tıkla, fırsatları kaçırma!"
+			description: "Yetkili araba bayileri, araç satıcıları ve servisleri Minoto'da! Hemen tıkla, fırsatları kaçırma!",
 			GATitle: "Bayiler",
 		},
 		branch: {

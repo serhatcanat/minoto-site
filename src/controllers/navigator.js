@@ -307,6 +307,8 @@ export function changePage(key = false, group = 'pages') {
 						hashTarget.scrollIntoView();
 					}
 				}, 500);
+			}
+		}
 
 		setMeta((route.meta ? route.meta : false), true);
 		setHead((route.head ? route.head : false), true);
