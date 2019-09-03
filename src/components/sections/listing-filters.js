@@ -7,6 +7,7 @@ import Image from 'components/partials/image.js'
 import SVG from 'react-inlinesvg'
 import Btn from 'components/partials/btn.js'
 import ScrollWrap from 'components/partials/scrollwrap'
+import Link from 'components/partials/link'
 
 // Deps
 import debounce from 'lodash/debounce'
@@ -273,6 +274,9 @@ class ListingFilter extends React.Component {
 			case "list":
 				filterContent = <FilterTypeList data={filterData} onUpdate={vm.props.onUpdate} mobile={vm.props.mobile} />;
 				break;
+			case "brands":
+				filterContent = <FilterTypeBrands data={filterData} onUpdate={vm.props.onUpdate} />;
+				break;
 			case "tree":
 				filterContent = <FilterTypeTree data={filterData} onUpdate={vm.props.onUpdate} mobile={vm.props.mobile} />;
 				break;
@@ -376,6 +380,150 @@ class FilterTypeList extends React.Component {
 		)
 	}
 }
+
+class FilterTypeBrands extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			opts: props.data.opts,
+		}
+	}
+
+	componentDidUpdate(prevProps) {
+		if (!isEqual(prevProps.data, this.props.data)) {
+			this.setState({ opts: this.props.data.opts });
+		}
+	}
+
+	render() {
+		let vm = this;
+		let data = vm.props.data;
+		let opts = vm.state.opts;
+		return (
+			<React.Fragment>
+				{data.root !== true &&
+					<div className="item-wrap filter-back">
+						<Link className="" href="home">
+							<i className="back-icon icon-angle-left"></i> Tüm Markalar
+						</Link>
+					</div>
+				}
+				<ul className="filter-list">
+					{opts.map((opt, nth) => {
+						let idprefix = 'filter_input_' + data.name;
+						return (
+							<BrandsFilterItem data={opt} name={data.name} idprefix={idprefix} nth={nth} key={nth} level={1} onExpand={this.props.onExpand} urlRoot={""} />
+						)
+					})}
+				</ul>
+			</React.Fragment>
+		)
+	}
+}
+
+const brandItemStateProps = state => {
+	return {
+		filterQuery: state.listing.filterQuery,
+	};
+};
+
+class BrandsFilterItemRaw extends React.Component {
+	constructor(props) {
+		super(props)
+
+		this.state = {
+			data: props.data,
+			expanded: true,
+		}
+
+		//this.handleChange = this.handleChange.bind(this);
+		this.toggleExpand = this.toggleExpand.bind(this);
+
+		this.id = props.idprefix + '_' + props.nth;
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		let vm = this;
+		if (isEqual(prevState.data, vm.state.data)) {
+			if (!isEqual(vm.state.data, vm.props.data)) {
+				vm.setState({
+					data: vm.props.data,
+				});
+			}
+		}
+	}
+
+	toggleExpand() {
+		/*this.setState({ expanded: !this.state.expanded });
+		if (this.props.onExpand) {
+			this.props.onExpand();
+		}*/
+	}
+
+	handleValueChange(e) {
+		let newData = clone(this.state.data);
+		newData.selected = e.target.checked;
+		this.setState({ data: newData })
+		this.props.onChange(newData, this.props.nth);
+	}
+
+	render() {
+		let vm = this;
+		let data = vm.state.data;
+		let name = vm.props.name;
+
+		//console.log(vm.props.filterQuery);
+
+		let urlRoot = vm.props.urlRoot + (data.url ? ("/" + data.url) : '');
+
+		let itemContent = <div className={"item-wrap" + (data.selected ? ' active' : '')}>
+			{data.selected ?
+				<span>
+					{data.title}
+					{data.count && <span className="item-count">({data.count})</span>}
+				</span>
+				:
+				<Link href={urlRoot} query={vm.props.filterQuery}>
+					{data.title}
+					{data.count && <span className="item-count">({data.count})</span>}
+				</Link>
+			}
+		</div>;
+
+		return (
+			<li className={"filter-item level-" + vm.props.level}>
+				{data &&
+					((data.children && data.children !== null && data.children.length) ?
+						<div className="item-subgroup">
+							{itemContent}
+							<ul className="item-submenu">
+								{data.children.map((opt, nth) => {
+									return (
+										<BrandsFilterItem
+											data={opt}
+											name={name}
+											idprefix={vm.id}
+											key={nth}
+											nth={nth}
+											urlRoot={urlRoot}
+											/*onExpand={this.props.onExpand}*/
+											level={vm.props.level + 1} />
+									)
+								})}
+							</ul>
+						</div>
+						:
+						<div className="inputwrap type-checkbox no-select">
+							{itemContent}
+						</div>
+					)
+				}
+			</li>
+		)
+	}
+}
+
+const BrandsFilterItem = connect(brandItemStateProps)(BrandsFilterItemRaw);
 
 class FilterTypeTree extends React.Component {
 	constructor(props) {

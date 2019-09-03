@@ -22,6 +22,7 @@ export default class Dealers extends React.Component {
 						topSection={false}
 						// source="/dummy/data/listing-dealers.json"
 						source={'dealers'}
+						title="Bayiler"
 					/>
 				</div>
 			</main>

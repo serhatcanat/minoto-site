@@ -8,12 +8,13 @@ import Select from 'components/partials/select'
 import { storageSpace } from 'functions/helpers'
 import request from 'controllers/request'
 import clone from 'lodash/clone'
+import slice from 'lodash/slice'
 import isEqual from 'lodash/isEqual'
 
 // Assets
 import image_car_default from 'assets/images/defaults/car.svg'
 
-export default class ListPrices extends React.Component {
+export default class Comparison extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -26,27 +27,28 @@ export default class ListPrices extends React.Component {
 
 	initialize() {
 		let vm = this;
-		request.get('/dummy/data/comparison-brands.json', {}, function (payload) {
+		console.log('SELAM');
+		request.get('/dummy/data/comparison-taxonomy.json', {}, function (payload) {
 			if (payload) {
 				vm.setState({
-					brands: payload.map((brand) => ({value: brand.id, label: brand.title}))
+					brands: payload,
 				});
 			}
-		}, {excludeApiPath: true});
+		}, { excludeApiPath: true });
 	}
 
 	componentDidMount() {
 		this.initialize();
 	}
 
-	changeCar(car, nth){
+	changeCar(car, nth) {
 		let newCars = clone(this.state.cars);
 		newCars[nth] = car;
 		this.setState({ cars: newCars });
 	}
 
 	render() {
-		
+
 		return (
 			<main className="page comparison">
 				<section className="section comparison">
@@ -62,7 +64,7 @@ export default class ListPrices extends React.Component {
 											<td className="picker" key={nth}>
 												<CarPicker
 													brands={this.state.brands}
-													onCarChange={(car) => {this.changeCar(car, nth)}}
+													onCarChange={(car) => { this.changeCar(car, nth) }}
 													car={car}
 													nth={nth} />
 											</td>
@@ -119,28 +121,24 @@ class CarPicker extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			brand: null,
-			model: null,
-			type: null,
-			package: null,
-			models: [],
-			types: [],
-			packages: [],
+			taxonomyList: [props.brands],
+			taxonomySelection: [],
 		}
 
 		this.props.onCarChange(false, this.props.nth);
 
-		this.changeBrand = this.changeBrand.bind(this);
+		/*this.changeBrand = this.changeBrand.bind(this);
 		this.changeModel = this.changeModel.bind(this);
 		this.changeType = this.changeType.bind(this);
-		this.changePackage = this.changePackage.bind(this);
+		this.changePackage = this.changePackage.bind(this);*/
+		this.taxChange = this.taxChange.bind(this);
 
 		this.ajaxController = false;
 	}
 
-	componentDidUpdate(prevProps){
+	componentDidUpdate(prevProps) {
 		// Buraya Dışardan Model Şeyleri Gelcek
-		if(!isEqual(prevProps.car, this.props.car)){
+		/*if(!isEqual(prevProps.car, this.props.car)){
 			console.log('DEĞİŞ');
 			let car = this.props.car;
 			let model = null;
@@ -173,10 +171,16 @@ class CarPicker extends React.Component {
 				package: pack,
 				packages: packages,
 			});
+		}*/
+
+		if (!isEqual(prevProps.brands, this.props.brands)) {
+			this.setState({
+				taxonomyList: [this.props.brands]
+			})
 		}
 	}
 
-	changeBrand(e) {
+	/*changeBrand(e) {
 		let vm = this;
 
 		vm.setState({
@@ -286,11 +290,31 @@ class CarPicker extends React.Component {
 				}, {excludeApiPath: true});
 			}, 20);
 		}
+	}*/
+
+	taxChange(e, nth) {
+		let vm = this;
+
+		let selections = slice(vm.state.taxonomySelection, 0, nth + 1);
+		let taxes = slice(vm.state.taxonomyList, 0, nth + 1);
+		selections[nth] = e;
+
+		vm.setState({ taxonomyList: taxes, taxonomySelection: selections });
+
+		let query = selections.map((tax) => (tax.value)).join('/');
+
+		request.get('/dummy/data/comparison-taxonomy.json', { query: query }, function (payload) {
+			if (payload) {
+				taxes.push(payload);
+
+				vm.setState({ taxonomyList: taxes })
+			}
+		}, { excludeApiPath: true });
 	}
 
 	render() {
 		let car = this.props.car;
-		let brands = this.props.brands;
+		// let brands = this.props.brands;
 
 		return (
 			<div className="table-carpicker">
@@ -299,6 +323,16 @@ class CarPicker extends React.Component {
 
 				</div>
 
+				{[0, 1, 2, 3, 4].map((nth) => (
+					<TaxonomySelector
+						taxonomies={this.state.taxonomyList}
+						selection={this.state.taxonomySelection}
+						onChange={this.taxChange}
+						nth={nth}
+						key={nth} />
+				))}
+
+				{/*
 				<Select
 					className="carpicker-selector brand"
 					value={this.state.brand}
@@ -333,8 +367,34 @@ class CarPicker extends React.Component {
 					placeholder="Donanım Tipi Seçiniz"
 					isDisabled={this.state.type === null || this.state.packages.length === 0}
 				/>
+				*/}
 			</div>
 		)
+	}
+}
+
+class TaxonomySelector extends React.Component {
+	render() {
+		let car = this.props.car;
+		let nth = this.props.nth;
+		let tax = this.props.taxonomies[nth];
+		let selected = this.props.selection[nth];
+		let placeholder = false;
+
+		if (tax) { } else { tax = this.props.taxonomies[this.props.taxonomies.length - 1]; placeholder = true; }
+
+		if (tax && (!placeholder || (placeholder && !car))) {
+			return (
+				<Select
+					className="carpicker-selector"
+					value={selected ? selected : null}
+					onChange={(e) => { this.props.onChange(e, nth) }}
+					options={tax.opts}
+					placeholder={(placeholder ? 'Önce ' : '') + tax.title}
+					isDisabled={placeholder}
+				/>
+			)
+		} else { return false; }
 	}
 }
 
