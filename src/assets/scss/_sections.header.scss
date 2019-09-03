@@ -231,6 +231,10 @@
 						opacity: 1;
 						transform: translate3d(0, 0, 0);
 						transition: transform $transition-anim-fast ease ($transition-anim-fast/2), opacity $transition-anim-fast ease ($transition-anim-fast/2);
+						-webkit-overflow-scrolling: touch;
+						*{
+							-webkit-overflow-scrolling: touch;
+						}
 					}
 
 						.content-innerwrap {

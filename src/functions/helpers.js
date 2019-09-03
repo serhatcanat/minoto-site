@@ -223,11 +223,14 @@ export function blockOverflow(block = true) {
 		document.documentElement.style.marginRight = scrollBarWidth + 'px'
 		document.body.classList.add('block-overflow');
 		disableBodyScroll(document.querySelector('.filters-content *'));
+		disableBodyScroll(document.querySelector('.menu-outerwrap *'));
+
 	}
 	else {
 		document.documentElement.style.marginRight = ''
 		document.body.classList.remove('block-overflow');
 		enableBodyScroll(document.querySelector('.filters-content *'));
+		enableBodyScroll(document.querySelector('.menu-outerwrap *'));
 	}
 }
 
