@@ -93,6 +93,12 @@ class ListingFilters extends React.Component {
 		}
 	}
 
+	componentWillUnmount() {
+		blockOverflow(false);
+		this.setState({ active: false, show: false })
+		this.props.hideFilters();
+	}
+
 	serializeFilters() {
 		let vm = this;
 

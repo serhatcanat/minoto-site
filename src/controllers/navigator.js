@@ -34,6 +34,7 @@ import { resetListingData } from "data/store.listing";
 import extend from "lodash/extend";
 import { connect } from "react-redux";
 
+
 // Pages
 import Home from 'pages/home'
 import Search from 'pages/search'
@@ -116,6 +117,8 @@ class Navigator extends React.Component {
 			let route = getRouteFromUrl(e.pathname, false, true);
 			changePage(route[0], route[1]);
 		});
+
+
 	}
 
 	render() {
@@ -203,8 +206,8 @@ export function redirect(opts, params = false, getParams = false) {
 
 export function getRoute(key = false, group = 'pages') {
 	let routeGroup = group;
-	if(key){
-	let keyParts = key.split('.');
+	if (key) {
+		let keyParts = key.split('.');
 		if (keyParts.length === 2) {
 			routeGroup = keyParts[0];
 			key = keyParts[1];
@@ -225,7 +228,7 @@ export function getRouteFromUrl(url = false, getObject = false, includeCatch = f
 		Object.keys(group).forEach((key, index) => {
 			let route = routes[groupKey][key];
 			if (route.path) {
-				if(!returnRoute){
+				if (!returnRoute) {
 					let match = matchPath(url, route.path);
 					if (match && match.isExact) {
 						if (getObject) {
@@ -269,14 +272,14 @@ export function changeURLParam(value, param, route = false, noMismatch = false) 
 export function changePage(key = false, group = 'pages') {
 	let route = (key ? routes[group][key] : getRouteFromUrl(false, true, true));
 
-	if(route) {
+	if (route) {
 		if (route.key) {
 			key = route.key;
 			group = route.groupKey;
 
 		}
 
-		if(key === 'notfound') {
+		if (key === 'notfound') {
 			store.dispatch(setPageNotFound(true));
 		}
 
@@ -301,12 +304,12 @@ export function changePage(key = false, group = 'pages') {
 				}, 500);
 			}
 		}
-		
+
 		setMeta((route.meta ? route.meta : false), true);
 		setHead((route.head ? route.head : false), true);
 
 		setTitle(route.title, route.postTitle);
-		
+
 		if (route.description) {
 			setDescription(route.description);
 		}
