@@ -827,6 +827,7 @@ class FilterTypeIcons extends React.Component {
 			<ul className="filter-list">
 				{opts.map((opt, nth) => {
 					let id = 'filter_input' + vm.props.data.name + '_' + nth;
+					console.log(`svg${opt.icon}`)
 					return (
 						<li className="filter-item" key={nth}>
 							<input
@@ -841,9 +842,9 @@ class FilterTypeIcons extends React.Component {
 								{/*<i className={"content-icon icon-bodytype-"+opt.icon}></i>*/}
 								<SVG
 									className="content-icon"
-									src={`svg${opt.icon}`}
+									src={`/svg${opt.icon}`}
 								>
-									<Image src={`svg${opt.icon}`} />
+									<Image src={`/svg${opt.icon}`} />
 								</SVG>
 								<p className="content-title">
 									{opt.title}
