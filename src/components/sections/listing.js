@@ -591,15 +591,22 @@ class ActiveFilters extends React.Component {
 				<div className="top-activefilters">
 					{filters.map((filter, fnth) => (
 						<React.Fragment key={fnth}>
-							{filter.values.map((opt, nth) => (
-								<span className="activefilters-item" key={nth} title={filter.title + ': ' + opt.title}>
-									<span className="item-title">{filter.title}:</span>
-									<span className="item-value">
-										{opt.title}
-									</span>
-									<button type="button" onClick={() => { this.props.onFilterRemove(filter.name, opt.value); }} className="item-remove"><i className="icon-close"></i></button>
-								</span>
-							))}
+							{
+								filter.title !== 'Model' && (
+									<React.Fragment>
+										{filter.values.map((opt, nth) => (
+											<span className="activefilters-item" key={nth} title={filter.title + ': ' + opt.title}>
+												<span className="item-title">{filter.title}:</span>
+												<span className="item-value">
+													{opt.title}
+												</span>
+												<button type="button" onClick={() => { this.props.onFilterRemove(filter.name, opt.value); }} className="item-remove"><i className="icon-close"></i></button>
+											</span>
+										))}
+									</React.Fragment>
+								)
+							}
+
 						</React.Fragment>
 					))}
 				</div>
