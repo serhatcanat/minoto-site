@@ -835,9 +835,9 @@ class FilterTypeIcons extends React.Component {
 								{/*<i className={"content-icon icon-bodytype-"+opt.icon}></i>*/}
 								<SVG
 									className="content-icon"
-									src={opt.icon}
+									src={`svg/${opt.icon}`}
 								>
-									<Image src={opt.icon} />
+									<Image src={`svg/${opt.icon}`} />
 								</SVG>
 								<p className="content-title">
 									{opt.title}
