@@ -23,39 +23,39 @@ export default class Slider extends React.Component {
 		this.id = (this.props.id ? this.props.id : uid('slider'));
 	}
 
-	componentDidMount(){
+	componentDidMount() {
 		let vm = this;
-		if(vm.container.current){
+		if (vm.container.current) {
 			vm.instance = new Swiper('#' + vm.id, vm.setOpts());
 
-			setTimeout(function(){
+			setTimeout(function () {
 				vm.instance.update();
-			}, 100);
+			}, 50);
 		}
 
-		if(window.inss){
+		if (window.inss) {
 		}
-		else{
-			
+		else {
+
 			window.inss = [];
 		}
 
 		window.inss.push(vm.instance);
 	}
 
-	componentDidUpdate(prevProps, prevState){
-		if(!isEqual(prevProps.children, this.props.children)){
+	componentDidUpdate(prevProps, prevState) {
+		if (!isEqual(prevProps.children, this.props.children)) {
 			this.instance.update();
 		}
 	}
 
-	componentWillUnmount(){
+	componentWillUnmount() {
 		this.instance.destroy(true);
 	}
 
 	update() {
 		this.instance.update();
-		if(this.instance.params.loop){
+		if (this.instance.params.loop) {
 			this.instance.loopDestroy();
 			this.instance.loopCreate();
 		}
@@ -69,13 +69,13 @@ export default class Slider extends React.Component {
 		this.instance.slidePrev();
 	}
 
-	slideTo(index, speed = undefined, runCallbacks = undefined){
+	slideTo(index, speed = undefined, runCallbacks = undefined) {
 		this.instance.slideTo(index, speed, runCallbacks);
 	}
 
-	slideChanged(e){
-		if(this.instance){
-			if(this.props.onChange){
+	slideChanged(e) {
+		if (this.instance) {
+			if (this.props.onChange) {
 				this.props.onChange(this.instance.realIndex);
 			}
 		}
@@ -90,11 +90,11 @@ export default class Slider extends React.Component {
 			preventClicks: false,
 			preventClicksPropagation: false,
 			on: {
-				slideChange: function(){ vm.slideChanged(); }
+				slideChange: function () { vm.slideChanged(); }
 			}
 		}
 
-		if(vm.props.scrollBar){
+		if (vm.props.scrollBar) {
 			opts = extend({}, opts, {
 				direction: (vm.props.horizontal ? 'horizontal' : 'vertical'),
 				freeMode: true,
@@ -120,11 +120,11 @@ export default class Slider extends React.Component {
 		return (
 			<div id={vm.id} ref={vm.container} className={classes}>
 				<div className="swiper-wrapper">
-				{children && (children.map((item, nth) => (
-					<div className="swiper-slide" key={nth}>
-						{item}
-					</div>
-				)))}
+					{children && (children.map((item, nth) => (
+						<div className="swiper-slide" key={nth}>
+							{item}
+						</div>
+					)))}
 				</div>
 				{vm.props.scrollBar && (<div className="swiper-scrollbar"></div>)}
 			</div>

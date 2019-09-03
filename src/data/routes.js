@@ -5,7 +5,8 @@ module.exports = {
 			component: "Home",
 			exact: true,
 			linkTitle: "Anasayfa",
-			title: "Minoto - Türkiye'nin Sıfır Km Otomobil Sitesi | Sıfır Araba Modelleri",
+			title: "Sıfır Araba Modelleri ve Fiyatları - 0 Km Araç Satın Almak İçin Minoto!",
+			postTitle: false,
 			descriptiopn: "En yeni ve uygun sıfır araba modelleri, fiyatları ve kampanyaları Minoto'da! 0 km araç satın almak için hemen tıkla, fırsatları kaçırma!",
 			meta: {
 				keywords: "Minoto, Sıfır Otomobil, Bayiler"
@@ -37,7 +38,7 @@ module.exports = {
 			title: "Arama",
 			GATitle: "Arama",
 		},
-		searchBrand: {
+		/*searchBrand: {
 			path: "/arama/:brand",
 			component: "SearchBrand",
 			exact: true,
@@ -68,8 +69,7 @@ module.exports = {
 			linkTitle: "Arama",
 			title: "Arama",
 			GATitle: "Marka Arama",
-
-		},
+		},*/
 		sitemap: {
 			path: "/sitemap",
 			component: "Sitemap",
@@ -85,6 +85,7 @@ module.exports = {
 			linkTitle: "Markalar",
 			title: "Araba Markaları ve Araç Listesi - Türkiye'nin Sıfır Km Oto Sitesi Minoto",
 			description: "Araba markalarına ve araç listesine ulaşmak için hemen tıkla, fırsatları kaçırma! Türkiye'nin Sıfır Km Oto Sitesi Minoto!",
+			postTitle: false,
 			meta: {
 				keywords: "Minoto, Sıfır Otomobil, Bayiler"
 			},
@@ -96,26 +97,30 @@ module.exports = {
 			exact: true,
 			linkTitle: "Marka",
 			title: "Araba Markaları ve Araç Listesi - Türkiye'nin Sıfır Km Oto Sitesi Minoto",
+			description: "Sıfır Km araba mı aradınız? Sıfır Km araba modelleri ve fiyatları Minoto'da! Hemen tıkla, fırsatları kaçırma!",
+			postTitle: false,
 			GATitle: "Marka Detay",
+		},
+		dealer: {
+			path: "/bayiler/:slug",
+			component: "Dealer",
+			exact: true,
+			linkTitle: "Bayi",
+			title: "Araba Markaları ve Araç Listesi - Türkiye'nin Sıfır Km Oto Sitesi Minoto",
+			description: "Sıfır Km araba mı aradınız? Sıfır Km araba modelleri ve fiyatları Minoto'da! Hemen tıkla, fırsatları kaçırma!",
+			postTitle: false,
 		},
 		dealers: {
 			path: "/bayiler",
 			component: "Dealers",
 			exact: true,
 			linkTitle: "Bayiler",
-			title: "Bayiler",
+			title: "Yetkili Araba Bayileri, Araç Satıcıları ve Servisleri",
+			description: "Yetkili araba bayileri, araç satıcıları ve servisleri Minoto'da! Hemen tıkla, fırsatları kaçırma!"
 			GATitle: "Bayiler",
 		},
-		dealer: {
-			path: "/bayi/:id/:slug?",
-			component: "Dealer",
-			exact: true,
-			linkTitle: "Bayi",
-			title: "Bayi",
-			GATitle: "Bayi Detay",
-		},
 		branch: {
-			path: "/sube/:id/:slug?",
+			path: "/bayiler/:dealer/:slug",
 			component: "Branch",
 			exact: true,
 			linkTitle: "Şube",
@@ -123,7 +128,7 @@ module.exports = {
 			GATitle: "Şube Detay",
 		},
 		detail: {
-			path: "/ilan/:id/:slug?",
+			path: "/:slug-:dealer-:post",
 			component: "Detail",
 			exact: true,
 			linkTitle: "İlan Detay",
@@ -140,12 +145,23 @@ module.exports = {
 			GATitle: "İlan",
 		},
 		listprices: {
-			path: "/liste-fiyatlari/:brand?/:year?",
+			path: "/araba-fiyat-listesi",
 			component: "ListPrices",
 			exact: true,
 			linkTitle: "Araç Liste Fiyatları",
-			title: "Araç Liste Fiyatları",
+			title: "Araba Fiyat Listesi ve Özellikleri - Türkiye'nin Sıfır Km Oto Sitesi Minoto",
+			description: "Sıfır Km araba fiyat listesi mi aradınız? Sıfır Km araba fiyat listesi ve özellikleri Minoto'da! Hemen tıkla, fırsatları kaçırma!",
+			postTitle: false,
 			GATitle: "Liste Fiyatları",
+		},
+		listpricesDetail: {
+			path: "/:data(.*-fiyat-listesi)",
+			component: "ListPrices",
+			exact: true,
+			linkTitle: "Araç Eki Liste Fiyatları",
+			title: "Araba Fiyat Listesi ve Özellikleri - Türkiye'nin Sıfır Km Oto Sitesi Minoto",
+			description: "Sıfır Km araba fiyat listesi mi aradınız? Sıfır Km araba fiyat listesi ve özellikleri Minoto'da! Hemen tıkla, fırsatları kaçırma!",
+			postTitle: false,
 		},
 		comparison: {
 			path: "/arac-karsilastir/:car1?/:model1?/:car2?/:model2?",
@@ -212,7 +228,7 @@ module.exports = {
 			GATitle: "İletişim",
 		},
 		blogDetail: {
-			path: "/blog/detay/:slug",
+			path: "/blog/:slug",
 			component: "BlogDetail",
 			exact: true,
 			linkTitle: "Minoto Blog",
@@ -242,6 +258,13 @@ module.exports = {
 			linkTitle: "Bayi Başvuru Durumu",
 			title: "Bayi Başvuru Durumu",
 			GATitle: "Bayi Başvuru Durumu",
+		},
+		searchBrand: {
+			path: "/:brand/:model?/:optdata1?/:optdata2?/:optdata3?",
+			component: "SearchBrand",
+			exact: false,
+			linkTitle: "Arama",
+			title: "Arama",
 		},
 		notfound: {
 			path: false,

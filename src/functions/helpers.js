@@ -1,6 +1,6 @@
 import extend from "lodash/extend"
 import { storagePath, apiBase } from "../config"
-import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
+import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 
 export function scrollTo(inputOpts, endFunction = false) {
 	let defaultOpts = {
@@ -209,16 +209,26 @@ export function serialize(form, seperator = ',', ignoreEmpty = false) {
 	return serialized.join('&');
 }
 
-export function blockOverflow(block = true) {
+export function blockOverflow(block = true, hamburger = false) {
 	if (block) {
 		let scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
 		document.documentElement.style.marginRight = scrollBarWidth + 'px'
 		document.body.classList.add('block-overflow');
-		disableBodyScroll(document.querySelector('.filters-content *'));
-	} else {
+		if (hamburger) {
+			disableBodyScroll(document.querySelector('.ScrollbarsCustom-Wrapper *'));
+		} else {
+			disableBodyScroll(document.querySelector('.filters-content *'));
+		}
+	}
+	else {
 		document.documentElement.style.marginRight = ''
 		document.body.classList.remove('block-overflow');
-		enableBodyScroll(document.querySelector('.filters-content *'));
+		if (hamburger) {
+			enableBodyScroll(document.querySelector('.ScrollbarsCustom-Wrapper *'));
+		} else {
+			enableBodyScroll(document.querySelector('.filters-content *'));
+		}
+		clearAllBodyScrollLocks();
 	}
 }
 
@@ -296,3 +306,28 @@ Math.easeInOutQuad = function(t, b, c, d) {
 	t--;
 	return -c / 2 * (t * (t - 2) - 1) + b;
 };
+
+function findAndReplace(string, find, replace) {
+	for (let i = 0; i < find.length; i++) {
+		string = string.replace(find[i], replace[i])
+	}
+	return string;
+}
+
+export function seoFriendlyUrl(string) {
+	let turkish = ["ı", "ğ", "ü", "ş", "ö", "ç", "İ", "Ğ", "Ü", "Ş", "Ö", "Ç"];
+	let english = ["i", "g", "u", "s", "o", "c", "i", "g", "u", "s", "o", "c"];
+	string = findAndReplace(string, turkish, english);
+	string = findAndReplace(string, ['[\', \']'], ['', '']);
+	//string = findAndReplace(string, ['/\[.*\]/U'], [''], '');
+	string = findAndReplace(string, ['/&(amp;)?#?[a-z0-9]+;/i'], ['-']);
+	string = findAndReplace(string, ['/&([a-z])(acute|uml|circ|grave|ring|cedil|slash|tilde|caron|lig|quot|rsquo);/i'], ['\\1']);
+	string = findAndReplace(string, ["acute", "uml", "circ", "grave", "ring", "cedil", "slash", "tilde", "caron", "quot", "rsquo"], ["", "", "", "", "", "", "", "", "", "", "", ""]);
+	string = findAndReplace(string, ['/[^a-z0-9]/i', '/[-]+/'], ['-', '-']);
+	string = string.replace(/\s/g, "-");
+	string = string.replace("---", "-");
+	string = string.replace("---", "-");
+
+	return string.trimRight('-').toLowerCase();
+
+}

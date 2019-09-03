@@ -2,23 +2,35 @@ import React from 'react'
 
 // Deps
 
+// Partials
+import Link from 'components/partials/link'
+
 
 export default class Breadcrumbs extends React.Component {
 	render() {
 		let vm = this;
 		let classes = "breadcrumbs " + vm.props.className;
-		if(vm.props.standalone){ classes += ' section' }
+		if (vm.props.standalone) { classes += ' section' }
 
 		let content = <ul className="breadcrumbs-list">
-			{vm.props.data && vm.props.data.map(function(crumb, nth){
-				let href = crumb.href;
-				let title = crumb.title
+			{vm.props.data && vm.props.data.map(function (crumb, nth) {
 				return (
-					<li key={nth} className="breadcrumbs-item">
-						<a href={href}>
-							{title}
-						</a>
-					</li>
+					<React.Fragment key={nth}>
+						{
+							crumb.title && (
+								<li className="breadcrumbs-item">
+									{crumb.href ?
+										<Link href={crumb.href} params={crumb.params}>
+											{crumb.title}
+										</Link>
+										:
+										<span>{crumb.title}</span>
+									}
+								</li>
+							)
+						}
+					</React.Fragment>
+
 				)
 			})}
 			{vm.props.children && React.Children.toArray(vm.props.children).map((crumb, nth) => {
@@ -28,7 +40,7 @@ export default class Breadcrumbs extends React.Component {
 					</li>
 				)
 			})}
-			
+
 		</ul>
 
 		return (

@@ -5,35 +5,36 @@
 		max-height: 100%;
 	}
 
-		.ScrollbarsCustom-Content {
-			display: block!important;
-		}
+	.ScrollbarsCustom-Content {
+		display: block!important;
+	}
 
-		.ScrollbarsCustom-Wrapper {
-			position: absolute;
-			top: 0px;
-			left: 0px;
-			bottom: 0px;
-			right: 1rem;
-			overflow: hidden;
-		}
+	.ScrollbarsCustom-Wrapper {
+		position: absolute;
+		top: 0px;
+		left: 0px;
+		bottom: 0px;
+		right: 1rem;
+		overflow: hidden;
+	}
 
-		.ScrollbarsCustom-TrackY {
-			position: absolute;
-			overflow: hidden;
-			top: 0;
-			right: 0;
-			width: .6rem;
-			height: 100%;
-			border-radius: .3rem;
-		}
+	.ScrollbarsCustom-TrackY {
+		position: absolute;
+		overflow: hidden;
+		top: 0;
+		right: 0;
+		width: .6rem;
+		height: 100%;
+		border-radius: .3rem;
+	}
 
-			.ScrollbarsCustom-ThumbY {
-				touch-action: none;
-				cursor: pointer;
-				border-radius: .3rem;
-				background-color: rgba($color-text-light, 0.5);
-				width: 100%;
-				transform: translateY(80px);
-			}
+	.ScrollbarsCustom-ThumbY {
+		touch-action: none;
+		cursor: pointer;
+		border-radius: .3rem;
+		background-color: rgba($color-text-light, 0.5);
+		width: 100%;
+		transform: translateY(80px);
+	}
+	
 }
