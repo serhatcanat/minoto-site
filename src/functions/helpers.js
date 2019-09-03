@@ -223,7 +223,7 @@ export function blockOverflow(block = true, hamburger = false) {
 		document.documentElement.style.marginRight = scrollBarWidth + 'px'
 		document.body.classList.add('block-overflow');
 		if (hamburger) {
-			disableBodyScroll(document.querySelector('.menu-outerwrap *'));
+			disableBodyScroll(document.querySelector('.ScrollbarsCustom-Wrapper *'));
 		} else {
 			disableBodyScroll(document.querySelector('.filters-content *'));
 		}
@@ -232,7 +232,7 @@ export function blockOverflow(block = true, hamburger = false) {
 		document.documentElement.style.marginRight = ''
 		document.body.classList.remove('block-overflow');
 		if (hamburger) {
-			enableBodyScroll(document.querySelector('.menu-outerwrap *'));
+			enableBodyScroll(document.querySelector('.ScrollbarsCustom-Wrapper *'));
 		} else {
 			enableBodyScroll(document.querySelector('.filters-content *'));
 		}
