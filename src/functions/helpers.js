@@ -227,8 +227,6 @@ export function blockOverflow(block = true, hamburger = false) {
 		} else {
 			disableBodyScroll(document.querySelector('.filters-content *'));
 		}
-
-
 	}
 	else {
 		document.documentElement.style.marginRight = ''
