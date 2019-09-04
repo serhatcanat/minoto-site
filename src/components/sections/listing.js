@@ -29,6 +29,7 @@ import { storageSpace, seoFriendlyUrl } from "functions/helpers";
 import queryString from 'query-string';
 import { setFiltersExpansion, setListingQuery, setFilterQuery, setListingData } from 'data/store.listing';
 import { GA } from 'controllers/ga'
+import { addImpressionProduct } from 'data/store.ga.js'
 //import { openModal } from 'functions/modals'
 
 const mapStateToProps = state => {
@@ -352,10 +353,16 @@ class Listing extends React.Component {
 								}
 							</aside>
 						}
-						<ListingResults loading={vm.state.loading} data={vm.props.listingData} mobile={vm.props.mobile} />
-						{(vm.state.results && vm.state.results.length < vm.props.listingData.totalResults) &&
-							<InfiniteScroller loading={vm.state.extending} onExtend={vm.extendResults} />
-						}
+						<ListingResults
+							loading={vm.state.loading}
+							data={vm.props.listingData}
+							GAGroup={vm.props.GAGroup}
+							mobile={vm.props.mobile} />
+							{(vm.state.results && vm.state.results.length < vm.props.listingData.totalResults) &&
+								<InfiniteScroller
+									loading={vm.state.extending}
+									onExtend={vm.extendResults} />
+							}
 					</div>
 				</section>
 			</React.Fragment>
@@ -373,7 +380,8 @@ Listing.defaultProps = {
 	size: 4,
 	defaultOrder: "date_desc",
 	scrollOnFilterChange: false,
-	keyword: false
+	keyword: false,
+	GAGroup: 'Listeleme'
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Listing);
@@ -386,6 +394,7 @@ class ListingResults extends React.Component {
 		let loading = vm.props.loading;
 		let data = vm.props.data
 		let results = data.results;
+		let productResultsCount = (results ? results.filter((result) => { return result.type === 'advert'}).length : 0);
 		if (results && results.length) {
 			return (
 				<React.Fragment>
@@ -474,6 +483,7 @@ class ListingResults extends React.Component {
 															});
 														}}
 														urlParams={{ dealer: seoFriendlyUrl(item.dealer), slug: item.slug.substring(0, item.slug.lastIndexOf('-m')), post: item.slug.substring(item.slug.lastIndexOf('m')) }}
+														onDisplay={() => { addImpressionProduct(vm.props.GAGroup, item, productResultsCount); }}
 													/>
 												</li>
 											);

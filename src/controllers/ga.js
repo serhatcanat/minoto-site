@@ -3,41 +3,47 @@ import React from 'react'
 //Deps
 import store from 'data/store'
 import merge from 'lodash/merge'
+import throttle from 'lodash/throttle'
 import { getCookie } from 'functions/helpers'
-//import { connect } from "react-redux"
-//import { resetData } from 'data/store.ga'
+import { connect } from "react-redux"
+import { clearImpressions } from 'data/store.ga'
 
-/*const mapStateToProps = state => {
+const mapStateToProps = state => {
 	return {
-		productData: state.ga.productData,
+		impressions: state.ga.impressions,
 	};
 };
 
+/*
 const mapDispatchToProps = dispatch => {
 	return {
-		resetGaData: () => dispatch(resetData()),
+		clearImpressions: () => dispatch(clearImpressions()),
 	}
-}*/
+}
+*/
 
-export default class GAWatcher extends React.Component {
-	/*constructor(props){
+class GAWatcher extends React.Component {
+	constructor(props){
 		super(props);
 
-		this.state = {
-			lol: true,
-		};
-	}*/
+		this.updateImpressions = throttle(this.updateImpressions.bind(this), 500, {leading: false});
+	}
 
 	componentDidMount() {
 		document.getElementsByTagName('BODY')[0].addEventListener('copy', (event) => {
 			GA.send('clipboard', document.getSelection().toString())
 		});
+	}
 
-		/*window.ga(function(tracker) {
-			console.log(tracker);
-			let clientId = tracker.get('clientId');
-			console.log(clientId);
-		});*/
+	componentDidUpdate(prevProps) {
+		if(this.props.impressions.timestamp !== 0 && prevProps.impressions.timestamp !== this.props.impressions.timestamp){
+			console.log('update');
+			this.updateImpressions();
+		}
+	}
+
+	updateImpressions() {
+		GA.send('productImpressions', this.props.impressions);
 	}
 
 	render() {
@@ -45,7 +51,7 @@ export default class GAWatcher extends React.Component {
 	}
 }
 
-//export default connect(mapStateToProps, mapDispatchToProps)(GAWatcher);
+export default connect(mapStateToProps, null)(GAWatcher);
 
 export const GA = {
 	send: function(action, data) {
@@ -106,8 +112,9 @@ export const GA = {
 		return data;
 	},
 	getProductData(product = false) {
-		let state = store.getState();
-		if(product === false) { product = state.ga.productData; }
+		if(product === false) {
+			product = store.getState().ga.productData;
+		}
 
 		if(product){
 
@@ -253,6 +260,24 @@ export const GA = {
 					}
 				}
 			});
+		},
+		productImpressions: function(data) {
+			Object.keys(data.groups).forEach((key)=>{
+				let group = data.groups[key];
+
+				GA.sendData({
+					event: 'eec.Event',
+					eventCategory: 'Enhanced Ecommerce',
+					eventAction: 'Product Impressions',
+					eventLabel: key,
+					eventValue: group.totalCount,
+					ecommerce: {
+						impressions: group.items
+					}
+				});
+			});
+
+			clearImpressions();
 		}
 	}
 } 

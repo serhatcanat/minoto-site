@@ -8,11 +8,18 @@ import PriceTag from 'components/partials/price-tag'
 
 // Deps
 import extend from 'lodash/extend';
+import { InView } from 'react-intersection-observer'
 
 // Assets
 import image_default from 'assets/images/defaults/contentbox-placeholder.jpg'
 
 export default class ContentBox extends React.Component {
+	componentDidMount() {
+		if(this.props.onMount){
+			this.props.onMount();
+		}
+	}
+
 	render() {
 		let vm = this;
 		let classes = 'contentbox ' + vm.props.className + (this.props.url ? ' has-link' : '') + ' type-' + vm.props.type;
@@ -127,13 +134,18 @@ export default class ContentBox extends React.Component {
 						</div>
 					</Wrap>
 				);
-				break;
+			break;
 		}
 
 		return (
-			<div className={classes}>
+			<InView
+				as="div"
+				triggerOnce
+				threshold={0.6}
+				onChange={(inView, entry) => { if(inView && this.props.onDisplay){ this.props.onDisplay(); } }}
+				className={classes}>
 				{content}
-			</div>
+			</InView>
 		);
 	}
 }
@@ -149,4 +161,6 @@ ContentBox.defaultProps = {
 	faved: false,
 	type: 'regular',
 	faveControls: false,
+	onMount: false,
+	onDisplay: false,
 };
