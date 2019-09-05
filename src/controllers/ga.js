@@ -135,6 +135,7 @@ export const GA = {
 			}
 
 			return {	
+				id: product.postNo ? product.postNo : product.id,
 				product: {
 					'name': product.title,
 					'id': product.id,
@@ -282,37 +283,52 @@ export const GA = {
 			let productData = GA.getProductData();
 			let dealerData = GA.getDealerData();
 
-			if(productData){
-				checkConversion(productData.product.id, function(status){
+			if(productData && dealerData){
+				checkConversion(productData.id, function(status){
 					if(status){
-						console.log('YES: ' + productData.product.id);
-						/*
-						revenue data test edelim
-						GA.sendData({
+						let gaData = {
 							event: 'eec.Event',
 							eventCategory: 'Enhanced Ecommerce',
-							eventAction:'Conversion - Ürün Sayfası - Teklif Ver',
-							eventLabel: productData.product.id,
+							eventAction:false,
+							eventLabel: false,
 							customMetrics: {
 								hitLevel: {
-									cm_offer: data.revenue,
 								}
 							},
 							purchase: {
 								actionField:  {
 									id: dealerData.dealer.id,
 									affiliation: dealerData.dealer.name,
-									revenue: data.revenue,
 								},
 								products: productData.product
 							}
-						})
-						*/
+						};
+
+						switch(data.action){
+							case "bid":
+								gaData.eventAction = "Conversion - Ürün Sayfası - Teklif Ver"
+								gaData.customMetrics.hitLevel.cm_offer = data.revenue;
+								gaData.eventLabel = productData.id;
+								gaData.purchase.revenue = data.revenue.toString().replace(',', '.');
+							break;
+							default:
+							break;
+						}
+
+						if(gaData.eventAction !== false){
+							GA.sendData(gaData);
+						}
+						else {
+							console.log('HATA', gaData, data);
+						}
 					}
 					else {
 						console.log('NO');
 					}
 				})
+			}
+			else {
+				console.log('GA Conversion Error: No product or dealer data. Product: ', productData, 'Dealer: ', dealerData);
 			}
 
 		}
