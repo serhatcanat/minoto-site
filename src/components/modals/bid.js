@@ -44,19 +44,26 @@ class BidModalRaw extends React.Component {
 			messageType: 'bid'
 		};
 
-		request.post(`messages/send-message`, record, function (payload) {
+		/*request.post(`messages/send-message`, record, function (payload) {
 			setTimeout(function () {
 				if (payload && payload.status === '200') {
 					vm.setState({ loading: false, success: true, message: payload.message, bid: e.target.elements.bid.value });
-					GA.send('bid', {
-						value: e.target.elements.bid.value,
+					GA.send('conversion', {
+						revenue: e.target.elements.bid.value,
 					});
 				}
 				else {
 					vm.setState({ loading: false, error: true, message: payload.message });
 				}
 			}, 1000);
-		})
+		})*/
+
+		setTimeout(function() {
+			vm.setState({ loading: false, success: true, message: 'TMM', bid: e.target.elements.bid.value });
+			GA.send('conversion', {
+				revenue: e.target.elements.bid.value,
+			});
+		}, 1000);
 	}
 
 	render() {

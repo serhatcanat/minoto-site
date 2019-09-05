@@ -6,7 +6,7 @@ import merge from 'lodash/merge'
 import throttle from 'lodash/throttle'
 import { getCookie } from 'functions/helpers'
 import { connect } from "react-redux"
-import { clearImpressions } from 'data/store.ga'
+import { clearImpressions, checkConversion } from 'data/store.ga'
 
 const mapStateToProps = state => {
 	return {
@@ -37,7 +37,6 @@ class GAWatcher extends React.Component {
 
 	componentDidUpdate(prevProps) {
 		if(this.props.impressions.timestamp !== 0 && prevProps.impressions.timestamp !== this.props.impressions.timestamp){
-			console.log('update');
 			this.updateImpressions();
 		}
 	}
@@ -278,6 +277,44 @@ export const GA = {
 			});
 
 			clearImpressions();
+		},
+		conversion: function(data) {
+			let productData = GA.getProductData();
+			let dealerData = GA.getDealerData();
+
+			if(productData){
+				checkConversion(productData.product.id, function(status){
+					if(status){
+						console.log('YES: ' + productData.product.id);
+						/*
+						revenue data test edelim
+						GA.sendData({
+							event: 'eec.Event',
+							eventCategory: 'Enhanced Ecommerce',
+							eventAction:'Conversion - Ürün Sayfası - Teklif Ver',
+							eventLabel: productData.product.id,
+							customMetrics: {
+								hitLevel: {
+									cm_offer: data.revenue,
+								}
+							},
+							purchase: {
+								actionField:  {
+									id: dealerData.dealer.id,
+									affiliation: dealerData.dealer.name,
+									revenue: data.revenue,
+								},
+								products: productData.product
+							}
+						})
+						*/
+					}
+					else {
+						console.log('NO');
+					}
+				})
+			}
+
 		}
 	}
 } 

@@ -8,7 +8,10 @@ const initialState = {
 	impressions: {groups: {}, timestamp: 0},
 	productData: false,
 	dealerData: false,
+	conversionData: {},
 };
+
+const conversionTimeout = 1800000;
 
 function gaReducer(state = initialState, action) {
 	if (action.type === "SET_IMPRESSIONS") {
@@ -26,6 +29,11 @@ function gaReducer(state = initialState, action) {
 			dealerData: action.payload
 		});
 	}
+	else if (action.type === "SET_CONVERSION_DATA") {
+		return Object.assign({}, state, {
+			conversionData: action.payload
+		});
+	}
 	return state;
 };
 export default gaReducer;
@@ -41,6 +49,10 @@ export function setProductData(payload) {
 
 export function setDealerData(payload) {
 	return { type: "SET_DEALER_DATA", payload }
+};
+
+export function setConversionData(payload) {
+	return { type: "SET_CONVERSION_DATA", payload }
 };
 
 // Controller Functions
@@ -68,3 +80,17 @@ export function addImpressionProduct(group, product, totalCount) {
 	impressions.timestamp = Date.now();
 	store.dispatch(setImpressions(impressions));
 };
+
+export function checkConversion(productID, endFunction) {
+	let conversionData = clone(store.getState().ga.conversionData);
+	let now = Date.now();
+
+	if(!conversionData[productID] || conversionData[productID] + conversionTimeout <= now){
+		conversionData[productID] = now;
+		store.dispatch(setConversionData(conversionData));
+		endFunction(true);
+	}
+	else {
+		endFunction(false);
+	}
+}
