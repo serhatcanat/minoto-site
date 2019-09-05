@@ -123,7 +123,10 @@ class MessageDetail extends React.Component {
 							</Responsive>
 						</div>
 						{conversation.sender.dealer &&
-							<Link className="conversation-dealer" href="dealer" params={{ id: conversation.sender.dealer.id }}>
+							<Link
+								className="conversation-dealer"
+								href={(conversation.sender.dealer.branchUrl ? "branch" : "dealer")}
+								params={(conversation.sender.dealer.branchUrl ? { dealer: conversation.sender.dealer.dealerUrl, slug: conversation.sender.dealer.branchUrl } : { slug: conversation.sender.dealer.dealerUrl })}>
 								<Image src={storageSpace('dealers', conversation.sender.dealer.avatar)} className="dealer-avatar" />
 								<span className="dealer-title">{conversation.sender.dealer.title}</span>
 							</Link>

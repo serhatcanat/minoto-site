@@ -8,6 +8,9 @@ import { getCookie } from 'functions/helpers'
 import { connect } from "react-redux"
 import { clearImpressions, checkConversion } from 'data/store.ga'
 
+const conversionTimeout = 1800000;
+const conversionSessionPrefix = 'productConversion_';
+
 const mapStateToProps = state => {
 	return {
 		impressions: state.ga.impressions,
@@ -86,6 +89,9 @@ export const GA = {
 			data.customDefinitions.userLevel = {
 				cd_userLogin: true,
 				cd_userID: userData.id,
+				cd_userGender: userData.gender,
+				cd_registrationDate: userData.created_at,
+				cd_userAgeRange: userData.age,
 			}
 		}
 		else {
@@ -189,6 +195,20 @@ export const GA = {
 		let state = store.getState();
 		return (state.generic.currentPage ? (state.generic.currentPage.data.GATitle ? state.generic.currentPage.data.GATitle : state.generic.currentPage.data.title) : '');
 	},
+	checkConversion(productID, endFunction) {
+		const sessionKey = conversionSessionPrefix+productID;
+		let conversionData = sessionStorage.getItem(sessionKey);
+		let now = Date.now();
+
+		if(conversionData === null || conversionData + conversionTimeout <= now){
+			conversionData = now;
+			sessionStorage.setItem(sessionKey, conversionData);
+			endFunction(true);
+		}
+		else {
+			endFunction(false);
+		}
+	},
 	actions: {
 		clipboard: function(text) {
 			console.log('GA - Clipboard:\n', text)
@@ -283,8 +303,8 @@ export const GA = {
 			let productData = GA.getProductData();
 			let dealerData = GA.getDealerData();
 
-			if(productData && dealerData){
-				checkConversion(productData.id, function(status){
+			if(dealerData){
+				GA.checkConversion(productData.id, function(status){
 					if(status){
 						let gaData = {
 							event: 'eec.Event',
@@ -297,19 +317,31 @@ export const GA = {
 							},
 							purchase: {
 								actionField:  {
-									id: dealerData.dealer.id,
 									affiliation: dealerData.dealer.name,
 								},
 								products: productData.product
 							}
 						};
 
+						if(productData){
+							gaData.purchase.actionField.revenue = productData.product.price;
+						}
+
 						switch(data.action){
 							case "bid":
 								gaData.eventAction = "Conversion - Ürün Sayfası - Teklif Ver"
-								gaData.customMetrics.hitLevel.cm_offer = data.revenue;
+								gaData.customMetrics.hitLevel.cm_offer = parseInt(data.offer.split('.').join(""));
 								gaData.eventLabel = productData.id;
-								gaData.purchase.revenue = data.revenue.toString().replace(',', '.');
+								gaData.purchase.actionField.id = data.threadID
+							break;
+							case "message":
+								gaData.eventAction = "Conversion - Ürün Sayfası - Mesaj Gönder";
+								gaData.eventLabel = productData.id;
+								gaData.purchase.actionField.id = data.threadID
+							break;
+							case "callDealer":
+								gaData.eventAction = (productData ? "Conversion - Ürün Sayfası - Telefon Et" : "Conversion - Bayi Sayfası - Telefon Et");
+								gaData.eventLabel = (productData ? productData.id : dealerData.id);
 							break;
 							default:
 							break;

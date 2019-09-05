@@ -540,15 +540,35 @@ class DetailInfo extends React.Component {
 							Rezerve Et
 						</Btn>
 						{
-							(vm.props.mobile && product.dealer.phone) ?
-								<a className="controls-phone" href={"tel:+9" + product.dealer.phone.replace(' ', '')}><i className="icon-phone-nude"></i></a>
-								: (
-									<React.Fragment>
-										{
-											(vm.props.mobile && product.dealerPhone) && <a className="controls-phone" href={"tel:+9" + product.dealerPhone.replace(' ', '')}><i className="icon-phone-nude"></i></a>
-										}
-									</React.Fragment>
-								)
+							((vm.props.mobile && product.dealer.phone) ?
+								<a
+									className="controls-phone"
+									onClick={()=>{
+										GA.send('conversion', {
+											action: 'callDealer',
+										});
+									}}
+									href={"tel:+9" + product.dealer.phone.replace(' ', '')}>
+									<i className="icon-phone-nude"></i>
+								</a>
+								:
+								<React.Fragment>
+									{
+										((vm.props.mobile && product.dealerPhone) &&
+											<a
+												className="controls-phone"
+												onClick={()=>{
+													GA.send('conversion', {
+														action: 'callDealer',
+													});
+												}}
+												href={"tel:+9" + product.dealerPhone.replace(' ', '')}>
+												<i className="icon-phone-nude"></i>
+											</a>
+										)
+									}
+								</React.Fragment>
+							)
 
 						}
 						{(product.bidThreadId)
@@ -606,7 +626,18 @@ class DetailInfo extends React.Component {
 										<div className="dealer-controls">
 											{
 												product.dealer.phone && (
-													<Btn tag="a" icon="phone" block uppercase href={"tel:+9" + product.dealer.phone.replace(' ', '')}>{product.dealer.phone}</Btn>
+													<Btn
+														tag="a"
+														icon="phone"
+														block uppercase
+														onClick={()=>{
+															GA.send('conversion', {
+																action: 'callDealer',
+															});
+														}}
+														href={"tel:+9" + product.dealer.phone.replace(' ', '')}>
+														{product.dealer.phone}
+													</Btn>
 												)
 
 											}
@@ -682,7 +713,18 @@ class DetailInfo extends React.Component {
 															<div className="dealer-controls">
 																{
 																	selectedBranch.phone && (
-																		<Btn tag="a" icon="phone" block uppercase href={"tel:+9" + selectedBranch.phone.replace(' ', '')}>{selectedBranch.phone}</Btn>
+																		<Btn
+																			tag="a"
+																			icon="phone"
+																			block uppercase
+																			onClick={()=>{
+																				GA.send('conversion', {
+																					action: 'callDealer',
+																				});
+																			}}
+																			href={"tel:+9" + selectedBranch.phone.replace(' ', '')}>
+																			{selectedBranch.phone}
+																		</Btn>
 																	)
 
 																}
@@ -697,7 +739,6 @@ class DetailInfo extends React.Component {
 												}
 											</React.Fragment>
 										</div>
-
 									)
 
 								}

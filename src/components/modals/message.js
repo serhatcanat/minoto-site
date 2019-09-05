@@ -9,6 +9,7 @@ import Link from 'components/partials/link'
 import { connect } from "react-redux"
 import request from 'controllers/request'
 import { closeModal, openModal } from 'functions/modals'
+import { GA } from 'controllers/ga'
 
 const mapStateToProps = state => {
 	return {
@@ -46,6 +47,10 @@ class MessageModalRaw extends React.Component {
 			setTimeout(function () {
 				if (payload && payload.status === '200') {
 					vm.setState({ loading: false, success: true, message: payload.message });
+					GA.send('conversion', {
+						action: 'message',
+						threadID: payload.threadId,
+					});
 				}
 				else {
 					vm.setState({ loading: false, error: true, message: payload.message });
