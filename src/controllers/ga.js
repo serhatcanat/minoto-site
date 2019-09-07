@@ -123,21 +123,30 @@ export const GA = {
 
 		if(product){
 
-			let fuel = 'BİLİNMEYEN';
-			let body = 'BİLİNMEYEN';
-			let capacity = 'BİLİNMEYEN';
+			let brand = "";
+			let model = "";
+			let	engineCapacity = "";
+			let	bodyType = "";
+			let	fuelType = "";
+			let	city = "";
+			let	color = "";
+			let	district = "";
+			let	year = "";
+			let	tractionType = "";
+			let	transmissionType = "";
 
-			if(product.technicalSpecs){
-				product.technicalSpecs.forEach((group) => {
-					group.specs.forEach((spec) => {
-						if(spec.label.trim() === 'Yakıt'){
-							fuel = spec.content.trim();
-						}
-						if(spec.label.trim() === 'Kasa Tipi / Kapı Sayısı'){
-							body = spec.content.split('/')[0].trim();
-						}
-					});
-				});
+			if(product.ga){
+				brand = product.ga.brand;
+				model = product.ga.model;
+				engineCapacity = product.ga.engineCapacity;
+				bodyType = product.ga.bodyType;
+				fuelType = product.ga.fuelType;
+				city = product.ga.city;
+				color = product.ga.color;
+				district = product.ga.district;
+				year = product.ga.year;
+				tractionType = product.ga.tractionType;
+				transmissionType = product.ga.gearType;
 			}
 
 			return {	
@@ -146,21 +155,21 @@ export const GA = {
 					'name': product.title,
 					'id': product.postNo,
 					'price': product.price,
-					'brand': (product.brand ? product.brand.title : ''),
-					'category': (product.breadCrumbs ? product.breadCrumbs[0].title+'/'+product.breadCrumbs[1].title+'/'+capacity+'/'+body+'/'+fuel : ''),
-					'variant': (product.breadCrumbs ? product.breadCrumbs[1].title : ''),
+					'brand': brand,
+					'category': (brand+'/'+model+'/'+engineCapacity+'/'+bodyType+'/'+fuelType),
+					'variant': model,
 					'list': GA.getCurrentPage()
 				},
 				cd: {
-					cd_carCity: '',
-					cd_carColor: '',
-					cd_district: '',
-					cd_productionYear: '',
-					cd_engineCapacity: capacity,
-					cd_tractionType: '',
-					cd_transmissionType: '',
-					cd_fuelType: fuel,
-					cd_vehicleBody: body,
+					cd_carCity: city,
+					cd_carColor: color,
+					cd_district: district,
+					cd_productionYear: year,
+					cd_engineCapacity: engineCapacity,
+					cd_tractionType: tractionType,
+					cd_transmissionType: transmissionType,
+					cd_fuelType: fuelType,
+					cd_vehicleBody: bodyType,
 					cd_productionPlace: '',
 				}
 			}
@@ -174,7 +183,7 @@ export const GA = {
 		if(dealer === false) { dealer = state.ga.dealerData; }
 
 		if(dealer){
-			return {
+			let data = {
 				dealer: {
 					name: dealer.title,
 					id: dealer.id,
@@ -182,10 +191,17 @@ export const GA = {
 				cd: {
 					cd_dealerID: dealer.id,
 					cd_dealerName: dealer.title,
-					cd_district: '',
-					cd_carCity: '',
 				}
 			}
+
+			if(dealer.district) {
+				data.cd.cd_district = dealer.district;
+			}
+			if(dealer.city) {
+				data.cd.cd_carCity = dealer.city;
+			}
+
+			return data;
 		}
 		else {
 			return false;
@@ -272,7 +288,7 @@ export const GA = {
 				eventLabel: '',
 				eventValue: 0,
 				ecommerce: {
-					click: {
+					detail: {
 						actionField : {
 							list: GA.getCurrentPage()
 						},
