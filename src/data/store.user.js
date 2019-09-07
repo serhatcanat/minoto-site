@@ -3,6 +3,7 @@ import store from "data/store"
 import request from 'controllers/request'
 import { serializeArray } from 'functions/helpers'
 import { redirect } from 'controllers/navigator'
+import { GA } from 'controllers/ga'
 
 const initialState = {
 	user: getUserState()[0],
@@ -113,12 +114,16 @@ export function login(form, finalFunction = false) {
 		if (payload && payload.success) {
 			updateUserData(payload);
 
+			GA.send('loginActions', { action: 'Login', label: 'Giriş Başarılı' });
+
 			if (finalFunction) {
 				finalFunction(extend({}, payload, { message: "Giriş Başarılı" }));
 			}
 		}
 		else {
 			logout(true);
+
+			GA.send('loginActions', { action: 'Login', label: payload.message });
 			if (finalFunction) {
 				finalFunction(payload);
 			}
@@ -131,12 +136,16 @@ export function socialLogin(form, type, finalFunction = false) {
 		if (payload && payload.success) {
 			updateUserData(payload);
 
+			GA.send('loginActions', { action: 'Login', label: type });
+
 			if (finalFunction) {
 				finalFunction(extend({}, payload, { message: "Giriş Başarılı" }));
 			}
 		}
 		else {
 			logout(true);
+
+			GA.send('loginActions', { action: 'Login', label: payload.message });
 			if (finalFunction) {
 				finalFunction(payload);
 			}
@@ -149,12 +158,16 @@ export function register(form, finalFunction = false) {
 		if (payload && payload.success) {
 			//updateUserData(payload);
 
+			GA.send('loginActions', { action: 'SignUp', label: 'Kayıt Başarılı' });
+
 			if (finalFunction) {
 				finalFunction(extend({}, payload, { message: "Kayıt Başarılı" }));
 			}
 		}
 		else {
 			logout(true);
+
+			GA.send('loginActions', { action: 'SignUp', label: payload.message });
 			if (finalFunction) {
 				finalFunction(payload);
 			}

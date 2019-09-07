@@ -164,7 +164,9 @@ class Listing extends React.Component {
 				vm.props.setFilterQuery(filterQuery);
 			}
 			else if (!vm.initialized) {
-				vm.updateResults();
+				// Listelemelerde patlak oluyorsa burayı eski haline getiririz.
+				//vm.updateResults();
+				vm.getQuery();
 			}
 		}, 30);
 	}
@@ -236,7 +238,9 @@ class Listing extends React.Component {
 		let requestURL = vm.props.source; //+'?'+q;
 		vm.updateURL();
 
-		request.get(requestURL, vm.getQuery(), function (payload, status) {
+		let query = vm.getQuery();
+
+		request.get(requestURL, query, function (payload, status) {
 			if (vm.mounted && payload) {
 
 				if (payload.redirect) {
@@ -247,12 +251,19 @@ class Listing extends React.Component {
 				}
 
 				vm.props.setListingData(payload);
+				let searchInput = query.ara ? query.ara : false;
+
 				vm.setState({
 					loading: false,
 					page: payload.page ? payload.page : 1,
 					order: payload.order ? payload.order : 'date_desc',
-					keyword: payload.keyword ? payload.keyword : null
+					keyword: payload.keyword ? payload.keyword : null,
+					searchInput: searchInput,
 				});
+
+				if((payload.totalResults === 0 || payload.similar) && searchInput){
+					GA.send('searchNotFound', { searchInput: searchInput });
+				}
 
 				/*vm.setState({
 					listingData: payload,
@@ -357,6 +368,7 @@ class Listing extends React.Component {
 							loading={vm.state.loading}
 							data={vm.props.listingData}
 							GAGroup={vm.props.GAGroup}
+							searchInput={vm.state.searchInput}
 							mobile={vm.props.mobile} />
 							{(vm.state.results && vm.state.results.length < vm.props.listingData.totalResults) &&
 								<InfiniteScroller
@@ -410,7 +422,6 @@ class ListingResults extends React.Component {
 					}
 
 					<ul className="content-results">
-
 						{results.map((item, nth) => {
 							itemsAt += (item.size ? item.size : 1);
 							let contents = [];
@@ -481,6 +492,13 @@ class ListingResults extends React.Component {
 																product: item,
 																totalResults: results.length
 															});
+
+															if(vm.props.searchInput){
+																GA.send('searchClick', {
+																	product: item,
+																	searchInput: vm.props.searchInput,
+																});
+															}
 														}}
 														urlParams={{ dealer: seoFriendlyUrl(item.dealer), slug: item.slug.substring(0, item.slug.lastIndexOf('-m')), post: item.slug.substring(item.slug.lastIndexOf('m')) }}
 														onDisplay={() => { addImpressionProduct(vm.props.GAGroup, item, productResultsCount); }}

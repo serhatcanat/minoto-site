@@ -6,7 +6,7 @@ import merge from 'lodash/merge'
 import throttle from 'lodash/throttle'
 import { getCookie } from 'functions/helpers'
 import { connect } from "react-redux"
-import { clearImpressions, checkConversion } from 'data/store.ga'
+import { clearImpressions } from 'data/store.ga'
 
 const conversionTimeout = 1800000;
 const conversionSessionPrefix = 'productConversion_';
@@ -141,10 +141,10 @@ export const GA = {
 			}
 
 			return {	
-				id: product.postNo ? product.postNo : product.id,
+				id: product.postNo,
 				product: {
 					'name': product.title,
-					'id': product.id,
+					'id': product.postNo,
 					'price': product.price,
 					'brand': (product.brand ? product.brand.title : ''),
 					'category': (product.breadCrumbs ? product.breadCrumbs[0].title+'/'+product.breadCrumbs[1].title+'/'+capacity+'/'+body+'/'+fuel : ''),
@@ -362,7 +362,36 @@ export const GA = {
 			else {
 				console.log('GA Conversion Error: No product or dealer data. Product: ', productData, 'Dealer: ', dealerData);
 			}
-
+		},
+		loginActions: function(data) {
+			GA.sendData({
+				'event': 'gaEvent',
+				'eventCategory': 'Register',
+				'eventAction': data.action,
+				'eventLabel': data.label,
+				'eventValue': 0,
+				'eventNonInteraction': ''
+			});
+		},
+		searchClick: function(data){
+			GA.sendData({
+				'event': 'gaEvent',
+				'eventCategory': 'Search',
+				'eventAction': data.searchInput,
+				'eventLabel': data.product.title,
+				'eventValue': 0,
+				'eventNonInteraction': ''
+			});
+		},
+		searchNotFound: function(data){
+			GA.sendData({
+				'event': 'gaEvent',
+				'eventCategory': 'Search',
+				'eventAction': 'Sonuç Bulunamadı.',
+				'eventLabel': data.searchInput,
+				'eventValue': 0,
+				'eventNonInteraction': ''
+			});
 		}
 	}
 } 
