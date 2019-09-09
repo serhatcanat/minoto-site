@@ -56,21 +56,22 @@ export default class Blog extends React.Component {
 	initialize() {
 		let vm = this;
 		if (vm.mounted) {
-			let category = window.location.pathname.split('/')[2];
-
+			//let category = window.location.pathname.split('/')[2];
+			let category = history.location.search.split('=')[1];
 			vm.setState({ results: false });
 
 			let params = {}
 			let endpoint = "articles";
 
 			if (category) {
-				if (category === 'arama') {
-					let searchParam = window.location.pathname.split('/')[3];
-					params.search = vm.props.match.params.search;
+				if (category === 'arama&key') {
+					let searchParam = history.location.search.split('=')[2];
+					params.search = vm.props.match;
 					endpoint = `articles/search?search=${searchParam}`
+
 				}
 				else if (category === 'son-eklenenler') {
-					endpoint = `articles/recently?record=6`
+					endpoint = `articles/recently`
 
 				}
 				else {
@@ -101,7 +102,7 @@ export default class Blog extends React.Component {
 
 	makeSearch(e) {
 		let formData = serializeArray(e.target);
-		redirect('blog', { action: 'arama', search: formData.search });
+		redirect('blog', null, { kategori: 'arama', key: formData.search });
 	}
 
 	render() {
@@ -126,13 +127,13 @@ export default class Blog extends React.Component {
 										</Link>
 									</div>
 									<div className="nav-item">
-										<Link href="blog" params={{ action: 'son-eklenenler' }}>
+										<Link href="blog" query={{ kategori: 'son-eklenenler' }}>
 											SON EKLENENLER
 										</Link>
 									</div>
 									{categories.map((category, nth) => (
 										<div className="nav-item" key={nth}>
-											<Link href="blog" params={{ action: category.slug }}>
+											<Link href="blog" query={{ kategori: category.slug }}>
 												{category.title}
 											</Link>
 										</div>

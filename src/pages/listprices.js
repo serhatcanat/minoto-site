@@ -15,7 +15,7 @@ import { storageSpace } from 'functions/helpers'
 import request from 'controllers/request'
 import { generatePath } from 'react-router'
 import { setTitle, setDescription } from 'controllers/head'
-import { getRoute/*, set404*/} from 'controllers/navigator'
+import { getRoute/*, set404*/ } from 'controllers/navigator'
 
 // Assets
 
@@ -46,9 +46,9 @@ export default class ListPrices extends React.Component {
 		let year = '2019';
 		let dataParam = vm.props.match.params.data;
 
-		if(dataParam){
+		if (dataParam) {
 			let data = dataParam.substring(0, dataParam.indexOf('-fiyat-listesi')).split('-');
-			brand = data[data.length-1] ? data[data.length-1] : brand;
+			brand = data[data.length - 1] ? data[data.length - 1] : brand;
 			year = (data.length > 1) ? data[0] : 'tum_yillar';
 		}
 
@@ -58,7 +58,7 @@ export default class ListPrices extends React.Component {
 		setTimeout(function () {
 			vm.ajaxController = request.get(
 				//'/dummy/data/listprices.json',
-				'price-lists',
+				'car-data/price-lists',
 				{
 					yil: year,
 					marka: brand
@@ -66,43 +66,43 @@ export default class ListPrices extends React.Component {
 				function (payload) {
 					vm.ajaxController = false;
 					//if (payload && payload.brands && payload.brands.length){
-							let yearFilters = payload.filters.year.map(function (filter, nth) {
-								let filterData = {
-									value: filter.value,
-									label: filter.title,
-								}
-								if (filter.selected) {
-									vm.setState({ selectedYear: filterData });
-								}
-								return filterData;
-							});
+					let yearFilters = payload.filters.year.map(function (filter, nth) {
+						let filterData = {
+							value: filter.value,
+							label: filter.title,
+						}
+						if (filter.selected) {
+							vm.setState({ selectedYear: filterData });
+						}
+						return filterData;
+					});
 
-							let brandFilters = payload.filters.brand.map(function (filter, nth) {
-								let filterData = {
-									value: filter.value,
-									label: filter.title,
-								}
-								if (filter.selected) {
-									vm.setState({ selectedBrand: filterData });
-								}
-								return filterData;
-							});
+					let brandFilters = payload.filters.brand.map(function (filter, nth) {
+						let filterData = {
+							value: filter.value,
+							label: filter.title,
+						}
+						if (filter.selected) {
+							vm.setState({ selectedBrand: filterData });
+						}
+						return filterData;
+					});
 
-							vm.setState({
-								loaded: true,
-								brands: payload.brands,
-								yearFilters: yearFilters,
-								brandFilters: brandFilters
-							});
+					vm.setState({
+						loaded: true,
+						brands: payload.brands,
+						yearFilters: yearFilters,
+						brandFilters: brandFilters
+					});
 
-							setTitle(((dataParam && vm.state.selectedYear && vm.state.selectedYear.value !== 'tum_yillar') ? vm.state.selectedYear.label + ' ' : '')+((dataParam && vm.state.selectedBrand) ? vm.state.selectedBrand.label : 'Araba')+' Fiyat Listesi ve Özellikleri - Türkiye\'nin Sıfır Km Oto Sitesi Minoto');
+					setTitle(((dataParam && vm.state.selectedYear && vm.state.selectedYear.value !== 'tum_yillar') ? vm.state.selectedYear.label + ' ' : '') + ((dataParam && vm.state.selectedBrand) ? vm.state.selectedBrand.label : 'Araba') + ' Fiyat Listesi ve Özellikleri - Türkiye\'nin Sıfır Km Oto Sitesi Minoto');
 
-							if(dataParam) {
-								setDescription(((vm.state.selectedYear && vm.state.selectedYear.value !== 'tum_yillar') ? vm.state.selectedYear.label + ' ' : '') + (vm.state.selectedBrand ? vm.state.selectedBrand.label : '') + ' fiyat listesi mi aradınız? Sıfır Km  [Yıl] [Marka] araba fiyat listesi ve özellikleri Minoto\'da! Hemen tıkla, fırsatları kaçırma!');
-							}
-							else {
-								setDescription('Sıfır Km araba fiyat listesi mi aradınız? Sıfır Km araba fiyat listesi ve özellikleri Minoto\'da! Hemen tıkla, fırsatları kaçırma!');
-							}
+					if (dataParam) {
+						setDescription(((vm.state.selectedYear && vm.state.selectedYear.value !== 'tum_yillar') ? vm.state.selectedYear.label + ' ' : '') + (vm.state.selectedBrand ? vm.state.selectedBrand.label : '') + ' fiyat listesi mi aradınız? Sıfır Km  [Yıl] [Marka] araba fiyat listesi ve özellikleri Minoto\'da! Hemen tıkla, fırsatları kaçırma!');
+					}
+					else {
+						setDescription('Sıfır Km araba fiyat listesi mi aradınız? Sıfır Km araba fiyat listesi ve özellikleri Minoto\'da! Hemen tıkla, fırsatları kaçırma!');
+					}
 					//}
 					//else {
 					//	set404();
@@ -126,7 +126,7 @@ export default class ListPrices extends React.Component {
 			}
 		}
 
-		if(prevProps.match.params.data !== this.props.match.params.data) {
+		if (prevProps.match.params.data !== this.props.match.params.data) {
 			this.initialize();
 		}
 	}
@@ -168,9 +168,9 @@ export default class ListPrices extends React.Component {
 								"title": (vm.state.selectedYear ? vm.state.selectedYear.label : 'Tüm Yıllar'),
 								"params": {
 									data: (vm.state.selectedYear ? vm.state.selectedYear.value + '-' : '') +
-									(vm.state.selectedBrand ? vm.state.selectedBrand.value : 
-										(vm.state.brandFilters ? vm.state.brandFilters[0].value : 'araba')) +
-									'-fiyat-listesi'
+										(vm.state.selectedBrand ? vm.state.selectedBrand.value :
+											(vm.state.brandFilters ? vm.state.brandFilters[0].value : 'araba')) +
+										'-fiyat-listesi'
 								}
 								///(vm.state.selectedYear ? {year: vm.state.selectedYear.value, brand: (vm.state.selectedBrand ? vm.state.selectedBrand.value + "-fiyat-listesi" : (vm.state.brandFilters ? vm.state.brandFilters[0].value + "-fiyat-listesi" : undefined))} : undefined),
 							}
@@ -213,11 +213,11 @@ export default class ListPrices extends React.Component {
 														<th>Alt Model</th>
 														<th>Versiyon</th>
 														<th>Donanım</th>
-														{/*<th>Motor Hacmi</th>
+														<th>Motor Hacmi</th>
 														<th>Vites Tipi</th>
-														<th>Yakıt Türü</th>*/}
+														{/*<th>Yakıt Türü</th>*/}
 														<th style={{ minWidth: '120px' }}>Fiyat</th>
-														<th>Kampanyalı Fiyat</th>
+														{/*<th>Kampanyalı Fiyat</th>*/}
 													</tr>
 												</thead>
 
@@ -235,16 +235,16 @@ export default class ListPrices extends React.Component {
 																	</td>
 																}
 																<td>{item.model}</td>
+																<td>{item.subModel}</td>
 																<td>{item.type}</td>
 																<td>{item.equipment}</td>
-																<td>{item.equipmentMain}</td>
-																{/*<td>{item.enginevolume}</td>
+																<td>{item.enginevolume}</td>
 																<td>{item.transmission}</td>
-																<td>{item.fuel}</td>*/}
+																{/*<td>{item.fuel}</td>*/}
 																<td><PriceTag price={item.price} /></td>
-																<td>
+																{/*<td>
 																	{(item.price2 && item.price2 > 0) ? <PriceTag price={item.price2} /> : '-'}
-																</td>
+																</td>*/}
 															</tr>
 														))}
 													</tbody>

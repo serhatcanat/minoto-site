@@ -116,22 +116,6 @@ module.exports = {
 			linkTitle: "Şube",
 			title: "Şube",
 		},
-		detail: {
-			path: "/:slug-:dealer-:post",
-			component: "Detail",
-			exact: true,
-			linkTitle: "İlan Detay",
-			title: "İlan Detay",
-			head: [
-				{
-					key: "meta",
-					props: {
-						property: "og:type",
-						content: "product"
-					}
-				}
-			],
-		},
 		listprices: {
 			path: "/araba-fiyat-listesi",
 			component: "ListPrices",
@@ -150,6 +134,24 @@ module.exports = {
 			description: "Sıfır Km araba fiyat listesi mi aradınız? Sıfır Km araba fiyat listesi ve özellikleri Minoto'da! Hemen tıkla, fırsatları kaçırma!",
 			postTitle: false,
 		},
+		detail: {
+			path: "/:slug-:dealer-:post",
+			component: "Detail",
+			exact: true,
+			linkTitle: "İlan Detay",
+			title: "İlan Detay",
+			head: [
+				{
+					key: "meta",
+					props: {
+						property: "og:type",
+						content: "product"
+					}
+				}
+			],
+		},
+
+
 		comparison: {
 			path: "/arac-karsilastir/:car1?/:model1?/:car2?/:model2?",
 			component: "Comparison",
@@ -170,6 +172,7 @@ module.exports = {
 			exact: true,
 			linkTitle: "Hesabım",
 			title: "Hesabım",
+			requiresLogin: true,
 		},
 		reservation: {
 			path: "/rezervasyon/:id/:section?",
@@ -206,6 +209,13 @@ module.exports = {
 			linkTitle: "İletişim",
 			title: "İletişim",
 		},
+		blogSearch: {
+			path: "/blog/arama/:search",
+			component: "Blog",
+			exact: true,
+			linkTitle: "Minoto Blog",
+			title: "Minoto Blog",
+		},
 		blogDetail: {
 			path: "/blog/:slug",
 			component: "BlogDetail",
@@ -214,12 +224,15 @@ module.exports = {
 			title: "Minoto Blog",
 		},
 		blog: {
-			path: "/blog/:action?/:search?",
+			path: "/blog",
 			component: "Blog",
 			exact: true,
 			linkTitle: "Minoto Blog",
 			title: "Minoto Blog",
 		},
+
+
+
 		dealerApplication: {
 			path: "/bayi-basvuru-formu",
 			component: "DealerApplication",

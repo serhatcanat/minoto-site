@@ -385,11 +385,12 @@ class ListingResults extends React.Component {
 		let loading = vm.props.loading;
 		let data = vm.props.data
 		let results = data.results;
+
 		if (results && results.length) {
 			return (
 				<React.Fragment>
 					{
-						data.similar && (
+						(data.similar || data.totalResults === 0) && (
 							<React.Fragment>
 								{
 									loading === false && (<div className="results-error"><div className="error-message">Aradığınız kriterlere uygun bir araç bulamadık. </div></div>)

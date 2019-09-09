@@ -9,7 +9,7 @@ import Link from 'components/partials/link.js'
 //import { connect } from "react-redux"
 import request from 'controllers/request'
 import { redirect } from 'controllers/navigator'
-import { storageSpace } from "functions/helpers";
+import { storageSpace, seoFriendlyUrl } from "functions/helpers";
 // Assets
 
 const converter = {
@@ -89,13 +89,13 @@ export default class Favorites extends React.Component {
 														title={item.title}
 														subtitle={item.dealer}
 														additionTitle={item.count + ' ARAÇ'}
-														image={storageSpace('dealers', item.image)}
+														image={storageSpace('c_scale,q_auto:good,w_360/dealers', item.image)}
 														labels={item.labels}
 														faved={item.favorited}
 														//favControls={'/dummy/data/fav/dealer/'+item.id}
 														badge={(item.status !== 1 ? false : (item.status === 2 ? { text: 'Rezerve', note: '02.02.2019 Tarihine Kadar Opsiyonludur' } : { text: 'Satıldı', type: 'error' }))}
 														bottomNote={(item.currentViewers > 0 ? item.currentViewers + ' kişi Bakıyor' : false)}
-														url={`/bayiler/${item.link}/${item.id}`}
+														url={`/bayiler/${item.link}`}
 													/>
 												</li>
 											)
@@ -109,7 +109,7 @@ export default class Favorites extends React.Component {
 														title={item.title}
 														labels={item.labels}
 														additionTitle={item.count + ' ARAÇ'}
-														image={storageSpace('brands', item.image)}
+														image={storageSpace('c_scale,q_auto:good,w_360/brands', item.image)}
 														faved={item.favorited}
 														//favControls={'/dummy/data/fav/dealer/'+item.id}
 														url={`/markalar/${item.link}`}
@@ -124,14 +124,14 @@ export default class Favorites extends React.Component {
 														className={((item.status === 2 || item.status === 3) ? 'inactive' : '')}
 														title={item.title}
 														subtitle={item.dealer}
-														image={storageSpace('car-posts', item.image)}
+														image={storageSpace('c_scale,q_auto:good,w_360/car-posts', item.image)}
 														price={item.price}
 														labels={item.labels}
 														faved={true}
 														badge={(item.status === 1 ? false : (item.status === 2 ? { text: 'Rezerve', note: '02.02.2019 Tarihine Kadar Opsiyonludur' } : { text: 'Satıldı', type: 'error' }))}
 														bottomNote={(item.currentViewers > 0 ? item.currentViewers + ' kişi Bakıyor' : false)}
 														url="detail"
-														urlParams={{ id: item.id, slug: item.slug }}
+														urlParams={{ dealer: seoFriendlyUrl(item.dealer), slug: item.slug.substring(0, item.slug.lastIndexOf('-m')), post: item.slug.substring(item.slug.lastIndexOf('m')) }}
 													/>
 												</li>
 											)

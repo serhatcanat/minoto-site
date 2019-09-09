@@ -332,7 +332,7 @@ class SearchBar extends React.Component {
 		if (this.props.inputValue.length) {
 			redirect('search', false, { ara: this.props.inputValue });
 		} else {
-			redirect('searchBrand', { brand: 'renault' }, { model: '7569|4912|7562|7555|7563|4904' });
+			redirect('searchBrand', { brand: 'renault', model: 'clio' }, null);
 		}
 
 	}
