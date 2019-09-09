@@ -172,7 +172,7 @@ module.exports = {
 			exact: true,
 			linkTitle: "Hesabım",
 			title: "Hesabım",
-			requiresLogin: true,
+			childRoutes: "account",
 		},
 		reservation: {
 			path: "/rezervasyon/:id/:section?",
@@ -180,6 +180,7 @@ module.exports = {
 			exact: true,
 			linkTitle: "Rezervasyon",
 			title: "Rezervasyon",
+			childRoutes: "account",
 		},
 		faq: {
 			path: "/sss",

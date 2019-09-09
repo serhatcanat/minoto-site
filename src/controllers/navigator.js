@@ -114,8 +114,9 @@ class Navigator extends React.Component {
 
 		history.listen(function (e) {
 			store.dispatch(setPageNotFound(false));
-			let route = getRouteFromUrl(e.pathname, false, true);
-			changePage(route[0], route[1]);
+			/*let route = getRouteFromUrl(e.pathname, false, true);
+			changePage(route[0], route[1]);*/
+			changePage();
 		});
 
 
@@ -221,6 +222,7 @@ export function getRoute(key = false, group = 'pages') {
 export function getRouteFromUrl(url = false, getObject = false, includeCatch = false) {
 	if (url === false) { url = window.location.pathname.replace(/\/$/, ''); }
 	let returnRoute = false;
+	let returnRouteRaw = false;
 	let catchRoute = false;
 	Object.keys(routes).forEach((groupKey, index) => {
 		let group = routes[groupKey];
@@ -231,10 +233,11 @@ export function getRouteFromUrl(url = false, getObject = false, includeCatch = f
 				if (!returnRoute) {
 					let match = matchPath(url, route.path);
 					if (match && match.isExact) {
+						returnRouteRaw = route;
+						returnRouteRaw.key = key;
+						returnRouteRaw.groupKey = groupKey;
 						if (getObject) {
-							returnRoute = route;
-							returnRoute.key = key;
-							returnRoute.groupKey = groupKey;
+							returnRoute = returnRouteRaw;
 						}
 						else {
 							returnRoute = [key, groupKey];
@@ -247,6 +250,43 @@ export function getRouteFromUrl(url = false, getObject = false, includeCatch = f
 			}
 		});
 	});
+
+	function checkSubRoutes(){
+		if(returnRouteRaw && returnRouteRaw.childRoutes){
+			let subRouteRaw = false;
+			let subRoute = false;
+			let groupKey = returnRouteRaw.childRoutes
+			Object.keys(routes[groupKey]).forEach((key, index) => {
+				let route = routes[groupKey][key];
+				if (route.path) {
+					if(!subRoute){
+						let match = matchPath(url, route.path);
+						if (match && match.isExact) {
+							subRouteRaw = route;
+							subRouteRaw.key = key;
+							subRouteRaw.groupKey = groupKey;
+
+							if (getObject) {
+								subRoute = subRouteRaw;
+							}
+							else {
+								subRoute = [key, groupKey];
+							}
+						}
+					}
+				}
+			});
+
+			if(subRouteRaw && subRouteRaw.key !== returnRouteRaw.key){
+				returnRoute = subRoute;
+				returnRouteRaw = subRouteRaw;
+
+				checkSubRoutes();
+			}
+		}
+	}
+
+	checkSubRoutes();
 
 	return (returnRoute ? returnRoute : catchRoute);
 }
