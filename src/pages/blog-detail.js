@@ -25,13 +25,6 @@ import image_icon_whatsapp from 'assets/images/icon/whatsapp.svg'
 import image_icon_link from 'assets/images/icon/link.svg'
 import image_loader from 'assets/images/minoto-loading.gif'
 
-/*const dummyGallery = [
-	{ "large": "http://lorempixel.com/1024/768" },
-	{ "large": "http://lorempixel.com/1024/768" },
-	{ "large": "http://lorempixel.com/1024/768" },
-	{ "large": "http://lorempixel.com/1024/768" }
-]*/
-
 export default class BlogDetail extends React.Component {
 	constructor(props) {
 		super(props)
@@ -121,9 +114,9 @@ export default class BlogDetail extends React.Component {
 											<Slider className="gallery-slider" ref={this.gallerySlider} loop opts={{ lazy: true }}>
 												{data.gallery.map((image, nth) => (
 													<div className="slider-imagewrap" key={nth}>
-														<div className="imagewrap-image swiper-lazy" data-background={storageSpace('articles/gallery', image.large)}>
+														<div className="imagewrap-image swiper-lazy" data-background={storageSpace('c_scale,q_60,w_700/articles/gallery', image.large)}>
 														</div>
-														<Image className="imagewrap-loader" bg src={image_loader} alt="Yükleniyor..." />
+														<Image className="imagewrap-loader" style={{ width: '5rem', height: '5rem' }} src={image_loader} alt="Yükleniyor..." />
 													</div>
 												))}
 											</Slider>

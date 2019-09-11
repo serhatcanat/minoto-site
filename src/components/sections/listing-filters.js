@@ -97,6 +97,7 @@ class ListingFilters extends React.Component {
 		blockOverflow(false);
 		this.setState({ active: false, show: false })
 		this.props.hideFilters();
+
 	}
 
 	serializeFilters() {
@@ -409,7 +410,7 @@ class FilterTypeBrands extends React.Component {
 			<React.Fragment>
 				{data.root !== true &&
 					<div className="item-wrap filter-back">
-						<Link className="" href="home">
+						<Link className="" href="posts">
 							<i className="back-icon icon-angle-left"></i> Tüm Markalar
 						</Link>
 					</div>

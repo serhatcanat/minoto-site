@@ -37,6 +37,7 @@ import { connect } from "react-redux";
 
 // Pages
 import Home from 'pages/home'
+import Posts from 'pages/posts'
 import Search from 'pages/search'
 import SearchBrand from 'pages/search-brand'
 import SearchModel from 'pages/search-model'
@@ -92,6 +93,7 @@ const pageRegistry = {
 	BlogDetail: BlogDetail,
 	DealerApplication: DealerApplication,
 	DealerApplicationStatus: DealerApplicationStatus,
+	Posts: Posts,
 
 	NotFound: NotFound,
 }
@@ -251,15 +253,15 @@ export function getRouteFromUrl(url = false, getObject = false, includeCatch = f
 		});
 	});
 
-	function checkSubRoutes(){
-		if(returnRouteRaw && returnRouteRaw.childRoutes){
+	function checkSubRoutes() {
+		if (returnRouteRaw && returnRouteRaw.childRoutes) {
 			let subRouteRaw = false;
 			let subRoute = false;
 			let groupKey = returnRouteRaw.childRoutes
 			Object.keys(routes[groupKey]).forEach((key, index) => {
 				let route = routes[groupKey][key];
 				if (route.path) {
-					if(!subRoute){
+					if (!subRoute) {
 						let match = matchPath(url, route.path);
 						if (match && match.isExact) {
 							subRouteRaw = route;
@@ -277,7 +279,7 @@ export function getRouteFromUrl(url = false, getObject = false, includeCatch = f
 				}
 			});
 
-			if(subRouteRaw && subRouteRaw.key !== returnRouteRaw.key){
+			if (subRouteRaw && subRouteRaw.key !== returnRouteRaw.key) {
 				returnRoute = subRoute;
 				returnRouteRaw = subRouteRaw;
 
