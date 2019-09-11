@@ -259,13 +259,18 @@ class Header extends React.Component {
 											</ul>
 											{videoData && (
 												<ul className="menu-thumblinks">
-													{videoData.map((video, nth) => (
+													{/*videoData.map((video, nth) => (
 														<li className={`thumblinks-item ${videoData.length === 1 ? 'full' : ''}`} key={nth}>
 															<Link href="/" onClick={() => { openModal('youtube', { url: video.url }); vm.closeMenu(); }}>
 																<Image className="thumblinks-image" src={storageSpace('promo-videos', video.image)} />
 															</Link>
 														</li>
-													))}
+													))*/}
+													<li className="thumblinks-item full">
+														<div class="resp-container">
+															<iframe className="resp-iframe" title="Minoto Nedir?" src={'https://www.youtube.com/embed/4JThtv3d0cc'} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+														</div>
+													</li>
 													{false &&
 														<li className="thumblinks-item">
 															<Link href="/">
