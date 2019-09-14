@@ -267,7 +267,7 @@ class Header extends React.Component {
 														</li>
 													))*/}
 													<li className="thumblinks-item full">
-														<div class="resp-container">
+														<div className="resp-container">
 															<iframe className="resp-iframe" title="Minoto Nedir?" src={'https://www.youtube.com/embed/4JThtv3d0cc'} frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
 														</div>
 													</li>

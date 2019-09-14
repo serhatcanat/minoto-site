@@ -9,6 +9,7 @@ import Btn from 'components/partials/btn.js'
 import ScrollWrap from 'components/partials/scrollwrap'
 import Link from 'components/partials/link'
 
+
 // Deps
 import debounce from 'lodash/debounce'
 import isEqual from 'lodash/isEqual'
@@ -17,6 +18,7 @@ import { serializeArray } from 'functions/helpers'
 import { connect } from "react-redux"
 import { setFiltersExpansion, setFilterQuery } from 'data/store.listing'
 import { blockOverflow } from "functions/helpers"
+import loader from 'assets/images/minoto-loading.gif'
 
 const mapStateToProps = state => {
 	return {
@@ -43,6 +45,7 @@ class ListingFilters extends React.Component {
 			data: false,
 			synchronized: true,
 			autoSubmit: true,
+			loading: true,
 		}
 
 		this.serializeFilters = this.serializeFilters.bind(this);
@@ -61,22 +64,28 @@ class ListingFilters extends React.Component {
 	componentDidUpdate(prevProps, prevState) {
 		let vm = this;
 
+
+		if (prevProps.listingData !== vm.props.listingData) {
+			vm.setState({ loading: true });
+		}
+
 		if (prevProps.mobile !== vm.props.mobile) {
 			vm.setState({ active: false, show: false });
 			vm.props.hideFilters();
-
 		}
 
 		if (prevProps.expanded !== vm.props.expanded) {
+
 			if (vm.props.expanded) {
 				vm.setState({ active: true });
 				blockOverflow(true);
 				setTimeout(function () {
-					vm.setState({ show: true })
+					vm.setState({ show: true, loading: false })
 				}, 30);
 			}
 			else {
-				vm.setState({ show: false });
+
+				vm.setState({ show: false, loading: true });
 				setTimeout(function () {
 					blockOverflow(false);
 					vm.setState({ active: false })
@@ -85,11 +94,11 @@ class ListingFilters extends React.Component {
 		}
 
 		if (!isEqual(prevProps.listingData, vm.props.listingData) && !isEqual(prevProps.listingData.filters, vm.props.listingData.filters)) {
-			this.setState({ data: vm.props.listingData.fitlers })
+			this.setState({ data: vm.props.listingData.filters })
 		}
 
 		if (!isEqual(prevState.data, vm.state.data)) {
-			vm.serializeFilters();;
+			vm.serializeFilters();
 		}
 	}
 
@@ -107,7 +116,10 @@ class ListingFilters extends React.Component {
 			if (vm.formRef.current) {
 				vm.props.setQuery(serializeArray(vm.formRef.current, config.filterSeperator, true));
 				vm.setState({ synchronized: true })
+
 			}
+			vm.setState({ loading: false })
+
 		}, 50);
 	}
 
@@ -116,7 +128,7 @@ class ListingFilters extends React.Component {
 			this.serializeFilters();
 		}
 		else {
-			this.setState({ synchronized: false });
+			this.setState({ synchronized: false, loading: true });
 		}
 	}
 
@@ -151,56 +163,73 @@ class ListingFilters extends React.Component {
 			return (
 				<aside className={"section listing-filters " + vm.props.className + (vm.state.active ? ' active' : '') + (vm.state.show ? ' show' : '')}>
 					<div className="filters-content">
-						<div className="filters-innerwrap">
-							<div className="filters-header">
-								{data.filtersTitle &&
-									<h1 className="header-title">{data.filtersTitle}</h1>
-								}
-								{Object.keys(vm.props.filterQuery).length > 0 &&
-									<button className="header-clear" onClick={vm.clearFilters}>Filtreleri Temizle</button>
-								}
-							</div>
-							<form className="filters-form" ref={vm.formRef} onSubmit={vm.filtersSubmitted}>
-								{(data && data.filters ?
-									data.filters.map((filter, nth) => (
-										<ListingFilter mobile={vm.props.mobile} data={filter} key={nth} onUpdate={vm.filterUpdated} />
-									)) : false)}
-							</form>
-
-						</div>
-						<div className="filters-controls">
-							{!vm.props.mobile &&
-								<div className="controls-filteronthego inputwrap type-checkbox">
-									<div className="checkwrap">
-										<input
-											type="checkbox"
-											name="autoSubmit"
-											id="filters-autosubmit"
-											value="1"
-											checked={vm.state.autoSubmit ? true : false}
-											onChange={vm.handleModeChange} />
-										{/* <label htmlFor="filters-autosubmit">
-											<span></span>
-											<div className="item-text checkwrap-content">
-												<div className="text-title">
-													Seçtikçe sonuç göster
-												</div>
-											</div>
-										</label> */}
-									</div>
+						{
+							(vm.props.loading && vm.props.mobile) ? (
+								<div className="loader-spinnerwrap" style={{ position: 'absolute', 'top': '0', 'left': '0', 'right': '0' }}>
+									{/* <i className="icon-spinner"></i> */}
+									<img src={loader} alt="" width="50" style={{
+										margin: "0 auto",
+										marginTop: "25%"
+									}} />
 								</div>
-							}
-							{vm.props.mobile &&
-								<Btn block uppercase className="controls-btn" onClick={vm.filtersSubmitted}>{vm.state.synchronized ? 'Kapat' : 'Filtreleri Güncelle'}</Btn>
-							}
-							{(!vm.props.mobile && !vm.state.autoSubmit) &&
-								<Btn block uppercase className="controls-btn" onClick={vm.serializeFilters} disabled={vm.state.synchronized}>Ara</Btn>
-							}
-						</div>
+							) : (
+									<React.Fragment>
+										<div className="filters-innerwrap">
+											<div className="filters-header">
+												{data.filtersTitle &&
+													<h1 className="header-title">{data.filtersTitle}</h1>
+												}
+												{Object.keys(vm.props.filterQuery).length > 0 &&
+													<button className="header-clear" onClick={vm.clearFilters}>Filtreleri Temizle</button>
+												}
+											</div>
+											<form className="filters-form" ref={vm.formRef} onSubmit={vm.filtersSubmitted}>
+												{(data && data.filters ?
+													data.filters.map((filter, nth) => (
+														<ListingFilter mobile={vm.props.mobile} data={filter} key={nth} onUpdate={vm.filterUpdated} />
+													)) : false)}
+											</form>
+
+										</div>
+										<div className="filters-controls">
+											{!vm.props.mobile &&
+												<div className="controls-filteronthego inputwrap type-checkbox">
+													<div className="checkwrap">
+														<input
+															type="checkbox"
+															name="autoSubmit"
+															id="filters-autosubmit"
+															value="1"
+															checked={vm.state.autoSubmit ? true : false}
+															onChange={vm.handleModeChange} />
+														{/* <label htmlFor="filters-autosubmit">
+														<span></span>
+														<div className="item-text checkwrap-content">
+															<div className="text-title">
+																Seçtikçe sonuç göster
+															</div>
+														</div>
+													</label> */}
+													</div>
+												</div>
+											}
+											{vm.props.mobile &&
+												<Btn block uppercase className="controls-btn" onClick={vm.filtersSubmitted}>{vm.state.synchronized ? 'Kapat' : 'Filtreleri Güncelle'}</Btn>
+											}
+											{(!vm.props.mobile && !vm.state.autoSubmit) &&
+												<Btn block uppercase className="controls-btn" onClick={vm.serializeFilters} disabled={vm.state.synchronized}>Ara</Btn>
+											}
+										</div>
+									</React.Fragment>
+								)
+						}
+
 					</div>
 					{vm.props.mobile &&
 						<button type="button" className="filters-overlay" onClick={vm.props.hideFilters}></button>
 					}
+
+
 				</aside>
 			)
 		}
@@ -410,7 +439,7 @@ class FilterTypeBrands extends React.Component {
 			<React.Fragment>
 				{data.root !== true &&
 					<div className="item-wrap filter-back">
-						<Link className="" href="posts">
+						<Link className="" href="home">
 							<i className="back-icon icon-angle-left"></i> Tüm Markalar
 						</Link>
 					</div>

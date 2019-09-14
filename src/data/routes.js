@@ -1,34 +1,6 @@
 module.exports = {
 	pages: {
-		home: {
-			path: "/",
-			component: "Home",
-			exact: true,
-			linkTitle: "Anasayfa",
-			title: "Sıfır Araba Modelleri ve Fiyatları - 0 Km Araç Satın Almak İçin Minoto!",
-			postTitle: false,
-			descriptiopn: "En yeni ve uygun sıfır araba modelleri, fiyatları ve kampanyaları Minoto'da! 0 km araç satın almak için hemen tıkla, fırsatları kaçırma!",
-			meta: {
-				keywords: "Minoto, Sıfır Otomobil, Bayiler"
-			},
-			// Bu şekilde head kısmına custom meta da eklenebilir.
-			/*head: [
-				{
-					key: "meta",
-					content: false,
-					props: {
-						name: "description",
-						content: "Minoto, Sıfır Otomobilin Yeni Adresi"
-					}
-				},
-				{
-					key: "description",
-					content: "Minoto, Sıfır Otomobilin Yeni Adresi",
-					props: {}
-				}
-			],*/
-			hideSearchFromHeader: true,
-		},
+
 		posts: {
 			path: "/ilanlar",
 			component: "Posts",
@@ -277,12 +249,41 @@ module.exports = {
 			linkTitle: "Bayi Başvuru Durumu",
 			title: "Bayi Başvuru Durumu",
 		},
-		searchBrand: {
+		/*searchBrand: {
 			path: "/:brand/:model?/:optdata1?/:optdata2?/:optdata3?",
 			component: "SearchBrand",
 			exact: false,
 			linkTitle: "Arama",
 			title: "Arama",
+		},*/
+		home: {
+			path: "/:brand?/:model?/:optdata1?/:optdata2?/:optdata3?",
+			component: "Home",
+			exact: true,
+			linkTitle: "Anasayfa",
+			title: "Sıfır Araba Modelleri ve Fiyatları - 0 Km Araç Satın Almak İçin Minoto!",
+			postTitle: false,
+			descriptiopn: "En yeni ve uygun sıfır araba modelleri, fiyatları ve kampanyaları Minoto'da! 0 km araç satın almak için hemen tıkla, fırsatları kaçırma!",
+			meta: {
+				keywords: "Minoto, Sıfır Otomobil, Bayiler"
+			},
+			// Bu şekilde head kısmına custom meta da eklenebilir.
+			/*head: [
+				{
+					key: "meta",
+					content: false,
+					props: {
+						name: "description",
+						content: "Minoto, Sıfır Otomobilin Yeni Adresi"
+					}
+				},
+				{
+					key: "description",
+					content: "Minoto, Sıfır Otomobilin Yeni Adresi",
+					props: {}
+				}
+			],*/
+			hideSearchFromHeader: true,
 		},
 		notfound: {
 			path: false,

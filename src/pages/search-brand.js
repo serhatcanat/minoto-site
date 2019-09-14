@@ -21,9 +21,9 @@ const matchParams = [
 export default class SearchVersion extends React.Component {
 	render() {
 		let route = "";
-		for(let k = 0; k < matchParams.length; k++) {
-			if(this.props.match.params[matchParams[k]]){
-				route += '/'+this.props.match.params[matchParams[k]];
+		for (let k = 0; k < matchParams.length; k++) {
+			if (this.props.match.params[matchParams[k]]) {
+				route += '/' + this.props.match.params[matchParams[k]];
 			}
 			else {
 				break;
