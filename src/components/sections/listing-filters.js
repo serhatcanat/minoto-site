@@ -6,7 +6,7 @@ import config from 'data/config'
 import Image from 'components/partials/image.js'
 import SVG from 'react-inlinesvg'
 import Btn from 'components/partials/btn.js'
-import ScrollWrap from 'components/partials/scrollwrap'
+//import ScrollWrap from 'components/partials/scrollwrap'
 import Link from 'components/partials/link'
 
 
@@ -336,9 +336,10 @@ class ListingFilter extends React.Component {
 					}
 
 					<div className="filter-content">
-						<ScrollWrap className="filter-slidewrap" ref={vm.scrollElem}>
+						{filterContent}
+						{/* <ScrollWrap className="filter-slidewrap" ref={vm.scrollElem}>
 							{filterContent}
-						</ScrollWrap>
+						</ScrollWrap> */}
 					</div>
 				</div>
 			)
@@ -422,7 +423,9 @@ class FilterTypeBrands extends React.Component {
 		super(props)
 		this.state = {
 			opts: props.data.opts,
+			showMore: true
 		}
+		this.toggleShowMore = this.toggleShowMore.bind(this);
 	}
 
 	componentDidUpdate(prevProps) {
@@ -431,10 +434,16 @@ class FilterTypeBrands extends React.Component {
 		}
 	}
 
+	toggleShowMore() {
+		let currentShow = this.state.showMore;
+		this.setState({ showMore: !currentShow })
+	}
+
 	render() {
 		let vm = this;
 		let data = vm.props.data;
 		let opts = vm.state.opts;
+		let showMore = vm.state.showMore;
 		return (
 			<React.Fragment>
 				{data.root !== true &&
@@ -444,13 +453,31 @@ class FilterTypeBrands extends React.Component {
 						</Link>
 					</div>
 				}
-				<ul className="filter-list">
-					{opts.map((opt, nth) => {
+				<ul className={`filter-list ${showMore && 'showMore'}`}>
+					{opts.slice(0, showMore ? 8 : opts.length).map((opt, nth) => {
 						let idprefix = 'filter_input_' + data.name;
 						return (
 							<BrandsFilterItem data={opt} name={data.name} idprefix={idprefix} nth={nth} key={nth} level={1} onExpand={this.props.onExpand} urlRoot={""} />
 						)
 					})}
+					<li className="filter-item level-1">
+						<div className="inputwrap type-checkbox no-select">
+							<div className="item-wrap">
+								<span className="showMoreBtn" onClick={() => vm.toggleShowMore()}>
+									{showMore ? (
+										<React.Fragment>
+											Daha fazla göster <i style={{ fontSize: '0.8rem' }} className="icon-caret-down"></i>
+										</React.Fragment>
+									) : (
+											<React.Fragment>
+												Daha az göster <i style={{ fontSize: '0.8rem' }} className="icon-caret-up"></i>
+											</React.Fragment>
+										)}
+								</span>
+							</div>
+
+						</div>
+					</li>
 				</ul>
 			</React.Fragment>
 		)

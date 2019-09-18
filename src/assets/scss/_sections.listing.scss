@@ -732,7 +732,9 @@
 							}
 						}
 					}
+					
 				}
+				
 
 					.filter-item {
 						padding: 1rem 1rem;
@@ -887,6 +889,11 @@
 
 				.filter-list {
 					background-color: $color-gray-light;
+					&.showMore{
+						max-height: 400px;
+						overflow: hidden;
+						position: relative;
+					}
 				}
 
 					.filter-item {
@@ -931,6 +938,10 @@
 							width: 100%;
 							text-align: left;
 							border-top: .1rem solid $color-gray;
+							.showMoreBtn{
+								cursor: pointer;
+								color: $color-primary;
+							}
 
 							&.active {
 								@include font-semibold;
@@ -1147,7 +1158,10 @@
 					max-height: 34rem;
 					min-height: 50px;
 				}
+				
 			}
+			
+			
 	}
 }
 
