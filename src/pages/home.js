@@ -128,6 +128,7 @@ export default class Home extends React.Component {
 								query={false}
 								scrollOnFilterChange
 								title="Sıfır Araba Modelleri ve Fiyatları"
+								showMoreBrands={true}
 							/>
 						) : (
 

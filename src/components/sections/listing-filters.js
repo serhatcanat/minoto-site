@@ -186,7 +186,7 @@ class ListingFilters extends React.Component {
 											<form className="filters-form" ref={vm.formRef} onSubmit={vm.filtersSubmitted}>
 												{(data && data.filters ?
 													data.filters.map((filter, nth) => (
-														<ListingFilter mobile={vm.props.mobile} data={filter} key={nth} onUpdate={vm.filterUpdated} />
+														<ListingFilter showMoreBrands={vm.props.showMoreBrands} mobile={vm.props.mobile} data={filter} key={nth} onUpdate={vm.filterUpdated} />
 													)) : false)}
 											</form>
 
@@ -311,7 +311,7 @@ class ListingFilter extends React.Component {
 				filterContent = <FilterTypeList data={filterData} onUpdate={vm.props.onUpdate} mobile={vm.props.mobile} />;
 				break;
 			case "brands":
-				filterContent = <FilterTypeBrands data={filterData} onUpdate={vm.props.onUpdate} />;
+				filterContent = <FilterTypeBrands showMoreBrands={vm.props.showMoreBrands} data={filterData} onUpdate={vm.props.onUpdate} />;
 				break;
 			case "tree":
 				filterContent = <FilterTypeTree data={filterData} onUpdate={vm.props.onUpdate} mobile={vm.props.mobile} />;
@@ -436,6 +436,9 @@ class FilterTypeBrands extends React.Component {
 
 	toggleShowMore() {
 		let currentShow = this.state.showMore;
+		if (currentShow === false) {
+			document.getElementById('scroll-here').scrollIntoView({ behavior: "smooth" })
+		}
 		this.setState({ showMore: !currentShow })
 	}
 
@@ -444,6 +447,7 @@ class FilterTypeBrands extends React.Component {
 		let data = vm.props.data;
 		let opts = vm.state.opts;
 		let showMore = vm.state.showMore;
+		let showMoreBrands = vm.props.showMoreBrands;
 		return (
 			<React.Fragment>
 				{data.root !== true &&
@@ -453,31 +457,36 @@ class FilterTypeBrands extends React.Component {
 						</Link>
 					</div>
 				}
-				<ul className={`filter-list ${showMore && 'showMore'}`}>
-					{opts.slice(0, showMore ? 8 : opts.length).map((opt, nth) => {
+				<ul className={`filter-list ${(showMoreBrands && showMore) && 'showMore'}`} id="scroll-here">
+					{opts.slice(0, (showMoreBrands && showMore) ? 8 : opts.length).map((opt, nth) => {
 						let idprefix = 'filter_input_' + data.name;
 						return (
 							<BrandsFilterItem data={opt} name={data.name} idprefix={idprefix} nth={nth} key={nth} level={1} onExpand={this.props.onExpand} urlRoot={""} />
 						)
 					})}
-					<li className="filter-item level-1">
-						<div className="inputwrap type-checkbox no-select">
-							<div className="item-wrap">
-								<span className="showMoreBtn" onClick={() => vm.toggleShowMore()}>
-									{showMore ? (
-										<React.Fragment>
-											Daha fazla göster <i style={{ fontSize: '0.8rem' }} className="icon-caret-down"></i>
-										</React.Fragment>
-									) : (
-											<React.Fragment>
-												Daha az göster <i style={{ fontSize: '0.8rem' }} className="icon-caret-up"></i>
-											</React.Fragment>
-										)}
-								</span>
-							</div>
+					{
+						showMoreBrands && (
+							<li className="filter-item level-1">
+								<div className="inputwrap type-checkbox no-select">
+									<div className="item-wrap" >
+										<span className="showMoreBtn" onClick={() => vm.toggleShowMore()}>
+											{showMore ? (
+												<React.Fragment>
+													Daha fazla göster  <i style={{ fontSize: '0.8rem' }} className="icon-caret-down"></i>
+												</React.Fragment>
+											) : (
+													<React.Fragment>
+														Daha az göster  <i style={{ fontSize: '0.8rem' }} className="icon-caret-up"></i>
+													</React.Fragment>
+												)}
+										</span>
+									</div>
 
-						</div>
-					</li>
+								</div>
+							</li>
+						)
+					}
+
 				</ul>
 			</React.Fragment>
 		)

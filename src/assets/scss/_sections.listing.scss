@@ -890,7 +890,6 @@
 				.filter-list {
 					background-color: $color-gray-light;
 					&.showMore{
-						max-height: 400px;
 						overflow: hidden;
 						position: relative;
 					}
@@ -1155,7 +1154,7 @@
 					width: calc(100% + 1.2rem);
 					margin-right: -1.2rem;
 					padding-right: 1.2rem;
-					max-height: 34rem;
+					//max-height: 34rem;
 					min-height: 50px;
 				}
 				
