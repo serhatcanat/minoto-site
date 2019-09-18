@@ -134,7 +134,7 @@ export default class Dealer extends React.Component {
 
 									<div className="sum-numbers">
 										<span className="numbers-elem">{dealer.branchCount} Bayi</span>
-										<span className="numbers-elem">{dealer.listingCount} Araç</span>
+										<span className="numbers-elem cursor-pointer" onClick={() => document.getElementById('listing-here').scrollIntoView({ behavior: "smooth" })}>{dealer.listingCount} Araç</span>
 									</div>
 								</div>
 
@@ -175,13 +175,14 @@ export default class Dealer extends React.Component {
 
 								<ListingFilters />
 							</section>
-							<div className="detail-right">
+							<div className="detail-right" >
 								<Responsive type="only-web">
 									<Image className="dealer-cover" bg src={storageSpace('dealers', dealer.cover)} />
 								</Responsive>
 								{vm.state.listingQuery &&
 									<Listing
 										className="dealer-listing"
+										id="listing-here"
 										//urlBinding={false}
 										filters={false}
 										source={`dealers/${vm.state.listingQuery.dealer}/car-posts`}
@@ -212,7 +213,6 @@ class BranchInfo extends React.Component {
 			<li className={"list-branch" + (this.state.open ? ' open' : '') + (branch.open ? ' working' : '')}>
 				<button className="branch-sum" onClick={() => { this.setState({ open: !this.state.open }); }}>
 					<strong className="branch-title">{branch.title} <span className="title-listingcount">({branch.listingCount})</span></strong>
-
 				</button>
 
 				<Collapse className="branch-details" open={this.state.open}>
@@ -224,7 +224,7 @@ class BranchInfo extends React.Component {
 						</span>
 					)}
 
-					{branch.location &&
+					{branch.location.lat &&
 						<button type="button" className="details-showonmap" onClick={() => openModal('map', { markers: [{ lat: branch.location.lat, lng: branch.location.lng }] })}>Haritada gör</button>
 					}
 

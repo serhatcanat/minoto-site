@@ -21,6 +21,7 @@
     "react-inlinesvg": "^0.8.4",
     "react-input-mask": "^2.0.4",
     "react-redux": "^7.0.2",
+    "react-remove-scroll": "^2.0.4",
     "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.8",
     "react-scrollbars-custom": "^4.0.12",

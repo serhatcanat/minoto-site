@@ -319,7 +319,7 @@ class Listing extends React.Component {
 		return (
 			<React.Fragment>
 				{/*<section className="section listing-title"><h1>{vm.props.title}</h1></section> */}
-				<section ref={vm.containerRef} className={"section listing loader-container " + vm.props.className + (vm.props.filters ? ' has-filters' : '') + ' size-' + vm.props.size}>
+				<section ref={vm.containerRef} className={"section listing loader-container " + vm.props.className + (vm.props.filters ? ' has-filters' : '') + ' size-' + vm.props.size} id={vm.props.id}>
 					<Loader loading={vm.state.loading || !vm.props.listingData} strict={true} />
 					{vm.props.filters &&
 						<ListingFilters loading={vm.state.loading} mobile={vm.props.mobile} />
@@ -466,7 +466,7 @@ class ListingResults extends React.Component {
 														badge={(item.status === 1 ? false : (item.status === 2 ? { text: 'Rezerve', note: '02.02.2019 Tarihine Kadar Opsiyonludur' } : { text: 'Satıldı', type: 'error' }))}
 														bottomNote={(item.currentViewers > 0 ? item.currentViewers + ' kişi Bakıyor' : false)}
 														url="detail"
-														urlParams={{ dealer: seoFriendlyUrl(item.dealer), slug: item.slug.substring(0, item.slug.lastIndexOf('-m')), post: item.slug.substring(item.slug.lastIndexOf('m')) }}
+														urlParams={{ dealer: seoFriendlyUrl(item.dealer), slug: item.slug.substring(0, item.slug.lastIndexOf('-m')), post: item.postNo }}
 													/>
 												</li>
 											);

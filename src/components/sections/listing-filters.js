@@ -846,7 +846,9 @@ class FilterTypeIcons extends React.Component {
 
 		this.setState({ opts: newOpts });
 
-		this.props.onUpdate();
+		if (!this.props.mobile) {
+			this.props.onUpdate();
+		}
 	}
 
 	render() {
@@ -868,7 +870,7 @@ class FilterTypeIcons extends React.Component {
 								value={opt.value}
 								checked={opt.selected ? true : false}
 								onChange={(e) => vm.handleChange(e, nth)} />
-							<label className="item-content" htmlFor={id}>
+							<label className="item-content" htmlFor={id} onClick={(e) => e.preventDefault}>
 								{/*<i className={"content-icon icon-bodytype-"+opt.icon}></i>*/}
 								<SVG
 									className="content-icon"
@@ -912,7 +914,7 @@ class FilterTypeRange extends React.Component {
 			newOpts[nth].value = e.target.value;
 
 			this.setState({ opts: newOpts, synced: false });
-			this.update();
+			//this.update();
 		}
 	}
 

@@ -7,7 +7,7 @@ import ScrollWrap from 'components/partials/scrollwrap'
 // Deps
 import debounce from 'lodash/debounce'
 import { redirect } from 'controllers/navigator'
-import { blockOverflow, isExact } from "functions/helpers";
+import { blockOverflow, isExact, storageSpace } from "functions/helpers";
 import request from 'controllers/request'
 import { Link } from 'react-router-dom'
 import { connect } from "react-redux";
@@ -397,7 +397,7 @@ class SearchBar extends React.Component {
 												<div className={"group-item" + ((g_nth === vm.state.focusedGroup && r_nth === vm.state.focusedResult) ? ' focused' : '')} key={'g_' + r_nth}>
 													<Link to={result.link} onClick={vm.hide}>
 														{group.hasimages && (
-															<Image className="item-image" src={(result.image ? result.image : image_autocomplete_default)} />
+															<Image className="item-image" src={(result.image ? storageSpace('c_scale,q_auto:good,w_360/dealers', result.image) : image_autocomplete_default)} />
 														)}
 														{result.title}
 													</Link>

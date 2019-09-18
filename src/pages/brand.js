@@ -121,7 +121,7 @@ export default class Brand extends React.Component {
 									<h1 className="sum-title">{brand.title}</h1>
 
 									<div className="sum-numbers">
-										<span className="numbers-item">{formatNumber(brand.branchCount)} Bayi</span>
+										<span className="numbers-item">{formatNumber(brand.dealerCount)} Bayi</span>
 										<span className="numbers-item">{formatNumber(brand.listingCount)} Araç</span>
 									</div>
 
@@ -138,7 +138,7 @@ export default class Brand extends React.Component {
 
 								<div className="info-dealers">
 
-									<h2 className="dealers-title">Bayiler</h2>
+									<h2 className="dealers-title">Lokasyonlar</h2>
 
 									<ul className="dealers-list">
 										{brand.branches.map((branch, nth) => (

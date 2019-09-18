@@ -193,8 +193,8 @@
 			}
 
 				.item-image {
-					width: 3.7rem;
-					height: 3.7rem;
+					width: 3.7rem !important;
+					height: 3.7rem !important;
 					border-radius: 50%;
 					border-right-color: .1rem solid $color-gray-light;
 					margin-right: 1.8rem;

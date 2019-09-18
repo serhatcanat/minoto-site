@@ -15,11 +15,11 @@ export default class ScrollWrap extends React.Component {
 		};
 	}*/
 
-	componentDidMount(){
-		
+	componentDidMount() {
+
 	}
 
-	componentDidUpdate(prevProps, prevState){
+	componentDidUpdate(prevProps, prevState) {
 	}
 
 	render() {
@@ -36,7 +36,7 @@ export default class ScrollWrap extends React.Component {
 
 		let props = extend(defaultProps, omit(vm.props, ['className', 'instance']));
 
-		if(vm.props.instance){
+		if (vm.props.instance) {
 			props.ref = vm.props.instance;
 		}
 

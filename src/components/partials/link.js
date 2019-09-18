@@ -17,30 +17,30 @@ export default class LinkItem extends React.Component {
 		let type = this.props.type;
 		let Elem = Link;
 
-		if(this.props.navLink){
+		if (this.props.navLink) {
 			Elem = NavLink;
 			props.activeClassName = this.props.activeClassName
 		}
 
-		switch(type){
+		switch (type) {
 			case "a":
 				props.href = to;
 				Elem = 'a';
-			break;
+				break;
 			case "route":
 				props.to = to;
-			break;
+				break;
 			default: // link
 				let target = getRoute(this.props.href, this.props.routeGroup);
-				
-				if(target){
 
-					if(target.exact && this.props.navLink && !isDefined(props.exact)){ props.exact = true; }
+				if (target) {
+
+					if (target.exact && this.props.navLink && !isDefined(props.exact)) { props.exact = true; }
 					content = (this.props.children ? this.props.children : (target.linkTitle ? target.linkTitle : target.title));
 
-					if(target.path){
+					if (target.path) {
 						props.to = target.path
-						if(params){
+						if (params) {
 							/*for(let k = 0; k < Object.keys(params).length; k++){
 								let key = Object.keys(params)[k];
 								props.to = props.to.replace(':'+key+'?', params[key]).replace(':'+key, params[key]);
@@ -51,11 +51,11 @@ export default class LinkItem extends React.Component {
 								props.to = newTo;
 							}
 							catch {
-								console.log('noo', props.to, params);
+								//console.log('noo', props.to, params);
 							}
 						}
 					}
-					else{
+					else {
 						props.to = "-";
 					}
 				}
@@ -65,17 +65,17 @@ export default class LinkItem extends React.Component {
 
 				props.to = props.to ? props.to.split('/:')[0] : props.to;
 
-			break;
+				break;
 		}
 
-		if(this.props.hash){
+		if (this.props.hash) {
 			props.to = props.to + "#" + this.props.hash;
 		}
 
-		if(this.props.query){
+		if (this.props.query) {
 			props.to += '?' + queryString.stringify(this.props.query);
 		}
-		
+
 		return <Elem {...props}>{content}</Elem>
 	}
 }

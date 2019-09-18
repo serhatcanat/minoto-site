@@ -91,7 +91,7 @@ class Detail extends React.Component {
 	initialize() {
 		let vm = this;
 		if (vm.state.productData === false) {
-			request.get(`car-post/${vm.props.match.params.post.substring(vm.props.match.params.post.lastIndexOf('m'))}`, { email: this.props.user.email }, function (payload, status) {
+			request.get(`car-post/${vm.props.match.params.post.substring(vm.props.match.params.post.lastIndexOf('M'))}`, { email: this.props.user.email }, function (payload, status) {
 				//request.get('/dummy/data/detail.json', { id: vm.props.match.params.id }, function (payload, status) {
 				if (payload) {
 					vm.setState({
@@ -566,7 +566,12 @@ class DetailInfo extends React.Component {
 												<Link href="branch" params={{ id: product.dealer.id, slug: product.dealer.url }}>
 
 													<strong className="dealer-title">
-														<span className="dealer-badge"><i className="badge-bg icon-ribbon"></i><i className="badge-icon icon-check"></i></span>
+														<span className="dealer-badge">
+															<PopInfo nowrap upsideDown content="Yetkili Bayi" noMarginLeft>
+																<i className="badge-bg icon-ribbon"></i><i className="badge-icon icon-check"></i>
+															</PopInfo>
+														</span>
+
 														{product.dealer.title}
 													</strong>
 												</Link>
@@ -643,7 +648,7 @@ class DetailInfo extends React.Component {
 																<div className="head-content">
 																	<Link href="branch" params={{ id: selectedBranch.id, slug: selectedBranch.url }}>
 																		{selectedBranch.validated ?
-																			<span className="dealer-badge"><i className="badge-bg icon-ribbon"></i><i className="badge-icon icon-check"></i></span>
+																			<span className="dealer-badge"><i className="badge-bg icon-ribbon"></i><i className="badge-icon icon-check" ></i></span>
 																			:
 																			false
 																		}

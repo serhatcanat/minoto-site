@@ -46,10 +46,18 @@ export default class ListPrices extends React.Component {
 		let year = '2019';
 		let dataParam = vm.props.match.params.data;
 
+
+
 		if (dataParam) {
 			let data = dataParam.substring(0, dataParam.indexOf('-fiyat-listesi')).split('-');
-			brand = data[data.length - 1] ? data[data.length - 1] : brand;
+			if (data.length === 3) {
+				brand = data[data.length - 1] ? data[1] + '-' + data[2] : brand;
+			} else {
+				brand = data[data.length - 1] ? data[1] : brand;
+			}
+
 			year = (data.length > 1) ? data[0] : 'tum_yillar';
+
 		}
 
 		if (vm.ajaxController !== false) {
@@ -160,7 +168,10 @@ export default class ListPrices extends React.Component {
 								"href": "listpricesDetail",
 								"title": (vm.state.selectedBrand ? vm.state.selectedBrand.label : 'Tüm Modeller'),
 								"params": (vm.state.selectedBrand ? {
-									data: vm.state.selectedBrand.value + "-fiyat-listesi"
+									data: (vm.state.selectedYear ? vm.state.selectedYear.value + '-' : '') +
+										(vm.state.selectedBrand ? vm.state.selectedBrand.value :
+											(vm.state.brandFilters ? vm.state.brandFilters[0].value : 'araba')) +
+										'-fiyat-listesi'
 								} : undefined),
 							},
 							{
@@ -205,52 +216,67 @@ export default class ListPrices extends React.Component {
 									<div className="listprices-wrap loader-container">
 										<Loader loading={brands === false} />
 										{brands &&
-											<table className="table listprices-table">
-												<thead>
-													<tr>
-														<th>Marka</th>
-														<th>Model</th>
-														<th>Alt Model</th>
-														<th>Versiyon</th>
-														<th>Donanım</th>
-														<th>Motor Hacmi</th>
-														<th>Vites Tipi</th>
-														{/*<th>Yakıt Türü</th>*/}
-														<th style={{ minWidth: '120px' }}>Fiyat</th>
-														{/*<th>Kampanyalı Fiyat</th>*/}
-													</tr>
-												</thead>
 
-												{brands.map((brand, nth) => (
-													<tbody key={nth}>
-														{brand.listings.map((item, ntx) => (
-															<tr key={ntx}>
-																{ntx === 0 &&
-																	<td className="brand" rowSpan={brand.listings.length}>
-																		<div className="brand-wrap">
-																			<div className="brand-logowrap">
-																				<Image src={storageSpace('brands', brand.logo)} alt={brand.name} bg contain className="brand-logo"></Image>
-																			</div>
-																		</div>
-																	</td>
-																}
-																<td>{item.model}</td>
-																<td>{item.subModel}</td>
-																<td>{item.type}</td>
-																<td>{item.equipment}</td>
-																<td>{item.enginevolume}</td>
-																<td>{item.transmission}</td>
-																{/*<td>{item.fuel}</td>*/}
-																<td><PriceTag price={item.price} /></td>
-																{/*<td>
-																	{(item.price2 && item.price2 > 0) ? <PriceTag price={item.price2} /> : '-'}
-																</td>*/}
-															</tr>
-														))}
-													</tbody>
-												))}
-											</table>
+											<React.Fragment>
+												{
+													brands.length ? (
+														<table className="table listprices-table">
+															<thead>
+																<tr>
+																	<th>Marka</th>
+																	<th>Model</th>
+																	<th>Alt Model</th>
+																	<th>Versiyon</th>
+																	<th>Donanım</th>
+																	<th>Motor Hacmi</th>
+																	<th>Vites Tipi</th>
+																	{/*<th>Yakıt Türü</th>*/}
+																	<th style={{ minWidth: '120px' }}>Fiyat</th>
+																	{/*<th>Kampanyalı Fiyat</th>*/}
+																</tr>
+															</thead>
+
+															{
+																brands.map((brand, nth) => (
+																	<tbody key={nth}>
+																		{brand.listings.map((item, ntx) => (
+																			<tr key={ntx}>
+																				{ntx === 0 &&
+																					<td className="brand" rowSpan={brand.listings.length}>
+																						<div className="brand-wrap">
+																							<div className="brand-logowrap">
+																								<Image src={storageSpace('brands', brand.logo)} alt={brand.name} bg contain className="brand-logo"></Image>
+																							</div>
+																						</div>
+																					</td>
+																				}
+																				<td>{item.model}</td>
+																				<td>{item.subModel}</td>
+																				<td>{item.type}</td>
+																				<td>{item.equipment}</td>
+																				<td>{item.enginevolume}</td>
+																				<td>{item.transmission}</td>
+																				{/*<td>{item.fuel}</td>*/}
+																				<td><PriceTag price={item.price} /></td>
+																				{/*<td>
+																						{(item.price2 && item.price2 > 0) ? <PriceTag price={item.price2} /> : '-'}
+																					</td>*/}
+																			</tr>
+																		))}
+																	</tbody>
+																))
+															}
+
+
+
+														</table>
+													) : (
+															<div style={{ marginTop: '6rem', textAlign: 'center', fontSize: '1.6rem' }}>Bu markaya ve seçtiğiniz yıla ait fiyat listesi bulunmamaktadır.</div>
+														)
+												}
+											</React.Fragment>
 										}
+
 									</div>
 								</div>
 							</div>

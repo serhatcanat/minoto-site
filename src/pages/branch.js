@@ -90,7 +90,7 @@ export default class Branch extends React.Component {
 										<div>
 											{branch.address}
 										</div>
-										{branch.location &&
+										{branch.location.lat &&
 											<button type="button" className="address-showonmap" onClick={() => openModal('map', { markers: [{ lat: branch.location.lat, lng: branch.location.lng }] })}>Haritada gör</button>
 										}
 									</div>
