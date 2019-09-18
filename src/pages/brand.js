@@ -210,7 +210,7 @@ class BranchInfo extends React.Component {
 							<Btn tag="a" icon="phone" primary low uppercase href={'tel:+9' + branch.phone.replace(' ', '')}>{branch.phone}</Btn>
 						}
 						{/*<Btn tag="link" icon="envelope" text low uppercase href={'/user/message/tobrand/' + branch.id}>Detaylı Gör</Btn>*/}
-						<Btn tag="a" href={`/sube/${branch.id}/${branch.slug}`} icon="eye" text low uppercase>Detaylı Gör</Btn>
+						<Btn tag="a" href={`/bayiler/${branch.dealerSlug}/${branch.slug}`} icon="eye" text low uppercase>Detaylı Gör</Btn>
 					</div>
 				</Collapse>
 			</li>
