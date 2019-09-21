@@ -1,11 +1,11 @@
 import store from "data/store"
 
 const initialState = {
-  filtersExpanded: false,
-  filterData: false,
-  listingData: false,
-  filterQuery: {},
-  listingQuery: {},
+	filtersExpanded: false,
+	filterData: false,
+	listingData: false,
+	filterQuery: {},
+	listingQuery: {},
 };
 
 function listingReducer(state = initialState, action) {
@@ -56,6 +56,7 @@ export function setListingData(payload) {
 };
 
 export function setListingQuery(payload) {
+
 	return { type: "SET_LISTING_QUERY", payload }
 };
 

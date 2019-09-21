@@ -5,8 +5,8 @@ let endpoint = process.env.REACT_APP_API_ENDPOINT ? process.env.REACT_APP_API_EN
 if (!endpoint) {
 	switch (domain) {
 		case 'localhost':
-			//endpoint = 'http://localhost:8000'
-			endpoint = 'https://minoto-api.thinkerfox.com'
+			endpoint = 'http://localhost:8000'
+			//endpoint = 'https://minoto-api.thinkerfox.com'
 			break;
 		case 'minoto.thinkerfox.com':
 			endpoint = 'https://minoto-api.thinkerfox.com'

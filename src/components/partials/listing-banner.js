@@ -13,6 +13,7 @@ import config from "data/config"
 // Static Assets
 import image_instagram from 'assets/images/listing/banners/instagram.jpg'
 import image_youtube from 'assets/images/listing/banners/youtube.png'
+import image_blog from 'assets/images/listing/banners/blog.png'
 
 // Banners
 class InstagramBanner extends React.Component {
@@ -27,6 +28,23 @@ class InstagramBanner extends React.Component {
 				</div>
 				*/}
 				<Image className="instagram-image banner-image" bg={true} src={image_instagram} />
+			</a>
+		)
+	}
+}
+
+class BlogBanner extends React.Component {
+	render() {
+		return (
+			<a className="banner-instagram" href="/blog">
+				{/* 
+					<div className="instagram-text">
+					<strong>Instagram</strong>'da'<br />
+					bizi takip <br />
+					ediyor musunuz?
+				</div>
+				*/}
+				<Image className="instagram-image banner-image" bg={true} src={image_blog} />
 			</a>
 		)
 	}
@@ -86,6 +104,7 @@ const componentRegistry = {
 	"youtube": YoutubeBanner,
 	"hr": HrBanner,
 	"iframe": IframeBanner,
+	"blog": BlogBanner
 }
 
 export default class ListingBanner extends React.Component {

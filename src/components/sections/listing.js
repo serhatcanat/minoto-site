@@ -25,7 +25,7 @@ import throttle from 'lodash/throttle';
 import history from 'controllers/history'
 import request from 'controllers/request'
 import { connect } from "react-redux";
-import { storageSpace, seoFriendlyUrl } from "functions/helpers";
+import { storageSpace, seoFriendlyUrl, nextRandomPage } from "functions/helpers";
 import queryString from 'query-string';
 import { setFiltersExpansion, setListingQuery, setFilterQuery, setListingData } from 'data/store.listing';
 //import { openModal } from 'functions/modals'
@@ -71,6 +71,8 @@ class Listing extends React.Component {
 			extending: false,
 			page: 1,
 			keyword: false,
+			pageOrder: 'first',
+			usedPages: []
 		}
 
 		this.removeFilter = this.removeFilter.bind(this);
@@ -116,18 +118,21 @@ class Listing extends React.Component {
 		if (vm.props.topSection) {
 			if (prevState.order !== vm.state.order) {
 				vm.props.setListingQuery(extend({}, vm.props.listingQuery, { siralama: vm.state.order }));
+				this.setState({
+					page: 1
+				})
 			}
 		}
 
 		if (prevState.page !== vm.state.page) {
-			vm.props.setListingQuery(extend({}, vm.props.listingQuery, { sayfa: vm.state.page }));
+			vm.props.setListingQuery(extend({}, vm.props.listingQuery, { sayfa: parseInt(vm.state.page) }));
 		}
 
 		if (prevProps.source !== vm.props.source) {
 			vm.updateResults();
 		}
 
-		if (!isEqual(prevProps.listingQuery, this.props.listingQuery)) {
+		if (!isEqual(prevProps.listingQuery.siralama, this.props.listingQuery.siralama)) {
 			this.setState({ order: (this.props.listingQuery.siralama ? this.props.listingQuery.siralama : vm.props.defaultOrder) });
 			vm.updateResults();
 		}
@@ -138,10 +143,14 @@ class Listing extends React.Component {
 	}
 
 	getQuery() {
-		let querySelf = extend({}, this.props.listingQuery, { siralama: this.state.order, sayfa: this.state.page });
+		let querySelf = extend({}, this.props.listingQuery, { siralama: this.state.order, sayfa: parseInt(this.state.page), pageOrder: this.state.pageOrder });
+
 		this.props.setListingQuery(querySelf);
 		let newQuery = extend({}, this.props.listingQuery, this.props.filterQuery);
+
 		return newQuery;
+
+
 	}
 
 	urlChanged() {
@@ -152,16 +161,17 @@ class Listing extends React.Component {
 		vm.urlTimeout = setTimeout(function () {
 			let query = queryString.parse((history.location.search && history.location.search !== '') ? history.location.search.replace('?', '') : '');
 			if (Object.keys(query).length && !isEqual(query, vm.getQuery())) {
-				let listingQuery = vm.props.topSection ? pick(query, ['siralama', 'sayfa', 'ara']) : {};
+				let listingQuery = vm.props.topSection ? pick(query, ['siralama', 'sayfa', 'ara', 'pageOrder']) : {};
 
 				if (!listingQuery.siralama) { listingQuery.siralama = vm.props.defaultOrder }
 
-				let filterQuery = omit(query, ['siralama', 'sayfa', 'ara']);
+				let filterQuery = omit(query, ['siralama', 'sayfa', 'ara', 'pageOrder']);
 
 				vm.props.setListingQuery(listingQuery);
 				vm.props.setFilterQuery(filterQuery);
 			}
 			else if (!vm.initialized) {
+
 				vm.updateResults();
 			}
 		}, 30);
@@ -169,12 +179,13 @@ class Listing extends React.Component {
 
 	updateURL() {
 		if (this.props.urlBinding) {
+
 			//let defaultQuery = 'siralama=' + this.props.defaultOrder;
 			let rawQuery = this.getQuery();
 			let initialQuery = queryString.stringify(rawQuery);
 
 			if (rawQuery.siralama === this.props.defaultOrder) {
-				rawQuery = omit(rawQuery, ['siralama']);
+				rawQuery = omit(rawQuery, ['siralama', 'sayfa', 'pageOrder']);
 			}
 
 			let query = queryString.stringify(rawQuery);
@@ -240,17 +251,27 @@ class Listing extends React.Component {
 				if (payload.redirect) {
 					setTimeout(function () { window.location.href = payload.link; }, 30)
 				}
+
+
 				if (opts.page > 1) {
 					payload.results = vm.props.listingData.results.concat(payload.results);
 				}
 
 				vm.props.setListingData(payload);
+
+
 				vm.setState({
 					loading: false,
+					extending: false,
 					page: payload.page ? payload.page : 1,
+					results: payload.results,
 					order: payload.order ? payload.order : 'date_desc',
-					keyword: payload.keyword ? payload.keyword : null
+					keyword: payload.keyword ? payload.keyword : null,
+					pageOrder: 'regular',
+					total: (payload.totalResults ? payload.totalResults : 0),
 				});
+
+
 
 				/*vm.setState({
 					listingData: payload,
@@ -267,37 +288,53 @@ class Listing extends React.Component {
 					}, 40);
 				}*/
 
-				if (Object.keys(vm.props.filterQuery).length > 0 && vm.props.scrollOnFilterChange && vm.containerRef.current) {
+				/* if (Object.keys(vm.props.filterQuery).length > 0 && vm.props.scrollOnFilterChange && vm.containerRef.current) {
 					window.scroll({
 						behavior: 'smooth',
 						left: 0,
 						top: vm.containerRef.current.offsetTop
 					});
 					//scrollTo({ to: vm.containerRef.current});
-				}
+				} */
 
 				if (endFunction) {
 					endFunction();
 				}
 			}
+
 		}, { excludeApiPath: requestURL === '/dummy/data/listing.json' || requestURL === '/dummy/data/detail-related.json' });
+
+
 	}
 
 	extendResults() {
 		let vm = this;
 
+
 		if (!vm.state.extending && vm.state.results) {
-			let page = vm.state.page + 1;
+			let page, pageArray;
+			if (vm.state.order === 'random') {
+				pageArray = nextRandomPage(vm.state.total, vm.state.usedPages).alreadyUsed;
+				page = nextRandomPage(vm.state.total, vm.state.usedPages).pickedPage;
+
+			} else {
+				pageArray = [];
+				page = parseInt(vm.state.page) + 1;
+			}
+
 			vm.setState({
 				extending: true,
 				page: page,
+				usedPages: pageArray
 			});
 
-			vm.makeRequest({ page: page }, function () {
-				vm.setState({
-					extending: false
+			setTimeout(function () {
+				vm.makeRequest({ page: page }, function () {
+					/* vm.setState({
+						extending: false,
+					}) */
 				})
-			});
+			}, 100)
 		}
 	}
 
@@ -352,7 +389,7 @@ class Listing extends React.Component {
 							</aside>
 						}
 						<ListingResults loading={vm.state.loading} data={vm.props.listingData} mobile={vm.props.mobile} />
-						{(vm.state.results && vm.state.results.length < vm.props.listingData.totalResults) &&
+						{(vm.props.listingData.results && vm.props.listingData.results.length < vm.props.listingData.totalResults) &&
 							<InfiniteScroller loading={vm.state.extending} onExtend={vm.extendResults} />
 						}
 					</div>
@@ -379,6 +416,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(Listing);
 
 // Results
 class ListingResults extends React.Component {
+
 	render() {
 		let vm = this;
 		let itemsAt = 0;
@@ -502,10 +540,6 @@ class InfiniteScrollerRaw extends React.Component {
 	constructor(props) {
 		super(props)
 
-		this.state = {
-
-		}
-
 		this.scrollElem = React.createRef();
 		this.trigger = throttle(this.trigger.bind(this), 1000);
 	}
@@ -524,6 +558,7 @@ class InfiniteScrollerRaw extends React.Component {
 
 			if ((bounds.bottom >= viewport.top && bounds.bottom <= viewport.bottom) || (bounds.top <= viewport.bottom && bounds.top >= viewport.top)) {
 				this.trigger();
+
 			}
 		}
 	}
