@@ -119,7 +119,8 @@ class Listing extends React.Component {
 			if (prevState.order !== vm.state.order) {
 				vm.props.setListingQuery(extend({}, vm.props.listingQuery, { siralama: vm.state.order }));
 				this.setState({
-					page: 1
+					page: 1,
+					pageOrder: "first"
 				})
 			}
 		}
@@ -234,7 +235,7 @@ class Listing extends React.Component {
 	updateResults() {
 		let vm = this;
 
-		vm.setState({ loading: true });
+		vm.setState({ loading: true, pageOrder: "first", page: 1, order: this.props.defaultOrder });
 		vm.makeRequest();
 	}
 
