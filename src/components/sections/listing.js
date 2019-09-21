@@ -138,7 +138,7 @@ class Listing extends React.Component {
 	}
 
 	getQuery() {
-		let querySelf = extend({}, this.props.listingQuery, { siralama: this.state.order });
+		let querySelf = extend({}, this.props.listingQuery, { siralama: this.state.order, sayfa: this.state.page });
 		this.props.setListingQuery(querySelf);
 		let newQuery = extend({}, this.props.listingQuery, this.props.filterQuery);
 		return newQuery;
@@ -393,7 +393,7 @@ class ListingResults extends React.Component {
 						(data.similar || data.totalResults === 0) && (
 							<React.Fragment>
 								{
-									loading === false && (<div className="results-error"><div className="error-message">Aradığınız kriterlere uygun bir araç bulamadık. </div></div>)
+									loading === false && (<div className="results-error"><div className="error-message">Aradığınız kriterlere uygun bir araç bulamadık. Ancak aşağıdaki araçlar ilginizi çekebilir. </div></div>)
 								}
 
 							</React.Fragment>
