@@ -29,6 +29,7 @@ import { storageSpace, seoFriendlyUrl, nextRandomPage } from "functions/helpers"
 import queryString from 'query-string';
 import { setFiltersExpansion, setListingQuery, setFilterQuery, setListingData } from 'data/store.listing';
 //import { openModal } from 'functions/modals'
+import image_loader from 'assets/images/minoto-loading.gif'
 
 const mapStateToProps = state => {
 	return {
@@ -133,9 +134,9 @@ class Listing extends React.Component {
 			vm.updateResults();
 		}
 
-		if (!isEqual(prevProps.listingQuery.siralama, this.props.listingQuery.siralama)) {
+		if (prevProps.listingQuery.siralama && !isEqual(prevProps.listingQuery.siralama, this.props.listingQuery.siralama)) {
 
-			let page = prevProps.listingQuery.siralama === "random" ? nextRandomPage(100, vm.state.usedPages).pickedPage : 1;
+			let page = prevProps.listingQuery.siralama === "random" ? Math.floor(Math.random() * Math.floor(10)) + 1 : 1;
 
 			this.setState({ page: page, order: (this.props.listingQuery.siralama ? this.props.listingQuery.siralama : vm.props.defaultOrder) });
 			vm.updateResults();
@@ -180,7 +181,7 @@ class Listing extends React.Component {
 				vm.updateResults();
 			}
 		}, 30);
-	}
+	}//
 
 	updateURL() {
 		if (this.props.urlBinding) {
@@ -195,7 +196,7 @@ class Listing extends React.Component {
 
 			let query = queryString.stringify(rawQuery);
 
-			if (history.location.search !== '?' + query && history.location.search !== query && history.location.search !== '?' + initialQuery && history.location.search !== initialQuery) {
+			/* if (history.location.search !== '?' + query && history.location.search !== query && history.location.search !== '?' + initialQuery && history.location.search !== initialQuery) {
 				if (!this.initialized) {
 					if (query !== '') {
 						window.dynamicHistory.replace('?' + query);
@@ -211,7 +212,7 @@ class Listing extends React.Component {
 						window.dynamicHistory.push('?' + query);
 					}
 				}
-			}
+			} */
 		}
 	}
 
@@ -241,11 +242,12 @@ class Listing extends React.Component {
 	updateResults() {
 		let vm = this;
 
-		let page = vm.state.order === "random" ? nextRandomPage(100, vm.state.usedPages).pickedPage : 1;
+		let page = vm.state.order === "random" ? Math.floor(Math.random() * Math.floor(10)) + 1 : 1;
 		let order = vm.state.order ? vm.state.order : this.props.defaultOrder;
 
-		vm.setState({ loading: true, pageOrder: "first", page: page, order: order });
-		vm.makeRequest();
+		vm.setState({ loading: true, pageOrder: "first", page: vm.props.source === 'filters' ? page : 1, order: order });
+
+		setTimeout(function () { vm.makeRequest() }, 50)
 	}
 
 	makeRequest(opts = {}, endFunction = false) {
@@ -257,6 +259,8 @@ class Listing extends React.Component {
 
 		request.get(requestURL, vm.getQuery(), function (payload, status) {
 			if (vm.mounted && payload) {
+
+
 
 				if (payload.redirect) {
 					setTimeout(function () { window.location.href = payload.link; }, 30)
@@ -340,9 +344,9 @@ class Listing extends React.Component {
 
 			setTimeout(function () {
 				vm.makeRequest({ page: page }, function () {
-					/* vm.setState({
+					vm.setState({
 						extending: false,
-					}) */
+					})
 				})
 			}, 100)
 		}
@@ -580,7 +584,8 @@ class InfiniteScrollerRaw extends React.Component {
 	render() {
 		return (
 			<div className={"content-infinitescroll" + (this.props.loading ? ' loading' : '')} ref={this.scrollElem}>
-				<span><i className="icon-spinner"></i></span>
+				{/*<span><i className="icon-spinner"></i></span>*/}
+				<img width="50" src={image_loader} alt="Yükleniyor..." style={{ display: 'inline' }} />
 			</div>
 		)
 	}

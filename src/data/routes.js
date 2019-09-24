@@ -283,7 +283,7 @@ module.exports = {
 					props: {}
 				}
 			],*/
-			hideSearchFromHeader: true,
+			hideSearchFromHeader: false,
 		},
 		notfound: {
 			path: false,

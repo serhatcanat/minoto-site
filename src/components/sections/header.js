@@ -100,6 +100,7 @@ class Header extends React.Component {
 
 	initialize() {
 		let vm = this;
+
 		if (vm.mounted) {
 
 			vm.setState({ results: false });
@@ -300,7 +301,7 @@ class Header extends React.Component {
 						)}
 					</nav>
 				</div>
-				{!vm.props.currentPage.data.hideSearchFromHeader &&
+				{(!vm.props.currentPage.data.hideSearchFromHeader && history.location.pathname !== '/') &&
 					<Responsive type="only-web">
 						<SearchBar className="header-search" />
 					</Responsive>
