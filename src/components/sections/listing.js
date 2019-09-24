@@ -134,7 +134,10 @@ class Listing extends React.Component {
 		}
 
 		if (!isEqual(prevProps.listingQuery.siralama, this.props.listingQuery.siralama)) {
-			this.setState({ order: (this.props.listingQuery.siralama ? this.props.listingQuery.siralama : vm.props.defaultOrder) });
+
+			let page = prevProps.listingQuery.siralama === "random" ? nextRandomPage(100, vm.state.usedPages).pickedPage : 1;
+
+			this.setState({ page: page, order: (this.props.listingQuery.siralama ? this.props.listingQuery.siralama : vm.props.defaultOrder) });
 			vm.updateResults();
 		}
 
@@ -144,6 +147,7 @@ class Listing extends React.Component {
 	}
 
 	getQuery() {
+
 		let querySelf = extend({}, this.props.listingQuery, { siralama: this.state.order, sayfa: parseInt(this.state.page), pageOrder: this.state.pageOrder });
 
 		this.props.setListingQuery(querySelf);
@@ -232,10 +236,15 @@ class Listing extends React.Component {
 		}
 	}
 
+
+
 	updateResults() {
 		let vm = this;
 
-		vm.setState({ loading: true, pageOrder: "first", page: 1, order: this.props.defaultOrder });
+		let page = vm.state.order === "random" ? nextRandomPage(100, vm.state.usedPages).pickedPage : 1;
+		let order = vm.state.order ? vm.state.order : this.props.defaultOrder;
+
+		vm.setState({ loading: true, pageOrder: "first", page: page, order: order });
 		vm.makeRequest();
 	}
 

@@ -13,6 +13,9 @@ const rootReducer = combineReducers({
 	//checkout: checkout,
 })
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer
+	//for chrome redux extension
+	//,window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 export default store;
