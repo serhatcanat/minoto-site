@@ -22,6 +22,7 @@ import { setTitle, setDescription } from 'controllers/head'
 import request from 'controllers/request'
 import { redirect } from 'controllers/navigator'
 import { openModal } from 'functions/modals'
+import { turkishSort } from '../functions/helpers'
 
 // Assets
 
@@ -153,7 +154,7 @@ export default class Dealer extends React.Component {
 											</div>
 
 											<ul className="branches-list">
-												{dealer.branches.reduce((filtered, branch, nth) => {
+												{dealer.branches.sort(turkishSort).reduce((filtered, branch, nth) => {
 													if (nth < branchExpandLimit || vm.state.expandBranches) {
 														filtered.push(<BranchInfo data={branch} key={nth} dealer={vm.props.match.params.slug} />)
 													}
@@ -230,10 +231,11 @@ class BranchInfo extends React.Component {
 
 					<div className="details-controls">
 						{branch.phone &&
-							<Btn tag="a" icon="phone" primary low uppercase href={'tel:+9' + branch.phone.replace(' ', '')}>{branch.phone}</Btn>
+							<Btn tag="a" icon="phone" primary low block uppercase style={{ marginBottom: '8px' }} href={'tel:+9' + branch.phone.replace(' ', '')}>{branch.phone}</Btn>
 						}
+						<br />
 						{/*<Btn tag="link" icon="envelope" text low uppercase href={'/user/message/todealer/'+branch.id}>Mesaj Gönder</Btn>*/}
-						<Btn tag="a" href={`/bayiler/${this.props.dealer}/${branch.slug}`} icon="eye" text low uppercase>Detaylı Gör</Btn>
+						<Btn tag="a" block href={`/bayiler/${this.props.dealer}/${branch.slug}`} icon="eye" text low uppercase>İlanları Gör</Btn>
 					</div>
 				</Collapse>
 			</li>

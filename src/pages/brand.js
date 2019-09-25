@@ -23,6 +23,7 @@ import request from 'controllers/request'
 import { redirect } from 'controllers/navigator'
 import { openModal } from 'functions/modals'
 import { formatNumber, storageSpace } from 'functions/helpers'
+import { turkishSort } from '../functions/helpers'
 
 // Assets
 
@@ -141,7 +142,7 @@ export default class Brand extends React.Component {
 									<h2 className="dealers-title">Lokasyonlar</h2>
 
 									<ul className="dealers-list">
-										{brand.branches.map((branch, nth) => (
+										{brand.branches.sort(turkishSort).map((branch, nth) => (
 											<BranchInfo data={branch} key={nth} />
 										))}
 									</ul>

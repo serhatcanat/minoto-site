@@ -120,8 +120,9 @@ class Detail extends React.Component {
 	}
 
 	setFullScreen(state) {
-		if (this.mounted) {
-			this.setState({ galleryFullScreen: state });
+		let vm = this;
+		if (vm.mounted) {
+			vm.setState({ galleryFullScreen: state });
 		}
 	}
 
@@ -299,7 +300,7 @@ class DetailGallery extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			activeImage: 0,
+			activeImage: false,
 		}
 
 		this.mainSlider = React.createRef();
@@ -309,6 +310,8 @@ class DetailGallery extends React.Component {
 	}
 
 	componentDidMount() {
+		this.setState({ activeImage: 0 })
+
 		document.addEventListener('keydown', this.keyPress);
 	}
 
@@ -318,22 +321,30 @@ class DetailGallery extends React.Component {
 
 	componentDidUpdate(prevProps, prevState) {
 		const nth = this.state.activeImage;
-		if (this.mainSlider.current.instance.realIndex !== nth) {
-			this.mainSlider.current.instance.slideToLoop(nth);
+		let vm = this;
+		if (vm.mainSlider.current.instance.realIndex !== nth) {
+			vm.mainSlider.current.instance.slideToLoop(nth);
 		}
 
-		if (this.thumbSlider.current && this.thumbSlider.current.instance.realIndex !== nth) {
-			this.thumbSlider.current.instance.slideTo(nth);
+		if (vm.thumbSlider.current && vm.thumbSlider.current.instance.realIndex !== nth) {
+			vm.thumbSlider.current.instance.slideTo(nth);
 		}
 
-		if (prevProps.fullScreen !== this.props.fullScreen) {
-			this.mainSlider.current.instance.update();
-			if (this.thumbSlider.current) {
-				this.thumbSlider.current.instance.update();
-			}
 
-			blockOverflow(this.props.fullScreen);
+		if (prevProps.fullScreen !== vm.props.fullScreen) {
+			setTimeout(function () {
+				vm.mainSlider.current.instance.update();
+
+				if (vm.thumbSlider.current) {
+					vm.thumbSlider.current.instance.update();
+
+				}
+				window.dispatchEvent(new Event('resize'));
+
+				blockOverflow(vm.props.fullScreen);
+			}, 200)
 		}
+
 	}
 
 	imageChange(nth) {

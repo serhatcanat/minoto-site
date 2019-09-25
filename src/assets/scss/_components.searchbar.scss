@@ -9,6 +9,7 @@
 
 		.searchbar-results {
 			opacity: 1;
+			height: auto;
 			transform: translate3d(0, 0rem, 0);
 		}
 	}
@@ -144,6 +145,7 @@
 		box-shadow: 0 1.2rem 1.8rem 0 rgba(29, 42, 68, 0.13);
 		overflow: hidden;
 		opacity: 0;
+		height: 0;
 		transform: translate3d(0, -.3rem, 0);
 		transition: opacity $transition-hover ease, transform $transition-hover ease;
 	}

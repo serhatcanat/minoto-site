@@ -16,7 +16,9 @@ export default class Search extends React.Component {
 		}
 	}
 	componentDidMount() {
+
 		if (history.location.search === '' || history.location.search.length === 0) {
+
 			this.setState({
 				endpoint: 'filters'
 			})
@@ -24,12 +26,15 @@ export default class Search extends React.Component {
 	}
 
 	componentDidUpdate(prevProps) {
-		if (prevProps.location.search !== this.props.location.search) {
-			if (this.props.location.search === '' || this.props.location.search.length === 0) {
+
+		if (this.props.location.search !== history.location.search) {
+			if (history.location.search === '' || history.location.search.length === 0) {
+
 				this.setState({
 					endpoint: 'filters'
 				})
 			} else {
+
 				this.setState({
 					endpoint: 'search/key'
 				})
@@ -42,7 +47,7 @@ export default class Search extends React.Component {
 		return (
 			<main className="page search">
 				{
-					this.state.endpoint && <Listing className="search-listing" defaultOrder="date_desc" source={this.state.endpoint} query={false} />
+					this.state.endpoint && <Listing className="search-listing" defaultOrder="date_desc" source="search/key" query={false} />
 				}
 
 			</main>

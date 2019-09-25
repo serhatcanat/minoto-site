@@ -44,8 +44,10 @@ export default class Slider extends React.Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		if (!isEqual(prevProps.children, this.props.children)) {
-			this.instance.update();
+		let vm = this;
+
+		if (!isEqual(prevProps.children, vm.props.children)) {
+			vm.instance.update();
 		}
 	}
 

@@ -30,6 +30,7 @@ import queryString from 'query-string';
 import { setFiltersExpansion, setListingQuery, setFilterQuery, setListingData } from 'data/store.listing';
 //import { openModal } from 'functions/modals'
 import image_loader from 'assets/images/minoto-loading.gif'
+import { turkishSort } from '../../functions/helpers'
 
 const mapStateToProps = state => {
 	return {
@@ -123,7 +124,10 @@ class Listing extends React.Component {
 					page: 1,
 					pageOrder: "first"
 				})
+
 			}
+
+
 		}
 
 		if (prevState.page !== vm.state.page) {
@@ -166,12 +170,13 @@ class Listing extends React.Component {
 
 		vm.urlTimeout = setTimeout(function () {
 			let query = queryString.parse((history.location.search && history.location.search !== '') ? history.location.search.replace('?', '') : '');
+
 			if (Object.keys(query).length && !isEqual(query, vm.getQuery())) {
-				let listingQuery = vm.props.topSection ? pick(query, ['siralama', 'sayfa', 'ara', 'pageOrder']) : {};
+				let listingQuery = vm.props.topSection ? pick(query, ['siralama', 'sayfa', 'pageOrder', 'ara']) : {};
 
 				if (!listingQuery.siralama) { listingQuery.siralama = vm.props.defaultOrder }
 
-				let filterQuery = omit(query, ['siralama', 'sayfa', 'ara', 'pageOrder']);
+				let filterQuery = omit(query, ['siralama', 'sayfa', 'pageOrder']);
 
 				vm.props.setListingQuery(listingQuery);
 				vm.props.setFilterQuery(filterQuery);
@@ -196,7 +201,8 @@ class Listing extends React.Component {
 
 			let query = queryString.stringify(rawQuery);
 
-			/* if (history.location.search !== '?' + query && history.location.search !== query && history.location.search !== '?' + initialQuery && history.location.search !== initialQuery) {
+			if (history.location.search !== '?' + query && history.location.search !== query && history.location.search !== '?' + initialQuery && history.location.search !== initialQuery) {
+
 				if (!this.initialized) {
 					if (query !== '') {
 						window.dynamicHistory.replace('?' + query);
@@ -212,7 +218,8 @@ class Listing extends React.Component {
 						window.dynamicHistory.push('?' + query);
 					}
 				}
-			} */
+			}
+
 		}
 	}
 
@@ -256,6 +263,7 @@ class Listing extends React.Component {
 		vm.initialized = true;
 		let requestURL = vm.props.source; //+'?'+q;
 		vm.updateURL();
+
 
 		request.get(requestURL, vm.getQuery(), function (payload, status) {
 			if (vm.mounted && payload) {
@@ -323,7 +331,6 @@ class Listing extends React.Component {
 
 	extendResults() {
 		let vm = this;
-
 
 		if (!vm.state.extending && vm.state.results) {
 			let page, pageArray;
@@ -454,85 +461,176 @@ class ListingResults extends React.Component {
 
 					<ul className="content-results">
 
-						{results.map((item, nth) => {
-							itemsAt += (item.size ? item.size : 1);
-							let contents = [];
-							switch (item.type) {
-								case 'banner':
-									let contentItem = <ListingBanner key={nth} mobile={vm.props.mobile} data={item} />
+						{
+							data.type === 'dealer'
+								?
+								(<React.Fragment>
+									{
+										results.sort(turkishSort).map((item, nth) => {
+											itemsAt += (item.size ? item.size : 1);
+											let contents = [];
+											switch (item.type) {
+												case 'banner':
+													let contentItem = <ListingBanner key={nth} mobile={vm.props.mobile} data={item} />
 
-									if (contentItem) {
-										contents.push(contentItem);
+													if (contentItem) {
+														contents.push(contentItem);
+													}
+													break;
+												default:
+													switch (data.type) {
+														case "dealer":
+															contents.push(
+																<li key={nth} className="results-item">
+																	<ContentBox
+																		type="plain"
+																		className={((item.status === 2 || item.status === 3) ? 'inactive' : '')}
+																		title={item.title}
+																		subtitle={item.dealer}
+																		additionTitle={item.count + ' ARAÇ'}
+																		image={storageSpace('c_scale,q_auto:good,w_360/dealers', item.image)}
+																		labels={item.labels}
+																		faved={item.favorited}
+																		//favControls={'/dummy/data/fav/dealer/'+item.id}
+																		badge={(item.status !== 1 ? false : (item.status === 2 ? { text: 'Rezerve', note: '02.02.2019 Tarihine Kadar Opsiyonludur' } : { text: 'Satıldı', type: 'error' }))}
+																		bottomNote={(item.currentViewers > 0 ? item.currentViewers + ' kişi Bakıyor' : false)}
+																		url={`bayiler/${item.link}`}
+																	/>
+																</li>
+															)
+															break;
+														case "brand":
+															contents.push(
+																<li key={nth} className="results-item">
+																	<ContentBox
+																		type="plain"
+																		className={((item.status === 2 || item.status === 3) ? 'inactive' : '')}
+																		title={item.title}
+																		labels={item.labels}
+																		additionTitle={item.count + ' ARAÇ'}
+																		image={storageSpace('c_scale,q_auto:good,w_360/brands', item.image)}
+																		faved={item.favorited}
+																		//favControls={'/dummy/data/fav/dealer/'+item.id}
+																		url={`markalar/${item.link}`}
+																	/>
+																</li>
+															)
+															break;
+														default: //listing
+															contents.push(
+																<li key={nth} className="results-item">
+																	<ContentBox
+																		className={((item.status === 2 || item.status === 3) ? 'inactive' : '')}
+																		title={item.title}
+																		subtitle={item.dealer}
+																		image={storageSpace('c_scale,q_auto:good,w_360/car-posts', item.image)}
+																		price={item.price}
+																		labels={item.labels}
+																		faved={item.favorited}
+																		badge={(item.status === 1 ? false : (item.status === 2 ? { text: 'Rezerve', note: '02.02.2019 Tarihine Kadar Opsiyonludur' } : { text: 'Satıldı', type: 'error' }))}
+																		bottomNote={(item.currentViewers > 0 ? item.currentViewers + ' kişi Bakıyor' : false)}
+																		url="detail"
+																		urlParams={{ dealer: seoFriendlyUrl(item.dealer), slug: item.slug.substring(0, item.slug.lastIndexOf('-m')), post: item.postNo }}
+																	/>
+																</li>
+															);
+															break;
+													}
+													break;
+											}
+
+											if (itemsAt === 8 && vm.props.showAds) {
+												contents.push(<Ad key={nth} />);
+											}
+
+											return contents;
+										})
 									}
-									break;
-								default:
-									switch (data.type) {
-										case "dealer":
-											contents.push(
-												<li key={nth} className="results-item">
-													<ContentBox
-														type="plain"
-														className={((item.status === 2 || item.status === 3) ? 'inactive' : '')}
-														title={item.title}
-														subtitle={item.dealer}
-														additionTitle={item.count + ' ARAÇ'}
-														image={storageSpace('c_scale,q_auto:good,w_360/dealers', item.image)}
-														labels={item.labels}
-														faved={item.favorited}
-														//favControls={'/dummy/data/fav/dealer/'+item.id}
-														badge={(item.status !== 1 ? false : (item.status === 2 ? { text: 'Rezerve', note: '02.02.2019 Tarihine Kadar Opsiyonludur' } : { text: 'Satıldı', type: 'error' }))}
-														bottomNote={(item.currentViewers > 0 ? item.currentViewers + ' kişi Bakıyor' : false)}
-														url={`bayiler/${item.link}`}
-													/>
-												</li>
-											)
-											break;
-										case "brand":
-											contents.push(
-												<li key={nth} className="results-item">
-													<ContentBox
-														type="plain"
-														className={((item.status === 2 || item.status === 3) ? 'inactive' : '')}
-														title={item.title}
-														labels={item.labels}
-														additionTitle={item.count + ' ARAÇ'}
-														image={storageSpace('c_scale,q_auto:good,w_360/brands', item.image)}
-														faved={item.favorited}
-														//favControls={'/dummy/data/fav/dealer/'+item.id}
-														url={`markalar/${item.link}`}
-													/>
-												</li>
-											)
-											break;
-										default: //listing
-											contents.push(
-												<li key={nth} className="results-item">
-													<ContentBox
-														className={((item.status === 2 || item.status === 3) ? 'inactive' : '')}
-														title={item.title}
-														subtitle={item.dealer}
-														image={storageSpace('c_scale,q_auto:good,w_360/car-posts', item.image)}
-														price={item.price}
-														labels={item.labels}
-														faved={item.favorited}
-														badge={(item.status === 1 ? false : (item.status === 2 ? { text: 'Rezerve', note: '02.02.2019 Tarihine Kadar Opsiyonludur' } : { text: 'Satıldı', type: 'error' }))}
-														bottomNote={(item.currentViewers > 0 ? item.currentViewers + ' kişi Bakıyor' : false)}
-														url="detail"
-														urlParams={{ dealer: seoFriendlyUrl(item.dealer), slug: item.slug.substring(0, item.slug.lastIndexOf('-m')), post: item.postNo }}
-													/>
-												</li>
-											);
-											break;
+								</React.Fragment>)
+								:
+								(<React.Fragment>
+									{
+										results.map((item, nth) => {
+											itemsAt += (item.size ? item.size : 1);
+											let contents = [];
+											switch (item.type) {
+												case 'banner':
+													let contentItem = <ListingBanner key={nth} mobile={vm.props.mobile} data={item} />
+
+													if (contentItem) {
+														contents.push(contentItem);
+													}
+													break;
+												default:
+													switch (data.type) {
+														case "dealer":
+															contents.push(
+																<li key={nth} className="results-item">
+																	<ContentBox
+																		type="plain"
+																		className={((item.status === 2 || item.status === 3) ? 'inactive' : '')}
+																		title={item.title}
+																		subtitle={item.dealer}
+																		additionTitle={item.count + ' ARAÇ'}
+																		image={storageSpace('c_scale,q_auto:good,w_360/dealers', item.image)}
+																		labels={item.labels}
+																		faved={item.favorited}
+																		//favControls={'/dummy/data/fav/dealer/'+item.id}
+																		badge={(item.status !== 1 ? false : (item.status === 2 ? { text: 'Rezerve', note: '02.02.2019 Tarihine Kadar Opsiyonludur' } : { text: 'Satıldı', type: 'error' }))}
+																		bottomNote={(item.currentViewers > 0 ? item.currentViewers + ' kişi Bakıyor' : false)}
+																		url={`bayiler/${item.link}`}
+																	/>
+																</li>
+															)
+															break;
+														case "brand":
+															contents.push(
+																<li key={nth} className="results-item">
+																	<ContentBox
+																		type="plain"
+																		className={((item.status === 2 || item.status === 3) ? 'inactive' : '')}
+																		title={item.title}
+																		labels={item.labels}
+																		additionTitle={item.count + ' ARAÇ'}
+																		image={storageSpace('c_scale,q_auto:good,w_360/brands', item.image)}
+																		faved={item.favorited}
+																		//favControls={'/dummy/data/fav/dealer/'+item.id}
+																		url={`markalar/${item.link}`}
+																	/>
+																</li>
+															)
+															break;
+														default: //listing
+															contents.push(
+																<li key={nth} className="results-item">
+																	<ContentBox
+																		className={((item.status === 2 || item.status === 3) ? 'inactive' : '')}
+																		title={item.title}
+																		subtitle={item.dealer}
+																		image={storageSpace('c_scale,q_auto:good,w_360/car-posts', item.image)}
+																		price={item.price}
+																		labels={item.labels}
+																		faved={item.favorited}
+																		badge={(item.status === 1 ? false : (item.status === 2 ? { text: 'Rezerve', note: '02.02.2019 Tarihine Kadar Opsiyonludur' } : { text: 'Satıldı', type: 'error' }))}
+																		bottomNote={(item.currentViewers > 0 ? item.currentViewers + ' kişi Bakıyor' : false)}
+																		url="detail"
+																		urlParams={{ dealer: seoFriendlyUrl(item.dealer), slug: item.slug.substring(0, item.slug.lastIndexOf('-m')), post: item.postNo }}
+																	/>
+																</li>
+															);
+															break;
+													}
+													break;
+											}
+
+											if (itemsAt === 8 && vm.props.showAds) {
+												contents.push(<Ad key={nth} />);
+											}
+
+											return contents;
+										})
 									}
-									break;
-							}
-
-							if (itemsAt === 8 && vm.props.showAds) {
-								contents.push(<Ad key={nth} />);
-							}
-
-							return contents;
-						})}
+								</React.Fragment>)}
 					</ul>
 				</React.Fragment>
 			)
