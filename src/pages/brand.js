@@ -161,7 +161,6 @@ export default class Brand extends React.Component {
 										className="brand-listing"
 										//urlBinding={false}
 										filters={false}
-										topSection={false}
 										source={`filters/${this.props.match.params.id}`}
 										showAds={false}
 										key="search-brand"

@@ -286,6 +286,7 @@ class Listing extends React.Component {
 				let usedPages = vm.state.usedPages;
 				if ((payload.page && vm.state.usedPages.length === 0) || vm.state.usedPages.indexOf(payload.page) === -1) {
 					usedPages.push(parseInt(payload.page))
+
 				}
 
 				vm.setState({
@@ -341,6 +342,7 @@ class Listing extends React.Component {
 	extendResults() {
 		let vm = this;
 
+
 		if (!vm.state.extending && vm.state.results) {
 			let page, pageArray;
 			if (vm.state.order === 'random') {
@@ -387,7 +389,6 @@ class Listing extends React.Component {
 				}
 			}
 		}
-
 
 		return (
 			<React.Fragment>
