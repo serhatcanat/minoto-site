@@ -352,13 +352,16 @@ class DetailGallery extends React.Component {
 	}
 
 	keyPress(e) {
+
 		if (this.mainSlider.current) {
 			switch (e.key) {
 				case "ArrowLeft":
-					this.mainSlider.current.prev();
+					//this.mainSlider.current.prev();
+					this.mainSlider.current.slideTo(this.state.activeImage);
 					break;
 				case "ArrowRight":
-					this.mainSlider.current.next();
+					//this.mainSlider.current.next();
+					this.mainSlider.current.slideTo(this.state.activeImage + 2);
 					break;
 				default: break;
 			}

@@ -319,13 +319,22 @@ export function seoFriendlyUrl(string) {
 }
 
 export function nextRandomPage(count, alreadyUsed) {
-	let pageCount = Math.floor((count - 24) / 8);
-	let pickedPage = Math.floor(Math.random() * Math.floor(pageCount));
+	let pageCount = 1;
+	if (count > 24) {
+		pageCount = Math.floor(count / 24) + 1;
+	}
+
+	let pickedPage = Math.ceil(Math.random() * pageCount);
+
+	if (pickedPage === 0) pickedPage = 1
 
 	if (alreadyUsed.indexOf(pickedPage) > -1 && pageCount > alreadyUsed.length) {
 		return nextRandomPage(count, alreadyUsed);
+	} else if (alreadyUsed.indexOf(pickedPage) > -1) {
+		return false;
 	} else {
 		alreadyUsed.push(pickedPage);
+
 		return { alreadyUsed: alreadyUsed, pickedPage: pickedPage }
 	}
 

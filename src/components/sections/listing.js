@@ -74,7 +74,9 @@ class Listing extends React.Component {
 			page: 1,
 			keyword: false,
 			pageOrder: 'first',
-			usedPages: []
+			usedPages: [],
+			total: false,
+			currentTotal: false
 		}
 
 		this.removeFilter = this.removeFilter.bind(this);
@@ -140,7 +142,7 @@ class Listing extends React.Component {
 
 		if (prevProps.listingQuery.siralama && !isEqual(prevProps.listingQuery.siralama, this.props.listingQuery.siralama)) {
 
-			let page = prevProps.listingQuery.siralama === "random" ? Math.floor(Math.random() * Math.floor(10)) + 1 : 1;
+			let page = (prevProps.listingQuery.siralama === "random" && Object.keys(vm.getQuery()).length < 4) ? Math.floor(Math.random() * Math.floor(10)) + 1 : 1;
 
 			this.setState({ page: page, order: (this.props.listingQuery.siralama ? this.props.listingQuery.siralama : vm.props.defaultOrder) });
 			vm.updateResults();
@@ -249,7 +251,8 @@ class Listing extends React.Component {
 	updateResults() {
 		let vm = this;
 
-		let page = vm.state.order === "random" ? Math.floor(Math.random() * Math.floor(10)) + 1 : 1;
+
+		let page = (vm.state.order === "random" && Object.keys(vm.getQuery()).length < 4) ? Math.floor(Math.random() * Math.floor(10)) + 1 : 1;
 		let order = vm.state.order ? vm.state.order : this.props.defaultOrder;
 
 		vm.setState({ loading: true, pageOrder: "first", page: vm.props.source === 'filters' ? page : 1, order: order });
@@ -275,22 +278,27 @@ class Listing extends React.Component {
 				}
 
 
-				if (opts.page > 1) {
+				if (opts.page > 0) {
 					payload.results = vm.props.listingData.results.concat(payload.results);
 				}
 
 				vm.props.setListingData(payload);
-
-
+				let usedPages = vm.state.usedPages;
+				if (payload.page && vm.state.usedPages.length === 0) {
+					usedPages.push(parseInt(payload.page))
+				}
 				vm.setState({
 					loading: false,
 					extending: false,
-					page: payload.page ? payload.page : 1,
+					page: payload.page ? parseInt(payload.page) : 1,
 					results: payload.results,
 					order: payload.order ? payload.order : 'date_desc',
 					keyword: payload.keyword ? payload.keyword : null,
 					pageOrder: 'regular',
 					total: (payload.totalResults ? payload.totalResults : 0),
+					currentTotal: (payload.currentResults ? payload.currentResults : 0),
+					filterResults: (payload.filterResults ? payload.filterResults : 0),
+					usedPages: usedPages
 				});
 
 
@@ -335,27 +343,32 @@ class Listing extends React.Component {
 		if (!vm.state.extending && vm.state.results) {
 			let page, pageArray;
 			if (vm.state.order === 'random') {
-				pageArray = nextRandomPage(vm.state.total, vm.state.usedPages).alreadyUsed;
-				page = nextRandomPage(vm.state.total, vm.state.usedPages).pickedPage;
+				let nextRandom = nextRandomPage(vm.state.filterResults, vm.state.usedPages);
+
+				pageArray = nextRandom.alreadyUsed;
+				page = nextRandom.pickedPage;
 
 			} else {
 				pageArray = [];
 				page = parseInt(vm.state.page) + 1;
 			}
 
-			vm.setState({
-				extending: true,
-				page: page,
-				usedPages: pageArray
-			});
+			if (page) {
+				vm.setState({
+					extending: true,
+					page: page,
+					usedPages: pageArray
+				});
 
-			setTimeout(function () {
-				vm.makeRequest({ page: page }, function () {
-					vm.setState({
-						extending: false,
+				setTimeout(function () {
+					vm.makeRequest({ page: page }, function () {
+						vm.setState({
+							extending: false,
+						})
 					})
-				})
-			}, 100)
+				}, 30)
+			}
+
 		}
 	}
 
