@@ -66,7 +66,7 @@ sitemap.toXML(function (err, xml) {
 /// END PAGES
 
 /// CAR POSTS
-axios.get(siteURL + '/filters').then(function (response) {
+axios.get(siteURL + '/car-posts').then(function (response) {
 	var carPostUrls = response.data.payload.results.map(function (result) {
 		return {
 			url: result,
