@@ -255,7 +255,7 @@ class Listing extends React.Component {
 		let page = (vm.state.order === "random" && Object.keys(vm.getQuery()).length < 4) ? Math.floor(Math.random() * Math.floor(10)) + 1 : 1;
 		let order = vm.state.order ? vm.state.order : this.props.defaultOrder;
 
-		vm.setState({ loading: true, pageOrder: "first", page: vm.props.source === 'filters' ? page : 1, order: order });
+		vm.setState({ loading: true, pageOrder: "first", page: vm.props.source === 'filters' ? page : 1, order: order, usedPages: [] });
 
 		setTimeout(function () { vm.makeRequest() }, 50)
 	}
@@ -284,9 +284,10 @@ class Listing extends React.Component {
 
 				vm.props.setListingData(payload);
 				let usedPages = vm.state.usedPages;
-				if (payload.page && vm.state.usedPages.length === 0) {
+				if ((payload.page && vm.state.usedPages.length === 0) || vm.state.usedPages.indexOf(payload.page) === -1) {
 					usedPages.push(parseInt(payload.page))
 				}
+
 				vm.setState({
 					loading: false,
 					extending: false,
@@ -354,6 +355,7 @@ class Listing extends React.Component {
 			}
 
 			if (page) {
+
 				vm.setState({
 					extending: true,
 					page: page,
