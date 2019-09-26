@@ -272,7 +272,6 @@ class Listing extends React.Component {
 			if (vm.mounted && payload) {
 
 
-
 				if (payload.redirect) {
 					setTimeout(function () { window.location.href = payload.link; }, 30)
 				}
@@ -286,7 +285,6 @@ class Listing extends React.Component {
 				let usedPages = vm.state.usedPages;
 				if ((payload.page && vm.state.usedPages.length === 0) || vm.state.usedPages.indexOf(payload.page) === -1) {
 					usedPages.push(parseInt(payload.page))
-
 				}
 
 				vm.setState({
