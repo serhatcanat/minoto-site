@@ -424,6 +424,7 @@ class Listing extends React.Component {
 							</aside>
 						}
 						<ListingResults loading={vm.state.loading} data={vm.props.listingData} mobile={vm.props.mobile} />
+
 						{(vm.props.listingData.results && vm.props.listingData.results.length < vm.props.listingData.totalResults) &&
 							<InfiniteScroller loading={vm.state.extending} onExtend={vm.extendResults} />
 						}
@@ -459,7 +460,7 @@ class ListingResults extends React.Component {
 		let data = vm.props.data
 		let results = data.results;
 
-		if (results && results.length) {
+		if (results && results.length && !loading) {
 			return (
 				<React.Fragment>
 					{
@@ -468,7 +469,6 @@ class ListingResults extends React.Component {
 								{
 									loading === false && (<div className="results-error"><div className="error-message">Aradığınız kriterlere uygun bir araç bulamadık. Ancak aşağıdaki araçlar ilginizi çekebilir. </div></div>)
 								}
-
 							</React.Fragment>
 						)
 					}
@@ -502,7 +502,7 @@ class ListingResults extends React.Component {
 																		title={item.title}
 																		subtitle={item.dealer}
 																		additionTitle={item.count + ' ARAÇ'}
-																		image={storageSpace('c_scale,q_auto:good,w_360/dealers', item.image)}
+																		image={item.image ? storageSpace('c_scale,q_auto:good,w_360/dealers', item.image) : ''}
 																		labels={item.labels}
 																		faved={item.favorited}
 																		//favControls={'/dummy/data/fav/dealer/'+item.id}
@@ -586,7 +586,7 @@ class ListingResults extends React.Component {
 																		title={item.title}
 																		subtitle={item.dealer}
 																		additionTitle={item.count + ' ARAÇ'}
-																		image={storageSpace('c_scale,q_auto:good,w_360/dealers', item.image)}
+																		image={item.image ? storageSpace('c_scale,q_auto:good,w_360/dealers', item.image) : ""}
 																		labels={item.labels}
 																		faved={item.favorited}
 																		//favControls={'/dummy/data/fav/dealer/'+item.id}
@@ -655,7 +655,6 @@ class ListingResults extends React.Component {
 					{
 						loading === false && (<div className="results-error"><div className="error-message">Aradığınız kriterlere uygun bir araç bulamadık. </div></div>)
 					}
-
 				</React.Fragment>
 			)
 		}
