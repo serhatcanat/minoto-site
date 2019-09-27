@@ -6,12 +6,14 @@ if (!endpoint) {
 	switch (domain) {
 		case 'localhost':
 			//endpoint = 'http://localhost:8000'
-			endpoint = 'https://minoto-api.thinkerfox.com'
+			endpoint = 'https://beta-api.minoto.com'
 			//endpoint = 'https://api.minoto.com'
 			break;
 		case 'minoto.thinkerfox.com':
 			endpoint = 'https://minoto-api.thinkerfox.com'
-			//endpoint = 'https://api.minoto.com'
+			break;
+		case 'beta.minoto.com':
+			endpoint = 'https://beta-api.minoto.com'
 			break;
 		default:
 			endpoint = 'https://api.minoto.com'
