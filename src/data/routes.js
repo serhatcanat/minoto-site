@@ -135,6 +135,20 @@ module.exports = {
 			description: "Sıfır Km araba fiyat listesi mi aradınız? Sıfır Km araba fiyat listesi ve özellikleri Minoto'da! Hemen tıkla, fırsatları kaçırma!",
 			postTitle: false,
 		},
+		dealerApplication: {
+			path: "/bayi-basvuru-formu",
+			component: "DealerApplication",
+			exact: true,
+			linkTitle: "Bayi Başvuru Formu",
+			title: "Bayi Başvuru Formu",
+		},
+		dealerApplicationStatus: {
+			path: "/bayi-basvuru-durumu/:applicationNo",
+			component: "DealerApplicationStatus",
+			exact: true,
+			linkTitle: "Bayi Başvuru Durumu",
+			title: "Bayi Başvuru Durumu",
+		},
 		detail: {
 			path: "/:slug-:dealer-:post",
 			component: "Detail",
@@ -235,20 +249,7 @@ module.exports = {
 
 
 
-		dealerApplication: {
-			path: "/bayi-basvuru-formu",
-			component: "DealerApplication",
-			exact: true,
-			linkTitle: "Bayi Başvuru Formu",
-			title: "Bayi Başvuru Formu",
-		},
-		dealerApplicationStatus: {
-			path: "/bayi-basvuru-durumu/:applicationNo",
-			component: "DealerApplicationStatus",
-			exact: true,
-			linkTitle: "Bayi Başvuru Durumu",
-			title: "Bayi Başvuru Durumu",
-		},
+
 		/*searchBrand: {
 			path: "/:brand/:model?/:optdata1?/:optdata2?/:optdata3?",
 			component: "SearchBrand",
