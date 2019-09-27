@@ -232,6 +232,13 @@ module.exports = {
 			linkTitle: "Minoto Blog",
 			title: "Minoto Blog",
 		},
+		blogRedirect: {
+			path: "/blog/detay/:slug",
+			component: "BlogRedirect",
+			exact: true,
+			linkTitle: "Minoto Blog",
+			title: "Minoto Blog",
+		},
 		blogDetail: {
 			path: "/blog/:slug",
 			component: "BlogDetail",

@@ -61,6 +61,7 @@ import GdprPolicy from 'pages/gdpr-policy'
 import Contact from 'pages/contact'
 import Blog from 'pages/blog'
 import BlogDetail from 'pages/blog-detail'
+import BlogRedirect from 'pages/blog-redirect'
 import DealerApplication from 'pages/dealer-application'
 import DealerApplicationStatus from 'pages/dealer-application-status'
 
@@ -91,6 +92,7 @@ const pageRegistry = {
 	Contact: Contact,
 	Blog: Blog,
 	BlogDetail: BlogDetail,
+	BlogRedirect: BlogRedirect,
 	DealerApplication: DealerApplication,
 	DealerApplicationStatus: DealerApplicationStatus,
 	Posts: Posts,
