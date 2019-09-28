@@ -18,12 +18,11 @@ import FavBtn from 'components/partials/favbtn'
 import ContentBox from 'components/partials/contentbox'
 import PriceTag from 'components/partials/price-tag'
 import { InputForm, FormInput } from 'components/partials/forms'
-import Select from 'components/partials/select'
 // Deps
 //import { ListingLink } from 'controllers/navigator'
 import { set404 } from 'controllers/navigator'
 import { openModal } from "functions/modals"
-import { blockOverflow, nl2br, remToPx } from 'functions/helpers.js'
+import { blockOverflow, nl2br, remToPx, formatNumber } from 'functions/helpers.js'
 import parse from 'html-react-parser'
 import { connect } from "react-redux"
 import request from 'controllers/request'
@@ -425,17 +424,18 @@ class DetailInfo extends React.Component {
 			showCosts: false,
 			showDealers: false,
 			selectedBranch: false,
-			selectedMonth: {
-				"label": "36 ay",
-				"value": "36 ay",
-				"selected": true
-			},
+			garantiInterest: "1.49",
+			garantiInstallment: "2.826",
+			productPrice: this.props.product.price
 		}
-		this.changeMonth = this.changeMonth.bind(this);
+		this.calculateInstallments = this.calculateInstallments.bind(this)
 	}
 
-	changeMonth(option) {
-		this.setState({ selectedMonth: option });
+	calculateInstallments() {
+		let credit = document.getElementById('creditAmount').value.replace('.', '');
+		let month = document.getElementById('creditDuration').value;
+		//let interest = this.state.garantiInterest;
+		this.setState({ garantiInstallment: formatNumber(credit / month) });
 	}
 
 	render() {
@@ -726,14 +726,14 @@ class DetailInfo extends React.Component {
 					<h2>KREDİ HESAPLAMA</h2>
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing
 					elit, sed do eiusmod tempor incididunt.</p>
-					<InputForm className="section contentpage-form grid-container" ref={this.form} onSubmit={this.saveData}>
+					<InputForm className="section contentpage-form grid-container">
 						<div className="grid-row">
 							<div className="grid-col x5 m-x12">
-
 								<FormInput
+									id="creditAmount"
 									placeholder="Kredi tutarı"
 									className="credit-price"
-									value={product.price ? parseInt(product.price / 2, 10).toString() : 50000}
+									value={this.state.productPrice ? parseInt(this.state.productPrice / 2, 10).toString() : 50000}
 									validation={{
 										required: "Bir tutar girmelisiniz.",
 										maxNum: ["Tutar araç fiyatından yüksek olamaz.", (product.price)],
@@ -745,38 +745,21 @@ class DetailInfo extends React.Component {
 									type="number" />
 							</div>
 							<div className="grid-col x4 m-x12 no-padding">
-								<Select
-
-									value={vm.state.selectedMonth}
-									onChange={vm.changeMonth}
-									options={[
-										{
-											"label": "12 ay",
-											"value": "12 ay",
-											"selected": false
-										},
-										{
-											"label": "18 ay",
-											"value": "18 ay",
-											"selected": false
-										},
-										{
-											"label": "24 ay",
-											"value": "24 ay",
-											"selected": false
-										},
-										{
-											"label": "36 ay",
-											"value": "36 ay",
-											"selected": true
-										},
-										{
-											"label": "48 ay",
-											"value": "48 ay",
-											"selected": false
-										}
-									]}
-								/>
+								<FormInput
+									id="creditDuration"
+									placeholder="Vade"
+									className="credit-price"
+									value="36"
+									validation={{
+										required: "Bir vade girmelisiniz.",
+										minNum: ["En az 12 ay seçebilirsiniz.", 12],
+										maxNum: ["En fazla 60 ay seçebilirsiniz.", 60],
+									}}
+									name="credit_duration"
+									mask="1+"
+									disabled={vm.state.loading}
+									formatNumber
+									type="number" />
 							</div>
 							<div className="grid-col x3 m-x12 center">
 								<Btn
@@ -785,7 +768,7 @@ class DetailInfo extends React.Component {
 									block
 									disabled={this.state.submitting}
 									status={this.state.submitting && 'loading'}
-									onClick={() => { this.setState({ touched: true }) }}
+									onClick={() => { this.calculateInstallments() }}
 									className="form-submitbtn">
 									HESAPLA
 								</Btn>
@@ -807,9 +790,9 @@ class DetailInfo extends React.Component {
 						<tbody>
 							<tr>
 
-								<td>2.826 TL</td>
+								<td>{this.state.garantiInstallment} TL</td>
 								<td>
-									<div className="tablePad">%1.12</div>
+									<div className="tablePad">%{this.state.garantiInterest}</div>
 								</td>
 								<td><img src={image_garanti} alt="" height="50" /></td>
 								<td>
@@ -819,7 +802,7 @@ class DetailInfo extends React.Component {
 										block
 										disabled={this.state.submitting}
 										status={this.state.submitting && 'loading'}
-										onClick={() => { this.setState({ touched: true }) }}
+										onClick={() => { window.open('https://www.garantibbva.com.tr/tr/bireysel/krediler/tasit-arac-kredisi-hesaplama.page?cid=oth:oth:oth:bireysel-hedeffilotasitkredisi:tasitkredisi::::::375x400:oth', '_blank'); }}
 										className="form-submitbtn">
 										BAŞVUR
 									</Btn>
