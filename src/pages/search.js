@@ -26,15 +26,13 @@ export default class Search extends React.Component {
 	}
 
 	componentDidUpdate(prevProps) {
-
 		if (this.props.location.search !== history.location.search) {
-			if (history.location.search === '' || history.location.search.length === 0) {
 
+			if (history.location.search === '' || history.location.search.length === 0) {
 				this.setState({
 					endpoint: 'filters'
 				})
 			} else {
-
 				this.setState({
 					endpoint: 'search/key'
 				})

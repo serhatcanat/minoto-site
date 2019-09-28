@@ -280,11 +280,11 @@
 					color: $color-text;
 					text-transform: none;
 
-					+ span {
+					/* + span {
 						&:before{
 							content: ', ';
-						}
-					}
+						} 
+					} */
 				}
 			}
 	}

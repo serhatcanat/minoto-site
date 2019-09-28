@@ -77,7 +77,7 @@ export default class ContentBox extends React.Component {
 										<div className="additions-labels">
 											{vm.props.labels.map((label, nth) => {
 												return (
-													<span key={nth}>{label}</span>
+													<span key={nth}>{`${label}${nth + 1 === vm.props.labels.length ? '' : ','}`}&nbsp;</span>
 												)
 											})}
 										</div>

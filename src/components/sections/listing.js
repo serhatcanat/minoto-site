@@ -141,16 +141,22 @@ class Listing extends React.Component {
 		}
 
 		if (prevProps.listingQuery.siralama && !isEqual(prevProps.listingQuery.siralama, this.props.listingQuery.siralama)) {
-
 			let page = (prevProps.listingQuery.siralama === "random" && Object.keys(vm.getQuery()).length < 4) ? Math.floor(Math.random() * Math.floor(10)) + 1 : 1;
 
 			this.setState({ page: page, order: (this.props.listingQuery.siralama ? this.props.listingQuery.siralama : vm.props.defaultOrder) });
 			vm.updateResults();
 		}
 
+		//console.log(Object.keys(this.props.filterQuery).indexOf('ara') === -1)
+
+		//console.log(this.props.filterQuery)
+
 		if (!isEqual(prevProps.filterQuery, this.props.filterQuery)) {
+
 			vm.updateResults();
 		}
+
+		//setTimeout(function () { console.log(vm.props.filterQuery) }, 300)
 	}
 
 	getQuery() {
@@ -182,13 +188,14 @@ class Listing extends React.Component {
 
 				vm.props.setListingQuery(listingQuery);
 				vm.props.setFilterQuery(filterQuery);
+
 			}
 			else if (!vm.initialized) {
 
 				vm.updateResults();
 			}
 		}, 30);
-	}//
+	}
 
 	updateURL() {
 		if (this.props.urlBinding) {
@@ -257,7 +264,7 @@ class Listing extends React.Component {
 
 		vm.setState({ loading: true, pageOrder: "first", page: vm.props.source === 'filters' ? page : 1, order: order, usedPages: [] });
 
-		setTimeout(function () { vm.makeRequest() }, 50)
+		setTimeout(function () { vm.makeRequest(); }, 50)
 	}
 
 	makeRequest(opts = {}, endFunction = false) {
@@ -265,6 +272,7 @@ class Listing extends React.Component {
 
 		vm.initialized = true;
 		let requestURL = vm.props.source; //+'?'+q;
+
 		vm.updateURL();
 
 
@@ -282,6 +290,7 @@ class Listing extends React.Component {
 				}
 
 				vm.props.setListingData(payload);
+
 				let usedPages = vm.state.usedPages;
 				if ((payload.page && vm.state.usedPages.length === 0) || vm.state.usedPages.indexOf(payload.page) === -1) {
 					usedPages.push(parseInt(payload.page))
