@@ -17,7 +17,8 @@ import Link from 'components/partials/link.js'
 import FavBtn from 'components/partials/favbtn'
 import ContentBox from 'components/partials/contentbox'
 import PriceTag from 'components/partials/price-tag'
-
+import { InputForm, FormInput } from 'components/partials/forms'
+import Select from 'components/partials/select'
 // Deps
 //import { ListingLink } from 'controllers/navigator'
 import { set404 } from 'controllers/navigator'
@@ -32,6 +33,7 @@ import { storageSpace } from "functions/helpers"
 // Assets
 import image_avatar from 'assets/images/defaults/avatar.svg';
 import image_loader from 'assets/images/minoto-loading.gif'
+import image_garanti from 'assets/images/gananti_bg.png'
 
 const ncapDescriptions = [
 	"1 yıldızlı güvenlik: Marjinal çarpışma koruması.",
@@ -422,8 +424,18 @@ class DetailInfo extends React.Component {
 		this.state = {
 			showCosts: false,
 			showDealers: false,
-			selectedBranch: false
+			selectedBranch: false,
+			selectedMonth: {
+				"label": "36 ay",
+				"value": "36 ay",
+				"selected": true
+			},
 		}
+		this.changeMonth = this.changeMonth.bind(this);
+	}
+
+	changeMonth(option) {
+		this.setState({ selectedMonth: option });
 	}
 
 	render() {
@@ -710,6 +722,115 @@ class DetailInfo extends React.Component {
 							</React.Fragment>
 						)
 				}
+				<div className="info-credit-calculation">
+					<h2>KREDİ HESAPLAMA</h2>
+					<p>Lorem ipsum dolor sit amet, consectetur adipiscing
+					elit, sed do eiusmod tempor incididunt.</p>
+					<InputForm className="section contentpage-form grid-container" ref={this.form} onSubmit={this.saveData}>
+						<div className="grid-row">
+							<div className="grid-col x5 m-x12">
+
+								<FormInput
+									placeholder="Kredi tutarı"
+									className="credit-price"
+									value={product.price ? parseInt(product.price / 2, 10).toString() : 50000}
+									validation={{
+										required: "Bir tutar girmelisiniz.",
+										maxNum: ["Tutar araç fiyatından yüksek olamaz.", (product.price)],
+									}}
+									name="credit_amount"
+									mask="1++++++++++++++"
+									disabled={vm.state.loading}
+									formatNumber
+									type="number" />
+							</div>
+							<div className="grid-col x4 m-x12 no-padding">
+								<Select
+
+									value={vm.state.selectedMonth}
+									onChange={vm.changeMonth}
+									options={[
+										{
+											"label": "12 ay",
+											"value": "12 ay",
+											"selected": false
+										},
+										{
+											"label": "18 ay",
+											"value": "18 ay",
+											"selected": false
+										},
+										{
+											"label": "24 ay",
+											"value": "24 ay",
+											"selected": false
+										},
+										{
+											"label": "36 ay",
+											"value": "36 ay",
+											"selected": true
+										},
+										{
+											"label": "48 ay",
+											"value": "48 ay",
+											"selected": false
+										}
+									]}
+								/>
+							</div>
+							<div className="grid-col x3 m-x12 center">
+								<Btn
+									type="submit"
+									uppercase
+									block
+									disabled={this.state.submitting}
+									status={this.state.submitting && 'loading'}
+									onClick={() => { this.setState({ touched: true }) }}
+									className="form-submitbtn">
+									HESAPLA
+								</Btn>
+							</div>
+						</div>
+					</InputForm>
+				</div>
+				<div className="info-credit-results">
+					<table className="table listprices-table">
+						<thead>
+							<tr>
+								<th>Taksit</th>
+								<th><div className="tablePad">Faiz</div></th>
+								<th>Banka</th>
+								<th></th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr>
+
+								<td>2.826 TL</td>
+								<td>
+									<div className="tablePad">%1.12</div>
+								</td>
+								<td><img src={image_garanti} alt="" height="50" /></td>
+								<td>
+									<Btn
+										type="submit"
+										uppercase
+										block
+										disabled={this.state.submitting}
+										status={this.state.submitting && 'loading'}
+										onClick={() => { this.setState({ touched: true }) }}
+										className="form-submitbtn">
+										BAŞVUR
+									</Btn>
+								</td>
+							</tr>
+						</tbody>
+
+
+
+					</table>
+				</div>
 			</div>
 		)
 	}

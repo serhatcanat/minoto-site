@@ -127,7 +127,6 @@ export function formatNumber(num, opts = {}) {
 	if (options.showDecimals) {
 		result += (num - plainNum).toFixed(options.decimals).toString().replace('.', ',').replace('0,', ',');
 	}
-
 	return result;
 }
 

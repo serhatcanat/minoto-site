@@ -179,6 +179,15 @@ class InputText extends React.Component {
 
 		this.validate();
 
+		let newVal = this.state.value;
+
+		if (this.props.formatNumber) {
+			newVal = formatNumber(newVal.replace(/[.,]/g, ''), { showDecimals: false });
+
+
+		}
+		this.setState({ value: newVal });
+
 		window.format = formatNumber;
 	}
 
