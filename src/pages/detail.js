@@ -22,7 +22,7 @@ import { InputForm, FormInput } from 'components/partials/forms'
 //import { ListingLink } from 'controllers/navigator'
 import { set404 } from 'controllers/navigator'
 import { openModal } from "functions/modals"
-import { blockOverflow, nl2br, remToPx, formatNumber } from 'functions/helpers.js'
+import { blockOverflow, nl2br, remToPx } from 'functions/helpers.js'
 import parse from 'html-react-parser'
 import { connect } from "react-redux"
 import request from 'controllers/request'
@@ -32,7 +32,7 @@ import { storageSpace } from "functions/helpers"
 // Assets
 import image_avatar from 'assets/images/defaults/avatar.svg';
 import image_loader from 'assets/images/minoto-loading.gif'
-import image_garanti from 'assets/images/gananti_bg.png'
+import image_garanti from 'assets/images/garabtiBBVA.png'
 
 const ncapDescriptions = [
 	"1 yıldızlı güvenlik: Marjinal çarpışma koruması.",
@@ -425,17 +425,29 @@ class DetailInfo extends React.Component {
 			showDealers: false,
 			selectedBranch: false,
 			garantiInterest: "1.49",
-			garantiInstallment: "2.826",
-			productPrice: this.props.product.price
+			garantiInstallment: false,
+			productPrice: this.props.product.price,
+			loading: false,
+			error: false
 		}
 		this.calculateInstallments = this.calculateInstallments.bind(this)
 	}
 
 	calculateInstallments() {
+		this.setState({ loading: true, error: false })
 		let credit = document.getElementById('creditAmount').value.replace('.', '');
 		let month = document.getElementById('creditDuration').value;
-		//let interest = this.state.garantiInterest;
-		this.setState({ garantiInstallment: formatNumber(credit / month) });
+		let interest = this.state.garantiInterest / 100 * 1.2;
+		let installments = credit * (interest * Math.pow((1 + interest), month)) / (Math.pow(1 + interest, month) - 1)
+		this.setState({
+			loading: false, error: false,
+			garantiInstallment: parseFloat(installments).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]
+			//garantiInstallment: parseFloat(Math.round(installments * 100) / 100).toFixed(2)
+		});
+	}
+
+	componentDidMount() {
+		this.calculateInstallments();
 	}
 
 	render() {
@@ -726,7 +738,7 @@ class DetailInfo extends React.Component {
 					<h2>KREDİ HESAPLAMA</h2>
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing
 					elit, sed do eiusmod tempor incididunt.</p>
-					<InputForm className="section contentpage-form grid-container">
+					<InputForm className="section contentpage-form grid-container" onSubmit={this.calculateInstallments}>
 						<div className="grid-row">
 							<div className="grid-col x5 m-x12">
 								<FormInput
@@ -736,7 +748,8 @@ class DetailInfo extends React.Component {
 									value={this.state.productPrice ? parseInt(this.state.productPrice / 2, 10).toString() : 50000}
 									validation={{
 										required: "Bir tutar girmelisiniz.",
-										maxNum: ["Tutar araç fiyatından yüksek olamaz.", (product.price)],
+										minNum: ["En az 5.000TL girebilirsiniz.", 5000],
+										maxNum: ["En fazla 500.000TL girebilirsiniz.", 500000],
 									}}
 									name="credit_amount"
 									mask="1++++++++++++++"
@@ -766,9 +779,9 @@ class DetailInfo extends React.Component {
 									type="submit"
 									uppercase
 									block
-									disabled={this.state.submitting}
+									disabled={vm.state.loading}
 									status={this.state.submitting && 'loading'}
-									onClick={() => { this.calculateInstallments() }}
+									//onClick={() => {  }}
 									className="form-submitbtn">
 									HESAPLA
 								</Btn>
@@ -789,7 +802,6 @@ class DetailInfo extends React.Component {
 
 						<tbody>
 							<tr>
-
 								<td>{this.state.garantiInstallment} TL</td>
 								<td>
 									<div className="tablePad">%{this.state.garantiInterest}</div>
@@ -804,14 +816,11 @@ class DetailInfo extends React.Component {
 										status={this.state.submitting && 'loading'}
 										onClick={() => { window.open('https://www.garantibbva.com.tr/tr/bireysel/krediler/tasit-arac-kredisi-hesaplama.page?cid=oth:oth:oth:bireysel-hedeffilotasitkredisi:tasitkredisi::::::375x400:oth', '_blank'); }}
 										className="form-submitbtn">
-										BAŞVUR
+										{vm.props.mobile ? (<i className="icon-arrow-right"></i>) : 'BAŞVUR'}
 									</Btn>
 								</td>
 							</tr>
 						</tbody>
-
-
-
 					</table>
 				</div>
 			</div>
