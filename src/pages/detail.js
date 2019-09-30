@@ -354,8 +354,7 @@ class DetailGallery extends React.Component {
 	}
 
 	keyPress(e) {
-
-		if (this.mainSlider.current) {
+		if (this.mainSlider.current && document.activeElement.tagName === 'BODY') {
 			switch (e.key) {
 				case "ArrowLeft":
 					//this.mainSlider.current.prev();
