@@ -33,6 +33,7 @@ import { storageSpace } from "functions/helpers"
 import image_avatar from 'assets/images/defaults/avatar.svg';
 import image_loader from 'assets/images/minoto-loading.gif'
 import image_garanti from 'assets/images/garabtiBBVA.png'
+import image_isbank from 'assets/images/turkiye-is-bankasi.png'
 
 const ncapDescriptions = [
 	"1 yıldızlı güvenlik: Marjinal çarpışma koruması.",
@@ -426,6 +427,8 @@ class DetailInfo extends React.Component {
 			selectedBranch: false,
 			garantiInterest: "1.49",
 			garantiInstallment: false,
+			isbankInterest: "1.39",
+			isbankInstallment: false,
 			productPrice: this.props.product.price,
 			loading: false,
 			error: false
@@ -437,13 +440,16 @@ class DetailInfo extends React.Component {
 		this.setState({ loading: true, error: false })
 		let credit = document.getElementById('creditAmount').value.replace('.', '');
 		let month = document.getElementById('creditDuration').value;
-		let interest = this.state.garantiInterest / 100 * 1.2;
-		let installments = credit * (interest * Math.pow((1 + interest), month)) / (Math.pow(1 + interest, month) - 1)
+		let interestGaranti = this.state.garantiInterest / 100 * 1.2;
+		let interestIsbank = this.state.isbankInterest / 100 * 1.2;
+		let installmentsGaranti = credit * (interestGaranti * Math.pow((1 + interestGaranti), month)) / (Math.pow(1 + interestGaranti, month) - 1)
+		let installmentsIsbank = credit * (interestIsbank * Math.pow((1 + interestIsbank), month)) / (Math.pow(1 + interestIsbank, month) - 1)
 		this.setState({
 			loading: false, error: false,
 			//garantiInstallment: parseFloat(installments).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]
 			//garantiInstallment: parseFloat(Math.round(installments * 100) / 100).toFixed(2)
-			garantiInstallment: formatNumber(Math.round(installments * 100) / 100, { showDecimals: true })
+			garantiInstallment: formatNumber(Math.round(installmentsGaranti * 100) / 100, { showDecimals: true }),
+			isbankInstallment: formatNumber(Math.round(installmentsIsbank * 100) / 100, { showDecimals: true })
 		});
 	}
 
@@ -816,6 +822,25 @@ class DetailInfo extends React.Component {
 										disabled={this.state.submitting}
 										status={this.state.submitting && 'loading'}
 										onClick={() => { window.open('https://www.garantibbva.com.tr/tr/bireysel/krediler/tasit-arac-kredisi-hesaplama.page?cid=oth:oth:oth:bireysel-hedeffilotasitkredisi:tasitkredisi::::::375x400:oth', '_blank'); }}
+										className="form-submitbtn">
+										{vm.props.mobile ? (<i className="icon-new-tab"></i>) : 'BAŞVUR'}
+									</Btn>
+								</td>
+							</tr>
+							<tr>
+								<td>{this.state.isbankInstallment} TL</td>
+								<td>
+									<div className="tablePad">%{this.state.isbankInterest.replace('.', ',')}</div>
+								</td>
+								<td><img src={image_isbank} alt="" height="50" /></td>
+								<td>
+									<Btn
+										type="submit"
+										uppercase
+										block
+										disabled={this.state.submitting}
+										status={this.state.submitting && 'loading'}
+										onClick={() => { window.open('https://www.isbank.com.tr/TR/bireysel/krediler/kredi-hesaplama/Sayfalar/kredi-hesaplama.aspx?gclid=EAIaIQobChMIzcmbhZr45AIVRs-yCh0HgA-EEAAYASAAEgK1NfD_BwE#Taksit_tasit', '_blank'); }}
 										className="form-submitbtn">
 										{vm.props.mobile ? (<i className="icon-new-tab"></i>) : 'BAŞVUR'}
 									</Btn>
