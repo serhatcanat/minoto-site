@@ -22,7 +22,7 @@ import { InputForm, FormInput } from 'components/partials/forms'
 //import { ListingLink } from 'controllers/navigator'
 import { set404 } from 'controllers/navigator'
 import { openModal } from "functions/modals"
-import { blockOverflow, nl2br, remToPx } from 'functions/helpers.js'
+import { blockOverflow, nl2br, remToPx, formatNumber } from 'functions/helpers.js'
 import parse from 'html-react-parser'
 import { connect } from "react-redux"
 import request from 'controllers/request'
@@ -441,8 +441,9 @@ class DetailInfo extends React.Component {
 		let installments = credit * (interest * Math.pow((1 + interest), month)) / (Math.pow(1 + interest, month) - 1)
 		this.setState({
 			loading: false, error: false,
-			garantiInstallment: parseFloat(installments).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]
+			//garantiInstallment: parseFloat(installments).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]
 			//garantiInstallment: parseFloat(Math.round(installments * 100) / 100).toFixed(2)
+			garantiInstallment: formatNumber(Math.round(installments * 100) / 100, { showDecimals: true })
 		});
 	}
 
@@ -804,7 +805,7 @@ class DetailInfo extends React.Component {
 							<tr>
 								<td>{this.state.garantiInstallment} TL</td>
 								<td>
-									<div className="tablePad">%{this.state.garantiInterest}</div>
+									<div className="tablePad">%{this.state.garantiInterest.replace('.', ',')}</div>
 								</td>
 								<td><img src={image_garanti} alt="" height="50" /></td>
 								<td>
@@ -816,7 +817,7 @@ class DetailInfo extends React.Component {
 										status={this.state.submitting && 'loading'}
 										onClick={() => { window.open('https://www.garantibbva.com.tr/tr/bireysel/krediler/tasit-arac-kredisi-hesaplama.page?cid=oth:oth:oth:bireysel-hedeffilotasitkredisi:tasitkredisi::::::375x400:oth', '_blank'); }}
 										className="form-submitbtn">
-										{vm.props.mobile ? (<i className="icon-arrow-right"></i>) : 'BAŞVUR'}
+										{vm.props.mobile ? (<i className="icon-new-tab"></i>) : 'BAŞVUR'}
 									</Btn>
 								</td>
 							</tr>

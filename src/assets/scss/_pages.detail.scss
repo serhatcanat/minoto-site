@@ -1234,6 +1234,11 @@
 						}
 						button{
 							padding: 11px 11px;
+							@include media{
+								span.btn-content{
+									font-size: 1.8rem;
+								}
+							}	
 						}
 					}
 					
