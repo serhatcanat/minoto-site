@@ -994,7 +994,7 @@ class DetailCredit extends React.Component {
 									</Btn>
 								</td>
 							</tr>
-							<tr>
+							{/*<tr>
 								<td>{this.state.isbankInstallment} TL</td>
 								<td>
 									<div className="tablePad">%{this.state.isbankInterest.replace('.', ',')}</div>
@@ -1012,7 +1012,7 @@ class DetailCredit extends React.Component {
 										{vm.props.mobile ? (<i className="icon-new-tab"></i>) : 'BAŞVUR'}
 									</Btn>
 								</td>
-							</tr>
+							</tr>*/}
 						</tbody>
 					</table>
 				</div>
