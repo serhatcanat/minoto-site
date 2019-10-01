@@ -1035,6 +1035,7 @@ class DetailRelated extends React.Component {
 class DetailTopInfo extends React.Component {
 	render() {
 		let product = this.props.product;
+
 		return (
 			<div className="section detail-topinfo">
 				{(product.highlights && !this.props.mobile) &&
@@ -1044,7 +1045,7 @@ class DetailTopInfo extends React.Component {
 								{
 									highlight.label && (
 										<li key={nth} title={highlight.title}>{(highlight.image ?
-											<Image alt={highlight.title} src={highlight.image} />
+											<Image alt={highlight.title} src={`/dummy/images/${highlight.image}`} />
 											:
 											<span>{highlight.label}</span>
 										)}</li>
