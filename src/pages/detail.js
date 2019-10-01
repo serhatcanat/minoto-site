@@ -457,7 +457,7 @@ class DetailInfo extends React.Component {
 								{
 									highlight.label && (
 										<li key={nth} title={highlight.title}>{(highlight.image ?
-											<Image alt={highlight.title} src={highlight.image} />
+											<Image alt={highlight.title} src={`/dummy/images/${highlight.image}`} />
 											:
 											<span>{highlight.label}</span>
 										)}</li>
