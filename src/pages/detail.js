@@ -874,7 +874,9 @@ class DetailCredit extends React.Component {
 			isbankInstallment: false,
 			productPrice: this.props.product.price,
 			loading: false,
-			error: false
+			error: false,
+			month: 36,
+			amount: false,
 		}
 		this.calculateInstallments = this.calculateInstallments.bind(this)
 	}
@@ -888,6 +890,8 @@ class DetailCredit extends React.Component {
 		let installmentsIsbank = credit * (interestIsbank * Math.pow((1 + interestIsbank), month)) / (Math.pow(1 + interestIsbank, month) - 1)
 		this.setState({
 			loading: false, error: false,
+			month: month,
+			amount: formatNumber(Math.round(credit * 100) / 100, { showDecimals: false }),
 			//garantiInstallment: parseFloat(installments).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]
 			//garantiInstallment: parseFloat(Math.round(installments * 100) / 100).toFixed(2)
 			garantiInstallment: formatNumber(Math.round(installmentsGaranti * 100) / 100, { showDecimals: true }),
@@ -906,11 +910,10 @@ class DetailCredit extends React.Component {
 			<div className="detail-info">
 				<div className="info-credit-calculation">
 					<h2>KREDİ HESAPLAMA</h2>
-					<p>Lorem ipsum dolor sit amet, consectetur adipiscing
-					elit, sed do eiusmod tempor incididunt.</p>
+					<p>Kredi tutarı aracın fiyatına göre otomatik olarak hesaplanır.</p>
 					<InputForm className="section contentpage-form grid-container" onSubmit={this.calculateInstallments}>
 						<div className="grid-row">
-							<div className="grid-col x5 m-x12">
+							<div className="grid-col x5 m-x6">
 								<FormInput
 									id="creditAmount"
 									placeholder="Kredi tutarı"
@@ -927,7 +930,7 @@ class DetailCredit extends React.Component {
 									formatNumber
 									type="number" />
 							</div>
-							<div className="grid-col x4 m-x12 no-padding">
+							<div className="grid-col x4 m-x6 no-padding">
 								<FormInput
 									id="creditDuration"
 									placeholder="Vade"
@@ -984,7 +987,8 @@ class DetailCredit extends React.Component {
 										block
 										disabled={this.state.submitting}
 										status={this.state.submitting && 'loading'}
-										onClick={() => { window.open('https://www.garantibbva.com.tr/tr/bireysel/krediler/tasit-arac-kredisi-hesaplama.page?cid=oth:oth:oth:bireysel-hedeffilotasitkredisi:tasitkredisi::::::375x400:oth', '_blank'); }}
+										onClick={() => openModal('garanti', { advert: vm.props.product, installment: this.state.garantiInstallment, interest: this.state.garantiInterest, month: this.state.month, amount: this.state.amount })}
+										//onClick={() => { window.open('https://www.garantibbva.com.tr/tr/bireysel/krediler/tasit-arac-kredisi-hesaplama.page?cid=oth:oth:oth:bireysel-hedeffilotasitkredisi:tasitkredisi::::::375x400:oth', '_blank'); }}
 										className="form-submitbtn">
 										{vm.props.mobile ? (<i className="icon-new-tab"></i>) : 'BAŞVUR'}
 									</Btn>
