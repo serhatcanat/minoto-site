@@ -8,7 +8,6 @@ import Link from 'components/partials/link'
 // Deps
 import { connect } from "react-redux"
 import image_garanti from 'assets/images/garabtiBBVA.png'
-import { closeModal, openModal } from 'functions/modals'
 
 const mapStateToProps = state => {
     return {
@@ -34,14 +33,14 @@ class GarantiModalRaw extends React.Component {
 
         vm.setState({ loading: true, error: false })
 
-        let record = {
+        /* let record = {
             advertID: e.target.elements.advertID.value,
             message: e.target.elements.message.value,
             title: vm.props.advert.title,
             email: vm.props.user.email,
             offerPrice: parseInt(e.target.elements.bid.value.replace('.', '')),
             messageType: 'garanti'
-        };
+        }; */
 
 
     }

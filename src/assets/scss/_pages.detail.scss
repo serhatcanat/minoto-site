@@ -1173,6 +1173,25 @@
 							padding-left: 1.1rem;
 						}
 					}
+					
+					.credit-price.currency-after{
+						&:after{
+							content: 'TL';
+							position: absolute;
+							right: 2rem;
+							top: 1.9rem;
+							opacity: 0.6;
+						}
+					}
+					.credit-price.month-after{
+						&:after{
+							content: 'AY';
+							position: absolute;
+							right: 2rem;
+							top: 1.9rem;
+							opacity: 0.6;
+						}
+					}
 					.credit-price > input{
 						padding: 1.5rem 1.3rem;
 					}
@@ -1232,6 +1251,7 @@
 							padding-bottom: 20px;
 							padding-right: 0.5rem; 
 							padding-left: 1rem;
+							width: 121px;
 						}
 						&:nth-child(4){
 							padding-top: 20px;
@@ -1239,8 +1259,12 @@
 							padding-right: 0.5rem; 
 							padding-left: 1rem;
 						}
+						
 						button{
-							padding: 11px 11px;
+							padding: 8px 0px;
+							span.btn-content{
+								font-size: 1.8rem;
+							}
 							@include media{
 								span.btn-content{
 									font-size: 1.8rem;

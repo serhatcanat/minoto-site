@@ -33,7 +33,7 @@ import { storageSpace } from "functions/helpers"
 import image_avatar from 'assets/images/defaults/avatar.svg';
 import image_loader from 'assets/images/minoto-loading.gif'
 import image_garanti from 'assets/images/garabtiBBVA.png'
-import image_isbank from 'assets/images/turkiye-is-bankasi.png'
+//import image_isbank from 'assets/images/turkiye-is-bankasi.png'
 
 const ncapDescriptions = [
 	"1 yıldızlı güvenlik: Marjinal çarpışma koruması.",
@@ -872,7 +872,7 @@ class DetailCredit extends React.Component {
 			garantiInstallment: false,
 			isbankInterest: "1.39",
 			isbankInstallment: false,
-			productPrice: this.props.product.price,
+			productPrice: this.props.product.price ? this.props.product.price : 500000,
 			loading: false,
 			error: false,
 			month: 36,
@@ -900,6 +900,7 @@ class DetailCredit extends React.Component {
 	}
 
 	componentDidMount() {
+
 		this.calculateInstallments();
 	}
 
@@ -917,7 +918,7 @@ class DetailCredit extends React.Component {
 								<FormInput
 									id="creditAmount"
 									placeholder="Kredi tutarı"
-									className="credit-price"
+									className="credit-price currency-after"
 									value={this.state.productPrice ? parseInt(this.state.productPrice / 2, 10).toString() : 50000}
 									validation={{
 										required: "Bir tutar girmelisiniz.",
@@ -930,11 +931,11 @@ class DetailCredit extends React.Component {
 									formatNumber
 									type="number" />
 							</div>
-							<div className="grid-col x4 m-x6 no-padding">
+							<div className="grid-col x3 m-x6 no-padding">
 								<FormInput
 									id="creditDuration"
 									placeholder="Vade"
-									className="credit-price"
+									className="credit-price month-after"
 									value="36"
 									validation={{
 										required: "Bir vade girmelisiniz.",
@@ -947,7 +948,7 @@ class DetailCredit extends React.Component {
 									formatNumber
 									type="number" />
 							</div>
-							<div className="grid-col x3 m-x12 center">
+							<div className="grid-col x4 m-x12 center">
 								<Btn
 									type="submit"
 									uppercase
@@ -990,7 +991,7 @@ class DetailCredit extends React.Component {
 										onClick={() => openModal('garanti', { advert: vm.props.product, installment: this.state.garantiInstallment, interest: this.state.garantiInterest, month: this.state.month, amount: this.state.amount })}
 										//onClick={() => { window.open('https://www.garantibbva.com.tr/tr/bireysel/krediler/tasit-arac-kredisi-hesaplama.page?cid=oth:oth:oth:bireysel-hedeffilotasitkredisi:tasitkredisi::::::375x400:oth', '_blank'); }}
 										className="form-submitbtn">
-										{vm.props.mobile ? (<i className="icon-new-tab"></i>) : 'BAŞVUR'}
+										{vm.props.mobile ? (<i className="icon-new-tab"></i>) : <i className="icon-new-tab"></i>}
 									</Btn>
 								</td>
 							</tr>
