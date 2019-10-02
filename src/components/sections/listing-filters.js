@@ -14,9 +14,9 @@ import Link from 'components/partials/link'
 import debounce from 'lodash/debounce'
 import isEqual from 'lodash/isEqual'
 import clone from 'lodash/clone'
-import history from 'controllers/history'
+//import history from 'controllers/history'
 import { serializeArray } from 'functions/helpers'
-import queryString from 'query-string';
+//import queryString from 'query-string';
 import { connect } from "react-redux"
 import { setFiltersExpansion, setFilterQuery } from 'data/store.listing'
 import { blockOverflow } from "functions/helpers"
@@ -116,14 +116,9 @@ class ListingFilters extends React.Component {
 
 		setTimeout(function () {
 			if (vm.formRef.current) {
-				let query = queryString.parse((history.location.search && history.location.search !== '') ? history.location.search.replace('?', '') : '');
-				let obj = Object.assign(serializeArray(vm.formRef.current, config.filterSeperator, true), query);
-
-				vm.props.setQuery(obj);
+				vm.props.setQuery(serializeArray(vm.formRef.current, config.filterSeperator, true));
 				vm.setState({ synchronized: true })
 			}
-			vm.setState({ loading: false })
-
 		}, 50);
 	}
 
