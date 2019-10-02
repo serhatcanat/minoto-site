@@ -9,6 +9,7 @@ var routes = require('../src/data/routes');
 // CONFIG
 const sitemapDir = './live/sitemap';
 const siteURL = 'https://api.minoto.com/v1/shared/sitemap';
+const siteBase = 'https://minoto.com'
 //const siteURL = 'http://localhost:8000/v1/shared/sitemap';
 
 /* if (!fs.existsSync(sitemapDir)) {
@@ -47,7 +48,7 @@ Object.keys(routes).forEach(function (groupKey) {
 });
 
 var sitemap = sm.createSitemap({
-	hostname: siteURL,
+	hostname: siteBase,
 	cacheTime: 600000,
 	urls: pageUrls,
 	//[{ url: '/page-2/', changefreq: 'monthly', priority: 0.7 }]

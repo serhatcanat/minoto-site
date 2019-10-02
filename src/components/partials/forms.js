@@ -664,6 +664,7 @@ class InputCheck extends React.Component {
 
 	validate(checked, touch) {
 		let vm = this;
+
 		if (checked === undefined) { checked = vm.state.checked; }
 		let validStatus = validation((checked ? '1' : ''), vm.props.validation);
 		vm.setState({ value: checked, checked: checked, error: (validStatus !== false), errorMessage: validStatus });
@@ -671,6 +672,8 @@ class InputCheck extends React.Component {
 			error: (validStatus !== false),
 			touched: touch,
 			value: checked,
+			checked: checked,
+			name: this.props.name,
 			validation: this.props.validation,
 		});
 	}
@@ -852,7 +855,9 @@ export class InputForm extends React.Component {
 	}
 
 	elementStateChange(state) {
+
 		if (state.error && state.validation !== false) {
+
 			this.validElements = pull(this.validElements, state.name);
 			this.invalidElements = union(this.invalidElements, [state.name]);
 
@@ -892,6 +897,7 @@ export class InputForm extends React.Component {
 
 	handleSubmit(e = false) {
 		if (e) { e.preventDefault(); }
+
 		this.setState({ forceTouch: true })
 		if (this.props.onTouch) {
 			this.props.onTouch();
@@ -899,7 +905,6 @@ export class InputForm extends React.Component {
 
 		if (this.validate()) {
 			this.setState({ sending: true });
-
 			if (this.props.onSubmit) {
 				this.props.onSubmit((e ? e.nativeEvent : false), this.form.current);
 			}

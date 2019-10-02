@@ -7,6 +7,7 @@ import Link from 'components/partials/link'
 
 // Deps
 import { connect } from "react-redux"
+import { closeModal } from 'functions/modals'
 import image_garanti from 'assets/images/garabtiBBVA.png'
 
 const mapStateToProps = state => {
@@ -33,6 +34,8 @@ class GarantiModalRaw extends React.Component {
 
         vm.setState({ loading: true, error: false })
 
+        window.open('https://www.garantibbva.com.tr/tr/bireysel/krediler/tasit-arac-kredisi-hesaplama.page?cid=oth:oth:oth:bireysel-hedeffilotasitkredisi:tasitkredisi::::::375x400:oth', '_blank');
+
         /* let record = {
             advertID: e.target.elements.advertID.value,
             message: e.target.elements.message.value,
@@ -41,6 +44,10 @@ class GarantiModalRaw extends React.Component {
             offerPrice: parseInt(e.target.elements.bid.value.replace('.', '')),
             messageType: 'garanti'
         }; */
+
+        setTimeout(function () {
+            vm.setState({ loading: false, success: true, message: "" });
+        }, 1000);
 
 
     }
@@ -55,79 +62,97 @@ class GarantiModalRaw extends React.Component {
                         <img src={image_garanti} alt="" width="170" />
                         <div>KREDİ BAŞVURU</div>
                     </div>
-                    <InputForm className="login-form" onSubmit={vm.submit}>
-                        <div className="info-credit-results">
-                            <table className="table listprices-table">
-                                <thead>
-                                    <tr>
-                                        <th>Kredi Tutarı</th>
-                                        <th><div className="tablePadLeft">Vade</div></th>
-                                        <th><div className="tablePad">Taksit</div></th>
-                                        <th>Faiz</th>
-                                    </tr>
-                                </thead>
+                    <div className="info-credit-results">
+                        <table className="table listprices-table">
+                            <thead>
+                                <tr>
+                                    <th>Kredi Tutarı</th>
+                                    <th><div className="tablePadLeft">Vade</div></th>
+                                    <th><div className="tablePad">Taksit</div></th>
+                                    <th>Faiz</th>
+                                </tr>
+                            </thead>
 
-                                <tbody>
-                                    <tr>
-                                        <td>{vm.props.amount} TL</td>
-                                        <td><div className="tablePadLeft">{vm.props.month} AY</div></td>
-                                        <td><div className="tablePad">{vm.props.installment} TL</div></td>
-                                        <td>%{vm.props.interest}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <input type="hidden" name="advertID" value={vm.props.advert.id} />
-                        <p>Devam etmek istiyorsanız aşağıdaki formları onaylayınız.</p>
-                        <br /><br />
-                        <FormInput
-                            name="tck"
-                            type="text"
-                            label="* T.C. Kimlik Numarası"
-                            mask="00000000000"
-                            disabled={vm.state.loading}
-                            validation={{ required: "TCK numaranızı girmelisiniz", minLength: ["TCK numaranızı 11 hane olmalıdır", 11], maxLength: ["TCK numaranızı 11 hane olmalıdır", 11] }}
-                            className="form-field" />
-                        <br />
-                        <FormInput
-                            name="phone"
-                            type="text"
-                            label="* Cep Telefonu"
-                            disabled={vm.state.loading}
-                            mask="01000000000"
-                            validation={{ required: "Cep telefonunuzu girmelisiniz", minLength: ["Geçerli bir cep telefonunu girmelisiniz", 7] }}
-                            className="form-field" />
+                            <tbody>
+                                <tr>
+                                    <td>{vm.props.amount} TL</td>
+                                    <td><div className="tablePadLeft">{vm.props.month} AY</div></td>
+                                    <td><div className="tablePad">{vm.props.installment} TL</div></td>
+                                    <td>%{vm.props.interest}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    {
+                        !vm.state.success ? (
+                            <React.Fragment>
+                                <p>Devam etmek istiyorsanız aşağıdaki formları onaylayınız.</p>
+                                <InputForm className="login-form" onSubmit={vm.submit}>
+                                    <input type="hidden" name="advertID" value={vm.props.advert.id} />
+                                    <br /><br />
+                                    <FormInput
+                                        name="tck"
+                                        type="text"
+                                        label="* T.C. Kimlik Numarası"
+                                        mask="00000000000"
+                                        disabled={vm.state.loading}
+                                        validation={{ required: "TCK numaranızı girmelisiniz", minLength: ["TCK numaranızı 11 hane olmalıdır", 11], maxLength: ["TCK numaranızı 11 hane olmalıdır", 11] }}
+                                        className="form-field" />
+                                    <br />
+                                    <FormInput
+                                        name="phone"
+                                        type="text"
+                                        label="* Cep Telefonu"
+                                        disabled={vm.state.loading}
+                                        mask="01000000000"
+                                        validation={{ required: "Cep telefonunuzu girmelisiniz", minLength: ["Geçerli bir cep telefonunu girmelisiniz", 7] }}
+                                        className="form-field" />
+                                    <br /><br />
+                                    <FormInput
+                                        name="agreement"
+                                        value="1"
+                                        disabled={vm.state.loading}
+                                        checked
+                                        type="checkbox"
+                                        validation={{ required: "Üye olmak için bu bildirimi kabul etmeniz gerekmektedir." }}
+                                        className="form-field small-font">
+                                        TC Kimlik numaramın, başvurumun takibi amacıyla Garanti BBVA ile paylaşılmasına izin veriyorum.
+                                </FormInput>
+                                    <br />
+                                    <FormInput
+                                        name="kvkk"
+                                        value="1"
+                                        disabled={vm.state.loading}
+                                        type="checkbox"
+                                        validation={{ required: "Üye olmak bu bilgilendirmeyi kabul etmeniz gerekmektedir." }}
+                                        className="form-field small-font">
+                                        Kişisel verilerimin belirlenen şartlarda işlenmesine izin verdiğimi ve <Link className="field-link text-minoto" href="gdprPolicy" target="_blank" rel="noopener noreferrer">Kişisel Verilerin Korunması Hakkında Bilgilendirme</Link>’yi okuduğumuz ve kabul ettiğimi onaylıyorum.
+                                </FormInput>
+                                    <Btn
+                                        className="form-submitbtn full-width"
+                                        big wide
+                                        status={(vm.state.error ? 'error' : false)}
+                                        loading={vm.state.loading}
+                                        disabled={vm.state.loading}
+                                        type="submit">DEVAM </Btn>
+                                </InputForm>
+                            </React.Fragment>
+                        ) : (
+                                <React.Fragment>
+                                    <div className="bid-complete" style={{ textAlign: 'center' }}>
+                                        <i className="complete-icon icon-check-round"></i>
+                                        <p className="complete-description">
+                                            Kredi talebiniz yönlendirildi.
+                                             </p>
+                                        <div className="complete-controls">
+                                            <button type="button" className="link" onClick={closeModal}>İlana Dön</button>
+                                        </div>
+                                    </div>
+                                </React.Fragment>
+                            )
+                    }
 
-                        <br /><br />
-                        <FormInput
-                            name="agreement"
-                            value="1"
-                            disabled={vm.state.loading}
-                            type="checkbox"
-                            validation={{ required: "Üye olmak için bu bildirimi kabul etmeniz gerekmektedir." }}
-                            className="form-field small-font">
-                            TC Kimlik numaramın, başvurumun takibi amacıyla Garanti BBVA ile paylaşılmasına izin veriyorum.
-                        </FormInput>
-                        <br />
 
-                        <FormInput
-                            name="agreement"
-                            value="1"
-                            disabled={vm.state.loading}
-                            type="checkbox"
-                            validation={{ required: "Üye olmak bu bilgilendirmeyi kabul etmeniz gerekmektedir." }}
-                            className="form-field small-font">
-                            Kişisel verilerimin belirlenen şartlarda işlenmesine izin verdiğimi ve <Link className="field-link text-minoto" href="gdprPolicy" target="_blank" rel="noopener noreferrer">Kişisel Verilerin Korunması Hakkında Bilgilendirme</Link>’yi okuduğumuz ve kabul ettiğimi onaylıyorum.
-                        </FormInput>
-
-                        <Btn
-                            className="form-submitbtn full-width"
-                            big wide
-                            status={(vm.state.error ? 'error' : false)}
-                            loading={vm.state.loading}
-                            disabled={vm.state.loading}
-                            type="submit">DEVAM</Btn>
-                    </InputForm>
                 </div>
             </div>
         )
