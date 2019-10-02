@@ -65,13 +65,13 @@ module.exports = {
 			linkTitle: "Arama",
 			title: "Arama",
 		},*/
-		sitemap: {
+		/* sitemap: {
 			path: "/sitemap",
 			component: "Sitemap",
 			exact: true,
 			linkTitle: "Site Haritası",
 			title: "Site Haritası",
-		},
+		}, */
 		brands: {
 			path: "/markalar",
 			component: "Brands",
