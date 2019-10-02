@@ -84,8 +84,9 @@ class GarantiModalRaw extends React.Component {
                             name="tck"
                             type="text"
                             label="* T.C. Kimlik Numarası"
+                            mask="00000000000"
                             disabled={vm.state.loading}
-                            validation={{ required: "TCK numaranızı girmelisiniz", email: true }}
+                            validation={{ required: "TCK numaranızı girmelisiniz", minLength: ["TCK numaranızı 11 hane olmalıdır", 11], maxLength: ["TCK numaranızı 11 hane olmalıdır", 11] }}
                             className="form-field" />
                         <br />
                         <FormInput
@@ -93,7 +94,8 @@ class GarantiModalRaw extends React.Component {
                             type="text"
                             label="* Cep Telefonu"
                             disabled={vm.state.loading}
-                            validation={{ required: "Cep telefonunuzu girmelisiniz", email: true }}
+                            mask="01000000000"
+                            validation={{ required: "Cep telefonunuzu girmelisiniz", minLength: ["Geçerli bir cep telefonunu girmelisiniz", 7] }}
                             className="form-field" />
 
                         <br /><br />
