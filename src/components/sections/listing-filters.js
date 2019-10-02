@@ -464,7 +464,7 @@ class FilterTypeBrands extends React.Component {
 						)
 					})}
 					{
-						showMoreBrands && (
+						(showMoreBrands && opts.length > 8) && (
 							<li className="filter-item level-1">
 								<div className="inputwrap type-checkbox no-select">
 									<div className="item-wrap" >
