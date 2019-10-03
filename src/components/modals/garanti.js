@@ -85,7 +85,7 @@ class GarantiModalRaw extends React.Component {
                             <React.Fragment>
                                 <p>Devam etmek istiyorsanız aşağıdaki formları onaylayınız.</p>
                                 <InputForm className="login-form" onSubmit={vm.submit}>
-                                    <input type="hidden" name="advertID" value={vm.props.advert.id} />
+                                    <input type="hidden" name="advertID" value={vm.props.advert.postNo} />
                                     <br /><br />
                                     <FormInput
                                         name="tck"
