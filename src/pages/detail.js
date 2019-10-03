@@ -859,7 +859,7 @@ class DetailCredit extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			garantiInterest: "1.49",
+			garantiInterest: "1.39",
 			garantiInstallment: false,
 			isbankInterest: "1.39",
 			isbankInstallment: false,
