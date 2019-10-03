@@ -633,6 +633,7 @@ class ListingResults extends React.Component {
 																		image={storageSpace('c_scale,q_auto:good,w_360/car-posts', item.image)}
 																		price={item.price}
 																		labels={item.labels}
+																		productionPlace={item.productionPlace}
 																		faved={item.favorited}
 																		badge={(item.status === 1 ? false : (item.status === 2 ? { text: 'Rezerve', note: '02.02.2019 Tarihine Kadar Opsiyonludur' } : { text: 'Satıldı', type: 'error' }))}
 																		bottomNote={(item.currentViewers > 0 ? item.currentViewers + ' kişi Bakıyor' : false)}

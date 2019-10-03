@@ -145,7 +145,7 @@ class GarantiModalRaw extends React.Component {
                                     <div className="bid-complete" style={{ textAlign: 'center' }}>
                                         <i className="complete-icon icon-check-round"></i>
                                         <p className="complete-description">
-                                            Kredi talebiniz yönlendirildi.
+                                            Bilgileriniz kaydedildi, Garanti Bankası Kredi Başvuru sayfasına yönlendiriliyorsunuz.
                                              </p>
                                         <div className="complete-controls">
                                             <button type="button" className="link" onClick={closeModal}>İlana Dön</button>

@@ -119,11 +119,16 @@ export default class ContentBox extends React.Component {
 													<span key={nth}>{label}</span>
 												)
 											})}
+
 										</div>
 										: null)}
 									{bottomNote}
+									{
+										vm.props.productionPlace && <Image width="40" style={{ float: "left !important" }} alt="Yerli Üretim" src={`/dummy/images/${vm.props.productionPlace}`} />
+									}
 								</div>
 								: null)}
+
 						</div>
 					</Wrap>
 				);
