@@ -87,7 +87,7 @@ const validateRaw = {
 	},
 	"minNum": function (msg = "Bu alan {amount} değerinden küçük olmamalıdır.", value, amount, allowFormat = true) {
 		let error;
-		if(allowFormat){ value = value.toString().replace(/[.,]/g, ''); }
+		if (allowFormat) { value = value.toString().replace(/[.,]/g, ''); }
 		if (parseFloat(value) < amount) {
 			error = msg.replace('{amount}', amount);;
 		}
@@ -95,7 +95,7 @@ const validateRaw = {
 	},
 	"maxNum": function (msg = "Bu alan {amount} değerinden büyük olmamalıdır.", value, amount, allowFormat = true) {
 		let error;
-		if(allowFormat){ value = value.toString().replace(/[.,]/g, ''); }
+		if (allowFormat) { value = value.toString().replace(/[.,]/g, ''); }
 		if (parseFloat(value) > amount) {
 			error = msg.replace('{amount}', amount);;
 		}
@@ -195,7 +195,7 @@ const validateRaw = {
 		}
 
 		return error;
-	},
+	}
 }
 
 function checkIDNum(tcno) {

@@ -31,35 +31,35 @@ export default class Btn extends React.Component {
 		let vm = this;
 
 
-		if(prevProps.status !== vm.props.status || prevProps.loading !== vm.props.loading){
+		if (prevProps.status !== vm.props.status || prevProps.loading !== vm.props.loading) {
 			let newProps = clone(vm.props);
 			newProps.status = (newProps.loading ? 'loading' : newProps.status);
-			
-			if(vm.loadingTimeout){
+
+			if (vm.loadingTimeout) {
 				clearTimeout(vm.loadingTimeout);
 				vm.loadingTimeout = false;
 			}
 
-			if(newProps.status){
-				if(prevProps.status !== false){
+			if (newProps.status) {
+				if (prevProps.status !== false) {
 					vm.setState({ statusShow: false });
-					vm.loadingTimeout = setTimeout(function(){
+					vm.loadingTimeout = setTimeout(function () {
 						vm.setState({ status: newProps.status });
-						setTimeout(function() {
+						setTimeout(function () {
 							vm.setState({ statusShow: true });
 						}, 30);
 					}, 130)
 				}
-				else{
+				else {
 					vm.setState({ statusActive: true, status: newProps.status });
-					vm.loadingTimeout = setTimeout(function(){
+					vm.loadingTimeout = setTimeout(function () {
 						vm.setState({ statusShow: true });
 					}, 30)
 				}
 			}
 			else {
 				vm.setState({ statusShow: false });
-				vm.loadingTimeout = setTimeout(function(){
+				vm.loadingTimeout = setTimeout(function () {
 					vm.setState({ statusActive: false, status: false });
 				}, 380);
 			}
@@ -67,8 +67,8 @@ export default class Btn extends React.Component {
 	}
 
 	clicked(e) {
-		if(!e.nativeEvent.target.classList.contains('popinfo-wrap')){
-			if(this.props.onClick){
+		if (!e.nativeEvent.target.classList.contains('popinfo-wrap')) {
+			if (this.props.onClick) {
 				this.props.onClick(e);
 			}
 		}
@@ -78,19 +78,19 @@ export default class Btn extends React.Component {
 		let vm = this;
 		let Elem = false;
 
-		switch(vm.props.tag){
+		switch (vm.props.tag) {
 			case 'link':
 				Elem = Link;
-			break;
+				break;
 			default:
 				Elem = vm.props.tag;
-			break;
+				break;
 		}
 		let props = omit(vm.props, [
 			// Data
 			'tag', 'icon', 'leftIcon', 'rightIcon', 'note', 'status', 'onClick',
 			// Colors
-			'hollow', 'primary', 'white', 'dark', 'text', 
+			'hollow', 'primary', 'white', 'dark', 'text',
 			// Forms & Styling
 			'light', 'block', 'uppercase', 'low', 'small', 'wide', 'big', 'smallIcon', 'loading']);
 
@@ -99,31 +99,31 @@ export default class Btn extends React.Component {
 		let leftIcon = (vm.props.leftIcon ? vm.props.leftIcon : (vm.props.icon ? vm.props.icon : false));
 		let rightIcon = (vm.props.rightIcon ? vm.props.rightIcon : false);
 
-		if(vm.props.block) { props.className += ' block'; }
+		if (vm.props.block) { props.className += ' block'; }
 
-		if(vm.props.primary) { props.className += ' primary'; }
-		if(vm.props.white) { props.className += ' white'; }
-		if(vm.props.dark) { props.className += ' dark'; }
-		if(vm.props.text) { props.className += ' text'; }
+		if (vm.props.primary) { props.className += ' primary'; }
+		if (vm.props.white) { props.className += ' white'; }
+		if (vm.props.dark) { props.className += ' dark'; }
+		if (vm.props.text) { props.className += ' text'; }
 
-		if(vm.props.hollow) { props.className += ' hollow'; }
-		if(vm.props.light) { props.className += ' light'; }
-		if(vm.props.uppercase) { props.className += ' uppercase'; }
-		if(vm.props.low) { props.className += ' low'; }
-		if(vm.props.small) { props.className += ' small'; }
-		if(vm.props.wide) { props.className += ' wide'; }
-		if(vm.props.big) { props.className += ' big'; }
-		if(vm.props.smallIcon) { props.className += ' small-icon'; }
+		if (vm.props.hollow) { props.className += ' hollow'; }
+		if (vm.props.light) { props.className += ' light'; }
+		if (vm.props.uppercase) { props.className += ' uppercase'; }
+		if (vm.props.low) { props.className += ' low'; }
+		if (vm.props.small) { props.className += ' small'; }
+		if (vm.props.wide) { props.className += ' wide'; }
+		if (vm.props.big) { props.className += ' big'; }
+		if (vm.props.smallIcon) { props.className += ' small-icon'; }
 
-		if(vm.props.note) { props.className += ' has-info'; }
+		if (vm.props.note) { props.className += ' has-info'; }
 
-		if(vm.state.statusShow){ props.className += ' show-status'; }
-		if(vm.state.status ){ props.className += ' status-' + vm.state.status; }
+		if (vm.state.statusShow) { props.className += ' show-status'; }
+		if (vm.state.status) { props.className += ' status-' + vm.state.status; }
 
-		if(Elem === 'button'){ props.type = (vm.props.type ? vm.props.type : 'button'); }
+		if (Elem === 'button') { props.type = (vm.props.type ? vm.props.type : 'button'); }
 
 		props.className += ' btn';
-		if(vm.props.children){
+		if (vm.props.children) {
 			return (
 				<Elem {...props}>
 					<span className="btn-content">
@@ -136,20 +136,20 @@ export default class Btn extends React.Component {
 						}
 
 					</span>
-					{vm.state.statusActive && 
+					{vm.state.statusActive &&
 						<span className="btn-statuswrap">
 							{vm.state.status === 'loading' &&
 								<i className="btn-loader icon-spinner"></i>
 							}
 							{vm.state.status !== 'loading' &&
-								<i className={"btn-status icon-"+vm.state.status}></i>
+								<i className={"btn-status icon-" + vm.state.status}></i>
 							}
 						</span>
 					}
 				</Elem>
 			)
 		}
-		else{
+		else {
 			return (
 				<Elem {...props} />
 			)
@@ -158,7 +158,7 @@ export default class Btn extends React.Component {
 }
 
 Btn.defaultProps = {
-	className : '',
+	className: '',
 	icon: false,
 	leftIcon: false,
 	rightIcon: false,

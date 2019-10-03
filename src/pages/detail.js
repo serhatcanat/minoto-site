@@ -17,12 +17,12 @@ import Link from 'components/partials/link.js'
 import FavBtn from 'components/partials/favbtn'
 import ContentBox from 'components/partials/contentbox'
 import PriceTag from 'components/partials/price-tag'
-
+import { InputForm, FormInput } from 'components/partials/forms'
 // Deps
 //import { ListingLink } from 'controllers/navigator'
 import { set404 } from 'controllers/navigator'
 import { openModal } from "functions/modals"
-import { blockOverflow, nl2br, remToPx } from 'functions/helpers.js'
+import { blockOverflow, nl2br, remToPx, formatNumber } from 'functions/helpers.js'
 import parse from 'html-react-parser'
 import { connect } from "react-redux"
 import request from 'controllers/request'
@@ -32,6 +32,8 @@ import { storageSpace } from "functions/helpers"
 // Assets
 import image_avatar from 'assets/images/defaults/avatar.svg';
 import image_loader from 'assets/images/minoto-loading.gif'
+import image_garanti from 'assets/images/garabtiBBVA.png'
+//import image_isbank from 'assets/images/turkiye-is-bankasi.png'
 
 const ncapDescriptions = [
 	"1 yıldızlı güvenlik: Marjinal çarpışma koruması.",
@@ -352,8 +354,7 @@ class DetailGallery extends React.Component {
 	}
 
 	keyPress(e) {
-
-		if (this.mainSlider.current) {
+		if (this.mainSlider.current && document.activeElement.tagName === 'BODY') {
 			switch (e.key) {
 				case "ArrowLeft":
 					//this.mainSlider.current.prev();
@@ -422,9 +423,12 @@ class DetailInfo extends React.Component {
 		this.state = {
 			showCosts: false,
 			showDealers: false,
-			selectedBranch: false
+			selectedBranch: false,
 		}
+
 	}
+
+
 
 	render() {
 		let vm = this;
@@ -453,7 +457,7 @@ class DetailInfo extends React.Component {
 								{
 									highlight.label && (
 										<li key={nth} title={highlight.title}>{(highlight.image ?
-											<Image alt={highlight.title} src={highlight.image} />
+											<Image alt={highlight.title} src={`/dummy/images/${highlight.image}`} />
 											:
 											<span>{highlight.label}</span>
 										)}</li>
@@ -710,6 +714,8 @@ class DetailInfo extends React.Component {
 							</React.Fragment>
 						)
 				}
+				{!vm.props.mobile && <DetailCredit product={product} mobile={vm.props.mobile} />}
+
 			</div>
 		)
 	}
@@ -839,7 +845,169 @@ class DetailExtras extends React.Component {
 							</div>
 						</div>
 					}
+
 				</Tabs>
+				{vm.props.mobile &&
+					<DetailCredit product={product} mobile={vm.props.mobile} />
+				}
+			</div>
+		)
+	}
+}
+
+class DetailCredit extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			garantiInterest: "1.49",
+			garantiInstallment: false,
+			isbankInterest: "1.39",
+			isbankInstallment: false,
+			productPrice: this.props.product.price ? this.props.product.price : 500000,
+			loading: false,
+			error: false,
+			month: 36,
+			amount: false,
+		}
+		this.calculateInstallments = this.calculateInstallments.bind(this)
+	}
+	calculateInstallments() {
+		this.setState({ loading: true, error: false })
+		let credit = document.getElementById('creditAmount').value.replace('.', '');
+		let month = document.getElementById('creditDuration').value;
+		let interestGaranti = this.state.garantiInterest / 100 * 1.2;
+		let interestIsbank = this.state.isbankInterest / 100 * 1.2;
+		let installmentsGaranti = credit * (interestGaranti * Math.pow((1 + interestGaranti), month)) / (Math.pow(1 + interestGaranti, month) - 1)
+		let installmentsIsbank = credit * (interestIsbank * Math.pow((1 + interestIsbank), month)) / (Math.pow(1 + interestIsbank, month) - 1)
+		this.setState({
+			loading: false, error: false,
+			month: month,
+			amount: formatNumber(Math.round(credit * 100) / 100, { showDecimals: false }),
+			//garantiInstallment: parseFloat(installments).toString().match(/^-?\d+(?:\.\d{0,2})?/)[0]
+			//garantiInstallment: parseFloat(Math.round(installments * 100) / 100).toFixed(2)
+			garantiInstallment: formatNumber(Math.round(installmentsGaranti * 100) / 100, { showDecimals: true }),
+			isbankInstallment: formatNumber(Math.round(installmentsIsbank * 100) / 100, { showDecimals: true })
+		});
+	}
+
+	componentDidMount() {
+
+		this.calculateInstallments();
+	}
+
+	render() {
+		let vm = this;
+
+		return (
+			<div className="detail-info">
+				<div className="info-credit-calculation">
+					<h2>KREDİ HESAPLAMA</h2>
+					<p>Kredi tutarı aracın fiyatına göre otomatik olarak hesaplanır.</p>
+					<InputForm className="section contentpage-form grid-container" onSubmit={this.calculateInstallments}>
+						<div className="grid-row">
+							<div className="grid-col x5 m-x6">
+								<FormInput
+									id="creditAmount"
+									placeholder="Kredi tutarı"
+									className="credit-price currency-after"
+									value={this.state.productPrice ? parseInt(this.state.productPrice / 2, 10).toString() : 50000}
+									validation={{
+										required: "Bir tutar girmelisiniz.",
+										minNum: ["En az 5.000TL girebilirsiniz.", 5000],
+										maxNum: ["En fazla 500.000TL girebilirsiniz.", 500000],
+									}}
+									name="credit_amount"
+									mask="1++++++++++++++"
+									disabled={vm.state.loading}
+									formatNumber
+									type="number" />
+							</div>
+							<div className="grid-col x3 m-x6 no-padding">
+								<FormInput
+									id="creditDuration"
+									placeholder="Vade"
+									className="credit-price month-after"
+									value="36"
+									validation={{
+										required: "Bir vade girmelisiniz.",
+										minNum: ["En az 12 ay seçebilirsiniz.", 12],
+										maxNum: ["En fazla 60 ay seçebilirsiniz.", 60],
+									}}
+									name="credit_duration"
+									mask="1+"
+									disabled={vm.state.loading}
+									formatNumber
+									type="number" />
+							</div>
+							<div className="grid-col x4 m-x12 center">
+								<Btn
+									type="submit"
+									uppercase
+									block
+									disabled={vm.state.loading}
+									status={this.state.submitting && 'loading'}
+									//onClick={() => {  }}
+									className="form-submitbtn">
+									HESAPLA
+								</Btn>
+							</div>
+						</div>
+					</InputForm>
+				</div>
+				<div className="info-credit-results">
+					<table className="table listprices-table">
+						<thead>
+							<tr>
+								<th>Taksit</th>
+								<th><div className="tablePad">Faiz</div></th>
+								<th>Banka</th>
+								<th></th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr>
+								<td>{this.state.garantiInstallment} TL</td>
+								<td>
+									<div className="tablePad">%{this.state.garantiInterest.replace('.', ',')}</div>
+								</td>
+								<td><img src={image_garanti} alt="" width="121" /></td>
+								<td>
+									<Btn
+										type="submit"
+										uppercase
+										block
+										disabled={this.state.submitting}
+										status={this.state.submitting && 'loading'}
+										onClick={() => openModal('garanti', { advert: vm.props.product, installment: this.state.garantiInstallment, interest: this.state.garantiInterest, month: this.state.month, amount: this.state.amount })}
+										//onClick={() => { window.open('https://www.garantibbva.com.tr/tr/bireysel/krediler/tasit-arac-kredisi-hesaplama.page?cid=oth:oth:oth:bireysel-hedeffilotasitkredisi:tasitkredisi::::::375x400:oth', '_blank'); }}
+										className="form-submitbtn">
+										{vm.props.mobile ? (<i className="icon-new-tab"></i>) : <i className="icon-new-tab"></i>}
+									</Btn>
+								</td>
+							</tr>
+							{/*<tr>
+								<td>{this.state.isbankInstallment} TL</td>
+								<td>
+									<div className="tablePad">%{this.state.isbankInterest.replace('.', ',')}</div>
+								</td>
+								<td><img src={image_isbank} alt="" height="50" /></td>
+								<td>
+									<Btn
+										type="submit"
+										uppercase
+										block
+										disabled={this.state.submitting}
+										status={this.state.submitting && 'loading'}
+										onClick={() => { window.open('https://www.isbank.com.tr/TR/bireysel/krediler/kredi-hesaplama/Sayfalar/kredi-hesaplama.aspx?gclid=EAIaIQobChMIzcmbhZr45AIVRs-yCh0HgA-EEAAYASAAEgK1NfD_BwE#Taksit_tasit', '_blank'); }}
+										className="form-submitbtn">
+										{vm.props.mobile ? (<i className="icon-new-tab"></i>) : 'BAŞVUR'}
+									</Btn>
+								</td>
+							</tr>*/}
+						</tbody>
+					</table>
+				</div>
 			</div>
 		)
 	}
@@ -859,6 +1027,7 @@ class DetailRelated extends React.Component {
 class DetailTopInfo extends React.Component {
 	render() {
 		let product = this.props.product;
+
 		return (
 			<div className="section detail-topinfo">
 				{(product.highlights && !this.props.mobile) &&
@@ -868,7 +1037,7 @@ class DetailTopInfo extends React.Component {
 								{
 									highlight.label && (
 										<li key={nth} title={highlight.title}>{(highlight.image ?
-											<Image alt={highlight.title} src={highlight.image} />
+											<Image alt={highlight.title} src={`/dummy/images/${highlight.image}`} />
 											:
 											<span>{highlight.label}</span>
 										)}</li>

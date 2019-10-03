@@ -212,7 +212,7 @@ module.exports = {
 			title: "Kullanıcı Sözleşmesi ve Koşullar",
 		},
 		gdprPolicy: {
-			path: "/kisisel-verilerin-korunmasi",
+			path: "/kvkk",
 			component: "GdprPolicy",
 			exact: true,
 			linkTitle: "Kişisel Verilerin Korunması ve Çerez Politikası",

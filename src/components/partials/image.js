@@ -53,8 +53,8 @@ class ImageElem extends React.Component {
 		let change = true;
 
 		if (String.prototype.endsWith) {
-			if(vm.props.src){
-				if(vm.props.src.endsWith("/null")){
+			if (vm.props.src) {
+				if (vm.props.src.endsWith("/null")) {
 					change = false;
 				}
 			}
@@ -62,8 +62,8 @@ class ImageElem extends React.Component {
 				change = false;
 			}
 		}
-		
-		if(change){
+
+		if (change) {
 			vm.setState({ src: vm.props.src });
 		}
 	}
@@ -120,11 +120,11 @@ class ImageElem extends React.Component {
 					{...props}>
 					{(vm.props.iconLoader && !vm.props.noLoad && vm.state.loading) ?
 						<div className="imagewrap-loaderwrap">
-							<div className="imagewrap-image" style={{backgroundImage: 'url(' + vm.state.src + ')'}}></div>
+							<div className="imagewrap-image" style={{ backgroundImage: 'url(' + vm.state.src + ')' }}></div>
 							<i className="loaderwrap-icon icon-minoto" />
 						</div>
 						:
-						<div className="imagewrap-image" style={{backgroundImage: 'url(' + vm.state.src + ')'}}></div>
+						<div className="imagewrap-image" style={{ backgroundImage: 'url(' + vm.state.src + ')' }}></div>
 					}
 				</div>
 			}

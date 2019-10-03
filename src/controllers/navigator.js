@@ -15,6 +15,7 @@ import RecoveryModal from 'components/modals/recovery'
 import ConsentModal from 'components/modals/consent'
 import MapModal from 'components/modals/map'
 import BidModal from 'components/modals/bid'
+import GarantiModal from 'components/modals/garanti'
 import MessageModal from 'components/modals/message'
 import YoutubeModal from 'components/modals/youtube'
 
@@ -145,6 +146,7 @@ class Navigator extends React.Component {
 					<ConsentModal />
 					<MapModal />
 					<BidModal />
+					<GarantiModal />
 					<MessageModal />
 					<YoutubeModal />
 				</ModalsWrap>

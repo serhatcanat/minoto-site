@@ -130,3 +130,119 @@
 		}
 	}
 }
+
+.modalHeadContent{
+	position: relative;
+	height: 60px;
+	img{
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+	div{
+		position: absolute;
+		top: 13px;	
+		right: 0;
+		font-size: 20px;
+		font-weight: 600;
+		font-style: normal;
+	}
+	&:after{
+		content: "";
+		clear:both;
+	}
+}
+.modal-innercontent{
+	p{
+		font-size: 16px;
+		color: #161d4c;
+	}
+	.form-submitbtn.full-width{
+		width: 100%;
+	}
+	.info-credit-results{
+		background-color: $color-gray-light;
+		border-radius: $radius-general;
+		border: solid 1px #ebebf3;
+		margin-top: 1.2rem;
+		margin-bottom: 3.7rem;
+		.tablePad{
+			padding-right: 15px; 
+			padding-left: 15px; 
+			border-right: 1px solid #d5d5e3; 
+			border-left: 1px solid #d5d5e3;
+		}
+		.tablePadLeft{
+			padding-right: 15px; 
+			padding-left: 15px; 
+			border-left: 1px solid #d5d5e3;
+		}
+		
+		th{
+			background-color: #ebebf3 !important;
+			&:nth-child(1){
+				width: 16rem; 
+				padding-right: 0.5rem;
+			}
+			&:nth-child(2){
+				width: 8rem;
+				padding-right: 0.5rem; 
+				padding-left: 0.5rem;
+			}
+			&:nth-child(3){
+				padding-right: 0.5rem; 
+				padding-left: 1rem;
+			}
+			&:nth-child(4){
+				padding-right: 0.5rem; 
+				padding-left: 1rem;
+			}
+		}
+		td{
+			&:nth-child(1){
+				min-width: 10rem;
+				@include media{
+					min-width: 11rem;
+				}
+				padding-top: 20px;
+				padding-bottom: 20px;
+				padding-right: 0.5rem;
+			}
+			&:nth-child(2){
+				padding-top: 20px;
+				padding-bottom: 20px;
+				width: 10rem; 
+				padding-right: 0.5rem; 
+				padding-left: 0.5rem;
+			}
+			&:nth-child(3){
+				padding-top: 20px;
+				padding-bottom: 20px;
+				padding-right: 0.5rem; 
+				padding-left: 1rem;
+			}
+			&:nth-child(4){
+				padding-top: 20px;
+				padding-bottom: 20px;
+				padding-right: 0.5rem; 
+				padding-left: 1rem;
+			}
+			button{
+				padding: 11px 11px;
+				@include media{
+					span.btn-content{
+						font-size: 1.8rem;
+					}
+				}	
+			}
+		}
+		
+	}
+}
+.modal-innercontent.left-align{
+	text-align: left;
+}
+
+.form-field.small-font{
+	font-size: 14px;
+}

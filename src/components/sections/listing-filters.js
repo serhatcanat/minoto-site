@@ -123,6 +123,7 @@ class ListingFilters extends React.Component {
 	}
 
 	filterUpdated() {
+
 		if (!this.props.mobile && this.state.autoSubmit) {
 			this.serializeFilters();
 		}
@@ -259,7 +260,7 @@ class ListingFilter extends React.Component {
 		this.timeout = false;
 	}
 
-	componentDidUpdate(prevProps, prevState) {
+	componentDidUpdate(prevState) {
 		let vm = this;
 
 		if (prevState.expanded !== vm.state.expanded) {
@@ -359,6 +360,7 @@ class FilterTypeList extends React.Component {
 	}
 
 	componentDidUpdate(prevProps) {
+
 		if (!isEqual(prevProps.data, this.props.data)) {
 			this.setState({ opts: this.props.data.opts });
 		}
@@ -366,6 +368,7 @@ class FilterTypeList extends React.Component {
 
 	handleChange(e, nth) {
 		let newOpts = this.state.opts;
+
 		newOpts[nth].selected = e.target.checked;
 
 		this.setState({ opts: newOpts });
@@ -447,6 +450,7 @@ class FilterTypeBrands extends React.Component {
 		let opts = vm.state.opts;
 		let showMore = vm.state.showMore;
 		let showMoreBrands = vm.props.showMoreBrands;
+
 		return (
 			<React.Fragment>
 				{data.root !== true &&
