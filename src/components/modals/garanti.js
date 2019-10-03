@@ -4,6 +4,7 @@ import React from 'react'
 import { FormInput, InputForm } from 'components/partials/forms'
 import Btn from 'components/partials/btn'
 import Link from 'components/partials/link'
+import request from 'controllers/request'
 
 // Deps
 import { connect } from "react-redux"
@@ -34,22 +35,18 @@ class GarantiModalRaw extends React.Component {
 
         vm.setState({ loading: true, error: false })
 
-        window.open('https://www.garantibbva.com.tr/tr/bireysel/krediler/tasit-arac-kredisi-hesaplama.page?cid=oth:oth:oth:bireysel-hedeffilotasitkredisi:tasitkredisi::::::375x400:oth', '_blank');
-
-        /* let record = {
-            advertID: e.target.elements.advertID.value,
-            message: e.target.elements.message.value,
-            title: vm.props.advert.title,
-            email: vm.props.user.email,
-            offerPrice: parseInt(e.target.elements.bid.value.replace('.', '')),
-            messageType: 'garanti'
-        }; */
-
-        setTimeout(function () {
-            vm.setState({ loading: false, success: true, message: "" });
-        }, 1000);
-
-
+        let record = {
+            postNo: e.target.elements.advertID.value,
+            identityNumber: e.target.elements.tck.value,
+            phone: e.target.elements.phone.value,
+            bankName: 'Garanti'
+        };
+        request.post(`credit-requests`, record, function (payload) {
+            setTimeout(function () {
+                vm.setState({ loading: false, success: true, message: "" });
+                window.open('https://www.garantibbva.com.tr/tr/bireysel/krediler/tasit-arac-kredisi-hesaplama.page?cid=oth:oth:oth:bireysel-hedeffilotasitkredisi:tasitkredisi::::::375x400:oth', '_blank');
+            }, 1000);
+        })
     }
 
     render() {
@@ -96,8 +93,14 @@ class GarantiModalRaw extends React.Component {
                                         label="* T.C. Kimlik Numarası"
                                         mask="00000000000"
                                         disabled={vm.state.loading}
-                                        validation={{ required: "TCK numaranızı girmelisiniz", minLength: ["TCK numaranızı 11 hane olmalıdır", 11], maxLength: ["TCK numaranızı 11 hane olmalıdır", 11] }}
-                                        className="form-field" />
+                                        validation={{
+                                            required: "TCK numaranızı girmelisiniz",
+                                            minLength: ["TCK numaranızı 11 hane olmalıdır", 11],
+                                            maxLength: ["TCK numaranızı 11 hane olmalıdır", 11],
+                                            ID: ["Girdiğiniz TCK numarası geçersizdir."]
+                                        }}
+                                        className="form-field"
+                                    />
                                     <br />
                                     <FormInput
                                         name="phone"
