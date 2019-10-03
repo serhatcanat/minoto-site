@@ -845,20 +845,11 @@ class DetailExtras extends React.Component {
 							</div>
 						</div>
 					}
-					{vm.props.mobile &&
-						<div label="Kredi Hesaplama" index="credit">
-							<div className="tabs-tab">
-								<div className="tab-related">
-									<div style={{ padding: "0 1rem" }}>
-										{
-											product && <DetailCredit product={product} mobile={vm.props.mobile} />
-										}
-									</div>
-								</div>
-							</div>
-						</div>
-					}
+
 				</Tabs>
+				{vm.props.mobile &&
+					<DetailCredit product={product} mobile={vm.props.mobile} />
+				}
 			</div>
 		)
 	}
