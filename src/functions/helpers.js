@@ -43,8 +43,7 @@ export function scrollTo(inputOpts, endFunction = false) {
 	if (to !== parseFloat(to, 10)) {
 		if (opts.target === 'body') {
 			to = to.getBoundingClientRect()[axisString.toLowerCase()] + document.documentElement['scroll' + axisString];
-		}
-		else {
+		} else {
 			to = to['offset' + axisString];
 		}
 		//to = to.offsetTop + window.innerHeight;
@@ -56,12 +55,10 @@ export function scrollTo(inputOpts, endFunction = false) {
 		if (opts.target === 'body') {
 			document.documentElement['scroll' + axisString] = to;
 			document.body['scroll' + axisString] = to;
-		}
-		else {
+		} else {
 			opts.target['scroll' + axisString] = to;
 		}
-	}
-	else {
+	} else {
 		let start = (opts.target === 'body' ? Math.max(document.body['scroll' + axisString], document.documentElement['scroll' + axisString]) : opts.target['scroll' + axisString]),
 			change = to - start,
 			currentTime = 0,
@@ -83,7 +80,7 @@ export function scrollTo(inputOpts, endFunction = false) {
 			if (duration < 500) { duration = 500; }
 			if (duration > 900) { duration = 900; }
 		}
-		var animateScroll = function () {
+		var animateScroll = function() {
 			if (window.scrollTimeout[id] !== null) {
 				clearTimeout(window.scrollTimeout[id]);
 				window.scrollTimeout[id] = null;
@@ -93,22 +90,19 @@ export function scrollTo(inputOpts, endFunction = false) {
 			var val = 0;
 			if (easing) {
 				val = Math.easeInOutQuad(currentTime, start, change, duration);
-			}
-			else {
+			} else {
 				val = Math.linearTween(currentTime, start, change, duration);
 			}
 			if (opts.target === 'body') {
 				document.documentElement['scroll' + axisString] = val;
 				document.body['scroll' + axisString] = val;
-			}
-			else {
+			} else {
 				opts.target['scroll' + axisString] = val;
 			}
 
 			if (currentTime < duration) {
 				window.scrollTimeout[id] = setTimeout(animateScroll, increment);
-			}
-			else if (endFunction !== false) {
+			} else if (endFunction !== false) {
 				endFunction();
 			}
 		};
@@ -132,7 +126,7 @@ export function formatNumber(num, opts = {}) {
 
 export function imageLoad(src, returnFunction, additionalData = null) {
 	let img = new Image();
-	img.onload = function () {
+	img.onload = function() {
 		returnFunction(additionalData);
 	}
 	img.src = src;
@@ -186,9 +180,7 @@ export function serializeArray(form, seperator = ',', ignoreEmpty = false) {
 
 				//serialized.push(encodeURIComponent(field.name) + "=" + encodeURIComponent(field.options[n].value));
 			}
-		}
-
-		else if ((field.type !== 'checkbox' && field.type !== 'radio') || field.checked) {
+		} else if ((field.type !== 'checkbox' && field.type !== 'radio') || field.checked) {
 			let val = field.value;
 
 			if (!(ignoreEmpty && val === '')) {
@@ -243,7 +235,7 @@ export function loadScript(url, endFunction) {
 	var script = document.createElement("script");
 	script.src = url;
 	if (isDefined(endFunction())) {
-		script.onload = function () {
+		script.onload = function() {
 			endFunction();
 		};
 	}
@@ -281,11 +273,33 @@ export function pxToRem(num) {
 	return num / parseFloat(getComputedStyle(document.documentElement).fontSize);
 }
 
-Math.linearTween = function (t, b, c, d) {
+export function setCookie(cname, cvalue, exdays) {
+	var d = new Date();
+	d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+	var expires = "expires=" + d.toUTCString();
+	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+export function getCookie(cname) {
+	var name = cname + "=";
+	var ca = document.cookie.split(';');
+	for (var i = 0; i < ca.length; i++) {
+		var c = ca[i];
+		while (c.charAt(0) === ' ') {
+			c = c.substring(1);
+		}
+		if (c.indexOf(name) === 0) {
+			return c.substring(name.length, c.length);
+		}
+	}
+	return false;
+}
+
+Math.linearTween = function(t, b, c, d) {
 	return c * t / d + b;
 };
 
-Math.easeInOutQuad = function (t, b, c, d) {
+Math.easeInOutQuad = function(t, b, c, d) {
 	t /= d / 2;
 	if (t < 1) return c / 2 * t * t + b;
 	t--;

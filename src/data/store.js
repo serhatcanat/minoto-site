@@ -3,6 +3,7 @@ import generic from "data/store.generic";
 import modals from "data/store.modals";
 import user from "data/store.user";
 import listing from "data/store.listing";
+import ga from "data/store.ga";
 //import checkout from "data/store.checkout";
 
 const rootReducer = combineReducers({
@@ -10,6 +11,7 @@ const rootReducer = combineReducers({
 	modals: modals,
 	user: user,
 	listing: listing,
+	ga: ga,
 	//checkout: checkout,
 })
 

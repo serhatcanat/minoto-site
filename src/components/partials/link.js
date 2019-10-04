@@ -32,59 +32,60 @@ export default class LinkItem extends React.Component {
 				break;
 			default: // link
 				let target = getRoute(this.props.href, this.props.routeGroup);
-
 				if (target) {
 
-					if (target.exact && this.props.navLink && !isDefined(props.exact)) { props.exact = true; }
-					content = (this.props.children ? this.props.children : (target.linkTitle ? target.linkTitle : target.title));
+					if (target) {
 
-					if (target.path) {
-						props.to = target.path
-						if (params) {
-							/*for(let k = 0; k < Object.keys(params).length; k++){
-								let key = Object.keys(params)[k];
-								props.to = props.to.replace(':'+key+'?', params[key]).replace(':'+key, params[key]);
-							}*/
+						if (target.exact && this.props.navLink && !isDefined(props.exact)) { props.exact = true; }
+						content = (this.props.children ? this.props.children : (target.linkTitle ? target.linkTitle : target.title));
 
-							try {
-								let newTo = generatePath(props.to, params);
-								props.to = newTo;
+						if (target.path) {
+							props.to = target.path
+							if (params) {
+								/*for(let k = 0; k < Object.keys(params).length; k++){
+									let key = Object.keys(params)[k];
+									props.to = props.to.replace(':'+key+'?', params[key]).replace(':'+key, params[key]);
+								}*/
+
+								try {
+									let newTo = generatePath(props.to, params);
+									props.to = newTo;
+								}
+								catch {
+									console.log('UYARI - Link parametresi hatalı:', props.to, params);
+								}
 							}
-							catch {
-								//console.log('noo', props.to, params);
-							}
+						}
+						else {
+							props.to = "-";
 						}
 					}
 					else {
-						props.to = "-";
+						props.to = this.props.href;
 					}
+
+					props.to = props.to ? props.to.split('/:')[0] : props.to;
+
+					break;
 				}
-				else {
-					props.to = this.props.href;
+
+				if (this.props.hash) {
+					props.to = props.to + "#" + this.props.hash;
 				}
 
-				props.to = props.to ? props.to.split('/:')[0] : props.to;
+				if (this.props.query) {
+					props.to += '?' + queryString.stringify(this.props.query);
+				}
 
-				break;
+				return <Elem {...props}>{content}</Elem>
 		}
-
-		if (this.props.hash) {
-			props.to = props.to + "#" + this.props.hash;
-		}
-
-		if (this.props.query) {
-			props.to += '?' + queryString.stringify(this.props.query);
-		}
-
-		return <Elem {...props}>{content}</Elem>
 	}
-}
 
-LinkItem.defaultProps = {
-	navLink: false,
-	params: false,
-	hash: false,
-	type: 'link',
-	routeGroup: 'pages',
-	activeClassName: 'active',
-}
+	LinkItem.defaultProps = {
+		navLink: false,
+		params: false,
+		hash: false,
+		type: 'link',
+		routeGroup: 'pages',
+		activeClassName: 'active',
+	}

@@ -23,6 +23,7 @@ import YoutubeModal from 'components/modals/youtube'
 import ResponsiveWatcher from 'controllers/responsive-watcher'
 import ModalsWrap from 'controllers/modals-wrap'
 import MessengerWrap from 'controllers/messenger'
+import GAController from 'controllers/ga'
 
 // Deps
 import { Route, matchPath, Switch, Redirect } from 'react-router-dom'
@@ -32,6 +33,8 @@ import routes from 'data/routes'
 import store from "data/store";
 import { setPage, setPageNotFound } from "data/store.generic";
 import { resetListingData } from "data/store.listing";
+import { resetData } from "data/store.ga";
+//import { GA } from 'controllers/ga'
 import extend from "lodash/extend";
 import { connect } from "react-redux";
 
@@ -132,6 +135,7 @@ class Navigator extends React.Component {
 		return (
 			<div className="site-content">
 				<ResponsiveWatcher />
+				<GAController />
 				<MessengerWrap />
 				<SearchBar className="search-mobile" fullScreen={true} />
 				<Header />
@@ -340,6 +344,7 @@ export function changePage(key = false, group = 'pages') {
 			resetListingData();
 			window.scroll(0, 0);
 			store.dispatch(setPage(pageData));
+			resetData();
 
 			if (window.location.hash) {
 				setTimeout(function () {

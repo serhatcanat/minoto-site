@@ -28,6 +28,8 @@ import { connect } from "react-redux"
 import request from 'controllers/request'
 import { setTitle, setDescription, setHead } from 'controllers/head'
 import { storageSpace } from "functions/helpers"
+import { setProductData, setDealerData } from 'data/store.ga'
+import { GA } from 'controllers/ga'
 
 // Assets
 import image_avatar from 'assets/images/defaults/avatar.svg';
@@ -46,6 +48,13 @@ const ncapDescriptions = [
 const mapStateToProps = state => {
 	return { mobile: state.generic.mobile, user: state.user.user, };
 };
+
+const mapDispatchToProps = dispatch => {
+	return {
+		setGaProductData: (data) => dispatch(setProductData(data)),
+		setGaDealerData: (data) => dispatch(setDealerData(data)),
+	}
+}
 
 class Detail extends React.Component {
 	constructor(props) {
@@ -74,7 +83,7 @@ class Detail extends React.Component {
 
 	componentDidUpdate(prevProps, prevState) {
 		let user = this.props.user;
-		if (user !== prevProps.user) {
+		if (prevProps.user === false && user !== false) {
 			this.initialize()
 		}
 
@@ -98,7 +107,11 @@ class Detail extends React.Component {
 				if (payload) {
 					vm.setState({
 						productData: payload
-					})
+					});
+
+					vm.props.setGaProductData(payload);
+					vm.props.setGaDealerData(payload.dealer);
+					GA.send('productView', payload);
 
 					setTitle(`${payload.title} - ${payload.dealer.title}`);
 
@@ -296,7 +309,7 @@ class Detail extends React.Component {
 	}
 }
 
-export default connect(mapStateToProps)(Detail);
+export default connect(mapStateToProps, mapDispatchToProps)(Detail);
 
 class DetailGallery extends React.Component {
 	constructor(props) {
@@ -545,15 +558,35 @@ class DetailInfo extends React.Component {
 							Rezerve Et
 						</Btn>
 						{
-							(vm.props.mobile && product.dealer.phone) ?
-								<a className="controls-phone" href={"tel:+9" + product.dealer.phone.replace(' ', '')}><i className="icon-phone-nude"></i></a>
-								: (
-									<React.Fragment>
-										{
-											(vm.props.mobile && product.dealerPhone) && <a className="controls-phone" href={"tel:+9" + product.dealerPhone.replace(' ', '')}><i className="icon-phone-nude"></i></a>
-										}
-									</React.Fragment>
-								)
+							((vm.props.mobile && product.dealer.phone) ?
+								<a
+									className="controls-phone"
+									onClick={()=>{
+										GA.send('conversion', {
+											action: 'callDealer',
+										});
+									}}
+									href={"tel:+9" + product.dealer.phone.replace(' ', '')}>
+									<i className="icon-phone-nude"></i>
+								</a>
+								:
+								<React.Fragment>
+									{
+										((vm.props.mobile && product.dealerPhone) &&
+											<a
+												className="controls-phone"
+												onClick={()=>{
+													GA.send('conversion', {
+														action: 'callDealer',
+													});
+												}}
+												href={"tel:+9" + product.dealerPhone.replace(' ', '')}>
+												<i className="icon-phone-nude"></i>
+											</a>
+										)
+									}
+								</React.Fragment>
+							)
 
 						}
 						{(product.bidThreadId)
@@ -616,7 +649,18 @@ class DetailInfo extends React.Component {
 										<div className="dealer-controls">
 											{
 												product.dealer.phone && (
-													<Btn tag="a" icon="phone" block uppercase href={"tel:+9" + product.dealer.phone.replace(' ', '')}>{product.dealer.phone}</Btn>
+													<Btn
+														tag="a"
+														icon="phone"
+														block uppercase
+														onClick={()=>{
+															GA.send('conversion', {
+																action: 'callDealer',
+															});
+														}}
+														href={"tel:+9" + product.dealer.phone.replace(' ', '')}>
+														{product.dealer.phone}
+													</Btn>
 												)
 
 											}
@@ -692,7 +736,18 @@ class DetailInfo extends React.Component {
 															<div className="dealer-controls">
 																{
 																	selectedBranch.phone && (
-																		<Btn tag="a" icon="phone" block uppercase href={"tel:+9" + selectedBranch.phone.replace(' ', '')}>{selectedBranch.phone}</Btn>
+																		<Btn
+																			tag="a"
+																			icon="phone"
+																			block uppercase
+																			onClick={()=>{
+																				GA.send('conversion', {
+																					action: 'callDealer',
+																				});
+																			}}
+																			href={"tel:+9" + selectedBranch.phone.replace(' ', '')}>
+																			{selectedBranch.phone}
+																		</Btn>
 																	)
 
 																}
@@ -707,7 +762,6 @@ class DetailInfo extends React.Component {
 												}
 											</React.Fragment>
 										</div>
-
 									)
 
 								}
