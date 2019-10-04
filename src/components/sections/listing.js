@@ -614,7 +614,7 @@ class ListingResults extends React.Component {
 																				});
 																			}
 																		}}
-																		urlParams={{ dealer: seoFriendlyUrl(item.dealer), slug: item.slug.substring(0, item.slug.lastIndexOf('-m')), post: item.slug.substring(item.slug.lastIndexOf('m')) }}
+
 																		onDisplay={() => { addImpressionProduct(vm.props.GAGroup, item, productResultsCount); }}
 																	/>
 																</li>

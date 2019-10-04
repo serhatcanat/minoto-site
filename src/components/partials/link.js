@@ -32,55 +32,55 @@ export default class LinkItem extends React.Component {
 				break;
 			default: // link
 				let target = getRoute(this.props.href, this.props.routeGroup);
+
+
 				if (target) {
 
-					if (target) {
+					if (target.exact && this.props.navLink && !isDefined(props.exact)) { props.exact = true; }
+					content = (this.props.children ? this.props.children : (target.linkTitle ? target.linkTitle : target.title));
 
-						if (target.exact && this.props.navLink && !isDefined(props.exact)) { props.exact = true; }
-						content = (this.props.children ? this.props.children : (target.linkTitle ? target.linkTitle : target.title));
+					if (target.path) {
+						props.to = target.path
+						if (params) {
+							/*for(let k = 0; k < Object.keys(params).length; k++){
+								let key = Object.keys(params)[k];
+								props.to = props.to.replace(':'+key+'?', params[key]).replace(':'+key, params[key]);
+							}*/
 
-						if (target.path) {
-							props.to = target.path
-							if (params) {
-								/*for(let k = 0; k < Object.keys(params).length; k++){
-									let key = Object.keys(params)[k];
-									props.to = props.to.replace(':'+key+'?', params[key]).replace(':'+key, params[key]);
-								}*/
-
-								try {
-									let newTo = generatePath(props.to, params);
-									props.to = newTo;
-								}
-								catch {
-									console.log('UYARI - Link parametresi hatalı:', props.to, params);
-								}
+							try {
+								let newTo = generatePath(props.to, params);
+								props.to = newTo;
 							}
-						}
-						else {
-							props.to = "-";
+							catch {
+								console.log('UYARI - Link parametresi hatalı:', props.to, params);
+							}
 						}
 					}
 					else {
-						props.to = this.props.href;
+						props.to = "-";
 					}
-
-					props.to = props.to ? props.to.split('/:')[0] : props.to;
-
-					break;
+				}
+				else {
+					props.to = this.props.href;
 				}
 
-				if (this.props.hash) {
-					props.to = props.to + "#" + this.props.hash;
-				}
+				props.to = props.to ? props.to.split('/:')[0] : props.to;
 
-				if (this.props.query) {
-					props.to += '?' + queryString.stringify(this.props.query);
-				}
-
-				return <Elem {...props}>{content}</Elem>
+				break;
 		}
+
+		if (this.props.hash) {
+			props.to = props.to + "#" + this.props.hash;
+		}
+
+		if (this.props.query) {
+			props.to += '?' + queryString.stringify(this.props.query);
+		}
+
+		return <Elem {...props}>{content}</Elem>
 	}
 }
+
 LinkItem.defaultProps = {
 	navLink: false,
 	params: false,
