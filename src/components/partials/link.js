@@ -80,12 +80,12 @@ export default class LinkItem extends React.Component {
 				return <Elem {...props}>{content}</Elem>
 		}
 	}
-
-	LinkItem.defaultProps = {
-		navLink: false,
-		params: false,
-		hash: false,
-		type: 'link',
-		routeGroup: 'pages',
-		activeClassName: 'active',
-	}
+}
+LinkItem.defaultProps = {
+	navLink: false,
+	params: false,
+	hash: false,
+	type: 'link',
+	routeGroup: 'pages',
+	activeClassName: 'active',
+}
