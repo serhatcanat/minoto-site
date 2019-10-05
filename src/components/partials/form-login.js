@@ -94,7 +94,7 @@ export default class LoginForm extends React.Component {
 		})
 
 		login(e.target, function (payload) {
-			if(vm._isMounted){
+			if (vm._isMounted) {
 				vm.setState({
 					success: payload.success,
 					loading: false,
@@ -103,7 +103,7 @@ export default class LoginForm extends React.Component {
 
 				if (payload.success) {
 					setTimeout(function () {
-						if(vm._isMounted){
+						if (vm._isMounted) {
 							closeModal();
 						}
 					}, 1000);
@@ -121,7 +121,7 @@ export default class LoginForm extends React.Component {
 		})
 
 		socialLogin(response, 'facebook', function (payload) {
-			if(vm._isMounted){
+			if (vm._isMounted) {
 				vm.setState({
 					success: payload ? payload.success : false,
 					loading: false,
@@ -130,7 +130,7 @@ export default class LoginForm extends React.Component {
 
 				if (payload && payload.success) {
 					setTimeout(function () {
-						if(vm._isMounted){
+						if (vm._isMounted) {
 							closeModal();
 						}
 					}, 1000);
@@ -148,7 +148,7 @@ export default class LoginForm extends React.Component {
 		})
 
 		socialLogin(response, 'google', function (payload) {
-			if(vm._isMounted){
+			if (vm._isMounted) {
 				vm.setState({
 					success: payload ? payload.success : false,
 					loading: false,
@@ -157,7 +157,7 @@ export default class LoginForm extends React.Component {
 
 				if (payload && payload.success) {
 					setTimeout(function () {
-						if(vm._isMounted){
+						if (vm._isMounted) {
 							closeModal();
 						}
 					}, 1000);
@@ -211,6 +211,7 @@ export default class LoginForm extends React.Component {
 					<Btn className="others-opt" hollow block light uppercase onClick={() => { vm.goToRegister() }}>Üye Ol</Btn>
 					<FacebookLogin
 						appId={defaults.fClient}
+						isMobile={false}
 						fields="name,email,picture"
 						callback={this.responseFacebook}
 						render={renderProps => (
@@ -219,6 +220,7 @@ export default class LoginForm extends React.Component {
 					/>
 					<GoogleLogin
 						clientId={defaults.gClient}
+						isMobile={false}
 						buttonText="LOGIN WITH GOOGLE"
 						onSuccess={this.responseGoogle}
 						onFailure={this.responseGoogle}
