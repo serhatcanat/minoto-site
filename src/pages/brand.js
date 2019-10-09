@@ -127,7 +127,7 @@ export default class Brand extends React.Component {
 									</div>
 
 									{brand.priceListYear &&
-										<Btn className="sum-pricelist" low wide tag="link" href="listprices" params={{ brand: brand.slug, year: brand.priceListYear }}>{brand.priceListYear} Fiyat Listesi</Btn>
+									<Btn className="sum-pricelist" low wide tag="a" href={`/${brand.priceListYear}-${brand.slug}-fiyat-listesi`} >{brand.priceListYear} Fiyat Listesi</Btn>
 									}
 								</div>
 
