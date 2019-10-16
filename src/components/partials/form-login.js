@@ -183,6 +183,7 @@ export default class LoginForm extends React.Component {
 						name="email"
 						type="email"
 						label="E-Posta"
+						autoComplete="email"
 						disabled={vm.state.loading}
 						validation={{ required: "E-posta adresinizi girmelisiniz", email: true }}
 						className="form-field" />
@@ -190,6 +191,7 @@ export default class LoginForm extends React.Component {
 						name="password"
 						type="password"
 						label="Şifre"
+						autoComplete="current-password"
 						disabled={vm.state.loading}
 						validation={{ required: "Şifrenizi girmelisiniz.", minLength: ["Şifreniz en az {length} karakter içermelidir.", 6] }}
 						className="form-field" />

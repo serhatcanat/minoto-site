@@ -84,6 +84,7 @@ export default class RegisterForm extends React.Component {
 								disabled={vm.state.loading}
 								type="text"
 								label="Ad-Soyad"
+								autoComplete="name"
 								validation={{ required: "Adınızı ve soyadınızı girmelisiniz.", minLength: ["Çok kısa bir ad-soyad girdiniz", 5] }}
 								className="form-field" />
 							<FormInput
@@ -91,6 +92,7 @@ export default class RegisterForm extends React.Component {
 								disabled={vm.state.loading}
 								type="email"
 								label="E-Posta"
+								autoComplete="email"
 								validation={{ required: "E-posta adresinizi girmelisiniz.", email: true }}
 								className="form-field" />
 							<FormInput
@@ -99,6 +101,7 @@ export default class RegisterForm extends React.Component {
 								disabled={vm.state.loading}
 								type="password"
 								label="Şifre"
+								autoComplete="new-password"
 								validation={{ required: "Şifrenizi girmelisiniz.", minLength: ["Şifreniz en az {length} karakter içermelidir.", 6], "compare": ["Girdiğiniz şifreler uyumlu değil.", "#register-password-repeat"] }}
 								className="form-field" />
 							<FormInput
@@ -107,6 +110,7 @@ export default class RegisterForm extends React.Component {
 								disabled={vm.state.loading}
 								type="password"
 								label="Şifre Tekrar"
+								autoComplete="new-password"
 								validation={{ required: "Şifrenizi girmelisiniz.", minLength: ["Şifreniz en az {length} karakter içermelidir.", 6], "compare": ["Girdiğiniz şifreler uyumlu değil.", "#register-password"] }}
 								className="form-field" />
 							<FormInput

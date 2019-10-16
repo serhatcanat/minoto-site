@@ -116,10 +116,16 @@ export const GA = {
 
 		return data;
 	},
-	getProductData(product = false) {
+	getProductData(product = false, opts = {}) {
 		if(product === false) {
 			product = store.getState().ga.productData;
 		}
+
+		let defaultOpts = {
+			list: GA.getCurrentPage(),
+		}
+
+		opts = merge(defaultOpts, opts);
 
 		if(product){
 
@@ -157,8 +163,8 @@ export const GA = {
 					'price': product.price,
 					'brand': brand,
 					'category': (brand+'/'+model+'/'+engineCapacity+'/'+bodyType+'/'+fuelType),
-					'variant': model,
-					'list': GA.getCurrentPage()
+					'variant': engineCapacity,
+					'list': opts.list,
 				},
 				cd: {
 					cd_carCity: city,

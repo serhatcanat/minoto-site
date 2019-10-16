@@ -52,7 +52,7 @@ export function resetData() {
 };
 
 export function clearImpressions() {
-	store.dispatch(setImpressions(initialState.impressions));
+	store.dispatch(setImpressions({groups: {}, timestamp: 0}));
 }
 
 export function addImpressionProduct(group, product, totalCount) {
@@ -63,7 +63,7 @@ export function addImpressionProduct(group, product, totalCount) {
 		impressions.groups[group] = {items: [], totalCount: totalCount};
 	}
 
-	impressions.groups[group].items.push(GA.getProductData(product).product);
+	impressions.groups[group].items.push(GA.getProductData(product, {list: group}).product);
 	impressions.groups[group].totalCount = totalCount;
 	impressions.timestamp = Date.now();
 	store.dispatch(setImpressions(impressions));

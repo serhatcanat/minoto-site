@@ -1070,7 +1070,12 @@ class DetailCredit extends React.Component {
 class DetailRelated extends React.Component {
 	render() {
 		return (
-			<Listing className="related-listing" urlBinding={false} filters={false} topSection={false}
+			<Listing
+				className="related-listing"
+				urlBinding={false}
+				filters={false}
+				topSection={false}
+				GAGroup="Benzer İlanlar"
 				source={`car-posts/detail/${this.props.postId}/similar`}
 				//source="/dummy/data/detail-related.json"
 				query={this.props.postId} size={5} showAds={false} />

@@ -21,6 +21,7 @@ const mapStateToProps = state => {
 		mobile: state.generic.mobile,
 		inputValue: state.generic.searchBarValue,
 		open: state.generic.searchBarOpen,
+		listingQuery: state.listing.listingQuery,
 	};
 };
 
@@ -105,7 +106,7 @@ class SearchBar extends React.Component {
 		if (!this._isMounted) {
 			this.hide();
 		}
-		if (prevProps.inputValue !== this.props.inputValue && this.state.primary) {
+		if (prevProps.inputValue !== this.props.inputValue && this.props.inputValue !== this.props.listingQuery.ara && this.state.primary) {
 			this.updateSearch();
 		}
 
@@ -129,6 +130,11 @@ class SearchBar extends React.Component {
 
 		if (prevProps.mobile !== this.props.mobile) {
 			this.setState({ primary: ((this.props.mobile && this.props.fullScreen) || (!this.props.mobile && !this.props.fullScreen)) });
+		}
+
+		if(prevProps.listingQuery.ara !== this.props.listingQuery.ara){
+			this.props.setValue(this.props.listingQuery.ara ? this.props.listingQuery.ara : "");
+			//console.trace(prevProps.listingQuery.ara, this.props.listingQuery.ara);
 		}
 
 		if (prevState.primary !== this.state.primary) {

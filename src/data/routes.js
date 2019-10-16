@@ -29,7 +29,7 @@ module.exports = {
 				}
 			],*/
 			hideSearchFromHeader: true,
-			GATitle: "Anasayfa",
+			GATitle: "Ana Sayfa",
 		},
 		search: {
 			path: "/arama",
@@ -110,6 +110,7 @@ module.exports = {
 			title: "Araba Markaları ve Araç Listesi - Türkiye'nin Sıfır Km Oto Sitesi Minoto",
 			description: "Sıfır Km araba mı aradınız? Sıfır Km araba modelleri ve fiyatları Minoto'da! Hemen tıkla, fırsatları kaçırma!",
 			postTitle: false,
+			GATitle: "Bayi Detay",
 		},
 		dealers: {
 			path: "/bayiler",
@@ -147,6 +148,7 @@ module.exports = {
 			title: "Araba Fiyat Listesi ve Özellikleri - Türkiye'nin Sıfır Km Oto Sitesi Minoto",
 			description: "Sıfır Km araba fiyat listesi mi aradınız? Sıfır Km araba fiyat listesi ve özellikleri Minoto'da! Hemen tıkla, fırsatları kaçırma!",
 			postTitle: false,
+			GATitle: "Liste Fiyatları",
 		},
 		dealerApplication: {
 			path: "/bayi-basvuru-formu",
@@ -253,6 +255,7 @@ module.exports = {
 			exact: true,
 			linkTitle: "Minoto Blog",
 			title: "Minoto Blog",
+			GATitle: "Blog",
 		},
 		blogRedirect: {
 			path: "/blog/detay/:slug",
@@ -260,6 +263,7 @@ module.exports = {
 			exact: true,
 			linkTitle: "Minoto Blog",
 			title: "Minoto Blog",
+			GATitle: "Blog",
 		},
 		blogDetail: {
 			path: "/blog/:slug",
@@ -277,10 +281,6 @@ module.exports = {
 			title: "Minoto Blog",
 			GATitle: "Blog",
 		},
-
-
-
-
 		/*searchBrand: {
 		dealerApplication: {
 			path: "/bayi-basvuru-formu",
@@ -316,6 +316,7 @@ module.exports = {
 			meta: {
 				keywords: "Minoto, Sıfır Otomobil, Bayiler"
 			},
+			GATitle: "Ana Sayfa",
 			// Bu şekilde head kısmına custom meta da eklenebilir.
 			/*head: [
 				{
