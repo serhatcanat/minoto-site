@@ -4,6 +4,7 @@ import React from 'react';
 import ShareModal from 'components/modals/share'
 import OptionsModal from 'components/modals/options'
 import TextModal from 'components/modals/text'
+import Compare from 'components/modals/compare'
 
 // Deps
 import { connect } from "react-redux";
@@ -123,6 +124,9 @@ class ModalsWrap extends React.Component {
 				case "text":
 					Content = <TextModal {...props} />
 				break;
+				case "compare":
+					Content = <Compare {...props} />
+					break;
 				default:
 					for(let k = 0; k < children.length; k++){
 						let item = children[k];
@@ -142,7 +146,7 @@ class ModalsWrap extends React.Component {
 				<div className={"modal-container " + props.containerClass + (vm.state.show ? ' show' : '')}>
 					<div className="modal-outerwrap">
 						{Content}
-						{(props.preventClose ? 
+						{(props.preventClose ?
 							<div className="modal-overlay"></div>
 						:
 							<button className="modal-overlay" onClick={() => { if(!props.preventClose){vm.closeModal()}}}></button>
@@ -151,7 +155,7 @@ class ModalsWrap extends React.Component {
 				</div>
 			);
 		}
-		else { 
+		else {
 			if(vm.state.data){ console.log('Modals Error: Modal "'+vm.state.data.modal+'" not found.') };
 			return false;
 		}

@@ -13,14 +13,17 @@ import { redirect } from 'controllers/navigator'
 
 // Assets
 import image_info from "assets/images/checkout-info-logo.jpg"
+import {setDealerData, setProductData} from "../../data/store.ga";
+import {addVehicleToCompare, setVehicleToReservation} from "../../actions";
+import {connect} from "react-redux";
 
-export default class Info extends React.Component {
+class Info extends React.Component {
 
 	constructor(props) {
 		super(props);
 
 		this.state = {
-			loading: (props.user ? false : true),
+			loading: (!props.user),
 			reservation: false,
 		}
 	}
@@ -55,11 +58,10 @@ export default class Info extends React.Component {
 	render () {
 		//let vm = this;
 		let reservation = this.state.reservation;
-
 		return (
 			<div className="section reservation-layout loader-container">
 				<Loader loading={!reservation || this.state.loading} />
-				{reservation && 
+				{reservation &&
 					<div className="layout-content">
 						<div className="content-innerwrap">
 							<ReservationNav section="info" reservationID={reservation.product.id} />
@@ -80,7 +82,7 @@ export default class Info extends React.Component {
 									<div className="faq-item">
 										<h2 className="item-title">Rezerve ücreti iade edilir mi?</h2>
 										<div className="item-content wysiwyg">
-											Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+											Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 										</div>
 									</div>
 								</div>
@@ -98,3 +100,13 @@ export default class Info extends React.Component {
 		)
 	}
 }
+const mapStateToProps = ({generic, user, adCompare,reservation}) => {
+	return {mobile: generic.mobile, user: user.user, adCompare,reservation};
+};
+
+const mapDispatchToProps = dispatch => {
+	return {
+		setVehicleToReservation: (data) => dispatch(setVehicleToReservation(data)),
+	}
+};
+export default connect(mapStateToProps,mapDispatchToProps)(Info);

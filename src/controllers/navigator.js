@@ -15,7 +15,7 @@ import RecoveryModal from 'components/modals/recovery'
 import ConsentModal from 'components/modals/consent'
 import MapModal from 'components/modals/map'
 import BidModal from 'components/modals/bid'
-import GarantiModal from 'components/modals/garanti'
+import CreditModal from 'components/modals/credit'
 import MessageModal from 'components/modals/message'
 import YoutubeModal from 'components/modals/youtube'
 
@@ -56,6 +56,7 @@ import Branch from 'pages/branch'
 import Detail from 'pages/detail'
 import ListPrices from 'pages/listprices'
 import Comparison from 'pages/comparison'
+import AdCompare from 'pages/ad-compare'
 import About from 'pages/about'
 import Account from 'pages/account'
 import Reservation from 'pages/reservation'
@@ -87,6 +88,7 @@ const pageRegistry = {
 	Detail: Detail,
 	ListPrices: ListPrices,
 	Comparison: Comparison,
+	AdCompare: AdCompare,
 	About: About,
 	Account: Account,
 	Reservation: Reservation,
@@ -150,7 +152,7 @@ class Navigator extends React.Component {
 					<ConsentModal />
 					<MapModal />
 					<BidModal />
-					<GarantiModal />
+					<CreditModal />
 					<MessageModal />
 					<YoutubeModal />
 				</ModalsWrap>

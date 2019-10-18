@@ -158,6 +158,7 @@ class Listing extends React.Component {
 		//console.log(this.props.filterQuery)
 
 		if (!isEqual(prevProps.filterQuery, this.props.filterQuery)) {
+
 			vm.updateResults();
 		}
 
@@ -190,6 +191,7 @@ class Listing extends React.Component {
 				if (!listingQuery.siralama) { listingQuery.siralama = vm.props.defaultOrder }
 
 				let filterQuery = omit(query, ['siralama', 'sayfa', 'pageOrder', 'ara']);
+
 				vm.props.setListingQuery(listingQuery);
 				vm.props.setFilterQuery(filterQuery);
 

@@ -191,6 +191,16 @@ module.exports = {
 			title: "Araç Karşılaştırma",
 			GATitle: "Araç Karşılaştırma",
 		},
+
+		adCompare: {
+			path: "/ilan-karsilastir/",
+			component: "AdCompare",
+			exact: true,
+			linkTitle: "İlan Karşılaştırma",
+			title: "İlan Karşılaştırma",
+			GATitle: "İlan Karşılaştırma",
+		},
+
 		about: {
 			path: "/minoto-nedir",
 			component: "About",
@@ -255,7 +265,6 @@ module.exports = {
 			exact: true,
 			linkTitle: "Minoto Blog",
 			title: "Minoto Blog",
-			GATitle: "Blog",
 		},
 		blogRedirect: {
 			path: "/blog/detay/:slug",
@@ -281,6 +290,10 @@ module.exports = {
 			title: "Minoto Blog",
 			GATitle: "Blog",
 		},
+
+
+
+
 		/*searchBrand: {
 		dealerApplication: {
 			path: "/bayi-basvuru-formu",

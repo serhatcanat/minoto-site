@@ -63,7 +63,6 @@ export const GA = {
 	},
 	sendData: function(data) {
 		let gaData = merge(GA.getDefaultData(), data);
-		console.log('GA - Data:\n', gaData);
 		window.dataLayer.push(gaData);
 	},
 	getDefaultData() {
@@ -155,7 +154,7 @@ export const GA = {
 				transmissionType = product.ga.gearType;
 			}
 
-			return {	
+			return {
 				id: product.postNo,
 				product: {
 					'name': product.title,
@@ -416,4 +415,4 @@ export const GA = {
 			});
 		}
 	}
-} 
+}

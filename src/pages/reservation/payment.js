@@ -1,24 +1,19 @@
 import React from 'react'
-
 // Partials
 import Image from 'components/partials/image'
 import Loader from 'components/partials/loader'
 import Responsive from 'components/partials/responsive'
 import ReservationNav from 'components/partials/reservation/nav'
 import ReservationSidebar from 'components/partials/reservation/sidebar'
-import { InputForm, FormInput } from 'components/partials/forms'
+import {FormInput, InputForm} from 'components/partials/forms'
 import Collapse from 'components/partials/collapse'
 import Btn from 'components/partials/btn'
-
 // Functions
-import { serializeArray } from 'functions/helpers'
-//import { uid } from 'functions/helpers'
-
+import {serializeArray} from 'functions/helpers'
 // Deps
 import request from 'controllers/request'
 import cardValidation from 'controllers/card-validation'
-import { redirect } from 'controllers/navigator'
-
+import {redirect} from 'controllers/navigator'
 // Assets
 import image_card_preview from 'assets/images/payment/card-preview.svg'
 
@@ -29,6 +24,10 @@ import image_logo_visa_electron from 'assets/images/payment/icons/visa_electron.
 import image_logo_amex from 'assets/images/payment/icons/amex.svg'
 import image_logo_troy from 'assets/images/payment/icons/troy.svg'
 import image_iyzico_security from 'assets/images/payment/iyzico-security-badge.png'
+import {setDealerData, setProductData} from "../../data/store.ga";
+import {addVehicleToCompare, setVehicleToReservation} from "../../actions";
+import {connect} from "react-redux";
+//import { uid } from 'functions/helpers'
 
 const cardLogos = {
 	mastercard: image_logo_mastercard,
@@ -39,8 +38,7 @@ const cardLogos = {
 	troy: image_logo_troy,
 }
 
-
-export default class Info extends React.Component {
+class Info extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -55,6 +53,8 @@ export default class Info extends React.Component {
 
 			cardType: false,
 			cvcLength: false,
+
+			adData: [],
 		}
 
 		this.changeInput = this.changeInput.bind(this);
@@ -65,6 +65,16 @@ export default class Info extends React.Component {
 
 	componentDidMount() {
 		let vm = this;
+
+		const userId = this.props.user.id;
+		const {reservation} = this.props;
+		let postId;
+
+		if (reservation.length) {
+			console.log(reservation);
+		} else {
+			console.log('there is no reservation');
+		}
 
 		request.get('/dummy/data/reservation.json', {id: vm.props.match.params.id}, function(payload){
 			if(payload){
@@ -79,6 +89,23 @@ export default class Info extends React.Component {
 				}
 			}
 		}, { excludeApiPath: true });
+	}
+
+	getAdData() {
+
+
+		request.get('/dummy/data/reservation.json', {id: this.props.match.params.id}, function (payload) {
+			if (payload) {
+				if (payload.complete) {
+					redirect('reservation.sum', {id: payload.ref});
+				} else {
+					this.setState({
+						loading: false,
+						reservation: payload
+					});
+				}
+			}
+		}, {excludeApiPath: true});
 	}
 
 	/*componentDidUpdate(prevProps, prevState) {
@@ -211,10 +238,11 @@ export default class Info extends React.Component {
 }
 
 class BillingInfo extends React.Component {
+
 	constructor(props) {
 		super(props);
 		let selectedAddress = this.getSelectedAddress();
-		
+
 		this.error = "Geçerli bir fatura adresi girmelisiniz";
 
 		this.state = {
@@ -236,6 +264,7 @@ class BillingInfo extends React.Component {
 	}
 
 	componentDidMount() {
+
 		if(this.props.onChangeInForm){
 			this.props.onChangeInForm(this.state.value, this.props.name, this.state.error, this.state.touched);
 		}
@@ -311,7 +340,7 @@ class BillingInfo extends React.Component {
 					<Collapse open={this.state.expanded}>
 						<div className="billing-content loader-container">
 							<Loader loading={!this.state.addresses} />
-							{this.state.newAddressMode ? 
+							{this.state.newAddressMode ?
 								<div className="content-newaddress">
 									<NewAddressForm onSave={this.updateAddresses} />
 								</div>
@@ -455,7 +484,7 @@ class NewAddressForm extends React.Component {
 					placeholder={this.state.corporate ? "Şirket Adı" : "Ad Soyad"}
 					validation={(this.state.corporate ?
 						{minLength: ["Geçerli bir şirket adı girmelisiniz.", 3]}
-						: 
+							:
 						{fullName: true}
 					)}
 					popLabel />
@@ -557,3 +586,19 @@ class NewAddressForm extends React.Component {
 		)
 	}
 }
+
+
+const mapStateToProps = ({generic, user, adCompare, reservation}) => {
+	return {mobile: generic.mobile, user: user.user, adCompare, reservation};
+};
+
+const mapDispatchToProps = dispatch => {
+	return {
+		setGaProductData: (data) => dispatch(setProductData(data)),
+		setGaDealerData: (data) => dispatch(setDealerData(data)),
+		addVehicleToCompare: (data) => dispatch(addVehicleToCompare(data)),
+		setVehicleToReservation: (data) => dispatch(setVehicleToReservation(data)),
+	}
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Info);

@@ -118,7 +118,7 @@ export default class LoginForm extends React.Component {
 
 		vm.setState({
 			loading: true,
-		})
+		});
 
 		socialLogin(response, 'facebook', function (payload) {
 			if(vm._isMounted){
@@ -145,7 +145,7 @@ export default class LoginForm extends React.Component {
 
 		vm.setState({
 			loading: true,
-		})
+		});
 
 		socialLogin(response, 'google', function (payload) {
 			if(vm._isMounted){

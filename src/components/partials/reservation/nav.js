@@ -7,7 +7,7 @@ export default class ReservationNav extends React.Component {
 	render() {
 		return (
 			<nav className="section content-nav">
-				<Link className={"nav-item" + (this.props.section === 'sum' ? ' disabled' : '')} navLink href="reservation.info" params={{id: this.props.reservationID}}>
+				<Link className={"nav-item"+ (this.props.section === 'sum' ? ' disabled' : '')} navLink href="reservation.info" params={{id: this.props.reservationID}}>
 					<i className="item-icon icon-handshake"></i>
 					<div className="item-text" disabled={this.props.section === 'sum'}>
 						<strong>Rezerve</strong>

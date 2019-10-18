@@ -31,11 +31,11 @@ const mapDispatchToProps = dispatch => {
 
 class Branch extends React.Component {
 	constructor(props) {
-		super(props)
+		super(props);
 		this.state = {
 			branchData: false,
 			loading: true,
-		}
+		};
 
 		this.initialize = this.initialize.bind(this);
 		//this.listingDataChanged = this.listingDataChanged.bind(this);

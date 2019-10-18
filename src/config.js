@@ -1,4 +1,4 @@
-let domain = window.location.hostname
+let domain = window.location.hostname;
 
 let endpoint = process.env.REACT_APP_API_ENDPOINT ? process.env.REACT_APP_API_ENDPOINT : false;
 
