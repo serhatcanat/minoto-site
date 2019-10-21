@@ -36,7 +36,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "sitemap": "node ./worker/create-sitemap.js"
+    "sitemap": "node ./worker/create-sitemap.js",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run --record --key 5ae17141-4556-4479-9b71-01d7c2dac627"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -46,5 +48,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "cypress": "^3.4.1"
+  }
 }
