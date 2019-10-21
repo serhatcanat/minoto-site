@@ -17,8 +17,9 @@ import {redirect} from 'controllers/navigator'
 // Assets
 import image_card_preview from 'assets/images/payment/card-preview.svg'
 
-import image_logo_mastercard from 'assets/images/payment/icons/mastercard.svg'
+
 import image_logo_maestro from 'assets/images/payment/icons/maestro.svg'
+import image_logo_mastercard from 'assets/images/payment/icons/mastercard.svg'
 import image_logo_visa from 'assets/images/payment/icons/visa.svg'
 import image_logo_visa_electron from 'assets/images/payment/icons/visa_electron.svg'
 import image_logo_amex from 'assets/images/payment/icons/amex.svg'

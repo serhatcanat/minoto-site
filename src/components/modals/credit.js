@@ -142,7 +142,12 @@ class CreditModalRaw extends React.Component {
                                         type="checkbox"
                                         validation={{ required: "Üye olmak için bu bildirimi kabul etmeniz gerekmektedir." }}
                                         className="form-field small-font">
-                                        TC Kimlik numaramın, başvurumun takibi amacıyla Garanti BBVA ile paylaşılmasına izin veriyorum.
+                                        TC Kimlik numaramın, başvurumun takibi amacıyla
+                                        {type == 'garanti' ?
+                                            ' Garanti BBVA '
+                                            : ' İş Bankası '
+                                        }
+                                        ile paylaşılmasına izin veriyorum.
                                     </FormInput>
                                     <br />
                                     <FormInput
@@ -168,7 +173,12 @@ class CreditModalRaw extends React.Component {
                                 <div className="bid-complete" style={{textAlign: 'center'}}>
                                     <i className="complete-icon icon-check-round"></i>
                                     <p className="complete-description">
-                                        Bilgileriniz kaydedildi, Garanti Bankası Kredi Başvuru sayfasına
+                                        Bilgileriniz kaydedildi,
+                                        {type == 'garanti' ?
+                                            'Garanti Bankası'
+                                            : 'İş Bankası'
+                                        }
+                                         Kredi Başvuru sayfasına
                                         yönlendiriliyorsunuz.
                                     </p>
                                     <div className="complete-controls">
@@ -178,8 +188,6 @@ class CreditModalRaw extends React.Component {
                             </React.Fragment>
                         )
                     }
-
-
                 </div>
             </div>
         )

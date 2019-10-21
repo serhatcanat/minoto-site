@@ -19,8 +19,7 @@ import image_icon_youtube from 'assets/images/icon/youtube.svg'
 import image_logo_white from 'assets/images/logo-white.svg'
 import image_icon_twitter from 'assets/images/icon/twitter2.svg'
 import image_icon_linkedin from 'assets/images/icon/linkedin.svg'
-import image_logo_mastercard from 'assets/images/payment/icons/mastercard.svg'
-import image_logo_visa from 'assets/images/payment/icons/visa.svg'
+
 
 const mapStateToProps = state => {
 	return { mobile: state.generic.mobile };
@@ -234,10 +233,6 @@ class Footer extends React.Component {
 					<div className="footer-copyright footer-wrap wrapper narrow">
 						<div className="copyright-disclaimer footer-col">
 							COPYRIGHT © 2019 MINOTO. ALL RIGHTS RESERVED.
-						</div>
-						<div className='footer-col payment-methods'>
-							<img src={image_logo_mastercard} alt={'Mastercard'}/>
-							<img src={image_logo_visa} alt={'Mastercard'}/>
 						</div>
 						<div className="copyright-designby footer-col">
 

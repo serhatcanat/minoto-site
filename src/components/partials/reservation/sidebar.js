@@ -1,13 +1,14 @@
 import React from 'react'
-
 // Partials
 //import Link from 'components/partials/link'
 import Image from 'components/partials/image'
 import Responsive from 'components/partials/responsive'
 import Btn from 'components/partials/btn'
-import { FormInput } from 'components/partials/forms'
-import { openModal } from "functions/modals"
+import {FormInput} from 'components/partials/forms'
+import {openModal} from "functions/modals"
 import PriceTag from 'components/partials/price-tag'
+import image_logo_mastercard from 'assets/images/payment/icons/mastercard.svg'
+import image_logo_visa from 'assets/images/payment/icons/visa.svg'
 
 // Functions
 
@@ -59,12 +60,12 @@ export default class ReservationNav extends React.Component {
 								</div>
 							</div>
 						</div>
-						{this.props.section === 'info' && 
+						{this.props.section === 'info' &&
 							<div className="sidebar-controls">
 								<Btn tag="link" block uppercase href="reservation.payment" params={{id: reservation.product.id}}>Rezerve Etmek İstiyorum</Btn>
 							</div>
 						}
-						{this.props.section === 'payment' && 
+						{this.props.section === 'payment' &&
 							<div className="sidebar-controls">
 								<div className="sidebar-agreement">
 									<FormInput type="checkbox" value={this.state.agreementSelected} onChange={this.agreementChanged}><button type="button" className="agreement-link" onClick={() => { openModal('text', {content: agreement, title: "Ön Bilgilendirme Koşulları"})}}>Ön Bilgilendirme Koşulları</button>'nı okudum, onaylıyorum.</FormInput>
@@ -72,6 +73,13 @@ export default class ReservationNav extends React.Component {
 								</div>
 							</div>
 						}
+						{/* todo: clear inline css */}
+						<div style={{marginTop:'15px'}}>
+							<img src={image_logo_mastercard} alt={'Mastercard'} style={{float:'left',width:'50%'}}/>
+							<img src={image_logo_visa} alt={'Mastercard'}  style={{float:'left',width:'50%'}}/>
+						</div>
+
+
 					</div>
 				</aside>
 			)
