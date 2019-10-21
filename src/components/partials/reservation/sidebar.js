@@ -78,8 +78,6 @@ export default class ReservationNav extends React.Component {
 							<img src={image_logo_mastercard} alt={'Mastercard'} style={{float:'left',width:'50%'}}/>
 							<img src={image_logo_visa} alt={'Mastercard'}  style={{float:'left',width:'50%'}}/>
 						</div>
-
-
 					</div>
 				</aside>
 			)

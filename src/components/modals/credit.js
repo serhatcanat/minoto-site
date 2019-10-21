@@ -175,8 +175,8 @@ class CreditModalRaw extends React.Component {
                                     <p className="complete-description">
                                         Bilgileriniz kaydedildi,
                                         {type == 'garanti' ?
-                                            'Garanti Bankası'
-                                            : 'İş Bankası'
+                                            ' Garanti Bankası '
+                                            : ' İş Bankası '
                                         }
                                          Kredi Başvuru sayfasına
                                         yönlendiriliyorsunuz.
