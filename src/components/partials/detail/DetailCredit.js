@@ -38,14 +38,15 @@ export class DetailCredit extends React.Component {
 
     calculateMaxCredit() {
         const price = this.props.product.price;
-        const rateChangeLimit = 120.000;
+        const rateChangeLimit = 120000;
         let maxCreditForPrice;
 
         if (price < rateChangeLimit) {
             maxCreditForPrice = price * 0.70;
         } else {
             let topCredit = rateChangeLimit * 0.70;
-            let subCredit = (price - rateChangeLimit) * 0.50;
+            let subCredit = (parseInt(price, 10) - rateChangeLimit) * 0.50;
+
             maxCreditForPrice = topCredit + subCredit;
         }
         return maxCreditForPrice;
