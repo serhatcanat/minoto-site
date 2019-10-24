@@ -1,5 +1,4 @@
-
-import {ADD_VEHICLE_TO_COMPARE} from "../actions/actionTypes";
+import {ADD_VEHICLE_TO_COMPARE, GET_VEHICLE_FROM_COMPARE} from "../actions/actionTypes";
 
 const INIT_STATE = {
     data: [],
@@ -10,9 +9,11 @@ const addVehicleToCompare = (state, action) => {
     let index = state.data.findIndex(el => el.id === action.payload.id);
 
     let data = state.data;
+
     if (data.length >= 4) {
 
     }
+
     if (index == -1)
         return ({
             ...state,
@@ -20,6 +21,11 @@ const addVehicleToCompare = (state, action) => {
         });
     return state;
 };
+
+const getVehicleFromCompare = (state, action) => ({
+    ...state,
+    data: action.payload
+});
 
 
 const createReducer = (initialState, handlers) => {
@@ -31,5 +37,5 @@ const createReducer = (initialState, handlers) => {
 };
 
 export const adCompareReducer = createReducer(INIT_STATE, {
-    [ADD_VEHICLE_TO_COMPARE]: addVehicleToCompare
+    [ADD_VEHICLE_TO_COMPARE]: addVehicleToCompare,[GET_VEHICLE_FROM_COMPARE]: getVehicleFromCompare
 });

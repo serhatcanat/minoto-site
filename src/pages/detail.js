@@ -18,6 +18,7 @@ import {storageSpace} from "functions/helpers"
 import {setDealerData, setProductData} from 'data/store.ga'
 import {GA} from 'controllers/ga'
 //Functions
+import {setToLStorage,getFromLStorage} from '../functions/localstorage'
 // Assets
 import {addVehicleToCompare, setVehicleToReservation} from "../actions";
 import {DetailGallery} from "../components/partials/detail/DetailGallery";
@@ -54,6 +55,7 @@ class Detail extends React.Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
+
 		let user = this.props.user;
 		if (prevProps.user === false && user !== false) {
 			this.initialize()
@@ -69,6 +71,16 @@ class Detail extends React.Component {
 		if (prevState.productData !== false && this.state.productData === false) {
 			this.initialize();
 		}
+	}
+
+	setCompareList(){
+		const vm = this;
+		const product = this.state.productData;
+		this.props.addVehicleToCompare(product);
+		setTimeout(function () {
+			console.log(vm.props.adCompare);
+		},300);
+
 	}
 
 	initialize() {
@@ -201,9 +213,9 @@ class Detail extends React.Component {
 										<span className="controls-date">{product.date}</span>
 										<FavBtn className="controls-btn" faved={product.favorited} type="post" id={product.id}> {product.favorited ? 'Favori İlan' : 'Favorilere Ekle'}</FavBtn>
 										{/*<button className="controls-btn"*/}
-										{/*		onClick={() => addVehicleToCompare(product)}><i*/}
+										{/*		onClick={() => this.setCompareList()}><i*/}
 										{/*	className="icon-compare"/>Karşılaştır*/}
-										{/*	({adCompare.data.length})*/}
+										{/*	({getFromLStorage('adCompare').length})*/}
 										{/*</button>*/}
 										<button className="controls-btn" onClick={() => openModal('share')}><i className="icon-share"></i> Paylaş</button>
 									</div>
@@ -287,8 +299,6 @@ class Detail extends React.Component {
 		)
 	}
 }
-
-
 
 
 const mapStateToProps = ({generic, user, adCompare,reservation}) => {

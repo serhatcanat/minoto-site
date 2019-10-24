@@ -5,7 +5,6 @@ export default function localStorage(carData) {
 }
 
 export function setToLStorage(dataIndex, dataValue) {
-
     let storageArr = [],
         storageData = getFromLStorage(dataIndex);
     if (!storageData) {
@@ -30,6 +29,8 @@ export function setToLStorage(dataIndex, dataValue) {
         }
     }
 }
+
+
 
 export function removeFromLStorage(dataIndex, itemIndex) {
     let payload = getFromLStorage(dataIndex);

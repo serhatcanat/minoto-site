@@ -1,5 +1,4 @@
 import React from "react";
-
 // Partials
 import Image from '../../partials/image'
 import Btn from '../../partials/btn'
@@ -148,13 +147,27 @@ export class DetailInfo extends React.Component {
                 }
                 <div className="info-controls">
                     <div className="controls-buttons">
-                        {/*<Btn className="controls-button reservate" primary hollow uppercase*/}
-                        {/*     note="Bu aracı çok yakında rezerve edebileceksiniz." onClick={()=>this.setVehicleToReservation(product)}>*/}
+
+                        {product.status === 1 && product.isReservable &&
+                        <Btn className="controls-button reservate" primary hollow uppercase
+                             note="Bu aracı çok yakında rezerve edebileceksiniz."
+                             onClick={() => this.setVehicleToReservation(product)}>
+                            Reserve Et
+                        </Btn>
+                        }
+
+                        {product.status === 2 &&
+                        <Btn className="controls-button reservate" primary hollow uppercase
+                             note="Bu araç rezerve edilmiştir."
+                             disabled
+                             >
+                            Rezerve Edildi
+                        </Btn>
+                        }
+
+                        {/*<Btn className="controls-button reservate" primary hollow uppercase note="Bu aracı çok yakında rezerve edebileceksiniz." disabled={true}>*/}
                         {/*    Rezerve Et*/}
                         {/*</Btn>*/}
-                        <Btn className="controls-button reservate" primary hollow uppercase note="Bu aracı çok yakında rezerve edebileceksiniz." disabled={true}>
-                            Rezerve Et
-                        </Btn>
                         {
                             ((vm.props.mobile && product.dealer.phone) ?
                                     <a

@@ -21,7 +21,7 @@ export default class ReservationNav extends React.Component {
 						<span>Aşaması</span>
 					</div>
 				</Link>
-				<Link className={"nav-item disabled sum"} navLink href="reservation.sum" params={{id: this.props.reservationID}} disabled>
+				<Link className={this.props.section==='sum' ? 'nav-item  sum active': 'nav-item disabled sum'} navLink href="reservation.sum" params={{id: this.props.reservationID}} disabled>
 					<i className="item-icon icon-check-round"></i>
 					<div className="item-text">
 						<strong>Onay</strong>

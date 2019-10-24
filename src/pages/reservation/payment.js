@@ -17,14 +17,12 @@ import {redirect} from 'controllers/navigator'
 // Assets
 import image_card_preview from 'assets/images/payment/card-preview.svg'
 
-
-import image_logo_maestro from 'assets/images/payment/icons/maestro.svg'
 import image_logo_mastercard from 'assets/images/payment/icons/mastercard.svg'
+import image_logo_maestro from 'assets/images/payment/icons/maestro.svg'
 import image_logo_visa from 'assets/images/payment/icons/visa.svg'
 import image_logo_visa_electron from 'assets/images/payment/icons/visa_electron.svg'
 import image_logo_amex from 'assets/images/payment/icons/amex.svg'
 import image_logo_troy from 'assets/images/payment/icons/troy.svg'
-import image_iyzico_security from 'assets/images/payment/iyzico-security-badge.png'
 import {setDealerData, setProductData} from "../../data/store.ga";
 import {addVehicleToCompare, setVehicleToReservation} from "../../actions";
 import {connect} from "react-redux";
@@ -39,7 +37,7 @@ const cardLogos = {
 	troy: image_logo_troy,
 }
 
-class Info extends React.Component {
+class Payment extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -51,35 +49,31 @@ class Info extends React.Component {
 			cardNumber: "",
 			cardExpiry: "",
 			cardCvc: "",
-
 			cardType: false,
 			cvcLength: false,
-
 			adData: [],
+			submitMode: false,
+			selectedAddress: false,
 		}
 
 		this.changeInput = this.changeInput.bind(this);
 		this.pay = this.pay.bind(this);
+		this.changeSubmitStatus = this.changeSubmitStatus.bind(this);
+		this.setSelectedAddress = this.setSelectedAddress.bind(this);
 
 		this.paymentForm = React.createRef();
 	}
 
 	componentDidMount() {
 		let vm = this;
-
 		const userId = this.props.user.id;
 		const {reservation} = this.props;
-		let postId;
+		const postId = this.props.match.params.id;
 
-		if (reservation.length) {
-			console.log(reservation);
-		} else {
-			console.log('there is no reservation');
-		}
-
-		request.get('/dummy/data/reservation.json', {id: vm.props.match.params.id}, function(payload){
+		request.get(`reservations/${postId}`, {email: this.props.user.email}, function (payload) {
 			if(payload){
-				if(payload.complete){
+
+				if(payload.product.status === 2){
 					redirect('reservation.sum', {id: payload.ref});
 				}
 				else {
@@ -89,13 +83,18 @@ class Info extends React.Component {
 					});
 				}
 			}
-		}, { excludeApiPath: true });
+		}, {excludeApiPath: false});
+	}
+
+	changeSubmitStatus(status) {
+		this.setState({
+			submitMode: status
+		})
 	}
 
 	getAdData() {
-
-
-		request.get('/dummy/data/reservation.json', {id: this.props.match.params.id}, function (payload) {
+		const postId = this.props.match.params.id;
+		request.get(`reservations/${postId}`, {email: this.props.user.email}, function (payload) {
 			if (payload) {
 				if (payload.complete) {
 					redirect('reservation.sum', {id: payload.ref});
@@ -106,8 +105,9 @@ class Info extends React.Component {
 					});
 				}
 			}
-		}, {excludeApiPath: true});
+		}, {excludeApiPath: false});
 	}
+
 
 	/*componentDidUpdate(prevProps, prevState) {
 		if(prevState.cvcLength !== this.state.cvcLength && this.cvcInput.current){
@@ -117,39 +117,77 @@ class Info extends React.Component {
 
 	changeInput(key, value) {
 		this.setState({[key]: value});
-
 		if(key === 'cardNumber'){
 			let card = cardValidation.getType(value);
 			card = card ? card : { cvv_length : false, name: false }
-
 			this.setState({ cardType: card.name, cvcLength: card.cvv_length })
 		}
 	}
 
+	// Main Payment Function
 	pay() {
 		this.paymentForm.current.submit();
+		if(this.paymentForm.current.validate()){
+			const vm = this;
+			const {selectedAddress, reservation, cardName, cardCvc, cardExpiry} = this.state;
+			let {cardNumber} = this.state;
+			this.setState({
+				loading: true
+			});
+			// Split card expired date to 12/23 ==> cardMonth = 12 | cardYear = 23
+			const dateArr= cardExpiry.split('/');
+			const [cardMonth ,cardYear]= dateArr;
+			// Clean spaces between number in chunks 0000 0000 0000 0000 / 000000000000000
+			cardNumber = cardNumber.replace(/\s/g, '');
+
+			request.post('reservations', {
+				'car_post_id': reservation.product.id,
+				'address_id': selectedAddress.id,
+				// todo: refactor magic key
+				'product_id': 3,
+				'name_surname': cardName,
+				'card_number': cardNumber,
+				'expired_year': cardYear,
+				'expired_month': cardMonth,
+				'cvc':cardCvc
+			}, function (payload,status) {
+				if(payload){
+					vm.props.history.push(`/rezervasyon/${vm.props.match.params.id}/ozet`,{invoiceInfo:payload});
+				}
+				vm.setState({
+					loading: true
+				})
+			}, {excludeApiPath: false});
+		}
+	}
+
+	setSelectedAddress(selectedAddress) {
+		this.setState({
+			selectedAddress: selectedAddress
+		})
 	}
 
 	render () {
 		//let vm = this;
 		let reservation = this.state.reservation;
-
 		return (
 			<div className="section reservation-layout loader-container">
 				<Loader loading={!reservation || this.state.loading} />
 				{reservation &&
-					<div className="layout-content">
-						<div className="content-innerwrap">
-							<ReservationNav section="payment" reservationID={reservation.product.id} />
-							<section className="section reservation-payment">
-								<div className="payment-iyzico">
-									<i className="iyzico-icon icon-security"></i>
-									<div className="iyzico-text">
-										<strong className="iyzico-title">iyzico ile güvenli ödeme</strong>
-										<p className="iyzico-subtitle">Güvenli ödeme sayfasındasınız. Bilgileriniz SSL sertifikası ile şifrelenerek korunmaktadır.</p>
-									</div>
+				<div className="layout-content">
+					<div className="content-innerwrap">
+						<ReservationNav section="payment" reservationID={this.props.match.params.id}/>
+						<section className="section reservation-payment">
+							<div className="payment-iyzico">
+								<i className="iyzico-icon icon-security"></i>
+								<div className="iyzico-text">
+									<strong className="iyzico-title">iyzico ile güvenli ödeme</strong>
+									<p className="iyzico-subtitle">Güvenli ödeme sayfasındasınız. Bilgileriniz SSL
+										sertifikası ile şifrelenerek korunmaktadır.</p>
 								</div>
-								<div className="payment-cardinfo no-select">
+							</div>
+							<div className="payment-cardinfo no-select">
+								<div>
 									<InputForm className="cardinfo-form" ref={this.paymentForm}>
 										<FormInput
 											type="text"
@@ -157,38 +195,44 @@ class Info extends React.Component {
 											icon="user"
 											value={this.state.cardName}
 											popLabel
-											name="name"
+											name="name_surname"
 											placeholder="Kart Üzerindeki Ad-Soyad"
 											validation={{
 												required: "Ad ve soyadınızı girmelisiniz.",
 												minWords: ["Geçerli bir ad-soyad giriniz.", 2],
 												minLength: ["Geçerli bir ad-soyad giriniz.", 5]
 											}}
-											onChange={(v) => { this.changeInput('cardName', v); }} />
+											onChange={(v) => {
+												this.changeInput('cardName', v);
+											}}/>
 										<FormInput
 											type="number"
 											className="form-field high cardnumber"
 											icon="card"
-											popLabel name="cardnumber"
+											popLabel name="card_number"
 											placeholder="Kart Numarası"
 											mask="9999 9999 9999 9999"
 											validation={{
 												'creditcard': true,
 												'required': true,
 											}}
-											onChange={(v) => { this.changeInput('cardNumber', v); }} />
+											onChange={(v) => {
+												this.changeInput('cardNumber', v);
+											}}/>
 										<FormInput
 											type="number"
 											className="form-field high half"
 											icon="calendar"
-											popLabel name="expiry"
+											popLabel name="expired_year"
 											placeholder="AA/YY"
 											mask="99/99"
 											validation={{
 												'required': true,
 												'expiry': true,
 											}}
-											onChange={(v) => { this.changeInput('cardExpiry', v); }} />
+											onChange={(v) => {
+												this.changeInput('cardExpiry', v);
+											}}/>
 										<FormInput
 											type="number"
 											className="form-field high half cvc"
@@ -202,36 +246,43 @@ class Info extends React.Component {
 												required: "Güvenlik kodunu girmelisiniz.",
 												cvc: ["Geçerli bir CVC girmelisiniz", this.state.cvcLength]
 											}}
-											onChange={(v) => { this.changeInput('cardCvc', v); }} />
-										<FormInput
-											type="checkbox"
-											className="form-field high iyzico"
-											name="iyzico"
-											info={<div className="iyzico-info"><div className="info-image"><Image src={image_iyzico_security} /></div><span>Ödemenizi 3 gün daha iyzico güvencesi altında tutuyoruz.  Alışverişinizle ilgili tüm sorularınızı ve iade işlemleriniz için iyzico destek ekibine ulaşabilirsiniz.</span></div>}
-											infoProps={{rtl: true}}
-											validation={{required: "İyzico Korumalı Alışveriş Sözleşmesini onaylamalısınız."}}
-											label="iyzico Korumalı Alışveriş" />
+											onChange={(v) => {
+												this.changeInput('cardCvc', v);
+											}}/>
+										{/*<FormInput*/}
+										{/*	type="checkbox"*/}
+										{/*	className="form-field high iyzico"*/}
+										{/*	name="iyzico"*/}
+										{/*	info={<div className="iyzico-info"><div className="info-image"><Image src={image_iyzico_security} /></div><span>Ödemenizi 3 gün daha iyzico güvencesi altında tutuyoruz.  Alışverişinizle ilgili tüm sorularınızı ve iade işlemleriniz için iyzico destek ekibine ulaşabilirsiniz.</span></div>}*/}
+										{/*	infoProps={{rtl: true}}*/}
+										{/*	validation={{required: "İyzico Korumalı Alışveriş Sözleşmesini onaylamalısınız."}}*/}
+										{/*	label="iyzico Korumalı Alışveriş" />*/}
 
-										<BillingInfo formInput addresses={reservation.addresses} />
+
 									</InputForm>
 
-									<Responsive type="only-web">
-										<div className="cardinfo-preview">
-											<Image className="preview-cardinfo type" src={cardLogos[this.state.cardType]} />
-											<span className="preview-cardinfo name">{this.state.cardName}</span>
-											<span className="preview-cardinfo number">{this.state.cardNumber}</span>
-											<span className="preview-cardinfo expiry">{this.state.cardExpiry}</span>
-											<span className="preview-cardinfo cvc">{this.state.cardCvc}</span>
-											<Image className="preview-bg" src={image_card_preview} />
-										</div>
-									</Responsive>
+									<BillingInfo formInput addresses={reservation.address}
+												 changeSubmitStatus={this.changeSubmitStatus}
+												 setSelectedAddress={this.setSelectedAddress}/>
 								</div>
-							</section>
-						</div>
+								<Responsive type="only-web">
+									<div className="cardinfo-preview">
+										<Image className="preview-cardinfo type" src={cardLogos[this.state.cardType]}/>
+										<span className="preview-cardinfo name">{this.state.cardName}</span>
+										<span className="preview-cardinfo number">{this.state.cardNumber}</span>
+										<span className="preview-cardinfo expiry">{this.state.cardExpiry}</span>
+										<span className="preview-cardinfo cvc">{this.state.cardCvc}</span>
+										<Image className="preview-bg" src={image_card_preview}/>
+									</div>
+								</Responsive>
+							</div>
+						</section>
 					</div>
+				</div>
 				}
 				{reservation &&
-					<ReservationSidebar onProceed={this.pay} section="payment" reservation={reservation} />
+				<ReservationSidebar onProceed={this.pay} section="payment" reservation={reservation}
+									disableProp={this.state.submitMode}/>
 				}
 			</div>
 		)
@@ -253,7 +304,7 @@ class BillingInfo extends React.Component {
 			touched: false,
 			selectedAddress: selectedAddress,
 			addresses: props.addresses,
-			newAddressMode: !(props.addresses.length > 0),
+			newAddressMode: false,
 		}
 
 		this.toggleExpand = this.toggleExpand.bind(this);
@@ -265,18 +316,26 @@ class BillingInfo extends React.Component {
 	}
 
 	componentDidMount() {
-
+		const {selectedAddress} = this.state;
 		if(this.props.onChangeInForm){
 			this.props.onChangeInForm(this.state.value, this.props.name, this.state.error, this.state.touched);
 		}
+		this.props.setSelectedAddress(selectedAddress);
 	}
 
 	componentDidUpdate(prevProps, prevState) {
+		const {selectedAddress} = this.state;
 		if(prevState.error !== this.state.error || prevState.touched !== this.state.touched || prevState.value !== this.state.value){
 			if(this.props.onChangeInForm){
 				this.props.onChangeInForm(this.state.value, this.props.name, this.state.error, this.state.touched);
 			}
+
+			if (prevState.selectedAddress.id !== selectedAddress.id) {
+				this.props.setSelectedAddress(selectedAddress);
+			}
+
 		}
+
 	}
 
 	toggleExpand() {
@@ -284,6 +343,7 @@ class BillingInfo extends React.Component {
 	}
 
 	toggleMode() {
+		this.props.changeSubmitStatus(true);
 		this.setState({ newAddressMode: !this.state.newAddressMode });
 	}
 
@@ -333,7 +393,7 @@ class BillingInfo extends React.Component {
 
 	render() {
 		return (
-			<div className="form-field billing">
+			<div className="form-field billing" style={{width: '40rem'}}>
 				<div className={"form-billing" + (this.state.error !== false && (this.state.touched || this.props.forceTouch) ? ' error' : '')}>
 					<button type="button" className="billing-btn" onClick={this.toggleExpand}>
 						Fatura Bilgileri {this.state.selectedAddress && <span className="btn-selected">{this.state.selectedAddress.title}</span>}
@@ -345,35 +405,38 @@ class BillingInfo extends React.Component {
 								<div className="content-newaddress">
 									<NewAddressForm onSave={this.updateAddresses} />
 								</div>
-							:
+								:
 								<div className="content-addresses">
 									<div className="addresses-list">
-									{this.state.addresses.map((address, nth) => {
-										let id = 'address_select_'+address.id;
-										return(
-											<div className="inputwrap list-address" key={nth}>
-												<div className="checkwrap">
-													<input type="radio" name="billing_address" onChange={() => {this.selectAddress(address.id)}} checked={address.selected} value={address.id} id={id} />
-													<label htmlFor={id}>
-														<span></span>
-														<div className="address-content">
-															<strong className="address-title">
-																{address.title}
-																<span>* {address.type === 1 ? "Bireysel" : "Kurumsal"}</span>
-															</strong>
+										{this.state.addresses.map((address, nth) => {
+											let id = 'address_select_' + address.id;
+											return (
+												<div className="inputwrap list-address" key={nth}>
+													<div className="checkwrap">
+														<input type="radio" name="billing_address" onChange={() => {
+															this.selectAddress(address.id)
+														}} checked={address.selected} value={address.id} id={id}/>
+														<label htmlFor={id}>
+															<span></span>
+															<div className="address-content">
+																<strong className="address-title">
+																	{address.title}
+																	<span>* {address.type === 1 ? "Bireysel" : "Kurumsal"}</span>
+																</strong>
 
-															<div className="address-info">
-																{address.address} {address.city} {address.district}
-																<br />
-																{address.taxOffice && <span>{address.taxOffice} </span>}{address.taxNum}
+																<div className="address-info">
+																	{address.address} {address.city} {address.district}
+																	<br/>
+																	{address.taxOffice &&
+																	<span>{address.taxOffice} </span>}{address.taxNum}
+																</div>
+
 															</div>
-
-														</div>
-													</label>
+														</label>
+													</div>
 												</div>
-											</div>
-										)
-									})}
+											)
+										})}
 									</div>
 									<div className="addresses-controls">
 										<button className="controls-new" type="button" onClick={this.toggleMode}>Farklı fatura adresi girmek istiyorum</button>
@@ -386,7 +449,7 @@ class BillingInfo extends React.Component {
 					</Collapse>
 				</div>
 				{(this.state.error !== false && (this.state.touched || this.props.forceTouch)) &&
-					<div className="content-error">{this.state.error}</div>
+				<div className="content-error">{this.state.error}</div>
 				}
 			</div>
 		)
@@ -412,44 +475,45 @@ class NewAddressForm extends React.Component {
 
 	componentDidMount() {
 		let vm = this;
-		request.get('/dummy/data/cities.json', {}, function(payload){
+		// request.get('/dummy/data/cities.json', {}, function(payload){
+		request.get(`cities/lookup`, {email: 'test'}, function (payload) {
 			if(payload){
 				vm.setState({
 					cities: payload
 				});
 			}
-		}, { excludeApiPath: true });
+		}, {excludeApiPath: false});
 	}
 
 	changeCity(city){
 		let vm = this;
-
 		vm.setState({districts: false});
 		if(city){
-			request.get('/dummy/data/districts.json', {id: city}, function(payload){
+			// request.get('/dummy/data/districts.json', {id: city}, function(payload){
+			request.get(`districts/lookup/${city}`, {id: city}, function (payload) {
 				if(payload){
 					vm.setState({
 						districts: payload
 					});
 				}
-			}, { excludeApiPath: true });
+			}, {excludeApiPath: false});
 		}
 	}
 
 	saveForm(e, form){
 		let vm = this;
 		vm.setState({loading: true});
-
 		// console.log(serializeArray(form));
 
 		// Post olacak
-		request.get('/dummy/data/reservation.json', serializeArray(form), function(payload){
+		request.post('create/address', serializeArray(form), function (payload) {
 			if(payload){
 				if(vm.props.onSave){
-					vm.props.onSave(payload.addresses);
+					vm.props.onSave(payload);
 				}
 			}
-		}, { excludeApiPath: true });
+		}, {excludeApiPath: false});
+
 	}
 
 	setAddressType(corporate = false){
@@ -479,42 +543,43 @@ class NewAddressForm extends React.Component {
 						</div>
 					</div>
 				</div>
+				<input name={'type'} value={this.state.corporate ? "corporate" : "individual"} hidden readOnly/>
 				<FormInput
 					className="newaddress-field high"
-					name="newaddr_name"
+					name="name"
 					placeholder={this.state.corporate ? "Şirket Adı" : "Ad Soyad"}
 					validation={(this.state.corporate ?
-						{minLength: ["Geçerli bir şirket adı girmelisiniz.", 3]}
+							{minLength: ["Geçerli bir şirket adı girmelisiniz.", 3]}
 							:
-						{fullName: true}
+							{fullName: true}
 					)}
 					popLabel />
 				{this.state.corporate &&
-					<FormInput
-						className="newaddress-field high"
-						name="newaddr_email"
-						type="email"
-						placeholder="E-Posta Adresi"
-						validation={{
-							email: true,
-							required: true,
-						}}
-						popLabel />
+				<FormInput
+					className="newaddress-field high"
+					name="email"
+					type="email"
+					placeholder="E-Posta Adresi"
+					validation={{
+						email: true,
+						required: true,
+					}}
+					popLabel/>
 				}
 				{this.state.corporate &&
-					<FormInput
-						className="newaddress-field high"
-						name="newaddr_taxoffice"
-						placeholder="Vergi Dairesi"
-						validation={{
-							minLength: ["Geçerli bir vergi dairesi girmelisiniz.", 3]
-						}}
-						popLabel />
+				<FormInput
+					className="newaddress-field high"
+					name="taxoffice"
+					placeholder="Vergi Dairesi"
+					validation={{
+						minLength: ["Geçerli bir vergi dairesi girmelisiniz.", 3]
+					}}
+					popLabel/>
 				}
 				<FormInput
 					className="newaddress-field high"
 					type="number"
-					name="newaddr_taxnum"
+					name={this.state.corporate ? "tax_number" : "identity_number"}
 					placeholder={this.state.corporate ? "Vergi No" : "TC Kimlik No"}
 					validation={(this.state.corporate ? {
 						minLength: ["Geçerli bir vergi dairesi girmelisiniz.", 10],
@@ -527,7 +592,7 @@ class NewAddressForm extends React.Component {
 				<FormInput
 					className="newaddress-field high"
 					type="number"
-					name="newaddr_phone_cell"
+					name="phone"
 					placeholder="Cep Telefonu"
 					mask="(100) 000 00 00"
 					validation={{
@@ -538,7 +603,7 @@ class NewAddressForm extends React.Component {
 				<FormInput
 					className="newaddress-field high"
 					type="number"
-					name="newaddr_phone_alt"
+					name="phone_2"
 					placeholder={(this.state.corporate ? 'İş Telefonu' : 'Ev Telefonu')}
 					mask="(100) 000 00 00"
 					validation={{
@@ -549,35 +614,34 @@ class NewAddressForm extends React.Component {
 				<FormInput
 					className="newaddress-field high city"
 					type="select"
-					name="newaddr_city"
+					name="city_id"
 					placeholder="İl"
 					options={(this.state.cities ? this.state.cities : undefined)}
 					disabled={!this.state.cities}
 					onChange={this.changeCity}
 					value={null}
-					validation={"İl seçmelisiniz."}
+					// validation={"İl seçmelisiniz."}
 					popLabel />
 				<FormInput
 					className="newaddress-field high district"
 					type="select"
-					name="newaddr_district"
+					name="district_id"
 					placeholder="İlçe"
 					options={(this.state.districts ? this.state.districts : undefined)}
 					disabled={!this.state.districts}
 					value={null}
-					validation={"İlçe seçmelisiniz."}
+					// validation={"İlçe seçmelisiniz."}
 					popLabel />
 				<FormInput
 					className="newaddress-field full address"
 					type="textarea"
-					name="newaddr_address"
+					name="address"
 					placeholder="Adres"
 					validation={{
 						required: "Adresinizi girmelisiniz",
 						minLength: ["Adresiniz en az {length} karakter içermelidir.", 15],
 					}}
 					popLabel />
-
 				<Btn
 					className="newaddress-submit"
 					loading={this.state.loading}
@@ -602,4 +666,4 @@ const mapDispatchToProps = dispatch => {
 	}
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Info);
+export default connect(mapStateToProps, mapDispatchToProps)(Payment);

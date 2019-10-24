@@ -38,12 +38,12 @@ class Reservation extends React.Component {
 	render () {
 		return (
 			<main className="page reservation">
-
 				<Loader loading={!this.props.user} />
 				{this.props.user && renderRoutes({group: 'reservation', registry: pageRegistry, catchRedirect: 'reservation.info'})}
 			</main>
 		)
 	}
+
 }
 
 const mapStateToProps = ({generic, user, adCompare,reservation}) => {

@@ -6,6 +6,23 @@ import {getFromLStorage} from '../../functions/localstorage'
 // Deps
 
 export default class CompareModal extends React.Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            compareList: [],
+        };
+        this.setCompareList = this.setCompareList.bind(this);
+    }
+
+    removeFromList(){
+
+    }
+
+    componentDidMount() {
+
+    }
+
     render() {
         let vm = this;
         const compareList = getFromLStorage('adCompareList');

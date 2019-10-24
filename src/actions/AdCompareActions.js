@@ -1,4 +1,4 @@
-import {ADD_VEHICLE_TO_COMPARE} from "./actionTypes";
+import {ADD_VEHICLE_TO_COMPARE, GET_VEHICLE_FROM_COMPARE,GET_VEHICLE_FROM_COMPARE_SUCCESS} from "./actionTypes";
 
 export const addVehicleToCompare = (vehicle) => {
     return {
@@ -7,3 +7,16 @@ export const addVehicleToCompare = (vehicle) => {
     };
 };
 
+export const getVehicleFrom = (id) => {
+    return {
+        type: GET_VEHICLE_FROM_COMPARE,
+        payload: id
+    };
+};
+
+export const getVehicleFromCompare = (vehicle) => {
+    return {
+        type: GET_VEHICLE_FROM_COMPARE_SUCCESS,
+        payload: vehicle
+    };
+};

@@ -30,9 +30,10 @@ export class DetailCredit extends React.Component {
 
     calculateMaxTerm() {
         const price = this.props.product.price;
-        const rateChangeLimit = 120.000;
+        const rateChangeLimit = 120000;
         let maxTerm;
-        maxTerm = price < rateChangeLimit ? 60 : 48;
+
+        maxTerm = parseInt(price, 10) < rateChangeLimit ? 60 : 48;
         return maxTerm
     }
 
