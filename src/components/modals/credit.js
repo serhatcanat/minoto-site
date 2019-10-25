@@ -1,15 +1,17 @@
 import React from 'react'
-
 // Partials
-import { FormInput, InputForm } from 'components/partials/forms'
+import {FormInput, InputForm} from 'components/partials/forms'
 import Btn from 'components/partials/btn'
 import Link from 'components/partials/link'
 import request from 'controllers/request'
-
 // Deps
-import { connect } from "react-redux"
-import { closeModal } from 'functions/modals'
+import {connect} from "react-redux"
+import {closeModal} from 'functions/modals'
 import image_garanti from 'assets/images/garabtiBBVA.png'
+import image_isbank from 'assets/images/turkiye-is-bankasi.png'
+
+const isbankLink = 'https://www.isbank.com.tr/internet/MainPageEnter.aspx?src=HizliKrediAnaSayfa.aspx&MainPageVersion=V2&channel=WebSitesi&site=MINOTO.COM';
+const garantiLink = 'https://www.garantibbva.com.tr/tr/bireysel/krediler/tasit-arac-kredisi-hesaplama.page?cid=oth:oth:oth:bireysel-hedeffilotasitkredisi:tasitkredisi::::::375x400:oth';
 
 const mapStateToProps = state => {
     return {
@@ -17,7 +19,7 @@ const mapStateToProps = state => {
     };
 };
 
-class GarantiModalRaw extends React.Component {
+class CreditModalRaw extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -31,52 +33,73 @@ class GarantiModalRaw extends React.Component {
     }
 
     submit(e) {
-        let vm = this;
 
-        vm.setState({ loading: true, error: false })
+        let vm = this;
+        const {type} = vm.props;
+        vm.setState({loading: true, error: false});
 
         let record = {
             postNo: e.target.elements.advertID.value,
             identityNumber: e.target.elements.tck.value,
             phone: e.target.elements.phone.value,
-            bankName: 'Garanti'
+            bankName: type
         };
+
+        let blockPrevent = window.open('', '_blank');
         request.post(`credit-requests`, record, function (payload) {
             setTimeout(function () {
                 vm.setState({ loading: false, success: true, message: "" });
-                window.open('https://www.garantibbva.com.tr/tr/bireysel/krediler/tasit-arac-kredisi-hesaplama.page?cid=oth:oth:oth:bireysel-hedeffilotasitkredisi:tasitkredisi::::::375x400:oth', '_blank');
+                blockPrevent.document.write("Yönlendirme Yapılıyor Lütfen Bekleyiniz...");
+                if (type === 'garanti') {
+                    blockPrevent.location.href = garantiLink;
+                } else {
+                    blockPrevent.location.href = isbankLink;
+                }
+
             }, 1000);
         })
     }
 
     render() {
         let vm = this;
+        const {type} = vm.props;
         return (
             <div className={vm.props.className}>
                 {vm.props.closeBtn}
                 <div className="modal-innercontent left-align">
                     <div className="modalHeadContent">
-                        <img src={image_garanti} alt="" width="170" />
+                        {type == 'garanti' ?
+                            (<img src={image_garanti} alt="" width="170"/>)
+                            : (<img src={image_isbank} alt="" width="170"/>)
+                        }
                         <div>KREDİ BAŞVURU</div>
                     </div>
                     <div className="info-credit-results">
                         <table className="table listprices-table">
                             <thead>
-                                <tr>
-                                    <th>Kredi Tutarı</th>
-                                    <th><div className="tablePadLeft">Vade</div></th>
-                                    <th><div className="tablePad">Taksit</div></th>
-                                    <th>Faiz</th>
-                                </tr>
+                            <tr>
+                                <th>Kredi Tutarı</th>
+                                <th>
+                                    <div className="tablePadLeft">Vade</div>
+                                </th>
+                                <th>
+                                    <div className="tablePad">Taksit</div>
+                                </th>
+                                <th>Faiz</th>
+                            </tr>
                             </thead>
 
                             <tbody>
-                                <tr>
-                                    <td>{vm.props.amount} TL</td>
-                                    <td><div className="tablePadLeft">{vm.props.month} AY</div></td>
-                                    <td><div className="tablePad">{vm.props.installment} TL</div></td>
-                                    <td>%{vm.props.interest}</td>
-                                </tr>
+                            <tr>
+                                <td>{vm.props.amount} TL</td>
+                                <td>
+                                    <div className="tablePadLeft">{vm.props.month} AY</div>
+                                </td>
+                                <td>
+                                    <div className="tablePad">{vm.props.installment} TL</div>
+                                </td>
+                                <td>%{vm.props.interest}</td>
+                            </tr>
                             </tbody>
                         </table>
                     </div>
@@ -119,8 +142,13 @@ class GarantiModalRaw extends React.Component {
                                         type="checkbox"
                                         validation={{ required: "Üye olmak için bu bildirimi kabul etmeniz gerekmektedir." }}
                                         className="form-field small-font">
-                                        TC Kimlik numaramın, başvurumun takibi amacıyla Garanti BBVA ile paylaşılmasına izin veriyorum.
-                                </FormInput>
+                                        TC Kimlik numaramın, başvurumun takibi amacıyla
+                                        {type == 'garanti' ?
+                                            ' Garanti BBVA '
+                                            : ' İş Bankası '
+                                        }
+                                        ile paylaşılmasına izin veriyorum.
+                                    </FormInput>
                                     <br />
                                     <FormInput
                                         name="kvkk"
@@ -130,7 +158,7 @@ class GarantiModalRaw extends React.Component {
                                         validation={{ required: "Üye olmak bu bilgilendirmeyi kabul etmeniz gerekmektedir." }}
                                         className="form-field small-font">
                                         Kişisel verilerimin belirlenen şartlarda işlenmesine izin verdiğimi ve <Link className="field-link text-minoto" href="gdprPolicy" target="_blank" rel="noopener noreferrer">Kişisel Verilerin Korunması Hakkında Bilgilendirme</Link>’yi okuduğumuz ve kabul ettiğimi onaylıyorum.
-                                </FormInput>
+                                    </FormInput>
                                     <Btn
                                         className="form-submitbtn full-width"
                                         big wide
@@ -141,34 +169,38 @@ class GarantiModalRaw extends React.Component {
                                 </InputForm>
                             </React.Fragment>
                         ) : (
-                                <React.Fragment>
-                                    <div className="bid-complete" style={{ textAlign: 'center' }}>
-                                        <i className="complete-icon icon-check-round"></i>
-                                        <p className="complete-description">
-                                            Bilgileriniz kaydedildi, Garanti Bankası Kredi Başvuru sayfasına yönlendiriliyorsunuz.
-                                             </p>
-                                        <div className="complete-controls">
-                                            <button type="button" className="link" onClick={closeModal}>İlana Dön</button>
-                                        </div>
+                            <React.Fragment>
+                                <div className="bid-complete" style={{textAlign: 'center'}}>
+                                    <i className="complete-icon icon-check-round"></i>
+                                    <p className="complete-description">
+                                        Bilgileriniz kaydedildi,
+                                        {type == 'garanti' ?
+                                            ' Garanti Bankası '
+                                            : ' İş Bankası '
+                                        }
+                                         Kredi Başvuru sayfasına
+                                        yönlendiriliyorsunuz.
+                                    </p>
+                                    <div className="complete-controls">
+                                        <button type="button" className="link" onClick={closeModal}>İlana Dön</button>
                                     </div>
-                                </React.Fragment>
-                            )
+                                </div>
+                            </React.Fragment>
+                        )
                     }
-
-
                 </div>
             </div>
         )
     }
 }
 
-GarantiModalRaw.defaultProps = {
+CreditModalRaw.defaultProps = {
     className: "",
     containerClass: "modal-bid",
-    name: "garanti",
+    name: "credit",
     advert: false,
 }
 
-let GarantiModal = connect(mapStateToProps)(GarantiModalRaw);
-GarantiModal.props = GarantiModalRaw.defaultProps;
+let GarantiModal = connect(mapStateToProps)(CreditModalRaw);
+GarantiModal.props = CreditModalRaw.defaultProps;
 export default GarantiModal;

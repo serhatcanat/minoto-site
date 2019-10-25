@@ -1,5 +1,11 @@
 .page.detail{
-
+	.contentpage-form{
+		.inputwrap{
+			.input-error{
+				overflow: unset;
+			}
+		}
+	}
 	&.gallery-fullscreen {
 		.section.detail-content{
 			z-index: 50;
