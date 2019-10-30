@@ -1,16 +1,10 @@
 import React from 'react'
-
 // Partials
 import Image from 'components/partials/image.js'
-import Select from 'components/partials/select'
-
 // Deps
-import { storageSpace } from 'functions/helpers'
+import {storageSpace} from 'functions/helpers'
 import request from 'controllers/request'
 import clone from 'lodash/clone'
-import slice from 'lodash/slice'
-import isEqual from 'lodash/isEqual'
-
 // Assets
 import image_car_default from 'assets/images/defaults/car.svg'
 import PriceTag from "../components/partials/price-tag";
