@@ -1,9 +1,9 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-export function SampleComponent() {
+export function SampleComponent(props) {
    return(
-       <h1>{this.props.title}</h1>
+       <h1>{props.title}</h1>
    )
 }
 
@@ -17,7 +17,7 @@ test('adds 1 + 2 to equal 3', () => {
 
 it('renders correctly', () => {
     const tree = renderer
-        .create(<SampleComponent title="http://www.facebook.com">Facebook</SampleComponent>)
+        .create(<SampleComponent title={'test'}>Facebook</SampleComponent>)
         .toJSON();
     expect(tree).toMatchSnapshot();
 });
