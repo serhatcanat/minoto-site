@@ -56,9 +56,7 @@ class CompareModal extends React.Component {
                     </div>
                     {compareList.length>1 ?
                         <div className='modal-footer'>
-                            <Btn className="controls-button bid">
-                                İLANLARI KARŞILAŞTIR
-                            </Btn>
+                            <Btn tag="a" block href={`/ilan-karsilastir`} icon="eye" text low uppercase>İLANLARI KARŞILAŞTIR</Btn>
                         </div> :
                         ''
                     }

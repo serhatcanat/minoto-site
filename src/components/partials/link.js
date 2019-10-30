@@ -1,11 +1,10 @@
 import React from 'react';
-
 // Deps
-import { Link, NavLink } from 'react-router-dom'
+import {Link, NavLink} from 'react-router-dom'
 import omit from 'lodash/omit'
-import { isDefined } from 'functions/helpers'
-import { getRoute } from 'controllers/navigator'
-import { generatePath } from 'react-router'
+import {isDefined} from 'functions/helpers'
+import {getRoute} from 'controllers/navigator'
+import {generatePath} from 'react-router'
 import queryString from 'query-string';
 
 export default class LinkItem extends React.Component {
@@ -33,14 +32,13 @@ export default class LinkItem extends React.Component {
 			default: // link
 				let target = getRoute(this.props.href, this.props.routeGroup);
 
-
 				if (target) {
 
 					if (target.exact && this.props.navLink && !isDefined(props.exact)) { props.exact = true; }
 					content = (this.props.children ? this.props.children : (target.linkTitle ? target.linkTitle : target.title));
 
 					if (target.path) {
-						props.to = target.path
+						props.to = target.path;
 						if (params) {
 							/*for(let k = 0; k < Object.keys(params).length; k++){
 								let key = Object.keys(params)[k];
@@ -48,10 +46,9 @@ export default class LinkItem extends React.Component {
 							}*/
 
 							try {
-								let newTo = generatePath(props.to, params);
-								props.to = newTo;
+								props.to = generatePath(props.to, params);
 							}
-							catch {
+							catch(err) {
 								console.log('UYARI - Link parametresi hatalı:', props.to, params);
 							}
 						}
