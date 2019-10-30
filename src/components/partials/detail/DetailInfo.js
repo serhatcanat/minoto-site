@@ -39,7 +39,6 @@ export class DetailInfo extends React.Component {
         this.props.history.push(`/rezervasyon/${this.props.product.postNo}`)
     }
     render() {
-        console.log(this.props);
         let vm = this;
         let product = vm.props.product;
         let selectedBranch = vm.state.selectedBranch;

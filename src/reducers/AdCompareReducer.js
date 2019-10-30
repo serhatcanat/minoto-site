@@ -1,32 +1,36 @@
-import {ADD_VEHICLE_TO_COMPARE, GET_VEHICLE_FROM_COMPARE} from "../actions/actionTypes";
+import {ADD_VEHICLE_TO_COMPARE, DELETE_VEHICLE_FROM_COMPARE} from "../actions/actionTypes";
+import {CompareListService,LocalStorageService,LocalStorageItem} from '../functions'
 
+const _localStorageService = new LocalStorageService();
+const _compareListService = new CompareListService();
 const INIT_STATE = {
-    data: [],
+    data: _localStorageService.get(LocalStorageItem.compareList) || [],
 };
 
-const addVehicleToCompare = (state, action) => {
-    // todo: find right file for this controls
-    let index = state.data.findIndex(el => el.id === action.payload.id);
 
-    let data = state.data;
+const addVehicleToCompareSuccess = (state, action) => {
 
-    if (data.length >= 4) {
-
-    }
-
-    if (index == -1)
+    if(_compareListService.isFull(state.data)){
+        state.data.pop();
         return ({
             ...state,
-            data: [...state.data, action.payload]
+            data: [action.payload,...state.data]
         });
-    return state;
+    }
+
+    return ({
+        ...state,
+        data: [...state.data, action.payload]
+    });
+    // return state;
 };
 
-const getVehicleFromCompare = (state, action) => ({
-    ...state,
-    data: action.payload
-});
-
+const deleteVehicleFromCompareSuccess = (state, action) => {
+    const filteredItems = state.data.filter(item => item.id !== action.payload);
+    return ({
+        data: filteredItems
+    });
+};
 
 const createReducer = (initialState, handlers) => {
     return (state = initialState, action) => {
@@ -37,5 +41,6 @@ const createReducer = (initialState, handlers) => {
 };
 
 export const adCompareReducer = createReducer(INIT_STATE, {
-    [ADD_VEHICLE_TO_COMPARE]: addVehicleToCompare,[GET_VEHICLE_FROM_COMPARE]: getVehicleFromCompare
+    [ADD_VEHICLE_TO_COMPARE]: addVehicleToCompareSuccess,
+    [DELETE_VEHICLE_FROM_COMPARE]: deleteVehicleFromCompareSuccess,
 });

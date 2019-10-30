@@ -1,66 +1,56 @@
 const storage = window.localStorage;
 
-export default function localStorage(carData) {
+export const LocalStorageItem = {
+    compareList: {
+        key: 'compareList',
+        type: 'object'
+    },
+};
 
-}
+export class LocalStorageService {
 
-export function setToLStorage(dataIndex, dataValue) {
-    let storageArr = [],
-        storageData = getFromLStorage(dataIndex);
-    if (!storageData) {
-        storageArr.push(dataValue);
-        sendToLStorage(dataIndex, storageArr);
-    } else {
-        storageArr = storageData;
-        if (isItemExist(storageArr, dataValue)) {
-            // Max Length For The Ad Compare Page
-            if (!isStoreFull(dataIndex, 4)) {
-                storageArr.push(dataValue);
-                sendToLStorage(dataIndex, storageArr);
-            } else {
-                // When Store Is Full Will Send First of arr
-                storageArr.unshift(dataValue);
-                storageArr.pop();
-                sendToLStorage(dataIndex, storageArr);
+    get = (item) => item.type === 'object'
+        ? JSON.parse(localStorage.getItem(item.key))
+        : localStorage.getItem(item.key);
 
-            }
-        } else {
-            console.log('Bu ilan zaten karşılaştırma listenizde bulunmakta.')
-        }
+    set = (item, value) => {
+        console.log('delete ',value);
+        item.type === 'object'
+            ? localStorage.setItem(item.key, JSON.stringify(value))
+            : localStorage.setItem(item.key, value);
     }
-}
 
 
+    delete = (item) => localStorage.removeItem(item.key);
 
-export function removeFromLStorage(dataIndex, itemIndex) {
-    let payload = getFromLStorage(dataIndex);
-        payload.splice(itemIndex, 1);
-        return payload;
-}
 
-export function isStoreFull(dataIndex, maxLen) {
-    const storageData = getFromLStorage(dataIndex);
+    update = (item, value) => {
+        if (item.type !== 'object')
+            return this.set(item, value);
 
-    return storageData.length >= maxLen;
-}
+        const current = this.get(item) || [];
+        const updated = [
+            ...current,
+            value
+        ];
 
-export function isItemExist(arr, dataValue) {
-    const dataId = dataValue.id;
-    let isUnique = true;
-    arr.forEach(function (ad) {
-        if (ad.id === dataId) isUnique = false;
-    });
-    return isUnique;
-}
+        return this.set(item, updated);
+    };
 
-export function sendToLStorage(dataIndex, dataValue) {
-    storage.setItem(dataIndex, JSON.stringify(dataValue));
-    console.log('Data Send To Local Storage', dataValue);
-    return dataIndex;
-}
+    unshift = (item,value,pop=false) => {
+        if (item.type !== 'object')
+            return this.set(item, value);
 
-export function getFromLStorage(itemName) {
-    let payload = JSON.parse(storage.getItem(itemName));
-    return payload ? payload.length ? payload : [] : [];
+        let current = this.get(item) || [];
+        if(pop){
+            current.pop()
+        }
+        const updated = [
+            value,
+            ...current
+        ];
+
+        return this.set(item, updated);
+    };
 }
 

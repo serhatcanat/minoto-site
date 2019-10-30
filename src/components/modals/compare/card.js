@@ -10,34 +10,25 @@ import { storageSpace } from "functions/helpers"
 // Deps
 import omit from 'lodash/omit'
 import clone from 'lodash/clone'
-import Image from "./image";
+import PriceTag from "../../partials/price-tag";
+import Btn from "../../partials/btn";
+import {openModal} from "../../../functions";
 
 // Assets
 
 export default class CompareCard extends React.Component {
-
-    constructor(props) {
-        super(props);
-
-        this.removeFromCompareList = this.removeFromCompareList.bind(this);
-
-    }
-
-    componentDidUpdate(prevProps) {
-
-    }
-
-
-
     render() {
-        const {title,image,index} = this.props;
+        const {id,title,image,index,listingPrice,price} = this.props.productProp;
+        const {removeFromList} = this.props;
         return(
             <div className='compare-cards__item'>
                 {/*<button onClick={()=> this.removeFromCompareList('adCompareList',index)}>*/}
                 {/*    <i className='icon-close'/>*/}
                 {/*</button>*/}
-                <h2>{title}</h2>
-                <Image src={storageSpace('car-posts', image)} alt={title}/>
+                <h4>{title}</h4>
+                <img src={storageSpace('car-posts', image)} alt={title}/>
+                <PriceTag price={price} />
+                <Btn onClick={() => removeFromList(id)}>Listeden Kaldır</Btn>
             </div>
         )
     }

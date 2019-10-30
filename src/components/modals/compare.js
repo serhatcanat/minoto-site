@@ -1,18 +1,20 @@
 import React from 'react'
 //Partials
-import CompareCard from '../partials/compare-card'
+import CompareCard from './compare/card'
+import {addVehicleToCompare, deleteVehicleFromCompare} from "../../actions";
+import {connect} from "react-redux";
+import Btn from "../partials/btn";
 //Functions
-import {getFromLStorage} from '../../functions/localstorage'
+
 // Deps
 
-export default class CompareModal extends React.Component {
-
+class CompareModal extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
             compareList: [],
         };
-        this.setCompareList = this.setCompareList.bind(this);
+        this.removeFromCompareList = this.removeFromCompareList.bind(this);
     }
 
     removeFromList(){
@@ -23,23 +25,43 @@ export default class CompareModal extends React.Component {
 
     }
 
+    removeFromCompareList(id) {
+        this.props.deleteVehicleFromCompare(id);
+    }
+
     render() {
         let vm = this;
-        const compareList = getFromLStorage('adCompareList');
-
+        const compareList = this.props.compareList.data;
+        let message;
+        message = compareList.length ? 'İlan karşılaştırma listesine eklenmiştir.' : 'Karşılaştırma listenizde ürün bulunmamaktadır.';
         return (
             <div className={'minoto-ui ' + vm.props.className}>
                 {vm.props.closeBtn}
-                <div className="modal-innercontent">
-                    <h2>Karşılaştır</h2>
-                    <div className="compare-cards">
-                        {compareList &&
-                            compareList.map((item, index) => (
-                                    <CompareCard title={item.title} image={item.image} index={index}/>
+                <div className="modal-innercontent compare-modal">
+                    <p>Karşılaştır</p>
+                    <span className='compare-modal--message'>{message}</span>
+                    <div className='modal-center'>
+                        <div className='scroll-container'>
+                            <div className="compare-cards">
+                                {compareList &&
+                                compareList.map((product, index) => (
+                                        <CompareCard productProp={product} index={index}
+                                                     removeFromList={this.removeFromCompareList}/>
+                                    )
                                 )
-                            )
-                        }
+                                }
+
+                            </div>
+                        </div>
                     </div>
+                    {compareList.length>1 ?
+                        <div className='modal-footer'>
+                            <Btn className="controls-button bid">
+                                İLANLARI KARŞILAŞTIR
+                            </Btn>
+                        </div> :
+                        ''
+                    }
                 </div>
             </div>
         )
@@ -51,3 +73,17 @@ CompareModal.defaultProps = {
     containerClass: "modal-compare",
     name: "compare"
 };
+
+
+const mapStateToProps = ({generic, user, compareList, reservation}) => {
+    return {mobile: generic.mobile, user: user.user, compareList, reservation};
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        addVehicleToCompare: (data) => dispatch(addVehicleToCompare(data)),
+        deleteVehicleFromCompare: (data) => dispatch(deleteVehicleFromCompare(data)),
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CompareModal);

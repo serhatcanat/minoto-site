@@ -47,7 +47,6 @@ class Sum extends React.Component {
 	render () {
 		//let vm = this;
 		let reservation = this.state.reservation;
-		console.log(this.props);
 		return (
 			<div className="section reservation-layout loader-container">
 				<Loader loading={!reservation || this.state.loading} />

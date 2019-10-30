@@ -80,14 +80,12 @@ export class DetailCredit extends React.Component {
 
 
     componentDidMount() {
-
         this.calculateInstallments();
     }
 
     render() {
         let vm = this;
         const {maxCredit, maxTerm} = vm.state;
-        console.log(maxTerm);
         return (
             <div className="detail-info">
                 <div className="info-credit-calculation">

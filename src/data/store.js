@@ -16,7 +16,7 @@ const rootReducer = combineReducers({
 	user: user,
 	listing: listing,
 	ga: ga,
-    adCompare: adCompareReducer,
+    compareList: adCompareReducer,
     vehicle: vehicleReducer,
 	reservation: reservationReducer,
 	//checkout: checkout,

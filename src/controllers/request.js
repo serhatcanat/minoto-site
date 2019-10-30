@@ -11,7 +11,7 @@ const defaultConfig = {
 };
 
 export function test(){
-	console.log('testtt')
+
 }
 
 export default {

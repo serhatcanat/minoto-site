@@ -1,4 +1,16 @@
-import {ADD_VEHICLE_TO_COMPARE, GET_VEHICLE_FROM_COMPARE,GET_VEHICLE_FROM_COMPARE_SUCCESS} from "./actionTypes";
+import {
+    ADD_VEHICLE_TO_COMPARE,
+    ADD_VEHICLE_TO_COMPARE_SUCCESS,
+    DELETE_VEHICLE_FROM_COMPARE,
+    DELETE_VEHICLE_FROM_COMPARE_SUCCESS,
+} from "./actionTypes";
+
+export const addVehicleToCompareSuccess = (vehicle) => {
+    return {
+        type: ADD_VEHICLE_TO_COMPARE_SUCCESS,
+        payload: vehicle
+    };
+};
 
 export const addVehicleToCompare = (vehicle) => {
     return {
@@ -7,16 +19,16 @@ export const addVehicleToCompare = (vehicle) => {
     };
 };
 
-export const getVehicleFrom = (id) => {
+export const deleteVehicleFromCompareSuccess = (id) => {
     return {
-        type: GET_VEHICLE_FROM_COMPARE,
+        type: DELETE_VEHICLE_FROM_COMPARE_SUCCESS,
         payload: id
     };
 };
 
-export const getVehicleFromCompare = (vehicle) => {
+export const deleteVehicleFromCompare = (id) => {
     return {
-        type: GET_VEHICLE_FROM_COMPARE_SUCCESS,
-        payload: vehicle
+        type: DELETE_VEHICLE_FROM_COMPARE,
+        payload: id
     };
 };

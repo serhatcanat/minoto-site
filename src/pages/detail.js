@@ -18,10 +18,11 @@ import {storageSpace} from "functions/helpers"
 import {setDealerData, setProductData} from 'data/store.ga'
 import {GA} from 'controllers/ga'
 //Functions
-import {setToLStorage,getFromLStorage} from '../functions/localstorage'
+import {CompareListService} from '../functions'
 // Assets
-import {addVehicleToCompare, setVehicleToReservation} from "../actions";
+import {addVehicleToCompare, setVehicleToReservation,getVehicleFromCompare} from "../actions";
 import {DetailGallery} from "../components/partials/detail/DetailGallery";
+import {AdCompareService} from "../services/AdCompareService";
 
 
 class Detail extends React.Component {
@@ -31,7 +32,6 @@ class Detail extends React.Component {
 			productData: false,
 			loading: true,
 			galleryFullScreen: false,
-			compareList: [],
 		};
 
 		this.initialize = this.initialize.bind(this);
@@ -76,11 +76,12 @@ class Detail extends React.Component {
 	setCompareList(){
 		const vm = this;
 		const product = this.state.productData;
-		this.props.addVehicleToCompare(product);
-		setTimeout(function () {
-			console.log(vm.props.adCompare);
-		},300);
-
+		const storedList = this.props.compareList.data;
+		const _compareListService = new CompareListService();
+		if (!_compareListService.isExist(product,storedList)){
+			this.props.addVehicleToCompare(product);
+		}
+		openModal('compare',{test:'test'});
 	}
 
 	initialize() {
@@ -132,8 +133,7 @@ class Detail extends React.Component {
 	render() {
 		let vm = this;
 		let product = vm.state.productData;
-		const {adCompare, addVehicleToCompare,reservation,setVehicleToReservation} = this.props;
-		const {compareList, externalId} = vm.state;
+		const {compareList, addVehicleToCompare,reservation,setVehicleToReservation} = this.props;
 
 		const {mobile} = vm.props;
 		return (
@@ -212,11 +212,11 @@ class Detail extends React.Component {
 										}
 										<span className="controls-date">{product.date}</span>
 										<FavBtn className="controls-btn" faved={product.favorited} type="post" id={product.id}> {product.favorited ? 'Favori İlan' : 'Favorilere Ekle'}</FavBtn>
-										{/*<button className="controls-btn"*/}
-										{/*		onClick={() => this.setCompareList()}><i*/}
-										{/*	className="icon-compare"/>Karşılaştır*/}
-										{/*	({getFromLStorage('adCompare').length})*/}
-										{/*</button>*/}
+										<button className="controls-btn"
+												onClick={() => this.setCompareList()}><i
+											className="icon-compare"/>Karşılaştır
+											({this.props.compareList.data.length})
+										</button>
 										<button className="controls-btn" onClick={() => openModal('share')}><i className="icon-share"></i> Paylaş</button>
 									</div>
 								</div>
@@ -301,8 +301,8 @@ class Detail extends React.Component {
 }
 
 
-const mapStateToProps = ({generic, user, adCompare,reservation}) => {
-	return {mobile: generic.mobile, user: user.user, adCompare,reservation};
+const mapStateToProps = ({generic, user, compareList,reservation}) => {
+	return {mobile: generic.mobile, user: user.user, compareList,reservation};
 };
 
 const mapDispatchToProps = dispatch => {
