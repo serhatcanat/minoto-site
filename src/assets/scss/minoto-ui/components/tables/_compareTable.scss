@@ -1,0 +1,47 @@
+@import '../../../variables';
+
+.compare-table{
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+
+  tr {
+    &:nth-child(odd){
+      .table-datafield{
+        background-color: rgba($color-gray-light, .7);
+      }
+    }
+    &:nth-child(even){
+      .table-datafield{
+        background-color: rgba($color-ice, .7);
+      }
+    }
+  }
+
+  td, th {
+    padding: 1rem 2rem;
+    line-height: 2rem;
+    font-size: 1.4rem;
+    border: .1rem solid $color-ice;
+  }
+
+  th {
+    @include font-medium;
+    text-align: left;
+    color: $color-text-light;
+    width: 25%;
+
+    &.empty {
+      border: none;
+    }
+  }
+
+  td {
+    width: 25%;
+
+    &.picker {
+      background: none;
+      padding: 3.2rem 2.3rem;
+    }
+  }
+}

@@ -1,4 +1,4 @@
-let domain = window.location.hostname
+let domain = window.location.hostname;
 
 let endpoint = process.env.REACT_APP_API_ENDPOINT ? process.env.REACT_APP_API_ENDPOINT : false;
 
@@ -6,6 +6,7 @@ if (!endpoint) {
 	switch (domain) {
 		case 'localhost':
 			//endpoint = 'http://localhost:8000'
+			// endpoint = 'http://minoto-api.test'
 			endpoint = 'https://beta-api.minoto.com'
 			//endpoint = 'https://api.minoto.com'
 			break;

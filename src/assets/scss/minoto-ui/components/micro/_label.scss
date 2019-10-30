@@ -1,0 +1,16 @@
+@import "../../abstracts/index";
+
+.label{
+  display: inline-block;
+  border: 0.1rem solid rgb(234, 235, 243);
+  border-image-source: initial;
+  border-image-slice: initial;
+  border-image-repeat: initial;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  border-radius: 0.3rem;
+  color: $color-text-light;
+  line-height: 2rem;
+  padding: 0 .5rem;
+  background-color: #fff;
+}
