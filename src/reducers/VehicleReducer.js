@@ -1,15 +1,5 @@
 import {GET_VEHICLE_DETAIL_SUCCESS} from "../actions/actionTypes";
 
-const INIT_COMPARE_LIST_SECTION = {
-    id: 453,
-    title: "",
-    price: "",
-    image: "",
-    postNo: "",
-    listingPrice: "",
-    description: "",
-};
-
 const INIT_STATE = {
     data: [],
 };

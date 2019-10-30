@@ -20,9 +20,8 @@ import {GA} from 'controllers/ga'
 //Functions
 import {CompareListService} from '../functions'
 // Assets
-import {addVehicleToCompare, setVehicleToReservation,getVehicleFromCompare} from "../actions";
+import {addVehicleToCompare, setVehicleToReservation} from "../actions";
 import {DetailGallery} from "../components/partials/detail/DetailGallery";
-import {AdCompareService} from "../services/AdCompareService";
 
 
 class Detail extends React.Component {
@@ -74,7 +73,6 @@ class Detail extends React.Component {
 	}
 
 	setCompareList(){
-		const vm = this;
 		const product = this.state.productData;
 		const storedList = this.props.compareList.data;
 		const _compareListService = new CompareListService();
@@ -133,7 +131,7 @@ class Detail extends React.Component {
 	render() {
 		let vm = this;
 		let product = vm.state.productData;
-		const {compareList, addVehicleToCompare,reservation,setVehicleToReservation} = this.props;
+		const {reservation,setVehicleToReservation} = this.props;
 
 		const {mobile} = vm.props;
 		return (

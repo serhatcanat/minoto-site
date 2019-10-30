@@ -27,7 +27,7 @@
     "react-scripts": "2.1.8",
     "react-scrollbars-custom": "^4.0.12",
     "react-select": "^2.4.3",
-    "react-test-renderer": "^16.8.6",
+    "react-test-renderer": "16.8.6",
     "redux": "^4.0.1",
     "redux-persist": "^6.0.0",
     "redux-saga": "^1.1.1",
@@ -41,7 +41,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "sitemap": "node ./worker/create-sitemap.js"
+    "sitemap": "node ./worker/create-sitemap.js",
+    "lint": "eslint src/**/*.js --max-warnings 5"
   },
   "eslintConfig": {
     "extends": "react-app"

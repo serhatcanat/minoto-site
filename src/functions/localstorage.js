@@ -1,5 +1,3 @@
-const storage = window.localStorage;
-
 export const LocalStorageItem = {
     compareList: {
         key: 'compareList',

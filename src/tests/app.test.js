@@ -17,7 +17,7 @@ test('adds 1 + 2 to equal 3', () => {
 
 it('renders correctly', () => {
     const tree = renderer
-        .create(<SampleComponent src="http://www.facebook.com">Facebook</SampleComponent>)
+        .create(<SampleComponent title="http://www.facebook.com">Facebook</SampleComponent>)
         .toJSON();
     expect(tree).toMatchSnapshot();
 });

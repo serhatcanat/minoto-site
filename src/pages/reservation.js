@@ -14,7 +14,6 @@ import Loader from 'components/partials/loader'
 import { connect } from "react-redux"
 import { checkLoginStatus } from "data/store.user"
 import { renderRoutes, redirect } from 'controllers/navigator'
-import {makeReservation} from "../data/store.checkout";
 import {addVehicleToCompare, setVehicleToReservation} from "../actions";
 import {setDealerData, setProductData} from "../data/store.ga";
 

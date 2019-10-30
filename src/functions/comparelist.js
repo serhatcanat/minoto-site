@@ -1,6 +1,3 @@
-const storage = window.localStorage;
-
-
 export class CompareListService {
 
     constructor() {
