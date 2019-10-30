@@ -29,3 +29,7 @@ jobs:
 
       # run build!
       - run: yarn build
+      # run linter!
+      - run: yarn lint
+      # run tests!
+      - run: yarn test
