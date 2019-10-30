@@ -33,7 +33,7 @@ export class DetailInfo extends React.Component {
         this.setVehicleToReservation = this.setVehicleToReservation.bind(this)
     }
     setVehicleToReservation(product){
-        const {reservation,setVehicleToReservation} = this.props;
+        const {setVehicleToReservation} = this.props;
 
         setVehicleToReservation(product);
         this.props.history.push(`/rezervasyon/${this.props.product.postNo}`)
@@ -222,7 +222,8 @@ export class DetailInfo extends React.Component {
                                     product.dealer &&
                                     <div className="info-dealer">
                                         <div className="dealer-head">
-                                            <Image className="dealer-image" bg src={storageSpace('dealers', product.dealer.logo)} />
+                                            <Image className="dealer-image" bg
+                                                   src={storageSpace('dealers', product.dealer.logo)}/>
                                             <div className="head-content">
                                                 <Link href="branch" params={{ dealer: product.dealer.dealerUrl, slug: product.dealer.url }}>
 

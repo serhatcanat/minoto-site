@@ -3,14 +3,12 @@ import React from 'react'
 import Loader from 'components/partials/loader'
 import Link from 'components/partials/link'
 import Image from 'components/partials/image'
-import Responsive from 'components/partials/responsive'
 // Deps
 //import { connect } from "react-redux"
 import request from 'controllers/request'
 //Helpers
 import {GET_RESERVATIONS} from '../../services/apiEndpoints'
 // Assets
-import image_reservation_default from 'assets/images/defaults/autocomplete-thumb.jpg'
 import {storageSpace} from "../../functions/helpers";
 
 export default class Reservations extends React.Component {

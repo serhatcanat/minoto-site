@@ -66,8 +66,6 @@ class Payment extends React.Component {
 
 	componentDidMount() {
 		let vm = this;
-		const userId = this.props.user.id;
-		const {reservation} = this.props;
 		const postId = this.props.match.params.id;
 
 		request.get(`reservations/${postId}`, {email: this.props.user.email}, function (payload) {

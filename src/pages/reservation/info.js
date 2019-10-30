@@ -10,8 +10,7 @@ import request from 'controllers/request'
 import {redirect} from 'controllers/navigator'
 // Assets
 import image_info from "assets/images/checkout-info-logo.jpg"
-import {setDealerData, setProductData} from "../../data/store.ga";
-import {addVehicleToCompare, setVehicleToReservation} from "../../actions";
+import {setVehicleToReservation} from "../../actions";
 import {connect} from "react-redux";
 
 class Info extends React.Component {
