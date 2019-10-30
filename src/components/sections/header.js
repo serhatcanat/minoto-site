@@ -162,12 +162,12 @@ class Header extends React.Component {
 							}
 						</Responsive>
 
-						<button className={"nav-menubtn" + (vm.state.menuOpen ? ' open' : '')} onClick={vm.toggleMenu}>
+						<button className={"nav-menubtn" + (vm.state.menuOpen ? ' open' : '')} onClick={vm.toggleMenu} aria-label="menu open icon">
 							<div className="menubtn-inner">
-								<span></span>
-								<span></span>
-								<span></span>
-								<span></span>
+								<span/>
+								<span/>
+								<span/>
+								<span/>
 							</div>
 						</button>
 

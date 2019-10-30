@@ -14,21 +14,16 @@ import Loader from 'components/partials/loader'
 import { connect } from "react-redux"
 import { checkLoginStatus } from "data/store.user"
 import { renderRoutes, redirect } from 'controllers/navigator'
+import {addVehicleToCompare, setVehicleToReservation} from "../actions";
+import {setDealerData, setProductData} from "../data/store.ga";
 
 const pageRegistry = {
 	Info: Info,
 	Payment: Payment,
 	Sum: Sum,
-}
-
-const mapStateToProps = state => {
-	return {
-		user: state.user.user,
-	};
 };
 
 class Reservation extends React.Component {
-
 	componentDidMount() {
 		if(!this.props.user){
 			checkLoginStatus(function(status){
@@ -37,7 +32,6 @@ class Reservation extends React.Component {
 				}
 			})
 		}
-
 	}
 
 	render () {
@@ -48,6 +42,19 @@ class Reservation extends React.Component {
 			</main>
 		)
 	}
+
 }
 
-export default connect(mapStateToProps)(Reservation);
+const mapStateToProps = ({generic, user, adCompare,reservation}) => {
+	return {mobile: generic.mobile, user: user.user, adCompare,reservation};
+};
+
+const mapDispatchToProps = dispatch => {
+	return {
+		setGaProductData: (data) => dispatch(setProductData(data)),
+		setGaDealerData: (data) => dispatch(setDealerData(data)),
+		addVehicleToCompare: (data) => dispatch(addVehicleToCompare(data)),
+		setVehicleToReservation: (data) => dispatch(setVehicleToReservation(data)),
+	}
+};
+export default connect(mapStateToProps,mapDispatchToProps)(Reservation);

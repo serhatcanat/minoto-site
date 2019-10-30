@@ -68,7 +68,7 @@ class CreditModalRaw extends React.Component {
                 {vm.props.closeBtn}
                 <div className="modal-innercontent left-align">
                     <div className="modalHeadContent">
-                        {type == 'garanti' ?
+                        {type === 'garanti' ?
                             (<img src={image_garanti} alt="" width="170"/>)
                             : (<img src={image_isbank} alt="" width="170"/>)
                         }
@@ -143,7 +143,7 @@ class CreditModalRaw extends React.Component {
                                         validation={{ required: "Üye olmak için bu bildirimi kabul etmeniz gerekmektedir." }}
                                         className="form-field small-font">
                                         TC Kimlik numaramın, başvurumun takibi amacıyla
-                                        {type == 'garanti' ?
+                                        {type === 'garanti' ?
                                             ' Garanti BBVA '
                                             : ' İş Bankası '
                                         }
@@ -174,7 +174,7 @@ class CreditModalRaw extends React.Component {
                                     <i className="complete-icon icon-check-round"></i>
                                     <p className="complete-description">
                                         Bilgileriniz kaydedildi,
-                                        {type == 'garanti' ?
+                                        {type === 'garanti' ?
                                             ' Garanti Bankası '
                                             : ' İş Bankası '
                                         }

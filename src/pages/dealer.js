@@ -15,6 +15,7 @@ import Responsive from 'components/partials/responsive'
 
 // Deps
 import { storageSpace } from 'functions/helpers'
+import { connect } from "react-redux"
 import extend from 'lodash/extend'
 import debounce from 'lodash/debounce'
 import isEqual from 'lodash/isEqual'
@@ -23,12 +24,20 @@ import request from 'controllers/request'
 import { redirect } from 'controllers/navigator'
 import { openModal } from 'functions/modals'
 import { turkishSort } from '../functions/helpers'
+import { setDealerData } from 'data/store.ga'
+import { GA } from 'controllers/ga'
 
 // Assets
 
 const branchExpandLimit = 4;
 
-export default class Dealer extends React.Component {
+const mapDispatchToProps = dispatch => {
+	return {
+		setGaDealerData: (data) => dispatch(setDealerData(data)),
+	}
+}
+
+class Dealer extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -60,6 +69,7 @@ export default class Dealer extends React.Component {
 		let vm = this;
 		request.get(`dealers/${vm.props.match.params.slug}`, { id: vm.props.match.params.slug }, function (payload) {
 			if (payload) {
+				vm.props.setGaDealerData(payload);
 				vm.setState({
 					dealerData: payload,
 					listingQuery: { dealer: vm.props.match.params.slug },
@@ -127,7 +137,18 @@ export default class Dealer extends React.Component {
 									{
 										dealer.phone && (
 											<div className="sum-controls">
-												<Btn tag="a" icon="phone" primary low wide href={'tel:+9' + dealer.phone.replace(' ', '')}>{dealer.phone}</Btn>
+												<Btn
+													tag="a"
+													icon="phone"
+													primary low wide
+													href={'tel:+9' + dealer.phone.replace(' ', '')}
+													onClick={() => {
+														GA.send('conversion', {
+															action: 'callDealer',
+														});
+													}}>
+													{dealer.phone}
+												</Btn>
 											</div>
 										)
 									}
@@ -199,6 +220,8 @@ export default class Dealer extends React.Component {
 		)
 	}
 }
+
+export default connect(null, mapDispatchToProps)(Dealer);
 
 class BranchInfo extends React.Component {
 	constructor(props) {

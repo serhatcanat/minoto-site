@@ -9,9 +9,11 @@ import Link from 'components/partials/link'
 // Deps
 import request from 'controllers/request'
 import { redirect } from 'controllers/navigator'
+import {setDealerData, setProductData} from "../../data/store.ga";
+import {addVehicleToCompare, setVehicleToReservation} from "../../actions";
+import {connect} from "react-redux";
 
-export default class Sum extends React.Component {
-
+class Sum extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -24,10 +26,13 @@ export default class Sum extends React.Component {
 	componentDidMount() {
 		let vm = this;
 
-		request.get('/dummy/data/reservation-complete.json', {id: vm.props.match.params.id}, function(payload){
+		const postId = this.props.match.params.id;
+
+		request.get(`reservations/${postId}`, {email: this.props.user.email}, function (payload) {
 			if(payload){
-				if(!payload.complete){
-					redirect('reservation.info', {id: payload.ref});
+				if(payload.complete){
+
+					redirect('reservation.sum', {id: payload.ref});
 				}
 				else {
 					vm.setState({
@@ -36,28 +41,24 @@ export default class Sum extends React.Component {
 					});
 				}
 			}
-		}, { excludeApiPath: true });
+		}, {excludeApiPath: false});
 	}
 
 	render () {
 		//let vm = this;
 		let reservation = this.state.reservation;
-
 		return (
 			<div className="section reservation-layout loader-container">
 				<Loader loading={!reservation || this.state.loading} />
-				{reservation && 
+				{reservation &&
 					<div className="layout-content">
 						<div className="content-innerwrap">
 							<ReservationNav section="sum" reservationID={reservation.ref} />
 							<section className="section reservation-sum">
 								<i className="sum-check icon-check-thin"></i>
-
 								<h1 className="sum-title">Ödemeniz başarıyla gerçekleşmiştir</h1>
-								<div className="sum-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud nisi ut aliquip ex ea commodo consequat.</div>
-
-								<div className="sum-ref">Referans Numarası: <span>{reservation.ref}</span></div>
-
+								<div className="sum-text">{this.props.location.state.invoiceInfo.message}</div>
+								<div className="sum-ref">Referans Numarası: <span>{this.props.location.state.invoiceInfo.ref}</span></div>
 								<div className="sum-links">
 									<Link href="home" className="links-item" />
 									<Link href="account.reservations" className="links-item" />
@@ -74,3 +75,19 @@ export default class Sum extends React.Component {
 		)
 	}
 }
+
+
+const mapStateToProps = ({generic, user, adCompare, reservation}) => {
+	return {mobile: generic.mobile, user: user.user, adCompare, reservation};
+};
+
+const mapDispatchToProps = dispatch => {
+	return {
+		setGaProductData: (data) => dispatch(setProductData(data)),
+		setGaDealerData: (data) => dispatch(setDealerData(data)),
+		addVehicleToCompare: (data) => dispatch(addVehicleToCompare(data)),
+		setVehicleToReservation: (data) => dispatch(setVehicleToReservation(data)),
+	}
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Sum);

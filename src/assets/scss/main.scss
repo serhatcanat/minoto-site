@@ -7,58 +7,13 @@
 @import '_animations.scss';
 @import '_plugins.scss';
 
-@import '_components.scss';
-@import '_components.contentbox.scss';
-@import '_components.btn.scss';
-@import '_components.image.scss';
-@import '_components.popinfo.scss';
-@import '_components.forms.scss';
-@import '_components.loader.scss';
-@import '_components.searchbar.scss';
-@import '_components.breadcrumbs.scss';
-@import '_components.collapse.scss';
-@import '_components.wysiwyg.scss';
-@import '_components.tabs.scss';
-@import '_components.tables.scss';
-@import '_components.messenger.scss';
-@import '_components.grid.scss';
-@import '_components.favbtn.scss';
-@import '_components.pricetag.scss';
-@import '_components.consentbar.scss';
-@import '_components.scrollwrap.scss';
-
-@import '_modals.scss';
-@import '_modals.login.scss';
-@import '_modals.confirm.scss';
-@import '_modals.consent.scss';
-@import '_modals.sharer.scss';
-@import '_modals.options.scss';
-@import '_modals.text.scss';
-@import '_modals.map.scss';
-@import '_modals.bid.scss';
-@import '_modals.youtube.scss';
-
-@import '_sections.header.scss';
-@import '_sections.footer.scss';
-@import '_sections.listing.scss';
-@import '_sections.subscriptionbar.scss';
+@import 'components/index';
+@import "modals/index";
+@import 'sections/index';
 
 @import '_forms.login.scss';
 
-@import '_pages.404.scss';
-@import '_pages.home.scss';
-@import '_pages.dealers.scss';
-@import '_pages.dealer.scss';
-@import '_pages.branch.scss';
-@import '_pages.brands.scss';
-@import '_pages.brand.scss';
-@import '_pages.sitemap.scss';
-@import '_pages.detail.scss';
-@import '_pages.listprices.scss';
-@import '_pages.about.scss';
-@import '_pages.account.scss';
-@import '_pages.reservation.scss';
-@import '_pages.contentpage.scss';
-@import '_pages.contact.scss';
-@import '_pages.blog.scss';
-@import '_pages.comparison.scss';
+@import "pages/index";
+
+// Under Construction
+@import "minoto-ui/index.scss";

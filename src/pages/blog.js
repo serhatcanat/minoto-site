@@ -1,18 +1,15 @@
 import React from 'react'
-
 // Partials
 import Image from 'components/partials/image'
 import Loader from 'components/partials/loader'
 import Link from 'components/partials/link'
 import ContentBox from 'components/partials/contentbox'
-import { InputForm, FormInput } from 'components/partials/forms'
-
+import {FormInput, InputForm} from 'components/partials/forms'
 // Deps
 import request from 'controllers/request'
 import history from 'controllers/history'
-import { redirect } from 'controllers/navigator'
-import { serializeArray, storageSpace } from 'functions/helpers'
-
+import {redirect} from 'controllers/navigator'
+import {serializeArray, storageSpace} from 'functions/helpers'
 // Assets
 import image_blog_bg from 'assets/images/blog-bg.svg'
 import image_blog_bg_mobile from 'assets/images/blog-bg-mobile.svg'
@@ -141,19 +138,21 @@ export default class Blog extends React.Component {
 								</nav>
 
 								<InputForm className="controls-search" onSubmit={this.makeSearch}>
-									<FormInput
-										type="text"
-										placeholder="Blog'da ara"
-										validation={{
-											required: true,
-											minLength: ['..', 3]
-										}}
-										name="search"
-										hideError
-										hideAsterisk
-										className="search-input" />
-									<button type="submit" className="search-submit">
-										<i className="icon-search"></i>
+									<label>
+										<FormInput
+											type="text"
+											placeholder="Blog'da ara"
+											validation={{
+												required: true,
+												minLength: ['..', 3]
+											}}
+											name="search"
+											hideError
+											hideAsterisk
+											className="search-input"/>
+									</label>
+									<button type="submit" className="search-submit" aria-label="search-icon">
+										<i className="icon-search"/>
 									</button>
 								</InputForm>
 							</div>

@@ -1,14 +1,18 @@
 // Deps
 import axios from 'axios';
-import { pushMessage } from 'controllers/messenger'
+import {pushMessage} from 'controllers/messenger'
 import extend from 'lodash/extend'
-import { apiPath } from 'functions/helpers'
+import {apiPath} from 'functions/helpers'
 import store from "data/store"
-import { set404 } from 'controllers/navigator'
+import {set404} from 'controllers/navigator'
 
 const defaultConfig = {
 	excludeApiPath: false,
 };
+
+export function test(){
+
+}
 
 export default {
 	get: function (target, params = false, finalFunction = false, opts = {}) {
@@ -24,7 +28,6 @@ export default {
 			target = apiPath(target);
 		}
 
-
 		axios.get(target, { params: params, cancelToken: ajaxController.token, headers: headData() })
 			.then(res => {
 				evaluateData(res, finalFunction);
@@ -34,6 +37,7 @@ export default {
 
 		return ajaxController;
 	},
+
 	post: function (target, params = false, finalFunction = false, opts = {}) {
 		if (params === false) { params = {}; }
 		let config = {};
@@ -53,6 +57,7 @@ export default {
 }
 
 function evaluateData(response, finalFunction = false) {
+
 	switch (response.status) {
 		case 200:
 			if (finalFunction) {
@@ -61,7 +66,6 @@ function evaluateData(response, finalFunction = false) {
 			break;
 		case 500:
 			pushMessage("HATA: İşlem gerçekleştirilemedi.", { type: "error" });
-			console.log(response.error);
 			if (finalFunction) {
 				finalFunction(false, response.status, response);
 			}

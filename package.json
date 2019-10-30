@@ -1,6 +1,6 @@
 {
   "name": "minoto",
-  "version": "0.1.0",
+  "version": "0.0.0-development",
   "private": true,
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
@@ -20,31 +20,56 @@
     "react-google-login": "^5.0.4",
     "react-inlinesvg": "^0.8.4",
     "react-input-mask": "^2.0.4",
+    "react-intersection-observer": "^8.24.1",
     "react-redux": "^7.0.2",
     "react-remove-scroll": "^2.0.4",
     "react-router-dom": "^5.0.0",
     "react-scripts": "2.1.8",
     "react-scrollbars-custom": "^4.0.12",
     "react-select": "^2.4.3",
+    "react-test-renderer": "16.8.6",
     "redux": "^4.0.1",
+    "redux-mock-store": "^1.5.3",
+    "redux-persist": "^6.0.0",
+    "redux-saga": "^1.1.1",
     "sitemap": "^3.2.2",
     "swiper": "^4.5.0",
-    "urijs": "^1.19.1"
+    "urijs": "^1.19.1",
+    "url-assembler": "^2.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --coverage",
     "eject": "react-scripts eject",
-    "sitemap": "node ./worker/create-sitemap.js"
+    "sitemap": "node ./worker/create-sitemap.js",
+    "lint": "eslint src/**/*.js --max-warnings 5",
+    "semantic-release": "semantic-release"
   },
   "eslintConfig": {
     "extends": "react-app"
+  },
+  "jest": {
+    "coverageThreshold": {
+      "global": {
+        "branches": 0.01,
+        "functions": 0.01,
+        "lines": 0.01,
+        "statements": 0.01
+      }
+    }
   },
   "browserslist": [
     ">0.2%",
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thinkerfox/minoto-web.git"
+  },
+  "devDependencies": {
+    "semantic-release": "^15.13.28"
+  }
 }

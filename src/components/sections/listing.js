@@ -28,6 +28,8 @@ import { connect } from "react-redux";
 import { storageSpace, seoFriendlyUrl, nextRandomPage } from "functions/helpers";
 import queryString from 'query-string';
 import { setFiltersExpansion, setListingQuery, setFilterQuery, setListingData } from 'data/store.listing';
+import { GA } from 'controllers/ga'
+import { addImpressionProduct } from 'data/store.ga.js'
 //import { openModal } from 'functions/modals'
 import image_loader from 'assets/images/minoto-loading.gif'
 import { turkishSort } from '../../functions/helpers'
@@ -147,6 +149,10 @@ class Listing extends React.Component {
 			vm.updateResults();
 		}
 
+		if(prevProps.listingQuery.ara !== this.props.listingQuery.ara){
+			vm.updateResults();
+		}
+
 		//console.log(Object.keys(this.props.filterQuery).indexOf('ara') === -1)
 
 		//console.log(this.props.filterQuery)
@@ -184,7 +190,7 @@ class Listing extends React.Component {
 
 				if (!listingQuery.siralama) { listingQuery.siralama = vm.props.defaultOrder }
 
-				let filterQuery = omit(query, ['siralama', 'sayfa', 'pageOrder']);
+				let filterQuery = omit(query, ['siralama', 'sayfa', 'pageOrder', 'ara']);
 
 				vm.props.setListingQuery(listingQuery);
 				vm.props.setFilterQuery(filterQuery);
@@ -193,6 +199,9 @@ class Listing extends React.Component {
 			else if (!vm.initialized) {
 
 				vm.updateResults();
+				// Listelemelerde patlak oluyorsa burayı eski haline getiririz.
+				//vm.updateResults();
+				//vm.getQuery();
 			}
 		}, 30);
 	}
@@ -275,8 +284,9 @@ class Listing extends React.Component {
 
 		vm.updateURL();
 
+		let query = vm.getQuery();
 
-		request.get(requestURL, vm.getQuery(), function (payload, status) {
+		request.get(requestURL, query, function (payload, status) {
 			if (vm.mounted && payload) {
 
 
@@ -295,6 +305,7 @@ class Listing extends React.Component {
 				if ((payload.page && vm.state.usedPages.length === 0) || vm.state.usedPages.indexOf(payload.page) === -1) {
 					usedPages.push(parseInt(payload.page))
 				}
+				let searchInput = query.ara ? query.ara : false;
 
 				vm.setState({
 					loading: false,
@@ -307,10 +318,13 @@ class Listing extends React.Component {
 					total: (payload.totalResults ? payload.totalResults : 0),
 					currentTotal: (payload.currentResults ? payload.currentResults : 0),
 					filterResults: (payload.filterResults ? payload.filterResults : 0),
-					usedPages: usedPages
+					usedPages: usedPages,
+					searchInput: searchInput,
 				});
 
-
+				if ((payload.totalResults === 0 || payload.similar) && searchInput) {
+					GA.send('searchNotFound', { searchInput: searchInput });
+				}
 
 				/*vm.setState({
 					listingData: payload,
@@ -432,10 +446,21 @@ class Listing extends React.Component {
 								}
 							</aside>
 						}
-						<ListingResults loading={vm.state.loading} data={vm.props.listingData} mobile={vm.props.mobile} />
+						{/* <ListingResults loading={vm.state.loading} data={vm.props.listingData} mobile={vm.props.mobile} />
 
 						{(vm.props.listingData.results && vm.props.listingData.results.length < vm.props.listingData.totalResults) &&
 							<InfiniteScroller loading={vm.state.extending} onExtend={vm.extendResults} />
+						} */}
+						<ListingResults
+							loading={vm.state.loading}
+							data={vm.props.listingData}
+							GAGroup={vm.props.GAGroup}
+							searchInput={vm.state.searchInput}
+							mobile={vm.props.mobile} />
+						{(vm.state.results && vm.state.results.length < vm.props.listingData.totalResults) &&
+							<InfiniteScroller
+								loading={vm.state.extending}
+								onExtend={vm.extendResults} />
 						}
 					</div>
 				</section>
@@ -454,7 +479,8 @@ Listing.defaultProps = {
 	size: 4,
 	defaultOrder: "date_desc",
 	scrollOnFilterChange: false,
-	keyword: false
+	keyword: false,
+	GAGroup: 'Listeleme'
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Listing);
@@ -468,7 +494,7 @@ class ListingResults extends React.Component {
 		let loading = vm.props.loading;
 		let data = vm.props.data
 		let results = data.results;
-
+		let productResultsCount = (results ? results.filter((result) => { return result.type === 'advert' }).length : 0);
 		if (results && results.length && !loading) {
 			return (
 				<React.Fragment>
@@ -501,64 +527,24 @@ class ListingResults extends React.Component {
 													}
 													break;
 												default:
-													switch (data.type) {
-														case "dealer":
-															contents.push(
-																<li key={nth} className="results-item">
-																	<ContentBox
-																		type="plain"
-																		className={((item.status === 2 || item.status === 3) ? 'inactive' : '')}
-																		title={item.title}
-																		subtitle={item.dealer}
-																		additionTitle={item.count + ' ARAÇ'}
-																		image={item.image ? storageSpace('c_scale,q_auto:good,w_360/dealers', item.image) : ''}
-																		labels={item.labels}
-																		faved={item.favorited}
-																		//favControls={'/dummy/data/fav/dealer/'+item.id}
-																		badge={(item.status !== 1 ? false : (item.status === 2 ? { text: 'Rezerve', note: '02.02.2019 Tarihine Kadar Opsiyonludur' } : { text: 'Satıldı', type: 'error' }))}
-																		bottomNote={(item.currentViewers > 0 ? item.currentViewers + ' kişi Bakıyor' : false)}
-																		url={`bayiler/${item.link}`}
-																	/>
-																</li>
-															)
-															break;
-														case "brand":
-															contents.push(
-																<li key={nth} className="results-item">
-																	<ContentBox
-																		type="plain"
-																		className={((item.status === 2 || item.status === 3) ? 'inactive' : '')}
-																		title={item.title}
-																		labels={item.labels}
-																		additionTitle={item.count + ' ARAÇ'}
-																		image={storageSpace('c_scale,q_auto:good,w_360/brands', item.image)}
-																		faved={item.favorited}
-																		//favControls={'/dummy/data/fav/dealer/'+item.id}
-																		url={`markalar/${item.link}`}
-																	/>
-																</li>
-															)
-															break;
-														default: //listing
-															contents.push(
-																<li key={nth} className="results-item">
-																	<ContentBox
-																		className={((item.status === 2 || item.status === 3) ? 'inactive' : '')}
-																		title={item.title}
-																		subtitle={item.dealer}
-																		image={storageSpace('c_scale,q_auto:good,w_360/car-posts', item.image)}
-																		price={item.price}
-																		labels={item.labels}
-																		faved={item.favorited}
-																		badge={(item.status === 1 ? false : (item.status === 2 ? { text: 'Rezerve', note: '02.02.2019 Tarihine Kadar Opsiyonludur' } : { text: 'Satıldı', type: 'error' }))}
-																		bottomNote={(item.currentViewers > 0 ? item.currentViewers + ' kişi Bakıyor' : false)}
-																		url="detail"
-																		urlParams={{ dealer: seoFriendlyUrl(item.dealer), slug: item.slug.substring(0, item.slug.lastIndexOf('-m')), post: item.postNo }}
-																	/>
-																</li>
-															);
-															break;
-													}
+													contents.push(
+														<li key={nth} className="results-item">
+															<ContentBox
+																type="plain"
+																className={((item.status === 2 || item.status === 3) ? 'inactive' : '')}
+																title={item.title}
+																subtitle={item.dealer}
+																additionTitle={item.count + ' ARAÇ'}
+																image={item.image ? storageSpace('c_scale,q_auto:good,w_360/dealers', item.image) : ''}
+																labels={item.labels}
+																faved={item.favorited}
+																//favControls={'/dummy/data/fav/dealer/'+item.id}
+																badge={(item.status !== 1 ? false : (item.status === 2 ? { text: 'Rezerve', note: '02.02.2019 Tarihine Kadar Opsiyonludur' } : { text: 'Satıldı', type: 'error' }))}
+																bottomNote={(item.currentViewers > 0 ? item.currentViewers + ' kişi Bakıyor' : false)}
+																url={`bayiler/${item.link}`}
+															/>
+														</li>
+													)
 													break;
 											}
 
@@ -586,26 +572,6 @@ class ListingResults extends React.Component {
 													break;
 												default:
 													switch (data.type) {
-														case "dealer":
-															contents.push(
-																<li key={nth} className="results-item">
-																	<ContentBox
-																		type="plain"
-																		className={((item.status === 2 || item.status === 3) ? 'inactive' : '')}
-																		title={item.title}
-																		subtitle={item.dealer}
-																		additionTitle={item.count + ' ARAÇ'}
-																		image={item.image ? storageSpace('c_scale,q_auto:good,w_360/dealers', item.image) : ""}
-																		labels={item.labels}
-																		faved={item.favorited}
-																		//favControls={'/dummy/data/fav/dealer/'+item.id}
-																		badge={(item.status !== 1 ? false : (item.status === 2 ? { text: 'Rezerve', note: '02.02.2019 Tarihine Kadar Opsiyonludur' } : { text: 'Satıldı', type: 'error' }))}
-																		bottomNote={(item.currentViewers > 0 ? item.currentViewers + ' kişi Bakıyor' : false)}
-																		url={`bayiler/${item.link}`}
-																	/>
-																</li>
-															)
-															break;
 														case "brand":
 															contents.push(
 																<li key={nth} className="results-item">
@@ -639,6 +605,21 @@ class ListingResults extends React.Component {
 																		bottomNote={(item.currentViewers > 0 ? item.currentViewers + ' kişi Bakıyor' : false)}
 																		url="detail"
 																		urlParams={{ dealer: seoFriendlyUrl(item.dealer), slug: item.slug.substring(0, item.slug.lastIndexOf('-m')), post: item.postNo }}
+																		onClick={() => {
+																			GA.send('productClick', {
+																				product: item,
+																				totalResults: results.length
+																			});
+
+																			if (vm.props.searchInput) {
+																				GA.send('searchClick', {
+																					product: item,
+																					searchInput: vm.props.searchInput,
+																				});
+																			}
+																		}}
+
+																		onDisplay={() => { addImpressionProduct(vm.props.GAGroup, item, productResultsCount); }}
 																	/>
 																</li>
 															);

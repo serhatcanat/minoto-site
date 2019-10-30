@@ -12,22 +12,30 @@ import Responsive from 'components/partials/responsive'
 //import { InputForm, FormInput } from 'components/partials/forms'
 
 // Deps
+import { connect } from "react-redux"
 import extend from 'lodash/extend'
 import { setTitle, setDescription } from 'controllers/head'
 import request from 'controllers/request'
 import { redirect } from 'controllers/navigator'
 import { openModal } from 'functions/modals'
 import { storageSpace } from 'functions/helpers'
+import { setDealerData } from 'data/store.ga'
 
 // Assets
 
-export default class Branch extends React.Component {
+const mapDispatchToProps = dispatch => {
+	return {
+		setGaDealerData: (data) => dispatch(setDealerData(data)),
+	}
+}
+
+class Branch extends React.Component {
 	constructor(props) {
-		super(props)
+		super(props);
 		this.state = {
 			branchData: false,
 			loading: true,
-		}
+		};
 
 		this.initialize = this.initialize.bind(this);
 		//this.listingDataChanged = this.listingDataChanged.bind(this);
@@ -45,6 +53,8 @@ export default class Branch extends React.Component {
 		let vm = this;
 		request.get(`branches/${vm.props.match.params.slug}`, { id: vm.props.match.params.slug }, function (payload) {
 			if (payload) {
+				vm.props.setGaDealerData(payload);
+
 				vm.setState({
 					branchData: payload,
 					listingQuery: { branch: vm.props.match.params.slug }
@@ -143,3 +153,5 @@ export default class Branch extends React.Component {
 		)
 	}
 }
+
+export default connect(null, mapDispatchToProps)(Branch);

@@ -1,0 +1,96 @@
+@import "../../variables";
+@import "../../mixins";
+
+.compare-modal {
+
+  .scroll-container{
+    overflow: auto;
+  }
+  &--message {
+    color: $color-blue;
+    margin:2rem 0;
+    display: block;
+    background-color: $color-gray-light;
+    padding: 1rem;
+    font-size: 2rem;
+  }
+
+  .compare-cards {
+    display: flex;
+    flex-wrap: nowrap;
+    @include media(){
+      width: max-content;
+    }
+    button {
+      display: block;
+    }
+
+
+
+    &__item {
+      position: relative;
+      margin: 3vh .6em 3rem;
+      background-color: $color-white;
+      border-radius: $radius-general;
+      max-width: calc(100% - 10rem);
+      width: 20rem;
+      box-shadow: $shadow-general;
+      z-index: 2;
+      transform: translateY(-1.5rem);
+      transition: opacity $transition-anim ease, transform $transition-anim-fast ease;
+      -webkit-backface-visibility: hidden;
+      padding: 1rem;
+
+      h4 {
+        min-height: 4.4rem;
+      }
+
+      img {
+        background-color: $color-gray;
+        width: 100%;
+      }
+
+      .pricetag {
+        margin-top: 1rem;
+        float: right;
+
+        span {
+          color: $color-blue;
+        }
+      }
+
+      button {
+        width: 100%;
+        margin-top: 4rem;
+        height: 3rem;
+        padding: 0;
+        /* margin: 0; */
+        display: block;
+      }
+    }
+  }
+
+  .modal-footer {
+    text-align: right;
+  }
+
+  .scroll-container{
+    -ms-overflow-style: none;  // IE 10+
+    scrollbar-width: none;  // Firefox
+  }
+
+  .container {
+
+  }
+
+  .container::-webkit-scrollbar {
+    display: none;  // Safari and Chrome
+  }
+
+}
+
+
+
+
+
+
