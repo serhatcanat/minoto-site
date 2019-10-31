@@ -1,0 +1,20 @@
+@import "../../../variables";
+
+.ncap-stars {
+  color: $color-gray;
+  font-size: 1.8rem;
+  display: inline-block;
+  margin-left: 1.2rem;
+
+  i.active {
+    color: $color-yellow;
+  }
+
+  i + i {
+    margin-left: .5rem;
+  }
+}
+
+.ncap-info {
+  margin-left: .6rem;
+}

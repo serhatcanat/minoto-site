@@ -1,5 +1,6 @@
 import React from 'react'
 //Partials
+import {closeModal} from 'functions/modals'
 import CompareCard from './compare/card'
 import {addVehicleToCompare, deleteVehicleFromCompare} from "../../actions";
 import {connect} from "react-redux";
@@ -10,11 +11,12 @@ import Btn from "../partials/btn";
 
 class CompareModal extends React.Component {
     constructor(props) {
-        super(props)
+        super(props);
         this.state = {
             compareList: [],
         };
         this.removeFromCompareList = this.removeFromCompareList.bind(this);
+        this.openComparePage = this.openComparePage.bind(this);
     }
 
     removeFromList(){
@@ -23,6 +25,11 @@ class CompareModal extends React.Component {
 
     componentDidMount() {
 
+    }
+
+    openComparePage() {
+        closeModal();
+        this.props.history.push('/ilan-karsilastir')
     }
 
     removeFromCompareList(id) {
@@ -45,18 +52,18 @@ class CompareModal extends React.Component {
                             <div className="compare-cards">
                                 {compareList &&
                                 compareList.map((product, index) => (
-                                        <CompareCard productProp={product} index={index}
+                                        <CompareCard key={product.id} productProp={product} index={index}
                                                      removeFromList={this.removeFromCompareList}/>
-                                    )
-                                )
+                                    ))
                                 }
-
                             </div>
                         </div>
                     </div>
                     {compareList.length>1 ?
                         <div className='modal-footer'>
-                            <Btn tag="a" block href={`/ilan-karsilastir`} icon="eye" text low uppercase>İLANLARI KARŞILAŞTIR</Btn>
+                            <Btn onClick={() => {
+                                this.openComparePage()
+                            }}>İLANLARI KARŞILAŞTIR</Btn>
                         </div> :
                         ''
                     }
