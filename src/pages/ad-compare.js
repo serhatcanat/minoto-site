@@ -73,25 +73,25 @@ class adCompare extends React.Component {
                                         <td className="picker" key={nth}>
                                             <div className='ad-compare-table__header__labelArea'>
                                                 <div>
-                                                    <button
-                                                        onClick={() => this.props.deleteVehicleFromCompare(car.id)}>ÇIKAR ⓧ
-                                                    </button>
-                                                </div>
-                                                <div>
-                                                    <ul className="info-highlights">
+                                                    <ul className="topinfo-highlights">
                                                         {car.highlights.map((highlight, nth) => (
                                                             <React.Fragment key={nth}>
                                                                 {
                                                                     highlight.label && (
-                                                                        <React.Fragment>
-                                                                            <span
-                                                                                className='label'>{highlight.label}</span>
-                                                                        </React.Fragment>
+                                                                        <li key={nth} title={highlight.title}>{(highlight.image ?
+                                                                                <Image alt={highlight.title} src={`/dummy/images/${highlight.image}`}/>
+                                                                                :
+                                                                                <span>{highlight.label}</span>
+                                                                        )}</li>
                                                                     )
                                                                 }
                                                             </React.Fragment>
-                                                        ))}
-                                                    </ul>
+                                                        ))}                                                    </ul>
+                                                </div>
+                                                <div>
+                                                    <button
+                                                        onClick={() => this.props.deleteVehicleFromCompare(car.id)}>ÇIKAR ⓧ
+                                                    </button>
                                                 </div>
 
                                             </div>

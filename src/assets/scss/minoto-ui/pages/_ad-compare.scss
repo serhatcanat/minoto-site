@@ -34,33 +34,54 @@
     &__header {
       //Label area begin
       &__labelArea {
+        .topinfo-highlights {
+          li {
+            display: inline-block;
+            display: inline-block;
+            vertical-align: middle;
+
+            > * {
+              display: block;
+            }
+
+            + li {
+              margin-left: .7rem;
+            }
+          }
+
+          span {
+            display: block;
+            border: .1rem solid $color-ice;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            border-radius: $radius-general;
+            color: $color-text-light;
+            line-height: 2rem;
+            padding: 0 .5rem;
+            background-color: $color-white;
+
+            @include media {
+              color: $color-text;
+            }
+          }
+
+          img {
+            height: 1.8rem;
+          }
+        }
         display: block;
         button{
           color: $color-blue ;
         }
         div {
-          display: block;
-
-          &:nth-child(1) {
-            text-align: right;
-            margin-bottom: .6em;
-          }
+          display: inline-block;
 
           &:nth-child(2) {
-            span {
-              &:not(:first-child) {
-                margin-left: .4em;
-              }
-            }
+            float: right;
           }
 
-          &:nth-child(2) {
-            text-align: left;
-            display: block;
-          }
         }
       }
-
       //Label area end
 
       //Title area begin
