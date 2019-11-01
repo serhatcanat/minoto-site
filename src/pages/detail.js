@@ -75,15 +75,16 @@ class Detail extends React.Component {
 	setCompareList(){
 		const product = this.state.productData;
 		const storedList = this.props.compareList.data;
+
 		const _compareListService = new CompareListService();
+
 		if (!_compareListService.isExist(product,storedList)){
 			this.props.addVehicleToCompare(product);
 		}
-		openModal('compare',{test:'test'});
+		openModal('compare',{history:this.props.history});
 	}
 
 	initialize() {
-
 		let vm = this;
 		const {externalId} = vm.state;
 
@@ -132,7 +133,6 @@ class Detail extends React.Component {
 		let vm = this;
 		let product = vm.state.productData;
 		const {reservation,setVehicleToReservation} = this.props;
-
 		const {mobile} = vm.props;
 		return (
 			<main className={"page detail minoto-ui" + (vm.state.galleryFullScreen ? ' gallery-fullscreen' : '')}>

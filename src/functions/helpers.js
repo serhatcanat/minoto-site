@@ -1,6 +1,6 @@
 import extend from "lodash/extend"
-import { storagePath, apiBase } from "../config"
-import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
+import {apiBase, storagePath} from "../config"
+import {clearAllBodyScrollLocks, disableBodyScroll, enableBodyScroll} from 'body-scroll-lock';
 
 export function scrollTo(inputOpts, endFunction = false) {
 	let defaultOpts = {
@@ -368,4 +368,6 @@ export function turkishSort(a, b) {
 		}
 	}
 }
+
+
 

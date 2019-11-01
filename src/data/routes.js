@@ -38,6 +38,7 @@ module.exports = {
 			linkTitle: "Arama",
 			title: "Arama",
 			GATitle: "Arama",
+			hideSiteMap: true,
 		},
 		/*searchBrand: {
 			path: "/arama/:brand",

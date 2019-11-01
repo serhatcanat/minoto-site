@@ -34,5 +34,5 @@ jobs:
       # run tests!
       - run: yarn test
 
-      - run: npx semantic-relase
+      - run: npx semantic-release
 

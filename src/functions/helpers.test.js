@@ -1,4 +1,5 @@
-import {formatNumber} from "./helpers";
+import {formatNumber, isDefined, isExact, seoFriendlyUrl, storageSpace} from "./helpers";
+import {storagePath} from "../config";
 
 describe('is number formatted', () => {
 
@@ -11,3 +12,36 @@ describe('is number formatted', () => {
     });
 });
 
+describe('is defined', () => {
+    test('Is Defined == True', () => {
+        let test = 1;
+        expect(isDefined(test)).toBe(true);
+    });
+    test('Show Decimal == False', () => {
+        let test;
+        expect(isDefined(test)).toBe(false);
+    });
+});
+
+test('Is url seo friendly', () => {
+    expect(seoFriendlyUrl('url to be this ü İ')).toBe('url-to-be-this-u-i');
+});
+
+
+test('Storage Space', () => {
+    expect(storageSpace('images', 'media.png')).toBe(`${storagePath}images/media.png.png`);
+});
+
+describe('Is exact', () => {
+    test('Is exact == true', () => {
+        const obj1 = [{foo: 'bar'},{bar:'foo'}];
+        const obj2 = [{foo: 'bar'},{bar:'foo'}];
+        expect(isExact(obj1,obj2)).toBe(true);
+    });
+
+    test('Is exact == false', () => {
+        const obj1 = [{foo: 'bar'},{bar:'foo'}];
+        const obj2 = [{foo: 'bar1'},{bar:'foo'}];
+        expect(isExact(obj1,obj2)).toBe(false);
+    });
+});

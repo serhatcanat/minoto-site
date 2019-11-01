@@ -399,7 +399,6 @@ class Listing extends React.Component {
 
 	render() {
 		let vm = this;
-
 		let orderVal = null;
 		let activeFilters = Object.keys(vm.props.filterQuery).length;
 
@@ -604,7 +603,7 @@ class ListingResults extends React.Component {
 																		badge={(item.status === 1 ? false : (item.status === 2 ? { text: 'Rezerve', note: '02.02.2019 Tarihine Kadar Opsiyonludur' } : { text: 'Satıldı', type: 'error' }))}
 																		bottomNote={(item.currentViewers > 0 ? item.currentViewers + ' kişi Bakıyor' : false)}
 																		url="detail"
-																		urlParams={{ dealer: seoFriendlyUrl(item.dealer), slug: item.slug.substring(0, item.slug.lastIndexOf('-m')), post: item.postNo }}
+																		urlParams={{ dealer: seoFriendlyUrl(item.dealer), slug: item.slug.substring(0,item.slug.lastIndexOf('-m')), post: item.postNo }}
 																		onClick={() => {
 																			GA.send('productClick', {
 																				product: item,
@@ -655,7 +654,6 @@ class ListingResults extends React.Component {
 class InfiniteScrollerRaw extends React.Component {
 	constructor(props) {
 		super(props)
-
 		this.scrollElem = React.createRef();
 		this.trigger = throttle(this.trigger.bind(this), 1000);
 	}
@@ -667,6 +665,7 @@ class InfiniteScrollerRaw extends React.Component {
 				top: 0,
 				bottom: window.innerHeight,
 			}
+
 			let bounds = {
 				top: boundRect.top,
 				bottom: boundRect.top + this.scrollElem.current.clientHeight
@@ -674,7 +673,7 @@ class InfiniteScrollerRaw extends React.Component {
 
 			if ((bounds.bottom >= viewport.top && bounds.bottom <= viewport.bottom) || (bounds.top <= viewport.bottom && bounds.top >= viewport.top)) {
 				this.trigger();
-
+				console.log('test');
 			}
 		}
 	}

@@ -34,7 +34,6 @@ export class DetailInfo extends React.Component {
     }
     setVehicleToReservation(product){
         const {setVehicleToReservation} = this.props;
-
         setVehicleToReservation(product);
         this.props.history.push(`/rezervasyon/${this.props.product.postNo}`)
     }
@@ -146,21 +145,28 @@ export class DetailInfo extends React.Component {
                 }
                 <div className="info-controls">
                     <div className="controls-buttons">
-
-                        {product.status === 1 && product.isReservable &&
+                        {product.status === 1 &&
                         <Btn className="controls-button reservate" primary hollow uppercase
                              note="Bu aracı çok yakında rezerve edebileceksiniz."
-                             onClick={() => this.setVehicleToReservation(product)}>
+                             onClick={() => this.setVehicleToReservation(product)} disabled>
                             Reserve Et
                         </Btn>
                         }
-
                         {product.status === 2 &&
+                            <Btn className="controls-button reservate" primary hollow uppercase
+                                 note="Bu araç rezerve edilmiştir."
+                                 disabled
+                                 >
+                                Araç Satılmıştır
+                            </Btn>
+                        }
+
+                        {product.status === 3 &&
                         <Btn className="controls-button reservate" primary hollow uppercase
-                             note="Bu araç rezerve edilmiştir."
+                             note="Bu araç satılmıştır.Rezerve edilemez."
                              disabled
-                             >
-                            Rezerve Edildi
+                        >
+                            Satıldı
                         </Btn>
                         }
 
