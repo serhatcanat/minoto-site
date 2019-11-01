@@ -220,10 +220,12 @@ class Detail extends React.Component {
 								</div>
 							}
 							{mobile &&
-							<DetailTopInfo product={product} mobile={mobile}/>
+							<DetailTopInfo product={product} mobile={mobile}
+										   addVehicleToCompare={this.props.addVehicleToCompare}
+										   compareList={this.props.compareList} productData={this.state.productData}
+										   history={this.props.history}/>
 							}
 						</section>
-
 						<section className="section detail-content">
 							<div className="content-wrap wrapper">
 								<div className="content-left">
