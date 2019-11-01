@@ -39,9 +39,14 @@
           color: $color-blue ;
         }
         div {
-          display: inline-block;
+          display: block;
 
           &:nth-child(1) {
+            text-align: right;
+            margin-bottom: .6em;
+          }
+
+          &:nth-child(2) {
             span {
               &:not(:first-child) {
                 margin-left: .4em;
@@ -50,7 +55,8 @@
           }
 
           &:nth-child(2) {
-            float: right;
+            text-align: left;
+            display: block;
           }
         }
       }

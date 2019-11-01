@@ -73,6 +73,11 @@ class adCompare extends React.Component {
                                         <td className="picker" key={nth}>
                                             <div className='ad-compare-table__header__labelArea'>
                                                 <div>
+                                                    <button
+                                                        onClick={() => this.props.deleteVehicleFromCompare(car.id)}>ÇIKAR ⓧ
+                                                    </button>
+                                                </div>
+                                                <div>
                                                     <ul className="info-highlights">
                                                         {car.highlights.map((highlight, nth) => (
                                                             <React.Fragment key={nth}>
@@ -88,11 +93,7 @@ class adCompare extends React.Component {
                                                         ))}
                                                     </ul>
                                                 </div>
-                                                <div>
-                                                    <button
-                                                        onClick={() => this.props.deleteVehicleFromCompare(car.id)}>ÇIKAR ⓧ
-                                                    </button>
-                                                </div>
+
                                             </div>
                                             <div className='ad-compare-table__header__titleArea'>
                                                 {/* todo: Link to product detail page */}
