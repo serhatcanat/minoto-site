@@ -45,3 +45,16 @@ describe('Is exact', () => {
         expect(isExact(obj1,obj2)).toBe(false);
     });
 });
+
+describe('Form Serialize', () => {
+    test('Is exact == true', () => {
+        const obj1 = [{foo: 'bar'},{bar:'foo'}];
+        expect(isExact(obj1,obj2)).toBe(true);
+    });
+
+    test('Is exact == false', () => {
+        const obj1 = [{foo: 'bar'},{bar:'foo'}];
+        const obj2 = [{foo: 'bar1'},{bar:'foo'}];
+        expect(isExact(obj1,obj2)).toBe(false);
+    });
+});
