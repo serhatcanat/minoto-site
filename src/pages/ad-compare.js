@@ -121,7 +121,7 @@ class adCompare extends React.Component {
                                                     {car.status === 1 &&
                                                     <Btn className="controls-button reservate" primary hollow uppercase
                                                          note="Bu aracı çok yakında rezerve edebileceksiniz."
-                                                         onClick={() => this.setVehicleToReservation(car)}>
+                                                         onClick={() => this.setVehicleToReservation(car)} disabled>
                                                         Reserve Et
                                                     </Btn>
                                                     }

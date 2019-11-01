@@ -148,7 +148,7 @@ export class DetailInfo extends React.Component {
                         {product.status === 1 &&
                         <Btn className="controls-button reservate" primary hollow uppercase
                              note="Bu aracı çok yakında rezerve edebileceksiniz."
-                             onClick={() => this.setVehicleToReservation(product)}>
+                             onClick={() => this.setVehicleToReservation(product)} disabled>
                             Reserve Et
                         </Btn>
                         }
