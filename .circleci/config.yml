@@ -42,9 +42,9 @@ jobs:
           name: SETTING_ENV
           command: |
             if [ $CIRCLE_BRANCH = "master" ]; then
-              export S3_BUCKET="s3://dev-minoto-web/"
+            export S3_BUCKET=$DEV_S3_BUCKET
             else
-              export S3_BUCKET="s3://dev-minoto-web/"
+            export S3_BUCKET=$DEV_S3_BUCKET
             fi
 
       - run: echo "TEST ECHO"
