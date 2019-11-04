@@ -97,7 +97,6 @@
 					font-size: 1.2rem;
 					color: inherit;
 					overflow: visible;
-
 					&.faved {
 						.fav-button-icon {
 							color: $color-primary;
@@ -187,6 +186,15 @@
 
 			.topinfo-controls {
 				white-space: nowrap;
+
+				@include media{
+					button{
+						span{
+							margin-left: .4em;
+						}
+					}
+				}
+
 			}
 
 				.controls-btn {

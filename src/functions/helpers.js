@@ -247,6 +247,7 @@ export function isExact(object1, object2) {
 }
 
 export function storageSpace(folder, file) {
+
 	if (file === '' || file === null) {
 		return false;
 	}
