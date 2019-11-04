@@ -20,21 +20,14 @@ jobs:
           name: Restore Yarn Package Cache
           keys:
             - yarn-packages-{{ checksum "yarn.lock" }}
-            - run:
-                name: Install Dependencies
-                command: yarn install --frozen-lockfile
-            - save_cache:
-                name: Save Yarn Package Cache
-                key: yarn-packages-{{ checksum "yarn.lock" }}
-                paths:
-                  - ~/.cache/yarn
-
-      - run: yarn install
-
+      - run:
+          name: Install Dependencies
+          command: yarn install --frozen-lockfile
       - save_cache:
+          name: Save Yarn Package Cache
+          key: yarn-packages-{{ checksum "yarn.lock" }}
           paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+            - ~/.cache/yarn
 
       # run build!
       - run: yarn build
@@ -49,9 +42,9 @@ jobs:
           name: SETTING_ENV
           command: |
             if [ $CIRCLE_BRANCH = "master" ]; then
-              export S3_BUCKET=$STAGING_S3_BUCKET
+              export S3_BUCKET="s3://dev-minoto-web/"
             else
-              export S3_BUCKET=$DEV_S3_BUCKET
+              export S3_BUCKET="s3://dev-minoto-web/"
             fi
 
       - run: echo "TEST ECHO"
