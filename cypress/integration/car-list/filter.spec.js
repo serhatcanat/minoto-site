@@ -10,7 +10,7 @@ context('Car Filter', () => {
             cy.get('div.type-icons div.filter-content ul.filter-list').then(($bodyList) => {
                 let $bodyCount = $bodyList.children('li').length;
                 let $selected = Math.floor(Math.random() * $bodyCount) + 1;
-                cy.get('div.type-icons div.filter-content ul.filter-list li:nth-child(' + 3 + ')').click();
+                cy.get('div.type-icons div.filter-content ul.filter-list li:nth-child(' + 2 + ')').click();//TODO:add $selected variable here
             });
             cy.get('div button:contains("Motor Hacmi")').then(($motorButton) => {
                 cy.get('div button:contains("Motor Hacmi")').parent().click();
@@ -18,7 +18,7 @@ context('Car Filter', () => {
                 let $motorList = $motorButton.parent().children('.filter-content').children('ul.filter-list');
                 let $motorCount = $motorList.children('li').length;
                 let $selected = Math.floor(Math.random() * $motorCount) + 1;
-                cy.get('div button:contains("Motor Hacmi")').siblings('.filter-content').children('ul').find('li:nth-child(' + 2  + ')').click();
+                cy.get('div button:contains("Motor Hacmi")').siblings('.filter-content').children('ul').find('li:nth-child(' + 2  + ')').click();//TODO:add $selected variable here
                 cy.wait(3000);
                 cy.get('div.filters-header h1').then(($text) => {
                     let $numberStr = $text.text().replace(/[^\d.]/g, '');
@@ -37,12 +37,11 @@ context('Car Filter', () => {
                         } else {
                             cy.get('ul.content-results').children().children('.contentbox')
                                 .should('have.length', 24);
-                            for (let i = 1; i < $loop; i++) {
+                            for (let i = 1; i <$loop; i++) {//TODO:Fix to $loop after scroll
                                 cy.route('https://beta-api.minoto.com/v1/shared/*').as('cars');
                                 cy.get('ul.content-results').children().children('.contentbox').last().scrollIntoView({duration:5000,easing:"linear"}).then(() => {
                                     cy.wait('@cars');
                                 })
-
                             }
                         }
                     }

@@ -8,7 +8,7 @@ context('Car Filter', () => {
 
             cy.get('div.listing-content ul.content-results').then((ul) => {
                 let $brandCount = ul.children('li').length;
-                let $selected = Math.floor(Math.random() * $brandCount) + 1;
+                let $selected = 4/*Math.floor(Math.random() * $brandCount) + 1;TODO:Change this after car names are fixed*/
                 cy.get('div.type-brand ul.content-results')
                     .find('li:nth-child(' + $selected + ')').then(($li) => {
                     let $a = $li.find("div.contentbox .contentbox-innerwrap");
