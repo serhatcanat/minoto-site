@@ -47,15 +47,9 @@ jobs:
             echo 'export S3_BUCKET="s3://dev-minoto-web/"' >> $BASH_ENV
             fi
 
-      - run: echo "TEST ECHO"
-      - run: echo $DEV_S3_BUCKET
-      - run: echo ${DEV_S3_BUCKET}
-      - run: echo ${S3_BUCKET}
-      - run: echo $S3_BUCKET
-
       - aws-s3/sync:
           from: build
-          to: 's3://dev-minoto-web/'
+          to: $S3_BUCKET
           arguments: |
             --acl public-read \
             --cache-control "max-age=86400"
