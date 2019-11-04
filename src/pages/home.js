@@ -121,7 +121,6 @@ export default class Home extends React.Component {
 					)}
 					{
 						route === '' ? (
-
 							<Listing className="search-listing"
 								source="filters"
 								defaultOrder="random"
@@ -138,7 +137,7 @@ export default class Home extends React.Component {
 									// -- bu gülşahın yarın oluşturacağı url source={`car-data/filters${route}`}
 									source={`filters${route}`}
 									query={false}
-								//key="search-brand-deep" 
+								//key="search-brand-deep"
 								/>
 
 							)

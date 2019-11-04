@@ -29,6 +29,7 @@ module.exports = {
 				}
 			],*/
 			hideSearchFromHeader: true,
+			GATitle: "Ana Sayfa",
 		},
 		search: {
 			path: "/arama",
@@ -36,6 +37,8 @@ module.exports = {
 			exact: true,
 			linkTitle: "Arama",
 			title: "Arama",
+			GATitle: "Arama",
+			hideSiteMap: true,
 		},
 		/*searchBrand: {
 			path: "/arama/:brand",
@@ -43,6 +46,7 @@ module.exports = {
 			exact: true,
 			linkTitle: "Arama",
 			title: "Arama",
+			GATitle: "Marka Arama",
 		},
 		searchModel: {
 			path: "/arama/:brand/:model",
@@ -50,6 +54,7 @@ module.exports = {
 			exact: true,
 			linkTitle: "Arama",
 			title: "Arama",
+			GATitle: "Marka Arama",
 		},
 		searchModelSub: {
 			path: "/arama/:brand/:model/:modelsub",
@@ -57,6 +62,7 @@ module.exports = {
 			exact: true,
 			linkTitle: "Arama",
 			title: "Arama",
+			GATitle: "Marka Arama",
 		},
 		searchVersion: {
 			path: "/arama/:brand/:model/:modelsub/:version",
@@ -64,6 +70,7 @@ module.exports = {
 			exact: true,
 			linkTitle: "Arama",
 			title: "Arama",
+			GATitle: "Marka Arama",
 		},*/
 		/* sitemap: {
 			path: "/sitemap",
@@ -71,7 +78,8 @@ module.exports = {
 			exact: true,
 			linkTitle: "Site Haritası",
 			title: "Site Haritası",
-		}, */
+			GATitle: "Site Haritası",
+		},*/
 		brands: {
 			path: "/markalar",
 			component: "Brands",
@@ -83,6 +91,7 @@ module.exports = {
 			meta: {
 				keywords: "Minoto, Sıfır Otomobil, Bayiler"
 			},
+			GATitle: "Markalar",
 		},
 		brand: {
 			path: "/markalar/:id/:slug?",
@@ -92,6 +101,7 @@ module.exports = {
 			title: "Araba Markaları ve Araç Listesi - Türkiye'nin Sıfır Km Oto Sitesi Minoto",
 			description: "Sıfır Km araba mı aradınız? Sıfır Km araba modelleri ve fiyatları Minoto'da! Hemen tıkla, fırsatları kaçırma!",
 			postTitle: false,
+			GATitle: "Marka Detay",
 		},
 		dealer: {
 			path: "/bayiler/:slug",
@@ -101,6 +111,7 @@ module.exports = {
 			title: "Araba Markaları ve Araç Listesi - Türkiye'nin Sıfır Km Oto Sitesi Minoto",
 			description: "Sıfır Km araba mı aradınız? Sıfır Km araba modelleri ve fiyatları Minoto'da! Hemen tıkla, fırsatları kaçırma!",
 			postTitle: false,
+			GATitle: "Bayi Detay",
 		},
 		dealers: {
 			path: "/bayiler",
@@ -108,7 +119,8 @@ module.exports = {
 			exact: true,
 			linkTitle: "Bayiler",
 			title: "Yetkili Araba Bayileri, Araç Satıcıları ve Servisleri",
-			description: "Yetkili araba bayileri, araç satıcıları ve servisleri Minoto'da! Hemen tıkla, fırsatları kaçırma!"
+			description: "Yetkili araba bayileri, araç satıcıları ve servisleri Minoto'da! Hemen tıkla, fırsatları kaçırma!",
+			GATitle: "Bayiler",
 		},
 		branch: {
 			path: "/bayiler/:dealer/:slug",
@@ -116,7 +128,9 @@ module.exports = {
 			exact: true,
 			linkTitle: "Şube",
 			title: "Şube",
+			GATitle: "Şube Detay",
 		},
+
 		listprices: {
 			path: "/araba-fiyat-listesi",
 			component: "ListPrices",
@@ -125,6 +139,7 @@ module.exports = {
 			title: "Araba Fiyat Listesi ve Özellikleri - Türkiye'nin Sıfır Km Oto Sitesi Minoto",
 			description: "Sıfır Km araba fiyat listesi mi aradınız? Sıfır Km araba fiyat listesi ve özellikleri Minoto'da! Hemen tıkla, fırsatları kaçırma!",
 			postTitle: false,
+			GATitle: "Liste Fiyatları",
 		},
 		listpricesDetail: {
 			path: "/:data(.*-fiyat-listesi)",
@@ -134,6 +149,7 @@ module.exports = {
 			title: "Araba Fiyat Listesi ve Özellikleri - Türkiye'nin Sıfır Km Oto Sitesi Minoto",
 			description: "Sıfır Km araba fiyat listesi mi aradınız? Sıfır Km araba fiyat listesi ve özellikleri Minoto'da! Hemen tıkla, fırsatları kaçırma!",
 			postTitle: false,
+			GATitle: "Liste Fiyatları",
 		},
 		dealerApplication: {
 			path: "/bayi-basvuru-formu",
@@ -164,6 +180,7 @@ module.exports = {
 					}
 				}
 			],
+			GATitle: "İlan",
 		},
 
 
@@ -173,13 +190,25 @@ module.exports = {
 			exact: true,
 			linkTitle: "Araç Karşılaştırma",
 			title: "Araç Karşılaştırma",
+			GATitle: "Araç Karşılaştırma",
 		},
+
+		adCompare: {
+			path: "/ilan-karsilastir/",
+			component: "AdCompare",
+			exact: true,
+			linkTitle: "İlan Karşılaştırma",
+			title: "İlan Karşılaştırma",
+			GATitle: "İlan Karşılaştırma",
+		},
+
 		about: {
 			path: "/minoto-nedir",
 			component: "About",
 			exact: true,
 			linkTitle: "Minoto Nedir",
 			title: "Minoto Nedir",
+			GATitle: "Minoto Nedir",
 		},
 		account: {
 			path: "/hesabim/:page?/:section?/:param?",
@@ -188,6 +217,7 @@ module.exports = {
 			linkTitle: "Hesabım",
 			title: "Hesabım",
 			childRoutes: "account",
+			GATitle: "Hesabım",
 		},
 		reservation: {
 			path: "/rezervasyon/:id/:section?",
@@ -196,6 +226,7 @@ module.exports = {
 			linkTitle: "Rezervasyon",
 			title: "Rezervasyon",
 			childRoutes: "account",
+			GATitle: "Rezervasyon",
 		},
 		faq: {
 			path: "/sss",
@@ -203,6 +234,7 @@ module.exports = {
 			exact: true,
 			linkTitle: "Sıkça Sorulan Sorular",
 			title: "Sıkça Sorulan Sorular",
+			GATitle: "Sıkça Sorulan Sorular",
 		},
 		privacy: {
 			path: "/kullanici-sozlesmesi",
@@ -210,6 +242,7 @@ module.exports = {
 			exact: true,
 			linkTitle: "Kullanıcı Sözleşmesi ve Koşullar",
 			title: "Kullanıcı Sözleşmesi ve Koşullar",
+			GATitle: "Kullanıcı Sözleşmesi",
 		},
 		gdprPolicy: {
 			path: "/kvkk",
@@ -217,6 +250,7 @@ module.exports = {
 			exact: true,
 			linkTitle: "Kişisel Verilerin Korunması ve Çerez Politikası",
 			title: "Kişisel Verilerin Korunması ve Çerez Politikası",
+			GATitle: "Kişisel Verilerin Korunması ve Çerez Politikası",
 		},
 		contact: {
 			path: "/iletisim",
@@ -224,6 +258,7 @@ module.exports = {
 			exact: true,
 			linkTitle: "İletişim",
 			title: "İletişim",
+			GATitle: "İletişim",
 		},
 		blogSearch: {
 			path: "/blog/arama/:search",
@@ -238,6 +273,7 @@ module.exports = {
 			exact: true,
 			linkTitle: "Minoto Blog",
 			title: "Minoto Blog",
+			GATitle: "Blog",
 		},
 		blogDetail: {
 			path: "/blog/:slug",
@@ -245,6 +281,7 @@ module.exports = {
 			exact: true,
 			linkTitle: "Minoto Blog",
 			title: "Minoto Blog",
+			GATitle: "Blog Detay",
 		},
 		blog: {
 			path: "/blog",
@@ -252,12 +289,30 @@ module.exports = {
 			exact: true,
 			linkTitle: "Minoto Blog",
 			title: "Minoto Blog",
+			GATitle: "Blog",
 		},
 
 
 
 
 		/*searchBrand: {
+		dealerApplication: {
+			path: "/bayi-basvuru-formu",
+			component: "DealerApplication",
+			exact: true,
+			linkTitle: "Bayi Başvuru Formu",
+			title: "Bayi Başvuru Formu",
+			GATitle: "Bayi Başvuru Formu",
+		},
+		dealerApplicationStatus: {
+			path: "/bayi-basvuru-durumu/:applicationNo",
+			component: "DealerApplicationStatus",
+			exact: true,
+			linkTitle: "Bayi Başvuru Durumu",
+			title: "Bayi Başvuru Durumu",
+			GATitle: "Bayi Başvuru Durumu",
+		},
+		searchBrand: {
 			path: "/:brand/:model?/:optdata1?/:optdata2?/:optdata3?",
 			component: "SearchBrand",
 			exact: false,
@@ -275,6 +330,7 @@ module.exports = {
 			meta: {
 				keywords: "Minoto, Sıfır Otomobil, Bayiler"
 			},
+			GATitle: "Ana Sayfa",
 			// Bu şekilde head kısmına custom meta da eklenebilir.
 			/*head: [
 				{
@@ -299,6 +355,7 @@ module.exports = {
 			exact: false,
 			linkTitle: "404",
 			title: "Sayfa Bulunamadı",
+			GATitle: "404",
 		}
 	},
 	account: {
@@ -309,6 +366,7 @@ module.exports = {
 			linkTitle: "Profilim",
 			title: "Profilim",
 			requiresLogin: true,
+			GATitle: "Hesabım - Profilim",
 		},
 		notifications: {
 			path: "/hesabim/bildirimler",
@@ -317,6 +375,7 @@ module.exports = {
 			linkTitle: "Bildirimler",
 			title: "Bildirimler",
 			requiresLogin: true,
+			GATitle: "Hesabım - Bildirimler",
 		},
 		favorites: {
 			path: "/hesabim/favorilerim/:section?",
@@ -325,6 +384,7 @@ module.exports = {
 			linkTitle: "Favorilerim",
 			title: "Favorilerim",
 			requiresLogin: true,
+			GATitle: "Hesabım - Favorilerim",
 		},
 		messages: {
 			path: "/hesabim/mesajlarim",
@@ -333,6 +393,7 @@ module.exports = {
 			linkTitle: "Mesajlarım",
 			title: "Mesajlarım",
 			requiresLogin: true,
+			GATitle: "Hesabım - Mesajlarım",
 		},
 		messageDetail: {
 			path: "/hesabim/mesajlarim/mesaj/:id",
@@ -341,6 +402,7 @@ module.exports = {
 			linkTitle: "Mesaj Detay",
 			title: "Mesaj Detay",
 			requiresLogin: true,
+			GATitle: "Hesabım - Mesaj Detay",
 		},
 		reservations: {
 			path: "/hesabim/rezervasyonlarim",
@@ -349,6 +411,7 @@ module.exports = {
 			linkTitle: "Rezerve Ettiklerim",
 			title: "Rezerve Ettiklerim",
 			requiresLogin: true,
+			GATitle: "Hesabım - Rezervasyonlarım",
 		},
 		login: {
 			path: "/hesabim/giris",
@@ -357,6 +420,7 @@ module.exports = {
 			linkTitle: "Giriş",
 			title: "Giriş",
 			requiresLogin: false,
+			GATitle: "Giriş",
 		},
 		register: {
 			path: "/hesabim/uye-ol",
@@ -365,6 +429,7 @@ module.exports = {
 			linkTitle: "Üye Ol",
 			title: "Üye Ol",
 			requiresLogin: false,
+			GATitle: "Üye Ol",
 		},
 		recovery: {
 			path: "/hesabim/sifremi-unuttum/:email?/:token?",
@@ -373,6 +438,7 @@ module.exports = {
 			linkTitle: "Şifremi Unuttum",
 			title: "Şifre Hatırlatma",
 			requiresLogin: false,
+			GATitle: "Şifremi Unuttum",
 		},
 		confirmEmail: {
 			path: "/hesabim/e-postami-onayla/:email/:token",
@@ -381,6 +447,7 @@ module.exports = {
 			linkTitle: "E-Postamı Onayla",
 			title: "E-Postamı Onayla",
 			requiresLogin: false,
+			GATitle: "Şifremi Onayla",
 		}
 	},
 	reservation: {
@@ -390,6 +457,7 @@ module.exports = {
 			exact: false,
 			linkTitle: "Rezervasyon Bilgileri",
 			title: "Rezervasyon Bilgileri",
+			GATitle: "Rezervasyon Bilgileri",
 		},
 		payment: {
 			path: "/rezervasyon/:id/odeme",
@@ -397,6 +465,7 @@ module.exports = {
 			exact: false,
 			linkTitle: "Ödeme",
 			title: "Ödeme",
+			GATitle: "Ödeme",
 		},
 		sum: {
 			path: "/rezervasyon/:id/ozet",
@@ -404,6 +473,7 @@ module.exports = {
 			exact: false,
 			linkTitle: "Rezervasyon Özeti",
 			title: "Rezervasyon Özeti",
+			GATitle: "Rezervasyon Özeti",
 		},
 	}
 }

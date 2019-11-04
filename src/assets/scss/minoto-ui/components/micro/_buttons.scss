@@ -1,0 +1,357 @@
+@import "../../../variables";
+@import "../../../mixins";
+
+.btn {
+  @include font-semibold;
+  position: relative;
+  border-radius: $radius-general;
+  display: inline-block;
+  background-color: $color-primary;
+  color: $color-text-negative;
+  font-size: 1.2rem;
+  line-height: 2rem;
+  padding: 1.3rem 1rem;
+  text-align: center;
+  border: .1rem solid $color-primary;
+  transition: background-color $transition-hover ease, color $transition-hover ease, border-color $transition-hover ease;
+
+  @include mediaMin {
+    &:hover, &:active {
+      background-color: darken($color-primary, 10);
+      border-color: darken($color-primary, 10);
+    }
+  }
+
+  @include media {
+    transition: background-color $transition-superfast ease, color $transition-superfast ease, border-color $transition-superfast ease;
+  }
+
+  &:active {
+    background-color: darken($color-primary, 20);
+    border-color: darken($color-primary, 20);
+  }
+
+  &.hollow {
+    background-color: transparent;
+    color: $color-primary;
+
+    @include mediaMin {
+      &:hover, &:active {
+        background-color: darken($color-primary, 10);
+        color: $color-text-negative;
+      }
+    }
+
+    &:active {
+      background-color: darken($color-primary, 20);
+      color: $color-text-negative;
+    }
+  }
+
+  // Colors
+  &.white {
+    background-color: $color-white;
+    color: $color-primary;
+    border-color: $color-white;
+
+    @include mediaMin {
+      &:hover, &:active {
+        background-color: darken($color-white, 10);
+        border-color: darken($color-white, 10);
+      }
+    }
+
+    &:active {
+      background-color: darken($color-white, 20);
+      border-color: darken($color-white, 20);
+    }
+
+    &.hollow {
+      background-color: transparent;
+      color: $color-white;
+
+      @include mediaMin {
+        &:hover, &:active {
+          background-color: darken($color-white, 10);
+          color: $color-primary;
+        }
+      }
+
+      &:active {
+        background-color: darken($color-white, 20);
+        color: $color-primary;
+      }
+    }
+  }
+
+  &.text {
+    background-color: $color-text;
+    color: $color-text-negative;
+    border-color: $color-text;
+
+    @include mediaMin {
+      &:hover, &:active {
+        background-color: darken($color-text, 10);
+        border-color: darken($color-text, 10);
+      }
+    }
+
+    &:active {
+      background-color: darken($color-text, 20);
+      border-color: darken($color-text, 20);
+    }
+
+    &.hollow {
+      background-color: transparent;
+      color: $color-text;
+
+      @include mediaMin {
+        &:hover, &:active {
+          background-color: darken($color-text, 10);
+          color: $color-text-negative;
+        }
+      }
+
+      &:active {
+        background-color: darken($color-text, 20);
+        color: $color-text-negative;
+      }
+    }
+  }
+
+  &.dark {
+    background-color: $color-gray;
+    color: $color-text;
+    border-color: $color-gray;
+
+    @include mediaMin {
+      &:hover, &:active {
+        background-color: darken($color-gray, 10);
+        border-color: darken($color-gray, 10);
+      }
+    }
+
+    &:active {
+      background-color: darken($color-gray, 20);
+      border-color: darken($color-gray, 20);
+    }
+
+    &.hollow {
+      background-color: transparent;
+      color: $color-text;
+
+      @include mediaMin {
+        &:hover, &:active {
+          background-color: $color-gray;
+          border-color: $color-gray;
+        }
+      }
+
+      &:active {
+        background-color: darken($color-gray, 20);
+        border-color: darken($color-gray, 20);
+      }
+    }
+  }
+
+  &.facebook {
+    background-color: $color-facebook;
+    border-color: $color-facebook;
+
+    @include mediaMin {
+      &:hover, &:active {
+        background-color: darken($color-facebook, 10);
+        border-color: darken($color-facebook, 10);
+      }
+    }
+
+    &:active {
+      background-color: darken($color-facebook, 20);
+      border-color: darken($color-facebook, 20);
+    }
+
+    &.hollow {
+      background-color: transparent;
+      color: $color-facebook;
+
+      @include mediaMin {
+        &:hover, &:active {
+          background-color: darken($color-facebook, 10);
+          color: $color-text-negative;
+        }
+      }
+
+      &:active {
+        background-color: darken($color-facebook, 20);
+        color: $color-text-negative;
+      }
+    }
+  }
+
+  &.google {
+    background-color: $color-google;
+    border-color: $color-google;
+
+    @include mediaMin {
+      &:hover, &:active {
+        background-color: darken($color-google, 10);
+        border-color: darken($color-google, 10);
+      }
+    }
+
+    &:active {
+      background-color: darken($color-google, 20);
+      border-color: darken($color-google, 20);
+    }
+
+    &.hollow {
+      background-color: transparent;
+      color: $color-google;
+
+      @include mediaMin {
+        &:hover, &:active {
+          background-color: darken($color-google, 10);
+          color: $color-text-negative;
+        }
+      }
+
+      &:active {
+        background-color: darken($color-google, 20);
+        color: $color-text-negative;
+      }
+    }
+  }
+
+  // Sizes & Shapes
+  &.block {
+    width: 100%;
+    display: block;
+  }
+
+  &.uppercase {
+    text-transform: uppercase;
+  }
+
+  &.big {
+    font-size: 1.4rem;
+  }
+
+  &.wide {
+    padding-left: 2.4rem;
+    padding-right: 2.4rem;
+  }
+
+  &.low {
+    padding-top: .8rem;
+    padding-bottom: .8rem;
+  }
+
+  &.small {
+    padding-top: .4rem;
+    padding-bottom: .4rem;
+    font-size: 1.2rem;
+  }
+
+  &.light {
+    @include font-regular;
+  }
+
+  &.small-icon {
+    i {
+      font-size: .9rem;
+    }
+  }
+
+  &.has-info {
+    padding-right: 2.6rem;
+    padding-left: 2.6rem;
+  }
+
+  // States
+  &:disabled {
+    opacity: 0.5
+  }
+
+  &.status-loading {
+    &:disabled {
+      opacity: 1;
+    }
+  }
+
+  &.show-status {
+    .btn-content {
+      transform: scale(0.5);
+      opacity: 0;
+      transition: opacity $transition-hover ease, transform $transition-hover ease;
+    }
+
+    .btn-statuswrap {
+      opacity: .8;
+      transform: translate3d(-50%, -50%, 0) scale(1);
+      transition: opacity $transition-hover ease $transition-fast, transform $transition-hover ease $transition-fast;
+    }
+  }
+
+  // Inner Elements
+  .btn-icon {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 1.8rem;
+    margin: -.3em 0 -.1em;
+
+    &.pre {
+      margin-right: 1rem;
+    }
+
+    &.post {
+      margin-left: 1rem;
+    }
+  }
+
+  .btn-content {
+    display: block;
+    width: 100%;
+    transition: opacity $transition-hover ease $transition-fast, transform $transition-hover ease $transition-fast;
+  }
+
+  .btn-statuswrap {
+    opacity: 0;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0) scale(.5);
+    transition: opacity $transition-hover ease, transform $transition-hover ease;
+  }
+
+  .btn-loader {
+    @include spin;
+    font-size: 2.4rem;
+    display: block;
+    width: 2.4rem;
+    height: 2.4rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+  }
+
+  .btn-status {
+    font-size: 2rem;
+  }
+
+  .btn-info {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translate3d(0, -50%, 0);
+    font-size: 1.4rem;
+    height: 1.4rem;
+    line-height: 1.4rem;
+    opacity: .5;
+    transition: opacity $transition-hover ease;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}

@@ -1,13 +1,15 @@
 import React from 'react'
-
 // Partials
 //import Link from 'components/partials/link'
 import Image from 'components/partials/image'
 import Responsive from 'components/partials/responsive'
 import Btn from 'components/partials/btn'
-import { FormInput } from 'components/partials/forms'
-import { openModal } from "functions/modals"
+import {FormInput} from 'components/partials/forms'
+import {openModal} from "functions/modals"
 import PriceTag from 'components/partials/price-tag'
+import image_logo_mastercard from 'assets/images/payment/icons/mastercard.svg'
+import image_logo_visa from 'assets/images/payment/icons/visa.svg'
+import {storageSpace} from "../../../functions/helpers";
 
 // Functions
 
@@ -45,7 +47,7 @@ export default class ReservationNav extends React.Component {
 					<div className="sidebar-content">
 						<div className="sidebar-advertinfo">
 							<div className="advertinfo-imagewrap">
-								<Image className="imagewrap-image" src={reservation.product.image} />
+								<Image className="imagewrap-image" src={storageSpace('c_scale,q_auto:good,w_360/car-posts', reservation.product.image)} />
 								<span className="imagewrap-price"><PriceTag price={reservation.product.price} /></span>
 							</div>
 							<div className="advertinfo-content">
@@ -59,19 +61,24 @@ export default class ReservationNav extends React.Component {
 								</div>
 							</div>
 						</div>
-						{this.props.section === 'info' && 
+						{this.props.section === 'info' &&
 							<div className="sidebar-controls">
-								<Btn tag="link" block uppercase href="reservation.payment" params={{id: reservation.product.id}}>Rezerve Etmek İstiyorum</Btn>
+								<Btn tag="link" block uppercase href="reservation.payment" params={{id: reservation.product.postNo}}>Rezerve Etmek İstiyorum</Btn>
 							</div>
 						}
-						{this.props.section === 'payment' && 
+						{this.props.section === 'payment' &&
 							<div className="sidebar-controls">
 								<div className="sidebar-agreement">
 									<FormInput type="checkbox" value={this.state.agreementSelected} onChange={this.agreementChanged}><button type="button" className="agreement-link" onClick={() => { openModal('text', {content: agreement, title: "Ön Bilgilendirme Koşulları"})}}>Ön Bilgilendirme Koşulları</button>'nı okudum, onaylıyorum.</FormInput>
-									<Btn block uppercase onClick={this.proceed}>Rezerve Etmek İstiyorum</Btn>
+									<Btn block uppercase onClick={this.proceed} disabled={this.props.disableProp}>Rezerve Etmek İstiyorum</Btn>
 								</div>
 							</div>
 						}
+						{/* todo: clear inline css */}
+						<div style={{marginTop:'15px'}}>
+							<img src={image_logo_mastercard} alt={'Mastercard'} style={{float:'right',width:'20%'}}/>
+							<img src={image_logo_visa} alt={'Mastercard'}  style={{float:'right',width:'20%'}}/>
+						</div>
 					</div>
 				</aside>
 			)

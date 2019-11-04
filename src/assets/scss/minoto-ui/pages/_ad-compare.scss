@@ -1,0 +1,134 @@
+@import "../../variables";
+
+.ad-compare {
+
+  .comparison-tablewrap {
+    overflow: auto;
+  }
+
+  th {
+    min-width: 22em;
+    max-width: 55em;
+  }
+
+  .info-dealer {
+    .head-content {
+      a {
+        height: 3em;
+        display: inline-block;
+      }
+
+
+    }
+  }
+
+  .ad-compare-table {
+    margin-top: 2.6em;
+    .table-carpicker {
+      display: block;
+    }
+    .bg-gray{
+      background-color: $color-gray-light;
+    }
+
+    &__header {
+      //Label area begin
+      &__labelArea {
+        display: block;
+        button{
+          color: $color-blue ;
+        }
+        div {
+          display: inline-block;
+
+          &:nth-child(1) {
+            span {
+              &:not(:first-child) {
+                margin-left: .4em;
+              }
+            }
+          }
+
+          &:nth-child(2) {
+            float: right;
+          }
+        }
+      }
+
+      //Label area end
+
+      //Title area begin
+      &__titleArea {
+        margin-top: 1em;
+        margin-bottom: 2.1em;
+
+        div {
+          display: block;
+          text-align: right;
+        }
+
+        h1 {
+          line-height: 1.2em;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          max-width: 16em;
+        }
+
+        a {
+          margin-top: .4em;
+          display: block;
+          color: $color-text;
+          opacity: 0.5;
+        }
+
+        h4 {
+          display: inline-block;
+
+          &:first-child {
+            color: $color-text;
+            opacity: 0.5;
+          }
+        }
+      }
+
+      //Title area end
+
+      //Price area begin
+      &__priceArea {
+        margin-top: 2.4em;
+
+        &__btnContainer {
+          text-align: justify;
+          margin-top: 2.1em;
+
+          button {
+            width: calc(50% - .7em);
+
+            &:last-child {
+              float: right;
+            }
+          }
+        }
+
+        .pricetag {
+          font-weight: 600;
+          font-size: 2.8rem;
+          color: #145aff;
+        }
+
+        .price-current {
+          display: block;
+          text-align: center;
+        }
+      }
+
+      //Price area end
+    }
+  }
+}
+
+
+
+
+

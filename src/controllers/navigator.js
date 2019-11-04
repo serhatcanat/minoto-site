@@ -15,7 +15,7 @@ import RecoveryModal from 'components/modals/recovery'
 import ConsentModal from 'components/modals/consent'
 import MapModal from 'components/modals/map'
 import BidModal from 'components/modals/bid'
-import GarantiModal from 'components/modals/garanti'
+import CreditModal from 'components/modals/credit'
 import MessageModal from 'components/modals/message'
 import YoutubeModal from 'components/modals/youtube'
 
@@ -23,6 +23,7 @@ import YoutubeModal from 'components/modals/youtube'
 import ResponsiveWatcher from 'controllers/responsive-watcher'
 import ModalsWrap from 'controllers/modals-wrap'
 import MessengerWrap from 'controllers/messenger'
+import GAController from 'controllers/ga'
 
 // Deps
 import { Route, matchPath, Switch, Redirect } from 'react-router-dom'
@@ -32,6 +33,8 @@ import routes from 'data/routes'
 import store from "data/store";
 import { setPage, setPageNotFound } from "data/store.generic";
 import { resetListingData } from "data/store.listing";
+import { resetData } from "data/store.ga";
+//import { GA } from 'controllers/ga'
 import extend from "lodash/extend";
 import { connect } from "react-redux";
 
@@ -53,6 +56,7 @@ import Branch from 'pages/branch'
 import Detail from 'pages/detail'
 import ListPrices from 'pages/listprices'
 import Comparison from 'pages/comparison'
+import AdCompare from 'pages/ad-compare'
 import About from 'pages/about'
 import Account from 'pages/account'
 import Reservation from 'pages/reservation'
@@ -84,6 +88,7 @@ const pageRegistry = {
 	Detail: Detail,
 	ListPrices: ListPrices,
 	Comparison: Comparison,
+	AdCompare: AdCompare,
 	About: About,
 	Account: Account,
 	Reservation: Reservation,
@@ -132,6 +137,7 @@ class Navigator extends React.Component {
 		return (
 			<div className="site-content">
 				<ResponsiveWatcher />
+				<GAController />
 				<MessengerWrap />
 				<SearchBar className="search-mobile" fullScreen={true} />
 				<Header />
@@ -146,7 +152,7 @@ class Navigator extends React.Component {
 					<ConsentModal />
 					<MapModal />
 					<BidModal />
-					<GarantiModal />
+					<CreditModal />
 					<MessageModal />
 					<YoutubeModal />
 				</ModalsWrap>
@@ -340,6 +346,7 @@ export function changePage(key = false, group = 'pages') {
 			resetListingData();
 			window.scroll(0, 0);
 			store.dispatch(setPage(pageData));
+			resetData();
 
 			if (window.location.hash) {
 				setTimeout(function () {

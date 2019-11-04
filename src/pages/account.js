@@ -102,7 +102,7 @@ class Account extends React.Component {
 									{/* <Link className="nav-item" navLink href="account.notifications" /> */}
 									<Link className="nav-item" navLink href="account.favorites" />
 									<Link className="nav-item" navLink href="account.messages" exact={false} />
-									{/*<Link className="nav-item" navLink href="account.reservations" />*/}
+									<Link className="nav-item" navLink href="account.reservations" />
 								</div>
 							</nav>
 						}

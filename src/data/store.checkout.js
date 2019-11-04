@@ -28,7 +28,6 @@ export function checkReservationInfo(endFunction = false) {
 		if(res.data.status === 'ok'){
 			store.dispatch(setReservationInfo(res.data.info));
 		}
-
 		if(endFunction){ endFunction(res.data.status === 'ok'); }
 	});
 
@@ -43,7 +42,6 @@ export function makeReservation(id, endFunction = false) {
 		if(res.data.status === 'ok'){
 			store.dispatch(setReservationInfo(res.data.info));
 		}
-
 		if(endFunction){ endFunction(res.data.status === 'ok'); }
 	});
 }

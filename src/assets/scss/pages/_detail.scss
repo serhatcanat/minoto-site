@@ -1,9 +1,15 @@
 .page.detail{
-
+	.contentpage-form{
+		.inputwrap{
+			.input-error{
+				overflow: unset;
+			}
+		}
+	}
 	&.gallery-fullscreen {
 		.section.detail-content{
 			z-index: 50;
-			
+
 			.content-left {
 				z-index: 50;
 				width: 100vw;
@@ -520,7 +526,7 @@
 							h1, h2, h3, h4, h5, h6 {
 								line-height: 1.38em;
 							}
-						}				
+						}
 					}
 
 					.tab-specslist {
@@ -853,7 +859,7 @@
 
 				.info-controls {
 					position: relative;
-					z-index: 2;	
+					z-index: 2;
 
 					@include media {
 						position: fixed;
@@ -866,7 +872,7 @@
 						border-top: .1rem solid $color-ice;
 					}
 
-	
+
 
 					.controls-button {
 						width: calc(50% - 1rem);
@@ -1010,7 +1016,7 @@
 								width: 7rem;
 							}
 				}
-			
+
 				.info-dealer {
 					background-color: $color-gray-light;
 					border-radius: $radius-general;
@@ -1173,7 +1179,7 @@
 							padding-left: 1.1rem;
 						}
 					}
-					
+
 					.credit-price.currency-after{
 						&:after{
 							content: 'TL';
@@ -1203,29 +1209,29 @@
 					margin-top: 1.2rem;
 					margin-bottom: 3.7rem;
 					.tablePad{
-						padding-right: 15px; 
-						padding-left: 15px; 
-						border-right: 1px solid #d5d5e3; 
+						padding-right: 15px;
+						padding-left: 15px;
+						border-right: 1px solid #d5d5e3;
 						border-left: 1px solid #d5d5e3;
 					}
 					th{
 						background-color: #ebebf3;
 						&:nth-child(1){
-							width: 16rem; 
+							width: 16rem;
 							padding-right: 0.5rem;
 						}
 						&:nth-child(2){
 							width: 8rem;
-							padding-right: 0.5rem; 
+							padding-right: 0.5rem;
 							padding-left: 0.5rem;
 						}
 						&:nth-child(3){
-							padding-right: 0.5rem; 
+							padding-right: 0.5rem;
 							padding-left: 1rem;
 						}
 						&:nth-child(4){
-							width: 10rem; 
-							padding-right: 0.5rem; 
+							width: 10rem;
+							padding-right: 0.5rem;
 							padding-left: 1rem;
 						}
 					}
@@ -1242,24 +1248,24 @@
 						&:nth-child(2){
 							padding-top: 20px;
 							padding-bottom: 20px;
-							width: 10rem; 
-							padding-right: 0.5rem; 
+							width: 10rem;
+							padding-right: 0.5rem;
 							padding-left: 0.5rem;
 						}
 						&:nth-child(3){
 							padding-top: 20px;
 							padding-bottom: 20px;
-							padding-right: 0.5rem; 
+							padding-right: 0.5rem;
 							padding-left: 1rem;
 							width: 121px;
 						}
 						&:nth-child(4){
 							padding-top: 20px;
 							padding-bottom: 20px;
-							padding-right: 0.5rem; 
+							padding-right: 0.5rem;
 							padding-left: 1rem;
 						}
-						
+
 						button{
 							padding: 8px 0px;
 							span.btn-content{
@@ -1269,10 +1275,10 @@
 								span.btn-content{
 									font-size: 1.8rem;
 								}
-							}	
+							}
 						}
 					}
-					
+
 				}
 		}
 

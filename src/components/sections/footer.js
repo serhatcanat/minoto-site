@@ -1,20 +1,17 @@
 import React from 'react'
-
 // Partials
 import Image from 'components/partials/image'
 import Link from 'components/partials/link'
 //import Btn from 'components/partials/btn'
 import Responsive from 'components/partials/responsive'
 import Btn from 'components/partials/btn.js'
-import { InputForm, FormInput } from 'components/partials/forms'
+import {FormInput, InputForm} from 'components/partials/forms'
 // Functions
-import { formatNumber } from 'functions/helpers'
-
+import {formatNumber} from 'functions/helpers'
 // Deps
-import { connect } from "react-redux"
+import {connect} from "react-redux"
 import request from 'controllers/request'
 import config from 'data/config'
-
 // Assets
 import image_icon_facebook from 'assets/images/icon/facebook.svg'
 import image_icon_instagram from 'assets/images/icon/instagram.svg'
@@ -22,6 +19,7 @@ import image_icon_youtube from 'assets/images/icon/youtube.svg'
 import image_logo_white from 'assets/images/logo-white.svg'
 import image_icon_twitter from 'assets/images/icon/twitter2.svg'
 import image_icon_linkedin from 'assets/images/icon/linkedin.svg'
+
 
 const mapStateToProps = state => {
 	return { mobile: state.generic.mobile };
@@ -283,17 +281,20 @@ class FooterSubscription extends React.Component {
 		let vm = this;
 		return (
 			<InputForm className="footer-subscription" onSubmit={vm.submit} ref={vm.form}>
-				<FormInput
-					className="subscription-input"
-					disabled={vm.state.submitting}
-					placeholder="E-postanızı yazın, bizden haberler verelim."
-					validation={{
-						required: "E-posta adresinizi girmelisiniz.",
-						email: true
-					}}
-					name="email"
-					hideAsterisk
-					type="text" />
+				<label>
+					<FormInput
+						className="subscription-input"
+						disabled={vm.state.submitting}
+						placeholder="E-postanızı yazın, bizden haberler verelim."
+						validation={{
+							required: "E-posta adresinizi girmelisiniz.",
+							email: true
+						}}
+						name="email"
+						hideAsterisk
+						type="text"/>
+
+				</label>
 				<div className="subscription-submitwrap">
 					{vm.state.complete ?
 						<button type="button" onClick={() => { vm.setState({ complete: false }) }} className="submitwrap-complete"><i className="icon-check"></i></button>
@@ -302,7 +303,8 @@ class FooterSubscription extends React.Component {
 							{vm.state.submitting ?
 								<i className="submitwrap-loader icon-spinner"></i>
 								:
-								<button type="submit" className="submitwrap-submit"><i className="icon-angle-right"></i></button>
+								<button type="submit" className="submitwrap-submit" aria-label="submit icon"><i
+									className="icon-angle-right"/></button>
 							}
 						</React.Fragment>
 					}

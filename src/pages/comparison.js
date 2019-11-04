@@ -21,13 +21,11 @@ export default class Comparison extends React.Component {
 			cars: [false, false, false],
 			brands: [],
 		}
-
 		this.changeCar = this.changeCar.bind(this);
 	}
 
 	initialize() {
 		let vm = this;
-		console.log('SELAM');
 		request.get('/dummy/data/comparison-taxonomy.json', {}, function (payload) {
 			if (payload) {
 				vm.setState({
@@ -48,7 +46,6 @@ export default class Comparison extends React.Component {
 	}
 
 	render() {
-
 		return (
 			<main className="page comparison">
 				<section className="section comparison">
@@ -294,7 +291,6 @@ class CarPicker extends React.Component {
 
 	taxChange(e, nth) {
 		let vm = this;
-
 		let selections = slice(vm.state.taxonomySelection, 0, nth + 1);
 		let taxes = slice(vm.state.taxonomyList, 0, nth + 1);
 		selections[nth] = e;

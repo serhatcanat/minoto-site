@@ -25,24 +25,25 @@ Object.keys(routes).forEach(function (groupKey) {
 	Object.keys(group).forEach(function (routeKey) {
 		var add = false;
 		var route = group[routeKey];
+		if(!route.hideSiteMap){
+			if (route.path) {
+				var keys = [];
+				var reg = pathToRegexp(route.path, keys);
 
-		if (route.path) {
-			var keys = [];
-			var reg = pathToRegexp(route.path, keys);
-
-			if (route.excludeFromSitemap !== true) {
-				add = keys.reduce(function (state, key) {
-					return !state ? false : key.optional;
-				}, true);
+				if (route.excludeFromSitemap !== true) {
+					add = keys.reduce(function (state, key) {
+						return !state ? false : key.optional;
+					}, true);
+				}
 			}
-		}
 
-		if (add) {
-			pageUrls.push({
-				url: route.path.split(':')[0],
-				changefreq: 'monthly',
-				priority: route.priority ? route.priority : 0.6,
-			});
+			if (add) {
+				pageUrls.push({
+					url: route.path.split(':')[0],
+					changefreq: 'monthly',
+					priority: route.priority ? route.priority : 0.6,
+				});
+			}
 		}
 	});
 });
