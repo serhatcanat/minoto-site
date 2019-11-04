@@ -36,3 +36,19 @@ jobs:
 
       - run: npx semantic-release
 
+      - run:
+          name: SETTING_ENV
+          command: |
+            if [ $CIRCLE_BRANCH = "master" ]; then
+              export S3_BUCKET=$STAGING_S3_BUCKET
+            else
+              export S3_BUCKET=$DEV_S3_BUCKET
+            fi
+      - aws-s3/sync:
+          from: build
+          to: ${S3_BUCKET}
+          arguments: |
+            --acl public-read \
+            --cache-control "max-age=86400"
+          overwrite: true
+
