@@ -12,7 +12,6 @@ export class LocalStorageService {
         : localStorage.getItem(item.key);
 
     set = (item, value) => {
-        console.log('delete ',value);
         item.type === 'object'
             ? localStorage.setItem(item.key, JSON.stringify(value))
             : localStorage.setItem(item.key, value);
