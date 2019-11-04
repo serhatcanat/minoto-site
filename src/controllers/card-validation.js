@@ -95,7 +95,6 @@ module.exports = {
 			sum += numberArray[i];
 		}
 		sum = sum * 9 % 10;
-		console.log(numberArray[0],sum)
 		if (numberArray[0] === sum) {
 			numberOK = true
 		}
