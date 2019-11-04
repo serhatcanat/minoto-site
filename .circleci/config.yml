@@ -46,6 +46,9 @@ jobs:
             else
               export S3_BUCKET=$DEV_S3_BUCKET
             fi
+
+      - run: echo ${S3_BUCKET}
+
       - aws-s3/sync:
           from: build
           to: ${S3_BUCKET}
