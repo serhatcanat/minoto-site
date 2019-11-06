@@ -8,6 +8,12 @@ orbs:
   cypress: cypress-io/cypress@1
 jobs:
   build:
+    machine:
+      pre:
+        - mkdir ~/.yarn-cache
+    dependencies:
+      cache_directories:
+        - ~/.yarn-cache
     docker:
       - image: circleci/node:10.12-browsers
 
@@ -19,8 +25,6 @@ jobs:
           name: Restore Yarn Package Cache 4
           keys:
             - yarn-packages-{{ checksum "yarn.lock" }}
-          paths:
-            - ~/.cache/yarn
       - run:
           name: Install Dependencies
           command: yarn install --frozen-lockfile
@@ -28,7 +32,7 @@ jobs:
           name: Save Yarn Package Cache
           key: yarn-packages-{{ checksum "yarn.lock" }}
           paths:
-            - ~/.cache/yarn
+            - ~/.yarn-cache
 
       # run build!
 
