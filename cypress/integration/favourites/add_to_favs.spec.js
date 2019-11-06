@@ -36,15 +36,18 @@ context('Add to Favourites', () => {
                         cy.wait(3000).then(() => {
                             if (!Cypress.$("div .fav-button").hasClass('faved')) {
                                 cy.get(".fav-button-btn").click();
-                                cy.url().then(($url) => {
-                                    let $ref=$url;
-                                    let n = $url.split("-");
-                                    $url = n[n.length-1];
-                                    Cypress.env({
-                                        'faved_url': $url,
-                                        'url':$ref
+                                cy.wait(1000).then(()=>{
+                                    cy.url().then(($url) => {
+                                        let $ref=$url;
+                                        let n = $url.split("-");
+                                        $url = n[n.length-1];
+                                        Cypress.env({
+                                            'faved_url': $url,
+                                            'url':$ref
+                                        })
                                     })
                                 })
+
                             }
                         });
 
@@ -75,7 +78,7 @@ context('Add to Favourites', () => {
                 });
             })
         });
-        /* it('should() - Remove the car from favorites list',()=>{TODO:Fav should be deleted after the test(or scroll has to be added)
+        it('should() - Remove the car from favorites list',()=>{
              let $url = Cypress.env('url');
              cy.visit($url).then(()=>{
                  cy.wait(3000).then(()=>{
@@ -103,6 +106,6 @@ context('Add to Favourites', () => {
                      });
                  })
              })
-         })*/
+         })
     });
 });
