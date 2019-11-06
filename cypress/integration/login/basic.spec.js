@@ -72,6 +72,40 @@ context('Aliasing', () => {
             cy.get("div.imagewrap.image-iconloader")
                 .find("div")
                 .should("have.class", "imagewrap-image");
+        });
+
+        it('.should() - pass login in iphone 6 viewport preset', () => {
+            cy.viewport('iphone-6');
+            cy.wait(3000).then(()=>{
+                cy.get('.nav-menubtn').click().then(()=>{
+                    cy.wait(200).then(()=>{
+                        cy.get('button.userbar-link  ~ button.userbar-link')
+                            .click();
+
+                        cy.wait(200);
+                        cy.get('.form.loginform-form [name="email"]').first()
+                            .type("gulsah@thinkerfox.com");
+
+                        cy.get('.form.loginform-form [name="password"]').first()
+                            .type("minoto121");
+
+                        cy.get(".loginform-form .btn-content")
+                            .click();
+                        cy.get(".form.loginform-form")
+                            .find("div.loginform-message.success")
+                            .should("exist");
+                        cy.wait(400);
+
+                        cy.get("div.imagewrap.image-iconloader")
+                            .find("div")
+                            .should("have.class", "imagewrap-image");
+                    });
+
+                })
+
+            });
+
+
         })
 
     })
