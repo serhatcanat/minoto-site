@@ -169,15 +169,15 @@ class adCompare extends React.Component {
                                     ))}
                                 </tr>
                                 {/*Table header End*/}
-                                <tr className='ad-compare-table--techSpec'>
-                                    {compareList.map((car, nth) => <td>
+                                <tr className='ad-compare-table-techSpec'>
+                                    {compareList.map((car, nth) =>
+                                        <td>
                                         <React.Fragment key={nth}>
-                                            {isMobile &&
-                                            <span>NCAP</span>
-                                            }
                                             {car.ncap &&
-
-                                            <NcapStars ncap={car.ncap} info={false}/>
+                                            <React.Fragment>
+                                                <span>NCAP</span>
+                                                <NcapStars ncap={car.ncap} info={false}/>
+                                            </React.Fragment>
                                             }
                                         </React.Fragment>
                                     </td>)}
