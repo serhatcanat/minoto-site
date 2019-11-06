@@ -1,5 +1,5 @@
-import {formatNumber, isDefined, isExact, seoFriendlyUrl, storageSpace} from "./helpers";
-import {storagePath} from "../config";
+import {apiPath, formatNumber, isDefined, isExact, seoFriendlyUrl, storageSpace, turkishSort} from "./helpers";
+import {apiBase, storagePath} from "../config";
 
 describe('is number formatted', () => {
 
@@ -27,7 +27,23 @@ test('Is url seo friendly', () => {
     expect(seoFriendlyUrl('url to be this ü İ')).toBe('url-to-be-this-u-i');
 });
 
+describe('Storage space', () => {
 
-test('Storage Space', () => {
-    expect(storageSpace('images', 'media.png')).toBe(`${storagePath}images/media.png.png`);
+    test('Storage Space folder with valid parameters', () => {
+        expect(storageSpace('images', 'media.png')).toBe(`${storagePath}images/media.png.png`);
+    });
+
+    const faildeOptions = [null,''];
+
+    faildeOptions.forEach(function (value) {
+        test(`Storage Space folder file == ${value}`, () => {
+            expect(storageSpace('media.png',value)).toBe(false);
+        });
+    });
+
+
+});
+
+test('Is api path valid', () => {
+    expect(apiPath('samplePath')).toBe(`${apiBase}samplePath`);
 });

@@ -1,4 +1,5 @@
 @import "../../variables";
+@import "../../mixins";
 
 .ad-compare {
 
@@ -23,6 +24,13 @@
   }
 
   .ad-compare-table {
+
+
+    .listprices-table {
+      th, td {
+        border: none;
+      }
+    }
     margin-top: 2.6em;
     .table-carpicker {
       display: block;
@@ -34,6 +42,41 @@
     &__header {
       //Label area begin
       &__labelArea {
+        .topinfo-highlights {
+          li {
+            display: inline-block;
+            display: inline-block;
+            vertical-align: middle;
+
+            > * {
+              display: block;
+            }
+
+            + li {
+              margin-left: .7rem;
+            }
+          }
+
+          span {
+            display: block;
+            border: .1rem solid $color-ice;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            border-radius: $radius-general;
+            color: $color-text-light;
+            line-height: 2rem;
+            padding: 0 .5rem;
+            background-color: $color-white;
+
+            @include media {
+              color: $color-text;
+            }
+          }
+
+          img {
+            height: 1.8rem;
+          }
+        }
         display: block;
         button{
           color: $color-blue ;
@@ -41,24 +84,17 @@
         div {
           display: inline-block;
 
-          &:nth-child(1) {
-            span {
-              &:not(:first-child) {
-                margin-left: .4em;
-              }
-            }
-          }
-
           &:nth-child(2) {
             float: right;
           }
+
         }
       }
-
       //Label area end
 
       //Title area begin
       &__titleArea {
+
         margin-top: 1em;
         margin-bottom: 2.1em;
 
@@ -80,6 +116,10 @@
           display: block;
           color: $color-text;
           opacity: 0.5;
+        }
+
+        &-title{
+          opacity: 1 !important;
         }
 
         h4 {
@@ -122,9 +162,41 @@
           text-align: center;
         }
       }
-
       //Price area end
     }
+
+    // Tech Specs Colums start
+    &-techSpec {
+      @include media {
+        span {
+          display: block;
+          font-weight: 500;
+          text-align: left;
+          color: #8688a2;
+          margin-bottom: .5em;
+        }
+      }
+    }
+
+    // Credit Calculator Page Specific start
+    @include media {
+      &__creditCalculator {
+        td {
+          padding: 0;
+          text-align: center;
+        }
+      }
+    }
+    // Credit Calculator Page Specific end
+
+    // Contact Card Page Specific start
+    @include media {
+      &__creditCalculator {
+
+      }
+    }
+    // Contact Card Page Specific end
+
   }
 }
 
