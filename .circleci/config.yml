@@ -5,6 +5,7 @@
 version: 2.1
 orbs:
   aws-s3: circleci/aws-s3@1.0.11
+  cypress: cypress-io/cypress@1
 jobs:
   build:
     docker:
@@ -15,7 +16,7 @@ jobs:
 
       # Download and cache dependencies
       - restore_cache:
-          name: Restore Yarn Package Cache
+          name: Restore Yarn Package Cache 4
           keys:
             - yarn-packages-{{ checksum "yarn.lock" }}
       - run:
@@ -28,11 +29,14 @@ jobs:
             - ~/.cache/yarn
 
       # run build!
+
       - run: yarn build
       # run linter!
       - run: yarn lint
       # run tests!
       - run: yarn test
+
+      - run: yarn ci:cypress-run
 
       - run: npx semantic-release
 
@@ -42,7 +46,7 @@ jobs:
             if [ $CIRCLE_BRANCH = "master" ]; then
             echo 'export S3_BUCKET="s3://dev-minoto-web/"' >> $BASH_ENV
             else
-            echo 'export S3_BUCKET="s3://dev-minoto-web/"' >> $BASH_ENV
+            echo 'export S3_BUCKET="s3://staging-minoto-web/"' >> $BASH_ENV
             fi
 
       - aws-s3/sync:

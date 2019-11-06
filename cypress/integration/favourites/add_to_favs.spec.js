@@ -36,15 +36,18 @@ context('Add to Favourites', () => {
                         cy.wait(3000).then(() => {
                             if (!Cypress.$("div .fav-button").hasClass('faved')) {
                                 cy.get(".fav-button-btn").click();
-                                cy.url().then(($url) => {
-                                    let $ref=$url;
-                                    let n = $url.split("-");
-                                    $url = n[n.length-1];
-                                    Cypress.env({
-                                        'faved_url': $url,
-                                        'url':$ref
+                                cy.wait(1000).then(() => {
+                                    cy.url().then(($url) => {
+                                        let $ref = $url;
+                                        let n = $url.split("-");
+                                        $url = n[n.length - 1];
+                                        Cypress.env({
+                                            'faved_url': $url,
+                                            'url': $ref
+                                        })
                                     })
                                 })
+
                             }
                         });
 
@@ -55,54 +58,55 @@ context('Add to Favourites', () => {
         });
         it('should() - have the favorited car in favorites', () => {
             cy.visit("http://localhost:3000/hesabim/favorilerim/araclar").then(() => {
-                cy.wait(3000).then(()=>{
+                cy.wait(3000).then(() => {
                     var $count = 0;
                     var $url = Cypress.env('faved_url');
                     console.log($url);
                     cy.get("ul.favorites-list li.list-item").each(($li) => {
-                        let $href=$li.find('.contentbox-innerwrap').attr('href');
+                        let $href = $li.find('.contentbox-innerwrap').attr('href');
                         let n = $href.split("-");
-                        $href = n[n.length-1];
-                        console.log('url: '+$url)
-                        console.log('href: '+$href)
+                        $href = n[n.length - 1];
+                        console.log('url: ' + $url)
+                        console.log('href: ' + $href)
                         if ($url === $href) {
                             $count++
                         }
-                    }).then(()=>{
+                    }).then(() => {
                         expect($count).to.equal(1);
                     });
 
                 });
             })
         });
-        /* it('should() - Remove the car from favorites list',()=>{TODO:Fav should be deleted after the test(or scroll has to be added)
-             let $url = Cypress.env('url');
-             cy.visit($url).then(()=>{
-                 cy.wait(3000).then(()=>{
-                     cy.get(".fav-button-btn").click();
-                 });
-             })
-         });
-       it('should() - not show the removed car in the favorites list', ()=>{
-             cy.visit("http://localhost:3000/hesabim/favorilerim/araclar").then(()=>{
-                 cy.wait(3000).then(()=>{
-                     var $count = 0;
-                     var $url = Cypress.env('faved_url');
-                     console.log($url);
-                     cy.get("ul.favorites-list li.list-item").each(($li) => {
-                         let $href=$li.find('.contentbox-innerwrap').attr('href');
-                         let n = $href.split("-");
-                         $href = n[n.length-1];
-                         console.log('url: '+$url)
-                         console.log('href: '+$href)
-                         if ($url === $href) {
-                             $count++
-                         }
-                     }).then(()=>{
-                         expect($count).to.equal(0);
-                     });
-                 })
-             })
-         })*/
+        it('should() - Remove the car from favorites list', () => {
+            let $url = Cypress.env('url');
+            cy.visit($url).then(() => {
+                cy.wait(3000).then(() => {
+                    cy.get(".fav-button-btn").click();
+                    cy.wait(1000);
+                });
+            })
+        });
+        it('should() - not show the removed car in the favorites list', () => {
+            cy.visit("http://localhost:3000/hesabim/favorilerim/araclar").then(() => {
+                cy.wait(3000).then(() => {
+                    var $count = 0;
+                    var $url = Cypress.env('faved_url');
+                    console.log($url);
+                    cy.get("ul.favorites-list li.list-item").each(($li) => {
+                        let $href = $li.find('.contentbox-innerwrap').attr('href');
+                        let n = $href.split("-");
+                        $href = n[n.length - 1];
+                        console.log('url: ' + $url)
+                        console.log('href: ' + $href)
+                        if ($url === $href) {
+                            $count++
+                        }
+                    }).then(() => {
+                        expect($count).to.equal(0);
+                    });
+                })
+            })
+        })
     });
 });
