@@ -16,7 +16,7 @@ jobs:
 
       # Download and cache dependencies
       - restore_cache:
-          name: Restore Yarn Package Cache 2
+          name: Restore Yarn Package Cache 4
           keys:
             - yarn-packages-{{ checksum "yarn.lock" }}
       - run:
