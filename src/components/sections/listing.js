@@ -495,6 +495,7 @@ class ListingResults extends React.Component {
 		let results = data.results;
 		let productResultsCount = (results ? results.filter((result) => { return result.type === 'advert' }).length : 0);
 		if (results && results.length && !loading) {
+
 			return (
 				<React.Fragment>
 					{
@@ -515,6 +516,7 @@ class ListingResults extends React.Component {
 								(<React.Fragment>
 									{
 										results.sort(turkishSort).map((item, nth) => {
+
 											itemsAt += (item.size ? item.size : 1);
 											let contents = [];
 											switch (item.type) {
@@ -558,6 +560,7 @@ class ListingResults extends React.Component {
 								:
 								(<React.Fragment>
 									{
+
 										results.map((item, nth) => {
 											itemsAt += (item.size ? item.size : 1);
 											let contents = [];
@@ -673,7 +676,6 @@ class InfiniteScrollerRaw extends React.Component {
 
 			if ((bounds.bottom >= viewport.top && bounds.bottom <= viewport.bottom) || (bounds.top <= viewport.bottom && bounds.top >= viewport.top)) {
 				this.trigger();
-				console.log('test');
 			}
 		}
 	}
