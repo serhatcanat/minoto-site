@@ -29,7 +29,7 @@ jobs:
             - ~/.cache/yarn
 
       # run build!
-      
+
       - run: yarn build
       # run linter!
       - run: yarn lint
@@ -46,7 +46,7 @@ jobs:
             if [ $CIRCLE_BRANCH = "master" ]; then
             echo 'export S3_BUCKET="s3://dev-minoto-web/"' >> $BASH_ENV
             else
-            echo 'export S3_BUCKET="s3://dev-minoto-web/"' >> $BASH_ENV
+            echo 'export S3_BUCKET="s3://staging-minoto-web/"' >> $BASH_ENV
             fi
 
       - aws-s3/sync:
