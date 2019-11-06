@@ -71,9 +71,6 @@ class adCompare extends React.Component {
                                 <tbody>
                                 {/*Table header start*/}
                                 <tr className='ad-compare-table__header'>
-                                    {!isMobile &&
-                                    <th className="empty">&nbsp;</th>
-                                    }
                                     {compareList.map((car, nth) => (
                                         <td className="picker" key={nth}>
                                             <div className='ad-compare-table__header__labelArea'>
@@ -124,7 +121,7 @@ class adCompare extends React.Component {
                                             </div>
                                             <div className='ad-compare-table__header__priceArea'>
                                                 <strong className="price-current">
-                                                    <PriceTag price={car.price}/>
+                                                    {car.price ? <PriceTag price={car.price} /> : <h2>SORUNUZ</h2>}
                                                 </strong>
                                                 <div className='ad-compare-table__header__priceArea__btnContainer'>
                                                     {car.status === 1 &&
@@ -173,9 +170,6 @@ class adCompare extends React.Component {
                                 </tr>
                                 {/*Table header End*/}
                                 <tr className='ad-compare-table--techSpec'>
-                                    {!isMobile &&
-                                    <th>NCAP</th>
-                                    }
                                     {compareList.map((car, nth) => <td>
                                         <React.Fragment key={nth}>
                                             {isMobile &&
@@ -189,35 +183,63 @@ class adCompare extends React.Component {
                                     </td>)}
                                 </tr>
                                 <tr className='bg-gray ad-compare-table-techSpec'>
-                                    {!isMobile &&
-                                    <th>Araç Tipi</th>
-                                    }
                                     {compareList.map((car, nth) => (
                                         <React.Fragment>
                                             <td key={nth}>
-                                                {isMobile && (
                                                     <span>Araç Tipi</span>
-                                                )}
                                                 {car.technicalSpecs[0].specs[0].content}
                                             </td>
                                         </React.Fragment>
-
                                     ))}
                                 </tr>
                                 <tr className='ad-compare-table-techSpec'>
-                                    {!isMobile &&
-                                    <th>Kasa Tipi / Kapı Sayısı</th>
-                                    }
                                     {compareList.map((car, nth) => (
                                         <React.Fragment>
                                             <td key={nth}>
-                                                {isMobile && (
                                                     <span>Kasa Tipi / Kapı Sayısı</span>
-                                                )}
                                                 {car.technicalSpecs[0].specs[1].content}
                                             </td>
                                         </React.Fragment>
-
+                                    ))}
+                                </tr>
+                                <tr className='ad-compare-table-techSpec bg-gray'>
+                                    {compareList.map((car, nth) => (
+                                        <React.Fragment>
+                                            <td key={nth}>
+                                                <span>Oturma Kapasitesi</span>
+                                                {car.technicalSpecs[0].specs[2].content}
+                                            </td>
+                                        </React.Fragment>
+                                    ))}
+                                </tr>
+                                <tr className='ad-compare-table-techSpec '>
+                                    {compareList.map((car, nth) => (
+                                        <React.Fragment>
+                                            <td key={nth}>
+                                                <span>Renk</span>
+                                                {car.technicalSpecs[0].specs[3].content}
+                                            </td>
+                                        </React.Fragment>
+                                    ))}
+                                </tr>
+                                <tr className='ad-compare-table-techSpec bg-gray'>
+                                    {compareList.map((car, nth) => (
+                                        <React.Fragment>
+                                            <td key={nth}>
+                                                <span>Renk</span>
+                                                {car.technicalSpecs[0].specs[3].content}
+                                            </td>
+                                        </React.Fragment>
+                                    ))}
+                                </tr>
+                                <tr className='ad-compare-table-techSpec'>
+                                    {compareList.map((car, nth) => (
+                                        <React.Fragment>
+                                            <td key={nth}>
+                                                <span>Yakıt</span>
+                                                {car.technicalSpecs[0].specs[4].content}
+                                            </td>
+                                        </React.Fragment>
                                     ))}
                                 </tr>
                                 {/* todo: Ask production date  */}
@@ -228,69 +250,57 @@ class adCompare extends React.Component {
                                 {/*    ))}*/}
                                 {/*</tr>*/}
                                 <tr className='bg-gray ad-compare-table-techSpec'>
-                                    {!isMobile &&
-                                    <th>Yakıt Tüketimi (Ortalama / Ş.İçi / Ş.Dışı)</th>
-                                    }
                                     {compareList.map((car, nth) => (
                                         <React.Fragment>
                                             <td key={nth}>
-                                                {isMobile && (
                                                     <span>Yakıt Tüketimi (Ortalama / Ş.İçi / Ş.Dışı)</span>
-                                                )}
                                                 {car.technicalSpecs[1].specs[3].content}
                                             </td>
                                         </React.Fragment>
                                     ))}
                                 </tr>
                                 <tr className='ad-compare-table-techSpec'>
-                                    {!isMobile &&
-                                    <th>Motor Gücü</th>
-                                    }
                                     {compareList.map((car, nth) => (
                                         <React.Fragment>
                                             <td key={nth}>
-                                                {isMobile && (
                                                     <span>Motor Gücü</span>
-                                                )}
                                                 {car.technicalSpecs[1].specs[1].content}
                                             </td>
                                         </React.Fragment>
                                     ))}
                                 </tr>
+
                                 <tr className='bg-gray ad-compare-table-techSpec'>
-                                    {!isMobile &&
-                                        <th>Şanzıman)</th>
-                                    }
                                     {compareList.map((car, nth) => (
                                         <React.Fragment>
                                             <td key={nth}>
-                                                {isMobile && (
                                                     <span>Şanzıman</span>
-                                                )}
                                                 {car.technicalSpecs[1].specs[2].content}
                                             </td>
                                         </React.Fragment>
                                     ))}
                                 </tr>
                                 <tr className='ad-compare-table-techSpec'>
-                                    {!isMobile &&
-                                    <th>Motor Tipi</th>
-                                    }
                                     {compareList.map((car, nth) => (
                                         <React.Fragment>
                                             <td key={nth}>
-                                                {isMobile && (
                                                     <span>Motor Tipi</span>
-                                                )}
                                                 {car.technicalSpecs[1].specs[0].content}
                                             </td>
                                         </React.Fragment>
                                     ))}
                                 </tr>
+                                <tr className='ad-compare-table-techSpec bg-gray'>
+                                    {compareList.map((car, nth) => (
+                                        <React.Fragment>
+                                            <td key={nth}>
+                                                <span>Hızlanma (0-100km) / Maksimum Hız</span>
+                                                {car.technicalSpecs[1].specs[4].content}
+                                            </td>
+                                        </React.Fragment>
+                                    ))}
+                                </tr>
                                 <tr className='ad-compare-table__creditCalculator'>
-                                    {!isMobile &&
-                                    <th className="empty">&nbsp;</th>
-                                    }
                                     {compareList.map((car, nth) => (
                                         <td key={nth}>
                                             <CreditCalculator product={car}/>
@@ -298,9 +308,6 @@ class adCompare extends React.Component {
                                     ))}
                                 </tr>
                                 <tr className='ad-compare-table__contactCard'>
-                                    {!isMobile &&
-                                    <th className="empty">&nbsp;</th>
-                                    }
                                     {compareList.map((car, nth) => (
                                         <td>
                                             <DealerInfoCard product={car}/>
@@ -315,10 +322,10 @@ class adCompare extends React.Component {
             ) :
                 this.props.history.push('/')
             }
-
         </main>
     }
 }
+
 
 const mapStateToProps = ({generic, user, compareList, reservation}) => {
     return {mobile: generic.mobile, user: user.user, compareList, reservation};

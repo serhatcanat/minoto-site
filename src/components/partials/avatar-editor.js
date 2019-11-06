@@ -5,7 +5,7 @@ import request from 'controllers/request'
 
 class MyAvatar extends React.Component {
 	constructor(props) {
-		super(props)
+		super(props);
 		this.state = {
 			src: null,
 			selectedImage: false,
