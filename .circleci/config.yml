@@ -8,12 +8,6 @@ orbs:
   cypress: cypress-io/cypress@1
 jobs:
   build:
-    machine:
-      pre:
-        - mkdir ~/.yarn-cache
-    dependencies:
-      cache_directories:
-        - ~/.yarn-cache
     docker:
       - image: circleci/node:10.12-browsers
 
@@ -32,7 +26,7 @@ jobs:
           name: Save Yarn Package Cache
           key: yarn-packages-{{ checksum "yarn.lock" }}
           paths:
-            - ~/.yarn-cache
+            - ~/.cache/yarn
 
       # run build!
 
