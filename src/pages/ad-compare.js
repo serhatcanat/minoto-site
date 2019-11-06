@@ -226,16 +226,6 @@ class adCompare extends React.Component {
                                     {compareList.map((car, nth) => (
                                         <React.Fragment>
                                             <td key={nth}>
-                                                <span>Renk</span>
-                                                {car.technicalSpecs[0].specs[3].content}
-                                            </td>
-                                        </React.Fragment>
-                                    ))}
-                                </tr>
-                                <tr className='ad-compare-table-techSpec'>
-                                    {compareList.map((car, nth) => (
-                                        <React.Fragment>
-                                            <td key={nth}>
                                                 <span>Yakıt</span>
                                                 {car.technicalSpecs[0].specs[4].content}
                                             </td>
@@ -249,7 +239,7 @@ class adCompare extends React.Component {
                                 {/*        <CarData car={car} key={nth} nth={nth} fragment="engine" />*/}
                                 {/*    ))}*/}
                                 {/*</tr>*/}
-                                <tr className='bg-gray ad-compare-table-techSpec'>
+                                <tr className='ad-compare-table-techSpec'>
                                     {compareList.map((car, nth) => (
                                         <React.Fragment>
                                             <td key={nth}>
@@ -259,7 +249,7 @@ class adCompare extends React.Component {
                                         </React.Fragment>
                                     ))}
                                 </tr>
-                                <tr className='ad-compare-table-techSpec'>
+                                <tr className='ad-compare-table-techSpec bg-gray'>
                                     {compareList.map((car, nth) => (
                                         <React.Fragment>
                                             <td key={nth}>
@@ -270,7 +260,7 @@ class adCompare extends React.Component {
                                     ))}
                                 </tr>
 
-                                <tr className='bg-gray ad-compare-table-techSpec'>
+                                <tr className='ad-compare-table-techSpec'>
                                     {compareList.map((car, nth) => (
                                         <React.Fragment>
                                             <td key={nth}>
@@ -280,7 +270,7 @@ class adCompare extends React.Component {
                                         </React.Fragment>
                                     ))}
                                 </tr>
-                                <tr className='ad-compare-table-techSpec'>
+                                <tr className='ad-compare-table-techSpec bg-gray'>
                                     {compareList.map((car, nth) => (
                                         <React.Fragment>
                                             <td key={nth}>
@@ -290,12 +280,62 @@ class adCompare extends React.Component {
                                         </React.Fragment>
                                     ))}
                                 </tr>
-                                <tr className='ad-compare-table-techSpec bg-gray'>
+                                <tr className='ad-compare-table-techSpec'>
                                     {compareList.map((car, nth) => (
                                         <React.Fragment>
                                             <td key={nth}>
                                                 <span>Hızlanma (0-100km) / Maksimum Hız</span>
                                                 {car.technicalSpecs[1].specs[4].content}
+                                            </td>
+                                        </React.Fragment>
+                                    ))}
+                                </tr>
+                                <tr className='ad-compare-table-techSpec bg-gray'>
+                                    {compareList.map((car, nth) => (
+                                        <React.Fragment>
+                                            <td key={nth}>
+                                                <span>Uzunluk</span>
+                                                {car.technicalSpecs[2].specs[0].content}
+                                            </td>
+                                        </React.Fragment>
+                                    ))}
+                                </tr>
+                                <tr className='ad-compare-table-techSpec'>
+                                    {compareList.map((car, nth) => (
+                                        <React.Fragment>
+                                            <td key={nth}>
+                                                <span>Genişlik</span>
+                                                {car.technicalSpecs[2].specs[1].content}
+                                            </td>
+                                        </React.Fragment>
+                                    ))}
+                                </tr>
+                                <tr className='ad-compare-table-techSpec bg-gray'>
+                                    {compareList.map((car, nth) => (
+                                        <React.Fragment>
+                                            <td key={nth}>
+                                                <span>Yükseklik</span>
+                                                {car.technicalSpecs[2].specs[2].content}
+                                            </td>
+                                        </React.Fragment>
+                                    ))}
+                                </tr>
+                                <tr className='ad-compare-table-techSpec'>
+                                    {compareList.map((car, nth) => (
+                                        <React.Fragment>
+                                            <td key={nth}>
+                                                <span>Dingil Aralığı</span>
+                                                {car.technicalSpecs[2].specs[3].content}
+                                            </td>
+                                        </React.Fragment>
+                                    ))}
+                                </tr>
+                                <tr className='ad-compare-table-techSpec bg-gray'>
+                                    {compareList.map((car, nth) => (
+                                        <React.Fragment>
+                                            <td key={nth}>
+                                                <span>Boş Ağırlik</span>
+                                                {car.technicalSpecs[2].specs[4].content}
                                             </td>
                                         </React.Fragment>
                                     ))}
