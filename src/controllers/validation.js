@@ -104,7 +104,6 @@ const validateRaw = {
 	},
 	"minNum": function (msg = defaultMessages.minNumErr, value, amount, allowFormat = true) {
 		let error;
-		console.log('am');
 		if (allowFormat) { value = value.toString().replace(/[.,]/g, ''); }
 		if (parseFloat(value) < amount) {
 			error = msg.replace('{amount}', amount);;

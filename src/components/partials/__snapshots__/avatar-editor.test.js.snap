@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<MyAvatar /> renders an editor area 1`] = `
+"<div className=\\"inputwrap type-image form-inputwrap\\">
+  <label className=\\"input-uploadlabel\\">
+    Yeni dosya yüklemek için tıklayın
+    <input type=\\"file\\" className=\\"inputFile\\" onChange={[Function]} value=\\"\\" />
+  </label>
+</div>"
+`;

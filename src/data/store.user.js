@@ -144,11 +144,11 @@ export function socialLogin(form, type, finalFunction = false) {
 		}
 		else {
 			logout(true);
-
-			GA.send('loginActions', { action: 'Login', label: payload.message });
-			if (finalFunction) {
-				finalFunction(payload);
-			}
+			//
+			// GA.send('loginActions', { action: 'Login', label: payload.message });
+			// if (finalFunction) {
+			// 	finalFunction(payload);
+			// }
 		}
 	})
 }
@@ -166,11 +166,6 @@ export function register(form, finalFunction = false) {
 		}
 		else {
 			logout(true);
-
-			GA.send('loginActions', { action: 'SignUp', label: payload.message });
-			if (finalFunction) {
-				finalFunction(payload);
-			}
 		}
 	})
 }

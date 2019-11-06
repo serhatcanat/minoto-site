@@ -57,6 +57,7 @@ export function clearImpressions() {
 
 export function addImpressionProduct(group, product, totalCount) {
 	let impressions = clone(store.getState().ga.impressions);
+	console.log(GA.getProductData(product).product);
 	//impressions.push(GA.getProductData(product).product);
 
 	if(!impressions.groups[group]){

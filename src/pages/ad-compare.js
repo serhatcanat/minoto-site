@@ -3,8 +3,6 @@ import React from 'react'
 import Image from '../components/partials/image.js'
 // Deps
 import {storageSpace} from '../functions/helpers'
-import request from '../controllers/request'
-import clone from 'lodash/clone'
 import {connect} from "react-redux";
 //Functions
 import {addVehicleToCompare, deleteVehicleFromCompare, setVehicleToReservation} from "../actions";
@@ -20,37 +18,13 @@ import DealerInfoCard from "../components/partials/dealer-info-card";
 import image_car_default from '../assets/images/defaults/car.svg'
 
 
-class adCompare extends React.Component {
+class AdCompare extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            cars: [false, false, false],
-            brands: [],
-        };
-        this.changeCar = this.changeCar.bind(this);
+
         this.setVehicleToReservation = this.setVehicleToReservation.bind(this)
     }
 
-    initialize() {
-        let vm = this;
-        request.get('/dummy/data/comparison-taxonomy.json', {}, function (payload) {
-            if (payload) {
-                vm.setState({
-                    brands: payload,
-                });
-            }
-        }, { excludeApiPath: true });
-    }
-
-    componentDidMount() {
-        this.initialize();
-    }
-
-    changeCar(car, nth) {
-        let newCars = clone(this.state.cars);
-        newCars[nth] = car;
-        this.setState({ cars: newCars });
-    }
 
     setVehicleToReservation(product) {
         const {setVehicleToReservation} = this.props;
@@ -379,4 +353,4 @@ const mapDispatchToProps = dispatch => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(adCompare);
+export default connect(mapStateToProps, mapDispatchToProps)(AdCompare);
