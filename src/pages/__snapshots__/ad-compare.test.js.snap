@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`AdCompare Page should render without throwing an error 1`] = `
-"<ContextProvider value={{...}}>
-  <Connect(AdCompare) />
-</ContextProvider>"
-`;

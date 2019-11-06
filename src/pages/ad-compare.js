@@ -33,7 +33,6 @@ class AdCompare extends React.Component {
     }
 
     render() {
-        const isMobile = this.props.mobile;
         const compareList = this.props.compareList.data;
         return <main className="page  comparison">
             {compareList.length>1 ?(
