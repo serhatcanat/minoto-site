@@ -76,7 +76,13 @@
   },
   "devDependencies": {
     "cypress": "^3.4.1",
+    "cz-conventional-changelog": "3.0.2",
     "semantic-release": "^15.13.28",
     "start-server-and-test": "^1.10.6"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
