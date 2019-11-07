@@ -1,5 +1,10 @@
-import {apiPath, formatNumber, isDefined, isExact, seoFriendlyUrl, storageSpace, turkishSort} from "./helpers";
+import {apiPath, formatNumber, isDefined, seoFriendlyUrl, storageSpace} from "./helpers";
 import {apiBase, storagePath} from "../config";
+import React from 'react'
+import Adapter from 'enzyme-adapter-react-16';
+import {configure, shallow} from "enzyme";
+
+configure({adapter: new Adapter()});
 
 describe('is number formatted', () => {
 
@@ -46,4 +51,43 @@ describe('Storage space', () => {
 
 test('Is api path valid', () => {
     expect(apiPath('samplePath')).toBe(`${apiBase}samplePath`);
+});
+
+
+export class TestForm extends React.Component {
+    constructor(props) {
+        super(props)
+        this.onTest = this.onTest.bind(this);
+    }
+
+    onTest(e){
+        console.log('test');
+        console.log(e)
+    }
+
+    render() {
+
+        return (
+            <form onSubmit={this.onTest}>
+                <input name='dname' value='test val'/>
+                <input name='dname1' value='test val 1'/>
+                <button type='submit'>Test Btn</button>
+            </form>
+        )
+    }
+}
+
+
+describe('Form Is serialized', () => {
+    let wrapper;
+    beforeEach(() => {
+        wrapper = shallow(<TestForm/>);
+    });
+
+    it('renders three  components', () => {
+        const form = wrapper.find('form');
+        form.find('form')
+            .simulate('submit', { preventDefault () {} });
+    });
+
 });

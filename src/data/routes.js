@@ -210,6 +210,8 @@ module.exports = {
 			title: "Minoto Nedir",
 			GATitle: "Minoto Nedir",
 		},
+
+
 		account: {
 			path: "/hesabim/:page?/:section?/:param?",
 			component: "Account",

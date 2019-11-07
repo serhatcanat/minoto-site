@@ -128,8 +128,6 @@ class Navigator extends React.Component {
 			changePage(route[0], route[1]);*/
 			changePage();
 		});
-
-
 	}
 
 	render() {
@@ -408,7 +406,6 @@ export function renderRoutes(opts = {}) {
 		if (route.path) {
 			routeProps.path = route.path
 		}
-
 		return <Route {...routeProps} />
 	});
 
