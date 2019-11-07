@@ -12,7 +12,7 @@ export class DetailCredit extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            garantiInterest: "1.39",
+            garantiInterest: "1.23",
             garantiInstallment: false,
             isbankInterest: "1.39",
             isbankInstallment: false,

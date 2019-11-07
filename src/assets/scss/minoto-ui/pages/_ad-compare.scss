@@ -160,6 +160,9 @@
         .price-current {
           display: block;
           text-align: center;
+          h2{
+            color: $color-blue;
+          }
         }
       }
       //Price area end
@@ -167,7 +170,6 @@
 
     // Tech Specs Colums start
     &-techSpec {
-      @include media {
         span {
           display: block;
           font-weight: 500;
@@ -175,7 +177,6 @@
           color: #8688a2;
           margin-bottom: .5em;
         }
-      }
     }
 
     // Credit Calculator Page Specific start

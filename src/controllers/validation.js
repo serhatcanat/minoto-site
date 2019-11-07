@@ -2,7 +2,6 @@ import cardValidation from 'controllers/card-validation'
 
 export function validation(value, controls = ['required']) {
 	let error = false;
-
 	if (controls === true) {
 		controls = ['required'];
 	}
@@ -15,7 +14,6 @@ export function validation(value, controls = ['required']) {
 		controls = Object.keys(controls).map(function (objectKey, index) {
 			let data = [controls[objectKey]];
 			if (Array.isArray(data[0])) { data = data[0]; }
-
 			return [objectKey, ...data];
 		});
 	}
@@ -56,36 +54,55 @@ export function validation(value, controls = ['required']) {
 	return error;
 }
 
+export const defaultMessages = {
+	emailErr: "Geçerli bir e-posta girmelisiniz.",
+	fullNameErr: "Geçerli bir ad-soyad girmelisiniz",
+	IDErr: "Geçerli bir kimlik no. girmelisiniz.",
+	requiredErr: "Bu alanı doldurmalısınız.",
+	minNumErr: "Bu alan {amount} değerinden küçük olmamalıdır.",
+	maxNumErr: "Bu alan {amount} değerinden büyük olmamalıdır.",
+	minLengthErr: "Bu alan en fazla {length} karakter içermelidir.",
+	maxLengthErr: "Bu alan en fazla {length} karakter içermelidir.",
+	minWordsErr: "Bu alan en az {length} kelime içermelidir.",
+	maxWordsErr: "Bu alan en fazla {length} kelime içerebilir.",
+	compareErr: "İki alan birbiri ile eşleşmiyor.",
+	fileRequiredErr: "Bu alanı doldurmalısınız.",
+	dateErr: "Geçerli bir tarih girmelisiniz.",
+	creditcardErr: "Geçerli bir kart numarası girmelisiniz.",
+	cvcErr: "Geçerli bir CVC numarası girmelisiniz.",
+	expiryErr: "Geçerli bir son kullanma tarihi girmelisiniz."
+};
+
 const validateRaw = {
-	"email": function (msg = "Geçerli bir e-posta girmelisiniz.", value) {
+	"email": function (msg = defaultMessages.emailErr, value) {
 		let error;
 		if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
 			error = msg;
 		}
 		return error;
 	},
-	"fullName": function (msg = "Geçerli bir ad-soyad girmelisiniz.", value) {
+	"fullName": function (msg = defaultMessages.fullNameErr, value) {
 		let error;
 		if (/\d/.test(value) || value.split(' ').length < 2 || value.replace(' ', '').length < 4) {
 			error = msg;
 		}
 		return error;
 	},
-	"ID": function (msg = "Geçerli bir kimlik no. girmelisiniz.", value) {
+	"ID": function (msg = defaultMessages.IDErr, value) {
 		let error;
 		if (!checkIDNum(value)) {
 			error = msg;
 		}
 		return error;
 	},
-	"required": function (msg = "Bu alanı doldurmalısınız.", value) {
+	"required": function (msg = defaultMessages.requiredErr, value) {
 		let error;
 		if (!value) {
 			error = msg;
 		}
 		return error;
 	},
-	"minNum": function (msg = "Bu alan {amount} değerinden küçük olmamalıdır.", value, amount, allowFormat = true) {
+	"minNum": function (msg = defaultMessages.minNumErr, value, amount, allowFormat = true) {
 		let error;
 		if (allowFormat) { value = value.toString().replace(/[.,]/g, ''); }
 		if (parseFloat(value) < amount) {
@@ -93,43 +110,44 @@ const validateRaw = {
 		}
 		return error;
 	},
-	"maxNum": function (msg = "Bu alan {amount} değerinden büyük olmamalıdır.", value, amount, allowFormat = true) {
+	"maxNum": function (msg = defaultMessages.maxNumErr, value, amount, allowFormat = true) {
 		let error;
 		if (allowFormat) { value = value.toString().replace(/[.,]/g, ''); }
 		if (parseFloat(value) > amount) {
-			error = msg.replace('{amount}', amount);;
+			error = msg.replace('{amount}', amount);
 		}
 		return error;
 	},
-	"minLength": function (msg = "Bu alan en az {length} karakter içermelidir.", value, length) {
+	"minLength": function (msg = defaultMessages.minLengthErr, value, length) {
 		let error;
 		if (value && value.length < length) {
 			error = msg.replace('{length}', length);;
 		}
 		return error;
 	},
-	"maxLength": function (msg = "Bu alan en fazla {length} karakter içermelidir.", value, length) {
+	"maxLength": function (msg = defaultMessages.maxLengthErr, value, length) {
 		let error;
 		if (value.length > length) {
 			error = msg.replace('{length}', length);;
 		}
 		return error;
 	},
-	"minWords": function (msg = "Bu alan en az {length} kelime içermelidir.", value, length) {
+	"minWords": function (msg = defaultMessages.minWordsErr, value, length) {
 		let error;
 		if (value.split(' ').length < length) {
 			error = msg.replace('{length}', length);;
 		}
 		return error;
 	},
-	"maxWords": function (msg = "Bu alan en fazla {length} kelime içerebilir.", value, length) {
+	"maxWords": function (msg = defaultMessages.maxWordsErr, value, length) {
 		let error;
 		if (value.split(' ').length > length) {
 			error = msg.replace('{length}', length);;
 		}
 		return error;
 	},
-	"compare": function (msg = "İki alan birbiri ile eşleşmiyor.", value, compare) {
+	"compare": function (msg = defaultMessages.compareErr, value, compare) {
+
 		let error;
 		let compareItem = document.querySelector(compare);
 		if (!compareItem || compareItem.value !== value) {
@@ -137,24 +155,25 @@ const validateRaw = {
 		}
 		return error;
 	},
-	"fileRequired": function (msg = "Bu alanı doldurmalısınız.", files) {
+	"fileRequired": function (msg = defaultMessages.compareErr, files) {
 		let error;
 		if (!files.length) {
 			error = msg;
 		}
 		return error;
 	},
-	"date": function (msg = "Geçerli bir tarih girmelisiniz.", value) {
+	"date": function (msg = defaultMessages.dateErr, value) {
 		let error;
 		if (!value) {
 			error = msg;
 		}
 		return error;
 	},
-	"creditcard": function (msg = "Geçerli bir kart numarası girmelisiniz.", value) {
+	"creditcard": function (msg = defaultMessages.creditcardErr, value) {
 		let error;
 		let status = true
 		const reg = new RegExp(/^([0-9]{4} [0-9]{4} [0-9]{4} [0-9]{3,4})$/g);
+
 		if (!reg.test(value)) { status = false; } else (status = cardValidation.check(value.replace(/\s/g, '')));
 
 		if (!status) {
@@ -162,7 +181,7 @@ const validateRaw = {
 		}
 		return error;
 	},
-	"cvc": function (msg = "Geçerli bir CVC numarası girmelisiniz.", value, length = false) {
+	"cvc": function (msg = defaultMessages.cvcErr, value, length = false) {
 		let error;
 		let regString = /^([0-9]{3,4})$/g;
 		if (length === 3) {
@@ -176,10 +195,8 @@ const validateRaw = {
 		}
 		return error;
 	},
-	"expiry": function (msg = "Geçerli bir son kullanma tarihi girmelisiniz.", dateString, gaps = false) {
+	"expiry": function (msg = defaultMessages.expiryErr, dateString, gaps = false) {
 		let error;
-
-
 		var curYear = parseInt((new Date()).getFullYear().toString().substr(-2));
 		var month = 13;
 		var year = 1;
@@ -200,10 +217,10 @@ const validateRaw = {
 
 function checkIDNum(tcno) {
 	tcno = String(tcno);
-	let j = 0;
-	let i = 0;
-	let hane_tek = 0;
-	let hane_cift = 0;
+	let j;
+	let i;
+	let hane_tek;
+	let hane_cift;
 
 	if (tcno.substring(0, 1) === '0') {
 		return false;
@@ -231,4 +248,4 @@ function checkIDNum(tcno) {
 		return false;
 	}
 	return true;
-};
+}

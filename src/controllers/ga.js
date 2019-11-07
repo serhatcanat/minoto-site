@@ -153,7 +153,7 @@ export const GA = {
 				tractionType = product.ga.tractionType;
 				transmissionType = product.ga.gearType;
 			}
-
+			engineCapacity =  engineCapacity.replace(/'/g, "");
 			return {
 				id: product.postNo,
 				product: {

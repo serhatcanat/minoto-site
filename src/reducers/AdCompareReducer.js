@@ -3,13 +3,13 @@ import {CompareListService,LocalStorageService,LocalStorageItem} from '../functi
 
 const _localStorageService = new LocalStorageService();
 const _compareListService = new CompareListService();
+
 const INIT_STATE = {
     data: _localStorageService.get(LocalStorageItem.compareList) || [],
 };
 
-
 const addVehicleToCompareSuccess = (state, action) => {
-
+    console.log(state);
     if(_compareListService.isFull(state.data)){
         state.data.pop();
         return ({
