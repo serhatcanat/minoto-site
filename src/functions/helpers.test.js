@@ -1,8 +1,8 @@
-import {apiPath, formatNumber, isDefined, seoFriendlyUrl, storageSpace} from "./helpers";
+import {apiPath, formatNumber, isDefined, seoFriendlyUrl, serializeArray, storageSpace} from "./helpers";
 import {apiBase, storagePath} from "../config";
 import React from 'react'
 import Adapter from 'enzyme-adapter-react-16';
-import {configure, shallow} from "enzyme";
+import {configure, mount, shallow} from "enzyme";
 
 configure({adapter: new Adapter()});
 
@@ -29,7 +29,7 @@ describe('is defined', () => {
 });
 
 test('Is url seo friendly', () => {
-    expect(seoFriendlyUrl('url to be this ü İ')).toBe('url-to-be-this-u-i');
+    expect(seoFriendlyUrl('url to be this ü İ ç ı')).toBe('url-to-be-this-u-i');
 });
 
 describe('Storage space', () => {
@@ -62,13 +62,13 @@ export class TestForm extends React.Component {
 
     onTest(e){
         console.log('test');
-        console.log(e)
+        console.log(e.target);
     }
 
     render() {
 
         return (
-            <form onSubmit={this.onTest}>
+            <form className='testForm' onSubmit={this.onTest}>
                 <input name='dname' value='test val'/>
                 <input name='dname1' value='test val 1'/>
                 <button type='submit'>Test Btn</button>
@@ -79,15 +79,17 @@ export class TestForm extends React.Component {
 
 
 describe('Form Is serialized', () => {
+
     let wrapper;
     beforeEach(() => {
         wrapper = shallow(<TestForm/>);
     });
 
     it('renders three  components', () => {
-        const form = wrapper.find('form');
-        form.find('form')
-            .simulate('submit', { preventDefault () {} });
+        const wrapper1 = mount(<TestForm/>).find('.testForm').first();
+        const mockedEvent = { target: {} }
+        console.log(wrapper1.instance());
+        form.simulate('submit', mockedEvent);
     });
 
 });

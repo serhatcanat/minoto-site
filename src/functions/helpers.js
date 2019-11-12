@@ -159,7 +159,9 @@ export function isDefined(variable) {
 
 export function serializeArray(form, seperator = ',', ignoreEmpty = false) {
 	var serialized = {};
+	console.log(form.elements);
 	let elements = (form.elements ? form.elements : form.querySelectorAll('input, textarea, select'));
+
 	for (var i = 0; i < elements.length; i++) {
 
 		var field = elements[i];
@@ -329,7 +331,6 @@ export function seoFriendlyUrl(string) {
 	string = string.replace("---", "-");
 
 	return string.trimRight('-').toLowerCase();
-
 }
 
 export function nextRandomPage(count, alreadyUsed) {

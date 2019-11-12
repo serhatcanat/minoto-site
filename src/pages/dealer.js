@@ -26,6 +26,7 @@ import { openModal } from 'functions/modals'
 import { turkishSort } from '../functions/helpers'
 import { setDealerData } from 'data/store.ga'
 import { GA } from 'controllers/ga'
+import Breadcrumbs from "../components/partials/breadcrumbs";
 
 // Assets
 
@@ -114,7 +115,6 @@ class Dealer extends React.Component {
 	render() {
 		let vm = this;
 		let dealer = vm.state.dealerData;
-
 		return (
 			<main className="page dealer">
 				<Loader loading={dealer === false} strict={true} />
@@ -170,7 +170,6 @@ class Dealer extends React.Component {
 									dealer.dealerType === 'dealer' && (
 										<div className="info-branches">
 											<div className="branches-head">
-
 												<strong className="head-title">Şubeler / Lokasyonlar</strong>
 											</div>
 
@@ -201,6 +200,20 @@ class Dealer extends React.Component {
 								<Responsive type="only-web">
 									<Image className="dealer-cover" bg src={storageSpace('dealers', dealer.cover)} />
 								</Responsive>
+								<Breadcrumbs className="top-breadcrumbs" data={[
+									{
+										"href": "home",
+										"title": "Anasayfa"
+									},
+									{
+										"href": `/bayiler`,
+										"title": 'Bayiler'
+									},
+									{
+										"href": dealer.slug,
+										"title": dealer.title
+									},
+								]} />
 								{vm.state.listingQuery &&
 									<Listing
 										className="dealer-listing"

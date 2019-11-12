@@ -102,7 +102,7 @@
 						&:last-child {
 							border-bottom: .1rem solid $color-gray;
 						}
-						
+
 						&.open {
 							background-color: $color-gray-light;
 							transition: background-color $transition-hover ease;
@@ -190,7 +190,9 @@
 
 		.detail-right {
 			width: calc(100% - 28rem);
-
+			.breadcrumbs{
+				padding: 1.8rem 0;
+			}
 			@include media {
 				width: auto;
 			}

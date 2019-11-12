@@ -1,12 +1,10 @@
 import React from 'react';
-// Partials
-//Functions
-import {storageSpace} from "functions/helpers"
-// Deps
+// Components
+import Image from "../../partials/image";
 import PriceTag from "../../partials/price-tag";
 import Btn from "../../partials/btn";
-
-// Assets
+//Functions
+import {storageSpace} from "functions/helpers"
 
 export default class CompareCard extends React.Component {
     render() {
@@ -18,7 +16,7 @@ export default class CompareCard extends React.Component {
                 {/*    <i className='icon-close'/>*/}
                 {/*</button>*/}
                 <h4>{title}</h4>
-                <img src={storageSpace('car-posts', image)} alt={title}/>
+                <Image src={storageSpace('car-posts', image)} alt={title}/>
                 <PriceTag price={price} />
                 <Btn onClick={() => removeFromList(id)}>Listeden Kaldır</Btn>
             </div>

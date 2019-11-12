@@ -60,12 +60,12 @@ export default class Loader extends React.Component {
 	}
 
 	render() {
-		//<i className="loader-icon spin icon-spinner"></i>	
+		//<i className="loader-icon spin icon-spinner"></i>
 		return (this.state.active ? (
 			<div className={"loader" + this.props.className + (this.props.strict ? ' strict' : '') + (this.state.show ? ' show' : '') + (this.state.oversize ? ' oversize' : '')} ref={this.container}>
 				<div className="loader-spinnerwrap">
 					{/* <i className="icon-spinner"></i> */}
-					<img src={loader} alt="" width="50" style={{
+					<img src={loader} alt="Minoto Loding Gif" style={{
 						margin: "0 auto",
 						marginTop: "5%"
 					}} />

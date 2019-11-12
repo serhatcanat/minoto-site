@@ -44,7 +44,7 @@ export class DetailInfo extends React.Component {
 
         return (
             <div className="detail-info">
-                <h2 className="info-title">{product.title}</h2>
+                <h1 className="info-title">{product.title}</h1>
                 {(product.mainFeatures && product.mainFeatures.length) &&
                 <ul className="info-mainfeatures">
                     {product.mainFeatures.map((feature, nth) => (

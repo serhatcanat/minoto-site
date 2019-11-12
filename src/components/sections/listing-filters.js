@@ -177,7 +177,7 @@ class ListingFilters extends React.Component {
 										<div className="filters-innerwrap">
 											<div className="filters-header">
 												{data.filtersTitle &&
-													<h1 className="header-title">{data.filtersTitle}</h1>
+													<span className="header-title">{data.filtersTitle}</span>
 												}
 												{Object.keys(vm.props.filterQuery).length > 0 &&
 													<button className="header-clear" onClick={vm.clearFilters}>Filtreleri Temizle</button>

@@ -20,6 +20,7 @@ import { redirect } from 'controllers/navigator'
 import { openModal } from 'functions/modals'
 import { storageSpace } from 'functions/helpers'
 import { setDealerData } from 'data/store.ga'
+import Breadcrumbs from "../components/partials/breadcrumbs";
 
 // Assets
 
@@ -135,6 +136,24 @@ class Branch extends React.Component {
 								<Responsive type="only-web">
 									<Image className="branch-cover" bg src={storageSpace('dealers', branch.cover)} />
 								</Responsive>
+								<Breadcrumbs className="top-breadcrumbs" data={[
+									{
+										"href": "home",
+										"title": "Anasayfa"
+									},
+									{
+										"href": `/bayiler`,
+										"title": 'Bayiler'
+									},
+									{
+										"href": '/bayiler/'+branch.dealer.slug,
+										"title": branch.dealer.title
+									},
+									{
+										"href": branch.slug,
+										"title": branch.title
+									},
+								]} />
 								{vm.state.listingQuery &&
 									<Listing
 										className="branch-listing"
