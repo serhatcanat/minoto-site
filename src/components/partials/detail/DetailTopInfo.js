@@ -49,12 +49,12 @@ export class DetailTopInfo extends React.Component {
             <div className={"topinfo-controls"}>
                 <button className="controls-btn"
                         onClick={() => this.setCompareList()}><i
-                    className="icon-compare"/>
+                    className="icon-compare" aria-label="Karşılaştır"/>
                     <span>
                         ({ this.props.compareList.data.length})
                     </span>
                 </button>
-                <button className="controls-btn" onClick={() => openModal('share')}><i className="icon-share"/></button>
+                <button className="controls-btn" onClick={() => openModal('share')} aria-label="Paylaş"><i className="icon-share"/></button>
                 <FavBtn className="controls-btn" faved={favorited} type={"post"} id={id}/>
             </div>
             }

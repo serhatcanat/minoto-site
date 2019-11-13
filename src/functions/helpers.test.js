@@ -29,7 +29,7 @@ describe('is defined', () => {
 });
 
 test('Is url seo friendly', () => {
-    expect(seoFriendlyUrl('url to be this ü İ ç ı')).toBe('url-to-be-this-u-i');
+    expect(seoFriendlyUrl('url to be this ü İ ç ı')).toBe('url-to-be-this-u-i-c-i');
 });
 
 describe('Storage space', () => {
