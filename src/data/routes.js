@@ -415,6 +415,7 @@ module.exports = {
 			title: "Rezerve Ettiklerim",
 			requiresLogin: true,
 			GATitle: "Hesabım - Rezervasyonlarım",
+
 		},
 		login: {
 			path: "/hesabim/giris",

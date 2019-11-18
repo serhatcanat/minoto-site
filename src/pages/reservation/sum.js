@@ -28,18 +28,19 @@ class Sum extends React.Component {
 
 		const postId = this.props.match.params.id;
 
+
 		request.get(`reservations/${postId}`, {email: this.props.user.email}, function (payload) {
 			if(payload){
-				if(payload.complete){
-
-					redirect('reservation.sum', {id: payload.ref});
-				}
-				else {
+				// if(payload.complete){
+				//
+				// 	redirect('reservation.sum', {id: postId});
+				// }
+				// else {
 					vm.setState({
 						loading: false,
 						reservation: payload
 					});
-				}
+				// }
 			}
 		}, {excludeApiPath: false});
 	}

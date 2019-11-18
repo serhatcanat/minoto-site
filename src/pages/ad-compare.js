@@ -137,7 +137,6 @@ class AdCompare extends React.Component {
                                                         </Btn>}
                                                 </div>
                                             </div>
-
                                         </td>
                                     ))}
                                 </tr>

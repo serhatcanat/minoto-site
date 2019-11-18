@@ -54,7 +54,7 @@ class Detail extends React.Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-
+		const vm = this;
 		let user = this.props.user;
 		if (prevProps.user === false && user !== false) {
 			this.initialize()
@@ -68,7 +68,12 @@ class Detail extends React.Component {
 		}
 
 		if (prevState.productData !== false && this.state.productData === false) {
-			this.initialize();
+			this.setState({
+				externalId: this.props.match.params.post.substring(this.props.match.params.post.lastIndexOf('M'))
+			},function () {
+				vm.initialize();
+			});
+
 		}
 	}
 
