@@ -8,6 +8,7 @@ import ReservationSidebar from 'components/partials/reservation/sidebar'
 import {FormInput, InputForm} from 'components/partials/forms'
 import Collapse from 'components/partials/collapse'
 import Btn from 'components/partials/btn'
+import {pushMessage} from 'controllers/messenger'
 // Functions
 import {serializeArray} from 'functions/helpers'
 // Deps
@@ -60,7 +61,6 @@ class Payment extends React.Component {
 		this.pay = this.pay.bind(this);
 		this.changeSubmitStatus = this.changeSubmitStatus.bind(this);
 		this.setSelectedAddress = this.setSelectedAddress.bind(this);
-
 		this.paymentForm = React.createRef();
 	}
 
@@ -153,11 +153,19 @@ class Payment extends React.Component {
 				'cvc':cardCvc
 			}, function (payload,status) {
 				if(payload){
-					vm.props.history.push(`/rezervasyon/${vm.props.match.params.id}/ozet`,{invoiceInfo:payload});
+					if(payload.status === "200"){
+						pushMessage('Ödemeniz başarıyla gerçekleşmiştir.');
+						vm.props.history.push(`/rezervasyon/${vm.props.match.params.id}/ozet`,{invoiceInfo:payload});
+					}
+					else{
+						pushMessage(payload.message, { type: "error" });
+						vm.setState({
+							loading:false
+						})
+					}
+
 				}
-				vm.setState({
-					loading: true
-				})
+
 			}, {excludeApiPath: false});
 		}
 	}

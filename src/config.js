@@ -7,6 +7,7 @@ if (!endpoint) {
 		case 'localhost':
 			//endpoint = 'http://localhost:8000'
 			// endpoint = 'http://minoto-api.test'
+
 			endpoint = 'https://beta-api.minoto.com'
 			//endpoint = 'https://api.minoto.com'
 			break;
