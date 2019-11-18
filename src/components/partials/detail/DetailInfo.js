@@ -33,9 +33,15 @@ export class DetailInfo extends React.Component {
         this.setVehicleToReservation = this.setVehicleToReservation.bind(this)
     }
     setVehicleToReservation(product){
-        const {setVehicleToReservation} = this.props;
-        setVehicleToReservation(product);
-        this.props.history.push(`/rezervasyon/${this.props.product.postNo}`)
+        if(this.props.user){
+            const {setVehicleToReservation} = this.props;
+            setVehicleToReservation(product);
+            this.props.history.push(`/rezervasyon/${this.props.product.postNo}`)
+        }
+        else{
+            openModal('login')
+        }
+
     }
     render() {
         let vm = this;

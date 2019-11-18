@@ -69,7 +69,7 @@ class BidModalRaw extends React.Component {
 			offer: e.target.elements.bid.value,
 		});
 		*/
-		
+
 	}
 
 	render() {
@@ -127,7 +127,6 @@ class BidModalRaw extends React.Component {
 									<Link className="link" href="account.messages">Mesajlarıma Git</Link>
 								</div>
 							</div>
-
 						:
 						<div className="bid-login">
 							<p>Teklif vermek için giriş yapmalısınız.</p>

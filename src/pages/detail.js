@@ -236,14 +236,14 @@ class Detail extends React.Component {
 								<div className="content-left">
 									<DetailGallery product={product} mobile={mobile} onFullScreenChange={vm.setFullScreen} fullScreen={vm.state.galleryFullScreen} />
 									{mobile &&
-									<DetailInfo product={product} mobile={mobile} reservation={reservation} setVehicleToReservation={setVehicleToReservation} history={this.props.history}/>
+									<DetailInfo product={product} mobile={mobile} reservation={reservation} setVehicleToReservation={setVehicleToReservation} history={this.props.history} user={this.props.user}/>
 									}
 									<DetailExtras product={product} mobile={mobile} />
 								</div>
 								{!mobile &&
 									<div className="content-right">
 										<DetailTopInfo product={product} mobile={mobile} />
-										<DetailInfo product={product} mobile={mobile} reservation={reservation} setVehicleToReservation={setVehicleToReservation} history={this.props.history}/>
+										<DetailInfo product={product} mobile={mobile} reservation={reservation} setVehicleToReservation={setVehicleToReservation} history={this.props.history} user={this.props.user}/>
 									</div>
 								}
 							</div>
