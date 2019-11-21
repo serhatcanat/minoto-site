@@ -289,11 +289,9 @@ class Listing extends React.Component {
 		request.get(requestURL, query, function (payload, status) {
 			if (vm.mounted && payload) {
 
-
 				if (payload.redirect) {
 					setTimeout(function () { window.location.href = payload.link; }, 30)
 				}
-
 
 				if (opts.page > 0) {
 					payload.results = vm.props.listingData.results.concat(payload.results);
@@ -306,7 +304,6 @@ class Listing extends React.Component {
 					usedPages.push(parseInt(payload.page))
 				}
 				let searchInput = query.ara ? query.ara : false;
-
 				vm.setState({
 					loading: false,
 					extending: false,

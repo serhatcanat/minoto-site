@@ -78,18 +78,3 @@ export class TestForm extends React.Component {
 }
 
 
-describe('Form Is serialized', () => {
-
-    let wrapper;
-    beforeEach(() => {
-        wrapper = shallow(<TestForm/>);
-    });
-
-    it('renders three  components', () => {
-        const wrapper1 = mount(<TestForm/>).find('.testForm').first();
-        const mockedEvent = { target: {} }
-        console.log(wrapper1.instance());
-        form.simulate('submit', mockedEvent);
-    });
-
-});

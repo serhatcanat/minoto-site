@@ -8,7 +8,6 @@ import Link from 'components/partials/link'
 
 // Deps
 import request from 'controllers/request'
-import { redirect } from 'controllers/navigator'
 import {setDealerData, setProductData} from "../../data/store.ga";
 import {addVehicleToCompare, setVehicleToReservation} from "../../actions";
 import {connect} from "react-redux";

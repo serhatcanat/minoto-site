@@ -96,7 +96,6 @@ class ModalsWrap extends React.Component {
 		if(vm.state.data){
 			let props = omit(vm.state.data, ['modal'])
 			props.className = 'modal-content ' + props.className;
-
 			switch(vm.state.data.modal){
 				case "share":
 					Content = <ShareModal {...props} />
@@ -125,7 +124,7 @@ class ModalsWrap extends React.Component {
 					Content = <TextModal {...props} />
 				break;
 				case "compare":
-					Content = <Compare {...props} />
+					Content = <Compare {...props} containerClass={'minoto-ui'} outerWraperClass={'modal-compare'}/>
 					break;
 				default:
 					for(let k = 0; k < children.length; k++){
@@ -144,7 +143,7 @@ class ModalsWrap extends React.Component {
 			let props = (Content.type.props ? Content.type.props : Content.props);
 			return (
 				<div className={"modal-container " + props.containerClass + (vm.state.show ? ' show' : '')}>
-					<div className="modal-outerwrap">
+					<div className={"modal-outerwrap"+props.outerWraperClass ? props.outerWraperClass:''}>
 						{Content}
 						{(props.preventClose ?
 							<div className="modal-overlay"></div>
