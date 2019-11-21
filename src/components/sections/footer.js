@@ -174,7 +174,7 @@ class Footer extends React.Component {
 							<div className="nav-col nav-contact">
 								<div className="contact-text">
 									<p className="contact-title">İletişim</p>
-									<p className="contact-phone"><a href="tel:+902122833995" title="Telefon"><i className="icon-phone"></i> 0212 283 39 95</a></p>
+									<p className="contact-phone"><a href="tel:+902127060001" title="Telefon"><i className="icon-phone"></i> 0212 706 00 01</a></p>
 									<p className="contact-phone"><a href="mailto:merhaba@minoto.com" title="E-Posta"><i className="icon-envelope"></i> merhaba@minoto.com</a></p>
 								</div>
 

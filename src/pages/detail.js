@@ -54,7 +54,7 @@ class Detail extends React.Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-
+		const vm = this;
 		let user = this.props.user;
 		if (prevProps.user === false && user !== false) {
 			this.initialize()
@@ -68,7 +68,12 @@ class Detail extends React.Component {
 		}
 
 		if (prevState.productData !== false && this.state.productData === false) {
-			this.initialize();
+			this.setState({
+				externalId: this.props.match.params.post.substring(this.props.match.params.post.lastIndexOf('M'))
+			},function () {
+				vm.initialize();
+			});
+
 		}
 	}
 
@@ -210,11 +215,11 @@ class Detail extends React.Component {
 										}
 										<span className="controls-date">{product.date}</span>
 										<FavBtn className="controls-btn" faved={product.favorited} type="post" id={product.id}> {product.favorited ? 'Favori İlan' : 'Favorilere Ekle'}</FavBtn>
-										<button className="controls-btn"
-												onClick={() => this.setCompareList()}><i
-											className="icon-compare"/>Karşılaştır
-											({this.props.compareList.data.length})
-										</button>
+										{/*<button className="controls-btn"*/}
+										{/*		onClick={() => this.setCompareList()}><i*/}
+										{/*	className="icon-compare"/>Karşılaştır*/}
+										{/*	({this.props.compareList.data.length})*/}
+										{/*</button>*/}
 										<button className="controls-btn" onClick={() => openModal('share')}><i className="icon-share"></i> Paylaş</button>
 									</div>
 								</div>
@@ -231,14 +236,14 @@ class Detail extends React.Component {
 								<div className="content-left">
 									<DetailGallery product={product} mobile={mobile} onFullScreenChange={vm.setFullScreen} fullScreen={vm.state.galleryFullScreen} />
 									{mobile &&
-									<DetailInfo product={product} mobile={mobile} reservation={reservation} setVehicleToReservation={setVehicleToReservation} history={this.props.history}/>
+									<DetailInfo product={product} mobile={mobile} reservation={reservation} setVehicleToReservation={setVehicleToReservation} history={this.props.history} user={this.props.user}/>
 									}
 									<DetailExtras product={product} mobile={mobile} />
 								</div>
 								{!mobile &&
 									<div className="content-right">
 										<DetailTopInfo product={product} mobile={mobile} />
-										<DetailInfo product={product} mobile={mobile} reservation={reservation} setVehicleToReservation={setVehicleToReservation} history={this.props.history}/>
+										<DetailInfo product={product} mobile={mobile} reservation={reservation} setVehicleToReservation={setVehicleToReservation} history={this.props.history} user={this.props.user}/>
 									</div>
 								}
 							</div>

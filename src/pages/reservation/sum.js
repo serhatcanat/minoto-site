@@ -8,7 +8,6 @@ import Link from 'components/partials/link'
 
 // Deps
 import request from 'controllers/request'
-import { redirect } from 'controllers/navigator'
 import {setDealerData, setProductData} from "../../data/store.ga";
 import {addVehicleToCompare, setVehicleToReservation} from "../../actions";
 import {connect} from "react-redux";
@@ -28,18 +27,19 @@ class Sum extends React.Component {
 
 		const postId = this.props.match.params.id;
 
+
 		request.get(`reservations/${postId}`, {email: this.props.user.email}, function (payload) {
 			if(payload){
-				if(payload.complete){
-
-					redirect('reservation.sum', {id: payload.ref});
-				}
-				else {
+				// if(payload.complete){
+				//
+				// 	redirect('reservation.sum', {id: postId});
+				// }
+				// else {
 					vm.setState({
 						loading: false,
 						reservation: payload
 					});
-				}
+				// }
 			}
 		}, {excludeApiPath: false});
 	}

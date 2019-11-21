@@ -14,7 +14,7 @@ export class DetailCredit extends React.Component {
         this.state = {
             garantiInterest: "1.23",
             garantiInstallment: false,
-            isbankInterest: "1.39",
+            isbankInterest: "1.15",
             isbankInstallment: false,
             productPrice: this.props.product.price ? this.props.product.price : 500000,
             loading: false,

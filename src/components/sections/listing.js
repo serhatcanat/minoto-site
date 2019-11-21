@@ -289,11 +289,9 @@ class Listing extends React.Component {
 		request.get(requestURL, query, function (payload, status) {
 			if (vm.mounted && payload) {
 
-
 				if (payload.redirect) {
 					setTimeout(function () { window.location.href = payload.link; }, 30)
 				}
-
 
 				if (opts.page > 0) {
 					payload.results = vm.props.listingData.results.concat(payload.results);
@@ -306,7 +304,6 @@ class Listing extends React.Component {
 					usedPages.push(parseInt(payload.page))
 				}
 				let searchInput = query.ara ? query.ara : false;
-
 				vm.setState({
 					loading: false,
 					extending: false,
@@ -413,12 +410,15 @@ class Listing extends React.Component {
 		return (
 			<React.Fragment>
 				{/*<section className="section listing-title"><h1>{vm.props.title}</h1></section> */}
-				<section ref={vm.containerRef} className={"section listing loader-container " + vm.props.className + (vm.props.filters ? ' has-filters' : '') + ' size-' + vm.props.size} id={vm.props.id}>
-					<Loader loading={vm.state.loading || !vm.props.listingData} strict={true} />
+				<section ref={vm.containerRef} className={"section listing loader-container " + vm.props.className + (vm.props.filters ? ' has-filters' : '') + ' size-' + vm.props.size} id={vm.props.id} >
+
+
 					{vm.props.filters &&
 						<ListingFilters loading={vm.state.loading} mobile={vm.props.mobile} showMoreBrands={vm.props.showMoreBrands} />
 					}
+
 					<div className={"listing-content type-" + vm.props.listingData.type}>
+						<Loader loading={vm.state.loading || !vm.props.listingData} strict={true} />
 						{(vm.props.topSection || vm.props.mobile) &&
 							<aside className="content-top">
 								{vm.props.mobile &&
@@ -606,7 +606,7 @@ class ListingResults extends React.Component {
 																		badge={(item.status === 1 ? false : (item.status === 2 ? { text: 'Rezerve', note: '02.02.2019 Tarihine Kadar Opsiyonludur' } : { text: 'Satıldı', type: 'error' }))}
 																		bottomNote={(item.currentViewers > 0 ? item.currentViewers + ' kişi Bakıyor' : false)}
 																		url="detail"
-																		urlParams={{ dealer: seoFriendlyUrl(item.dealer), slug: item.slug.substring(0,item.slug.lastIndexOf('-m')), post: item.postNo }}
+																		urlParams={{ dealer: seoFriendlyUrl(item.dealer), slug: item.slug.substring(0,item.slug.lastIndexOf('-M')), post: item.postNo }}
 																		onClick={() => {
 																			GA.send('productClick', {
 																				product: item,

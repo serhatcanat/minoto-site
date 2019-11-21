@@ -24,6 +24,7 @@ import { redirect } from 'controllers/navigator'
 import { openModal } from 'functions/modals'
 import { formatNumber, storageSpace } from 'functions/helpers'
 import { turkishSort } from '../functions/helpers'
+import Breadcrumbs from "../components/partials/breadcrumbs";
 
 // Assets
 
@@ -156,6 +157,20 @@ export default class Brand extends React.Component {
 							<Responsive type="only-web">
 								<Image className="brand-cover" bg src={storageSpace('brands', brand.coverImage)} />
 							</Responsive>
+							<Breadcrumbs className="top-breadcrumbs" data={[
+								{
+									"href": "home",
+									"title": "Anasayfa"
+								},
+								{
+									"href": `/bayiler`,
+									"title": 'Bayiler'
+								},
+								{
+									"href": brand.slug,
+									"title": brand.title
+								},
+							]} />
 							{vm.state.listingQuery &&
 							<Listing
 								className="brand-listing"

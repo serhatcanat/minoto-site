@@ -2,6 +2,7 @@
 @import "../../../mixins";
 
 .btn {
+
   @include font-semibold;
   position: relative;
   border-radius: $radius-general;
@@ -352,6 +353,32 @@
 
     &:hover {
       opacity: 1;
+    }
+  }
+
+  &__cancel-circle{
+    position: absolute;
+    z-index: 50;
+    top: 1.4rem;
+    right: 1.4rem;
+    color: $color-text-negative;
+    background-color: $color-text;
+    width: 2.4rem ;
+    height: 2.4rem;
+    border-radius: 50%;
+    font-size: .8rem;
+    transition: color $transition-hover ease, background-color $transition-hover ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include media {
+      font-size: 1.5rem;
+    }
+
+    &:hover, &:active {
+      color: $color-text;
+      background-color: $color-gray-light;
     }
   }
 }

@@ -28,6 +28,7 @@ class Info extends React.Component {
 		let vm = this;
 		const postId = this.props.match.params.id;
 		request.get(`reservations/${postId}`, {email: this.props.user.email}, function (payload) {
+
 			if(payload){
 				if(payload.complete){
 					redirect('reservation.sum', {id: payload.ref});

@@ -9,7 +9,7 @@ const INIT_STATE = {
 };
 
 const addVehicleToCompareSuccess = (state, action) => {
-    console.log(state);
+
     if(_compareListService.isFull(state.data)){
         state.data.pop();
         return ({

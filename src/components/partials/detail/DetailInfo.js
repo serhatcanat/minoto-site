@@ -33,9 +33,15 @@ export class DetailInfo extends React.Component {
         this.setVehicleToReservation = this.setVehicleToReservation.bind(this)
     }
     setVehicleToReservation(product){
-        const {setVehicleToReservation} = this.props;
-        setVehicleToReservation(product);
-        this.props.history.push(`/rezervasyon/${this.props.product.postNo}`)
+        if(this.props.user){
+            const {setVehicleToReservation} = this.props;
+            setVehicleToReservation(product);
+            this.props.history.push(`/rezervasyon/${this.props.product.postNo}`)
+        }
+        else{
+            openModal('login')
+        }
+
     }
     render() {
         let vm = this;
@@ -44,7 +50,7 @@ export class DetailInfo extends React.Component {
 
         return (
             <div className="detail-info">
-                <h2 className="info-title">{product.title}</h2>
+                <h1 className="info-title">{product.title}</h1>
                 {(product.mainFeatures && product.mainFeatures.length) &&
                 <ul className="info-mainfeatures">
                     {product.mainFeatures.map((feature, nth) => (
@@ -145,7 +151,13 @@ export class DetailInfo extends React.Component {
                 }
                 <div className="info-controls">
                     <div className="controls-buttons">
-                        {product.status === 1 &&
+                        {(product.status === 1 && product.isReservable === true) &&
+                        <Btn className="controls-button reservate" primary hollow uppercase
+                             onClick={() => this.setVehicleToReservation(product)}>
+                            Reserve Et
+                        </Btn>
+                        }
+                        {(product.status === 1 && product.isReservable === false) &&
                         <Btn className="controls-button reservate" primary hollow uppercase
                              note="Bu aracı çok yakında rezerve edebileceksiniz."
                              onClick={() => this.setVehicleToReservation(product)} disabled>
@@ -157,7 +169,7 @@ export class DetailInfo extends React.Component {
                                  note="Bu araç rezerve edilmiştir."
                                  disabled
                                  >
-                                Araç Satılmıştır
+                                Rezerve Edilmiştir
                             </Btn>
                         }
 

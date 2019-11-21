@@ -110,7 +110,7 @@ export default class Contact extends React.Component {
 							</li>
 							<li className="details-item">
 								<strong className="item-heading">Telefon</strong>
-								<span className="item-content"><Link type="a" href="tel:+902122833995">0212 283 39 95</Link></span>
+								<span className="item-content"><Link type="a" href="tel:+902127060001">0212 706 00 01</Link></span>
 							</li>
 							<li className="details-item">
 								<strong className="item-heading">E-Posta</strong>

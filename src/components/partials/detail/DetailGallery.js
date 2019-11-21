@@ -97,10 +97,10 @@ export class DetailGallery extends React.Component {
             </Btn>
             }
             <div className="gallery-mainslider">
-                <button className="mainslider-nav prev" onClick={() => {
+                <button className="mainslider-nav prev" aria-label="Prev Button" onClick={() => {
                     vm.mainSlider.current.prev();
                 }}><i className="icon-angle-left"/></button>
-                <button className="mainslider-nav next" onClick={() => {
+                <button className="mainslider-nav next" aria-label="Next Button" onClick={() => {
                     vm.mainSlider.current.next();
                 }}><i className="icon-angle-right"/></button>
                 <Slider className="mainslider-slider" ref={vm.mainSlider} loop opts={{lazy: true}}

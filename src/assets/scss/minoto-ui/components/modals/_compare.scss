@@ -1,0 +1,176 @@
+@import "../../../variables";
+@import "../../../mixins";
+
+.compare-modal {
+  &--message {
+    color: $color-blue;
+    margin: 2rem 0;
+    display: block;
+    background-color: $color-gray-light;
+    padding: 1rem;
+    font-size: 2rem;
+  }
+
+  .compare-cards {
+    display: flex;
+    flex-wrap: nowrap;
+    @include media() {
+      width: max-content;
+    }
+
+    button {
+      display: block;
+    }
+
+
+    &__item {
+      position: relative;
+      margin: 3vh .6em 3rem;
+      background-color: $color-white;
+      border-radius: $radius-general;
+      width: 20rem;
+      box-shadow: $shadow-general;
+      z-index: 2;
+      transform: translateY(-1.5rem);
+      transition: opacity $transition-anim ease, transform $transition-anim-fast ease;
+      -webkit-backface-visibility: hidden;
+      padding: 1rem;
+
+      h4 {
+        margin-top: .8em;
+        min-height: 4.4rem;
+      }
+
+      img {
+        background-color: $color-gray;
+        width: 100%;
+      }
+
+      .pricetag {
+        margin-top: 1rem;
+        float: right;
+
+        span {
+          color: $color-blue;
+        }
+      }
+
+      button {
+        width: 100%;
+        margin-top: 4rem;
+        height: 3rem;
+        padding: 0;
+        /* margin: 0; */
+        display: block;
+        @include media{
+          margin-top: 0;
+          width: 2.4rem;
+          height: 2.4rem;
+        }
+      }
+
+      .btn__cancel-circle{
+        position: absolute;
+        top: .25em;
+        right: .25em;
+        width: 1.3em;
+        height: 1.3em;
+        i{
+          font-size:.7em;
+        }
+      }
+    }
+  }
+
+  .modal-footer {
+    text-align: right;
+  }
+
+  .scroll-container {
+    -ms-overflow-style: none; // IE 10+
+    scrollbar-width: none; // Firefox
+    overflow: auto;
+    @include media{
+      overflow: unset;
+    }
+  }
+
+  .container {
+
+  }
+
+  .container::-webkit-scrollbar {
+    display: none; // Safari and Chrome
+  }
+
+
+}
+
+// Responsive compare-modal-container
+
+@include media {
+  .modal-compare {
+    .modal-content{
+      border-radius: 0;
+      position: absolute;
+      bottom: 0;
+      margin:0;
+      width: 100%;
+      max-width: 100%;
+    }
+    .compare-modal{
+      &--message{
+        color: $color-text;
+        opacity: .5;
+        background-color: transparent;
+        font-size: 16px;
+        padding: 0;
+        @include media{
+          margin-top: .5em;
+        }
+      }
+      .compare-cards{
+        flex-direction: row;
+        justify-content: space-between;
+        position: relative;
+        flex-wrap: wrap;
+        width: 100%;
+        max-width: 100%;
+        &__item{
+          border: 1px solid $color-gray-light;
+          min-width: 45%;
+          width: 47%;
+          margin: 1em 0 0;
+          padding: 0;
+          color: $color-text;
+          box-shadow: none;
+          h4{
+            font-size: 14px;
+            margin-top: 0;
+            padding: .6em .9em 0 .9em;
+          }
+          .pricetag{
+            font-size: 18px;
+            font-weight: 600;
+            float: left;
+            padding-left: .8em;
+            padding-bottom: .6em;
+            margin-top: 0;
+          }
+        }
+      }
+      .modal-footer{
+        button{
+          width: 100%;
+          font-size: 18px;
+        }
+      }
+    }
+  }
+}
+
+
+
+
+
+

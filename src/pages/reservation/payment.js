@@ -8,6 +8,7 @@ import ReservationSidebar from 'components/partials/reservation/sidebar'
 import {FormInput, InputForm} from 'components/partials/forms'
 import Collapse from 'components/partials/collapse'
 import Btn from 'components/partials/btn'
+import {pushMessage} from 'controllers/messenger'
 // Functions
 import {serializeArray} from 'functions/helpers'
 // Deps
@@ -52,7 +53,7 @@ class Payment extends React.Component {
 			cardType: false,
 			cvcLength: false,
 			adData: [],
-			submitMode: false,
+			submitMode: true,
 			selectedAddress: false,
 		}
 
@@ -60,7 +61,6 @@ class Payment extends React.Component {
 		this.pay = this.pay.bind(this);
 		this.changeSubmitStatus = this.changeSubmitStatus.bind(this);
 		this.setSelectedAddress = this.setSelectedAddress.bind(this);
-
 		this.paymentForm = React.createRef();
 	}
 
@@ -70,7 +70,9 @@ class Payment extends React.Component {
 
 		request.get(`reservations/${postId}`, {email: this.props.user.email}, function (payload) {
 			if(payload){
-
+				if(payload.complete === true){
+					vm.props.history.push('')
+				}
 				if(payload.product.status === 2){
 					redirect('reservation.sum', {id: payload.ref});
 				}
@@ -82,6 +84,7 @@ class Payment extends React.Component {
 				}
 			}
 		}, {excludeApiPath: false});
+
 	}
 
 	changeSubmitStatus(status) {
@@ -150,11 +153,19 @@ class Payment extends React.Component {
 				'cvc':cardCvc
 			}, function (payload,status) {
 				if(payload){
-					vm.props.history.push(`/rezervasyon/${vm.props.match.params.id}/ozet`,{invoiceInfo:payload});
+					if(payload.status === "200"){
+						pushMessage('Ödemeniz başarıyla gerçekleşmiştir.');
+						vm.props.history.push(`/rezervasyon/${vm.props.match.params.id}/ozet`,{invoiceInfo:payload});
+					}
+					else{
+						pushMessage(payload.message, { type: "error" });
+						vm.setState({
+							loading:false
+						})
+					}
+
 				}
-				vm.setState({
-					loading: true
-				})
+
 			}, {excludeApiPath: false});
 		}
 	}
@@ -279,7 +290,7 @@ class Payment extends React.Component {
 				</div>
 				}
 				{reservation &&
-				<ReservationSidebar onProceed={this.pay} section="payment" reservation={reservation}
+					<ReservationSidebar onProceed={this.pay} section="payment" reservation={reservation}
 									disableProp={this.state.submitMode}/>
 				}
 			</div>
@@ -292,7 +303,6 @@ class BillingInfo extends React.Component {
 	constructor(props) {
 		super(props);
 		let selectedAddress = this.getSelectedAddress();
-
 		this.error = "Geçerli bir fatura adresi girmelisiniz";
 
 		this.state = {
@@ -319,6 +329,9 @@ class BillingInfo extends React.Component {
 			this.props.onChangeInForm(this.state.value, this.props.name, this.state.error, this.state.touched);
 		}
 		this.props.setSelectedAddress(selectedAddress);
+		if(this.state.selectedAddress){
+			this.props.changeSubmitStatus(false);
+		}
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -401,7 +414,7 @@ class BillingInfo extends React.Component {
 							<Loader loading={!this.state.addresses} />
 							{this.state.newAddressMode ?
 								<div className="content-newaddress">
-									<NewAddressForm onSave={this.updateAddresses} />
+									<NewAddressForm onSave={this.updateAddresses} changeSubmitStatus={this.props.changeSubmitStatus}/>
 								</div>
 								:
 								<div className="content-addresses">
@@ -419,7 +432,7 @@ class BillingInfo extends React.Component {
 															<div className="address-content">
 																<strong className="address-title">
 																	{address.title}
-																	<span>* {address.type === 1 ? "Bireysel" : "Kurumsal"}</span>
+																	<span>* {address.type === 'individual' ? "Bireysel" : "Kurumsal"}</span>
 																</strong>
 
 																<div className="address-info">
@@ -508,6 +521,7 @@ class NewAddressForm extends React.Component {
 			if(payload){
 				if(vm.props.onSave){
 					vm.props.onSave(payload);
+					vm.props.changeSubmitStatus(false);
 				}
 			}
 		}, {excludeApiPath: false});

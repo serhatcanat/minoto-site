@@ -35,7 +35,7 @@
 		&.has-filters {
 			.listing-content {
 				width: calc(100% - 28rem);
-
+				z-index: 4;
 				@include media {
 					width: 100%;
 				}
@@ -44,14 +44,14 @@
 			.listing-filters {
 				width: 28rem;
 				border-right: .1rem solid $color-gray-light;
-
+				z-index: 5;
 				@include media {
 					width: 100%;
 				}
 			}
 		}
 
-		
+
 
 		&.size-5 {
 			.results-item{
@@ -366,9 +366,9 @@
 									width: 60vw;
 									height: 25.6rem;
 								}
-								
+
 							}
-							
+
 						}
 
 						.banner-youtube {
@@ -434,7 +434,7 @@
 								line-height: 1.3em;
 								overflow: hidden;
 								z-index: 0;
-								
+
 								.inner-triangle{
 									border-left: 25rem solid transparent;
 									border-right: 29rem solid #092C7F;
@@ -449,7 +449,7 @@
 										display: none;
 									}
 								}
-								
+
 							}
 
 							.content-title {
@@ -732,9 +732,9 @@
 							}
 						}
 					}
-					
+
 				}
-				
+
 
 					.filter-item {
 						padding: 1rem 1rem;
@@ -750,7 +750,7 @@
 							align-items: center;
 						}
 
-							
+
 
 						.title-count {
 							color: $color-text-light;
@@ -805,7 +805,7 @@
 							border-top: .1rem solid $color-gray;
 
 						/* 	&.expandable {
-								
+
 							} */
 
 							.inputwrap {
@@ -1043,7 +1043,7 @@
 									fill: $color-primary;
 								}
 							}
-							
+
 						}
 					}
 
@@ -1064,7 +1064,7 @@
 			}
 
 			&.type-range {
-				
+
 
 					.inputs-inputwrap {
 						width: 7rem;
@@ -1112,7 +1112,7 @@
 						}
 					}
 				}
-				
+
 					.inputs-submit {
 						position: absolute;
 						right: 1.9rem;
@@ -1157,10 +1157,10 @@
 					//max-height: 34rem;
 					min-height: 50px;
 				}
-				
+
 			}
-			
-			
+
+
 	}
 }
 

@@ -12,7 +12,7 @@ export class DetailTopInfo extends React.Component {
         const product = this.props.productData;
 
         const storedList = this.props.compareList.data;
-        console.log(product,storedList);
+
         const _compareListService = new CompareListService();
 
         if (!_compareListService.isExist(product,storedList)){
@@ -47,14 +47,14 @@ export class DetailTopInfo extends React.Component {
             </div>
             {this.props.mobile &&
             <div className={"topinfo-controls"}>
-                <button className="controls-btn"
-                        onClick={() => this.setCompareList()}><i
-                    className="icon-compare"/>
-                    <span>
-                        ({ this.props.compareList.data.length})
-                    </span>
-                </button>
-                <button className="controls-btn" onClick={() => openModal('share')}><i className="icon-share"/></button>
+                {/*<button className="controls-btn"*/}
+                {/*        onClick={() => this.setCompareList()}><i*/}
+                {/*    className="icon-compare" aria-label="Karşılaştır"/>*/}
+                {/*    <span>*/}
+                {/*        ({ this.props.compareList.data.length})*/}
+                {/*    </span>*/}
+                {/*</button>*/}
+                <button className="controls-btn" onClick={() => openModal('share')} aria-label="Paylaş"><i className="icon-share"/></button>
                 <FavBtn className="controls-btn" faved={favorited} type={"post"} id={id}/>
             </div>
             }

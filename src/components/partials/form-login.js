@@ -88,7 +88,6 @@ export default class LoginForm extends React.Component {
 
 	submit(e) {
 		let vm = this;
-
 		vm.setState({
 			loading: true,
 		})
@@ -146,7 +145,6 @@ export default class LoginForm extends React.Component {
 		vm.setState({
 			loading: true,
 		});
-
 		socialLogin(response, 'google', function (payload) {
 			if (vm._isMounted) {
 				vm.setState({
@@ -167,12 +165,12 @@ export default class LoginForm extends React.Component {
 	}
 
 	render() {
+
 		let vm = this;
 
 		return (
 			<div className={"section loginform type-" + vm.props.type}>
 				<h2 className="loginform-title">Giriş yap</h2>
-
 				<InputForm className="loginform-form" onSubmit={this.submit}>
 					{vm.state.message &&
 						<div className={"loginform-message " + (vm.state.success ? 'success' : 'error')}>
@@ -225,7 +223,7 @@ export default class LoginForm extends React.Component {
 						isMobile={false}
 						buttonText="LOGIN WITH GOOGLE"
 						onSuccess={this.responseGoogle}
-						onFailure={this.responseGoogle}
+
 						render={renderProps => (
 							<Btn className="others-opt google" onClick={renderProps.onClick} icon="google" block>Google ile Giriş Yapın</Btn>
 						)}

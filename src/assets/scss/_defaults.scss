@@ -25,7 +25,7 @@ html{
     -webkit-tap-highlight-color: transparent;
     text-rendering: optimizeLegibility !important;
 	-webkit-font-smoothing: antialiased !important;
-	-moz-osx-font-smoothing: grayscale !important; 
+	-moz-osx-font-smoothing: grayscale !important;
 	//background-color: $color-black;
 }
 
@@ -95,6 +95,7 @@ body{
 
 	@include media {
 		min-height: calc(100vh - 5rem);
+		padding-top: 4em;
 	}
 }
 

@@ -20,7 +20,7 @@ class InstagramBanner extends React.Component {
 	render() {
 		return (
 			<a className="banner-instagram" target="_blank" rel="noopener noreferrer" href={config.social.instagramURL}>
-				{/* 
+				{/*
 					<div className="instagram-text">
 					<strong>Instagram</strong>'da'<br />
 					bizi takip <br />
@@ -37,7 +37,7 @@ class BlogBanner extends React.Component {
 	render() {
 		return (
 			<a className="banner-instagram" href="/blog">
-				{/* 
+				{/*
 					<div className="instagram-text">
 					<strong>Instagram</strong>'da'<br />
 					bizi takip <br />
@@ -61,7 +61,6 @@ class YoutubeBanner extends React.Component {
 					</h3>
 					<p className="text-subheading">Güncel içerik ve test videoları</p>
 				</div>
-
 				<Image className="youtube-image" src={image_youtube} />
 			</a>
 		)
