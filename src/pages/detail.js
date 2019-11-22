@@ -208,7 +208,6 @@ class Detail extends React.Component {
 											"title": "Ambiente"
 										} */
 									]} />
-
 									<div className="top-controls">
 										{(product.activeViewers && product.activeViewers > 0) &&
 											<span className="controls-viewers" style={{ opacity: '0' }}>{product.activeViewers} kişi bakıyor</span>
