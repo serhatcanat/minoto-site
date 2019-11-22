@@ -154,14 +154,14 @@ export class DetailInfo extends React.Component {
                         {(product.status === 1 && product.isReservable === true) &&
                         <Btn className="controls-button reservate" primary hollow uppercase
                              onClick={() => this.setVehicleToReservation(product)}>
-                            Reserve Et
+                            Rezerve Et
                         </Btn>
                         }
                         {(product.status === 1 && product.isReservable === false) &&
                         <Btn className="controls-button reservate" primary hollow uppercase
                              note="Bu aracı çok yakında rezerve edebileceksiniz."
                              onClick={() => this.setVehicleToReservation(product)} disabled>
-                            Reserve Et
+                            Rezerve Et
                         </Btn>
                         }
                         {product.status === 2 &&
