@@ -21,7 +21,6 @@ export class DetailCredit extends React.Component {
             error: false,
             month: 36,
             amount: false,
-
         };
         this.calculateInstallments = this.calculateInstallments.bind(this);
         this.calculateMaxCredit = this.calculateMaxCredit.bind(this);
