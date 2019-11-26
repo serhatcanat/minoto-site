@@ -625,6 +625,7 @@
 			overflow-y: auto;
 
 			@include media {
+				margin-top: 3.2em;
 				padding-bottom: 0;
 			}
 		}

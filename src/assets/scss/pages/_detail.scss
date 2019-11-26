@@ -551,10 +551,14 @@
 							width: calc(50% - 3rem);
 
 							@include media {
+								margin-top: 2em;
 								width: auto;
 							}
 
 							+ .specslist-group + .specslist-group {
+								@include media{
+									margin-top: 2em;
+								}
 								margin-top: 3.6rem;
 							}
 						}
