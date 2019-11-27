@@ -20,7 +20,7 @@ context('Car Filter', () => {
                 let $selected = Math.floor(Math.random() * $motorCount) + 1;
                 cy.get('div button:contains("Motor Hacmi")').siblings('.filter-content').children('ul').find('li:nth-child(' + 2  + ')').click();//TODO:add $selected variable here
                 cy.wait(3000);
-                cy.get('div.filters-header h1').then(($text) => {
+                cy.get('div.filters-header span').then(($text) => {
                     let $numberStr = $text.text().replace(/[^\d.]/g, '');
                     let $cars = parseInt($numberStr);
                     Cypress.env({
@@ -53,7 +53,7 @@ context('Car Filter', () => {
             });
         });
         it('.should() - clear filters', () => {
-            cy.get('div.filters-header h1').then(($text) => {
+            cy.get('div.filters-header span').then(($text) => {
                 var $numberStr = $text.text().replace(/[^\d.]/g, '');
                 var $carCount = parseInt($numberStr);
                 Cypress.env({
@@ -77,7 +77,7 @@ context('Car Filter', () => {
             });
             cy.get('.header-clear').click().then(() => {
                 cy.wait(500);
-                cy.get('div.filters-header h1').should(($h1) => {
+                cy.get('div.filters-header span').should(($h1) => {
                     expect($h1).to.contain(Cypress.env('total'))
                 })
             });
