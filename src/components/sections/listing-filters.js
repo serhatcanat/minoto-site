@@ -968,9 +968,6 @@ class FilterTypeRange extends React.Component {
 	};
 
 	update() {
-		const vm = this;
-		let opts = [this.state.opts];
-
 		this.setState({ synced: true });
 		this.props.onUpdate();
 	}
