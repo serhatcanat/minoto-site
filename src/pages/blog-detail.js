@@ -73,7 +73,6 @@ export default class BlogDetail extends React.Component {
 				{data &&
 					<section className="section blog-detail">
 						<Image className="detail-image" src={storageSpace('articles', data.image)} mobile={storageSpace('articles', data.mobileImage)} />
-
 						<Responsive type="only-web">
 							<Breadcrumbs className="detail-breadcrumbs" standalone>
 								<Link href="blog">Blog</Link>
