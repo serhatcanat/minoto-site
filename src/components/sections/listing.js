@@ -760,7 +760,6 @@ class ActiveFilters extends React.Component {
 									</React.Fragment>
 								)
 							}
-
 						</React.Fragment>
 					))}
 				</div>

@@ -939,6 +939,7 @@ class FilterTypeRange extends React.Component {
 
 		//this.update = debounce(this.update.bind(this), 500);
 		this.update = this.update.bind(this);
+		this.numberWithCommas = this.numberWithCommas.bind(this);
 	}
 
 	componentDidUpdate(prevProps) {
@@ -949,15 +950,26 @@ class FilterTypeRange extends React.Component {
 
 	handleChange(e, nth) {
 		let newOpts = clone(this.state.opts);
+		const patt = /^\d*\.?\d*$/i;
 		if (newOpts[nth].value !== e.target.value) {
-			newOpts[nth].value = e.target.value;
-
-			this.setState({ opts: newOpts, synced: false });
+			if(e.target.value.match(patt)){
+				newOpts[nth].value = this.numberWithCommas(e.target.value);
+				this.setState({ opts: newOpts, synced: false });
+			}
 			//this.update();
 		}
 	}
 
+	numberWithCommas = x => {
+		const seperator = '.';
+		x = x.replace(seperator,'');
+		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, seperator)
+	};
+
 	update() {
+		const vm = this;
+		let opts = [this.state.opts];
+
 		this.setState({ synced: true });
 		this.props.onUpdate();
 	}
@@ -973,7 +985,7 @@ class FilterTypeRange extends React.Component {
 					<div className="inputs-inputwrap" key={nth}>
 						<input
 							name={`${opt.name}`}
-							type="number"
+							type="text"
 							value={(opt.value ? opt.value : '')}
 							placeholder={opt.text}
 							onChange={(e) => vm.handleChange(e, nth)}
@@ -1035,7 +1047,6 @@ class FilterTypeText extends React.Component {
 					<input className="inputs-input" name={data.name} type="text" value={this.state.value ? this.state.value : ''} placeholder={data.title} onChange={vm.handleChange} />
 					<button className="inputs-submit" type="button" onClick={this.update}><i className="icon-search"></i></button>
 				</div>
-
 			</div>
 		)
 	}
