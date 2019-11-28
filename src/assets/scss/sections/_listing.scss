@@ -1163,9 +1163,36 @@
 
 
 	}
+	.content-results{
+		@include media{
+			.banner{
+				&-hr{
+					height: 100%;
+				}
+				&-youtube{
+					height: 100%;
+				}
+
+				&-instagram{
+					@media screen and (orientation:landscape) {
+						height: 100%;
+						.imagewrap-image{
+							width: 100% !important;
+							height: 100% !important;
+						}
+					}
+				}
+			}
+
+		}
+
+	}
+
 }
 
 .inputwrap.type-checkbox .checkwrap input + label:hover{
 	color: $color-blue;
 	text-decoration: underline;
 }
+
+

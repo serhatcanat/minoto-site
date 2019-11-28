@@ -1,5 +1,4 @@
 import React from 'react';
-
 //Deps
 import defaults from "data/config"
 import { loadScript, isDefined, uid } from 'functions/helpers'
@@ -34,7 +33,7 @@ class GoogleMap extends React.PureComponent{
 			mapTypeControl: false,
 			mapOpts: false,
 		};
-		
+
 		this.mapInstance = null;
 		this.markers = {};
 		this.bounds = false;
@@ -149,7 +148,7 @@ class GoogleMap extends React.PureComponent{
 	}
 
 	clearMarkers() {
-		for(let key in this.markers) { 
+		for(let key in this.markers) {
 			this.removeMarker(key);
 		}
 	}
@@ -210,7 +209,7 @@ class GoogleMap extends React.PureComponent{
 
 	render() {
 		let vm = this;
-		
+
 		return (
 			<div className={"google-map" + (vm.state.loading || vm.props.loading ? ' loading' : '') + (vm.props.className ? ' '+vm.props.className : '')}>
 				<div className="map-container" ref={vm.mapContainer}></div>

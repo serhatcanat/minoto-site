@@ -67,20 +67,18 @@ export default class BlogDetail extends React.Component {
 
 	render() {
 		let data = this.state.blogData;
-
 		return (
 			<main className="page blog-detail loader-container">
 				<Loader loading={!data} strict />
 				{data &&
 					<section className="section blog-detail">
 						<Image className="detail-image" src={storageSpace('articles', data.image)} mobile={storageSpace('articles', data.mobileImage)} />
-
 						<Responsive type="only-web">
 							<Breadcrumbs className="detail-breadcrumbs" standalone>
 								<Link href="blog">Blog</Link>
 								{
 									data.tags.length ? (
-										<Link href="blog" params={{ action: data.tags[0].tagSlug }}>{data.tags[0].tag}</Link>
+										<Link href={`/blog?kategori=${data.tags[0].tagSlug}`} params={{ action: data.tags[0].tagSlug }}>{data.tags[0].tag}</Link>
 									) : ''
 								}
 

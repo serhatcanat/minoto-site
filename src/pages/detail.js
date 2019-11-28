@@ -213,13 +213,13 @@ class Detail extends React.Component {
 											<span className="controls-viewers" style={{ opacity: '0' }}>{product.activeViewers} kişi bakıyor</span>
 										}
 										<span className="controls-date">{product.date}</span>
-										<FavBtn className="controls-btn" faved={product.favorited} type="post" id={product.id}> {product.favorited ? 'Favori İlan' : 'Favorilere Ekle'}</FavBtn>
+										<FavBtn className="controls-btn " faved={product.favorited} type="post" id={product.id}> {product.favorited ? 'Favori İlan' : 'Favorilere Ekle'}</FavBtn>
 										{/*<button className="controls-btn"*/}
 										{/*		onClick={() => this.setCompareList()}><i*/}
 										{/*	className="icon-compare"/>Karşılaştır*/}
 										{/*	({this.props.compareList.data.length})*/}
 										{/*</button>*/}
-										<button className="controls-btn" onClick={() => openModal('share')}><i className="icon-share"></i> Paylaş</button>
+										<button className="controls-btn share-button" onClick={() => openModal('share')}><i className="icon-share"></i> Paylaş</button>
 									</div>
 								</div>
 							}

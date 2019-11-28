@@ -105,8 +105,6 @@ export default class Blog extends React.Component {
 	render() {
 		let categories = this.state.categories;
 		let results = this.state.results;
-
-
 		return (
 			<main className="page blog loader-container">
 				<Loader loading={this.state.loading} strict />
