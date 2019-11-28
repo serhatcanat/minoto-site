@@ -54,7 +54,7 @@ export class DetailTopInfo extends React.Component {
                 {/*        ({ this.props.compareList.data.length})*/}
                 {/*    </span>*/}
                 {/*</button>*/}
-                <button className="controls-btn" onClick={() => openModal('share')} aria-label="Paylaş"><i className="icon-share"/></button>
+                <button className="controls-btn share-button" onClick={() => openModal('share')} aria-label="Paylaş"><i className="icon-share"/></button>
                 <FavBtn className="controls-btn" faved={favorited} type={"post"} id={id}/>
             </div>
             }
