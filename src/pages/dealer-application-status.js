@@ -9,7 +9,6 @@ export default class Faq extends React.Component {
         }
     }
 
-
     render() {
         return (
             <main className="page content">

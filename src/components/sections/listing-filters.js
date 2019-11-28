@@ -558,6 +558,7 @@ class BrandsFilterItemRaw extends React.Component {
 					{data.count && <span className="item-count">({data.count})</span>}
 				</span>
 				:
+
 				<Link href={urlRoot} query={vm.props.filterQuery}>
 					{data.title}
 					{data.count && <span className="item-count">({data.count})</span>}
