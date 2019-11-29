@@ -52,7 +52,7 @@ export default class GdprPolicy extends React.Component {
                                     <strong>Genel Müdürlük:</strong> Maltepe Mh. Litros Yolu Sk. No.3-1 Topkapı 34010 Zeytinburnu – İstanbul
                                 </p>
                                 <p className="indent noMargin">
-                                    <strong>Çağrı Merkezi:</strong> 02122833995
+                                    <strong>Çağrı Merkezi:</strong> 0212 706 00 01
 
                                 </p>
                                 <p className="indent noMargin"><small><em>(Çalışma saatleri hafta içi 09:00 - 12:00, 13:00 - 17:00  arasındadır. )</em></small></p>
