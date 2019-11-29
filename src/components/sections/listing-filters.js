@@ -21,6 +21,7 @@ import { connect } from "react-redux"
 import { setFiltersExpansion, setFilterQuery } from 'data/store.listing'
 import { blockOverflow } from "functions/helpers"
 import loader from 'assets/images/minoto-loading.gif'
+import {formatMoney} from "../../functions";
 
 const mapStateToProps = state => {
 	return {
@@ -940,7 +941,6 @@ class FilterTypeRange extends React.Component {
 
 		//this.update = debounce(this.update.bind(this), 500);
 		this.update = this.update.bind(this);
-		this.numberWithCommas = this.numberWithCommas.bind(this);
 	}
 
 	componentDidUpdate(prevProps) {
@@ -951,21 +951,16 @@ class FilterTypeRange extends React.Component {
 
 	handleChange(e, nth) {
 		let newOpts = clone(this.state.opts);
-		const patt = /^\d*\.?\d*$/i;
+		const seperator = '.';
+		const formattedPrice = formatMoney(e.target.value.split(seperator).join(''),0,seperator,seperator);
 		if (newOpts[nth].value !== e.target.value) {
-			if(e.target.value.match(patt)){
-				newOpts[nth].value = this.numberWithCommas(e.target.value);
-				this.setState({ opts: newOpts, synced: false });
-			}
+			newOpts[nth].value = formattedPrice;
+			this.setState({ opts: newOpts, synced: false });
 			//this.update();
 		}
 	}
 
-	numberWithCommas = x => {
-		const seperator = '.';
-		x = x.replace(seperator,'');
-		return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, seperator)
-	};
+
 
 	update() {
 		this.setState({ synced: true });

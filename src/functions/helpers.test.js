@@ -1,4 +1,4 @@
-import {apiPath, formatNumber, isDefined, seoFriendlyUrl, serializeArray, storageSpace} from "./helpers";
+import {apiPath, formatMoney, formatNumber, isDefined, seoFriendlyUrl, serializeArray, storageSpace} from "./helpers";
 import {apiBase, storagePath} from "../config";
 import React from 'react'
 import Adapter from 'enzyme-adapter-react-16';
@@ -45,36 +45,21 @@ describe('Storage space', () => {
             expect(storageSpace('media.png',value)).toBe(false);
         });
     });
+});
 
+describe('Format money', () => {
+    test('Billion with decimal', () => {
+        expect(formatMoney(3000000,2,'.',',')).toBe('3,000,000.00');
+    });
 
+    test('Billion without decimal', () => {
+        expect(formatMoney(3000000,0,'.',',')).toBe('3,000,000');
+    });
 });
 
 test('Is api path valid', () => {
     expect(apiPath('samplePath')).toBe(`${apiBase}samplePath`);
 });
 
-
-export class TestForm extends React.Component {
-    constructor(props) {
-        super(props)
-        this.onTest = this.onTest.bind(this);
-    }
-
-    onTest(e){
-        console.log('test');
-        console.log(e.target);
-    }
-
-    render() {
-
-        return (
-            <form className='testForm' onSubmit={this.onTest}>
-                <input name='dname' value='test val'/>
-                <input name='dname1' value='test val 1'/>
-                <button type='submit'>Test Btn</button>
-            </form>
-        )
-    }
-}
 
 
