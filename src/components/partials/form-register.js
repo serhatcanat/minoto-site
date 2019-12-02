@@ -21,6 +21,7 @@ export default class RegisterForm extends React.Component {
 			touched: false,
 			promoChecked: false,
 			email: "-",
+			hasError: false,
 		}
 
 		//this._registerUser = this._registerUser.bind(this);
@@ -35,12 +36,22 @@ export default class RegisterForm extends React.Component {
 		});
 
 		register(e.target, function (payload) {
-			vm.setState({
-				success: payload.success,
-				loading: false,
-				message: payload.message,
-				email: e.target.elements.email.value,
-			});
+			if(payload.success === true){
+				vm.setState({
+					success: payload.success,
+					loading: false,
+					message: payload.message,
+					email: e.target.elements.email.value,
+				});
+			}
+			else {
+				vm.setState({
+					loading: false,
+					message: payload.message,
+					hasError: true
+				});
+			}
+
 
 			/*if (payload.success) {
 				setTimeout(function () {
