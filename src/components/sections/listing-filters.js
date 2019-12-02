@@ -933,12 +933,11 @@ class FilterTypeIcons extends React.Component {
 
 class FilterTypeRange extends React.Component {
 	constructor(props) {
-		super(props)
+		super(props);
 		this.state = {
 			opts: clone(props.data.opts),
 			synced: true,
-		}
-
+		};
 		//this.update = debounce(this.update.bind(this), 500);
 		this.update = this.update.bind(this);
 	}
@@ -959,8 +958,6 @@ class FilterTypeRange extends React.Component {
 			//this.update();
 		}
 	}
-
-
 
 	update() {
 		this.setState({ synced: true });
