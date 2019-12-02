@@ -1065,14 +1065,14 @@
 			}
 
 			&.type-range {
-
-
 					.inputs-inputwrap {
-						width: 7rem;
+						width: 7.8rem;
 						font-size: 1.5rem;
 						display: inline-block;
 						position: relative;
-
+						@include media{
+							width: 10rem;
+						}
 						+ .inputs-inputwrap {
 							margin-left: 2rem;
 
@@ -1097,6 +1097,12 @@
 					}
 
 					.inputs-submit {
+						@include media{
+							width: 100%;
+							margin-left: 0;
+							margin-top: 1rem;
+							margin-bottom: 3rem;
+						}
 						line-height: 3rem;
 						padding: .2rem 1rem;
 						margin-left: 1.2rem;
