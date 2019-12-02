@@ -896,11 +896,12 @@ class FilterTypeIcons extends React.Component {
 		let vm = this;
 		let data = vm.props.data;
 		let opts = vm.state.opts;
+		console.log(opts);
 		return (
 			<ul className="filter-list">
 				{opts.map((opt, nth) => {
-					let id = 'filter_input' + vm.props.data.name + '_' + nth;
 
+					let id = 'filter_input' + vm.props.data.name + '_' + nth;
 					return (
 						<li className="filter-item" key={nth}>
 							<input

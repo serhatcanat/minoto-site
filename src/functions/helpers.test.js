@@ -1,8 +1,7 @@
-import {apiPath, formatMoney, formatNumber, isDefined, seoFriendlyUrl, serializeArray, storageSpace} from "./helpers";
+import {apiPath, formatMoney, formatNumber, isDefined, seoFriendlyUrl, storageSpace} from "./helpers";
 import {apiBase, storagePath} from "../config";
-import React from 'react'
 import Adapter from 'enzyme-adapter-react-16';
-import {configure, mount, shallow} from "enzyme";
+import {configure} from "enzyme";
 
 configure({adapter: new Adapter()});
 
