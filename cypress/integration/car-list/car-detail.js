@@ -1,7 +1,6 @@
 context('Car Filter', () => {
     beforeEach(() => {
         cy.visit('localhost:3000')
-        cy.wait(3000);
     });
     describe('test the car detail urls',()=>{
         it('.should() - check a sample of car detail urls and look if there is % in them',()=>{

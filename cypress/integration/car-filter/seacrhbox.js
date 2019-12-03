@@ -28,7 +28,7 @@ context('Car Filter', () => {
             "Chery",
             "Chevrolet",
             "Chrysler",
-            "Citroën",
+            "Citroen",
             "Dacia",
             "Daewoo",
             "Daihatsu",

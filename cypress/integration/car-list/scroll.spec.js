@@ -1,6 +1,7 @@
 context('Car List', () => {
     beforeEach(() => {
-        cy.visit('localhost:3000')
+        cy.visit('localhost:3000');
+        cy.server();
     });
 
     describe('Scroll Car Load Test', () => {
@@ -9,9 +10,11 @@ context('Car List', () => {
             cy.get('ul.content-results').children().children('.contentbox')
                 .should('have.length', 24);
             cy.scrollTo('bottom');
-            cy.wait(3000);
-            cy.get('ul.content-results').children().children('.contentbox')
-                .should('have.length', 48);
+            cy.route('https://beta-api.minoto.com/v1/shared/*').as('cars');
+            cy.wait('@cars').then(()=>{
+                cy.get('ul.content-results').children().children('.contentbox')
+                    .should('have.length', 48);
+            });
         });
     });
 });

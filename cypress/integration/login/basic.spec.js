@@ -1,6 +1,6 @@
 /// <reference types="Cypress" />
 
-context('Aliasing', () => {
+context('Login', () => {
     beforeEach(() => {
         cy.visit('localhost:3000')
     });

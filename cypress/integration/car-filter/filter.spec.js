@@ -3,7 +3,7 @@ context('Car Filter', () => {
         cy.visit("http://localhost:3000/markalar");
         cy.server();
     });
-    describe('Filter Car List Test', () => {
+    describe('Car Brand List Test', () => {
         it('should() - visit a brand page', () => {
 
             cy.get('div.listing-content ul.content-results').then((ul) => {
@@ -25,30 +25,28 @@ context('Car Filter', () => {
                 })
             });
         });
-        it('should() - contain cars of the selected brand in the brand page', ()=>{
-            cy.visit("http://localhost:3000"+Cypress.env('brand_url')).then(()=>{
-                cy.wait(3000).then(()=>{
-                    cy.get('div.listing-content ul.content-results li').should(($lis)=>{
-                        if(Cypress.env('car_count')<24){
-                            expect($lis).to.have.length(Cypress.env('car_count'));
-                        }else{
-                            expect($lis).to.have.length(24);//TODO:change this after scroll
-                        }
+        it('should() - contain cars of the selected brand in the brand page', () => {
+            cy.visit("http://localhost:3000" + Cypress.env('brand_url')).then(() => {
+                cy.get('div.listing-content ul.content-results li').should(($lis) => {
+                    if (Cypress.env('car_count') < 24) {
+                        expect($lis).to.have.length(Cypress.env('car_count'));
+                    } else {
+                        expect($lis).to.have.length(24);//TODO:change this after scroll
+                    }
 
-                    });
-                    let $count = 0;
-                    cy.get('div.listing-content ul.content-results li').each(($li)=>{
-                        console.log($li.find('div.contentbox a.contentbox-innerwrap div.contentbox-content .contentbox-title').text().toLowerCase())
-                        if($li.find('div.contentbox a.contentbox-innerwrap div.contentbox-content .contentbox-title').text().toLowerCase().includes(Cypress.env('brand_name').toLowerCase())){
-                            $count++;
-                        }
-                    }).then(()=>{
-                        if(Cypress.env('car_count')<24){
-                            expect($count).to.equal(Cypress.env('car_count'))
-                        }else{
-                            expect($count).to.equal(24)
-                        }
-                    })
+                });
+                let $count = 0;
+                cy.get('div.listing-content ul.content-results li').each(($li) => {
+                    console.log($li.find('div.contentbox a.contentbox-innerwrap div.contentbox-content .contentbox-title').text().toLowerCase())
+                    if ($li.find('div.contentbox a.contentbox-innerwrap div.contentbox-content .contentbox-title').text().toLowerCase().includes(Cypress.env('brand_name').toLowerCase())) {
+                        $count++;
+                    }
+                }).then(() => {
+                    if (Cypress.env('car_count') < 24) {
+                        expect($count).to.equal(Cypress.env('car_count'))
+                    } else {
+                        expect($count).to.equal(24)
+                    }
                 })
             })
         })
