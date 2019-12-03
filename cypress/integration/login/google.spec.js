@@ -1,4 +1,4 @@
-context('Aliasing', () => {
+context('Social Login', () => {
     beforeEach(() => {
         cy.visit('localhost:3000');
     });
