@@ -49,6 +49,7 @@
     "eject": "react-scripts eject",
     "sitemap": "node ./worker/create-sitemap.js",
     "cypress:open": "cypress open",
+    "cypress:test": "cypress run",
     "cypress:run": "cypress run --record --key 5ae17141-4556-4479-9b71-01d7c2dac627",
     "ci:cypress-run": "start-server-and-test start http://localhost:3000 cypress:run",
     "lint": "eslint src/**/*.js --max-warnings 5",
