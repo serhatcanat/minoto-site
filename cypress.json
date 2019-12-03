@@ -1,4 +1,7 @@
 {
   "projectId": "uocrbk",
-  "ignoreTestFiles": "**/examples/*.js"
+  "ignoreTestFiles":[
+    "**/examples/*.js",
+    "**/login/*.js"
+  ]
 }
