@@ -569,6 +569,35 @@
 						}
 					}
 
+			.tab-equipmentlist {
+				table {
+					.icon-check-thin {
+						color: $color-blue;
+					}
+
+					.group-title {
+						background-color: white;
+						padding-top: 35px;
+
+						th {
+							padding-top: 1em;
+							padding-bottom: 1em;
+							background-color: white;
+
+							&:first-child {
+								font-weight: bold;
+							}
+						}
+					}
+
+					th:nth-child(n+2) {
+						max-width: 4em;
+						width: 6em;
+						text-align: center;
+					}
+				}
+			}
+
 						.specslist-group {
 							width: calc(50% - 3rem);
 
@@ -584,6 +613,8 @@
 								margin-top: 3.6rem;
 							}
 						}
+
+			.equ
 
 							.group-title {
 								@include font-semibold;
