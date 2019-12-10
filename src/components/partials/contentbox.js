@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Partials
-import PopInfo from 'components/partials/popinfo.js';
+// import PopInfo from 'components/partials/popinfo.js';
 import Image from 'components/partials/image.js';
 import Link from 'components/partials/link.js';
 import PriceTag from 'components/partials/price-tag'

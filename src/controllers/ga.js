@@ -354,6 +354,8 @@ export const GA = {
 								gaData.customMetrics.hitLevel.cm_offer = parseInt(data.offer.split('.').join(""));
 								gaData.eventLabel = productData.id;
 								gaData.purchase.actionField.id = data.threadID
+								console.log('bid',gaData);
+
 							break;
 							case "message":
 								gaData.eventAction = "Conversion - Ürün Sayfası - Mesaj Gönder";

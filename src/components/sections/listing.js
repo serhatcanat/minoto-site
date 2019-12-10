@@ -281,7 +281,6 @@ class Listing extends React.Component {
 
 		vm.initialized = true;
 		let requestURL = vm.props.source; //+'?'+q;
-
 		vm.updateURL();
 
 		let query = vm.getQuery();
@@ -296,7 +295,6 @@ class Listing extends React.Component {
 				if (opts.page > 0) {
 					payload.results = vm.props.listingData.results.concat(payload.results);
 				}
-
 				vm.props.setListingData(payload);
 
 				let usedPages = vm.state.usedPages;
@@ -406,7 +404,6 @@ class Listing extends React.Component {
 				}
 			}
 		}
-
 		return (
 			<React.Fragment>
 				{/*<section className="section listing-title"><h1>{vm.props.title}</h1></section> */}
@@ -446,7 +443,6 @@ class Listing extends React.Component {
 							</aside>
 						}
 						{/* <ListingResults loading={vm.state.loading} data={vm.props.listingData} mobile={vm.props.mobile} />
-
 						{(vm.props.listingData.results && vm.props.listingData.results.length < vm.props.listingData.totalResults) &&
 							<InfiniteScroller loading={vm.state.extending} onExtend={vm.extendResults} />
 						} */}
@@ -495,7 +491,6 @@ class ListingResults extends React.Component {
 		let results = data.results;
 		let productResultsCount = (results ? results.filter((result) => { return result.type === 'advert' }).length : 0);
 		if (results && results.length && !loading) {
-
 			return (
 				<React.Fragment>
 					{

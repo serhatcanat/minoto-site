@@ -4,7 +4,7 @@ import Image from 'components/partials/image'
 import Loader from 'components/partials/loader'
 import Link from 'components/partials/link'
 import ContentBox from 'components/partials/contentbox'
-import {FormInput, InputForm} from 'components/partials/forms'
+// import {FormInput, InputForm} from 'components/partials/forms'
 // Deps
 import request from 'controllers/request'
 import history from 'controllers/history'
@@ -83,7 +83,6 @@ export default class Blog extends React.Component {
 						results: payload,
 						loading: false,
 					});
-
 				}
 			});
 
