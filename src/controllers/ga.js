@@ -280,7 +280,7 @@ export const GA = {
 						actionField : {
 							list: GA.getCurrentPage()
 						},
-						product: GA.getProductData(data.product).product
+						products: GA.getProductData(data.product).product
 					}
 				}
 			});
@@ -297,7 +297,7 @@ export const GA = {
 						actionField : {
 							list: GA.getCurrentPage()
 						},
-						product: GA.getProductData(product).product
+						products: GA.getProductData(product).product
 					}
 				}
 			});
