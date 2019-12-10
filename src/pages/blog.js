@@ -135,24 +135,24 @@ export default class Blog extends React.Component {
 									))}
 								</nav>
 
-								<InputForm className="controls-search" onSubmit={this.makeSearch}>
-									<label>
-										<FormInput
-											type="text"
-											placeholder="Blog'da ara"
-											validation={{
-												required: true,
-												minLength: ['..', 3]
-											}}
-											name="search"
-											hideError
-											hideAsterisk
-											className="search-input"/>
-									</label>
-									<button type="submit" className="search-submit" aria-label="search-icon">
-										<i className="icon-search"/>
-									</button>
-								</InputForm>
+								{/*<InputForm className="controls-search" onSubmit={this.makeSearch}>*/}
+								{/*	<label>*/}
+								{/*		<FormInput*/}
+								{/*			type="text"*/}
+								{/*			placeholder="Blog'da ara"*/}
+								{/*			validation={{*/}
+								{/*				required: true,*/}
+								{/*				minLength: ['..', 3]*/}
+								{/*			}}*/}
+								{/*			name="search"*/}
+								{/*			hideError*/}
+								{/*			hideAsterisk*/}
+								{/*			className="search-input"/>*/}
+								{/*	</label>*/}
+								{/*	<button type="submit" className="search-submit" aria-label="search-icon">*/}
+								{/*		<i className="icon-search"/>*/}
+								{/*	</button>*/}
+								{/*</InputForm>*/}
 							</div>
 						}
 					</div>
