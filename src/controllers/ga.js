@@ -61,6 +61,7 @@ export const GA = {
 		}
 	},
 	sendData: function(data) {
+		
 		let gaData = merge(GA.getDefaultData(), data);
 		window.dataLayer.push(gaData);
 
@@ -138,6 +139,7 @@ export const GA = {
 			let	year = "";
 			let	tractionType = "";
 			let	transmissionType = "";
+			let productionPlace = "";
 			// let dealerId = "";
 			// let dealerName = "";
 
@@ -153,6 +155,7 @@ export const GA = {
 				year = product.ga.year;
 				tractionType = product.ga.tractionType;
 				transmissionType = product.ga.gearType;
+				productionPlace = product.ga.productionPlace;
 				// dealerId = product.dealer.id;
 				// dealerName = product.dealer.title;
 			}
@@ -169,6 +172,7 @@ export const GA = {
 					'category': (brand+'/'+model+'/'+engineCapacity+'/'+bodyType+'/'+fuelType),
 					'variant': engineCapacity,
 					'list': opts.list,
+					'productionPlace': product.productionPlace,
 				},
 				cd: {
 					cd_carCity: city,
@@ -180,7 +184,7 @@ export const GA = {
 					cd_transmissionType: transmissionType,
 					cd_fuelType: fuelType,
 					cd_vehicleBody: bodyType,
-					cd_productionPlace: '',
+					cd_productionPlace: productionPlace,
 				}
 			}
 		}
@@ -291,18 +295,30 @@ export const GA = {
 			});
 		},
 		productView: function(product) {
+			const customDimensions = {
+				...GA.getProductData(product).cd,
+				...GA.getDealerData().cd,
+				cd_pageType: GA.getCurrentPage(),
+				cd_district: product.ga.district
+			};
+
+			let customDefinations  = GA.getDefaultData().customDefinitions;
+			delete customDefinations.hitLevel;
+
 			GA.sendData({
 				event: 'eec.Event',
 				eventCategory: 'Enhanced Ecommerce',
 				eventAction: 'Product Detail Views',
 				eventLabel: '',
 				eventValue: 0,
+				customDefinations: customDefinations,
 				ecommerce: {
 					detail: {
 						actionField : {
 							list: GA.getCurrentPage()
 						},
-						products: GA.getProductData(product).product
+						products: GA.getProductData(product).product,
+						...customDimensions
 					}
 				}
 			});
@@ -331,43 +347,56 @@ export const GA = {
 
 			if(dealerData){
 				GA.checkConversion(productData.id, function(status){
+					const customDimensions = {
+						...GA.getProductData().cd,
+						...GA.getDealerData().cd,
+						cd_pageType: GA.getCurrentPage(),
+					};
+
+					let customDefinations  = GA.getDefaultData().customDefinitions;
+
+					const customMetrics = {
+						hitLevel:{
+							cm_offer:''  //145000
+						}
+					};
+
 					if(status){
 						let gaData = {
 							event: 'eec.Event',
 							eventCategory: 'Enhanced Ecommerce',
 							eventAction:false,
 							eventLabel: false,
-							customMetrics: {
-								hitLevel: {
+							eventValue: 0,
+							customDefinations:customDefinations,
+							customMetrics:customMetrics,
+							ecommerce:{
+								purchase: {
+									actionField:  {
+										affiliation: dealerData.dealer.name,
+									},
+									...customDimensions
 								}
 							},
-							purchase: {
-								actionField:  {
-									affiliation: dealerData.dealer.name,
-								},
-								products: productData.product
-							}
+
 						};
 
 						if(productData){
-							gaData.purchase.actionField.revenue = productData.product.price;
+							gaData.customMetrics.hitLevel.cm_offer = productData.product.price;
 						}
 
 						switch(data.action){
-
 							case "bid":
 								gaData.eventAction = "Conversion - Ürün Sayfası - Teklif Ver"
-								gaData.purchase.products.cm_offer = parseInt(data.offer.split('.').join(""));
+								gaData.customMetrics.hitLevel.cm_offer = parseInt(data.offer.split('.').join(""));
 								gaData.eventLabel = productData.id;
-								gaData.purchase.actionField.id = data.threadID;
-								gaData.customMetrics.hitLevel = {};
-
+								gaData.ecommerce.purchase.actionField.id = data.threadID;
 
 							break;
 							case "message":
 								gaData.eventAction = "Conversion - Ürün Sayfası - Mesaj Gönder";
 								gaData.eventLabel = productData.id;
-								gaData.purchase.actionField.id = data.threadID
+								gaData.ecommerce.purchase.actionField.id = data.threadID
 							break;
 							case "callDealer":
 								gaData.eventAction = (productData ? "Conversion - Ürün Sayfası - Telefon Et" : "Conversion - Bayi Sayfası - Telefon Et");
