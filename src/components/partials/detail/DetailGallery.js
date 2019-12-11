@@ -144,7 +144,7 @@ export class DetailGallery extends React.Component {
                             vm.imageChange(nth);
                         }}>
                             <Image className="carousel-image" key={nth} bg
-                                   src={storageSpace('c_scale,q_auto:eco,w_130/car-posts/gallery', image.thumb)}
+                                   src={storageSpace('c_scale,q_auto:best,w_130/car-posts/gallery', image.thumb)}
                                    alt={product.title}/>
                         </button>
                     ))}

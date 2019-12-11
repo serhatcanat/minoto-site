@@ -1,12 +1,11 @@
 import React from 'react'
-
 //Deps
 import store from 'data/store'
 import merge from 'lodash/merge'
 import throttle from 'lodash/throttle'
-import { getCookie } from 'functions/helpers'
-import { connect } from "react-redux"
-import { clearImpressions } from 'data/store.ga'
+import {getCookie} from 'functions/helpers'
+import {connect} from "react-redux"
+import {clearImpressions} from 'data/store.ga'
 
 const conversionTimeout = 1800000;
 const conversionSessionPrefix = 'productConversion_';
@@ -64,6 +63,7 @@ export const GA = {
 	sendData: function(data) {
 		let gaData = merge(GA.getDefaultData(), data);
 		window.dataLayer.push(gaData);
+
 	},
 	getDefaultData() {
 		let state = store.getState();
@@ -127,7 +127,6 @@ export const GA = {
 		opts = merge(defaultOpts, opts);
 
 		if(product){
-
 			let brand = "";
 			let model = "";
 			let	engineCapacity = "";
@@ -139,6 +138,8 @@ export const GA = {
 			let	year = "";
 			let	tractionType = "";
 			let	transmissionType = "";
+			// let dealerId = "";
+			// let dealerName = "";
 
 			if(product.ga){
 				brand = product.ga.brand;
@@ -152,8 +153,12 @@ export const GA = {
 				year = product.ga.year;
 				tractionType = product.ga.tractionType;
 				transmissionType = product.ga.gearType;
+				// dealerId = product.dealer.id;
+				// dealerName = product.dealer.title;
 			}
+
 			engineCapacity =  engineCapacity.replace(/'/g, "");
+
 			return {
 				id: product.postNo,
 				product: {
@@ -349,12 +354,14 @@ export const GA = {
 						}
 
 						switch(data.action){
+
 							case "bid":
 								gaData.eventAction = "Conversion - Ürün Sayfası - Teklif Ver"
-								gaData.customMetrics.hitLevel.cm_offer = parseInt(data.offer.split('.').join(""));
+								gaData.purchase.products.cm_offer = parseInt(data.offer.split('.').join(""));
 								gaData.eventLabel = productData.id;
-								gaData.purchase.actionField.id = data.threadID
-								console.log('bid',gaData);
+								gaData.purchase.actionField.id = data.threadID;
+								gaData.customMetrics.hitLevel = {};
+
 
 							break;
 							case "message":
