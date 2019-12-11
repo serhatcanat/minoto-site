@@ -462,7 +462,7 @@ class FilterTypeBrands extends React.Component {
 					</div>
 				}
 				<ul className={`filter-list ${(showMoreBrands && showMore) && 'showMore'}`} id="scroll-here">
-					{opts.slice(0, (showMoreBrands && showMore) ? 8 : opts.length).map((opt, nth) => {
+					{opts.slice(0, (showMoreBrands && showMore) ? 7 : opts.length).map((opt, nth) => {
 						let idprefix = 'filter_input_' + data.name;
 						return (
 							<BrandsFilterItem data={opt} name={data.name} idprefix={idprefix} nth={nth} key={nth} level={1} onExpand={this.props.onExpand} urlRoot={""} />
@@ -896,7 +896,6 @@ class FilterTypeIcons extends React.Component {
 		let vm = this;
 		let data = vm.props.data;
 		let opts = vm.state.opts;
-		console.log(opts);
 		return (
 			<ul className="filter-list">
 				{opts.map((opt, nth) => {

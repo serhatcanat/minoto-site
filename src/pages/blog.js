@@ -4,7 +4,7 @@ import Image from 'components/partials/image'
 import Loader from 'components/partials/loader'
 import Link from 'components/partials/link'
 import ContentBox from 'components/partials/contentbox'
-import {FormInput, InputForm} from 'components/partials/forms'
+// import {FormInput, InputForm} from 'components/partials/forms'
 // Deps
 import request from 'controllers/request'
 import history from 'controllers/history'
@@ -83,7 +83,6 @@ export default class Blog extends React.Component {
 						results: payload,
 						loading: false,
 					});
-
 				}
 			});
 
@@ -135,24 +134,24 @@ export default class Blog extends React.Component {
 									))}
 								</nav>
 
-								<InputForm className="controls-search" onSubmit={this.makeSearch}>
-									<label>
-										<FormInput
-											type="text"
-											placeholder="Blog'da ara"
-											validation={{
-												required: true,
-												minLength: ['..', 3]
-											}}
-											name="search"
-											hideError
-											hideAsterisk
-											className="search-input"/>
-									</label>
-									<button type="submit" className="search-submit" aria-label="search-icon">
-										<i className="icon-search"/>
-									</button>
-								</InputForm>
+								{/*<InputForm className="controls-search" onSubmit={this.makeSearch}>*/}
+								{/*	<label>*/}
+								{/*		<FormInput*/}
+								{/*			type="text"*/}
+								{/*			placeholder="Blog'da ara"*/}
+								{/*			validation={{*/}
+								{/*				required: true,*/}
+								{/*				minLength: ['..', 3]*/}
+								{/*			}}*/}
+								{/*			name="search"*/}
+								{/*			hideError*/}
+								{/*			hideAsterisk*/}
+								{/*			className="search-input"/>*/}
+								{/*	</label>*/}
+								{/*	<button type="submit" className="search-submit" aria-label="search-icon">*/}
+								{/*		<i className="icon-search"/>*/}
+								{/*	</button>*/}
+								{/*</InputForm>*/}
 							</div>
 						}
 					</div>

@@ -390,3 +390,4 @@ export function formatMoney(amount, decimalCount = 2, decimal = ".", thousands =
 	}
 };
 
+
