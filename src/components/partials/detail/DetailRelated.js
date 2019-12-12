@@ -15,6 +15,7 @@ export class DetailRelated extends React.Component {
                     source={`car-posts/detail/${this.props.postId}/similar`}
                     //source="/dummy/data/detail-related.json"
                     query={this.props.postId} size={5} showAds={false}/>
+
             </>
         )
     }
