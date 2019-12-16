@@ -13,11 +13,8 @@ export class DetailLastFive extends React.Component {
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
-
         if(prevProps !== this.props ){
-
-                this.getData()
-
+            this.getData()
         }
     }
 

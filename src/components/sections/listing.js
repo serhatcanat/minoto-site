@@ -292,7 +292,6 @@ class Listing extends React.Component {
 
 				vm.props.setListingData(payload);
 
-
 				let usedPages = vm.state.usedPages;
 				if ((payload.page && vm.state.usedPages.length === 0) || vm.state.usedPages.indexOf(payload.page) === -1) {
 					usedPages.push(parseInt(payload.page))

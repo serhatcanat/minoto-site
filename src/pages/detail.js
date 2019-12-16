@@ -97,31 +97,37 @@ class Detail extends React.Component {
 		if (vm.state.productData === false) {
 			request.get(`car-post/${externalId}`, {email: this.props.user.email}, function (payload, status) {
 				//request.get('/dummy/data/detail.json', { id: vm.props.match.params.id }, function (payload, status) {
-				if (payload) {
-					vm.setState({
-						productData: payload
-					});
+				if(payload.status !== '404'){
+					if (payload) {
+						vm.setState({
+							productData: payload
+						});
 
-					vm.props.setGaProductData(payload);
-					vm.props.setGaDealerData(payload.dealer);
-					GA.send('productView', payload);
+						vm.props.setGaProductData(payload);
+						vm.props.setGaDealerData(payload.dealer);
+						GA.send('productView', payload);
 
-					setTitle(`${payload.title} - ${payload.dealer.title}`);
+						setTitle(`${payload.title} - ${payload.dealer.title}`);
 
-					setDescription(`Sıfır Km ${payload.title} araba fiyatları ve araç özellikleri Minoto'da! ${payload.dealer.title} şubesinden ${payload.title} satın almak için hemen tıkla, fırsatları kaçırma!`);
+						setDescription(`Sıfır Km ${payload.title} araba fiyatları ve araç özellikleri Minoto'da! ${payload.dealer.title} şubesinden ${payload.title} satın almak için hemen tıkla, fırsatları kaçırma!`);
 
-					if (payload.image) {
-						setHead([{
-							key: "meta",
-							props: {
-								property: "og:image",
-								content: storageSpace('car-posts', payload.image),
-							}
-						}]);
-					};
+						if (payload.image) {
+							setHead([{
+								key: "meta",
+								props: {
+									property: "og:image",
+									content: storageSpace('car-posts', payload.image),
+								}
+							}]);
+						};
+					}
+					else {
+						set404();
+					}
+
 				}
-				else {
-					set404();
+				else{
+					set404('notFound')
 				}
 			}, { excludeApiPath: false });
 		}
