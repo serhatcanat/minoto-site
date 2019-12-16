@@ -58,7 +58,6 @@ export default {
 }
 
 function evaluateData(response, finalFunction = false) {
-
 	switch (response.status) {
 		case 200:
 			if (finalFunction) {
@@ -78,6 +77,10 @@ function evaluateData(response, finalFunction = false) {
 			}
 			break;
 
+	}
+
+	if(response.data.status === '404'){
+		changePage('notfound');
 	}
 
 	if (response.data.messages) {

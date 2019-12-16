@@ -22,6 +22,7 @@ import {CompareListService} from '../functions'
 // Assets
 import {addVehicleToCompare, setVehicleToReservation} from "../actions";
 import {DetailGallery} from "../components/partials/detail/DetailGallery";
+import {DetailLastFive} from "../components/partials/detail/DetailLastFive";
 
 
 class Detail extends React.Component {
@@ -96,31 +97,37 @@ class Detail extends React.Component {
 		if (vm.state.productData === false) {
 			request.get(`car-post/${externalId}`, {email: this.props.user.email}, function (payload, status) {
 				//request.get('/dummy/data/detail.json', { id: vm.props.match.params.id }, function (payload, status) {
-				if (payload) {
-					vm.setState({
-						productData: payload
-					});
+				if(payload.status !== '404'){
+					if (payload) {
+						vm.setState({
+							productData: payload
+						});
 
-					vm.props.setGaProductData(payload);
-					vm.props.setGaDealerData(payload.dealer);
-					GA.send('productView', payload);
+						vm.props.setGaProductData(payload);
+						vm.props.setGaDealerData(payload.dealer);
+						GA.send('productView', payload);
 
-					setTitle(`${payload.title} - ${payload.dealer.title}`);
+						setTitle(`${payload.title} - ${payload.dealer.title}`);
 
-					setDescription(`Sıfır Km ${payload.title} araba fiyatları ve araç özellikleri Minoto'da! ${payload.dealer.title} şubesinden ${payload.title} satın almak için hemen tıkla, fırsatları kaçırma!`);
+						setDescription(`Sıfır Km ${payload.title} araba fiyatları ve araç özellikleri Minoto'da! ${payload.dealer.title} şubesinden ${payload.title} satın almak için hemen tıkla, fırsatları kaçırma!`);
 
-					if (payload.image) {
-						setHead([{
-							key: "meta",
-							props: {
-								property: "og:image",
-								content: storageSpace('car-posts', payload.image),
-							}
-						}]);
-					};
+						if (payload.image) {
+							setHead([{
+								key: "meta",
+								props: {
+									property: "og:image",
+									content: storageSpace('car-posts', payload.image),
+								}
+							}]);
+						};
+					}
+					else {
+						set404();
+					}
+
 				}
-				else {
-					set404();
+				else{
+					set404('notFound')
 				}
 			}, { excludeApiPath: false });
 		}
@@ -135,10 +142,11 @@ class Detail extends React.Component {
 
 
 	render() {
+
 		let vm = this;
 		let product = vm.state.productData;
 		const {reservation,setVehicleToReservation} = this.props;
-		const {mobile} = vm.props;
+		const {mobile,user} = vm.props;
 		return (
 			<main className={"page detail minoto-ui" + (vm.state.galleryFullScreen ? ' gallery-fullscreen' : '')}>
 				<Loader loading={product === false} strict={true} />
@@ -248,8 +256,23 @@ class Detail extends React.Component {
 							</div>
 						</section>
 
-						{!mobile &&
-							<section className="section detail-related">
+						{(!mobile && user)&&
+						<section className="section detail-related">
+							<div className="wrapper">
+								<div className="related-innerwrap">
+									<h2 className="related-title">Son Görüntülenenler</h2>
+									{
+										product && (
+											<DetailLastFive postId={product.id} mobile={mobile} user={user}/>
+										)
+									}
+								</div>
+							</div>
+						</section>
+						}
+
+						{!mobile  &&
+							<section className="section detail-related"  style={{paddingTop: user ? '0px' : ''}}>
 								<div className="wrapper">
 									<div className="related-innerwrap">
 										<h2 className="related-title">Benzer araçlar</h2>
@@ -263,6 +286,7 @@ class Detail extends React.Component {
 							</section>
 
 						}
+
 
 						<SubscriptionBar className="detail-subscription" heading={"Daha fazla " + product.brand.title + " modelleri için sizi bilgilendirelim!"} />
 						{/*product.ads &&

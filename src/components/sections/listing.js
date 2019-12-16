@@ -1,18 +1,15 @@
 import React from 'react'
 
 import config from 'data/config'
-
 // Partials
 import ContentBox from 'components/partials/contentbox'
 import Image from 'components/partials/image'
 import Loader from 'components/partials/loader'
-import { FormInput } from 'components/partials/forms'
+import {FormInput} from 'components/partials/forms'
 //import Link from 'components/partials/link'
 import ListingBanner from 'components/partials/listing-banner'
-
 // Sections
 import ListingFilters from 'components/sections/listing-filters'
-
 // Deps
 import debounce from 'lodash/debounce';
 import pick from 'lodash/pick';
@@ -24,15 +21,15 @@ import extend from 'lodash/extend';
 import throttle from 'lodash/throttle';
 import history from 'controllers/history'
 import request from 'controllers/request'
-import { connect } from "react-redux";
-import { storageSpace, seoFriendlyUrl, nextRandomPage } from "functions/helpers";
+import {connect} from "react-redux";
+import {nextRandomPage, seoFriendlyUrl, storageSpace} from "functions/helpers";
 import queryString from 'query-string';
-import { setFiltersExpansion, setListingQuery, setFilterQuery, setListingData } from 'data/store.listing';
-import { GA } from 'controllers/ga'
-import { addImpressionProduct } from 'data/store.ga.js'
+import {setFilterQuery, setFiltersExpansion, setListingData, setListingQuery} from 'data/store.listing';
+import {GA} from 'controllers/ga'
+import {addImpressionProduct} from 'data/store.ga.js'
 //import { openModal } from 'functions/modals'
 import image_loader from 'assets/images/minoto-loading.gif'
-import { turkishSort } from '../../functions/helpers'
+import {turkishSort} from '../../functions/helpers'
 
 const mapStateToProps = state => {
 	return {
@@ -278,16 +275,12 @@ class Listing extends React.Component {
 
 	makeRequest(opts = {}, endFunction = false) {
 		let vm = this;
-
 		vm.initialized = true;
 		let requestURL = vm.props.source; //+'?'+q;
-		vm.updateURL();
-
 		let query = vm.getQuery();
-
 		request.get(requestURL, query, function (payload, status) {
-			if (vm.mounted && payload) {
 
+			if (vm.mounted && payload) {
 				if (payload.redirect) {
 					setTimeout(function () { window.location.href = payload.link; }, 30)
 				}
@@ -295,6 +288,7 @@ class Listing extends React.Component {
 				if (opts.page > 0) {
 					payload.results = vm.props.listingData.results.concat(payload.results);
 				}
+
 				vm.props.setListingData(payload);
 
 				let usedPages = vm.state.usedPages;
@@ -302,6 +296,7 @@ class Listing extends React.Component {
 					usedPages.push(parseInt(payload.page))
 				}
 				let searchInput = query.ara ? query.ara : false;
+
 				vm.setState({
 					loading: false,
 					extending: false,
@@ -357,8 +352,6 @@ class Listing extends React.Component {
 
 	extendResults() {
 		let vm = this;
-
-
 		if (!vm.state.extending && vm.state.results) {
 			let page, pageArray;
 			if (vm.state.order === 'random') {
@@ -408,8 +401,6 @@ class Listing extends React.Component {
 			<React.Fragment>
 				{/*<section className="section listing-title"><h1>{vm.props.title}</h1></section> */}
 				<section ref={vm.containerRef} className={"section listing loader-container " + vm.props.className + (vm.props.filters ? ' has-filters' : '') + ' size-' + vm.props.size} id={vm.props.id} >
-
-
 					{vm.props.filters &&
 						<ListingFilters loading={vm.state.loading} mobile={vm.props.mobile} showMoreBrands={vm.props.showMoreBrands} />
 					}
@@ -696,8 +687,6 @@ class ActiveFilters extends React.Component {
 
 	render() {
 		let filters = [];
-
-
 		if (this.props.data && this.props.data.filters) {
 			filters = this.props.data.filters.reduce((activeFilters, group, nth) => {
 				let values = false;
