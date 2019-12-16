@@ -25,6 +25,7 @@ import { openModal } from 'functions/modals'
 import { formatNumber, storageSpace } from 'functions/helpers'
 import { turkishSort } from '../functions/helpers'
 import Breadcrumbs from "../components/partials/breadcrumbs";
+import {set404} from "../controllers/navigator";
 
 // Assets
 
@@ -64,16 +65,21 @@ export default class Brand extends React.Component {
 		let vm = this;
 		//request.get('/dummy/data/brand.json', { id: vm.props.match.params.id }, function (payload) {
 		request.get(`brands/${vm.props.match.params.id}`, {}, function (payload) {
-			if (payload) {
-				vm.setState({
-					brandData: payload
-				})
+			if(payload.status !== '404'){
+				if (payload) {
+					vm.setState({
+						brandData: payload
+					})
 
-				setTitle(`${payload.title} Modelleri ve Sıfır ${payload.title} Araba Fiyatları`);
-				setDescription(`Sıfır Km ${payload.title} modelleri mi aradınız? Sıfır Km ${payload.title} araba modelleri ve fiyatları Minoto'da! Hemen tıkla, fırsatları kaçırma!`);
+					setTitle(`${payload.title} Modelleri ve Sıfır ${payload.title} Araba Fiyatları`);
+					setDescription(`Sıfır Km ${payload.title} modelleri mi aradınız? Sıfır Km ${payload.title} araba modelleri ve fiyatları Minoto'da! Hemen tıkla, fırsatları kaçırma!`);
+				}
+				else {
+					redirect("notfound");
+				}
 			}
-			else {
-				redirect("notfound");
+			else{
+				set404()
 			}
 		}, { excludeApiPath: false });
 	}

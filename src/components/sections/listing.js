@@ -278,7 +278,6 @@ class Listing extends React.Component {
 		vm.initialized = true;
 		let requestURL = vm.props.source; //+'?'+q;
 		let query = vm.getQuery();
-
 		request.get(requestURL, query, function (payload, status) {
 
 			if (vm.mounted && payload) {
