@@ -204,13 +204,10 @@ export function updateUserData(payload) {
 export function updateUserToken(token) {
 	if (localStorage["appState"]) {
 		let appState = JSON.parse(localStorage["appState"]);
-
 		if(appState.isLoggedIn){
 			appState.authToken = token;
-
 			store.dispatch(setToken(token));
 			localStorage["appState"] = JSON.stringify(appState);
-
 			checkLoginStatus(function(data){
 				if(!data){
 					logout(true);

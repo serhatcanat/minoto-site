@@ -40,105 +40,6 @@ class AdCompare extends React.Component {
                     <div className="wrapper ad-compare">
                         <h1 className="comparison-title">Araç Karşılaştır</h1>
                         <div className="comparison-tablewrap">
-                            {/*<div className="row">*/}
-                            {/*    {compareList.map((car, nth) => (*/}
-                            {/*        <div className="col">*/}
-                            {/*            <div className="ad-compare-table__header">*/}
-                            {/*                <div className='ad-compare-table__header__labelArea'>*/}
-                            {/*                    <ul className="topinfo-highlights">*/}
-                            {/*                        {car.highlights.map((highlight, nth) => (*/}
-                            {/*                            <React.Fragment key={nth}>*/}
-                            {/*                                {*/}
-                            {/*                                    highlight.label && (*/}
-                            {/*                                        <li key={nth}*/}
-                            {/*                                            title={highlight.title}>{(highlight.image ?*/}
-                            {/*                                                <Image alt={highlight.title}*/}
-                            {/*                                                       src={`/dummy/images/${highlight.image}`}/>*/}
-                            {/*                                                :*/}
-                            {/*                                                <span>{highlight.label}</span>*/}
-                            {/*                                        )}</li>*/}
-                            {/*                                    )*/}
-                            {/*                                }*/}
-                            {/*                            </React.Fragment>*/}
-                            {/*                        ))}*/}
-                            {/*                    </ul>*/}
-                            {/*                    <div>*/}
-                            {/*                        <button*/}
-                            {/*                            onClick={() => this.props.deleteVehicleFromCompare(car.id)}>ÇIKAR*/}
-                            {/*                            ⓧ*/}
-                            {/*                        </button>*/}
-                            {/*                    </div>*/}
-                            {/*                </div>*/}
-                            {/*                <div className='ad-compare-table__header__titleArea'>*/}
-                            {/*                    /!* todo: Link to product detail page *!/*/}
-                            {/*                    <Link href={car.slug} className='ad-compare-table__header__titleArea-title'>*/}
-                            {/*                        <h1>*/}
-                            {/*                            {car.title}*/}
-                            {/*                        </h1>*/}
-                            {/*                    </Link>*/}
-                            {/*                    <Link href={"dealer"}*/}
-                            {/*                          params={{slug: car.dealer.url}}*/}
-                            {/*                          className='ad-compare-table__header__titleArea-dealerTitle'>*/}
-                            {/*                        {car.dealer.title}*/}
-                            {/*                    </Link>*/}
-                            {/*                    <div className="ad-compare-table__header__titleArea-postNo">*/}
-                            {/*                        <h4>İLAN NO:</h4> <h4>{car.postNo}</h4>*/}
-                            {/*                    </div>*/}
-                            {/*                </div>*/}
-                            {/*                <div className="ad-compare-table__header__imageWrapper">*/}
-                            {/*                    <Image className="carpicker-image" bg*/}
-                            {/*                           src={((car && car.image) ? storageSpace('car-posts', car.image) : image_car_default)}/>*/}
-                            {/*                </div>*/}
-                            {/*            </div>*/}
-                            {/*            <div className='ad-compare-table__header__priceArea'>*/}
-                            {/*                <strong className="price-current">*/}
-                            {/*                    {car.price ? <PriceTag price={car.price}/> : <h2>SORUNUZ</h2>}*/}
-                            {/*                </strong>*/}
-                            {/*                <div className='ad-compare-table__header__priceArea__btnContainer'>*/}
-                            {/*                    {car.status === 1 &&*/}
-                            {/*                    <Btn className="controls-button reservate" primary hollow uppercase*/}
-                            {/*                         note="Bu aracı çok yakında rezerve edebileceksiniz."*/}
-                            {/*                         onClick={() => this.setVehicleToReservation(car)} disabled>*/}
-                            {/*                        Reserve Et*/}
-                            {/*                    </Btn>*/}
-                            {/*                    }*/}
-                            {/*                    {car.status === 2 &&*/}
-                            {/*                    <Btn className="controls-button reservate" primary hollow uppercase*/}
-                            {/*                         note="Bu araç rezerve edilmiştir."*/}
-                            {/*                         disabled*/}
-                            {/*                    >*/}
-                            {/*                        Araç Satılmıştır*/}
-                            {/*                    </Btn>*/}
-                            {/*                    }*/}
-
-                            {/*                    {car.status === 3 &&*/}
-                            {/*                    <Btn className="controls-button reservate" primary hollow uppercase*/}
-                            {/*                         note="Bu araç satılmıştır.Rezerve edilemez."*/}
-                            {/*                         disabled*/}
-                            {/*                    >*/}
-                            {/*                        Satıldı*/}
-                            {/*                    </Btn>*/}
-                            {/*                    }*/}
-                            {/*                    {(car.bidThreadId)*/}
-                            {/*                        ?*/}
-                            {/*                        <Btn className="controls-button bid"*/}
-                            {/*                             note="Bu araç için daha önce teklif verdiniz." primary*/}
-                            {/*                             uppercase tag="a"*/}
-                            {/*                             href={`/hesabim/mesajlarim/mesaj/${car.bidThreadId}`}>Tekliflerim</Btn>*/}
-                            {/*                        :*/}
-                            {/*                        <Btn disabled={(car.status === 3 || car.price === null)}*/}
-                            {/*                             className="controls-button bid"*/}
-                            {/*                             onClick={() => openModal('bid', {advert: car})} primary*/}
-                            {/*                             uppercase*/}
-                            {/*                             note={car.status === 3 ? 'Bu araç "satıldı".' : (car.price === null ? 'Fiyat için bayi ile iletişime geçebilirsiniz' : 'Bu araç için teklif verebilirsiniz.')}>*/}
-                            {/*                            {car.status === 3 ? 'SATILDI' : 'Teklif Ver'}*/}
-                            {/*                        </Btn>}*/}
-                            {/*                </div>*/}
-                            {/*            </div>*/}
-                            {/*        </div>*/}
-                            {/*    ))}*/}
-                            {/*</div>*/}
-
                             <table className="comparison-table ad-compare-table ">
                                 <tbody>
                                 {/*Table header start*/}
@@ -278,7 +179,7 @@ class AdCompare extends React.Component {
                                         <React.Fragment>
                                             <td key={nth}>
                                                 <span>Oturma Kapasitesi</span>
-                                                {car.technicalSpecs[0].specs[2].content}
+                                                {car.technicalSpecs[2].specs[0].content}
                                             </td>
                                         </React.Fragment>
                                     ))}
@@ -288,7 +189,7 @@ class AdCompare extends React.Component {
                                         <React.Fragment>
                                             <td key={nth}>
                                                 <span>Renk</span>
-                                                {car.technicalSpecs[0].specs[3].content}
+                                                {car.technicalSpecs[0].specs[7].content}
                                             </td>
                                         </React.Fragment>
                                     ))}
@@ -298,7 +199,7 @@ class AdCompare extends React.Component {
                                         <React.Fragment>
                                             <td key={nth}>
                                                 <span>Yakıt</span>
-                                                {car.technicalSpecs[0].specs[4].content}
+                                                {car.technicalSpecs[0].specs[5].content}
                                             </td>
                                         </React.Fragment>
                                     ))}
@@ -315,7 +216,7 @@ class AdCompare extends React.Component {
                                         <React.Fragment>
                                             <td key={nth}>
                                                     <span>Yakıt Tüketimi (Ortalama / Ş.İçi / Ş.Dışı)</span>
-                                                {car.technicalSpecs[1].specs[3].content}
+                                                {car.technicalSpecs[1].specs[6].content}
                                             </td>
                                         </React.Fragment>
                                     ))}
@@ -325,7 +226,7 @@ class AdCompare extends React.Component {
                                         <React.Fragment>
                                             <td key={nth}>
                                                     <span>Motor Gücü</span>
-                                                {car.technicalSpecs[1].specs[1].content}
+                                                {car.technicalSpecs[1].specs[2].content}
                                             </td>
                                         </React.Fragment>
                                     ))}
@@ -335,8 +236,8 @@ class AdCompare extends React.Component {
                                     {compareList.map((car, nth) => (
                                         <React.Fragment>
                                             <td key={nth}>
-                                                    <span>Şanzıman</span>
-                                                {car.technicalSpecs[1].specs[2].content}
+                                                <span>Şanzıman</span>
+                                                {car.technicalSpecs[0].specs[4].content}
                                             </td>
                                         </React.Fragment>
                                     ))}
@@ -346,7 +247,7 @@ class AdCompare extends React.Component {
                                         <React.Fragment>
                                             <td key={nth}>
                                                     <span>Motor Tipi</span>
-                                                {car.technicalSpecs[1].specs[0].content}
+                                                {car.technicalSpecs[0].specs[2].content}
                                             </td>
                                         </React.Fragment>
                                     ))}
@@ -366,7 +267,7 @@ class AdCompare extends React.Component {
                                         <React.Fragment>
                                             <td key={nth}>
                                                 <span>Uzunluk</span>
-                                                {car.technicalSpecs[2].specs[0].content}
+                                                {car.technicalSpecs[2].specs[1].content}
                                             </td>
                                         </React.Fragment>
                                     ))}
@@ -376,7 +277,7 @@ class AdCompare extends React.Component {
                                         <React.Fragment>
                                             <td key={nth}>
                                                 <span>Genişlik</span>
-                                                {car.technicalSpecs[2].specs[1].content}
+                                                {car.technicalSpecs[2].specs[2].content}
                                             </td>
                                         </React.Fragment>
                                     ))}
@@ -386,7 +287,7 @@ class AdCompare extends React.Component {
                                         <React.Fragment>
                                             <td key={nth}>
                                                 <span>Yükseklik</span>
-                                                {car.technicalSpecs[2].specs[2].content}
+                                                {car.technicalSpecs[2].specs[3].content}
                                             </td>
                                         </React.Fragment>
                                     ))}
@@ -396,7 +297,7 @@ class AdCompare extends React.Component {
                                         <React.Fragment>
                                             <td key={nth}>
                                                 <span>Dingil Aralığı</span>
-                                                {car.technicalSpecs[2].specs[3].content}
+                                                {car.technicalSpecs[2].specs[4].content}
                                             </td>
                                         </React.Fragment>
                                     ))}
@@ -406,7 +307,7 @@ class AdCompare extends React.Component {
                                         <React.Fragment>
                                             <td key={nth}>
                                                 <span>Boş Ağırlik</span>
-                                                {car.technicalSpecs[2].specs[4].content}
+                                                {car.technicalSpecs[2].specs[5].content}
                                             </td>
                                         </React.Fragment>
                                     ))}
