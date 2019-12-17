@@ -256,21 +256,6 @@ class Detail extends React.Component {
 							</div>
 						</section>
 
-						{!mobile  &&
-							<section className="section detail-related"  style={{paddingTop: user ? '0px' : ''}}>
-								<div className="wrapper">
-									<div className="related-innerwrap">
-										<h2 className="related-title">Benzer araçlar</h2>
-										{
-											product && (
-												<DetailRelated postId={product.id} mobile={mobile} />
-											)
-										}
-									</div>
-								</div>
-							</section>
-						}
-
 						{(!mobile && user)&&
 						<section className="section detail-related">
 							<div className="wrapper">
@@ -284,6 +269,22 @@ class Detail extends React.Component {
 								</div>
 							</div>
 						</section>
+						}
+
+						{!mobile  &&
+							<section className="section detail-related"  style={{paddingTop: user ? '0px' : ''}}>
+								<div className="wrapper">
+									<div className="related-innerwrap">
+										<h2 className="related-title">Benzer araçlar</h2>
+										{
+											product && (
+												<DetailRelated postId={product.id} mobile={mobile} />
+											)
+										}
+									</div>
+								</div>
+							</section>
+
 						}
 
 
