@@ -184,7 +184,7 @@ export class DetailCredit extends React.Component {
                             <td>
                                 <div className="tablePad">%{this.state.isbankInterest.replace('.', ',')}</div>
                             </td>
-                            <td><img src={image_isbank} alt="" height="50"/></td>
+                            <td><img src={image_isbank} alt=""  width="121"/></td>
                             <td>
                                 <Btn
                                     type="submit"

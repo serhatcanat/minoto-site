@@ -310,7 +310,7 @@ class Detail extends React.Component {
 													type="blogpost"
 													//pretitle={ad.date}
 													title={ad.title}
-													image={storageSpace('c_scale,q_auto:good,w_500/articles', ad.image)}
+													image={storageSpace('c_scale,q_auto:best,w_500/articles', ad.image)}
 													url="blogDetail"
 													additionsOptional
 													urlParams={{ slug: ad.url }}

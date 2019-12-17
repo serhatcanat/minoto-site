@@ -522,7 +522,7 @@ class ListingResults extends React.Component {
 																title={item.title}
 																subtitle={item.dealer}
 																additionTitle={item.count + ' ARAÇ'}
-																image={item.image ? storageSpace('c_scale,q_auto:good,w_360/dealers', item.image) : ''}
+																image={item.image ? storageSpace('c_scale,q_auto:best,w_360/dealers', item.image) : ''}
 																labels={item.labels}
 																faved={item.favorited}
 																//favControls={'/dummy/data/fav/dealer/'+item.id}
@@ -569,7 +569,7 @@ class ListingResults extends React.Component {
 																		title={item.title}
 																		labels={item.labels}
 																		additionTitle={item.count + ' ARAÇ'}
-																		image={storageSpace('c_scale,q_auto:good,w_360/brands', item.image)}
+																		image={storageSpace('c_scale,q_auto:best,w_360/brands', item.image)}
 																		faved={item.favorited}
 																		//favControls={'/dummy/data/fav/dealer/'+item.id}
 																		url={`markalar/${item.link}`}
@@ -584,7 +584,7 @@ class ListingResults extends React.Component {
 																		className={((item.status === 2 || item.status === 3) ? 'inactive' : '')}
 																		title={item.title}
 																		subtitle={item.dealer}
-																		image={storageSpace('c_scale,q_auto:good,w_360/car-posts', item.image)}
+																		image={storageSpace('c_scale,q_auto:best,w_360/car-posts', item.image)}
 																		price={item.price}
 																		labels={item.labels}
 																		productionPlace={item.productionPlace}

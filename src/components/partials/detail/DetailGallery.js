@@ -108,7 +108,7 @@ export class DetailGallery extends React.Component {
                     {images.map((image, nth) => (
                         <div className="slider-imagewrap" key={nth}>
                             <div className="imagewrap-image swiper-lazy"
-                                 data-background={storageSpace('c_scale,q_60,w_1100/car-posts/gallery', image.medium)}
+                                 data-background={storageSpace('c_scale,q_auto:best,w_1100/car-posts/gallery', image.medium)}
                                  onClick={() => {
                                      if (!vm.props.fullScreen && vm.props.mobile) {
                                          vm.props.onFullScreenChange(true);
