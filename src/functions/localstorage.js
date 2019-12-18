@@ -3,6 +3,11 @@ export const LocalStorageItem = {
         key: 'compareList',
         type: 'object'
     },
+
+    lvpList: {
+        key: 'lvp',
+        type: 'object'
+    }
 };
 
 export class LocalStorageService {
