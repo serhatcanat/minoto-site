@@ -31,7 +31,6 @@ class MyAvatar extends React.Component {
 			// This returns a HTMLCanvasElement, it can be made into a data URL or a blob,
 			// drawn on another canvas, or added to the DOM.
 			const canvas = this.editor.getImage();
-
 			if (canvas.toBlob) {
 				canvas.toBlob(
 					function (blob) {
