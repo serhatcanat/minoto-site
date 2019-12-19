@@ -24,14 +24,15 @@ import image_icon_twitter from 'assets/images/icon/twitter.svg'
 import image_icon_whatsapp from 'assets/images/icon/whatsapp.svg'
 import image_icon_link from 'assets/images/icon/link.svg'
 import image_loader from 'assets/images/minoto-loading.gif'
+import {set404} from "../controllers/navigator";
 
 export default class BlogDetail extends React.Component {
 	constructor(props) {
-		super(props)
+		super(props);
 
 		this.state = {
 			blogData: false,
-		}
+		};
 
 		this.gallerySlider = React.createRef();
 	}
@@ -40,27 +41,32 @@ export default class BlogDetail extends React.Component {
 		let vm = this;
 
 		request.get(`articles/${vm.props.match.params.slug}`, { slug: vm.props.match.params.slug }, function (payload, status) {
-			if (payload) {
-				vm.setState({
-					blogData: payload
-				});
-				setTitle(payload.title);
+			if(payload.status !== '404'){
+				if (payload) {
+					vm.setState({
+						blogData: payload
+					});
+					setTitle(payload.title);
 
-				if (payload.content) {
-					setDescription(`${parse(payload.content.replace(/<[^>]*>/g, '')).substring(0, 120)}...`);
-				};
-				if (payload.image) {
-					setHead([{
-						key: "meta",
-						props: {
-							property: "og:image",
-							content: storageSpace('articles', payload.image),
-						}
-					}]);
-				};
-			}
-			else {
-				redirect('notfound');
+					if (payload.content) {
+						setDescription(`${parse(payload.content.replace(/<[^>]*>/g, '')).substring(0, 120)}...`);
+					};
+					if (payload.image) {
+						setHead([{
+							key: "meta",
+							props: {
+								property: "og:image",
+								content: storageSpace('articles', payload.image),
+							}
+						}]);
+					};
+				}
+				else {
+					redirect('notfound');
+				}
+
+			}else{
+				set404();
 			}
 		});
 	}

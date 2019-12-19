@@ -1,5 +1,5 @@
 import {ADD_VEHICLE_TO_LVP} from "../actions/actionTypes";
-import {LVPService, LocalStorageService, LocalStorageItem, CompareListService} from '../functions'
+import {LocalStorageService, LocalStorageItem, CompareListService} from '../functions'
 
 const _localStorageService = new LocalStorageService();
 const _compareListService = new CompareListService();

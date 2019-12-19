@@ -25,13 +25,12 @@ class MyAvatar extends React.Component {
 		this.setState({ scale })
 	}
 
-	onClickSave = () => {
+	onClickSave = (e) => {
 		let vm = this;
-
 		if (this.editor) {
 			// This returns a HTMLCanvasElement, it can be made into a data URL or a blob,
 			// drawn on another canvas, or added to the DOM.
-			const canvas = this.editor.getImage()
+			const canvas = this.editor.getImage();
 
 			if (canvas.toBlob) {
 				canvas.toBlob(
@@ -86,7 +85,7 @@ class MyAvatar extends React.Component {
 					!image ?
 					<label className="input-uploadlabel">
 						Yeni dosya yüklemek için tıklayın
-						<input type="file" className="inputFile" onChange={this.onSelectFile} value="" />
+						<input type="file" className="inputFile" onChange={this.onSelectFile} value="" ref={(ref) => this.fileUpload = ref}/>
 					</label>
 					:
 					<div className="input-editorwrap">

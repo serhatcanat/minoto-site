@@ -39,10 +39,8 @@ export class DetailLVP extends React.Component {
     }
 
     render() {
-        console.log(this.props);
         const listItems = this.props.lvpList.data;
         const currentProduct = this.props.currentProduct;
-
         return (
             <>
                 {listItems.length > 1 &&
@@ -79,9 +77,10 @@ export class DetailLVP extends React.Component {
                                                                 />
                                                             </li>
                                                         )
+                                                    }else{
+                                                        return ''
                                                     }
                                                 })}
-
                                             </div>
                                         </div>
                                     </section>
