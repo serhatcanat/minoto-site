@@ -18,8 +18,7 @@ class MyAvatar extends React.Component {
 			scale: 1
 		}
 	}
-
-
+	
 	handleScale = e => {
 		const scale = parseFloat(e.target.value)
 		this.setState({ scale })
