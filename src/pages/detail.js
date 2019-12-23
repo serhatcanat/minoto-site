@@ -266,6 +266,11 @@ class Detail extends React.Component {
 							</div>
 						</section>
 
+						{!mobile &&
+
+							<DetailLVP lvpList={this.props.lvpList} currentProduct={product}/>
+
+						}
 
 
 						{!mobile  &&
@@ -284,11 +289,6 @@ class Detail extends React.Component {
 
 						}
 
-						{!mobile &&
-
-								<DetailLVP lvpList={this.props.lvpList} currentProduct={product}/>
-
-						}
 
 						<SubscriptionBar className="detail-subscription" heading={"Daha fazla " + product.brand.title + " modelleri için sizi bilgilendirelim!"} />
 						{/*product.ads &&

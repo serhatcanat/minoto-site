@@ -44,7 +44,7 @@ export class DetailLVP extends React.Component {
         return (
             <>
                 {listItems.length > 1 &&
-                <section className="section detail-related" style={{paddingTop:"0px",marginTop:"0px"}}>
+                <section className="section detail-related" style={{paddingBottom:"0px",marginBottom:"0px"}}>
                     <div className="wrapper">
                         <div className="related-innerwrap">
                             <h2 className="related-title">Son Görüntülenenler</h2>
