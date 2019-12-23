@@ -1,9 +1,5 @@
 export class CompareListService {
 
-    constructor() {
-        this.maxLength = 4
-    }
-
     isExist = (item, container) => {
         if(container.length){
             let i = 0;
@@ -16,8 +12,8 @@ export class CompareListService {
         }
     };
 
-    isFull = (container) => {
-        return container ? container.length >= this.maxLength : false;
+    isFull = (container,maxLength = 4) => {
+        return container ? container.length >= maxLength : false;
     };
 
 }

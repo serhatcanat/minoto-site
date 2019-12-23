@@ -207,7 +207,7 @@ export class DetailExtras extends React.Component {
                 }
             </Tabs>
             {mobile &&
-            <DetailCredit product={product} mobile={mobile}/>
+                <DetailCredit product={product} mobile={mobile}/>
             }
         </div>
     }

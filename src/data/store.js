@@ -9,6 +9,7 @@ import rootSaga from '../sagas/index';
 import {adCompareReducer} from "../reducers/AdCompareReducer";
 import {vehicleReducer} from "../reducers/VehicleReducer";
 import {reservationReducer} from "../reducers/ReservationReducer";
+import {lvpReducer} from "../reducers/LvpReducer";
 
 const rootReducer = combineReducers({
 	generic: generic,
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
     compareList: adCompareReducer,
     vehicle: vehicleReducer,
 	reservation: reservationReducer,
+	lvpList: lvpReducer,
 	//checkout: checkout,
 });
 

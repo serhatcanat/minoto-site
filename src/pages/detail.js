@@ -6,6 +6,8 @@ import Breadcrumbs from 'components/partials/breadcrumbs'
 import Loader from 'components/partials/loader'
 import FavBtn from 'components/partials/favbtn'
 import ContentBox from 'components/partials/contentbox'
+import {DetailGallery} from "../components/partials/detail/DetailGallery";
+import {DetailLVP} from "../components/partials/detail/DetailLvp";
 import {DetailExtras, DetailInfo, DetailRelated, DetailTopInfo} from 'components/partials/detail'
 // Deps
 //import { ListingLink } from 'controllers/navigator'
@@ -19,10 +21,11 @@ import {setDealerData, setProductData} from 'data/store.ga'
 import {GA} from 'controllers/ga'
 //Functions
 import {CompareListService} from '../functions'
-// Assets
+//Redux
 import {addVehicleToCompare, setVehicleToReservation} from "../actions";
-import {DetailGallery} from "../components/partials/detail/DetailGallery";
-import {DetailLastFive} from "../components/partials/detail/DetailLastFive";
+import {addVehicleToLVP} from "../actions/LvpActions";
+
+// Assets
 
 
 class Detail extends React.Component {
@@ -42,6 +45,7 @@ class Detail extends React.Component {
 	componentDidMount() {
 		this.mounted = true;
 		this.initialize();
+
 	}
 
 	componentWillMount() {
@@ -105,6 +109,13 @@ class Detail extends React.Component {
 
 						vm.props.setGaProductData(payload);
 						vm.props.setGaDealerData(payload.dealer);
+						const _compareListService = new CompareListService();
+
+						if (!_compareListService.isExist(payload, vm.props.lvpList.data)) {
+							vm.props.addVehicleToLvp(payload);
+						}
+
+
 						GA.send('productView', payload);
 
 						setTitle(`${payload.title} - ${payload.dealer.title}`);
@@ -142,7 +153,6 @@ class Detail extends React.Component {
 
 
 	render() {
-
 		let vm = this;
 		let product = vm.state.productData;
 		const {reservation,setVehicleToReservation} = this.props;
@@ -256,20 +266,12 @@ class Detail extends React.Component {
 							</div>
 						</section>
 
-						{(!mobile && user)&&
-						<section className="section detail-related">
-							<div className="wrapper">
-								<div className="related-innerwrap">
-									<h2 className="related-title">Son Görüntülenenler</h2>
-									{
-										product && (
-											<DetailLastFive postId={product.id} mobile={mobile} user={user}/>
-										)
-									}
-								</div>
-							</div>
-						</section>
+						{!mobile &&
+
+							<DetailLVP lvpList={this.props.lvpList} currentProduct={product}/>
+
 						}
+
 
 						{!mobile  &&
 							<section className="section detail-related"  style={{paddingTop: user ? '0px' : ''}}>
@@ -310,7 +312,7 @@ class Detail extends React.Component {
 													type="blogpost"
 													//pretitle={ad.date}
 													title={ad.title}
-													image={storageSpace('c_scale,q_auto:good,w_500/articles', ad.image)}
+													image={storageSpace('c_scale,q_auto:best,w_500/articles', ad.image)}
 													url="blogDetail"
 													additionsOptional
 													urlParams={{ slug: ad.url }}
@@ -329,8 +331,8 @@ class Detail extends React.Component {
 }
 
 
-const mapStateToProps = ({generic, user, compareList,reservation}) => {
-	return {mobile: generic.mobile, user: user.user, compareList,reservation};
+const mapStateToProps = ({generic, user, compareList, lvpList, reservation}) => {
+	return {mobile: generic.mobile, user: user.user, compareList, reservation, lvpList};
 };
 
 const mapDispatchToProps = dispatch => {
@@ -339,6 +341,7 @@ const mapDispatchToProps = dispatch => {
 		setGaDealerData: (data) => dispatch(setDealerData(data)),
 		addVehicleToCompare: (data) => dispatch(addVehicleToCompare(data)),
 		setVehicleToReservation: (data) => dispatch(setVehicleToReservation(data)),
+		addVehicleToLvp: (data) => dispatch(addVehicleToLVP(data)),
 	}
 };
 

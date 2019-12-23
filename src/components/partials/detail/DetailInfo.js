@@ -27,6 +27,7 @@ export class DetailInfo extends React.Component {
         super(props)
         this.state = {
             showCosts: false,
+            showOtvModule: false,
             showDealers: false,
             selectedBranch: false,
         }
@@ -47,7 +48,6 @@ export class DetailInfo extends React.Component {
         let vm = this;
         let product = vm.props.product;
         let selectedBranch = vm.state.selectedBranch;
-
         return (
             <div className="detail-info">
                 <h1 className="info-title">{product.title}</h1>
@@ -110,6 +110,35 @@ export class DetailInfo extends React.Component {
 
                 {(product.price > 0 && product.costs.expenses.length) &&
                 <div className="info-costs">
+                    <button className="costs-sum" type="button" onClick={() => {
+                        vm.setState({showOtvModule: !vm.state.showOtvModule})
+                    }}><strong>Bu aracın ötv indirimli satış fiyatı:</strong> <PriceTag price={product.otv[0].value}/>
+                    </button>
+                    <Collapse className="costs-wrap" open={vm.state.showOtvModule}>
+                        <ul className="costs-list">
+                            {product.otv.map((cost, nth) => (
+                                <React.Fragment key={nth}>
+                                    {
+                                        <React.Fragment>
+                                            <li className="list-cost" key={nth}>
+                                                <strong>
+                                                    {cost.title}
+                                                </strong>
+                                                <span className="cost-num">{(nth === 1 || nth===3) ? <p>{cost.value}</p> :
+                                                    <PriceTag price={cost.value}/>
+
+                                                }
+                                                </span>
+                                            </li>
+
+                                        </React.Fragment>
+
+
+                                    }
+                                </React.Fragment>
+                            ))}
+                        </ul>
+                    </Collapse>
                     <button className="costs-sum" type="button" onClick={() => { vm.setState({ showCosts: !vm.state.showCosts }) }}><strong>Bu aracın yıllık kullanım maliyeti:</strong> <PriceTag price={product.costs.total} /></button>
                     <Collapse className="costs-wrap" open={vm.state.showCosts}>
                         <ul className="costs-list">

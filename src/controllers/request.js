@@ -79,7 +79,6 @@ function evaluateData(response, finalFunction = false) {
 
 	}
 
-	
 	if (response.data.messages) {
 		for (let p = 0; p < response.data.messages.length; p++) {
 			pushMessage('', response.data.messages[p]);
