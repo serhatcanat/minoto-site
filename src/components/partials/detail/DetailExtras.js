@@ -175,6 +175,17 @@ export class DetailExtras extends React.Component {
                         }
                     </div>
                 </div>
+                {mobile &&
+                <div label="Benzer Araçlar" index="similar">
+                    <div className="tabs-tab">
+                        <div className="tab-related">
+                            {
+                                product && <DetailRelated postId={id}/>
+                            }
+                        </div>
+                    </div>
+                </div>
+                }
                 {pressGallery &&
                 <div label="Basın Fotoğrafları" index="pressgallery">
                     <div className="tabs-tab">
@@ -191,17 +202,6 @@ export class DetailExtras extends React.Component {
                                 </div>
                             ))}
                         </GalleryContainer>
-                    </div>
-                </div>
-                }
-                {mobile &&
-                <div label="Benzer Araçlar" index="similar">
-                    <div className="tabs-tab">
-                        <div className="tab-related">
-                            {
-                                product && <DetailRelated postId={id}/>
-                            }
-                        </div>
                     </div>
                 </div>
                 }

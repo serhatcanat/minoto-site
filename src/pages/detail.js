@@ -267,9 +267,7 @@ class Detail extends React.Component {
 						</section>
 
 						{!mobile &&
-
 							<DetailLVP lvpList={this.props.lvpList} currentProduct={product}/>
-
 						}
 
 

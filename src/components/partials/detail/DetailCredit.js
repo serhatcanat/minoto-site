@@ -150,14 +150,14 @@ export class DetailCredit extends React.Component {
                         </tr>
                         </thead>
                         <tbody>
-                        {banksInterests.map((bank) => {
+                        {banksInterests.map((bank,nth) => {
                             const interest = bank.rate / 100 * 1.2;
 
                             let installments= credit * (interest * Math.pow((1 + interest), month)) / (Math.pow(1 + interest, month) - 1);
                                 installments= formatNumber(Math.round(installments * 100) / 100, { showDecimals: true });
 
                             return (
-                                <tr>
+                                <tr key={nth}>
                                     <td>{installments} TL</td>
                                     <td>
                                         <div className="tablePad">%{bank.rate.toString().replace('.', ',')}</div>
