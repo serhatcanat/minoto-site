@@ -211,8 +211,6 @@ module.exports = {
 			GATitle: "Minoto Nedir",
 		},
 
-
-
 		account: {
 			path: "/hesabim/:page?/:section?/:param?",
 			component: "Account",
@@ -238,6 +236,14 @@ module.exports = {
 			linkTitle: "Sıkça Sorulan Sorular",
 			title: "Sıkça Sorulan Sorular",
 			GATitle: "Sıkça Sorulan Sorular",
+		},
+		otv: {
+			path: "/otv-hesaplama",
+			component: "Otv",
+			exact: true,
+			linkTitle: "Otv Araç İndirimi Hesaplama",
+			title: "Otv Araç İndirimi Hesaplama",
+			GATitle: "Otv Araç İndirimi Hesaplama",
 		},
 		privacy: {
 			path: "/kullanici-sozlesmesi",

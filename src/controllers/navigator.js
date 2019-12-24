@@ -69,7 +69,7 @@ import BlogDetail from 'pages/blog-detail'
 import BlogRedirect from 'pages/blog-redirect'
 import DealerApplication from 'pages/dealer-application'
 import DealerApplicationStatus from 'pages/dealer-application-status'
-
+import Otv from 'pages/otv'
 import NotFound from 'pages/notfound'
 
 const pageRegistry = {
@@ -93,6 +93,7 @@ const pageRegistry = {
 	Account: Account,
 	Reservation: Reservation,
 	Faq: Faq,
+	Otv: Otv,
 	Privacy: Privacy,
 	GdprPolicy: GdprPolicy,
 	Contact: Contact,
@@ -102,7 +103,6 @@ const pageRegistry = {
 	DealerApplication: DealerApplication,
 	DealerApplicationStatus: DealerApplicationStatus,
 	Posts: Posts,
-
 	NotFound: NotFound,
 }
 
@@ -115,13 +115,11 @@ const mapStateToProps = state => {
 class Navigator extends React.Component {
 	constructor(props) {
 		super(props);
-
 		changePage();
 	}
 
 	componentDidMount() {
 		window.dynamicHistory = history;
-
 		history.listen(function (e) {
 			store.dispatch(setPageNotFound(false));
 			/*let route = getRouteFromUrl(e.pathname, false, true);
