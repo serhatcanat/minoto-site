@@ -9,7 +9,6 @@ export default class Select extends React.Component {
 		let props = omit(this.props, ['className', 'theme']);
 		let className = this.props.className + ' ' + this.props.theme;
 		props.classNamePrefix = this.props.theme;
-
 		return (
 			<RSelect
 				className={className}

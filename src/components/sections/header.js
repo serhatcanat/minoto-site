@@ -257,6 +257,10 @@ class Header extends React.Component {
 												<li className="sublinks-item">
 													<Link href="dealerApplication">Yetkili Bayi'yim, Nasıl Üye Olurum?</Link>
 												</li>
+												<li className="sublinks-item">
+													<Link href="otv">Ötv İndirimi Hesaplayıcı</Link>
+												</li>
+
 											</ul>
 											{videoData && (
 												<ul className="menu-thumblinks">

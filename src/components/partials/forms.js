@@ -526,6 +526,7 @@ class InputFile extends React.Component {
 				{labelText &&
 					<label className="input-label" htmlFor={vm.props.id}>{labelText}</label>
 				}
+
 				<i className="input-icon icon-upload"></i>
 				<input
 					ref={this.input}
