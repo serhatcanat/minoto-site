@@ -1,6 +1,7 @@
 import React from 'react'
 import {FormInput} from "../../components/partials/forms";
 import {formatMoney} from "../../functions";
+import clone from "lodash/clone";
 
 export default class OtvCalculator extends React.Component {
     constructor(props) {
@@ -21,11 +22,21 @@ export default class OtvCalculator extends React.Component {
         })
     }
 
+    handlePriceInput(value){
+        const seperator = '.';
+        const formattedPrice = formatMoney(value.split(seperator).join(''),0,seperator,seperator);
+
+        this.setState({priceInput: formattedPrice});
+        setTimeout(() => {
+            this.calculateBasePrice();
+        }, 50)
+    }
 
     calculateBasePrice() {
         const kdvRate = 0.18;
         const {selectedVehicleType, selectedCase} = this.state;
         let {priceInput} = this.state;
+        priceInput=(priceInput.toString().replace(/\./g,''));
         let withoutKdv, kdvCost, withoutOtv, otvCost, totalTax, result, otvRate;
         priceInput = parseInt(priceInput);
         const otvObj = cases[selectedVehicleType];
@@ -103,7 +114,7 @@ export default class OtvCalculator extends React.Component {
                         name="selectedVehicleType"
                         placeholder="Araç türünü seçiniz"
                         validation={{
-                            required: "Ad ve soyadınızı girmelisiniz.",
+                            required: "Araç türünü seçiniz",
                         }}
                         options={vehicleTypes}
                         onChange={(v) => {
@@ -119,7 +130,7 @@ export default class OtvCalculator extends React.Component {
                         name="selectedCase"
                         placeholder="Motor / Silindir Hacmi - Lütfen önce araç türünü seçiniz."
                         validation={{
-                            required: "Ad ve soyadınızı girmelisiniz.",
+                            required: "Motor / Silindir Hacmi - Lütfen önce araç türünü seçiniz.",
                         }}
                         options={cases[this.state.selectedVehicleType]}
                         onChange={(v) => {
@@ -135,11 +146,8 @@ export default class OtvCalculator extends React.Component {
                         popLabel
                         name="priceInput"
                         placeholder="Aracın Satış Fiyatını Giriniz"
-                        onChange={(v) => {
-                            this.setState({priceInput: v});
-                            setTimeout(() => {
-                                this.calculateBasePrice();
-                            }, 50)
+                        onChange={(e) => {
+                            this.handlePriceInput(e);
                         }}/>
                     }
                 </div>

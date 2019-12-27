@@ -1,5 +1,4 @@
 import React from 'react'
-
 // Partials
 import Image from 'components/partials/image'
 import Link from 'components/partials/link'
@@ -7,17 +6,14 @@ import ScrollWrap from 'components/partials/scrollwrap'
 import SearchBar from 'components/partials/searchbar.js'
 import Responsive from 'components/partials/responsive.js'
 import Btn from 'components/partials/btn.js'
-
 // Deps
 import request from 'controllers/request'
 import history from 'controllers/history'
-import { openModal } from "functions/modals"
-import { blockOverflow } from "functions/helpers"
-import { connect } from "react-redux"
-import { storageSpace } from "functions/helpers"
-import { getUnreadMessageCount } from "data/store.user"
+import {openModal} from "functions/modals"
+import {blockOverflow, storageSpace} from "functions/helpers"
+import {connect} from "react-redux"
+import {getUnreadMessageCount} from "data/store.user"
 import config from 'data/config'
-
 // Assets
 import image_icon_facebook from 'assets/images/icon/facebook.svg'
 import image_icon_instagram from 'assets/images/icon/instagram.svg'
