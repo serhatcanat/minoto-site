@@ -1,0 +1,81 @@
+.otv-calculator {
+  .minoto-select__menu{
+    z-index: 5;
+  }
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .col {
+    width: 50%;
+    @include media{
+      width: 100%;
+    }
+
+  }
+
+  .inputwrap {
+    margin-top: 1.75em;
+  }
+
+  //Calculator results begin
+  .calculator-results {
+    padding-top: 1.5em;
+    padding-left: 2.8em;
+    @include media{
+      padding: 0;
+      margin-top: 1.2em;
+    }
+    .row {
+      padding: 1rem 2rem;
+      .col{
+        &:nth-child(even){
+          color: $color-blue;
+          @include media{
+            margin-top: 1em;
+          }
+        }
+      }
+      &:nth-child(odd) {
+        background-color: rgba($color-gray-light, .7);
+      }
+      &:nth-child(even) {
+        background-color: rgba($color-ice, .7);
+      }
+
+      //Last child describe main result
+      &:last-child{
+        font-weight: bold;
+      }
+    }
+  }
+  //Calculator results End
+
+  //Content section begin
+  .contents{
+    margin-top: 3em;
+    .col{
+      width: 100%;
+    }
+
+    h2{
+      font-size: 1.6em;
+      font-weight: 300;
+      margin-top: 1.3em;
+      @include media{
+        &:not(:first-child){
+          margin-top: 1.3em;
+        }
+      }
+    }
+    p{
+      line-height: 1.4em;
+      margin-top: 1.3em;
+      font-weight: 400;
+      color: $color-text-cfriendly;
+      font-size: 1.8rem;
+    }
+  }
+  //Content section End
+}

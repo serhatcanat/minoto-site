@@ -84,114 +84,120 @@ export class DetailCredit extends React.Component {
         let vm = this;
 
         return (
-            <div className="detail-info">
-                <div className="info-credit-calculation">
-                    <h2>KREDİ HESAPLAMA</h2>
-                    <p>Kredi tutarı aracın fiyatına göre otomatik olarak hesaplanır.</p>
-                    <InputForm className="section contentpage-form grid-container" onSubmit={this.calculateInstallments}>
-                        <div className="grid-row">
-                            <div className="grid-col x5 m-x6">
-                                <FormInput
-                                    id="creditAmount"
-                                    placeholder="Kredi tutarı"
-                                    className="credit-price currency-after"
-                                    value={parseInt(carCredits.initialCredit).toString()}
-                                    validation={{
-                                        required: "Bir tutar girmelisiniz.",
-                                        minNum: ["En az 5.000TL girebilirsiniz.", 5000],
-                                        maxNum: [`En fazla ${formatNumber(Math.round(parseInt(carCredits.maxCreditForPrice) * 100) / 100, {showDecimals: false})} girebilirsiniz.`, parseInt(carCredits.maxCreditForPrice)],
-                                    }}
-                                    name="credit_amount"
-                                    mask="1++++++++++++++"
-                                    disabled={vm.state.loading}
-                                    formatNumber
-                                    type="number" />
+            <>
+                {carCredits &&
+                <div className="detail-info">
+                    <div className="info-credit-calculation">
+                        <h2>KREDİ HESAPLAMA</h2>
+                        <p>Kredi tutarı aracın fiyatına göre otomatik olarak hesaplanır.</p>
+                        <InputForm className="section contentpage-form grid-container"
+                                   onSubmit={this.calculateInstallments}>
+                            <div className="grid-row">
+                                <div className="grid-col x5 m-x6">
+                                    <FormInput
+                                        id="creditAmount"
+                                        placeholder="Kredi tutarı"
+                                        className="credit-price currency-after"
+                                        value={parseInt(carCredits.initialCredit).toString()}
+                                        validation={{
+                                            required: "Bir tutar girmelisiniz.",
+                                            minNum: ["En az 5.000TL girebilirsiniz.", 5000],
+                                            maxNum: [`En fazla ${formatNumber(Math.round(parseInt(carCredits.maxCreditForPrice) * 100) / 100, {showDecimals: false})} girebilirsiniz.`, parseInt(carCredits.maxCreditForPrice)],
+                                        }}
+                                        name="credit_amount"
+                                        mask="1++++++++++++++"
+                                        disabled={vm.state.loading}
+                                        formatNumber
+                                        type="number"/>
+                                </div>
+                                <div className="grid-col x3 m-x6 no-padding">
+                                    <FormInput
+                                        id="creditDuration"
+                                        placeholder="Vade"
+                                        className="credit-price month-after"
+                                        value="36"
+                                        validation={{
+                                            required: "Bir vade girmelisiniz.",
+                                            minNum: ["En az 12 ay seçebilirsiniz.", 12],
+                                            maxNum: [`En fazla ${carCredits.maxTerm} ay seçebilirsiniz.`, carCredits.maxTerm],
+                                        }}
+                                        name="credit_duration"
+                                        mask="1+"
+                                        disabled={vm.state.loading}
+                                        formatNumber
+                                        type="number"/>
+                                </div>
+                                <div className="grid-col x4 m-x12 center">
+                                    <Btn
+                                        type="submit"
+                                        uppercase
+                                        block
+                                        disabled={vm.state.loading}
+                                        status={this.state.submitting && 'loading'}
+                                        //onClick={() => {  }}
+                                        className="form-submitbtn">
+                                        HESAPLA
+                                    </Btn>
+                                </div>
                             </div>
-                            <div className="grid-col x3 m-x6 no-padding">
-                                <FormInput
-                                    id="creditDuration"
-                                    placeholder="Vade"
-                                    className="credit-price month-after"
-                                    value="36"
-                                    validation={{
-                                        required: "Bir vade girmelisiniz.",
-                                        minNum: ["En az 12 ay seçebilirsiniz.", 12],
-                                        maxNum: [`En fazla ${carCredits.maxTerm} ay seçebilirsiniz.`, carCredits.maxTerm],
-                                    }}
-                                    name="credit_duration"
-                                    mask="1+"
-                                    disabled={vm.state.loading}
-                                    formatNumber
-                                    type="number" />
-                            </div>
-                            <div className="grid-col x4 m-x12 center">
-                                <Btn
-                                    type="submit"
-                                    uppercase
-                                    block
-                                    disabled={vm.state.loading}
-                                    status={this.state.submitting && 'loading'}
-                                    //onClick={() => {  }}
-                                    className="form-submitbtn">
-                                    HESAPLA
-                                </Btn>
-                            </div>
-                        </div>
-                    </InputForm>
-                </div>
-                <div className="info-credit-results">
-                    <table className="table listprices-table">
-                        <thead>
-                        <tr>
-                            <th>Taksit</th>
-                            <th><div className="tablePad">Faiz</div></th>
-                            <th>Banka</th>
-                            <th></th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {banksInterests.map((bank,nth) => {
-                            const interest = bank.rate / 100 * 1.2;
+                        </InputForm>
+                    </div>
+                    <div className="info-credit-results">
+                        <table className="table listprices-table">
+                            <thead>
+                            <tr>
+                                <th>Taksit</th>
+                                <th>
+                                    <div className="tablePad">Faiz</div>
+                                </th>
+                                <th>Banka</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {banksInterests.map((bank, nth) => {
+                                const interest = bank.rate / 100 * 1.2;
 
-                            let installments= credit * (interest * Math.pow((1 + interest), month)) / (Math.pow(1 + interest, month) - 1);
+                                let installments = credit * (interest * Math.pow((1 + interest), month)) / (Math.pow(1 + interest, month) - 1);
                                 installments= formatNumber(Math.round(installments * 100) / 100, { showDecimals: true });
-
-                            return (
-                                <tr key={nth}>
-                                    <td>{installments} TL</td>
-                                    <td>
-                                        <div className="tablePad">%{bank.rate.toString().replace('.', ',')}</div>
-                                    </td>
-                                    <td><img src={storageSpace('c_scale,q_auto:good,w_400/library', bank.image)} alt="" width="121"/></td>
-                                    <td>
-                                        <Btn
-                                            type="submit"
-                                            uppercase
-                                            block
-                                            disabled={this.state.submitting}
-                                            status={this.state.submitting && 'loading'}
-                                            onClick={() => openModal('credit', {
-                                                advert: vm.props.product,
-                                                installment: installments,
-                                                interest: bank.rate,
-                                                month: month,
-                                                amount: credit,
-                                                type: 'garanti',
-                                                banksInterest: bank,
-                                            })}
-                                            className="form-submitbtn">
-                                            {vm.props.mobile ? (<i className="icon-new-tab"/>) :
-                                                <i className="icon-new-tab"></i>}
-                                        </Btn>
-                                    </td>
-                                </tr>
-                            )
-
-                        })}
-                        </tbody>
-                    </table>
+                                return (
+                                    <tr key={nth}>
+                                        <td>{installments} TL</td>
+                                        <td>
+                                            <div className="tablePad">%{bank.rate.toString().replace('.', ',')}</div>
+                                        </td>
+                                        <td><img src={storageSpace('c_scale,q_auto:good,w_400/library', bank.image)}
+                                                 alt="" width="121"/></td>
+                                        <td>
+                                            <Btn
+                                                type="submit"
+                                                uppercase
+                                                block
+                                                disabled={this.state.submitting}
+                                                status={this.state.submitting && 'loading'}
+                                                onClick={() => openModal('credit', {
+                                                    advert: vm.props.product,
+                                                    installment: installments,
+                                                    interest: bank.rate,
+                                                    month: month,
+                                                    amount: credit,
+                                                    type: bank.name,
+                                                    banksInterest: bank,
+                                                })}
+                                                className="form-submitbtn">
+                                                {vm.props.mobile ? (<i className="icon-new-tab"/>) :
+                                                    <i className="icon-new-tab"></i>}
+                                            </Btn>
+                                        </td>
+                                    </tr>
+                                )
+                            })}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
+                }
+            </>
         )
     }
 }

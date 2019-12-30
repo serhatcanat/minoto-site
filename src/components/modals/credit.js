@@ -60,7 +60,7 @@ class CreditModalRaw extends React.Component {
                 {vm.props.closeBtn}
                 <div className="modal-innercontent left-align">
                     <div className="modalHeadContent">
-                        {type === 'garanti' ?
+                        {type === 'Garanti BBVA' ?
                             (<img src={storageSpace('c_scale,q_auto:good,w_400/library', banksInterest.image)} alt={banksInterest.name} width="170"/>)
                             : (<img src={storageSpace('c_scale,q_auto:good,w_400/library', banksInterest.image)} alt={banksInterest.name} width="170"/>)
                         }
@@ -166,7 +166,7 @@ class CreditModalRaw extends React.Component {
                                     <i className="complete-icon icon-check-round"></i>
                                     <p className="complete-description">
                                         Bilgileriniz kaydedildi,
-                                        {type === 'garanti' ?
+                                        {type === 'Garanti BBVA' ?
                                             ' Garanti Bankası '
                                             : ' İş Bankası '
                                         }

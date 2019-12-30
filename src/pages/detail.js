@@ -156,7 +156,7 @@ class Detail extends React.Component {
 		let vm = this;
 		let product = vm.state.productData;
 		const {reservation,setVehicleToReservation} = this.props;
-		const {mobile,user} = vm.props;
+		const {mobile} = vm.props;
 		return (
 			<main className={"page detail minoto-ui" + (vm.state.galleryFullScreen ? ' gallery-fullscreen' : '')}>
 				<Loader loading={product === false} strict={true} />
@@ -266,13 +266,10 @@ class Detail extends React.Component {
 							</div>
 						</section>
 
-						{!mobile &&
-							<DetailLVP lvpList={this.props.lvpList} currentProduct={product}/>
-						}
 
 
 						{!mobile  &&
-							<section className="section detail-related"  style={{paddingTop: user ? '0px' : ''}}>
+							<section className="section detail-related" >
 								<div className="wrapper">
 									<div className="related-innerwrap">
 										<h2 className="related-title">Benzer araçlar</h2>
@@ -287,6 +284,11 @@ class Detail extends React.Component {
 
 						}
 
+						{!mobile &&
+							<DetailLVP lvpList={this.props.lvpList} currentProduct={product}/>
+						}
+
+
 
 						<SubscriptionBar className="detail-subscription" heading={"Daha fazla " + product.brand.title + " modelleri için sizi bilgilendirelim!"} />
 						{/*product.ads &&
@@ -300,7 +302,7 @@ class Detail extends React.Component {
 								</div>
 							</section>
 						*/}
-						{product.ads &&
+						{(product.ads || product.youtubeVideo) &&
 							<section className="section detail-blogposts">
 								<div className="wrapper">
 									<ul className="blogposts-list">

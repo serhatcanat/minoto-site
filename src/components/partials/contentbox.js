@@ -60,6 +60,44 @@ export default class ContentBox extends React.Component {
 		let content = false;
 
 		switch (vm.props.type) {
+			case 'youtube':{
+				content =  (
+					<Wrap className="contentbox-innerwrap" href={this.props.url ? this.props.url : undefined} params={this.props.urlParams ? this.props.urlParams : undefined} onClick={this.props.url ? this.props.onClick : undefined}>
+						<div className="contentbox-imagewrap">
+							{badge}
+							{favControls}
+							<Image bg contain className="contentbox-image" src={vm.props.image} />
+						</div>
+						<div className="contentbox-content">
+							{(vm.props.pretitle) && (
+								<p className="contentbox-pretitle">{vm.props.pretitle}</p>
+							)}
+							<strong className="contentbox-title">{vm.props.title}</strong>
+							{(vm.props.subtitle) && (
+								<p className="contentbox-subtitle">{vm.props.subtitle}</p>
+							)}
+							{((vm.props.labels.length || bottomNote || !vm.props.additionsOptional) ?
+								<div className="contentbox-additions">
+									{vm.props.additionTitle && (
+										<div className="additions-title">{vm.props.additionTitle}</div>
+									)}
+									{((vm.props.labels.length) ?
+										<div className="additions-labels">
+											{vm.props.labels.map((label, nth) => {
+												return (
+													<span key={nth}>{`${label}${nth + 1 === vm.props.labels.length ? '' : ','}`}&nbsp;</span>
+												)
+											})}
+										</div>
+										: null)}
+									{bottomNote}
+								</div>
+								: null)}
+						</div>
+					</Wrap>
+				)
+				break;
+			}
 			case 'plain':
 				content = (
 					<Wrap className="contentbox-innerwrap" href={this.props.url ? this.props.url : undefined} params={this.props.urlParams ? this.props.urlParams : undefined} onClick={this.props.url ? this.props.onClick : undefined}>
