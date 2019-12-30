@@ -116,6 +116,7 @@ class Dealer extends React.Component {
 	render() {
 		let vm = this;
 		let dealer = vm.state.dealerData;
+		console.log(dealer);
 		return (
 			<main className="page dealer">
 				<Loader loading={dealer === false} strict={true} />

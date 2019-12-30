@@ -51,6 +51,7 @@ class BlogBanner extends React.Component {
 }
 
 class YoutubeBanner extends React.Component {
+
 	render() {
 		return (
 			<a className="banner-youtube" target="_blank" rel="noopener noreferrer" href={config.social.youtubeURL}>

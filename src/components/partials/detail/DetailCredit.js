@@ -160,7 +160,6 @@ export class DetailCredit extends React.Component {
 
                                 let installments = credit * (interest * Math.pow((1 + interest), month)) / (Math.pow(1 + interest, month) - 1);
                                 installments= formatNumber(Math.round(installments * 100) / 100, { showDecimals: true });
-
                                 return (
                                     <tr key={nth}>
                                         <td>{installments} TL</td>
@@ -182,7 +181,7 @@ export class DetailCredit extends React.Component {
                                                     interest: bank.rate,
                                                     month: month,
                                                     amount: credit,
-                                                    type: 'garanti',
+                                                    type: bank.name,
                                                     banksInterest: bank,
                                                 })}
                                                 className="form-submitbtn">
