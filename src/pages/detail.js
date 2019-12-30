@@ -156,7 +156,7 @@ class Detail extends React.Component {
 		let vm = this;
 		let product = vm.state.productData;
 		const {reservation,setVehicleToReservation} = this.props;
-		const {mobile,user} = vm.props;
+		const {mobile} = vm.props;
 		return (
 			<main className={"page detail minoto-ui" + (vm.state.galleryFullScreen ? ' gallery-fullscreen' : '')}>
 				<Loader loading={product === false} strict={true} />

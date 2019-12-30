@@ -1,7 +1,6 @@
 import React from 'react'
 import {FormInput} from "../../components/partials/forms";
 import {formatMoney} from "../../functions";
-import clone from "lodash/clone";
 
 export default class OtvCalculator extends React.Component {
     constructor(props) {
@@ -207,7 +206,7 @@ function Result(props) {
             </div>
             <div className="row">
                 <div className="col">
-                    <p>Aracın Ötv İndiirmli Fiyatı</p>
+                    <p>Aracın Ötv İndirimli Fiyatı</p>
                 </div>
                 <div className="col">
                     <p>{formatMoney(result.total)} TL</p>

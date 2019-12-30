@@ -1,13 +1,8 @@
 import React from 'react'
-import {formatMoney} from "../functions";
 import parse from "html-react-parser";
 import OtvCalculator from "../components/partials/otv-calculator";
 
 export default class Otv extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <main className="page content otv-calculator">
@@ -33,62 +28,6 @@ export default class Otv extends React.Component {
     }
 }
 
-function Result(props) {
-    const {result} = props;
-    return (
-        <>
-            <div className="row">
-                <div className="col">
-                    <p>Ötv Oranı</p>
-                </div>
-                <div className="col">
-                    <p>%{result.otvRate * 100}</p>
-                </div>
-            </div>
-            <div className="row">
-                <div className="col">
-                    <p>Ötv Tutarı</p>
-                </div>
-                <div className="col">
-                    <p>{formatMoney(result.otvCost)} TL</p>
-                </div>
-            </div>
-            <div className="row">
-                <div className="col">
-                    <p>Kdv Oranı</p>
-                </div>
-                <div className="col">
-                    <p>%{result.kdvRate * 100}</p>
-                </div>
-            </div>
-            <div className="row">
-                <div className="col">
-                    <p>KDV Tutarı</p>
-                </div>
-                <div className="col">
-                    <p>{formatMoney(result.kdvCost)} TL</p>
-                </div>
-            </div>
-            <div className="row">
-                <div className="col">
-                    <p>Toplam vergi</p>
-                </div>
-                <div className="col">
-                    <p>{formatMoney(result.totalTax)} TL</p>
-                </div>
-            </div>
-            <div className="row">
-                <div className="col">
-                    <p>Aracın Ötv İndirimli Fiyatı</p>
-                </div>
-                <div className="col">
-                    <p>{formatMoney(result.total)} TL</p>
-                </div>
-            </div>
-        </>
-    )
-}
-
 function Contents(props) {
     const {contents} = props;
     return (
@@ -99,28 +38,7 @@ function Contents(props) {
             </div>
         ))
     )
-
 }
-
-const vehicleTypes = [
-    {
-        value: 'car',
-        label: 'Otomobil'
-    },
-    {
-        value: 'hybrid',
-        label: 'Hibrit Araç'
-    },
-    {
-        value: 'electric',
-        label: 'Elektrikli Araç'
-    },
-    {
-        value: 'autobus',
-        label: 'Otobus'
-    }
-];
-
 
 const contents = [
     // {
