@@ -14,7 +14,7 @@ export default class Otv extends React.Component {
                 <section className="section contentpage">
                     <div className="contentpage-wrap wrapper narrow">
                         <div className="contentpage-content">
-                            <h1 className="content-title">Otv İndirimi Hesaplama</h1>
+                            <h1 className="content-title">Ötv İndirimi Hesaplama</h1>
                             <OtvCalculator/>
                             {/*  Content  Wrapper Begin */}
                             <div className="row contents">
