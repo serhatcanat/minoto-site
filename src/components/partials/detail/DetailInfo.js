@@ -426,7 +426,7 @@ export class DetailInfo extends React.Component {
                             </React.Fragment>
                         )
                 }
-                {!vm.props.mobile && <DetailCredit product={product} mobile={vm.props.mobile} />}
+                {(!vm.props.mobile && product.carCredits )&& <DetailCredit product={product} mobile={vm.props.mobile} />}
 
             </div>
         )
