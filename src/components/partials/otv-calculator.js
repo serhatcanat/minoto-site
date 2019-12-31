@@ -138,22 +138,28 @@ export default class OtvCalculator extends React.Component {
                         }}/>
                     {selectedCase &&
                     // todo : add turkish lira icon
+
                     <FormInput
+                        addon="TL"
                         type="number"
                         className="form-field name"
                         value={priceInput}
                         popLabel
                         name="priceInput"
-                        placeholder="Aracın Satış Fiyatını Giriniz"
+                        placeholder="Aracın Anahtar Teslim Vergili Fiyatı"
                         onChange={(e) => {
                             this.handlePriceInput(e);
                         }}/>
                     }
                 </div>
+
                 <div className="col calculator-results">
                     {result &&
                     <Result result={result}/>
                     }
+                </div>
+                <div >
+                    <p className='info-paragraph'>* Fiyat tamamen bilgi amaçlı verilmiştir, gerçek fiyat bayide değişiklik gösterebilir.</p>
                 </div>
             </div>
         )

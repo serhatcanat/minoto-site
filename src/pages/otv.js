@@ -41,22 +41,22 @@ function Contents(props) {
 }
 
 const contents = [
-    // {
-    //     title: 'Ötv İndirimi Nasıl Hesaplanır',
-    //     description: 'Taşıtların vergisiz (ham bedelleri) üzerine aşağıdaki tablolarda göre Özel Tüketim Vergisi( ÖTV ) uygulanıyor. Bulunan ÖTV\'li bedel üzerine ise %18 KDV uygulanıyor. Bu durumda ÖTV\'nin de KDV\'sinin alınmasına sebep olduğu için verginin, vergisini almak gibi bir durum ortaya çıkarıyor. Bu durum için hukuki yollardan itirazda bulunulsa da sonuç olarak Yargıtay bu uygulamanın diğer ülkelerdeki uygulamalara da atıfta bulunarak yerinde olduğuna karar verdi. KDV işlem ve tutarları hakkında daha detaylı bilgi almak ve hesaplama yapmak için KDV hesaplama aracımızı kullanın.'
-    // },
-    // {
-    //     title:Ötv '2019 Ötv İndirimi',
-    //     description: '31 Ekim 2018 tarihinde yapılan ve 30 Haziran 2019\'a kadar geçerli olan ÖTV indirimleri sonra erdi. 30 Haziran 2019\'a kadar uygulanan ÖTV indirimleri şu şekildeydi: "1600 cc ve 120 bin TL\'ye kadar vergisiz satış bedeli olan araçların ÖTV\'lerinde 15 puanlık indirim yapılmıştı. Bu değişiklik vergisiz satış bedeli 120 bin TL olan araç için 21.240 TL indirim anlamına geliyordu. Piyasada 1600 cc\'ye kadar olan araçların satış fiyatları incelendiğinde ise ortalamada 15 bin TL indirim söz konusu olmuştu.'
-    // },
-    // {
-    //     title: 'Engelli Araç İndirimi Nedir Kimler Faydalanabilir',
-    //     description: '%90 ve üzerinden engelli raporu olan kişiler ÖTV olmadan binek sınıfında yer alan taşıtlardan alabilir. Ancak alınacak taşıtın satış bedelinin 200 bin TL\'yi geçmemesi gerekiyor. Öte yandan önceki yıllarda uygulanan motor silindir hacmin 1.6\'yı (1600 cm³) geçmemesi kuralı ise 2018 yılı için ilgili mevzuat ile kaldırıldı. '
-    // },
-    // {
-    //     title: 'Gazi ve şehit yakınları Ötv İndiriminden Faydalanabilir mi ?',
-    //     description: 'Engelli kişilerde olduğu gibi gazi ve şehit yakınları da ÖTV olmadan binek sınıfında yer alan taşıtlardan alabilir. Yani satışı tutarı 200 bin TL\'yi geçmeyen araçları herhangi bir motor silindir hacmi sınırlaması olmadan alabilir.'
-    // },
+    {
+        title: 'Ötv Nedir?',
+        description: 'Özel Tüketim Vergisi, kısaca ÖTV, belirli ürünler üzerinden maktu veya oransal olarak alınan bir harcama vergisidir. Avrupa Birliği ile uyum çerçevesinde yapılan kanun değişiklikleriyle ilk kez gündeme gelmiş ve AB\'ye uyum amacıyla 2002 yılında 4760 sayılı kanun ile kabul edilmiştir. Avrupa Birliği\'nde bu verginin uygulanmasındaki amaç, gelir elde etmekten ziyade sosyal fayda sağlamaktır. Bu nedende ÖTV, lüks (mücevher, kürk vb.),sağlığa zararlı (alkol, sigara vb.),çevreye zararlı (benzin vb.) ürünlere uygulanır.'
+    },
+    {
+        title:'Engelli Araç İndirimi Nedir? Kimler Faydalanabilir?',
+        description: '%90 ve üzerinde engelli raporuna sahip kişiler ÖTV ödemeden binek sınıfında araç satın alabilirler. KDV yine de vatandaşlarımızdan tahsil edilmektedir. Ancak satın alınacak otomobilin satış bedelinin 200 bin TL üst limiti var. Daha önceden uygulanan 1600 cm³ motor hacmi sınırı 2018 yılında kaldırıldı. '
+    },
+    {
+        title: 'Gazi ve şehit yakınları Ötv İndiriminden Faydalanabilir mi ?',
+        description: 'Engelli vatandaşlarımız gibi gazilerimiz de bu ÖTV indiriminden faydalanabilirler. 200.000 TL üst limiti onlar için de geçerli değildir. Şehit olan kişi evliyse eşi veya çocuğu, evli değilse de annesi veya babası bu indirimden faydalanabilir. Bu dört yakın haricindeki akrabalar ÖTV indiriminden faydalanamazlar.'
+    },
+    {
+        title: 'ÖTV İndiriminin Koşulları Neler?',
+        description: 'Aslında çok fazla bir koşul yok. Engelliyseniz 200.000 TL\'yi aşmayan bir otomobili ÖTV ödemeden, gazi ya da birinci dereceden şehit yakınıysanız istediğiniz herhangi bir otomobili ÖTV ödemeden satın alıp kullanabilirsiniz. Tek koşul beş yıl boyunca satın aldığınız otomobili satmamak. Beş yıl dolmadan sattığınız takdirde muhaf olduğunuz ÖTV sizden tahsil edilmektedir. Beş yıl sonra otomobilinizi satıp, yenisini ÖTV indirimiyle satın alabilirsiniz.'
+    },
 ]
 
 

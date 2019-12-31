@@ -324,6 +324,12 @@ class InputText extends React.Component {
 
 		return (
 			<div className={vm.props.className}>
+
+				{vm.props.addon &&
+					<div className='input-addon'>
+						<span>{vm.props.addon}</span>
+					</div>
+				}
 				{vm.props.icon &&
 					<i className={"input-icon icon-" + vm.props.icon}></i>
 				}

@@ -9,7 +9,6 @@ import {blockOverflow} from '../../../functions/helpers.js'
 import {storageSpace} from "../../../functions/helpers"
 //Functions
 // Assets
-import image_loader from '../../../assets/images/minoto-loading.gif'
 
 export class DetailGallery extends React.Component {
     constructor(props) {
@@ -105,9 +104,11 @@ export class DetailGallery extends React.Component {
                 }}><i className="icon-angle-right"/></button>
                 <Slider className="mainslider-slider" ref={vm.mainSlider} loop opts={{lazy: true}}
                         onChange={vm.imageChange}>
-                    {images.map((image, nth) => (
+                    {images.map((image, nth) => {
+                        return (
                         <div className="slider-imagewrap" key={nth}>
-                            <div className="imagewrap-image swiper-lazy"
+                            <div className="imagewrap-image "
+                                 style={{backgroundImage: `url(${storageSpace('c_scale,q_auto:best,w_1100/car-posts/gallery', image.medium)})`}}
                                  data-background={storageSpace('c_scale,q_auto:best,w_1100/car-posts/gallery', image.medium)}
                                  onClick={() => {
                                      if (!vm.props.fullScreen && vm.props.mobile) {
@@ -115,10 +116,9 @@ export class DetailGallery extends React.Component {
                                      }
                                  }}>
                             </div>
-                            <Image className="imagewrap-loader" width="100" bg src={image_loader}
-                                   alt="Yükleniyor..."/>
                         </div>
-                    ))}
+                        )
+                    })}
                 </Slider>
                 {(!vm.props.mobile && !vm.props.fullScreen) &&
                 <Btn className="mainslider-fullscreen" low white uppercase icon="search" onClick={() => {
