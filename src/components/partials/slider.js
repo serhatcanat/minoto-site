@@ -116,7 +116,6 @@ export default class Slider extends React.Component {
 	}
 
 	render() {
-
 		let vm = this;
 		let children = (vm.props.children.length > 1 ? vm.props.children : [vm.props.children]);
 		let classes = "swiper-container slider-component " + vm.props.className + (vm.props.scrollBar ? ' slider-scrollbar' : '');
