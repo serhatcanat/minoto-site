@@ -116,7 +116,6 @@ class Dealer extends React.Component {
 	render() {
 		let vm = this;
 		let dealer = vm.state.dealerData;
-		console.log(dealer);
 		return (
 			<main className="page dealer">
 				<Loader loading={dealer === false} strict={true} />
@@ -255,11 +254,11 @@ class BranchInfo extends React.Component {
 				</button>
 
 				<Collapse className="branch-details" open={this.state.open}>
-					{branch.workingHours && (
+					{(branch.workingHours !== null) && (
 						<span className={"branch-workinghours " + (branch.open ? 'open' : 'closed')}>
 							{branch.workingHours}
-							<span>|</span>
-							{(branch.open ? 'Açık' : 'Kapalı')}
+							{branch.workingHours && <span>|</span>}
+							{(branch.open ? 'Açık' : 'K	apalı')}
 						</span>
 					)}
 

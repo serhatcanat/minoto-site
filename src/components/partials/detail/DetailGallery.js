@@ -103,7 +103,7 @@ export class DetailGallery extends React.Component {
                 <button className="mainslider-nav next" aria-label="Next Button" onClick={() => {
                     vm.mainSlider.current.next();
                 }}><i className="icon-angle-right"/></button>
-                <Slider className="mainslider-slider" ref={vm.mainSlider} loop opts={{lazy: true}}
+                <Slider className="mainslider-slider" ref={vm.mainSlider} loop opts={{lazy: false}}
                         onChange={vm.imageChange}>
                     {images.map((image, nth) => (
                         <div className="slider-imagewrap" key={nth}>

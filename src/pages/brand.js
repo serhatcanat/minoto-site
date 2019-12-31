@@ -212,10 +212,11 @@ class BranchInfo extends React.Component {
 			<li className={"list-branch" + (this.state.open ? ' open' : '')}>
 				<button className="branch-sum" onClick={() => { this.setState({ open: !this.state.open }); }}>
 					<strong className="branch-title">{branch.title}</strong>
-					{branch.workingHours && (
+
+					{(branch.workingHours !== null) && (
 						<span className={"branch-workinghours " + (branch.open ? 'open' : 'closed')}>
 							{branch.workingHours}
-							<span>|</span>
+							{branch.workingHours && <span>|</span>}
 							{(branch.open ? 'Açık' : 'Kapalı')}
 						</span>
 					)}

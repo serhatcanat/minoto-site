@@ -109,10 +109,10 @@ class Branch extends React.Component {
 										}
 									</div>
 									{
-										branch.workingHours && (
+										branch.workingHours !== null && (
 											<span className={"sum-workinghours " + (branch.open ? 'open' : 'closed')}>
 												{branch.workingHours}
-												<span>|</span>
+												{branch.workingHours && <span>|</span>}
 												{(branch.open ? 'Şu an açık' : 'Şu an kapalı')}
 											</span>
 										)

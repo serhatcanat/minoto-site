@@ -48,6 +48,7 @@ export class DetailInfo extends React.Component {
         let vm = this;
         let product = vm.props.product;
         let selectedBranch = vm.state.selectedBranch;
+
         return (
             <div className="detail-info">
                 <h1 className="info-title">{product.title}</h1>
@@ -285,11 +286,13 @@ export class DetailInfo extends React.Component {
                                                     </strong>
                                                 </Link>
                                                 <p className="dealer-info">
+
                                                     <span className="info-location">{product.dealer.location}</span>
-                                                    {product.dealer.workingHours && (
+                                                    {(product.dealer.workingHours !== null) && (
                                                         <span className={"info-workinghours " + (product.dealer.open ? 'open' : 'closed')}>
 															{product.dealer.workingHours}
-                                                            <span>|</span>
+                                                            {product.dealer.workingHours && <span>|</span>}
+
                                                             {(product.dealer.open ? 'Şu an açık' : 'Şu an kapalı')}
 														</span>
                                                     )}
