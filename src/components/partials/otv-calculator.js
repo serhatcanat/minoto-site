@@ -140,7 +140,7 @@ export default class OtvCalculator extends React.Component {
                     // todo : add turkish lira icon
 
                     <FormInput
-                        addon="TL"
+                        addon="try"
                         type="number"
                         className="form-field name"
                         value={priceInput}

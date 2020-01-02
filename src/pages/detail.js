@@ -249,6 +249,7 @@ class Detail extends React.Component {
 							}
 						</section>
 						<section className="section detail-content">
+							<h1 className="icon-try">test</h1>
 							<div className="content-wrap wrapper">
 								<div className="content-left">
 									<DetailGallery product={product} mobile={mobile} onFullScreenChange={vm.setFullScreen} fullScreen={vm.state.galleryFullScreen} />
@@ -269,7 +270,7 @@ class Detail extends React.Component {
 
 
 						{!mobile  &&
-							<section className="section detail-related" >
+							<section className="section detail-related" style={{paddingBottom:"0px",marginBottom:"0px"}}>
 								<div className="wrapper">
 									<div className="related-innerwrap">
 										<h2 className="related-title">Benzer araçlar</h2>

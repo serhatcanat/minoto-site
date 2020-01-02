@@ -502,7 +502,6 @@ class ListingResults extends React.Component {
 								(<React.Fragment>
 									{
 										results.sort(turkishSort).map((item, nth) => {
-
 											itemsAt += (item.size ? item.size : 1);
 											let contents = [];
 											switch (item.type) {

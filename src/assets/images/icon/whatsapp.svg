@@ -1,18 +1,47 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="42px" height="42px" viewBox="0 0 42 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <!-- Generator: sketchtool 52.4 (67378) - http://www.bohemiancoding.com/sketch -->
-    <title>BEEFF7B7-304C-47A8-A567-2B3D97EB95BD</title>
-    <desc>Created with sketchtool.</desc>
-    <g id="WEB" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="BLOG-DETAY" transform="translate(-215.000000, -833.000000)">
-            <g id="Group-7" transform="translate(215.000000, 585.000000)">
-                <g id="Group-5" transform="translate(0.000000, 248.000000)">
-                    <circle id="Oval" fill="#00FC64" fill-rule="nonzero" cx="21" cy="21" r="21"></circle>
-                    <text id="" font-family="FontAwesome" font-size="30" font-weight="normal" fill="#FFFFFF">
-                        <tspan x="9" y="31"></tspan>
-                    </text>
-                </g>
-            </g>
-        </g>
-    </g>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 24.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 42 42" style="enable-background:new 0 0 42 42;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#00FC64;}
+	.st1{fill:url(#SVGID_1_);}
+	.st2{fill-rule:evenodd;clip-rule:evenodd;fill:#FFFFFF;}
+</style>
+<title>BEEFF7B7-304C-47A8-A567-2B3D97EB95BD</title>
+<desc>Created with sketchtool.</desc>
+<g id="Group-7" transform="translate(215.000000, 585.000000)">
+	<g id="Group-5" transform="translate(0.000000, 248.000000)">
+		<path id="Oval" class="st0" d="M-194-833c11,0,20,9,20,20c0,11-9,20-20,20c-3,0-6.5-2.7-9.2-2.7c-1.7,0-2.8,3.2-4.1,2
+			c-0.6-0.5-3.8-0.7-4.3-1.2c-1.4-1.5,2.5-4.3,2.3-7c-0.4-3.9-4.6-8-4.6-11.1C-214-824-205-833-194-833z"/>
+	</g>
+</g>
+<g id="shape_2">
+	
+		<image style="overflow:visible;opacity:4.000000e-02;" width="66" height="66" xlink:href="B3DDCFAE914825D9.png"  transform="matrix(1 0 0 1 -12 -11)">
+	</image>
+	<g>
+		<g>
+			<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="21.0872" y1="42" x2="21.0872" y2="0">
+				<stop  offset="0" style="stop-color:#F9F9F9"/>
+				<stop  offset="1" style="stop-color:#FFFFFF"/>
+			</linearGradient>
+			<path class="st1" d="M0.2,42l3-10.8c-1.8-3.2-2.8-6.7-2.8-10.4C0.4,9.3,9.7,0,21.2,0C26.7,0,32,2.2,35.9,6.1
+				C39.8,10,42,15.3,42,20.8c0,11.5-9.3,20.8-20.8,20.8c0,0,0,0,0,0h0c-3.5,0-6.9-0.9-9.9-2.5L0.2,42z M11.7,35.3l0.6,0.4
+				c2.7,1.6,5.7,2.4,8.8,2.4h0c9.5,0,17.3-7.8,17.3-17.3c0-4.6-1.8-9-5.1-12.2c-3.3-3.3-7.6-5.1-12.2-5.1c-9.5,0-17.3,7.8-17.3,17.3
+				c0,3.3,0.9,6.5,2.6,9.2l0.4,0.7l-1.7,6.4L11.7,35.3z"/>
+		</g>
+	</g>
+</g>
+<g id="shape_1">
+	
+		<image style="overflow:visible;opacity:6.000000e-02;" width="50" height="48" xlink:href="B3DDCFAE914825DB.png"  transform="matrix(1 0 0 1 -4 -1)">
+	</image>
+	<g>
+		<path class="st2" d="M15.1,10.9c-0.4-1-0.9-1-1.3-1c-0.3,0-0.7,0-1.1,0c-0.4,0-1,0.1-1.6,0.7c-0.5,0.6-2.1,2-2.1,4.9
+			c0,2.9,2.1,5.7,2.4,6.1c0.3,0.4,4.1,6.6,10.1,9c5,2,6,1.6,7.1,1.5c1.1-0.1,3.5-1.4,4-2.8c0.5-1.4,0.5-2.6,0.3-2.8
+			c-0.1-0.2-0.5-0.4-1.1-0.7c-0.6-0.3-3.5-1.7-4.1-1.9c-0.5-0.2-0.9-0.3-1.3,0.3c-0.4,0.6-1.5,1.9-1.9,2.3c-0.3,0.4-0.7,0.4-1.3,0.1
+			c-0.6-0.3-2.5-0.9-4.8-2.9c-1.8-1.6-3-3.5-3.3-4.1c-0.3-0.6,0-0.9,0.3-1.2c0.3-0.3,0.6-0.7,0.9-1c0.3-0.3,0.4-0.6,0.6-1
+			c0.2-0.4,0.1-0.7,0-1C16.8,15,15.6,12,15.1,10.9z"/>
+	</g>
+</g>
 </svg>
