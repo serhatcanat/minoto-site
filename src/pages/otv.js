@@ -9,7 +9,7 @@ export default class Otv extends React.Component {
                 <section className="section contentpage">
                     <div className="contentpage-wrap wrapper narrow">
                         <div className="contentpage-content">
-                            <h1 className="content-title">Ötv İndirimi Hesaplama</h1>
+                            <h1 className="content-title">ÖTV İndirimi Hesaplama</h1>
                             <OtvCalculator/>
                             {/*  Content  Wrapper Begin */}
                             <div className="row contents">
@@ -55,7 +55,7 @@ const contents = [
     },
     {
         title: 'ÖTV İndiriminin Koşulları Neler?',
-        description: 'Aslında çok fazla bir koşul yok. Engelliyseniz 200.000 TL\'yi aşmayan bir otomobili ÖTV ödemeden, gazi ya da birinci dereceden şehit yakınıysanız istediğiniz herhangi bir otomobili ÖTV ödemeden satın alıp kullanabilirsiniz. Tek koşul beş yıl boyunca satın aldığınız otomobili satmamak. Beş yıl dolmadan sattığınız takdirde muhaf olduğunuz ÖTV sizden tahsil edilmektedir. Beş yıl sonra otomobilinizi satıp, yenisini ÖTV indirimiyle satın alabilirsiniz.'
+        description: 'Aslında çok fazla bir koşul yok. Engelliyseniz 247.400 TL\'yi aşmayan bir otomobili ÖTV ödemeden, gazi ya da birinci dereceden şehit yakınıysanız istediğiniz herhangi bir otomobili ÖTV ödemeden satın alıp kullanabilirsiniz. Tek koşul beş yıl boyunca satın aldığınız otomobili satmamak. Beş yıl dolmadan sattığınız takdirde muhaf olduğunuz ÖTV sizden tahsil edilmektedir. Beş yıl sonra otomobilinizi satıp, yenisini ÖTV indirimiyle satın alabilirsiniz.'
     },
 ]
 

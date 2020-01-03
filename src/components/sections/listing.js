@@ -82,15 +82,11 @@ class Listing extends React.Component {
 		this.getQuery = this.getQuery.bind(this);
 		this.extendResults = this.extendResults.bind(this);
 		this.makeRequest = this.makeRequest.bind(this);
-
 		this.updateResults = debounce(this.updateResults.bind(this), 50);
-
 		this.listenerAbort = false;
 		this.urlTimeout = false;
-
 		this.mounted = false;
 		this.initialized = false;
-
 		this.containerRef = React.createRef();
 	}
 
@@ -117,15 +113,14 @@ class Listing extends React.Component {
 
 	componentDidUpdate(prevProps, prevState) {
 		let vm = this;
-
 		if (vm.props.topSection) {
 			if (prevState.order !== vm.state.order) {
+
 				vm.props.setListingQuery(extend({}, vm.props.listingQuery, { siralama: vm.state.order }));
 				this.setState({
 					page: 1,
 					pageOrder: "first"
 				})
-
 			}
 
 
@@ -163,15 +158,10 @@ class Listing extends React.Component {
 	}
 
 	getQuery() {
-
 		let querySelf = extend({}, this.props.listingQuery, { siralama: this.state.order, sayfa: parseInt(this.state.page), pageOrder: this.state.pageOrder });
-
 		this.props.setListingQuery(querySelf);
 		let newQuery = extend({}, this.props.listingQuery, this.props.filterQuery);
-
 		return newQuery;
-
-
 	}
 
 	urlChanged() {
@@ -263,13 +253,9 @@ class Listing extends React.Component {
 
 	updateResults() {
 		let vm = this;
-
-
 		let page = (vm.state.order === "random" && Object.keys(vm.getQuery()).length < 4) ? Math.floor(Math.random() * Math.floor(10)) + 1 : 1;
 		let order = vm.state.order ? vm.state.order : this.props.defaultOrder;
-
 		vm.setState({ loading: true, pageOrder: "first", page: vm.props.source === 'filters' ? page : 1, order: order, usedPages: [] });
-
 		setTimeout(function () { vm.makeRequest(); }, 50)
 	}
 

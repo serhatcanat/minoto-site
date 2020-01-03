@@ -47,7 +47,6 @@ export default class Search extends React.Component {
 				{
 					this.state.endpoint && <Listing className="search-listing" defaultOrder="date_desc" source="search/key" query={false} />
 				}
-
 			</main>
 
 		)

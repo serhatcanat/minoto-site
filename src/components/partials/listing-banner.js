@@ -14,6 +14,7 @@ import config from "data/config"
 import image_instagram from 'assets/images/listing/banners/instagram.jpg'
 import image_youtube from 'assets/images/listing/banners/youtube.png'
 import image_blog from 'assets/images/listing/banners/blog.png'
+import YoutubeWrapper from "./youtube-wrapper";
 
 // Banners
 class InstagramBanner extends React.Component {
@@ -93,7 +94,10 @@ class IframeBanner extends React.Component {
 	render() {
 		return (
 			<div className="banner-iframe">
-				<iframe title="Minoto" src="https://www.youtube.com/embed?max-results=1&controls=0&showinfo=0&rel=0&listType=user_uploads&list=minotocom" frameBorder="0" allowFullScreen></iframe>
+				<YoutubeWrapper video={{
+					'videoId': 'ScMzIvxBSi4',
+					'thumbnail': 'http://i3.ytimg.com/vi/4JThtv3d0cc/hqdefault.jpg'
+				}}/>
 			</div >
 		)
 	}

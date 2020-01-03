@@ -80,28 +80,37 @@ export default class OtvCalculator extends React.Component {
 
         //Set result only input higher than selected value
         if (priceInput > 40000) {
-            this.setState({
-                result: {
-                    withoutKdv: withoutKdv,
-                    kdvRate: kdvRate,
-                    kdvCost: kdvCost,
-                    withoutOtv: withoutOtv,
-                    otvRate: otvRate,
-                    otvCost: otvCost,
-                    totalTax: totalTax,
-                    total: result,
-                }
-            })
+            if (priceInput < 247400) {
+                this.setState({
+                    result: {
+                        withoutKdv: withoutKdv,
+                        kdvRate: kdvRate,
+                        kdvCost: kdvCost,
+                        withoutOtv: withoutOtv,
+                        otvRate: otvRate,
+                        otvCost: otvCost,
+                        totalTax: totalTax,
+                        total: result,
+                    },
+                    message: null
+                })
+            } else {
+                this.setState({
+                    result: null,
+                    message: "Ötv indirimi için maksimum araç değeri 247.400 TL'nin altında olmalıdır."
+                })
+            }
         } else {
             this.setState({
-                result: null
+                result: null,
+                message: 'Minimum 40.000 TL tutarında giriş yapmalısınız.'
             })
         }
         // const otvRate = otvObj[selectedCase-1].otv;
     }
 
     render() {
-        const {selectedVehicleType, selectedCase, priceInput, result} = this.state;
+        const {selectedVehicleType, selectedCase, priceInput, result, message} = this.state;
         return (
             <div className="row">
                 <div className="col">
@@ -154,6 +163,9 @@ export default class OtvCalculator extends React.Component {
                 </div>
 
                 <div className="col calculator-results">
+                    {message &&
+                    <p className='calculator-results--message'>{message}</p>
+                    }
                     {result &&
                     <Result result={result}/>
                     }
