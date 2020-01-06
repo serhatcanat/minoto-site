@@ -80,7 +80,7 @@ export default class OtvCalculator extends React.Component {
 
         //Set result only input higher than selected value
         if (priceInput > 40000) {
-            if (priceInput < 247400) {
+            if (priceInput < 303200) {
                 this.setState({
                     result: {
                         withoutKdv: withoutKdv,
@@ -97,7 +97,7 @@ export default class OtvCalculator extends React.Component {
             } else {
                 this.setState({
                     result: null,
-                    message: "Ötv indirimi için maksimum araç değeri 247.400 TL'nin altında olmalıdır."
+                    message: "Ötv indirimi için maksimum araç değeri 303.200 TL'nin altında olmalıdır."
                 })
             }
         } else {
@@ -227,7 +227,7 @@ function Result(props) {
                     <p>Aracın Ötv İndirimli Fiyatı</p>
                 </div>
                 <div className="col">
-                    <p>{formatMoney(result.total)} TL</p>
+                    <p>{formatMoney(result.total+result.kdvCost)} TL</p>
                 </div>
             </div>
         </>

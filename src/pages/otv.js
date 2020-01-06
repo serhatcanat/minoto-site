@@ -15,7 +15,7 @@ export default class Otv extends React.Component {
                             <div className="row contents">
                                 <div className="col">
                                     {contents &&
-                                    <Contents contents={contents}/>
+                                        <Contents contents={contents}/>
                                     }
                                 </div>
                             </div>
@@ -47,15 +47,16 @@ const contents = [
     },
     {
         title:'Engelli Araç İndirimi Nedir? Kimler Faydalanabilir?',
-        description: '%90 ve üzerinde engelli raporuna sahip kişiler ÖTV ödemeden binek sınıfında araç satın alabilirler. KDV yine de vatandaşlarımızdan tahsil edilmektedir. Ancak satın alınacak otomobilin satış bedelinin 200 bin TL üst limiti var. Daha önceden uygulanan 1600 cm³ motor hacmi sınırı 2018 yılında kaldırıldı. '
+        description: '%90 ve üzerinde engelli raporuna sahip kişiler ÖTV ödemeden binek sınıfında araç satın alabilirler. KDV yine de vatandaşlarımızdan tahsil edilmektedir. Ancak satın alınacak otomobilin satış bedelinin 303.200' +
+            ' bin TL üst limiti var. Daha önceden uygulanan 1600 cm³ motor hacmi sınırı 2018 yılında kaldırıldı. '
     },
     {
         title: 'Gazi ve şehit yakınları Ötv İndiriminden Faydalanabilir mi ?',
-        description: 'Engelli vatandaşlarımız gibi gazilerimiz de bu ÖTV indiriminden faydalanabilirler. 200.000 TL üst limiti onlar için de geçerli değildir. Şehit olan kişi evliyse eşi veya çocuğu, evli değilse de annesi veya babası bu indirimden faydalanabilir. Bu dört yakın haricindeki akrabalar ÖTV indiriminden faydalanamazlar.'
+        description: 'Engelli vatandaşlarımız gibi gazilerimiz de bu ÖTV indiriminden faydalanabilirler. 303.200 TL üst limiti onlar için de geçerli değildir. Şehit olan kişi evliyse eşi veya çocuğu, evli değilse de annesi veya babası bu indirimden faydalanabilir. Bu dört yakın haricindeki akrabalar ÖTV indiriminden faydalanamazlar.'
     },
     {
         title: 'ÖTV İndiriminin Koşulları Neler?',
-        description: 'Aslında çok fazla bir koşul yok. Engelliyseniz 247.400 TL\'yi aşmayan bir otomobili ÖTV ödemeden, gazi ya da birinci dereceden şehit yakınıysanız istediğiniz herhangi bir otomobili ÖTV ödemeden satın alıp kullanabilirsiniz. Tek koşul beş yıl boyunca satın aldığınız otomobili satmamak. Beş yıl dolmadan sattığınız takdirde muhaf olduğunuz ÖTV sizden tahsil edilmektedir. Beş yıl sonra otomobilinizi satıp, yenisini ÖTV indirimiyle satın alabilirsiniz.'
+        description: 'Aslında çok fazla bir koşul yok. Engelliyseniz 303.200 TL\'yi aşmayan bir otomobili ÖTV ödemeden, gazi ya da birinci dereceden şehit yakınıysanız istediğiniz herhangi bir otomobili ÖTV ödemeden satın alıp kullanabilirsiniz. Tek koşul beş yıl boyunca satın aldığınız otomobili satmamak. Beş yıl dolmadan sattığınız takdirde muhaf olduğunuz ÖTV sizden tahsil edilmektedir. Beş yıl sonra otomobilinizi satıp, yenisini ÖTV indirimiyle satın alabilirsiniz.'
     },
 ]
 
