@@ -227,7 +227,7 @@ function Result(props) {
                     <p>Aracın Ötv İndirimli Fiyatı</p>
                 </div>
                 <div className="col">
-                    <p>{formatMoney(result.total)} TL</p>
+                    <p>{formatMoney(result.total+result.kdvCost)} TL</p>
                 </div>
             </div>
         </>
