@@ -24,6 +24,7 @@ import {CompareListService} from '../functions'
 //Redux
 import {addVehicleToCompare, setVehicleToReservation} from "../actions";
 import {addVehicleToLVP} from "../actions/LvpActions";
+import YoutubeWrapper from "../components/partials/youtube-wrapper";
 
 // Assets
 
@@ -269,7 +270,7 @@ class Detail extends React.Component {
 
 
 						{!mobile  &&
-							<section className="section detail-related" >
+							<section className="section detail-related" style={{paddingBottom:"0px",marginBottom:"0px"}}>
 								<div className="wrapper">
 									<div className="related-innerwrap">
 										<h2 className="related-title">Benzer araçlar</h2>
@@ -305,6 +306,15 @@ class Detail extends React.Component {
 						{(product.ads || product.youtubeVideo) &&
 							<section className="section detail-blogposts">
 								<div className="wrapper">
+									{product.youtube &&
+									<div style={{width: "50%",padding:"1.5rem",margin:"auto"}}>
+										<YoutubeWrapper video={{
+											'videoId': 'ScMzIvxBSi4',
+											'thumbnail': 'http://i3.ytimg.com/vi/4JThtv3d0cc/hqdefault.jpg'
+										}}/>
+									</div>
+									}
+
 									<ul className="blogposts-list">
 										{product.ads.map((ad, nth) => (
 											<li className="blogposts-item" key={nth}>

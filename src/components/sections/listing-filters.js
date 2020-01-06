@@ -373,7 +373,6 @@ class FilterTypeList extends React.Component {
 		newOpts[nth].selected = e.target.checked;
 
 		this.setState({ opts: newOpts });
-
 		this.props.onUpdate();
 	}
 

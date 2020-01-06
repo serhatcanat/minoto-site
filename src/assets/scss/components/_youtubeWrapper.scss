@@ -1,0 +1,45 @@
+.youtube-wrapper {
+  cursor: pointer;
+  margin: auto;
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 56.25%;
+  transition: $transition-hover;
+  box-shadow: none;
+  &:hover {
+    box-shadow: 0 1.8rem 3.6rem 0 rgba(22, 29, 76, 0.3);
+    transition: $transition-hover;
+    .youtube-wrapper--playBtn {
+      transition: $transition-hover;
+      &:before {
+        transition: $transition-hover;
+        color: $color-blue;
+      }
+    }
+  }
+
+  &--spinner, &--playBtn {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+  }
+
+  &--playBtn {
+    &:before {
+      transition: $transition-hover;
+      font-size: 5.6em;
+    }
+  }
+
+  &--video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
