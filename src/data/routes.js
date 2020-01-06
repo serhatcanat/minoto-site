@@ -241,9 +241,9 @@ module.exports = {
 			path: "/otv-hesaplama",
 			component: "Otv",
 			exact: true,
-			linkTitle: "Otv Araç İndirimi Hesaplama",
-			title: "Otv Araç İndirimi Hesaplama",
-			GATitle: "Otv Araç İndirimi Hesaplama",
+			linkTitle: "ÖTV İndirimi Hesaplama",
+			title: "ÖTV İndirimi Hesaplama",
+			GATitle: "ÖTV İndirimi Hesaplama",
 		},
 		privacy: {
 			path: "/kullanici-sozlesmesi",
