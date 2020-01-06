@@ -20,12 +20,11 @@ export default class YoutubeWrapper extends React.Component {
     render() {
         const {videoId, thumbnail} = this.props;
         const {isVideoFrameHidden} = this.state;
-
         return (
             <div className='youtube-wrapper' onClick={this.showVideoFrame}>
                 {isVideoFrameHidden ?
                     <>
-                        <Image src={thumbnail}/>
+                        <Image src={`http://i3.ytimg.com/vi/${videoId}/maxresdefault.jpg`}/>
                         <PlayBtn showVideoFrame={this.showVideoFrame}/>
                     </>
                     :

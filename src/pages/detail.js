@@ -306,12 +306,15 @@ class Detail extends React.Component {
 						{(product.ads || product.youtubeVideo) &&
 							<section className="section detail-blogposts">
 								<div className="wrapper">
+									{product.youtube &&
 									<div style={{width: "50%",padding:"1.5rem",margin:"auto"}}>
 										<YoutubeWrapper video={{
 											'videoId': 'ScMzIvxBSi4',
 											'thumbnail': 'http://i3.ytimg.com/vi/4JThtv3d0cc/hqdefault.jpg'
 										}}/>
 									</div>
+									}
+
 									<ul className="blogposts-list">
 										{product.ads.map((ad, nth) => (
 											<li className="blogposts-item" key={nth}>

@@ -94,10 +94,7 @@ class IframeBanner extends React.Component {
 	render() {
 		return (
 			<div className="banner-iframe">
-				<YoutubeWrapper video={{
-					'videoId': 'ScMzIvxBSi4',
-					'thumbnail': 'http://i3.ytimg.com/vi/4JThtv3d0cc/hqdefault.jpg'
-				}}/>
+				<YoutubeWrapper videoId={'lvKEBh7SD3I'}/>
 			</div >
 		)
 	}
