@@ -107,7 +107,6 @@ class Detail extends React.Component {
 						vm.setState({
 							productData: payload
 						});
-
 						vm.props.setGaProductData(payload);
 						vm.props.setGaDealerData(payload.dealer);
 						const _compareListService = new CompareListService();
@@ -115,12 +114,8 @@ class Detail extends React.Component {
 						if (!_compareListService.isExist(payload, vm.props.lvpList.data)) {
 							vm.props.addVehicleToLvp(payload);
 						}
-
-
 						GA.send('productView', payload);
-
 						setTitle(`${payload.title} - ${payload.dealer.title}`);
-
 						setDescription(`Sıfır Km ${payload.title} araba fiyatları ve araç özellikleri Minoto'da! ${payload.dealer.title} şubesinden ${payload.title} satın almak için hemen tıkla, fırsatları kaçırma!`);
 
 						if (payload.image) {
