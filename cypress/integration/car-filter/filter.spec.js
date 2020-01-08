@@ -43,9 +43,9 @@ context('Car Filter', () => {
                     }
                 }).then(() => {
                     if (Cypress.env('car_count') < 24) {
-                        expect($count).to.equal(Cypress.env('car_count'))
+                        expect($count).to.equal(Cypress.env('car_count'));
                     } else {
-                        expect($count).to.equal(24)
+                        expect($count).to.equal(24);
                     }
                 })
             })
