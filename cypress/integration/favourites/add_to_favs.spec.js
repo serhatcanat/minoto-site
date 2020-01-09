@@ -2,23 +2,23 @@ context('Add to Favourites', () => {
 
 
     describe('Add to favourites to authenticated client profile', () => {
-        it('.should() - add to favourites list of authenticated user when the user clicks on favourites button', ()=>{
-                cy.visit('localhost:3000')
-                cy.get('button.nav-link  ~ button.nav-link')
-                    .click();
+        it('.should() - add to favourites list of authenticated user when the user clicks on favourites button', () => {
+            cy.visit('localhost:3000')
+            cy.get('button.nav-link  ~ button.nav-link')
+                .click();
 
-                cy.wait(200);
+            cy.wait(200);
 
-                cy.get('.form.loginform-form [name="email"]').first()
-                    .type("gulsah@thinkerfox.com");
+            cy.get('.form.loginform-form [name="email"]').first()
+                .type("gulsah@thinkerfox.com");
 
-                cy.get('.form.loginform-form [name="password"]').first()
-                    .type("minoto121");
+            cy.get('.form.loginform-form [name="password"]').first()
+                .type("minoto121");
 
-                cy.get(".loginform-form .btn-content")
-                    .click();
+            cy.get(".loginform-form .btn-content")
+                .click();
 
-                cy.wait(1000);
+            cy.wait(1000);
             let $selected = Math.floor(Math.random() * 27) + 1;
             cy.get('ul.content-results').find('li:nth-child(' + $selected + ')').then(($li) => {
                 if ($li.hasClass('banner')) {
@@ -42,13 +42,12 @@ context('Add to Favourites', () => {
                                         })
                                     })
                                 })
-
                             }
                         });
 
                     })
                 });
-            }).then(()=>{
+            }).then(() => {
                 cy.visit("http://localhost:3000/hesabim/favorilerim/araclar").then(() => {
                     cy.wait(3000).then(() => {
                         var $count = 0;
@@ -58,8 +57,6 @@ context('Add to Favourites', () => {
                             let $href = $li.find('.contentbox-innerwrap').attr('href');
                             let n = $href.split("-");
                             $href = n[n.length - 1];
-                            console.log('url: ' + $url)
-                            console.log('href: ' + $href)
                             if ($url === $href) {
                                 $count++
                             }
@@ -69,7 +66,7 @@ context('Add to Favourites', () => {
 
                     });
                 })
-            }).then(()=>{
+            }).then(() => {
                 let $url = Cypress.env('url');
                 cy.visit($url).then(() => {
                     cy.wait(3000).then(() => {
@@ -77,7 +74,7 @@ context('Add to Favourites', () => {
                         cy.wait(1000);
                     });
                 })
-            }).then(()=>{
+            }).then(() => {
                 cy.visit("http://localhost:3000/hesabim/favorilerim/araclar").then(() => {
                     cy.wait(3000).then(() => {
                         var $count = 0;
@@ -87,8 +84,6 @@ context('Add to Favourites', () => {
                             let $href = $li.find('.contentbox-innerwrap').attr('href');
                             let n = $href.split("-");
                             $href = n[n.length - 1];
-                            console.log('url: ' + $url)
-                            console.log('href: ' + $href)
                             if ($url === $href) {
                                 $count++
                             }

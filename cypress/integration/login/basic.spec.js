@@ -76,9 +76,9 @@ context('Login', () => {
 
         it('.should() - pass login in iphone 6 viewport preset', () => {
             cy.viewport('iphone-6');
-            cy.wait(3000).then(()=>{
-                cy.get('.nav-menubtn').click().then(()=>{
-                    cy.wait(200).then(()=>{
+            cy.wait(3000).then(() => {
+                cy.get('.nav-menubtn').click().then(() => {
+                    cy.wait(200).then(() => {
                         cy.get('button.userbar-link  ~ button.userbar-link')
                             .click();
 

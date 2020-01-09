@@ -38,7 +38,7 @@ context('Car Filter', () => {
                             cy.get('ul.content-results').children().children('.contentbox')
                                 .should('have.length', 24);
                             for (let i = 1; i < $loop; i++) {//TODO:Fix to $loop after scroll
-                                cy.route('https://beta-api.minoto.com/v1/shared/*').as('cars');
+                                cy.route('/v1/shared/*').as('cars');
                                 cy.get('ul.content-results').children().children('.contentbox').last().scrollIntoView({
                                     duration: 1000,
                                     easing: "linear"

@@ -8,17 +8,14 @@ context('Bid', () => {
         it('.should() - open a modal for login route', () => {
             let $selected = 1;
             cy.get("div.listing-content ul.content-results li.results-item").each(($li) => {
-                console.log('inactive: '+$li.find('div.contentbox').attr('class'));
-                console.log('banner: '+$li.attr('class'))
                 if ($li.find('div.contentbox').hasClass('inactive') || $li.hasClass('banner')) {
                     $selected++;
-                }else{
+                } else {
                     return false;
                 }
-            }).then(()=>{
-                console.log($selected);
-                cy.get("div.listing-content ul.content-results li.results-item:nth-child("+$selected+")").click().then(()=>{
-                    cy.wait(2000).then(()=>{
+            }).then(() => {
+                cy.get("div.listing-content ul.content-results li.results-item:nth-child(" + $selected + ")").click().then(() => {
+                    cy.wait(2000).then(() => {
                         cy.get('button.controls-button.bid.primary.uppercase.has-info.btn').click().then(() => {
                             cy.get('div.modal-bid div.bid-login').then(($div) => {
                                 expect($div.text()).to.contain('Teklif vermek için giriş yapmalısınız.');
