@@ -31,7 +31,6 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_SECRET }}
           AWS_REGION: "eu-central-1" # optional: defaults to us-east-1
-          SOURCE_DIR: "public" # optional: defaults to entire repository
     #  - name: Run Symantic Release
     #    run: npx semantic-release
 #AKIA454PXTKS3PYXLFWK  dvWq/dDkLBIfGJwx0FV4YAs7L2OVKztWKxhuCqmY
