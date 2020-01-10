@@ -1,0 +1,14 @@
+name: Minoto-WEB
+
+on:
+  push:
+    branches:
+      - beta
+
+jobs:
+  minoto-web-beta-push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
