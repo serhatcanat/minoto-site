@@ -23,3 +23,6 @@ jobs:
         run: yarn test
       - name: Run Cypress
         run: yarn ci:cypress-run
+      - name: Run Symantic Release
+        run: npx semantic-release
+#AKIA454PXTKS3PYXLFWK  dvWq/dDkLBIfGJwx0FV4YAs7L2OVKztWKxhuCqmY
