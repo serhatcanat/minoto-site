@@ -15,11 +15,12 @@ jobs:
           node-version: "10.12"
 
       - uses: actions/cache@v1
-        id: cache
+      - name: Minoto Cache 
+        id: cache-minoto
+        uses: actions/cache@v1
         with:
-          path: path/to/dependencies
+          path: cache-minoto
           key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
-
         - name: Install Dependencies
           if: steps.cache.outputs.cache-hit != 'true'
           run: yarn install --frozen-lockfile
