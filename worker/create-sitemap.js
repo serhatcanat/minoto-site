@@ -2,7 +2,6 @@ const sm = require('sitemap');
 const pathToRegexp = require('path-to-regexp');
 const fs = require('fs');
 const axios = require('axios');
-
 var routes = require('../src/data/routes');
 
 // npm run sitemap

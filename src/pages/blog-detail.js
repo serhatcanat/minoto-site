@@ -128,21 +128,22 @@ export default class BlogDetail extends React.Component {
 
 							</div>
 						</div>
-						{(data.relevant && data.relevant.length) &&
+						{(data.similarArticles && data.similarArticles.length) &&
 							<aside className="detail-relevant">
 								<strong className="relevant-title">Diğer Haberler</strong>
 
-								<div className="wrapper narrow">
+								<div className="wrapper">
 									<ul className="relevant-items">
-										{data.relevant.map((article, nth) => (
+										{data.similarArticles.map((article, nth) => (
 											<li className="relevant-item" key={nth}>
 												<ContentBox
 													type="blogpost"
 													pretitle={article.date}
 													title={article.title}
-													image={article.image}
+													image={storageSpace('c_scale,q_auto:good,w_400/articles', article.image)}
 													url="blogDetail"
 													urlParams={{ slug: article.slug }}
+													maxLength={3}
 												/>
 											</li>
 										))}
