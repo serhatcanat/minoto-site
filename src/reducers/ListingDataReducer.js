@@ -1,5 +1,5 @@
 import {ADD_VEHICLE_TO_COMPARE, DELETE_VEHICLE_FROM_COMPARE} from "../actions/actionTypes";
-import {CompareListService, LocalStorageService} from '../functions'
+import {CompareListService} from '../functions'
 
 // const _localStorageService = new LocalStorageService();
 const _compareListService = new CompareListService();
