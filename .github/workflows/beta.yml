@@ -30,10 +30,8 @@ jobs:
         env:
           SOURCE_DIR: build
           AWS_S3_BUCKET: beta-minoto-com
-          AWS_ACCESS_KEY_ID: AKIA454PXTKS3PYXLFWK
-          #${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: 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
-          # ${{ secrets.AWS_ACCESS_KEY_SECRET }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_SECRET }}
           AWS_REGION: "eu-central-1" # optional: defaults to us-east-1
     #  - name: Run Symantic Release
     #    run: npx semantic-release
