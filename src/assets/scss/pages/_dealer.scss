@@ -184,7 +184,7 @@
 						//border-top: .1rem solid $color-ice;
 						border-bottom: .1rem solid $color-ice;
 
-						
+
 						&.open {
 
 							.branch-details .collapse-innerwrap{
@@ -309,7 +309,9 @@
 
 		.detail-right {
 			width: calc(100% - 28rem);
-
+			.breadcrumbs{
+				padding: 1.8rem 0;
+			}
 			@include media {
 				width: auto;
 			}

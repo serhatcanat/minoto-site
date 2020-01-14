@@ -27,15 +27,22 @@ export class DetailInfo extends React.Component {
         super(props)
         this.state = {
             showCosts: false,
+            showOtvModule: false,
             showDealers: false,
             selectedBranch: false,
         }
         this.setVehicleToReservation = this.setVehicleToReservation.bind(this)
     }
     setVehicleToReservation(product){
-        const {setVehicleToReservation} = this.props;
-        setVehicleToReservation(product);
-        this.props.history.push(`/rezervasyon/${this.props.product.postNo}`)
+        if(this.props.user){
+            const {setVehicleToReservation} = this.props;
+            setVehicleToReservation(product);
+            this.props.history.push(`/rezervasyon/${this.props.product.postNo}`)
+        }
+        else{
+            openModal('login')
+        }
+
     }
     render() {
         let vm = this;
@@ -44,7 +51,7 @@ export class DetailInfo extends React.Component {
 
         return (
             <div className="detail-info">
-                <h2 className="info-title">{product.title}</h2>
+                <h1 className="info-title">{product.title}</h1>
                 {(product.mainFeatures && product.mainFeatures.length) &&
                 <ul className="info-mainfeatures">
                     {product.mainFeatures.map((feature, nth) => (
@@ -104,6 +111,35 @@ export class DetailInfo extends React.Component {
 
                 {(product.price > 0 && product.costs.expenses.length) &&
                 <div className="info-costs">
+                    {/*<button className="costs-sum" type="button" onClick={() => {*/}
+                    {/*    vm.setState({showOtvModule: !vm.state.showOtvModule})*/}
+                    {/*}}><strong>Bu aracın ötv indirimli satış fiyatı:</strong> <PriceTag price={product.otv[0].value}/>*/}
+                    {/*</button>*/}
+                    {/*<Collapse className="costs-wrap" open={vm.state.showOtvModule}>*/}
+                    {/*    <ul className="costs-list">*/}
+                    {/*        {product.otv.map((cost, nth) => (*/}
+                    {/*            <React.Fragment key={nth}>*/}
+                    {/*                {*/}
+                    {/*                    <React.Fragment>*/}
+                    {/*                        <li className="list-cost" key={nth}>*/}
+                    {/*                            <strong>*/}
+                    {/*                                {cost.title}*/}
+                    {/*                            </strong>*/}
+                    {/*                            <span className="cost-num">{(nth === 1 || nth===3) ? <p>{cost.value}</p> :*/}
+                    {/*                                <PriceTag price={cost.value}/>*/}
+
+                    {/*                            }*/}
+                    {/*                            </span>*/}
+                    {/*                        </li>*/}
+
+                    {/*                    </React.Fragment>*/}
+
+
+                    {/*                }*/}
+                    {/*            </React.Fragment>*/}
+                    {/*        ))}*/}
+                    {/*    </ul>*/}
+                    {/*</Collapse>*/}
                     <button className="costs-sum" type="button" onClick={() => { vm.setState({ showCosts: !vm.state.showCosts }) }}><strong>Bu aracın yıllık kullanım maliyeti:</strong> <PriceTag price={product.costs.total} /></button>
                     <Collapse className="costs-wrap" open={vm.state.showCosts}>
                         <ul className="costs-list">
@@ -145,11 +181,17 @@ export class DetailInfo extends React.Component {
                 }
                 <div className="info-controls">
                     <div className="controls-buttons">
-                        {product.status === 1 &&
+                        {(product.status === 1 && product.isReservable === true) &&
+                        <Btn className="controls-button reservate" primary hollow uppercase
+                             onClick={() => this.setVehicleToReservation(product)}>
+                            Rezerve Et
+                        </Btn>
+                        }
+                        {(product.status === 1 && product.isReservable === false) &&
                         <Btn className="controls-button reservate" primary hollow uppercase
                              note="Bu aracı çok yakında rezerve edebileceksiniz."
                              onClick={() => this.setVehicleToReservation(product)} disabled>
-                            Reserve Et
+                            Rezerve Et
                         </Btn>
                         }
                         {product.status === 2 &&
@@ -157,7 +199,7 @@ export class DetailInfo extends React.Component {
                                  note="Bu araç rezerve edilmiştir."
                                  disabled
                                  >
-                                Araç Satılmıştır
+                                Rezerve Edilmiştir
                             </Btn>
                         }
 
@@ -244,11 +286,13 @@ export class DetailInfo extends React.Component {
                                                     </strong>
                                                 </Link>
                                                 <p className="dealer-info">
+
                                                     <span className="info-location">{product.dealer.location}</span>
-                                                    {product.dealer.workingHours && (
+                                                    {(product.dealer.workingHours !== null) && (
                                                         <span className={"info-workinghours " + (product.dealer.open ? 'open' : 'closed')}>
 															{product.dealer.workingHours}
-                                                            <span>|</span>
+                                                            {product.dealer.workingHours && <span>|</span>}
+
                                                             {(product.dealer.open ? 'Şu an açık' : 'Şu an kapalı')}
 														</span>
                                                     )}
@@ -385,7 +429,7 @@ export class DetailInfo extends React.Component {
                             </React.Fragment>
                         )
                 }
-                {!vm.props.mobile && <DetailCredit product={product} mobile={vm.props.mobile} />}
+                {(!vm.props.mobile && product.carCredits )&& <DetailCredit product={product} mobile={vm.props.mobile} />}
 
             </div>
         )

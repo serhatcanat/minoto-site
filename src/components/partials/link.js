@@ -49,7 +49,7 @@ export default class LinkItem extends React.Component {
 								props.to = generatePath(props.to, params);
 							}
 							catch(err) {
-								console.log('UYARI - Link parametresi hatalı:', props.to, params);
+								// console.log('UYARI - Link parametresi hatalı:', props.to, params);
 							}
 						}
 					}

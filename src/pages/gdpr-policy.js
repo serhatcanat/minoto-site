@@ -49,11 +49,10 @@ export default class GdprPolicy extends React.Component {
                                 <p className="indent">Kanunun uygulanmasıyla ilgili taleplerinizi / başvurularınızı ve kişisel verilerinizle ilgili sorularınızı Çağrı Merkezine, Online Başvuru ile ve Genel Müdürlük adresimize yapabilirsiniz. </p>
                                 <p className="indent">Tüm başvurular en geç 30 gün içerisinde başvuruda belirtilen kanaldan cevaplanacaktır.</p>
                                 <p className="indent noMargin">
-                                    <strong>Genel Müdürlük:</strong> Maltepe Mh. Litros Yolu Sk. No.3-1 Topkapı 34010 Zeytinburnu – İstanbul
+                                    <strong>Genel Müdürlük:</strong>Maltepe Mh. Litros Yolu Sk. No.3-1 Topkapı 34010 Zeytinburnu – İstanbul
                                 </p>
                                 <p className="indent noMargin">
-                                    <strong>Çağrı Merkezi:</strong> 02122833995
-
+                                    <strong>Çağrı Merkezi:</strong> 0212 706 00 01
                                 </p>
                                 <p className="indent noMargin"><small><em>(Çalışma saatleri hafta içi 09:00 - 12:00, 13:00 - 17:00  arasındadır. )</em></small></p>
                             </div>

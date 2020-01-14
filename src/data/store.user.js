@@ -157,7 +157,6 @@ export function register(form, finalFunction = false) {
 	request.post('user/register', serializeArray(form), function (payload) {
 		if (payload && payload.success) {
 			//updateUserData(payload);
-
 			GA.send('loginActions', { action: 'SignUp', label: 'Kayıt Başarılı' });
 
 			if (finalFunction) {
@@ -165,6 +164,9 @@ export function register(form, finalFunction = false) {
 			}
 		}
 		else {
+			if (finalFunction) {
+				finalFunction(extend({}, payload, { message: payload.message }));
+			}
 			logout(true);
 		}
 	})
@@ -202,13 +204,10 @@ export function updateUserData(payload) {
 export function updateUserToken(token) {
 	if (localStorage["appState"]) {
 		let appState = JSON.parse(localStorage["appState"]);
-
 		if(appState.isLoggedIn){
 			appState.authToken = token;
-
 			store.dispatch(setToken(token));
 			localStorage["appState"] = JSON.stringify(appState);
-
 			checkLoginStatus(function(data){
 				if(!data){
 					logout(true);

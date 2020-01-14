@@ -1,18 +1,15 @@
 import React from 'react'
 
 import config from 'data/config'
-
 // Partials
 import ContentBox from 'components/partials/contentbox'
 import Image from 'components/partials/image'
 import Loader from 'components/partials/loader'
-import { FormInput } from 'components/partials/forms'
+import {FormInput} from 'components/partials/forms'
 //import Link from 'components/partials/link'
 import ListingBanner from 'components/partials/listing-banner'
-
 // Sections
 import ListingFilters from 'components/sections/listing-filters'
-
 // Deps
 import debounce from 'lodash/debounce';
 import pick from 'lodash/pick';
@@ -24,15 +21,15 @@ import extend from 'lodash/extend';
 import throttle from 'lodash/throttle';
 import history from 'controllers/history'
 import request from 'controllers/request'
-import { connect } from "react-redux";
-import { storageSpace, seoFriendlyUrl, nextRandomPage } from "functions/helpers";
+import {connect} from "react-redux";
+import {nextRandomPage, seoFriendlyUrl, storageSpace} from "functions/helpers";
 import queryString from 'query-string';
-import { setFiltersExpansion, setListingQuery, setFilterQuery, setListingData } from 'data/store.listing';
-import { GA } from 'controllers/ga'
-import { addImpressionProduct } from 'data/store.ga.js'
+import {setFilterQuery, setFiltersExpansion, setListingData, setListingQuery} from 'data/store.listing';
+import {GA} from 'controllers/ga'
+import {addImpressionProduct} from 'data/store.ga.js'
 //import { openModal } from 'functions/modals'
 import image_loader from 'assets/images/minoto-loading.gif'
-import { turkishSort } from '../../functions/helpers'
+import {turkishSort} from '../../functions/helpers'
 
 const mapStateToProps = state => {
 	return {
@@ -85,15 +82,11 @@ class Listing extends React.Component {
 		this.getQuery = this.getQuery.bind(this);
 		this.extendResults = this.extendResults.bind(this);
 		this.makeRequest = this.makeRequest.bind(this);
-
 		this.updateResults = debounce(this.updateResults.bind(this), 50);
-
 		this.listenerAbort = false;
 		this.urlTimeout = false;
-
 		this.mounted = false;
 		this.initialized = false;
-
 		this.containerRef = React.createRef();
 	}
 
@@ -120,15 +113,14 @@ class Listing extends React.Component {
 
 	componentDidUpdate(prevProps, prevState) {
 		let vm = this;
-
 		if (vm.props.topSection) {
 			if (prevState.order !== vm.state.order) {
+
 				vm.props.setListingQuery(extend({}, vm.props.listingQuery, { siralama: vm.state.order }));
 				this.setState({
 					page: 1,
 					pageOrder: "first"
 				})
-
 			}
 
 
@@ -166,15 +158,10 @@ class Listing extends React.Component {
 	}
 
 	getQuery() {
-
 		let querySelf = extend({}, this.props.listingQuery, { siralama: this.state.order, sayfa: parseInt(this.state.page), pageOrder: this.state.pageOrder });
-
 		this.props.setListingQuery(querySelf);
 		let newQuery = extend({}, this.props.listingQuery, this.props.filterQuery);
-
 		return newQuery;
-
-
 	}
 
 	urlChanged() {
@@ -266,34 +253,23 @@ class Listing extends React.Component {
 
 	updateResults() {
 		let vm = this;
-
-
 		let page = (vm.state.order === "random" && Object.keys(vm.getQuery()).length < 4) ? Math.floor(Math.random() * Math.floor(10)) + 1 : 1;
 		let order = vm.state.order ? vm.state.order : this.props.defaultOrder;
-
 		vm.setState({ loading: true, pageOrder: "first", page: vm.props.source === 'filters' ? page : 1, order: order, usedPages: [] });
-
 		setTimeout(function () { vm.makeRequest(); }, 50)
 	}
 
 	makeRequest(opts = {}, endFunction = false) {
 		let vm = this;
-
 		vm.initialized = true;
 		let requestURL = vm.props.source; //+'?'+q;
-
-		vm.updateURL();
-
 		let query = vm.getQuery();
-
 		request.get(requestURL, query, function (payload, status) {
+
 			if (vm.mounted && payload) {
-
-
 				if (payload.redirect) {
 					setTimeout(function () { window.location.href = payload.link; }, 30)
 				}
-
 
 				if (opts.page > 0) {
 					payload.results = vm.props.listingData.results.concat(payload.results);
@@ -362,8 +338,6 @@ class Listing extends React.Component {
 
 	extendResults() {
 		let vm = this;
-
-
 		if (!vm.state.extending && vm.state.results) {
 			let page, pageArray;
 			if (vm.state.order === 'random') {
@@ -409,16 +383,16 @@ class Listing extends React.Component {
 				}
 			}
 		}
-
 		return (
 			<React.Fragment>
 				{/*<section className="section listing-title"><h1>{vm.props.title}</h1></section> */}
-				<section ref={vm.containerRef} className={"section listing loader-container " + vm.props.className + (vm.props.filters ? ' has-filters' : '') + ' size-' + vm.props.size} id={vm.props.id}>
-					<Loader loading={vm.state.loading || !vm.props.listingData} strict={true} />
+				<section ref={vm.containerRef} className={"section listing loader-container " + vm.props.className + (vm.props.filters ? ' has-filters' : '') + ' size-' + vm.props.size} id={vm.props.id} >
 					{vm.props.filters &&
 						<ListingFilters loading={vm.state.loading} mobile={vm.props.mobile} showMoreBrands={vm.props.showMoreBrands} />
 					}
+
 					<div className={"listing-content type-" + vm.props.listingData.type}>
+						<Loader loading={vm.state.loading || !vm.props.listingData} strict={true} />
 						{(vm.props.topSection || vm.props.mobile) &&
 							<aside className="content-top">
 								{vm.props.mobile &&
@@ -446,7 +420,6 @@ class Listing extends React.Component {
 							</aside>
 						}
 						{/* <ListingResults loading={vm.state.loading} data={vm.props.listingData} mobile={vm.props.mobile} />
-
 						{(vm.props.listingData.results && vm.props.listingData.results.length < vm.props.listingData.totalResults) &&
 							<InfiniteScroller loading={vm.state.extending} onExtend={vm.extendResults} />
 						} */}
@@ -495,7 +468,6 @@ class ListingResults extends React.Component {
 		let results = data.results;
 		let productResultsCount = (results ? results.filter((result) => { return result.type === 'advert' }).length : 0);
 		if (results && results.length && !loading) {
-
 			return (
 				<React.Fragment>
 					{
@@ -516,7 +488,6 @@ class ListingResults extends React.Component {
 								(<React.Fragment>
 									{
 										results.sort(turkishSort).map((item, nth) => {
-
 											itemsAt += (item.size ? item.size : 1);
 											let contents = [];
 											switch (item.type) {
@@ -536,7 +507,7 @@ class ListingResults extends React.Component {
 																title={item.title}
 																subtitle={item.dealer}
 																additionTitle={item.count + ' ARAÇ'}
-																image={item.image ? storageSpace('c_scale,q_auto:good,w_360/dealers', item.image) : ''}
+																image={item.image ? storageSpace('c_scale,q_auto:best,w_360/dealers', item.image) : ''}
 																labels={item.labels}
 																faved={item.favorited}
 																//favControls={'/dummy/data/fav/dealer/'+item.id}
@@ -583,7 +554,7 @@ class ListingResults extends React.Component {
 																		title={item.title}
 																		labels={item.labels}
 																		additionTitle={item.count + ' ARAÇ'}
-																		image={storageSpace('c_scale,q_auto:good,w_360/brands', item.image)}
+																		image={storageSpace('c_scale,q_auto:best,w_360/brands', item.image)}
 																		faved={item.favorited}
 																		//favControls={'/dummy/data/fav/dealer/'+item.id}
 																		url={`markalar/${item.link}`}
@@ -598,7 +569,7 @@ class ListingResults extends React.Component {
 																		className={((item.status === 2 || item.status === 3) ? 'inactive' : '')}
 																		title={item.title}
 																		subtitle={item.dealer}
-																		image={storageSpace('c_scale,q_auto:good,w_360/car-posts', item.image)}
+																		image={storageSpace('c_scale,q_auto:best,w_360/car-posts', item.image)}
 																		price={item.price}
 																		labels={item.labels}
 																		productionPlace={item.productionPlace}
@@ -606,7 +577,7 @@ class ListingResults extends React.Component {
 																		badge={(item.status === 1 ? false : (item.status === 2 ? { text: 'Rezerve', note: '02.02.2019 Tarihine Kadar Opsiyonludur' } : { text: 'Satıldı', type: 'error' }))}
 																		bottomNote={(item.currentViewers > 0 ? item.currentViewers + ' kişi Bakıyor' : false)}
 																		url="detail"
-																		urlParams={{ dealer: seoFriendlyUrl(item.dealer), slug: item.slug.substring(0,item.slug.lastIndexOf('-m')), post: item.postNo }}
+																		urlParams={{ dealer: seoFriendlyUrl(item.dealer), slug: item.slug.substring(0,item.slug.lastIndexOf('-M')), post: item.postNo }}
 																		onClick={() => {
 																			GA.send('productClick', {
 																				product: item,
@@ -701,8 +672,6 @@ class ActiveFilters extends React.Component {
 
 	render() {
 		let filters = [];
-
-
 		if (this.props.data && this.props.data.filters) {
 			filters = this.props.data.filters.reduce((activeFilters, group, nth) => {
 				let values = false;
@@ -760,7 +729,6 @@ class ActiveFilters extends React.Component {
 									</React.Fragment>
 								)
 							}
-
 						</React.Fragment>
 					))}
 				</div>

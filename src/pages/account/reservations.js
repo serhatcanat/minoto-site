@@ -49,7 +49,7 @@ export default class Reservations extends React.Component {
 						{reservations.map((reservation, nth) => (
 							<li className={"list-reservation" + (reservation.status !== 1 ? ' expired' : '')} key={nth}>
 								<Link className="reservation-link" href="detail" params={{id: reservation.advert.id}}>
-									<Image className="reservation-image" src={storageSpace('c_scale,q_auto:good,w_360/car-posts', reservation.advert.image)} />
+										<Image className="reservation-image" src={storageSpace('c_scale,q_auto:good,w_360/car-posts', reservation.advert.image)} />
 									<div className="reservation-content">
 										<div className="content-text">
 											<strong className="content-title">{reservation.advert.title}</strong>

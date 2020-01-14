@@ -9,6 +9,7 @@
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
     "html-react-parser": "^0.7.0",
+    "intersection-observer": "^0.7.0",
     "js-cookie": "^2.2.0",
     "lodash": "^4.17.15",
     "node-sass": "^4.11.0",
@@ -35,11 +36,13 @@
     "redux-persist": "^6.0.0",
     "redux-saga": "^1.1.1",
     "sitemap": "^3.2.2",
+    "source-map-explorer": "^2.1.0",
     "swiper": "^4.5.0",
     "urijs": "^1.19.1",
     "url-assembler": "^2.1.0"
   },
   "scripts": {
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --coverage",

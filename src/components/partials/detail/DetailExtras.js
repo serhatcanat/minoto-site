@@ -8,7 +8,8 @@ import Tabs from '../../partials/tabs.js'
 // Deps
 import {nl2br, remToPx} from '../../../functions/helpers.js'
 import parse from 'html-react-parser'
-import {DetailCredit,DetailRelated} from "./index";
+import {DetailCredit, DetailRelated} from "./index";
+
 //import image_isbank from 'assets/images/turkiye-is-bankasi.png'
 
 export class DetailExtras extends React.Component {
@@ -17,13 +18,16 @@ export class DetailExtras extends React.Component {
         this.state = {
             expandDesc: false,
             expandableDesc: false,
+            expandableEquipments: false,
             expandSpecs: false,
+            expandEquipments: false,
             expandableSpecs: false,
             activeTab: false,
         };
 
         this.descWrap = React.createRef();
         this.specsWrap = React.createRef();
+        this.equipmentsWrap = React.createRef();
         this.galleryWrap = React.createRef();
 
         this.checkSizes = this.checkSizes.bind(this);
@@ -52,6 +56,9 @@ export class DetailExtras extends React.Component {
         if (this.specsWrap.current) {
             this.setState({expandableSpecs: (this.props.mobile ? false : (this.specsWrap.current.offsetHeight > remToPx(this.sizeLimit)))});
         }
+        if (this.equipmentsWrap.current) {
+            this.setState({expandableEquipments: (this.props.mobile ? false : (this.equipmentsWrap.current.offsetHeight > remToPx(this.sizeLimit)))});
+        }
     }
 
     render() {
@@ -61,9 +68,8 @@ export class DetailExtras extends React.Component {
         let GalleryContainer = (mobile ? 'div' : Slider);
         let galleryProps = (mobile ? {} : {scrollBar: true, horizontal: true, ref: vm.galleryWrap});
 
-        const {technicalSpecs, description, id, pressGallery} = product;
-
-        const {expandableSpecs,expandableDesc,expandDesc,expandDesc: expandDesc1, expandSpecs} = vm.state;
+        const {technicalSpecs, description, id, pressGallery, equipmentList} = product;
+        const {expandableSpecs, expandableDesc, expandableEquipments, expandDesc, expandDesc: expandDesc1, expandSpecs, expandEquipments} = vm.state;
 
         return <div className="content-details">
             <Tabs className="details-tabs" onChange={(tab) => {
@@ -123,6 +129,63 @@ export class DetailExtras extends React.Component {
                     </div>
                 </div>
                 }
+                <div label="Donanım" index="equipments">
+                    <div className="tabs-tab">
+                        <div
+                            className={"tab-content" + (vm.state.expandableEquipments ? ' expandable' : '') + (vm.state.expandEquipments ? ' expanded' : '')}>
+                            <div className="content-innerwrap" ref={vm.equipmentsWrap}>
+                                <div className="tab-equipmentlist">
+                                    <table className="table group-table">
+                                        <tbody>
+                                        {equipmentList &&
+                                        equipmentList.map((equipmentCategory) => {
+                                            return (
+                                                equipmentCategory.equipments.map((equipment,index) => {
+                                                    return (
+                                                        <React.Fragment>
+                                                            {index === 0 &&
+                                                            <tr className="group-title">
+                                                                <th>{equipmentCategory.category}</th>
+                                                                <th className="check-container">Standart Donanım</th>
+                                                                <th className="check-container">Opsiyonel Donanım</th>
+                                                            </tr>
+                                                            }
+
+                                                            <tr>
+                                                                <th>{equipment.equipment}</th>
+                                                                <th className={equipment.type === 'S' ? 'icon-check-thin' : ''} />
+                                                                <th className={equipment.type === 'O' ? 'icon-check-thin' : ''}/>
+                                                            </tr>
+                                                        </React.Fragment>
+                                                    )
+                                                })
+                                            )
+                                        })
+                                        }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        {expandableEquipments &&
+                        <Btn className="tab-expand" uppercase block hollow low smallIcon dark
+                             rightIcon={(expandDesc1 ? 'angle-up' : 'angle-down')} onClick={() => {
+                            vm.setState({expandEquipments: !vm.state.expandEquipments})
+                        }}>{expandEquipments ? 'Gizle' : 'Devamını Gör'}</Btn>
+                        }
+                    </div>
+                </div>
+                {mobile &&
+                <div label="Benzer Araçlar" index="similar">
+                    <div className="tabs-tab">
+                        <div className="tab-related">
+                            {
+                                product && <DetailRelated postId={id}/>
+                            }
+                        </div>
+                    </div>
+                </div>
+                }
                 {pressGallery &&
                 <div label="Basın Fotoğrafları" index="pressgallery">
                     <div className="tabs-tab">
@@ -142,20 +205,9 @@ export class DetailExtras extends React.Component {
                     </div>
                 </div>
                 }
-                {mobile &&
-                <div label="Benzer Araçlar" index="similar">
-                    <div className="tabs-tab">
-                        <div className="tab-related">
-                            {
-                                product && <DetailRelated postId={id}/>
-                            }
-                        </div>
-                    </div>
-                </div>
-                }
             </Tabs>
-            {mobile &&
-            <DetailCredit product={product} mobile={mobile}/>
+            {(mobile && product.carCredits) &&
+                <DetailCredit product={product} mobile={mobile}/>
             }
         </div>
     }

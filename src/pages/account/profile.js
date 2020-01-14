@@ -125,7 +125,6 @@ class Profile extends React.Component {
 												<p className="bio-location"><i className="icon-marker"></i> {user.location}</p>
 											}
 										</div>
-
 										{userData.profile.profileCompletion &&
 											<div className="content-completion">
 												<div className="completion-bar">
@@ -135,7 +134,6 @@ class Profile extends React.Component {
 												<div className="completion-status">Profiliniz <span>%{userData.profile.profileCompletion}</span> dolu</div>
 											</div>
 										}
-
 										<button className="content-logout" onClick={logout}>Çıkış Yap</button>
 									</div>
 								</aside>

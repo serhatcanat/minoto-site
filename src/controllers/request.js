@@ -5,6 +5,7 @@ import extend from 'lodash/extend'
 import {apiPath} from 'functions/helpers'
 import store from "data/store"
 import {set404} from 'controllers/navigator'
+import {changePage} from "./navigator";
 
 const defaultConfig = {
 	excludeApiPath: false,
@@ -57,7 +58,6 @@ export default {
 }
 
 function evaluateData(response, finalFunction = false) {
-
 	switch (response.status) {
 		case 200:
 			if (finalFunction) {
@@ -65,6 +65,7 @@ function evaluateData(response, finalFunction = false) {
 			}
 			break;
 		case 500:
+			changePage('notfound');
 			pushMessage("HATA: İşlem gerçekleştirilemedi.", { type: "error" });
 			if (finalFunction) {
 				finalFunction(false, response.status, response);

@@ -21,6 +21,7 @@ import { connect } from "react-redux"
 import { setFiltersExpansion, setFilterQuery } from 'data/store.listing'
 import { blockOverflow } from "functions/helpers"
 import loader from 'assets/images/minoto-loading.gif'
+import {formatMoney} from "../../functions";
 
 const mapStateToProps = state => {
 	return {
@@ -177,7 +178,7 @@ class ListingFilters extends React.Component {
 										<div className="filters-innerwrap">
 											<div className="filters-header">
 												{data.filtersTitle &&
-													<h1 className="header-title">{data.filtersTitle}</h1>
+													<span className="header-title">{data.filtersTitle}</span>
 												}
 												{Object.keys(vm.props.filterQuery).length > 0 &&
 													<button className="header-clear" onClick={vm.clearFilters}>Filtreleri Temizle</button>
@@ -372,7 +373,6 @@ class FilterTypeList extends React.Component {
 		newOpts[nth].selected = e.target.checked;
 
 		this.setState({ opts: newOpts });
-
 		this.props.onUpdate();
 	}
 
@@ -461,7 +461,7 @@ class FilterTypeBrands extends React.Component {
 					</div>
 				}
 				<ul className={`filter-list ${(showMoreBrands && showMore) && 'showMore'}`} id="scroll-here">
-					{opts.slice(0, (showMoreBrands && showMore) ? 8 : opts.length).map((opt, nth) => {
+					{opts.slice(0, (showMoreBrands && showMore) ? 7 : opts.length).map((opt, nth) => {
 						let idprefix = 'filter_input_' + data.name;
 						return (
 							<BrandsFilterItem data={opt} name={data.name} idprefix={idprefix} nth={nth} key={nth} level={1} onExpand={this.props.onExpand} urlRoot={""} />
@@ -558,6 +558,7 @@ class BrandsFilterItemRaw extends React.Component {
 					{data.count && <span className="item-count">({data.count})</span>}
 				</span>
 				:
+
 				<Link href={urlRoot} query={vm.props.filterQuery}>
 					{data.title}
 					{data.count && <span className="item-count">({data.count})</span>}
@@ -897,8 +898,8 @@ class FilterTypeIcons extends React.Component {
 		return (
 			<ul className="filter-list">
 				{opts.map((opt, nth) => {
-					let id = 'filter_input' + vm.props.data.name + '_' + nth;
 
+					let id = 'filter_input' + vm.props.data.name + '_' + nth;
 					return (
 						<li className="filter-item" key={nth}>
 							<input
@@ -931,12 +932,11 @@ class FilterTypeIcons extends React.Component {
 
 class FilterTypeRange extends React.Component {
 	constructor(props) {
-		super(props)
+		super(props);
 		this.state = {
 			opts: clone(props.data.opts),
 			synced: true,
-		}
-
+		};
 		//this.update = debounce(this.update.bind(this), 500);
 		this.update = this.update.bind(this);
 	}
@@ -949,9 +949,10 @@ class FilterTypeRange extends React.Component {
 
 	handleChange(e, nth) {
 		let newOpts = clone(this.state.opts);
+		const seperator = '.';
+		const formattedPrice = formatMoney(e.target.value.split(seperator).join(''),0,seperator,seperator);
 		if (newOpts[nth].value !== e.target.value) {
-			newOpts[nth].value = e.target.value;
-
+			newOpts[nth].value = formattedPrice;
 			this.setState({ opts: newOpts, synced: false });
 			//this.update();
 		}
@@ -973,7 +974,7 @@ class FilterTypeRange extends React.Component {
 					<div className="inputs-inputwrap" key={nth}>
 						<input
 							name={`${opt.name}`}
-							type="number"
+							type="text"
 							value={(opt.value ? opt.value : '')}
 							placeholder={opt.text}
 							onChange={(e) => vm.handleChange(e, nth)}
@@ -1035,7 +1036,6 @@ class FilterTypeText extends React.Component {
 					<input className="inputs-input" name={data.name} type="text" value={this.state.value ? this.state.value : ''} placeholder={data.title} onChange={vm.handleChange} />
 					<button className="inputs-submit" type="button" onClick={this.update}><i className="icon-search"></i></button>
 				</div>
-
 			</div>
 		)
 	}

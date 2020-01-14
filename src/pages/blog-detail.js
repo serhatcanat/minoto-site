@@ -24,14 +24,15 @@ import image_icon_twitter from 'assets/images/icon/twitter.svg'
 import image_icon_whatsapp from 'assets/images/icon/whatsapp.svg'
 import image_icon_link from 'assets/images/icon/link.svg'
 import image_loader from 'assets/images/minoto-loading.gif'
+import {set404} from "../controllers/navigator";
 
 export default class BlogDetail extends React.Component {
 	constructor(props) {
-		super(props)
+		super(props);
 
 		this.state = {
 			blogData: false,
-		}
+		};
 
 		this.gallerySlider = React.createRef();
 	}
@@ -40,47 +41,50 @@ export default class BlogDetail extends React.Component {
 		let vm = this;
 
 		request.get(`articles/${vm.props.match.params.slug}`, { slug: vm.props.match.params.slug }, function (payload, status) {
-			if (payload) {
-				vm.setState({
-					blogData: payload
-				});
-				setTitle(payload.title);
+			if(payload.status !== '404'){
+				if (payload) {
+					vm.setState({
+						blogData: payload
+					});
+					setTitle(payload.title);
 
-				if (payload.content) {
-					setDescription(`${parse(payload.content.replace(/<[^>]*>/g, '')).substring(0, 120)}...`);
-				};
-				if (payload.image) {
-					setHead([{
-						key: "meta",
-						props: {
-							property: "og:image",
-							content: storageSpace('articles', payload.image),
-						}
-					}]);
-				};
-			}
-			else {
-				redirect('notfound');
+					if (payload.content) {
+						setDescription(`${parse(payload.content.replace(/<[^>]*>/g, '')).substring(0, 120)}...`);
+					};
+					if (payload.image) {
+						setHead([{
+							key: "meta",
+							props: {
+								property: "og:image",
+								content: storageSpace('articles', payload.image),
+							}
+						}]);
+					};
+				}
+				else {
+					redirect('notfound');
+				}
+
+			}else{
+				set404();
 			}
 		});
 	}
 
 	render() {
 		let data = this.state.blogData;
-
 		return (
 			<main className="page blog-detail loader-container">
 				<Loader loading={!data} strict />
 				{data &&
 					<section className="section blog-detail">
 						<Image className="detail-image" src={storageSpace('articles', data.image)} mobile={storageSpace('articles', data.mobileImage)} />
-
 						<Responsive type="only-web">
 							<Breadcrumbs className="detail-breadcrumbs" standalone>
 								<Link href="blog">Blog</Link>
 								{
 									data.tags.length ? (
-										<Link href="blog" params={{ action: data.tags[0].tagSlug }}>{data.tags[0].tag}</Link>
+										<Link href={`/blog?kategori=${data.tags[0].tagSlug}`} params={{ action: data.tags[0].tagSlug }}>{data.tags[0].tag}</Link>
 									) : ''
 								}
 
@@ -91,8 +95,6 @@ export default class BlogDetail extends React.Component {
 							<div className="detail-meta">
 								<span className="meta-date">
 									{data.userTwitterUsername ? (<a style={{ color: '#1da1f2' }} href={`https://twitter.com/${data.userTwitterUsername}`} target="_blank" rel="noopener noreferrer"><i className="icon-twitter"></i> {data.user} </a>) : data.user}
-
-
 									{data.date && <span> @ {data.date}</span>}
 								</span>
 							</div>
@@ -126,21 +128,22 @@ export default class BlogDetail extends React.Component {
 
 							</div>
 						</div>
-						{(data.relevant && data.relevant.length) &&
+						{(data.similarArticles && data.similarArticles.length) &&
 							<aside className="detail-relevant">
 								<strong className="relevant-title">Diğer Haberler</strong>
 
-								<div className="wrapper narrow">
+								<div className="wrapper">
 									<ul className="relevant-items">
-										{data.relevant.map((article, nth) => (
+										{data.similarArticles.map((article, nth) => (
 											<li className="relevant-item" key={nth}>
 												<ContentBox
 													type="blogpost"
 													pretitle={article.date}
 													title={article.title}
-													image={article.image}
+													image={storageSpace('c_scale,q_auto:good,w_400/articles', article.image)}
 													url="blogDetail"
 													urlParams={{ slug: article.slug }}
+													maxLength={3}
 												/>
 											</li>
 										))}

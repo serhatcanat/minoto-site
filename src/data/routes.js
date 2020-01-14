@@ -210,6 +210,7 @@ module.exports = {
 			title: "Minoto Nedir",
 			GATitle: "Minoto Nedir",
 		},
+
 		account: {
 			path: "/hesabim/:page?/:section?/:param?",
 			component: "Account",
@@ -235,6 +236,14 @@ module.exports = {
 			linkTitle: "Sıkça Sorulan Sorular",
 			title: "Sıkça Sorulan Sorular",
 			GATitle: "Sıkça Sorulan Sorular",
+		},
+		otv: {
+			path: "/otv-hesaplama",
+			component: "Otv",
+			exact: true,
+			linkTitle: "ÖTV İndirimi Hesaplama",
+			title: "ÖTV İndirimi Hesaplama",
+			GATitle: "ÖTV İndirimi Hesaplama",
 		},
 		privacy: {
 			path: "/kullanici-sozlesmesi",
@@ -412,6 +421,7 @@ module.exports = {
 			title: "Rezerve Ettiklerim",
 			requiresLogin: true,
 			GATitle: "Hesabım - Rezervasyonlarım",
+
 		},
 		login: {
 			path: "/hesabim/giris",

@@ -6,6 +6,8 @@ import Breadcrumbs from 'components/partials/breadcrumbs'
 import Loader from 'components/partials/loader'
 import FavBtn from 'components/partials/favbtn'
 import ContentBox from 'components/partials/contentbox'
+import {DetailGallery} from "../components/partials/detail/DetailGallery";
+import {DetailLVP} from "../components/partials/detail/DetailLvp";
 import {DetailExtras, DetailInfo, DetailRelated, DetailTopInfo} from 'components/partials/detail'
 // Deps
 //import { ListingLink } from 'controllers/navigator'
@@ -19,9 +21,12 @@ import {setDealerData, setProductData} from 'data/store.ga'
 import {GA} from 'controllers/ga'
 //Functions
 import {CompareListService} from '../functions'
-// Assets
+//Redux
 import {addVehicleToCompare, setVehicleToReservation} from "../actions";
-import {DetailGallery} from "../components/partials/detail/DetailGallery";
+import {addVehicleToLVP} from "../actions/LvpActions";
+import YoutubeWrapper from "../components/partials/youtube-wrapper";
+
+// Assets
 
 
 class Detail extends React.Component {
@@ -41,6 +46,7 @@ class Detail extends React.Component {
 	componentDidMount() {
 		this.mounted = true;
 		this.initialize();
+
 	}
 
 	componentWillMount() {
@@ -54,7 +60,7 @@ class Detail extends React.Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-
+		const vm = this;
 		let user = this.props.user;
 		if (prevProps.user === false && user !== false) {
 			this.initialize()
@@ -68,7 +74,12 @@ class Detail extends React.Component {
 		}
 
 		if (prevState.productData !== false && this.state.productData === false) {
-			this.initialize();
+			this.setState({
+				externalId: this.props.match.params.post.substring(this.props.match.params.post.lastIndexOf('M'))
+			},function () {
+				vm.initialize();
+			});
+
 		}
 	}
 
@@ -91,31 +102,39 @@ class Detail extends React.Component {
 		if (vm.state.productData === false) {
 			request.get(`car-post/${externalId}`, {email: this.props.user.email}, function (payload, status) {
 				//request.get('/dummy/data/detail.json', { id: vm.props.match.params.id }, function (payload, status) {
-				if (payload) {
-					vm.setState({
-						productData: payload
-					});
+				if(payload.status !== '404'){
+					if (payload) {
+						vm.setState({
+							productData: payload
+						});
+						vm.props.setGaProductData(payload);
+						vm.props.setGaDealerData(payload.dealer);
+						const _compareListService = new CompareListService();
 
-					vm.props.setGaProductData(payload);
-					vm.props.setGaDealerData(payload.dealer);
-					GA.send('productView', payload);
+						if (!_compareListService.isExist(payload, vm.props.lvpList.data)) {
+							vm.props.addVehicleToLvp(payload);
+						}
+						GA.send('productView', payload);
+						setTitle(`${payload.title} - ${payload.dealer.title}`);
+						setDescription(`Sıfır Km ${payload.title} araba fiyatları ve araç özellikleri Minoto'da! ${payload.dealer.title} şubesinden ${payload.title} satın almak için hemen tıkla, fırsatları kaçırma!`);
 
-					setTitle(`${payload.title} - ${payload.dealer.title}`);
+						if (payload.image) {
+							setHead([{
+								key: "meta",
+								props: {
+									property: "og:image",
+									content: storageSpace('car-posts', payload.image),
+								}
+							}]);
+						};
+					}
+					else {
+						set404();
+					}
 
-					setDescription(`Sıfır Km ${payload.title} araba fiyatları ve araç özellikleri Minoto'da! ${payload.dealer.title} şubesinden ${payload.title} satın almak için hemen tıkla, fırsatları kaçırma!`);
-
-					if (payload.image) {
-						setHead([{
-							key: "meta",
-							props: {
-								property: "og:image",
-								content: storageSpace('car-posts', payload.image),
-							}
-						}]);
-					};
 				}
-				else {
-					set404();
+				else{
+					set404('notFound')
 				}
 			}, { excludeApiPath: false });
 		}
@@ -203,19 +222,18 @@ class Detail extends React.Component {
 											"title": "Ambiente"
 										} */
 									]} />
-
 									<div className="top-controls">
 										{(product.activeViewers && product.activeViewers > 0) &&
 											<span className="controls-viewers" style={{ opacity: '0' }}>{product.activeViewers} kişi bakıyor</span>
 										}
 										<span className="controls-date">{product.date}</span>
-										<FavBtn className="controls-btn" faved={product.favorited} type="post" id={product.id}> {product.favorited ? 'Favori İlan' : 'Favorilere Ekle'}</FavBtn>
+										<FavBtn className="controls-btn " faved={product.favorited} type="post" id={product.id}> {product.favorited ? 'Favori İlan' : 'Favorilere Ekle'}</FavBtn>
 										<button className="controls-btn"
 												onClick={() => this.setCompareList()}><i
 											className="icon-compare"/>Karşılaştır
 											({this.props.compareList.data.length})
 										</button>
-										<button className="controls-btn" onClick={() => openModal('share')}><i className="icon-share"></i> Paylaş</button>
+										<button className="controls-btn share-button" onClick={() => openModal('share')}><i className="icon-share"></i> Paylaş</button>
 									</div>
 								</div>
 							}
@@ -231,21 +249,23 @@ class Detail extends React.Component {
 								<div className="content-left">
 									<DetailGallery product={product} mobile={mobile} onFullScreenChange={vm.setFullScreen} fullScreen={vm.state.galleryFullScreen} />
 									{mobile &&
-									<DetailInfo product={product} mobile={mobile} reservation={reservation} setVehicleToReservation={setVehicleToReservation} history={this.props.history}/>
+									<DetailInfo product={product} mobile={mobile} reservation={reservation} setVehicleToReservation={setVehicleToReservation} history={this.props.history} user={this.props.user}/>
 									}
 									<DetailExtras product={product} mobile={mobile} />
 								</div>
 								{!mobile &&
 									<div className="content-right">
 										<DetailTopInfo product={product} mobile={mobile} />
-										<DetailInfo product={product} mobile={mobile} reservation={reservation} setVehicleToReservation={setVehicleToReservation} history={this.props.history}/>
+										<DetailInfo product={product} mobile={mobile} reservation={reservation} setVehicleToReservation={setVehicleToReservation} history={this.props.history} user={this.props.user}/>
 									</div>
 								}
 							</div>
 						</section>
 
-						{!mobile &&
-							<section className="section detail-related">
+
+
+						{!mobile  &&
+							<section className="section detail-related" style={{paddingBottom:"0px",marginBottom:"0px"}}>
 								<div className="wrapper">
 									<div className="related-innerwrap">
 										<h2 className="related-title">Benzer araçlar</h2>
@@ -260,6 +280,12 @@ class Detail extends React.Component {
 
 						}
 
+						{!mobile &&
+							<DetailLVP lvpList={this.props.lvpList} currentProduct={product}/>
+						}
+
+
+
 						<SubscriptionBar className="detail-subscription" heading={"Daha fazla " + product.brand.title + " modelleri için sizi bilgilendirelim!"} />
 						{/*product.ads &&
 							<section className="section detail-banners">
@@ -272,24 +298,34 @@ class Detail extends React.Component {
 								</div>
 							</section>
 						*/}
-						{product.ads &&
+						{(product.ads || product.youtubeVideo) &&
 							<section className="section detail-blogposts">
 								<div className="wrapper">
-									<ul className="blogposts-list">
-										{product.ads.map((ad, nth) => (
-											<li className="blogposts-item" key={nth}>
-												<ContentBox
-													type="blogpost"
-													//pretitle={ad.date}
-													title={ad.title}
-													image={storageSpace('c_scale,q_auto:good,w_500/articles', ad.image)}
-													url="blogDetail"
-													additionsOptional
-													urlParams={{ slug: ad.url }}
-												/>
-											</li>
-										))}
-									</ul>
+									{product.youtube ?
+									<div style={{width: "50%",padding:"1.5rem",margin:"auto"}}>
+										<YoutubeWrapper video={{
+											'videoId': 'ScMzIvxBSi4',
+											'thumbnail': 'http://i3.ytimg.com/vi/4JThtv3d0cc/hqdefault.jpg'
+										}}/>
+									</div> :
+										<ul className="blogposts-list">
+											{product.ads.map((ad, nth) => (
+												<li className="blogposts-item" key={nth}>
+													<ContentBox
+														type="blogpost"
+														//pretitle={ad.date}
+														title={ad.title}
+														image={storageSpace('c_scale,q_auto:best,w_500/articles', ad.image)}
+														url="blogDetail"
+														additionsOptional
+														urlParams={{ slug: ad.url }}
+													/>
+												</li>
+											))}
+										</ul>
+									}
+
+
 								</div>
 							</section>
 						}
@@ -301,8 +337,8 @@ class Detail extends React.Component {
 }
 
 
-const mapStateToProps = ({generic, user, compareList,reservation}) => {
-	return {mobile: generic.mobile, user: user.user, compareList,reservation};
+const mapStateToProps = ({generic, user, compareList, lvpList, reservation}) => {
+	return {mobile: generic.mobile, user: user.user, compareList, reservation, lvpList};
 };
 
 const mapDispatchToProps = dispatch => {
@@ -311,6 +347,7 @@ const mapDispatchToProps = dispatch => {
 		setGaDealerData: (data) => dispatch(setDealerData(data)),
 		addVehicleToCompare: (data) => dispatch(addVehicleToCompare(data)),
 		setVehicleToReservation: (data) => dispatch(setVehicleToReservation(data)),
+		addVehicleToLvp: (data) => dispatch(addVehicleToLVP(data)),
 	}
 };
 

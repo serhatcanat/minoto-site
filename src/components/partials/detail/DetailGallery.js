@@ -9,7 +9,6 @@ import {blockOverflow} from '../../../functions/helpers.js'
 import {storageSpace} from "../../../functions/helpers"
 //Functions
 // Assets
-import image_loader from '../../../assets/images/minoto-loading.gif'
 
 export class DetailGallery extends React.Component {
     constructor(props) {
@@ -67,7 +66,7 @@ export class DetailGallery extends React.Component {
     }
 
     keyPress(e) {
-        if (this.mainSlider.current && document.activeElement.tagName === 'BODY') {
+        if (this.mainSlider.current && (document.activeElement.tagName === 'BODY' || document.activeElement.tagName === 'BUTTON')) {
             switch (e.key) {
                 case "ArrowLeft":
                     //this.mainSlider.current.prev();
@@ -97,28 +96,29 @@ export class DetailGallery extends React.Component {
             </Btn>
             }
             <div className="gallery-mainslider">
-                <button className="mainslider-nav prev" onClick={() => {
+                <button className="mainslider-nav prev" aria-label="Prev Button" onClick={() => {
                     vm.mainSlider.current.prev();
                 }}><i className="icon-angle-left"/></button>
-                <button className="mainslider-nav next" onClick={() => {
+                <button className="mainslider-nav next" aria-label="Next Button" onClick={() => {
                     vm.mainSlider.current.next();
                 }}><i className="icon-angle-right"/></button>
                 <Slider className="mainslider-slider" ref={vm.mainSlider} loop opts={{lazy: true}}
                         onChange={vm.imageChange}>
-                    {images.map((image, nth) => (
+                    {images.map((image, nth) => {
+                        return (
                         <div className="slider-imagewrap" key={nth}>
-                            <div className="imagewrap-image swiper-lazy"
-                                 data-background={storageSpace('c_scale,q_60,w_1100/car-posts/gallery', image.medium)}
+                            <div className="imagewrap-image "
+                                 style={{backgroundImage: `url(${storageSpace('c_scale,q_auto:best,w_1100/car-posts/gallery', image.medium)})`}}
+                                 data-background={storageSpace('c_scale,q_auto:best,w_1100/car-posts/gallery', image.medium)}
                                  onClick={() => {
                                      if (!vm.props.fullScreen && vm.props.mobile) {
                                          vm.props.onFullScreenChange(true);
                                      }
                                  }}>
                             </div>
-                            <Image className="imagewrap-loader" width="100" bg src={image_loader}
-                                   alt="Yükleniyor..."/>
                         </div>
-                    ))}
+                        )
+                    })}
                 </Slider>
                 {(!vm.props.mobile && !vm.props.fullScreen) &&
                 <Btn className="mainslider-fullscreen" low white uppercase icon="search" onClick={() => {
@@ -144,7 +144,7 @@ export class DetailGallery extends React.Component {
                             vm.imageChange(nth);
                         }}>
                             <Image className="carousel-image" key={nth} bg
-                                   src={storageSpace('c_scale,q_auto:eco,w_130/car-posts/gallery', image.thumb)}
+                                   src={storageSpace('c_scale,q_auto:best,w_130/car-posts/gallery', image.thumb)}
                                    alt={product.title}/>
                         </button>
                     ))}

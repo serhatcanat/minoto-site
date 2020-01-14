@@ -22,8 +22,11 @@ jobs:
         run: yarn lint
       - name: Run Test
         run: yarn test
-      # - name: Run Cypress
-      #   run: yarn ci:cypress-run
+
+      - name: Run Cypress
+        run: yarn ci:cypress-run
+
+
       - uses: jakejarvis/s3-sync-action@master
         with:
           args: --acl public-read --follow-symlinks --delete
@@ -35,4 +38,3 @@ jobs:
           AWS_REGION: "eu-central-1" # optional: defaults to us-east-1
     #  - name: Run Symantic Release
     #    run: npx semantic-release
-#AKIA454PXTKS3PYXLFWK  dvWq/dDkLBIfGJwx0FV4YAs7L2OVKztWKxhuCqmY

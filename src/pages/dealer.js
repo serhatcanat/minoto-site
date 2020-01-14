@@ -1,9 +1,7 @@
 import React from 'react'
-
 // Sections
 import Listing from 'components/sections/listing.js'
 import ListingFilters from 'components/sections/listing-filters.js'
-
 // Partials
 import Loader from 'components/partials/loader'
 import Image from 'components/partials/image'
@@ -11,21 +9,22 @@ import Btn from 'components/partials/btn'
 import FavBtn from 'components/partials/favbtn'
 import Collapse from 'components/partials/collapse'
 import Responsive from 'components/partials/responsive'
-//import { InputForm, FormInput } from 'components/partials/forms'
-
 // Deps
-import { storageSpace } from 'functions/helpers'
-import { connect } from "react-redux"
+import {storageSpace} from 'functions/helpers'
+import {connect} from "react-redux"
 import extend from 'lodash/extend'
 import debounce from 'lodash/debounce'
 import isEqual from 'lodash/isEqual'
-import { setTitle, setDescription } from 'controllers/head'
+import {setDescription, setTitle} from 'controllers/head'
 import request from 'controllers/request'
-import { redirect } from 'controllers/navigator'
-import { openModal } from 'functions/modals'
-import { turkishSort } from '../functions/helpers'
-import { setDealerData } from 'data/store.ga'
-import { GA } from 'controllers/ga'
+import {redirect} from 'controllers/navigator'
+import {openModal} from 'functions/modals'
+import {turkishSort} from '../functions/helpers'
+import {setDealerData} from 'data/store.ga'
+import {GA} from 'controllers/ga'
+import Breadcrumbs from "../components/partials/breadcrumbs";
+import {set404} from "../controllers/navigator";
+//import { InputForm, FormInput } from 'components/partials/forms'
 
 // Assets
 
@@ -68,18 +67,21 @@ class Dealer extends React.Component {
 	initialize() {
 		let vm = this;
 		request.get(`dealers/${vm.props.match.params.slug}`, { id: vm.props.match.params.slug }, function (payload) {
-			if (payload) {
-				vm.props.setGaDealerData(payload);
-				vm.setState({
-					dealerData: payload,
-					listingQuery: { dealer: vm.props.match.params.slug },
-				})
+			if (payload.status !== '404') {
+				if (payload) {
+					vm.props.setGaDealerData(payload);
+					vm.setState({
+						dealerData: payload,
+						listingQuery: { dealer: vm.props.match.params.slug },
+					})
 
-				setTitle(payload.title + ' Araba Bayisi, Araç Satıcısı ve Servisi');
-				setDescription(`${payload.title} araba bayisi, araç satıcısı ve servisini mi aradınız? ${payload.title} Minoto'da! Hemen tıkla, fırsatları kaçırma!`);
-			}
-			else {
-				redirect("notfound");
+					setTitle(payload.title + ' Araba Bayisi, Araç Satıcısı ve Servisi');
+					setDescription(`${payload.title} araba bayisi, araç satıcısı ve servisini mi aradınız? ${payload.title} Minoto'da! Hemen tıkla, fırsatları kaçırma!`);
+				} else {
+					redirect("notfound");
+				}
+			}else {
+				set404()
 			}
 		});
 	}
@@ -114,7 +116,6 @@ class Dealer extends React.Component {
 	render() {
 		let vm = this;
 		let dealer = vm.state.dealerData;
-
 		return (
 			<main className="page dealer">
 				<Loader loading={dealer === false} strict={true} />
@@ -170,7 +171,6 @@ class Dealer extends React.Component {
 									dealer.dealerType === 'dealer' && (
 										<div className="info-branches">
 											<div className="branches-head">
-
 												<strong className="head-title">Şubeler / Lokasyonlar</strong>
 											</div>
 
@@ -201,6 +201,20 @@ class Dealer extends React.Component {
 								<Responsive type="only-web">
 									<Image className="dealer-cover" bg src={storageSpace('dealers', dealer.cover)} />
 								</Responsive>
+								<Breadcrumbs className="top-breadcrumbs" data={[
+									{
+										"href": "home",
+										"title": "Anasayfa"
+									},
+									{
+										"href": `/bayiler`,
+										"title": 'Bayiler'
+									},
+									{
+										"href": dealer.slug,
+										"title": dealer.title
+									},
+								]} />
 								{vm.state.listingQuery &&
 									<Listing
 										className="dealer-listing"
@@ -240,11 +254,11 @@ class BranchInfo extends React.Component {
 				</button>
 
 				<Collapse className="branch-details" open={this.state.open}>
-					{branch.workingHours && (
+					{(branch.workingHours !== null) && (
 						<span className={"branch-workinghours " + (branch.open ? 'open' : 'closed')}>
 							{branch.workingHours}
-							<span>|</span>
-							{(branch.open ? 'Açık' : 'Kapalı')}
+							{branch.workingHours && <span>|</span>}
+							{(branch.open ? 'Açık' : 'K	apalı')}
 						</span>
 					)}
 

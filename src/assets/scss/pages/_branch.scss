@@ -103,6 +103,10 @@
 		.detail-right {
 			width: calc(100% - 28rem);
 
+			.breadcrumbs{
+				padding: 1.8rem 0;
+			}
+
 			@include media {
 				width: auto;
 			}

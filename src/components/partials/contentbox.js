@@ -1,7 +1,7 @@
 import React from 'react';
 
 // Partials
-import PopInfo from 'components/partials/popinfo.js';
+// import PopInfo from 'components/partials/popinfo.js';
 import Image from 'components/partials/image.js';
 import Link from 'components/partials/link.js';
 import PriceTag from 'components/partials/price-tag'
@@ -35,13 +35,14 @@ export default class ContentBox extends React.Component {
 
 		if (vm.props.badge) {
 			let opts = extend({}, { type: 'primary', text: '' }, (Object.prototype.toString.call(vm.props.badge) === "[object String]" ? { text: vm.props.badge } : vm.props.badge));
-
-			if (opts.note) {
-				badge = <PopInfo className={"contentbox-badge " + opts.type} content={opts.note} nowrap>{opts.text}</PopInfo>
-			}
-			else {
-				badge = <span className={"contentbox-badge " + opts.type}>{opts.text}</span>
-			}
+			badge = <span className={"contentbox-badge " + opts.type}>{opts.text}</span>
+			//
+			// if (opts.note) {
+			// 	badge = <PopInfo className={"contentbox-badge " + opts.type} content={opts.note} nowrap>{opts.text}</PopInfo>
+			// }
+			// else {
+			// 	badge = <span className={"contentbox-badge " + opts.type}>{opts.text}</span>
+			// }
 		}
 
 		let favControls = false;
@@ -59,6 +60,44 @@ export default class ContentBox extends React.Component {
 		let content = false;
 
 		switch (vm.props.type) {
+			case 'youtube':{
+				content =  (
+					<Wrap className="contentbox-innerwrap" href={this.props.url ? this.props.url : undefined} params={this.props.urlParams ? this.props.urlParams : undefined} onClick={this.props.url ? this.props.onClick : undefined}>
+						<div className="contentbox-imagewrap">
+							{badge}
+							{favControls}
+							<Image bg contain className="contentbox-image" src={vm.props.image} />
+						</div>
+						<div className="contentbox-content">
+							{(vm.props.pretitle) && (
+								<p className="contentbox-pretitle">{vm.props.pretitle}</p>
+							)}
+							<strong className="contentbox-title">{vm.props.title}</strong>
+							{(vm.props.subtitle) && (
+								<p className="contentbox-subtitle">{vm.props.subtitle}</p>
+							)}
+							{((vm.props.labels.length || bottomNote || !vm.props.additionsOptional) ?
+								<div className="contentbox-additions">
+									{vm.props.additionTitle && (
+										<div className="additions-title">{vm.props.additionTitle}</div>
+									)}
+									{((vm.props.labels.length) ?
+										<div className="additions-labels">
+											{vm.props.labels.map((label, nth) => {
+												return (
+													<span key={nth}>{`${label}${nth + 1 === vm.props.labels.length ? '' : ','}`}&nbsp;</span>
+												)
+											})}
+										</div>
+										: null)}
+									{bottomNote}
+								</div>
+								: null)}
+						</div>
+					</Wrap>
+				)
+				break;
+			}
 			case 'plain':
 				content = (
 					<Wrap className="contentbox-innerwrap" href={this.props.url ? this.props.url : undefined} params={this.props.urlParams ? this.props.urlParams : undefined} onClick={this.props.url ? this.props.onClick : undefined}>

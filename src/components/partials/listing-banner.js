@@ -14,13 +14,14 @@ import config from "data/config"
 import image_instagram from 'assets/images/listing/banners/instagram.jpg'
 import image_youtube from 'assets/images/listing/banners/youtube.png'
 import image_blog from 'assets/images/listing/banners/blog.png'
+import YoutubeWrapper from "./youtube-wrapper";
 
 // Banners
 class InstagramBanner extends React.Component {
 	render() {
 		return (
 			<a className="banner-instagram" target="_blank" rel="noopener noreferrer" href={config.social.instagramURL}>
-				{/* 
+				{/*
 					<div className="instagram-text">
 					<strong>Instagram</strong>'da'<br />
 					bizi takip <br />
@@ -37,7 +38,7 @@ class BlogBanner extends React.Component {
 	render() {
 		return (
 			<a className="banner-instagram" href="/blog">
-				{/* 
+				{/*
 					<div className="instagram-text">
 					<strong>Instagram</strong>'da'<br />
 					bizi takip <br />
@@ -51,6 +52,7 @@ class BlogBanner extends React.Component {
 }
 
 class YoutubeBanner extends React.Component {
+
 	render() {
 		return (
 			<a className="banner-youtube" target="_blank" rel="noopener noreferrer" href={config.social.youtubeURL}>
@@ -61,7 +63,6 @@ class YoutubeBanner extends React.Component {
 					</h3>
 					<p className="text-subheading">Güncel içerik ve test videoları</p>
 				</div>
-
 				<Image className="youtube-image" src={image_youtube} />
 			</a>
 		)
@@ -93,7 +94,7 @@ class IframeBanner extends React.Component {
 	render() {
 		return (
 			<div className="banner-iframe">
-				<iframe title="Minoto" src="https://www.youtube.com/embed?max-results=1&controls=0&showinfo=0&rel=0&listType=user_uploads&list=minotocom" frameBorder="0" allowFullScreen></iframe>
+				<YoutubeWrapper videoId={'lvKEBh7SD3I'}/>
 			</div >
 		)
 	}

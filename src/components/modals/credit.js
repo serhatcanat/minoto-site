@@ -7,11 +7,7 @@ import request from 'controllers/request'
 // Deps
 import {connect} from "react-redux"
 import {closeModal} from 'functions/modals'
-import image_garanti from 'assets/images/garabtiBBVA.png'
-import image_isbank from 'assets/images/turkiye-is-bankasi.png'
-
-const isbankLink = 'https://www.isbank.com.tr/internet/MainPageEnter.aspx?src=HizliKrediAnaSayfa.aspx&MainPageVersion=V2&channel=WebSitesi&site=MINOTO.COM';
-const garantiLink = 'https://www.garantibbva.com.tr/tr/bireysel/krediler/tasit-arac-kredisi-hesaplama.page?cid=oth:oth:oth:bireysel-hedeffilotasitkredisi:tasitkredisi::::::375x400:oth';
+import {storageSpace} from "../../functions";
 
 const mapStateToProps = state => {
     return {
@@ -35,14 +31,15 @@ class CreditModalRaw extends React.Component {
     submit(e) {
 
         let vm = this;
-        const {type} = vm.props;
-        vm.setState({loading: true, error: false});
+        const {banksInterest} = vm.props;
 
+        vm.setState({loading: true, error: false});
         let record = {
             postNo: e.target.elements.advertID.value,
             identityNumber: e.target.elements.tck.value,
             phone: e.target.elements.phone.value,
-            bankName: type
+            bankName: banksInterest.name,
+            id: banksInterest.id
         };
 
         let blockPrevent = window.open('', '_blank');
@@ -50,27 +47,22 @@ class CreditModalRaw extends React.Component {
             setTimeout(function () {
                 vm.setState({ loading: false, success: true, message: "" });
                 blockPrevent.document.write("Yönlendirme Yapılıyor Lütfen Bekleyiniz...");
-                if (type === 'garanti') {
-                    blockPrevent.location.href = garantiLink;
-                } else {
-                    blockPrevent.location.href = isbankLink;
-                }
-
+                blockPrevent.location.href = banksInterest.url;
             }, 1000);
         })
     }
 
     render() {
         let vm = this;
-        const {type} = vm.props;
+        const {type,banksInterest} = vm.props;
         return (
             <div className={vm.props.className}>
                 {vm.props.closeBtn}
                 <div className="modal-innercontent left-align">
                     <div className="modalHeadContent">
-                        {type === 'garanti' ?
-                            (<img src={image_garanti} alt="" width="170"/>)
-                            : (<img src={image_isbank} alt="" width="170"/>)
+                        {type === 'Garanti BBVA' ?
+                            (<img src={storageSpace('c_scale,q_auto:good,w_400/library', banksInterest.image)} alt={banksInterest.name} width="170"/>)
+                            : (<img src={storageSpace('c_scale,q_auto:good,w_400/library', banksInterest.image)} alt={banksInterest.name} width="170"/>)
                         }
                         <div>KREDİ BAŞVURU</div>
                     </div>
@@ -174,7 +166,7 @@ class CreditModalRaw extends React.Component {
                                     <i className="complete-icon icon-check-round"></i>
                                     <p className="complete-description">
                                         Bilgileriniz kaydedildi,
-                                        {type === 'garanti' ?
+                                        {type === 'Garanti BBVA' ?
                                             ' Garanti Bankası '
                                             : ' İş Bankası '
                                         }

@@ -8,14 +8,14 @@ import {connect} from "react-redux";
 import {addVehicleToCompare, deleteVehicleFromCompare, setVehicleToReservation} from "../actions";
 import {openModal} from "../functions";
 //Components
-import CreditCalculator from "../components/partials/credit-calculator";
 import Btn from "../components/partials/btn";
 import Link from '../components/partials/link.js'
 import PriceTag from "../components/partials/price-tag";
-import NcapStars from "../components/partials/ncap-stars";
-import DealerInfoCard from "../components/partials/dealer-info-card";
 // Assets
 import image_car_default from '../assets/images/defaults/car.svg'
+import DealerInfoCard from "../components/partials/dealer-info-card";
+import CreditCalculator from "../components/partials/credit-calculator";
+import NcapStars from "../components/partials/ncap-stars";
 
 
 class AdCompare extends React.Component {
@@ -40,7 +40,7 @@ class AdCompare extends React.Component {
                     <div className="wrapper ad-compare">
                         <h1 className="comparison-title">Araç Karşılaştır</h1>
                         <div className="comparison-tablewrap">
-                            <table className="comparison-table ad-compare-table">
+                            <table className="comparison-table ad-compare-table ">
                                 <tbody>
                                 {/*Table header start*/}
                                 <tr className='ad-compare-table__header'>
@@ -137,7 +137,6 @@ class AdCompare extends React.Component {
                                                         </Btn>}
                                                 </div>
                                             </div>
-
                                         </td>
                                     ))}
                                 </tr>
@@ -180,7 +179,7 @@ class AdCompare extends React.Component {
                                         <React.Fragment>
                                             <td key={nth}>
                                                 <span>Oturma Kapasitesi</span>
-                                                {car.technicalSpecs[0].specs[2].content}
+                                                {car.technicalSpecs[2].specs[0].content}
                                             </td>
                                         </React.Fragment>
                                     ))}
@@ -190,7 +189,7 @@ class AdCompare extends React.Component {
                                         <React.Fragment>
                                             <td key={nth}>
                                                 <span>Renk</span>
-                                                {car.technicalSpecs[0].specs[3].content}
+                                                {car.technicalSpecs[0].specs[7].content}
                                             </td>
                                         </React.Fragment>
                                     ))}
@@ -200,7 +199,7 @@ class AdCompare extends React.Component {
                                         <React.Fragment>
                                             <td key={nth}>
                                                 <span>Yakıt</span>
-                                                {car.technicalSpecs[0].specs[4].content}
+                                                {car.technicalSpecs[0].specs[5].content}
                                             </td>
                                         </React.Fragment>
                                     ))}
@@ -217,7 +216,7 @@ class AdCompare extends React.Component {
                                         <React.Fragment>
                                             <td key={nth}>
                                                     <span>Yakıt Tüketimi (Ortalama / Ş.İçi / Ş.Dışı)</span>
-                                                {car.technicalSpecs[1].specs[3].content}
+                                                {car.technicalSpecs[1].specs[6].content}
                                             </td>
                                         </React.Fragment>
                                     ))}
@@ -227,7 +226,7 @@ class AdCompare extends React.Component {
                                         <React.Fragment>
                                             <td key={nth}>
                                                     <span>Motor Gücü</span>
-                                                {car.technicalSpecs[1].specs[1].content}
+                                                {car.technicalSpecs[1].specs[2].content}
                                             </td>
                                         </React.Fragment>
                                     ))}
@@ -237,8 +236,8 @@ class AdCompare extends React.Component {
                                     {compareList.map((car, nth) => (
                                         <React.Fragment>
                                             <td key={nth}>
-                                                    <span>Şanzıman</span>
-                                                {car.technicalSpecs[1].specs[2].content}
+                                                <span>Şanzıman</span>
+                                                {car.technicalSpecs[0].specs[4].content}
                                             </td>
                                         </React.Fragment>
                                     ))}
@@ -248,7 +247,7 @@ class AdCompare extends React.Component {
                                         <React.Fragment>
                                             <td key={nth}>
                                                     <span>Motor Tipi</span>
-                                                {car.technicalSpecs[1].specs[0].content}
+                                                {car.technicalSpecs[0].specs[2].content}
                                             </td>
                                         </React.Fragment>
                                     ))}
@@ -268,7 +267,7 @@ class AdCompare extends React.Component {
                                         <React.Fragment>
                                             <td key={nth}>
                                                 <span>Uzunluk</span>
-                                                {car.technicalSpecs[2].specs[0].content}
+                                                {car.technicalSpecs[2].specs[1].content}
                                             </td>
                                         </React.Fragment>
                                     ))}
@@ -278,7 +277,7 @@ class AdCompare extends React.Component {
                                         <React.Fragment>
                                             <td key={nth}>
                                                 <span>Genişlik</span>
-                                                {car.technicalSpecs[2].specs[1].content}
+                                                {car.technicalSpecs[2].specs[2].content}
                                             </td>
                                         </React.Fragment>
                                     ))}
@@ -288,7 +287,7 @@ class AdCompare extends React.Component {
                                         <React.Fragment>
                                             <td key={nth}>
                                                 <span>Yükseklik</span>
-                                                {car.technicalSpecs[2].specs[2].content}
+                                                {car.technicalSpecs[2].specs[3].content}
                                             </td>
                                         </React.Fragment>
                                     ))}
@@ -298,7 +297,7 @@ class AdCompare extends React.Component {
                                         <React.Fragment>
                                             <td key={nth}>
                                                 <span>Dingil Aralığı</span>
-                                                {car.technicalSpecs[2].specs[3].content}
+                                                {car.technicalSpecs[2].specs[4].content}
                                             </td>
                                         </React.Fragment>
                                     ))}
@@ -308,7 +307,7 @@ class AdCompare extends React.Component {
                                         <React.Fragment>
                                             <td key={nth}>
                                                 <span>Boş Ağırlik</span>
-                                                {car.technicalSpecs[2].specs[4].content}
+                                                {car.technicalSpecs[2].specs[5].content}
                                             </td>
                                         </React.Fragment>
                                     ))}

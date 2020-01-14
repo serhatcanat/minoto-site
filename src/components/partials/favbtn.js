@@ -59,7 +59,7 @@ export default class FavBtn extends React.Component {
 
 		return (
 			<div className={classes}>
-				<button className="fav-button-btn" onClick={this.toggle} disabled={!(this.props.type && this.props.id) || this.state.submitting}>
+				<button className="fav-button-btn" aria-label="Favoriye Ekle" onClick={this.toggle} disabled={!(this.props.type && this.props.id) || this.state.submitting}>
 					<span className="fav-button-icon" >
 						{this.state.faved ?
 							<i className="icon-heart"></i> :

@@ -8,7 +8,6 @@ import Btn from "../partials/btn";
 //Functions
 
 // Deps
-
 class CompareModal extends React.Component {
     constructor(props) {
         super(props);
@@ -17,14 +16,6 @@ class CompareModal extends React.Component {
         };
         this.removeFromCompareList = this.removeFromCompareList.bind(this);
         this.openComparePage = this.openComparePage.bind(this);
-    }
-
-    removeFromList(){
-
-    }
-
-    componentDidMount() {
-
     }
 
     openComparePage() {
@@ -39,35 +30,47 @@ class CompareModal extends React.Component {
     render() {
         let vm = this;
         const compareList = this.props.compareList.data;
+        const {mobile} = this.props;
         let message;
         message = compareList.length ? 'İlan karşılaştırma listesine eklenmiştir.' : 'Karşılaştırma listenizde ürün bulunmamaktadır.';
         return (
-            <div className={'minoto-ui ' + vm.props.className}>
-                {vm.props.closeBtn}
+            <div className={vm.props.className}>
                 <div className="modal-innercontent compare-modal">
-                    <p>Karşılaştır</p>
+                    <p>ARAÇ KARŞILAŞTIR</p>
                     <span className='compare-modal--message'>{message}</span>
                     <div className='modal-center'>
                         <div className='scroll-container'>
                             <div className="compare-cards">
                                 {compareList &&
                                 compareList.map((product, index) => (
-                                        <CompareCard key={product.id} productProp={product} index={index}
-                                                     removeFromList={this.removeFromCompareList}/>
-                                    ))
+                                    <CompareCard key={product.id} mobile={this.props.mobile} productProp={product}
+                                                 index={index}
+                                                 removeFromList={this.removeFromCompareList}/>
+                                ))
                                 }
                             </div>
                         </div>
                     </div>
-                    {compareList.length>1 ?
-                        <div className='modal-footer'>
+                    {compareList.length > 1 ? (
+                        mobile ? (
+                                <div className='modal-footer'>
+                                    <Btn onClick={() => {
+                                        this.openComparePage()
+                                    }}>{compareList.length} İlanı Karşılaştır</Btn>
+                                </div>
+                            ) :
+                            <div className='modal-footer'>
                             <Btn onClick={() => {
                                 this.openComparePage()
                             }}>İLANLARI KARŞILAŞTIR</Btn>
-                        </div> :
-                        ''
+                            </div>
+
+                    ) : ''
                     }
                 </div>
+                {vm.props.closeBtn}
+
+
             </div>
         )
     }
@@ -76,7 +79,7 @@ class CompareModal extends React.Component {
 CompareModal.defaultProps = {
     className: "",
     containerClass: "modal-compare",
-    name: "compare"
+    name: "compare",
 };
 
 

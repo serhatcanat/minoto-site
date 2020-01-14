@@ -9,7 +9,7 @@
 
   th {
     min-width: 22em;
-    max-width: 55em;
+    max-width: 15px !important;
   }
 
   .info-dealer {
@@ -18,14 +18,10 @@
         height: 3em;
         display: inline-block;
       }
-
-
     }
   }
 
   .ad-compare-table {
-
-
     .listprices-table {
       th, td {
         border: none;
@@ -77,10 +73,13 @@
             height: 1.8rem;
           }
         }
+
         display: block;
-        button{
-          color: $color-blue ;
+
+        button {
+          color: $color-blue;
         }
+
         div {
           display: inline-block;
 
@@ -90,6 +89,7 @@
 
         }
       }
+
       //Label area end
 
       //Title area begin
@@ -118,7 +118,7 @@
           opacity: 0.5;
         }
 
-        &-title{
+        &-title {
           opacity: 1 !important;
         }
 
@@ -160,14 +160,15 @@
         .price-current {
           display: block;
           text-align: center;
-          h2{
+
+          h2 {
             color: $color-blue;
           }
         }
       }
+
       //Price area end
     }
-
     // Tech Specs Colums start
     &-techSpec {
         span {
@@ -190,18 +191,155 @@
     }
     // Credit Calculator Page Specific end
 
-    // Contact Card Page Specific start
-    @include media {
-      &__creditCalculator {
-
-      }
-    }
-    // Contact Card Page Specific end
-
   }
 }
 
 
+/// New beginning
 
-
-
+//.ad-compare {
+//  .comparison-tablewrap {
+//    background-color: red;
+//    .row {
+//      flex-wrap: nowrap;
+//      display: flex;
+//      flex-direction: row;
+//
+//      .col {
+//        width: 334px;
+//        min-width: 334px;
+//        padding-left: 24px;
+//        padding-right: 24px;
+//
+//        .ad-compare-table__header {
+//          //Label area begin
+//          &__labelArea {
+//            float: left;
+//            width: 100%;
+//            .topinfo-highlights {
+//              float: left;
+//              width: 70%;
+//
+//              li {
+//                display: inline-block;
+//                vertical-align: middle;
+//
+//                > * {
+//                  display: block;
+//                }
+//
+//                + li {
+//                  margin-left: .7rem;
+//                }
+//              }
+//
+//              span {
+//                display: block;
+//                border: .1rem solid $color-ice;
+//                font-size: 1.2rem;
+//                text-transform: uppercase;
+//                border-radius: $radius-general;
+//                color: $color-text-light;
+//                line-height: 2rem;
+//                padding: 0 .5rem;
+//                background-color: $color-white;
+//
+//                @include media {
+//                  color: $color-text;
+//                }
+//              }
+//
+//              img {
+//                height: 1.8rem;
+//              }
+//            }
+//
+//            display: block;
+//
+//            button {
+//              color: $color-blue;
+//            }
+//
+//            div {
+//              display: inline-block;
+//
+//              &:nth-child(2) {
+//                float: right;
+//              }
+//
+//            }
+//          }
+//
+//          //Label area end
+//          //Title area begin
+//          &__titleArea {
+//            float: left;
+//            width: 100%;
+//            position: relative;
+//            margin-top: 7px;
+//            &-title {
+//              h1{
+//                line-height: 1.2em;
+//                font-size: 18px;
+//                white-space: nowrap;
+//                overflow: hidden;
+//                text-overflow: ellipsis;
+//                max-width: 16em;
+//                line-height: 1.56;
+//              }
+//            }
+//
+//            &-dealerTitle {
+//              color: $color-text;
+//              opacity: 0.5;
+//              font-size: 12px;
+//            }
+//
+//            &-postNo{
+//              text-align: right;
+//              font-size: 12px;
+//              h4{
+//                display: inline-block;
+//                &:first-child{
+//                  opacity: .5;
+//                }
+//              }
+//            }
+//          }
+//          //Title area end
+//          //Image area begin
+//          &__imageWrapper{
+//            margin-top: 34px;
+//            display: block;
+//            float: left;
+//            position: relative;
+//            width: 100%;
+//            height: 212px;
+//            .imagewrap{
+//              width: 100%;
+//              height: 100%;
+//            }
+//          }
+//          //Image area End
+//          //Ad Compare Price Area Begin
+//          &__priceArea{
+//            margin-top: 23px;
+//            text-align: center;
+//            float: left;
+//            position: relative;
+//            width: 100%;
+//            .pricetag {
+//              span{
+//                font-size: 26px;
+//                color: $color-blue;
+//              }
+//            }
+//          }
+//          //Ad Compare Price Area End
+//        }
+//        //Ad compare Header End
+//      }
+//
+//    }
+//  }
+//}

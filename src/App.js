@@ -8,7 +8,7 @@ import Navigator from './controllers/navigator'
 import { Router } from 'react-router-dom'
 import { checkLoginStatus } from "data/store.user"
 import "@babel/polyfill";
-
+require('intersection-observer');
 //require('es6-object-assign/auto');
 //require('es6-promise').polyfill();
 

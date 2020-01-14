@@ -1,5 +1,9 @@
-import {apiPath, formatNumber, isDefined, isExact, seoFriendlyUrl, storageSpace, turkishSort} from "./helpers";
+import {apiPath, formatMoney, formatNumber, isDefined, seoFriendlyUrl, storageSpace} from "./helpers";
 import {apiBase, storagePath} from "../config";
+import Adapter from 'enzyme-adapter-react-16';
+import {configure} from "enzyme";
+
+configure({adapter: new Adapter()});
 
 describe('is number formatted', () => {
 
@@ -24,7 +28,7 @@ describe('is defined', () => {
 });
 
 test('Is url seo friendly', () => {
-    expect(seoFriendlyUrl('url to be this ü İ')).toBe('url-to-be-this-u-i');
+    expect(seoFriendlyUrl('url to be this ü İ ç ı')).toBe('url-to-be-this-u-i-c-i');
 });
 
 describe('Storage space', () => {
@@ -40,10 +44,22 @@ describe('Storage space', () => {
             expect(storageSpace('media.png',value)).toBe(false);
         });
     });
+});
 
+describe('Format money', () => {
+    test('Billion with decimal', () => {
+        expect(formatMoney(3000000,2,'.',',')).toBe('3,000,000.00');
+    });
 
+    test('Billion without decimal', () => {
+        expect(formatMoney(3000000,0,'.',',')).toBe('3,000,000');
+    });
 });
 
 test('Is api path valid', () => {
     expect(apiPath('samplePath')).toBe(`${apiBase}samplePath`);
 });
+
+
+
+
