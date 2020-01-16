@@ -67,7 +67,7 @@ export default class Loader extends React.Component {
 					{/* <i className="icon-spinner"></i> */}
 					<img src={loader} alt="Minoto Loding Gif" style={{
 						margin: "0 auto",
-						marginTop: "5%"
+						marginTop: "20%"
 					}} />
 				</div>
 			</div>
