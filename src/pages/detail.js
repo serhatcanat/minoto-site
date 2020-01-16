@@ -301,30 +301,31 @@ class Detail extends React.Component {
 						{(product.ads || product.youtubeVideo) &&
 							<section className="section detail-blogposts">
 								<div className="wrapper">
-									{product.youtube &&
+									{product.youtube ?
 									<div style={{width: "50%",padding:"1.5rem",margin:"auto"}}>
 										<YoutubeWrapper video={{
 											'videoId': 'ScMzIvxBSi4',
 											'thumbnail': 'http://i3.ytimg.com/vi/4JThtv3d0cc/hqdefault.jpg'
 										}}/>
-									</div>
+									</div> :
+										<ul className="blogposts-list">
+											{product.ads.map((ad, nth) => (
+												<li className="blogposts-item" key={nth}>
+													<ContentBox
+														type="blogpost"
+														//pretitle={ad.date}
+														title={ad.title}
+														image={storageSpace('c_scale,q_auto:best,w_500/articles', ad.image)}
+														url="blogDetail"
+														additionsOptional
+														urlParams={{ slug: ad.url }}
+													/>
+												</li>
+											))}
+										</ul>
 									}
 
-									<ul className="blogposts-list">
-										{product.ads.map((ad, nth) => (
-											<li className="blogposts-item" key={nth}>
-												<ContentBox
-													type="blogpost"
-													//pretitle={ad.date}
-													title={ad.title}
-													image={storageSpace('c_scale,q_auto:best,w_500/articles', ad.image)}
-													url="blogDetail"
-													additionsOptional
-													urlParams={{ slug: ad.url }}
-												/>
-											</li>
-										))}
-									</ul>
+
 								</div>
 							</section>
 						}

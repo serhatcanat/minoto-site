@@ -52,7 +52,6 @@ class BlogBanner extends React.Component {
 }
 
 class YoutubeBanner extends React.Component {
-
 	render() {
 		return (
 			<a className="banner-youtube" target="_blank" rel="noopener noreferrer" href={config.social.youtubeURL}>
@@ -94,7 +93,7 @@ class IframeBanner extends React.Component {
 	render() {
 		return (
 			<div className="banner-iframe">
-				<YoutubeWrapper videoId={'lvKEBh7SD3I'}/>
+				<YoutubeWrapper videoId={this.props.data.url}/>
 			</div >
 		)
 	}
@@ -115,7 +114,7 @@ export default class ListingBanner extends React.Component {
 
 		if (data.component && componentRegistry.hasOwnProperty(data.component)) {
 			let El = componentRegistry[data.component];
-			elem = <El mobile={this.props.mobile} />
+			elem = <El mobile={this.props.mobile} data={this.props.data}/>
 		}
 		else if (data.image) {
 			let Item = 'div';

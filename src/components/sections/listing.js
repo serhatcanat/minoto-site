@@ -535,6 +535,7 @@ class ListingResults extends React.Component {
 										results.map((item, nth) => {
 											itemsAt += (item.size ? item.size : 1);
 											let contents = [];
+
 											switch (item.type) {
 												case 'banner':
 													let contentItem = <ListingBanner key={nth} mobile={vm.props.mobile} data={item} />
