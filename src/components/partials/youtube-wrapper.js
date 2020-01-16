@@ -24,7 +24,7 @@ export default class YoutubeWrapper extends React.Component {
             <div className='youtube-wrapper' onClick={this.showVideoFrame}>
                 {isVideoFrameHidden ?
                     <>
-                        <Image src={`http://i3.ytimg.com/vi/${videoId}/maxresdefault.jpg`}/>
+                        <Image src={`https://i3.ytimg.com/vi/${videoId}/maxresdefault.jpg`}/>
                         <PlayBtn showVideoFrame={this.showVideoFrame}/>
                     </>
                     :
