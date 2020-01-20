@@ -1,5 +1,4 @@
 import React from 'react'
-
 // Partials
 import Image from 'components/partials/image'
 import Loader from 'components/partials/loader'
@@ -8,14 +7,12 @@ import ContentBox from 'components/partials/contentbox'
 import Responsive from 'components/partials/responsive'
 import Breadcrumbs from 'components/partials/breadcrumbs'
 import Slider from 'components/partials/slider.js'
-
 // Deps
 import request from 'controllers/request'
-import { redirect } from 'controllers/navigator'
+import {redirect} from 'controllers/navigator'
 import parse from 'html-react-parser';
-import { storageSpace } from 'functions/helpers'
-import { setTitle, setDescription, setHead } from 'controllers/head'
-
+import {scrollTo, storageSpace} from 'functions/helpers'
+import {setDescription, setHead, setTitle} from 'controllers/head'
 // Assets
 import image_icon_facebook from 'assets/images/icon/facebook.svg'
 import image_icon_instagram from 'assets/images/icon/instagram.svg'
@@ -33,24 +30,34 @@ export default class BlogDetail extends React.Component {
 		this.state = {
 			blogData: false,
 		};
-
 		this.gallerySlider = React.createRef();
 	}
 
 	componentDidMount() {
-		let vm = this;
+		this.initArticle()
+	}
 
-		request.get(`articles/${vm.props.match.params.slug}`, { slug: vm.props.match.params.slug }, function (payload, status) {
-			if(payload.status !== '404'){
+
+	componentDidUpdate(prevProps, prevState, snapshot) {
+		if (prevProps !== this.props) {
+			this.initArticle()
+		}
+	}
+
+	initArticle() {
+		const vm = this
+		request.get(`articles/${vm.props.match.params.slug}`, {slug: vm.props.match.params.slug}, function (payload, status) {
+			if (payload.status !== '404') {
 				if (payload) {
+					scrollTo({duration: 0, easing: false});
 					vm.setState({
 						blogData: payload
 					});
 					setTitle(payload.title);
-
 					if (payload.content) {
 						setDescription(`${parse(payload.content.replace(/<[^>]*>/g, '')).substring(0, 120)}...`);
-					};
+					}
+					;
 					if (payload.image) {
 						setHead([{
 							key: "meta",
@@ -59,17 +66,19 @@ export default class BlogDetail extends React.Component {
 								content: storageSpace('articles', payload.image),
 							}
 						}]);
-					};
-				}
-				else {
+					}
+					;
+				} else {
 					redirect('notfound');
 				}
 
-			}else{
+			} else {
 				set404();
 			}
-		});
+		})
+
 	}
+
 
 	render() {
 		let data = this.state.blogData;
@@ -136,14 +145,16 @@ export default class BlogDetail extends React.Component {
 									<ul className="relevant-items">
 										{data.similarArticles.map((article, nth) => (
 											<li className="relevant-item" key={nth}>
+
 												<ContentBox
 													type="blogpost"
 													pretitle={article.date}
 													title={article.title}
 													image={storageSpace('c_scale,q_auto:good,w_400/articles', article.image)}
 													url="blogDetail"
+													additionsOptional
 													urlParams={{ slug: article.slug }}
-													maxLength={3}
+													wrap={article.title.length > 50 ? true : false}
 												/>
 											</li>
 										))}
