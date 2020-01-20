@@ -1,15 +1,12 @@
 import React from 'react';
-
 // Partials
 // import PopInfo from 'components/partials/popinfo.js';
 import Image from 'components/partials/image.js';
 import Link from 'components/partials/link.js';
 import PriceTag from 'components/partials/price-tag'
-
 // Deps
 import extend from 'lodash/extend';
-import { InView } from 'react-intersection-observer'
-
+import {InView} from 'react-intersection-observer'
 // Assets
 import image_default from 'assets/images/defaults/contentbox-placeholder.jpg'
 

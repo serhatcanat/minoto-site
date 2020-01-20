@@ -249,15 +249,14 @@ class Listing extends React.Component {
 		}
 	}
 
-
-
-	updateResults() {
+	
+	updateResults = () =>  {
 		let vm = this;
 		let page = (vm.state.order === "random" && Object.keys(vm.getQuery()).length < 4) ? Math.floor(Math.random() * Math.floor(10)) + 1 : 1;
 		let order = vm.state.order ? vm.state.order : this.props.defaultOrder;
 		vm.setState({ loading: true, pageOrder: "first", page: vm.props.source === 'filters' ? page : 1, order: order, usedPages: [] });
 		setTimeout(function () { vm.makeRequest(); }, 50)
-	}
+	};
 
 	makeRequest(opts = {}, endFunction = false) {
 		let vm = this;
