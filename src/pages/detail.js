@@ -31,7 +31,7 @@ import YoutubeWrapper from "../components/partials/youtube-wrapper";
 
 class Detail extends React.Component {
 	constructor(props) {
-		super(props)
+		super(props);
 		this.state = {
 			productData: false,
 			loading: true,
@@ -93,6 +93,7 @@ class Detail extends React.Component {
 			this.props.addVehicleToCompare(product);
 		}
 		openModal('compare',{history:this.props.history});
+
 	}
 
 	initialize() {

@@ -136,7 +136,7 @@ class Listing extends React.Component {
 
 		if (prevProps.listingQuery.siralama && !isEqual(prevProps.listingQuery.siralama, this.props.listingQuery.siralama)) {
 			let page = (prevProps.listingQuery.siralama === "random" && Object.keys(vm.getQuery()).length < 4) ? Math.floor(Math.random() * Math.floor(10)) + 1 : 1;
-
+			
 			this.setState({ page: page, order: (this.props.listingQuery.siralama ? this.props.listingQuery.siralama : vm.props.defaultOrder) });
 			vm.updateResults();
 		}
@@ -252,7 +252,8 @@ class Listing extends React.Component {
 	
 	updateResults = () =>  {
 		let vm = this;
-		let page = (vm.state.order === "random" && Object.keys(vm.getQuery()).length < 4) ? Math.floor(Math.random() * Math.floor(10)) + 1 : 1;
+		let page = (vm.state.order === "random" && Object.keys(vm.getQuery()).length < 4) ? Math.floor(Math.random() * 4)+1 : 1;
+		
 		let order = vm.state.order ? vm.state.order : this.props.defaultOrder;
 		vm.setState({ loading: true, pageOrder: "first", page: vm.props.source === 'filters' ? page : 1, order: order, usedPages: [] });
 		setTimeout(function () { vm.makeRequest(); }, 50)
